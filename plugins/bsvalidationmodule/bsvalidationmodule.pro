@@ -26,3 +26,4 @@ DISTFILES += \
     qml/BSValidationModuleItem.qml
 
 
+include($$PWD/../automationmodule/3rdparty/QuickQanava/src/quickqanavaheaders.pri)

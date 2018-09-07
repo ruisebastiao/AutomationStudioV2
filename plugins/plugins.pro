@@ -7,7 +7,6 @@ TEMPLATE = subdirs
 # Optional build modules
 
 SUBDIRS += \
-    QuickQanava \
     automationmodule \
     bsvalidationmodule \
     guimodule
@@ -24,6 +23,5 @@ automationmodule.subdir          = $$PWD/automationmodule
 
 # --- Dependency configuration ---
 
-automationmodule.depends         = QuickQanava
 bsvalidationmodule.depends       = automationmodule
 

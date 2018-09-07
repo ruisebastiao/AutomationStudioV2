@@ -16,7 +16,6 @@ DEFINES += AUTOMATIONMODULE_LIB
 uri = automationmodule
 
 linkLocalLibrary(automationstudiocore,   automationstudiocore)
-linkLocalPlugin(QuickQanava, QuickQanava)
 
 # Source
 
@@ -30,6 +29,9 @@ OTHER_FILES += \
 DISTFILES += \
     qml/plugins.qmltypes \
     qml/AutomationModuleItem.qml
+
+
+include($$PWD/3rdparty/3rdparty.pri)
 
 
 

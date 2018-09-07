@@ -1,4 +1,4 @@
-#include "QAutomationmodule.h"
+#include "qautomationmodule.h"
 
 //#include <src/nodes/bsvalidationnode.h>
 //#include <src/nodes/filecapturenode.h>
