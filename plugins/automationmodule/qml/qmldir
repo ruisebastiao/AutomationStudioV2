@@ -1,0 +1,7 @@
+module automationmodule
+plugin automationmodule
+
+depends QtQuick 2.3
+
+AutomationModuleItem                 1.0 AutomationModuleItem.qml
+

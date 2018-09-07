@@ -1,0 +1,3 @@
+[submodule "plugins/QuickQanava"]
+	path = plugins/QuickQanava
+	url = https://github.com/ruisebastiao/QuickQanava.git

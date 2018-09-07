@@ -1,0 +1,48 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">qml/main.qml</file>
+        <file>images/3d_back.jpg</file>
+        <file>images/1496586297_wifi_Logo.png</file>
+        <file>images/arrow-left.png</file>
+        <file>images/content-save.png</file>
+        <file>images/content-save-outline.png</file>
+        <file>images/drag.png</file>
+        <file>images/drawer.png</file>
+        <file>images/france_round_icon_64.png</file>
+        <file>images/ic_account_circle_white_24dp_1x.png</file>
+        <file>images/ic_account_circle_white_36dp_1x.png</file>
+        <file>images/ic_arrow_back_white_24dp_2x.png</file>
+        <file>images/ic_arrow_back_white_48dp_2x.png</file>
+        <file>images/ic_arrow_upward_white_36dp_2x.png</file>
+        <file>images/ic_file_upload_white_24dp_1x.png</file>
+        <file>images/ic_insert_drive_file_white_24dp_1x.png</file>
+        <file>images/ic_lock_white_36dp_1x.png</file>
+        <file>images/ic_person_white_36dp_1x.png</file>
+        <file>images/ic_play_arrow_white_48dp_2x.png</file>
+        <file>images/ic_remove_circle_outline_white_36dp_1x.png</file>
+        <file>images/ic_settings_white_36dp_1x.png</file>
+        <file>images/lock-open-outline.png</file>
+        <file>images/login.png</file>
+        <file>images/menu.png</file>
+        <file>images/novares.png</file>
+        <file>images/pencil.png</file>
+        <file>images/pencil-lock.png</file>
+        <file>images/portugal_round_icon_64.png</file>
+        <file>images/settings.png</file>
+        <file>images/spain_round_icon_64.png</file>
+        <file>images/united_kingdom_round_icon_64.png</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file alias="UbuntuMono-Bold.ttf">fonts/UbuntuMono-Bold.ttf</file>
+        <file alias="UbuntuMono-Italic.ttf">fonts/UbuntuMono-Italic.ttf</file>
+        <file alias="UbuntuMono-Regular.ttf">fonts/UbuntuMono-Regular.ttf</file>
+        <file alias="SourceCodePro-Bold.ttf">fonts/SourceCodePro-Bold.ttf</file>
+        <file alias="SourceCodePro-Regular.ttf">fonts/SourceCodePro-Regular.ttf</file>
+        <file alias="SourceCodePro-Light.ttf">fonts/SourceCodePro-Light.ttf</file>
+        <file alias="OpenSans-Bold.ttf">fonts/OpenSans-Bold.ttf</file>
+        <file alias="OpenSans-Light.ttf">fonts/OpenSans-Light.ttf</file>
+        <file alias="OpenSans-Regular.ttf">fonts/OpenSans-Regular.ttf</file>
+        <file alias="OpenSans-LightItalic.ttf">fonts/OpenSans-LightItalic.ttf</file>
+    </qresource>
+    <qresource prefix="/images"/>
+</RCC>
