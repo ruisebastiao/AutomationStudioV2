@@ -21,7 +21,7 @@
 #include <QLibrary>
 
 #include <automationstudiocore/systemsettings.h>
-
+#include <QCoreApplication>
 // Versioning
 // ----------
 

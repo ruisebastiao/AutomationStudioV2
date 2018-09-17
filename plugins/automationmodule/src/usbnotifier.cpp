@@ -49,11 +49,11 @@ void USBNotifier::initialize()
 
                     coreApplication()->installNativeEventFilter(m_eventfilter);
                     connect(m_eventfilter,&UsbEventFilter::portAdded,this,[this](){
-                       emit this->portAdded();
+                        emit this->portAdded();
 
                     });
                     connect(m_eventfilter,&UsbEventFilter::portRemoved,this,[this](){
-                       emit this->portRemoved();
+                        emit this->portRemoved();
                     });
 
 
@@ -86,39 +86,41 @@ UsbEventFilter::UsbEventFilter()
 
 bool UsbEventFilter::nativeEventFilter(const QByteArray &eventType, void *message, long *result)
 {
+#if defined(Q_OS_WIN32)
     MSG * msg = static_cast< MSG * > (message);
     int msgType = msg->message;
 
     if(msgType == WM_DEVICECHANGE)
-       {
+    {
 
-          PDEV_BROADCAST_HDR lpdb = (PDEV_BROADCAST_HDR)msg->lParam;
-          switch(msg->wParam)
-          {
-                case DBT_DEVICEARRIVAL: // never comes here!
-                   if (lpdb -> dbch_devicetype == DBT_DEVTYP_PORT)
-                   {
-                       emit portAdded();
-                   }
-               break;
-               case DBT_DEVICEREMOVECOMPLETE:
-                   if (lpdb -> dbch_devicetype == DBT_DEVTYP_PORT)
-                   {
-                       emit portRemoved();
-                   }
-               break;
-          case DBT_DEVICEREMOVEPENDING :
-          {
-//               qDebug() << "USBNotifier: DBT_DEVICEREMOVEPENDING case";
-          }
-          break;
-          default:
-          {
-//              qDebug() << "USBNotifier: Went to Default case";
-          }
+        PDEV_BROADCAST_HDR lpdb = (PDEV_BROADCAST_HDR)msg->lParam;
+        switch(msg->wParam)
+        {
+        case DBT_DEVICEARRIVAL: // never comes here!
+            if (lpdb -> dbch_devicetype == DBT_DEVTYP_PORT)
+            {
+                emit portAdded();
+            }
+            break;
+        case DBT_DEVICEREMOVECOMPLETE:
+            if (lpdb -> dbch_devicetype == DBT_DEVTYP_PORT)
+            {
+                emit portRemoved();
+            }
+            break;
+        case DBT_DEVICEREMOVEPENDING :
+        {
+            //               qDebug() << "USBNotifier: DBT_DEVICEREMOVEPENDING case";
+        }
+            break;
+        default:
+        {
+            //              qDebug() << "USBNotifier: Went to Default case";
+        }
 
 
-          }
-       }
-       return false;
+        }
+    }
+#endif
+    return false;
 }
