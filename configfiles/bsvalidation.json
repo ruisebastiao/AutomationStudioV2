@@ -1,372 +1,243 @@
 {
     "graphview": {
-        "x": 163.84161088666428,
-        "y": 64.53960479218435,
+        "x": 324.46158665239795,
+        "y": 107.53603375510954,
         "zoom": 0.7002539485051935
     },
-    "lefts": null,
-    "moduleID": "visionsystem_1",
-    "name": "Body Placement Vision System",
+    "moduleID": "bsvalidation_1",
+    "name": "BS Validation 1",
     "nodes": [
         {
-            "cameraID": 1,
-            "editHeight": 250,
-            "editWidth": 300,
-            "frameCapturedPort": {
+            "dataoutPort": {
                 "connectedTo": [
                     {
                         "hidden": false,
                         "nodeID": 2,
-                        "portID": "processFrame"
-                    }
-                ],
-                "hidden": false,
-                "portLabel": "Frame Captured",
-                "showinlabel": false,
-                "type": "Out"
-            },
-            "frameSinkPort": {
-                "connectedTo": [
+                        "portID": "param1"
+                    },
                     {
                         "hidden": false,
-                        "nodeID": 2,
-                        "portID": "frameSource"
+                        "nodeID": 7,
+                        "portID": "serialnumber"
                     }
                 ],
                 "hidden": false,
-                "portLabel": "Frame Sink",
-                "showinlabel": false,
+                "portLabel": "Data Out",
+                "showinlabel": true,
                 "type": "Out"
             },
-            "id": 0,
-            "locked": false,
-            "name": "IDS Capture",
-            "newFramePort": {
-                "hidden": false,
-                "portLabel": "New Frame",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "nodeX": 367.10143395833893,
-            "nodeY": 199.04381368908713,
-            "normalHeight": 200,
-            "normalWidth": 300,
-            "type": "IDSCaptureNode"
-        },
-        {
-            "editHeight": 400,
-            "editWidth": 400,
-            "filePath": "C:\\Users\\LM36\\Documents\\Novares\\Automacao\\build-automationstudio-Desktop_Qt_5_10_1_MSVC2017_64bit-Debug\\debug\\teste.bmp",
-            "filePathPort": {
-                "hidden": true,
-                "portLabel": "",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "frameCapturedPort": {
-                "connectedTo": [
-                ],
-                "hidden": false,
-                "portLabel": "Frame Captured",
-                "showinlabel": false,
-                "type": "Out"
-            },
-            "frameSinkPort": {
-                "connectedTo": [
-                ],
-                "hidden": false,
-                "portLabel": "Frame Sink",
-                "showinlabel": false,
-                "type": "Out"
-            },
+            "editHeight": 394,
+            "editWidth": 454,
             "id": 1,
             "locked": false,
-            "name": "File Capture",
-            "newFramePort": {
+            "name": "Reader 1",
+            "nodeX": -152.37763319877132,
+            "nodeY": -105.02197292874638,
+            "normalHeight": 291,
+            "normalWidth": 347,
+            "openOnConnect": true,
+            "openedPort": {
+                "connectedTo": [
+                ],
                 "hidden": false,
-                "portLabel": "",
+                "portLabel": "Opened",
+                "showinlabel": true,
+                "type": "Out"
+            },
+            "port": "COM10",
+            "prefix": "1",
+            "rawdataPort": {
+                "connectedTo": [
+                ],
+                "hidden": false,
+                "portLabel": "Raw Data",
+                "showinlabel": true,
+                "type": "Out"
+            },
+            "suffix": "",
+            "triggerEnabled": false,
+            "type": "BarcodeReaderNode"
+        },
+        {
+            "editHeight": 422,
+            "editWidth": 566,
+            "executingPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 7,
+                        "portID": "WaitResults"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "Executing",
+                "showinlabel": true,
+                "type": "Out"
+            },
+            "id": 2,
+            "locked": false,
+            "name": "BSValidation WebService 1",
+            "nodeX": 375.9867334569574,
+            "nodeY": 333.775854327458,
+            "normalHeight": 204,
+            "normalWidth": 336,
+            "param1NamePort": {
+                "hidden": false,
+                "portLabel": "Query Parameter 1",
                 "showinlabel": false,
                 "type": "In"
             },
-            "nodeX": 355.4541759415559,
-            "nodeY": 599.743712181336,
-            "normalHeight": 180,
-            "normalWidth": 300,
-            "type": "FileCaptureNode"
-        },
-        {
-            "editHeight": 1055,
-            "editWidth": 2296,
-            "frameProcessedPort": {
+            "param1Port": {
+                "hidden": false,
+                "portLabel": "Parameter 1 Value",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "param2NamePort": {
+                "hidden": false,
+                "portLabel": "Query Parameter 2",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "param2Port": {
+                "hidden": false,
+                "portLabel": "Parameter 2 Value",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "responsePort": {
                 "connectedTo": [
                     {
                         "hidden": false,
                         "nodeID": 6,
-                        "portID": "input"
+                        "portID": "datain"
                     }
                 ],
                 "hidden": false,
-                "portLabel": "Frame Processed",
+                "portLabel": "Response",
                 "showinlabel": false,
                 "type": "Out"
             },
-            "frameSourcePort": {
-                "hidden": false,
-                "portLabel": "Frame Source",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "id": 2,
-            "locked": false,
-            "name": "Vision System Node",
-            "nodeX": 940.7424454683348,
-            "nodeY": 189.70180388093206,
-            "normalHeight": 600,
-            "normalWidth": 800,
-            "processFramePort": {
-                "hidden": false,
-                "portLabel": "Process Frame",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "rois": [
-                {
-                    "editHeight": 800,
-                    "editWidth": 800,
-                    "id": 3,
-                    "locked": true,
-                    "name": "ROI 1",
-                    "nodeX": 1401.8915179945607,
-                    "nodeY": 1046.614690043487,
-                    "normalHeight": 800,
-                    "normalWidth": 800,
-                    "processing": [
-                        {
-                            "baseNode": true,
-                            "drawInSource": false,
-                            "editHeight": 839,
-                            "editWidth": 1031,
-                            "endNode": false,
-                            "id": 5,
-                            "inputPort": {
-                                "hidden": true,
-                                "portLabel": "Input",
-                                "showinlabel": false,
-                                "type": "In"
-                            },
-                            "locked": false,
-                            "name": "Threshold Processing",
-                            "nodeX": -165.50425007898502,
-                            "nodeY": 243.45879611245908,
-                            "normalHeight": 686,
-                            "normalWidth": 590,
-                            "outputPort": {
-                                "connectedTo": [
-                                    {
-                                        "hidden": false,
-                                        "nodeID": 8,
-                                        "portID": "input"
-                                    }
-                                ],
-                                "hidden": false,
-                                "portLabel": "Output",
-                                "showinlabel": false,
-                                "type": "Out"
-                            },
-                            "processPort": {
-                                "hidden": false,
-                                "portLabel": "",
-                                "showinlabel": false,
-                                "type": "In"
-                            },
-                            "processingDonePort": {
-                                "connectedTo": [
-                                    {
-                                        "hidden": false,
-                                        "nodeID": 8,
-                                        "portID": "process"
-                                    }
-                                ],
-                                "hidden": false,
-                                "portLabel": "Processing done",
-                                "showinlabel": false,
-                                "type": "Out"
-                            },
-                            "type": "ProcessingThresholdNode",
-                            "value": 17
-                        },
-                        {
-                            "baseNode": false,
-                            "drawInSource": true,
-                            "editHeight": 938,
-                            "editWidth": 1164,
-                            "endNode": false,
-                            "filteredContoursPort": {
-                                "connectedTo": [
-                                    {
-                                        "hidden": false,
-                                        "nodeID": 9,
-                                        "portID": "contours"
-                                    }
-                                ],
-                                "hidden": false,
-                                "portLabel": "Contours",
-                                "showinlabel": false,
-                                "type": "Out"
-                            },
-                            "id": 8,
-                            "inputPort": {
-                                "hidden": false,
-                                "portLabel": "Input",
-                                "showinlabel": false,
-                                "type": "In"
-                            },
-                            "locked": false,
-                            "maxCountourLength": 1800,
-                            "minCountourLength": 1700,
-                            "name": "Contours Processing",
-                            "nodeX": 819.8359893073979,
-                            "nodeY": 59.50556996390054,
-                            "normalHeight": 639,
-                            "normalWidth": 562,
-                            "outputPort": {
-                                "connectedTo": [
-                                ],
-                                "hidden": false,
-                                "portLabel": "Output",
-                                "showinlabel": false,
-                                "type": "Out"
-                            },
-                            "processPort": {
-                                "hidden": false,
-                                "portLabel": "Process",
-                                "showinlabel": false,
-                                "type": "In"
-                            },
-                            "processingDonePort": {
-                                "connectedTo": [
-                                    {
-                                        "hidden": false,
-                                        "nodeID": 9,
-                                        "portID": "process"
-                                    }
-                                ],
-                                "hidden": false,
-                                "portLabel": "Processing done",
-                                "showinlabel": false,
-                                "type": "Out"
-                            },
-                            "type": "ProcessingContoursNode"
-                        },
-                        {
-                            "baseNode": false,
-                            "contoursPort": {
-                                "hidden": false,
-                                "portLabel": "Contours",
-                                "showinlabel": false,
-                                "type": "In"
-                            },
-                            "drawInSource": false,
-                            "editHeight": 801,
-                            "editWidth": 986,
-                            "endNode": true,
-                            "id": 9,
-                            "inputPort": {
-                                "hidden": true,
-                                "portLabel": "Input",
-                                "showinlabel": false,
-                                "type": "In"
-                            },
-                            "locked": false,
-                            "name": "Shapes Detection",
-                            "nodeX": 1801.5673884501607,
-                            "nodeY": 129.85467271699343,
-                            "normalHeight": 661,
-                            "normalWidth": 619,
-                            "outputPort": {
-                                "connectedTo": [
-                                ],
-                                "hidden": true,
-                                "portLabel": "",
-                                "showinlabel": false,
-                                "type": "Out"
-                            },
-                            "processPort": {
-                                "hidden": false,
-                                "portLabel": "Process",
-                                "showinlabel": false,
-                                "type": "In"
-                            },
-                            "processingDonePort": {
-                                "connectedTo": [
-                                ],
-                                "hidden": false,
-                                "portLabel": "Processing done",
-                                "showinlabel": false,
-                                "type": "Out"
-                            },
-                            "type": "ProcessingShapesNode"
-                        }
-                    ],
-                    "type": "ROINode"
-                }
-            ],
-            "type": "VisionSystemNode"
-        },
-        {
-            "editHeight": 250,
-            "editWidth": 258,
-            "id": 6,
-            "inputPort": {
-                "hidden": false,
-                "portLabel": "",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "locked": false,
-            "name": "Proxy Input - 1 ",
-            "nodeX": 1970.051772983984,
-            "nodeY": 212.3904906185171,
-            "normalHeight": 128,
-            "normalWidth": 217,
-            "outputPort": {
-                "connectedTo": [
-                    {
-                        "hidden": true,
-                        "nodeID": 7,
-                        "portID": "input"
-                    }
-                ],
-                "hidden": true,
-                "portLabel": "",
-                "showinlabel": false,
-                "type": "Out"
-            },
-            "proxyType": "Input",
-            "type": "ProxyInputNode"
+            "serviceUrl": "http://192.168.130.47:82/bsquery.pl",
+            "type": "WebServiceNode"
         },
         {
             "editHeight": 250,
             "editWidth": 250,
-            "id": 7,
-            "inputPort": {
-                "hidden": true,
-                "portLabel": "",
-                "showinlabel": false,
-                "type": "In"
-            },
+            "id": 3,
             "locked": false,
-            "name": "Proxy Output - 1 ",
-            "nodeX": -21.42080031397171,
-            "nodeY": 118.52842840397693,
-            "normalHeight": 217,
-            "normalWidth": 215,
-            "outputPort": {
+            "name": "Parameter 2 Value",
+            "nodeX": -110.21700123609321,
+            "nodeY": 491.27033612987987,
+            "normalHeight": 112,
+            "normalWidth": 241,
+            "stringValue": "bskpp1",
+            "stringValuePort": {
                 "connectedTo": [
                     {
                         "hidden": false,
-                        "nodeID": 0,
-                        "portID": "newFrame"
+                        "nodeID": 2,
+                        "portID": "param2Port"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    },
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
                     }
                 ],
                 "hidden": false,
@@ -374,11 +245,159 @@
                 "showinlabel": false,
                 "type": "Out"
             },
-            "proxyType": "Output",
-            "type": "ProxyInputNode",
-            "x": 6.505616250218054,
-            "y": 31.264928872210362
+            "type": "StringNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 4,
+            "locked": false,
+            "name": "Parameter 2 Name",
+            "nodeX": -116.88084744645357,
+            "nodeY": 659.5324529414717,
+            "normalHeight": 112,
+            "normalWidth": 241,
+            "stringValue": "stationid",
+            "stringValuePort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2Name"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "type": "StringNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 5,
+            "locked": false,
+            "name": "Parameter 1 Name",
+            "nodeX": -107.21815766136615,
+            "nodeY": 333.9863102154128,
+            "normalHeight": 112,
+            "normalWidth": 241,
+            "stringValue": "bsid",
+            "stringValuePort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param1Name"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "type": "StringNode"
+        },
+        {
+            "bsNOKPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 7,
+                        "portID": "BSNOK"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "BS NOK",
+                "showinlabel": true,
+                "type": "Out"
+            },
+            "bsOKPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 7,
+                        "portID": "BSOK"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "BS OK",
+                "showinlabel": true,
+                "type": "Out"
+            },
+            "datainPort": {
+                "hidden": false,
+                "portLabel": "Validation Data",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 6,
+            "leftsPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 7,
+                        "portID": "lefts"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "Lefts",
+                "showinlabel": true,
+                "type": "Out"
+            },
+            "locked": false,
+            "name": "BS Validation 1",
+            "nodeX": 849.6917457875459,
+            "nodeY": 78.54293448456292,
+            "normalHeight": 202,
+            "normalWidth": 345,
+            "type": "BSValidationNode"
+        },
+        {
+            "BSNOKPort": {
+                "hidden": false,
+                "portLabel": "BSNOK",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "BSOKPort": {
+                "hidden": false,
+                "portLabel": "BSOK",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "WaitResultsPort": {
+                "hidden": false,
+                "portLabel": "Waiting results",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 7,
+            "leftsPort": {
+                "hidden": false,
+                "portLabel": "Lefts",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "locked": false,
+            "name": "BS Validation 1 Frontend",
+            "nodeX": 1499.4560219780203,
+            "nodeY": 37.129387210884204,
+            "normalHeight": 183,
+            "normalWidth": 326,
+            "serialnumberPort": {
+                "hidden": false,
+                "portLabel": "Serialnumber",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "type": "BSValidationVisualNode"
         }
     ],
-    "type": "VisionSystemModule"
+    "type": "AutomationModule"
 }
