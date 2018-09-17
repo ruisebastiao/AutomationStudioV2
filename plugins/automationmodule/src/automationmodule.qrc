@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="AutomationModules/AutomationModuleItem.qml">qml/AutomationModuleItem.qml</file>
+        <file alias="Nodes/BarcodeReaderNodeItem.qml">qml/nodes/BarcodeReaderNodeItem.qml</file>
+        <file alias="Nodes/FlowNodeItem.qml">qml/nodes/FlowNodeItem.qml</file>
+        <file alias="Nodes/ObjectPropertyNodeItem.qml">qml/nodes/ObjectPropertyNodeItem.qml</file>
+        <file alias="Nodes/ProxyInputNodeItem.qml">qml/nodes/ProxyInputNodeItem.qml</file>
+        <file alias="Nodes/SetResetNodeItem.qml">qml/nodes/SetResetNodeItem.qml</file>
+        <file alias="Nodes/StringNodeItem.qml">qml/nodes/StringNodeItem.qml</file>
+        <file alias="Nodes/WebServiceNodeItem.qml">qml/nodes/WebServiceNodeItem.qml</file>
+        <file alias="Edges/SelectableEdgeItem.qml">qml/edges/SelectableEdgeItem.qml</file>
+    </qresource>
+</RCC>

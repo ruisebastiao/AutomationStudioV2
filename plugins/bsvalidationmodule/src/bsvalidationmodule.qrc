@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="AutomationModules/BSValidationModuleItem.qml">qml/BSValidationModuleItem.qml</file>
+        <file alias="Nodes/BSValidationNodeItem.qml">qml/nodes/BSValidationNodeItem.qml</file>
+        <file alias="Nodes/BSValidationVisualNodeItem.qml">qml/nodes/BSValidationVisualNodeItem.qml</file>
+    </qresource>
+</RCC>

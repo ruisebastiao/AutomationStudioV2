@@ -1,0 +1,29 @@
+{
+    "language": "pt",
+    "projects": [
+        {
+            "default": true,
+            "modules": [
+                {
+                    "moduleconfig": "C:/Users/LM36/Documents/Novares/Automacao/build-automationstudio-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug/visionsystem.json",
+                    "moduletype": "BSValidationModule"
+                }
+            ],
+            "name": "BSValidation"
+        }
+    ],
+    "users": [
+        {
+            "default": true,
+            "name": "Administrator",
+            "pin": "4321",
+            "role": "AdminRole"
+        },
+        {
+            "default": false,
+            "name": "Production User",
+            "pin": "0000",
+            "role": "ProductionRole"
+        }
+    ]
+}

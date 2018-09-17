@@ -1,0 +1,9 @@
+module automationmodule
+plugin automationmodule
+
+depends QtQuick 2.3
+
+AutomationModuleItem                    1.0 qrc:///AutomationModules/AutomationModuleItem.qml
+FlowNodeItem                            1.0 qrc:///Nodes/FlowNodeItem.qml
+BarcodeReaderNodeItem                   1.0 qrc:///Nodes/BarcodeReaderNodeItem.qml
+StringNodeItem                   		1.0 qrc:///Nodes/StringNodeItem.qml

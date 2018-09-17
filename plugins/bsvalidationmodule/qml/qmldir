@@ -1,0 +1,9 @@
+module bsvalidationmodule
+plugin bsvalidationmodule
+
+depends QtQuick 2.3
+
+BSValidationModuleItem                          1.0 qrc:///BSValidationModule/BSValidationModuleItem.qml
+BSValidationNodeItem                            1.0 qrc:///Nodes/BSValidationNodeItem.qml
+BSValidationVisualNodeItem                            1.0 qrc:///Nodes/BSValidationVisualNodeItem.qml
+

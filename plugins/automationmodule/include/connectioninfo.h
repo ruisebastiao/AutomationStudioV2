@@ -1,0 +1,1 @@
+#include "../src/connectioninfo.h"
