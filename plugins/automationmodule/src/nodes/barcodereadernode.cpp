@@ -29,6 +29,7 @@ BarcodeReaderNode::~BarcodeReaderNode(){
 
 void BarcodeReaderNode::handleReadyRead()
 {
+
     if(m_serialPort->isOpen()){
         m_readData.append(m_serialPort->readAll());
         m_rawdata=m_readData;

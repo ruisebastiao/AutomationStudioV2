@@ -136,6 +136,12 @@ FlowNodeItem{
                         id:selectedPort
                         Layout.fillWidth: true
                         model: node.portsAvailable
+                        onCurrentIndexChanged: {
+                            console.log("currentIndex:"+currentIndex)
+                            if(currentIndex!=-1 && currentIndex!=root.node.indexOfPort(root.node.port)){
+                                root.node.port=node.portsAvailable[currentIndex];
+                            }
+                        }
 
                         currentIndex: -1
                         //                        delegate: Rectangle {

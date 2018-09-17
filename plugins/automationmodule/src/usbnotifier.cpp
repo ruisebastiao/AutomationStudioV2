@@ -9,9 +9,29 @@
 
 USBNotifier::USBNotifier(QQuickItem *parent):QQuickItem (parent)
 {
-
+#if defined(Q_OS_WIN32)
     m_eventfilter= new UsbEventFilter();
-    //parent->window()->winId();
+#endif
+
+
+#if defined(Q_OS_LINUX)
+    QStringList sysdir;
+
+    m_filesystemwatcher=new QFileSystemWatcher();
+    auto ret=m_filesystemwatcher->addPath("/dev/");
+    if(ret){
+
+
+
+        connect(m_filesystemwatcher,&QFileSystemWatcher::directoryChanged,this,[this](const QString &path){
+           emit this->portAdded();
+        });
+
+    }
+
+#endif
+
+
 }
 
 USBNotifier::~USBNotifier()
@@ -73,12 +93,12 @@ void USBNotifier::initialize()
 
 void USBNotifier::componentComplete()
 {
-#if defined(Q_OS_WIN32)
 
-#endif
+
+
     QQuickItem::componentComplete();
 }
-
+#if defined(Q_OS_WIN32)
 UsbEventFilter::UsbEventFilter()
 {
 
@@ -86,7 +106,7 @@ UsbEventFilter::UsbEventFilter()
 
 bool UsbEventFilter::nativeEventFilter(const QByteArray &eventType, void *message, long *result)
 {
-#if defined(Q_OS_WIN32)
+
     MSG * msg = static_cast< MSG * > (message);
     int msgType = msg->message;
 
@@ -121,6 +141,7 @@ bool UsbEventFilter::nativeEventFilter(const QByteArray &eventType, void *messag
 
         }
     }
-#endif
+
     return false;
 }
+#endif

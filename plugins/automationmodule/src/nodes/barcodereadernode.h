@@ -88,6 +88,8 @@ public slots:
     void setPort(QString port)
     {
 
+        if(port=="")
+            return;
 
         if(m_serialPort->isOpen()){
             m_serialPort->close();

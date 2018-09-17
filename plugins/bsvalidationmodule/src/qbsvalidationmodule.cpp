@@ -1,7 +1,7 @@
 #include "qbsvalidationmodule.h"
 
 #include <nodes/bsvalidationnode.h>
-#include <nodes/bsvalidationvisualnode.h>
+
 
 QBSValidationModule::QBSValidationModule(QQuickItem* parent)
 {
@@ -25,9 +25,7 @@ FlowNode *QBSValidationModule::readNode(qan::GraphView *graphView, QJsonObject n
         if(nodeobject["type"]=="BSValidationNode"){
             newnode=graphView->getGraph()->insertNode<BSValidationNode>(nullptr);
         }
-        if(nodeobject["type"]=="BSValidationVisualNode"){
-            newnode=graphView->getGraph()->insertNode<BSValidationVisualNode>(nullptr);
-        }
+
 
         FlowNode* modulenode=dynamic_cast<FlowNode*>(newnode);
         if(modulenode){

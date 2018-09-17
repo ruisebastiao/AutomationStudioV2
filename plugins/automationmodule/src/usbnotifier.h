@@ -1,6 +1,7 @@
 #ifndef USBNOTIFIER_H
 #define USBNOTIFIER_H
 
+#include <QFileSystemWatcher>
 #include <QObject>
 #include <QQuickItem>
 #include <qabstractnativeeventfilter.h>
@@ -15,7 +16,9 @@
 #include <usbiodef.h>
 #endif
 
+#if defined(Q_OS_WIN32)
 class UsbEventFilter;
+#endif
 
 class USBNotifier : public QQuickItem
 {
@@ -39,7 +42,17 @@ private:
 
 
 #endif
-    UsbEventFilter* m_eventfilter=nullptr;
+
+#if defined(Q_OS_WIN32)
+        UsbEventFilter* m_eventfilter=nullptr;
+#endif
+
+
+#if defined(Q_OS_LINUX)
+        QFileSystemWatcher* m_filesystemwatcher=nullptr;
+#endif
+
+
     QCoreApplication* m_coreApplication=nullptr;
     void initialize();
 
@@ -73,7 +86,7 @@ public:
         return m_coreApplication;
     }
 };
-
+#if defined(Q_OS_WIN32)
 class UsbEventFilter : public QObject,public QAbstractNativeEventFilter
 {
     Q_OBJECT
@@ -87,5 +100,6 @@ signals:
 
 };
 
+#endif
 
 #endif // USBNOTIFIER_H

@@ -7,7 +7,6 @@ HEADERS += \
     $$PWD/flownodeport.h \
     $$PWD/connectioninfo.h \
     $$PWD/scenegraph.h \
-    $$PWD/flownodemanager.h \
-    $$PWD/visualnode.h
+    $$PWD/flownodemanager.h
 
 

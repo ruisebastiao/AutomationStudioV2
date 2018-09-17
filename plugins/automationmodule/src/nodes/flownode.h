@@ -66,8 +66,7 @@ public:
         ObjectPropertyNode,
         ProcessingContoursNode,
         ProcessingShapesNode,
-        WebCamCaptureNode,
-        BSValidationVisualNode
+        WebCamCaptureNode
 
     };
     Q_ENUM(Type)

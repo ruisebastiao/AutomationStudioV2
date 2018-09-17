@@ -7,22 +7,24 @@ import QtQuick.Controls.Material 2.1
 
 Item {
     id:root
-  //  anchors.fill: parent
+    //  anchors.fill: parent
 
     property alias font:current_label.font
     property alias horizontalAlignment: current_label.horizontalAlignment
     property alias verticalAlignment: current_label.verticalAlignment
     property int textHeight: current_label.contentHeight;
-    property string text:""
+    property string text
 
-//    property string textColor: Material.foreground
+    //    property string textColor: Material.foreground
     property int duration:250
 
 
     onTextChanged: {
         //current_label.text=text
+        if(change_anim.running){
+            change_anim.stop();
+        }
         next_label.text=text
-//        next_label.color=textColor
         change_anim.start()
     }
 
@@ -42,7 +44,7 @@ Item {
                 right:parent.right
             }
             y:parent.height/2-paintedHeight/2
-          //  color: root.textColor
+            //  color: root.textColor
 
         }
 
@@ -78,8 +80,7 @@ Item {
             duration: duration;easing.type: Easing.InOutQuad
         }
         onStopped: {
-            current_label.text=next_label.text;
-//            current_label.color=root.textColor
+            current_label.text=root.text;
             next_label.text=""
         }
     }
