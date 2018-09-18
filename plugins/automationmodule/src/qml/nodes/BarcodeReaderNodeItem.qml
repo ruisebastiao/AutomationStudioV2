@@ -129,6 +129,9 @@ FlowNodeItem{
                          onPortsAvailableChanged:{
                             console.log("ports changed");
                              selectedPort.currentIndex=root.node.indexOfPort(root.node.port)
+                             if(selectedPort.currentIndex>-1){
+                                 root.node.port=root.node.port
+                             }
                         }
                     }
 
@@ -136,20 +139,19 @@ FlowNodeItem{
                         id:selectedPort
                         Layout.fillWidth: true
                         model: node.portsAvailable
-                        onCurrentIndexChanged: {
-                            console.log("currentIndex:"+currentIndex)
+                        popup.onClosed: {
                             if(currentIndex!=-1 && currentIndex!=root.node.indexOfPort(root.node.port)){
                                 root.node.port=node.portsAvailable[currentIndex];
                             }
                         }
 
+                        onCurrentIndexChanged: {
+                            console.log("currentIndex:"+currentIndex)
+
+                        }
+
+
                         currentIndex: -1
-                        //                        delegate: Rectangle {
-                        //                            height: 25
-                        //                            width: 200
-                        //                            color: "lightgray"
-                        //                            Text { text: modelData; anchors.centerIn: parent }
-                        //                        }
 
                         Component.onCompleted: {
 
