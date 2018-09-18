@@ -9,77 +9,25 @@ import bsvalidationmodule 1.0
 import guimodule 1.0
 
 BSValidationModule {
-    id:bsvalidationmodule
+    id:root
     anchors.fill: parent
 
-    property bool bsOK: false
-    property bool bsNOK: false
-    property bool waitingResults: false
-    property string serialnumber
-    property string lefts
+
+    property string status: "Dados indisponíveis"
+
+
     onLeftsChanged: {
 
         if(lefts=="" || lefts=="?"){
-            bsinfo="Dados indisponiveis"
+            status="Dados indisponiveis"
         }
         else{
-            bsinfo="Faltam "+lefts+" passagens"
+            status="Faltam "+lefts+" passagens"
         }
     }
 
-    property string bsinfo: "Dados indisponíveis"
-    onBsinfoChanged: {
-         console.log("bsinfo:"+bsinfo)
-    }
 
 
-    onNodeAdded: {
-
-        if(node){
-            if(node.type===FlowNode.Type.BarcodeReaderNode){
-                bsvalidationmodule.serialnumber=Qt.binding(
-                            function(){
-                                return node.dataout
-                            }
-                            )
-
-
-            }
-            else if(node.type===FlowNode.Type.BSValidationNode){
-
-                bsvalidationmodule.bsOK=Qt.binding(
-                            function(){
-                                return node.bsOK
-                            }
-                            )
-
-                bsvalidationmodule.bsNOK=Qt.binding(
-                            function(){
-                                return node.bsNOK
-                            }
-                            )
-
-                bsvalidationmodule.lefts=Qt.binding(
-                            function(){
-                                return node.lefts
-                            }
-                            )
-
-
-            }
-            else if(node.type===FlowNode.Type.WebServiceNode){
-                bsvalidationmodule.waitingResults=Qt.binding(
-                            function(){
-                                return node.executing
-                            }
-                            )
-            }
-
-
-
-        }
-
-    }
 
     RowLayout{
         parent:moduleitem.mainpagecontainer
@@ -96,13 +44,13 @@ BSValidationModule {
             Layout.fillWidth: true
             Component.onCompleted: {
                 visualitem.currentcolor=Qt.binding(function() {
-                    if(bsvalidationmodule.waitingResults){
+                    if(root.waitingResponse){
                         return Material.color(Material.Orange);
                     }
-                    if(bsvalidationmodule.bsOK){
+                    if(root.bsOK){
                         return Material.color(Material.Green);
                     }
-                    if(bsvalidationmodule.bsNOK){
+                    if(root.bsNOK){
                         return Material.color(Material.Red,Material.Shade400);
                     }
                     return "white"
@@ -118,13 +66,12 @@ BSValidationModule {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                 }
-                //
                 Label{
                     Layout.fillWidth: true;
                     horizontalAlignment: Text.AlignHCenter
                     Layout.preferredHeight: 80
                     font.pixelSize: 40
-                    text: bsvalidationmodule.waitingResults?"Aguarda validação de bs":"Aguarda leitura de BS"
+                    text: root.waitingResponse?"Aguarda validação de bs":"Aguarda leitura de BS"
                 }
                 Label{
                     id:serialnumber
@@ -132,16 +79,16 @@ BSValidationModule {
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 40
                     Layout.preferredHeight: 80
-                    text: bsvalidationmodule.serialnumber
+                    text: root.serialnumber
                 }
 
                 Label{
-                    visible: bsvalidationmodule.serialnumber!=""
+                    visible: root.serialnumber!=""
                     Layout.fillWidth: true;
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 40
                     Layout.preferredHeight: 80
-                    text: bsvalidationmodule.bsinfo
+                    text: root.status
                 }
 
                 Item{
@@ -159,7 +106,7 @@ BSValidationModule {
 
     onConfigSourceChanged:{
 
-        bsvalidationmodule.load(appDir+configSource);
+        root.load(appDir+configSource);
     }
 
     AutomationModuleItem{

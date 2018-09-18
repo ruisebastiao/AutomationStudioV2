@@ -130,9 +130,6 @@ signals:
     void editModeChanged(bool editMode);
     void sceneChanged(SceneGraph* scene);
 
-    void nodeAdded(FlowNode* node);
-
-
     void graphViewChanged(qan::GraphView* graphView);
 
     void typeChanged(ModuleType type);

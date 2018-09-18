@@ -3,6 +3,7 @@
 #include <nodes/barcodereadernode.h>
 #include <nodes/webservicenode.h>
 #include <nodes/stringnode.h>
+#include <nodes/modulepropertybind.h>
 
 #include <Logger.h>
 
@@ -73,7 +74,6 @@ void QAutomationModule::load(QString pathstr){
 
         if(node){
 
-            emit nodeAdded(node);
             m_FlowNodes.append(node);
         }
     }
@@ -93,6 +93,13 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
     }
     else if(nodeobject["type"]=="StringNode"){
         newnode=graphView->getGraph()->insertNode<StringNode>(nullptr);
+    }
+    else if(nodeobject["type"]=="ModulePropertyBind"){
+        newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
+        ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
+        if(modulePropertyBindNode){
+            modulePropertyBindNode->setModule(this);
+        }
     }
 
     FlowNode* node=dynamic_cast<FlowNode*>(newnode);

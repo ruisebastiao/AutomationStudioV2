@@ -13,7 +13,8 @@ HEADERS += \
     $$PWD/nodes/barcodereadernode.h \
     $$PWD/usbnotifier.h \
     $$PWD/nodes/webservicenode.h \
-    $$PWD/nodes/stringnode.h
+    $$PWD/nodes/stringnode.h \
+    $$PWD/nodes/modulepropertybind.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -27,4 +28,6 @@ SOURCES += \
     $$PWD/nodes/barcodereadernode.cpp \
     $$PWD/usbnotifier.cpp \
     $$PWD/nodes/webservicenode.cpp \
-    $$PWD/nodes/stringnode.cpp
+    $$PWD/nodes/stringnode.cpp \
+    $$PWD/nodes/modulepropertybind.cpp
+

@@ -1,0 +1,6 @@
+module guimodule
+plugin guimodule
+
+depends QtQuick 2.8
+
+

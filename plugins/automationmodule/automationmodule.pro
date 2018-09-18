@@ -39,7 +39,8 @@ DISTFILES += \
     src/qml/nodes/SetResetNodeItem.qml \
     src/qml/nodes/StringNodeItem.qml \
     src/qml/nodes/WebServiceNodeItem.qml \
-    src/qml/edges/SelectableEdgeItem.qml
+    src/qml/edges/SelectableEdgeItem.qml \
+    src/qml/nodes/ModulePropertyBindNodeItem.qml
 
 
 win32{

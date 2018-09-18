@@ -13,6 +13,11 @@ SUBDIRS += \
     bsvalidationmodule \
     guimodule
 
+unix{
+SUBDIRS += \
+    networkmanager
+}
+
 QML_IMPORT_PATH += \
                 $${PLUGIN_DEPLOY_PATH}
 

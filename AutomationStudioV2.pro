@@ -32,6 +32,7 @@ plugins.subdir      = $$PWD/plugins
 
 # --- Dependency configuration ---
 application.depends = lib
+application.depends = plugins
 plugins.depends     = lib
 
 

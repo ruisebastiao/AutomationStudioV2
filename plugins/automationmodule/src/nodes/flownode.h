@@ -39,9 +39,7 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
 
     Q_PROPERTY(bool locked READ locked WRITE setLocked NOTIFY lockedChanged  USER("serialize"))
 
-
     Q_PROPERTY(bool centerOnEdit READ centerOnEdit WRITE setCenterOnEdit NOTIFY centerOnEditChanged)
-
 
     Q_INVOKABLE virtual void inPortState(QString id,bool enabled);
 
@@ -66,7 +64,8 @@ public:
         ObjectPropertyNode,
         ProcessingContoursNode,
         ProcessingShapesNode,
-        WebCamCaptureNode
+        WebCamCaptureNode,
+        ModulePropertyBind
 
     };
     Q_ENUM(Type)
