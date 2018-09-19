@@ -6,15 +6,16 @@ CONFIG  += qt
 
 ## Win stack trace
 
-CONFIG(debug, debug|release):ENABLE_STACK_TRACE = 1
 
-win32:!isEmpty(ENABLE_STACK_TRACE){
-    LIBS    += -ldbghelp
-    DEFINES += USE_STACK_TRACE
-}
-unix:!isEmpty(ENABLE_STACK_TRACE_BFD){
-    LIBS    += -lbfd -ldl
-}
+#CONFIG(debug, debug|release):ENABLE_STACK_TRACE = 1
+
+#win32:!isEmpty(ENABLE_STACK_TRACE){
+#    LIBS    += -ldbghelp
+#    DEFINES += USE_STACK_TRACE
+#}
+#unix:!isEmpty(ENABLE_STACK_TRACE_BFD){
+#    LIBS    += -lbfd -ldl
+#}
 
 macx{
     QMAKE_LFLAGS += \
@@ -32,7 +33,7 @@ win32:{
 
 DEFINES += AUTOMATIONSTUDIO_CORE_LIB
 
-include($$PWD/3rdparty/3rdparty.pri)
+#include($$PWD/3rdparty/3rdparty.pri)
 include($$PWD/include/automationstudiocoreheaders.pri)
 include($$PWD/src/automationstudiocore.pri)
 

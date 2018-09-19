@@ -1,10 +1,8 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/automationstudiocore/exception.h \
     $$PWD/automationstudiocore/libraryloadpath.h \
     $$PWD/automationstudiocore/automationstudiocoreglobal.h \
-    $$PWD/automationstudiocore/stacktrace.h \
     $$PWD/automationstudiocore/settings.h \
     $$PWD/automationstudiocore/lockedfileiosession.h \
     $$PWD/automationstudiocore/plugincontext.h \

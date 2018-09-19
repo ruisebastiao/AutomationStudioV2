@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/Blink.qml</file>
+        <file>qml/DockingItem.qml</file>
+        <file>qml/DockingLayout.qml</file>
+        <file>qml/LanguageItem.qml</file>
+        <file>qml/MaterialPlaceHolder.qml</file>
+        <file>qml/PaneHeader.qml</file>
+        <file>qml/plugins.qmltypes</file>
+        <file>qml/TextScroller.qml</file>
+        <file>qml/UserSettingsView.qml</file>
+    </qresource>
+</RCC>

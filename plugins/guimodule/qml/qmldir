@@ -3,11 +3,11 @@ plugin guimodule
 
 depends QtQuick 2.3
 
-TextScroller            1.0 TextScroller.qml
-Blink                   1.0 Blink.qml
-LanguageItem            1.0 LanguageItem.qml
-MaterialPlaceHolder     1.0 MaterialPlaceHolder.qml
-PaneHeader              1.0 PaneHeader.qml
-UserSettingsView        1.0 UserSettingsView.qml
-DockingLayout           1.0 DockingLayout.qml
-DockingItem             1.0 DockingItem.qml
+TextScroller            1.0 qrc:///qml/TextScroller.qml
+Blink                   1.0 qrc:///qml/Blink.qml
+LanguageItem            1.0 qrc:///qml/LanguageItem.qml
+MaterialPlaceHolder     1.0 qrc:///qml/MaterialPlaceHolder.qml
+PaneHeader              1.0 qrc:///qml/PaneHeader.qml
+UserSettingsView        1.0 qrc:///qml/UserSettingsView.qml
+DockingLayout           1.0 qrc:///qml/DockingLayout.qml
+DockingItem             1.0 qrc:///qml/DockingItem.qml

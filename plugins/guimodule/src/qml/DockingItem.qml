@@ -6,7 +6,8 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
 import automationmodule 1.0
-import bsvalidationmodule 1.0
+
+
 
 Pane{
     id:root

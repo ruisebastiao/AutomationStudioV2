@@ -1,9 +1,7 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/exception.h \
     $$PWD/libraryloadpath.h \
-    $$PWD/stacktrace.h \
     $$PWD/settings.h \
     $$PWD/lockedfileiosession.h \
     $$PWD/plugincontext.h \
@@ -24,9 +22,7 @@ HEADERS += \
     $$PWD/utilities.h
 
 SOURCES += \
-    $$PWD/exception.cpp \
     $$PWD/libraryloadpath.cpp \
-    $$PWD/stacktrace.cpp \
     $$PWD/settings.cpp \
     $$PWD/lockedfileiosession.cpp \
     $$PWD/plugincontext.cpp \
@@ -45,14 +41,14 @@ SOURCES += \
     $$PWD/utilities.cpp
 
 win32{
-    SOURCES += $$PWD/stacktrace_win.cpp
+    SOURCES +=
     SOURCES += $$PWD/libraryloadpath_win.cpp
     SOURCES += $$PWD/plugincontext_win.cpp
 }
 
 unix{
     !macx:SOURCES += $$PWD/plugincontext_unix.cpp
-    SOURCES += $$PWD/stacktrace_unix.cpp
+    SOURCES +=
     SOURCES += $$PWD/libraryloadpath_unix.cpp
 }
 macx:SOURCES += $$PWD/plugincontext_mac.cpp

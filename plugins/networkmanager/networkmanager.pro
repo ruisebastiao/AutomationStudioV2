@@ -21,7 +21,7 @@ DISTFILES = qmldir \
 
 include($$PWD/src/networkmanager.pri)
 
-qmldir.files = qmldir
+#qmldir.files = qmldir
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_qmldir.target = $$OUT_PWD/qmldir
@@ -32,9 +32,9 @@ qmldir.files = qmldir
 }
 
 
-unix {
-    installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
-    qmldir.path = $$installPath
-    target.path = $$installPath
-    INSTALLS += target qmldir
-}
+#unix {
+#    installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
+#    qmldir.path = $$installPath
+#    target.path = $$installPath
+#    INSTALLS += target qmldir
+#}

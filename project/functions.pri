@@ -82,12 +82,17 @@ defineTest(linkLocalLibrary){
 defineTest(linkPluginLibrary){
 
     win32:LIB_PATH = $$DEPLOY_PATH/dev/$$1/lib
-    else:LIB_PATH = $$DEPLOY_PATH/plugins/$$1/
+    else:LIB_PATH = $$DEPLOY_PATH/plugins/$$1
 
     LIB_NAME = $$2
+#    TARGET_PLUGIN_PATH=$$TARGET_PATH/plugins/$$LIB_NAME
+
+
+    #TARGET_LIB_PATH=
 
     # use *= instead of += to prevent duplications of link path cofigurations
     LIBS *= -L$$LIB_PATH
+
     LIBS *= -l$$LIB_NAME
     export(LIBS)
 
@@ -139,6 +144,18 @@ defineTest(linkLocalPlugin){
     !isEmpty($$3):LIB_INCLUDE_PATH=$$3
 
     # use *= instead of += to prevent duplications of link path cofigurations
+
+    RPI{
+
+
+    # add custom path
+#    QMAKE_LFLAGS += -Wl,-rpath,$$TARGET_PATH/plugins/$$LIB_NAME
+
+
+
+    }
+
+
     LIBS *= -L$$LIB_PATH
     LIBS *= -l$$LIB_NAME
     INCLUDEPATH += $$LIB_INCLUDE_PATH

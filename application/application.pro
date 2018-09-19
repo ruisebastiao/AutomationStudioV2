@@ -22,15 +22,29 @@ linkPluginLibrary(automationmodule,   automationmodule)
     QML_IMPORT_PATH += \
     /home/rui/Qt/5.10.1/gcc_64/qml
 
-    QMAKE_LFLAGS += \
-        '-Wl,-rpath,\'\$$ORIGIN\'' \
-        '-Wl,-rpath,\'\$$ORIGIN/link\'' \
-	'-Wl,-rpath,\'\$$ORIGIN/lib\''
+#    QMAKE_LFLAGS += \
+#        '-Wl,-rpath,\'\$$ORIGIN\'' \
+#        '-Wl,-rpath,\'\$$ORIGIN/link\''
+#        '-Wl,-rpath,\'\$$ORIGIN/lib\''
+
+    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/QuickQanava\'"
+    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/automationmodule\'"
+                    "-Wl,-rpath,\'\$$ORIGIN/plugins/bsvalidationmodule\'"
+
+#    QMAKE_LFLAGS += \
+#                    "-Wl,-rpath,\'\$$ORIGIN/plugins/automationmodule\'"
+
+#    QMAKE_RPATHDIR += $ORIGIN/plugins/QuickQanava
+#    QMAKE_RPATHDIR += $ORIGIN/plugins/automationmodule
 
 
-    createlinkdir.commands += $${QMAKE_MKDIR_CMD} $$shell_path($${DEPLOY_PATH}/link)
-    QMAKE_EXTRA_TARGETS    += createlinkdir
-    POST_TARGETDEPS        += createlinkdir
+
+#    QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/../mylibs\''
+
+
+#    createlinkdir.commands += $${QMAKE_MKDIR_CMD} $$shell_path($${DEPLOY_PATH}/link)
+#    QMAKE_EXTRA_TARGETS    += createlinkdir
+#    POST_TARGETDEPS        += createlinkdir
 }
 
 macx{
@@ -45,6 +59,8 @@ macx{
 
 DESTDIR = $$BUILD_PATH/bin
 
+
+
 # Application
 # -----------
 
@@ -54,4 +70,22 @@ RESOURCES += $$PWD/application.qrc
 
 OTHER_FILES += \
     $$PWD/qml/*.qml
+
+
+configfiles.files+=\
+    ../configfiles/appsettings.json \
+    ../configfiles/bsvalidation.json \
+    ../configfiles/projects.json
+
+target.path = $${TARGET_PATH}
+configfiles.path = $${TARGET_PATH}
+
+INSTALLS += target configfiles
+
+DISTFILES += \
+    ../configfiles/appsettings.json \
+    ../configfiles/bsvalidation.json \
+    ../configfiles/projects.json
+
+
 

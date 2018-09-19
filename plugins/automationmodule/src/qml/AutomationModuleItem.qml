@@ -7,6 +7,8 @@ import QtQuick.Controls.Material 2.2
 
 import automationmodule 1.0
 
+import bsvalidationmodule 1.0
+
 import QuickQanava 2.0 as Qan
 
 //import guimodule 1.0 as GUI

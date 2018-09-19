@@ -15,6 +15,9 @@
     This project requires at least Qt version 5.6. \
     Make sure you have Qt 5.6 installed and running the correct qmake. \
 )
+
+
+#message($$TARGET_PATH)
 CONFIG      += warn_on qt thread c++14
 # --- Project structure ---
 

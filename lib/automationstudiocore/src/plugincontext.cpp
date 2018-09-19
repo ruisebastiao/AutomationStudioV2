@@ -15,7 +15,7 @@
 ****************************************************************************/
 
 #include "automationstudiocore/plugincontext.h"
-#include "automationstudiocore/exception.h"
+
 #include "automationstudiocore/settings.h"
 #include <QQmlEngine>
 #include <QQmlContext>
@@ -30,13 +30,10 @@ as::Settings* PluginContext::m_settings = nullptr;
 
 void PluginContext::initFromEngine(QQmlEngine *engine){
     QObject* automationstudio = engine->rootContext()->contextProperty("automationstudio").value<QObject*>();
-    if ( !automationstudio )
-        THROW_EXCEPTION(as::Exception, "Failed to load livecv context property.", 0);
 
     m_engine   = qobject_cast<QQmlEngine*>(automationstudio->property("engine").value<QObject*>());
     m_settings = qobject_cast<as::Settings*>(automationstudio->property("settings").value<QObject*>());
-    if ( !m_engine || !m_settings )
-        THROW_EXCEPTION(as::Exception, "Failed to load properties from context", 0);
+
 }
 
 QString PluginContext::executableDirPath(){

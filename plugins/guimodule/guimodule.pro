@@ -16,23 +16,8 @@ OTHER_FILES += \
     qml/*.qml \
     qml/qmldir
 
-# Input
-SOURCES += \
-        guimodule_plugin.cpp
-
-HEADERS += \
-        guimodule_plugin.h
-
-DISTFILES = qmldir \
-    qml/plugins.qmltypes \
-    qml/TextScroller.qml \
-    qml/Blink.qml \
-    qml/UserSettingsView.qml \
-    qml/PaneHeader.qml \
-    qml/LanguageItem.qml \
-    qml/MaterialPlaceHolder.qml \
-    qml/DockingLayout.qml \
-    qml/DockingItem.qml
+DISTFILES += \
+        qmldir
 
 qmldir.files = qmldir
 
@@ -44,10 +29,8 @@ qmldir.files = qmldir
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
+include($$PWD/src/guimodule.pri)
 
-unix {
-    installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
-    qmldir.path = $$installPath
-    target.path = $$installPath
-    INSTALLS += target qmldir
-}
+RESOURCES += \
+    src/guimodule.qrc
+

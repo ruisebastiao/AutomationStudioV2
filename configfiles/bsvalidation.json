@@ -1,7 +1,7 @@
 {
     "graphview": {
-        "x": 324.46158665239795,
-        "y": 107.53603375510954,
+        "x": 327.46158665239795,
+        "y": 180.53603375510954,
         "zoom": 0.7002539485051935
     },
     "moduleID": "bsvalidation_1",
@@ -18,7 +18,7 @@
                     {
                         "hidden": false,
                         "nodeID": 7,
-                        "portID": "serialnumber"
+                        "portID": "input"
                     }
                 ],
                 "hidden": false,
@@ -31,8 +31,8 @@
             "id": 1,
             "locked": false,
             "name": "Reader 1",
-            "nodeX": -152.37763319877132,
-            "nodeY": -105.02197292874638,
+            "nodeX": -169.51427344994875,
+            "nodeY": -96.45365280315764,
             "normalHeight": 291,
             "normalWidth": 347,
             "openOnConnect": true,
@@ -44,7 +44,7 @@
                 "showinlabel": true,
                 "type": "Out"
             },
-            "port": "COM10",
+            "port": "ttyACM0",
             "prefix": "1",
             "rawdataPort": {
                 "connectedTo": [
@@ -65,8 +65,8 @@
                 "connectedTo": [
                     {
                         "hidden": false,
-                        "nodeID": 7,
-                        "portID": "WaitResults"
+                        "nodeID": 8,
+                        "portID": "input"
                     }
                 ],
                 "hidden": false,
@@ -77,8 +77,8 @@
             "id": 2,
             "locked": false,
             "name": "BSValidation WebService 1",
-            "nodeX": 375.9867334569574,
-            "nodeY": 333.775854327458,
+            "nodeX": 518.7920688834355,
+            "nodeY": 325.2075342018693,
             "normalHeight": 204,
             "normalWidth": 336,
             "param1NamePort": {
@@ -138,46 +138,6 @@
                         "hidden": false,
                         "nodeID": 2,
                         "portID": "param2Port"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    },
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
                     },
                     {
                         "hidden": false,
@@ -304,8 +264,8 @@
                 "connectedTo": [
                     {
                         "hidden": false,
-                        "nodeID": 7,
-                        "portID": "BSNOK"
+                        "nodeID": 10,
+                        "portID": "input"
                     }
                 ],
                 "hidden": false,
@@ -317,8 +277,8 @@
                 "connectedTo": [
                     {
                         "hidden": false,
-                        "nodeID": 7,
-                        "portID": "BSOK"
+                        "nodeID": 9,
+                        "portID": "input"
                     }
                 ],
                 "hidden": false,
@@ -339,8 +299,8 @@
                 "connectedTo": [
                     {
                         "hidden": false,
-                        "nodeID": 7,
-                        "portID": "lefts"
+                        "nodeID": 11,
+                        "portID": "input"
                     }
                 ],
                 "hidden": false,
@@ -350,53 +310,76 @@
             },
             "locked": false,
             "name": "BS Validation 1",
-            "nodeX": 849.6917457875459,
-            "nodeY": 78.54293448456292,
+            "nodeX": 1076.7522291156465,
+            "nodeY": 55.694080816326334,
             "normalHeight": 202,
             "normalWidth": 345,
             "type": "BSValidationNode"
         },
         {
-            "BSNOKPort": {
-                "hidden": false,
-                "portLabel": "BSNOK",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "BSOKPort": {
-                "hidden": false,
-                "portLabel": "BSOK",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "WaitResultsPort": {
-                "hidden": false,
-                "portLabel": "Waiting results",
-                "showinlabel": false,
-                "type": "In"
-            },
             "editHeight": 250,
-            "editWidth": 250,
+            "editWidth": 345,
             "id": 7,
-            "leftsPort": {
-                "hidden": false,
-                "portLabel": "Lefts",
-                "showinlabel": false,
-                "type": "In"
-            },
             "locked": false,
-            "name": "BS Validation 1 Frontend",
-            "nodeX": 1499.4560219780203,
-            "nodeY": 37.129387210884204,
-            "normalHeight": 183,
-            "normalWidth": 326,
-            "serialnumberPort": {
-                "hidden": false,
-                "portLabel": "Serialnumber",
-                "showinlabel": false,
-                "type": "In"
-            },
-            "type": "BSValidationVisualNode"
+            "moduleProperty": "serialnumber",
+            "name": "Module Property 1 ",
+            "nodeX": 381.29024558869685,
+            "nodeY": -199.92746959706983,
+            "normalHeight": 147,
+            "normalWidth": 297,
+            "type": "ModulePropertyBind"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 345,
+            "id": 8,
+            "locked": false,
+            "moduleProperty": "waitingResponse",
+            "name": "Module Property 2",
+            "nodeX": 1115.3096696807947,
+            "nodeY": 287.03872420722115,
+            "normalHeight": 147,
+            "normalWidth": 297,
+            "type": "ModulePropertyBind"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 345,
+            "id": 9,
+            "locked": false,
+            "moduleProperty": "bsOK",
+            "name": "Module Property 3",
+            "nodeX": 1762.2178391627422,
+            "nodeY": -57.122134170591664,
+            "normalHeight": 147,
+            "normalWidth": 297,
+            "type": "ModulePropertyBind"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 345,
+            "id": 10,
+            "locked": false,
+            "moduleProperty": "bsNOK",
+            "name": "Module Property 4",
+            "nodeX": 1769.3581059340659,
+            "nodeY": 175.65056257456803,
+            "normalHeight": 147,
+            "normalWidth": 297,
+            "type": "ModulePropertyBind"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 345,
+            "id": 11,
+            "locked": false,
+            "moduleProperty": "lefts",
+            "name": "Module Property 5",
+            "nodeX": 1757.9336790999478,
+            "nodeY": 402.71104590266845,
+            "normalHeight": 147,
+            "normalWidth": 297,
+            "type": "ModulePropertyBind"
         }
     ],
     "type": "AutomationModule"

@@ -16,11 +16,10 @@ import guimodule 1.0 as GUI
 
 import automationmodule 1.0
 
-import bsvalidationmodule 1.0
 
 import QuickQanava 2.0 as Qan
 
-//import bsvalidationmodule 1.0
+import bsvalidationmodule 1.0
 
 ApplicationWindow {
     id: rootwindow

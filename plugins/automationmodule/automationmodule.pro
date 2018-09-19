@@ -20,6 +20,18 @@ linkLocalLibrary(CuteLogger,CuteLogger)
 linkLocalPlugin(QuickQanava,   QuickQanava)
 
 
+unix {
+#QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/QuickQanava\'"
+
+#    QMAKE_LFLAGS_RPATH =
+#    # add custom path
+       QMAKE_LFLAGS += -Wl,-rpath,$$TARGET_PATH/plugins/QuickQanava
+
+}
+
+
+
+
 # Source
 
 include($$PWD/src/automationmodule.pri)
@@ -52,7 +64,7 @@ include($$PWD/../QuickQanava/include/quickqanavaheaders.pri)
 RESOURCES += \
     src/automationmodule.qrc
 
-qmldir.files = qmldir
+
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_qmldir.target = $$OUT_PWD/qmldir
@@ -62,12 +74,17 @@ qmldir.files = qmldir
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
-unix {
-    installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
-    qmldir.path = $$installPath
-    target.path = $$installPath
 
-    INSTALLS += target qmldir
-}
+#TARGET_PLUGIN_PATH=$$TARGET_PATH/plugins/$$PLUGIN_PATH
+
+#qmldir.files = qmldir
+
+#unix {
+#    message($$TARGET_PLUGIN_PATH)
+#    qmldir.path = $$TARGET_PLUGIN_PATH
+#    target.path += $$TARGET_PLUGIN_PATH
+#    INSTALLS += target qmldir
+#}
+
 
 

@@ -18,7 +18,6 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QFileInfo>
-#include <automationstudiocore/exception.h>
 #include <automationstudiocore/libraryloadpath.h>
 #include "automationstudiocore/plugincontext.h"
 #include <ConsoleAppender.h>
@@ -87,13 +86,10 @@ int main(int argc, char *argv[]){
 
         return app.exec();
 
-    } catch ( as::Exception& e ){
-        if ( e.code() < 0 ){
-            printf("Uncaught exception when initializing: %s\n", qPrintable(e.message()));
-            return e.code();
-        } else {
-            //vlog() << "Uncaught exception: " << e.message();
-            return e.code();
-        }
+    } catch (...){
+        qFatal("Error <unknown> sending event");
+//                  typeid(*event).name(), qPrintable(receiver->objectName()),
+//                  typeid(*receiver).name());
+
     }
 }

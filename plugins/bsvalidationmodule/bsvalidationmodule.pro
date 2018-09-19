@@ -18,6 +18,10 @@ linkLocalPlugin(automationmodule, automationmodule)
 linkLocalPlugin(QuickQanava,   QuickQanava)
 
 
+    # add custom path
+    QMAKE_LFLAGS += -Wl,-rpath,$$TARGET_PATH/plugins/automationmodule
+    QMAKE_LFLAGS += -Wl,-rpath,$$TARGET_PATH/plugins/QuickQanava
+
 # Source
 
 include($$PWD/src/bsvalidationmodule.pri)
@@ -46,10 +50,14 @@ qmldir.files = qmldir
 }
 
 
-unix {
-    installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
-    qmldir.path = $$installPath
-    target.path = $$installPath
-    target.path += /usr/lib
-    INSTALLS += target qmldir
-}
+
+#TARGET_PLUGIN_PATH=$$TARGET_PATH/plugins/$$PLUGIN_PATH
+
+#qmldir.files = qmldir
+
+#unix {
+#    message($$TARGET_PLUGIN_PATH)
+#    qmldir.path = $$TARGET_PLUGIN_PATH
+#    target.path += $$TARGET_PLUGIN_PATH
+#    INSTALLS += target qmldir
+#}
