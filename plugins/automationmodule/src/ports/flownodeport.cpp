@@ -57,16 +57,20 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
             if(edgeItem!=nullptr){
                 FlowNode* targetNode=getNodeFromEdge(edgeItem);
 
-                ConnectionInfo* connectioninfo=Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
+                if(targetNode){
+                    ConnectionInfo* connectioninfo=Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
 
-                if(connectioninfo){
-                    m_connections.removeOne(connectioninfo);
+                    if(connectioninfo){
+                        m_connections.removeOne(connectioninfo);
 
-                    FlowNode* destination=qobject_cast<FlowNode*>(edgeItem->getDestinationItem()->getNode());
+                        FlowNode* destination=qobject_cast<FlowNode*>(edgeItem->getDestinationItem()->getNode());
 
-                    destination->unbindSourceProperty(connectioninfo->portID());
+                        destination->unbindSourceProperty(connectioninfo->portID());
+
+                    }
 
                 }
+
 
                 m_port->getOutEdgeItems().removeAll(edgeItem);
 
@@ -105,7 +109,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
     QObject::connect(QAutomationModule::flownodemanager, &FlowNodeManager::onFlowNodeLoaded,[this](FlowNode* nodeLoaded){
 
-//        qDebug()<<"Type:"<<this->m_node->id();
+        //        qDebug()<<"Type:"<<this->m_node->id();
 
         int nodeid=m_node->id();
 
@@ -135,15 +139,19 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
                 ConnectionInfo* connection=m_connections.at(i);
                 auto findednode=QAutomationModule::flownodemanager->getByID(connection->nodeID());
                 if(findednode){
-                    auto nodeport = findednode->getPortByName(connection->portID());
+                    FlowNodePort* nodeport = findednode->getPortByName(connection->portID());
                     if(nodeport){
-                        if(nodeport->getPortItem()->getInEdgeItems().size()==0){
-                            SceneGraph* scenegraph= qobject_cast<SceneGraph*>(m_port->getNode()->getGraph());
+                        qan::PortItem* portitem=nodeport->getPortItem();
+                        if(portitem){
 
-                            qan::Edge* newedge= scenegraph->insertNewEdge(false,m_node,findednode);
+                            //if(portitem->getInEdgeItems().size()==0){
+                                SceneGraph* scenegraph= qobject_cast<SceneGraph*>(m_port->getNode()->getGraph());
 
-                            scenegraph->bindEdge(newedge,m_port,nodeport->getPortItem());
+                                qan::Edge* newedge= scenegraph->insertNewEdge(false,m_node,findednode);
 
+                                scenegraph->bindEdge(newedge,m_port,nodeport->getPortItem());
+
+                            //}
                         }
                     }
                 }
