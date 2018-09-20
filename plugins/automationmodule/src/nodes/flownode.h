@@ -106,6 +106,8 @@ public:
 
 
 
+
+
 protected:
     Type            m_type{Type::NodeNone};
 
@@ -113,8 +115,9 @@ protected:
 
 private:
 
-    void setPortConnection(int createdNodeId);
+    //void setPortConnection(int createdNodeId);
 
+    SceneGraph* m_scenegraph=nullptr;
 
     bool m_configsLoaded=false;
 
@@ -150,6 +153,8 @@ private:
     qreal m_nodeY=0;
 
     bool m_centerOnEdit=false;
+
+
 
 public slots:
     virtual void    inNodeOutputChanged();
@@ -312,6 +317,9 @@ protected:
 
     QString m_name="";
 
+    QList<FlowNodePort*> m_inPorts;
+    QList<FlowNodePort*> m_outPorts;
+
     // JsonSerializable interface
 public:
     void Serialize(QJsonObject &json) override;
@@ -356,7 +364,7 @@ public:
         return m_nodeY;
     }
 
-    FlowNodePort* getPortByName(QString portname);
+
     bool centerOnEdit() const
     {
         return m_centerOnEdit;
@@ -365,5 +373,10 @@ public:
     // Node interface
 public:
     void installBehaviour(std::unique_ptr<qan::NodeBehaviour> behaviour) override;
+
+    //void updateConnections(FlowNodePort* sourceNode,);
+    QList<FlowNodePort *> getInPorts() const;
+    QList<FlowNodePort *> getOutPorts() const;
+    SceneGraph *getScenegraph() const;
 };
 #endif // FLOWNODE_H

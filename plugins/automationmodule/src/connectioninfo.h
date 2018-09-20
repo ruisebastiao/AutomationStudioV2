@@ -20,6 +20,7 @@ public:
     Q_PROPERTY(QString portID READ portID WRITE setPortID NOTIFY portIDChanged USER("serialize"))
     Q_PROPERTY(bool hidden READ hidden WRITE setHidden NOTIFY hiddenChanged USER("serialize"))
 
+
     int nodeID() const
     {
         return m_nodeID;

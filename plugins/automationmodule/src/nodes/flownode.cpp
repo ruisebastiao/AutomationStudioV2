@@ -6,6 +6,47 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 {
 
 
+//    QObject::connect(QAutomationModule::flownodemanager, &FlowNodeManager::onFlowNodeLoaded,[this](FlowNode* nodeLoaded){
+
+//        if(nodeLoaded==this){
+//            return;
+//        }
+
+//        qDebug()<<"On node added";
+
+//        foreach (FlowNodePort* flownodeport, m_outPorts) {
+//            if(flownodeport->getType()==qan::PortItem::Type::Out){
+
+
+
+
+//                for (int index1 = 0; index1 < flownodeport->getConnections().length(); ++index1) {
+//                    ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
+//                    if(connectinfo->nodeID()==nodeLoaded->id()){
+
+//                        qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
+
+//                        for (int index2 = 0; index2 < nodeLoaded->getInPorts()->getConnections().length(); ++index2) {
+//                            ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
+//                            if(connectinfo->nodeID()==nodeLoaded->id()){
+
+//                                qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
+
+
+//                            }
+//                        }
+
+//                    }
+//                }
+
+//            }
+//        }
+
+//    });
+
+
+
+
 
 }
 
@@ -18,9 +59,24 @@ QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
     return qan_FlowNode_delegate.get();
 }
 
+SceneGraph *FlowNode::getScenegraph() const
+{
+    return m_scenegraph;
+}
+
 void FlowNode::inNodeOutputChanged()
 {
 
+}
+
+QList<FlowNodePort *> FlowNode::getOutPorts() const
+{
+    return m_outPorts;
+}
+
+QList<FlowNodePort *> FlowNode::getInPorts() const
+{
+    return m_inPorts;
 }
 
 
@@ -65,30 +121,31 @@ void FlowNode::DeSerialize(QJsonObject &json)
 
     setEditHeight(json["editHeight"].toInt());
 
+    this->m_scenegraph=qobject_cast<SceneGraph*>(this->getGraph());
 
     emit QAutomationModule::flownodemanager->onFlowNodeLoaded(this);
 
 }
 
-FlowNodePort* FlowNode::getPortByName(QString portname)
-{
-    portname+="Port";
-    for (int i = 0; i < this->metaObject()->propertyCount(); i++)
-    {
+//FlowNodePort* FlowNode::getPortByName(QString portname)
+//{
+//    portname+="Port";
+//    for (int i = 0; i < this->metaObject()->propertyCount(); i++)
+//    {
 
 
-        QMetaProperty property=this->metaObject()->property(i);
-        if(property.name()==portname){
-            property=this->metaObject()->property(i);
-            QVariant value = this->property(property.name());
-            return value.value<FlowNodePort*>();
-            break;
-        }
+//        QMetaProperty property=this->metaObject()->property(i);
+//        if(property.name()==portname){
+//            property=this->metaObject()->property(i);
+//            QVariant value = this->property(property.name());
+//            return value.value<FlowNodePort*>();
+//            break;
+//        }
 
 
-    }
+//    }
 
-}
+//}
 
 void FlowNode::installBehaviour(std::unique_ptr<qan::NodeBehaviour> behaviour)
 {

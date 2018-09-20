@@ -29,7 +29,7 @@ public:
     QString localIP()
     {
         QList<QHostAddress> list = QNetworkInterface::allAddresses();
-        for(int nIter=0; nIter<list.count(); nIter++)
+        for(int nIter=0; nIter<list.length(); nIter++)
         {
 //            qDebug() << list[nIter].toString();
 

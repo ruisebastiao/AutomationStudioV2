@@ -82,6 +82,7 @@ int main(int argc, char *argv[]){
 
         automationstudio->loadQml(QUrl(QStringLiteral("qrc:/main.qml")));
 
+        qDebug()<<"Main loaded";
         automationstudio->setCoreApplication(&app);
 
         return app.exec();

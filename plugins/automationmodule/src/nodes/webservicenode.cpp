@@ -50,8 +50,17 @@ void WebServiceNode::DeSerialize(QJsonObject &json)
     m_param2Port=new FlowNodePort(this,qan::PortItem::Type::In,"param2");
     m_param2NamePort=new FlowNodePort(this,qan::PortItem::Type::In,"param2Name");
 
+    m_inPorts.append(m_param1Port);
+    m_inPorts.append(m_param1NamePort);
+    m_inPorts.append(m_param2Port);
+    m_inPorts.append(m_param2NamePort);
+
+
     m_responsePort=new FlowNodePort(this,qan::PortItem::Type::Out,"response");
     m_executingPort=new FlowNodePort(this,qan::PortItem::Type::Out,"executing");
+
+    m_outPorts.append(m_responsePort);
+    m_outPorts.append(m_executingPort);
 
 
     FlowNode::DeSerialize(json);

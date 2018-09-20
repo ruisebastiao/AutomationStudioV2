@@ -34,6 +34,8 @@ void ModulePropertyBind::DeSerialize(QJsonObject &json)
 
     m_inputPort=new FlowNodePort(this,qan::PortItem::Type::In,"input");
 
+    m_inPorts.append(m_inputPort);
+
     FlowNode::DeSerialize(json);
 
     if(m_module){

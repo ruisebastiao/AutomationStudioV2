@@ -144,7 +144,7 @@ void NetworksListModel::RemoveNetworkSSID(QString ssid)
 int NetworksListModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return m_networks.count();
+    return m_networks.length();
 }
 
 

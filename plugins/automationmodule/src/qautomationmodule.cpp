@@ -76,8 +76,37 @@ void QAutomationModule::load(QString pathstr){
 
             m_FlowNodes.append(node);
         }
+        qDebug()<<"Reading node: "+node->name();
     }
 
+    qDebug()<<"Loading connections";
+
+
+
+    foreach (FlowNode* flownode, m_FlowNodes) {
+        foreach (FlowNodePort* flownodeport, flownode->getOutPorts()) {
+            foreach (ConnectionInfo* connection, flownodeport->getConnections()) {
+                FlowNode* targetnode=this->getFlowNodeById(connection->nodeID());
+                if(targetnode){
+                    qan::Edge* newedge= flownode->getScenegraph()->insertNewEdge(false,flownode,targetnode);
+                    if(newedge){
+                        for (int portindex = 0; portindex < targetnode->getInPorts().length(); ++portindex) {
+                            FlowNodePort* targetInport=targetnode->getInPorts().at(portindex);
+                            if(targetInport->getPortItem()->getId()==connection->portID()){
+                                flownode->getScenegraph()->bindEdge(newedge,flownodeport->getPortItem(),targetInport->getPortItem());
+                                break;
+                            }
+                        }
+                        //targetnode->getPort
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    qDebug()<<"Module loaded";
     emit moduleLoadedChanged(true);
 }
 
@@ -212,6 +241,17 @@ void QAutomationModule::setGraphView(qan::GraphView* graphView)
 QAutomationModule::ModuleType QAutomationModule::type() const
 {
     return ModuleType::AutomationModule;
+}
+
+FlowNode *QAutomationModule::getFlowNodeById(int id)
+{
+    for (int var = 0; var < m_FlowNodes.length(); ++var) {
+        if(m_FlowNodes.at(var)->id()==id){
+            return  m_FlowNodes.at(var);
+        }
+    }
+
+    return nullptr;
 }
 
 

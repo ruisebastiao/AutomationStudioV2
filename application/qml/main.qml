@@ -13,13 +13,8 @@ import QtGraphicalEffects 1.0
 
 import base 1.0
 import guimodule 1.0 as GUI
-
 import automationmodule 1.0
-
-
 import QuickQanava 2.0 as Qan
-
-import bsvalidationmodule 1.0
 
 ApplicationWindow {
     id: rootwindow
@@ -511,7 +506,7 @@ ApplicationWindow {
                                     
                                     enabled: appsettings&&appsettings.loaded
                                     //                    highlighted: true
-                                    anchors.verticalCenter: parent.verticalCenter
+                                //    anchors.verticalCenter: parent.verticalCenter
                                     
                                     opacity: enabled?1:0.2
                                     

@@ -10,6 +10,7 @@ QBSValidationModule::QBSValidationModule(QQuickItem* parent)
 
 void QBSValidationModule::load(QString path)
 {
+    qDebug()<<"Loading module";
     QAutomationModule::load(path);
 }
 

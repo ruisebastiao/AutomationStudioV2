@@ -41,19 +41,6 @@ OTHER_FILES += \
     qml/*.qml \
     qml/qmldir
 
-DISTFILES += \
-    qml/plugins.qmltypes \
-    src/qml/AutomationModuleItem.qml \
-    src/qml/nodes/BarcodeReaderNodeItem.qml \
-    src/qml/nodes/FlowNodeItem.qml \
-    src/qml/nodes/ObjectPropertyNodeItem.qml \
-    src/qml/nodes/ProxyInputNodeItem.qml \
-    src/qml/nodes/SetResetNodeItem.qml \
-    src/qml/nodes/StringNodeItem.qml \
-    src/qml/nodes/WebServiceNodeItem.qml \
-    src/qml/edges/SelectableEdgeItem.qml \
-    src/qml/nodes/ModulePropertyBindNodeItem.qml
-
 
 win32{
 LIBS += -luser32

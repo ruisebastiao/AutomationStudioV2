@@ -134,10 +134,15 @@ void BSValidationNode::Serialize(QJsonObject &json)
 void BSValidationNode::DeSerialize(QJsonObject &json)
 {
     m_datainPort=new FlowNodePort(this,qan::PortItem::Type::In,"datain");
+    m_inPorts.append(m_datainPort);
 
     m_bsOKPort=new FlowNodePort(this,qan::PortItem::Type::Out,"bsOK");
     m_bsNOKPort=new FlowNodePort(this,qan::PortItem::Type::Out,"bsNOK");
     m_leftsPort=new FlowNodePort(this,qan::PortItem::Type::Out,"lefts");
+
+    m_outPorts.append(m_bsOKPort);
+    m_outPorts.append(m_bsNOKPort);
+    m_outPorts.append(m_leftsPort);
 
 
     FlowNode::DeSerialize(json);

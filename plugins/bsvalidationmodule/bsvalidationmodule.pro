@@ -1,3 +1,8 @@
+TEMPLATE = lib
+TARGET = bsvalidationmodule
+QT += qml quick
+CONFIG += plugin c++14
+
 PLUGIN_NAME = bsvalidationmodule
 PLUGIN_PATH = bsvalidationmodule
 
@@ -9,7 +14,7 @@ include($$getGlobalFile(plugin.pri))
 
 DEFINES += BSVALIDATIONMODULE_LIB
 
-uri = bsvalidationmodule
+uri = bsvalidationmoduleQuickQanava
 
 
 linkLocalLibrary(automationstudiocore,   automationstudiocore)

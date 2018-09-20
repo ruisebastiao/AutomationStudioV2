@@ -19,11 +19,12 @@ Item {
 
     property alias mainpagecontainer: mainpagecontainer
     Component.onCompleted: {
-
+        console.log("Automation base module loaded");
     }
 
     property AutomationModule loadedmodule;
     onLoadedmoduleChanged: {
+        console.log("module "+loadedmodule+" loaded");
 //        console.log(loadedmodule)
     }
 
@@ -108,6 +109,7 @@ Item {
                             navigable: true
                             clip: true
 
+
                             property real lastCenterX
 
                             property real lastCenterY
@@ -118,6 +120,7 @@ Item {
                             gridThickColor: Material.theme === Material.Dark ? "#4e4e4e" : "#c1c1c1"
                             SceneGraph {
                                 id: dataflowGraph
+
 
 
                                 selectionPolicy :Qan.Graph.SelectOnClick
@@ -209,6 +212,7 @@ Item {
 
 
                             Component.onCompleted: {
+
                                 if(root.loadedmodule){
                                       root.loadedmodule.graphView=graphView
                                 }

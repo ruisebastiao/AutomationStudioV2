@@ -68,6 +68,7 @@ signals:
 
 private:
 
+    SceneGraph* m_scenegraph= nullptr;
 
     FlowNode* m_node=nullptr;
 
@@ -120,6 +121,7 @@ public:
 
         return  m_port->getType();
     }
+    QList<ConnectionInfo *> getConnections() const;
 };
 
 

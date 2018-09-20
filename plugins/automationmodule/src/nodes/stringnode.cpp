@@ -24,6 +24,9 @@ void StringNode::DeSerialize(QJsonObject &json)
 {
     m_stringValuePort=new FlowNodePort(this,qan::PortItem::Type::Out,"stringValue");
 
+    m_outPorts.append(m_stringValuePort);
+
+
     FlowNode::DeSerialize(json);
 }
 
