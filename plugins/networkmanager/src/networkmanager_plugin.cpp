@@ -3,7 +3,7 @@
 
 #include <qqml.h>
 
-void NetworkMangaerPlugin ::registerTypes(const char *uri)
+void NetworkManagerPlugin::registerTypes(const char *uri)
 {
     // @uri networkmanager
    // qmlRegisterType<GuiModule>(uri, 1, 0, "GuiModule");

@@ -30,6 +30,7 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QGuiApplication>
+#include <QPluginLoader>
 
 
 namespace as{
@@ -83,6 +84,33 @@ void AutomationStudio::solveImportPaths(){
 
     // Add the plugins directory to the import paths
     m_engine->addImportPath(PluginContext::pluginPath());
+
+    loadPlugins();
+}
+
+void AutomationStudio::loadPlugins(){
+    QDir pluginsDir(PluginContext::pluginPath());
+
+
+    qDebug()<<"Loading plugin modules";
+
+    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs)) {
+        QString dirpath=pluginsDir.absoluteFilePath(dirName);
+        QDir pluginsDirFiles(dirpath);
+
+        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files)) {
+            QPluginLoader pluginLoader(pluginsDirFiles.absoluteFilePath(fileName));
+            QObject *plugin = pluginLoader.instance();
+            if (plugin) {
+                qDebug()<<"Plugin loaded:"<<plugin;
+            }
+
+        }
+
+
+    }
+
+
 }
 
 void AutomationStudio::loadQml(const QUrl &url){

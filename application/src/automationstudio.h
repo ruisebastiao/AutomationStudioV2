@@ -91,6 +91,7 @@ public:
         return m_coreApplication;
     }
 
+    void loadPlugins();
 public slots:
 
     void setCoreApplication(QCoreApplication* coreApplication)

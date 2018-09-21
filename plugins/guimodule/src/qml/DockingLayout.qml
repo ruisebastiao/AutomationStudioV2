@@ -14,6 +14,7 @@ Item {
 
     property User loggedUser
 
+    property bool modulesloaded: false
     GridLayout{
         id:rootlayout
         anchors.margins: 5
@@ -32,6 +33,11 @@ Item {
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                onLoadedmoduleChanged: {
+                    if(loadedmodule){
+                        root.modulesloaded=true
+                    }
+                }
             }
         }
 

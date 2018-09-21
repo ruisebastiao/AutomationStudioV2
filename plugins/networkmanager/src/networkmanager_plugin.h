@@ -2,7 +2,7 @@
 
 #include <QQmlExtensionPlugin>
 
-class NetworkMangaerPlugin : public QQmlExtensionPlugin
+class NetworkManagerPlugin: public QQmlExtensionPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)

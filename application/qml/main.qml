@@ -506,7 +506,7 @@ ApplicationWindow {
                                     
                                     enabled: appsettings&&appsettings.loaded
                                     //                    highlighted: true
-                                //    anchors.verticalCenter: parent.verticalCenter
+                                    //    anchors.verticalCenter: parent.verticalCenter
                                     
                                     opacity: enabled?1:0.2
                                     
@@ -917,7 +917,7 @@ ApplicationWindow {
             property string title:"Novares"
 
             id:basemodule
-//            //            anchors.fill: parent
+            //            //            anchors.fill: parent
             visible:appsettings&&appsettings.basefileLoaded && appsettings.loaded
 
             Component.onCompleted: {
@@ -938,23 +938,56 @@ ApplicationWindow {
             }
 
 
-           GUI.DockingLayout{
-               anchors.fill: parent
-               loggedUser:appsettings?appsettings.currentUser:null
-               model: selectedproject?selectedproject.modules:null
-           }
+
+            Loader{
+                id:layoutloader
+                asynchronous: true
+                sourceComponent: layoutcomponent
+
+                anchors.fill: parent
+            }
+
+            BusyIndicator {
+                running: layoutloader.item.modulesloaded!==true
+                anchors.centerIn: parent
+                width: parent.width/2
+                height: parent.height/2
+            }
 
 
-//            Connections {
-//                target: appsettings
-//                onSelectedProjectChanged: {
-//                    if(selectedProject){
-//                        //    maindocking.model=selectedProject.modules
-//                    }
-//                }
+            Component{
+                id:layoutcomponent
+                GUI.DockingLayout{
+                    id:modulescontainer
+                    opacity:modulesloaded?1:0.4
+                    Behavior on opacity{
+
+                        NumberAnimation {
+                            duration: 150
+                            // easing.type: Easing.InOutQuad
+                        }
+                    }
+
+                    anchors.fill: parent
+                    loggedUser:appsettings?appsettings.currentUser:null
+                    model: selectedproject?selectedproject.modules:null
+                }
+
+            }
 
 
-//            }
+
+
+            //            Connections {
+            //                target: appsettings
+            //                onSelectedProjectChanged: {
+            //                    if(selectedProject){
+            //                        //    maindocking.model=selectedProject.modules
+            //                    }
+            //                }
+
+
+            //            }
 
 
             Rectangle{
@@ -970,15 +1003,15 @@ ApplicationWindow {
 
                     text: appsettings?appsettings.source:""
                     onTextChanged: {
-//                        if(utilities.fileExists(text)){
-//                            console.log("file exists")
-//                            appsettings.setSource(text);
-//                            sourcefilenokId.sourcefileOK=true
-//                        }else{
-//                            console.log("file don't exists")
+                        //                        if(utilities.fileExists(text)){
+                        //                            console.log("file exists")
+                        //                            appsettings.setSource(text);
+                        //                            sourcefilenokId.sourcefileOK=true
+                        //                        }else{
+                        //                            console.log("file don't exists")
 
-//                            sourcefilenokId.sourcefileOK=false
-//                        }
+                        //                            sourcefilenokId.sourcefileOK=false
+                        //                        }
                     }
 
                     Component.onCompleted: {

@@ -212,6 +212,7 @@ public:
     {
         return m_configSource;
     }
+    Q_INVOKABLE void loadConnections();
 protected:
    Q_INVOKABLE virtual void load(QString path);
    Q_INVOKABLE virtual void save();

@@ -61,6 +61,8 @@ Qan.NodeItem {
                 return;
             }
 
+//            console.log("Binding target:"+targetProperty+" to source:"+sourceProperty)
+
             root.node[targetProperty]=Qt.binding(function() {
                 return sourceNode[sourceProperty];
             })

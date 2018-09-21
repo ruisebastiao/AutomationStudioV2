@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET   = AutomationStudio
-QT      += qml quick quickcontrols2
+QT      += qml quick quickcontrols2 opengl
 
 
 linkLocalLibrary(automationstudiocore,   automationstudiocore)
@@ -19,8 +19,8 @@ linkPluginLibrary(automationmodule,   automationmodule)
 
 # Load library paths
 # ------------------
-    QML_IMPORT_PATH += \
-    /home/rui/Qt/5.10.1/gcc_64/qml
+#    QML_IMPORT_PATH += \
+#    /home/rui/Qt/5.11.1/gcc_64/qml
 
 #    QMAKE_LFLAGS += \
 #        '-Wl,-rpath,\'\$$ORIGIN\'' \

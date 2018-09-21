@@ -18,14 +18,22 @@ Item {
     anchors.fill: parent
 
     property alias mainpagecontainer: mainpagecontainer
-    Component.onCompleted: {
-        console.log("Automation base module loaded");
-    }
+
 
     property AutomationModule loadedmodule;
+
+
+    Connections{
+        target: loadedmodule
+
+        onModuleLoadedChanged:{
+            loadedmodule.loadConnections();
+        }
+    }
+
+
     onLoadedmoduleChanged: {
-        console.log("module "+loadedmodule+" loaded");
-//        console.log(loadedmodule)
+
     }
 
     SwipeView{
@@ -47,13 +55,13 @@ Item {
         Item{
             id: mainpagecontainer
 
-//            Pane{
-//                anchors.fill: parent
-//                anchors.margins: 5
-//                Material.elevation:6
-//                id:mainpagecontainer
+            //            Pane{
+            //                anchors.fill: parent
+            //                anchors.margins: 5
+            //                Material.elevation:6
+            //                id:mainpagecontainer
 
-//            }
+            //            }
         }
 
         Item {
@@ -214,7 +222,7 @@ Item {
                             Component.onCompleted: {
 
                                 if(root.loadedmodule){
-                                      root.loadedmodule.graphView=graphView
+                                    root.loadedmodule.graphView=graphView
                                 }
 
 

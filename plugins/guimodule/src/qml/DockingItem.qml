@@ -14,6 +14,8 @@ Pane{
     Material.elevation:8
 
     property AutomationModule loadedmodule
+
+
     onLoadedmoduleChanged: {
         loadedmodule.configSource=loadedModuleConfig
     }
@@ -156,6 +158,7 @@ Pane{
 
             Loader{
                 anchors.fill: parent
+
 
                 asynchronous:true
                 id:moduleloader

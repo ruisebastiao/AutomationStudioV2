@@ -66,6 +66,8 @@ void QAutomationModule::load(QString pathstr){
 
     QJsonArray nodesArray = m_configurationsObject["nodes"].toArray();
 
+    qDebug()<<"Reading nodes";
+
     for (int i = 0; i < nodesArray.count(); ++i) {
         QJsonObject nodeObject=nodesArray[i].toObject();
         FlowNode* node=nullptr;
@@ -76,10 +78,19 @@ void QAutomationModule::load(QString pathstr){
 
             m_FlowNodes.append(node);
         }
-        qDebug()<<"Reading node: "+node->name();
+
     }
 
-    qDebug()<<"Loading connections";
+
+
+
+    qDebug()<<"Module loaded";
+    emit moduleLoadedChanged(true);
+}
+
+void QAutomationModule::loadConnections(){
+    qDebug()<<"Setting node connections";
+
 
 
 
@@ -94,20 +105,18 @@ void QAutomationModule::load(QString pathstr){
                             FlowNodePort* targetInport=targetnode->getInPorts().at(portindex);
                             if(targetInport->getPortItem()->getId()==connection->portID()){
                                 flownode->getScenegraph()->bindEdge(newedge,flownodeport->getPortItem(),targetInport->getPortItem());
+
                                 break;
                             }
                         }
-                        //targetnode->getPort
+
                     }
                 }
+
             }
         }
     }
 
-
-
-    qDebug()<<"Module loaded";
-    emit moduleLoadedChanged(true);
 }
 
 FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nodeobject)
