@@ -48,7 +48,20 @@ int main(int argc, char *argv[]){
     QString fileloggerpath=QDir(m_currentDir).filePath("app.log");
 
     qDebug()<<"log path:"<<fileloggerpath;
+
+    QFileInfo fi(fileloggerpath);
+
+    auto fsize=fi.size()/(10*1024);
+
+    if(fsize > 10){
+        QFile file (fileloggerpath);
+        file.remove();
+    }
+
+
     RollingFileAppender* rollingfileAppender = new RollingFileAppender(fileloggerpath);
+
+
 
     rollingfileAppender->setDatePattern(RollingFileAppender::DailyRollover);
     rollingfileAppender->setLogFilesLimit(5);
@@ -89,8 +102,8 @@ int main(int argc, char *argv[]){
 
     } catch (...){
         qFatal("Error <unknown> sending event");
-//                  typeid(*event).name(), qPrintable(receiver->objectName()),
-//                  typeid(*receiver).name());
+        //                  typeid(*event).name(), qPrintable(receiver->objectName()),
+        //                  typeid(*receiver).name());
 
     }
 }

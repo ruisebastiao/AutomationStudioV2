@@ -88,13 +88,40 @@ BSValidationModule {
                 }
 
                 Label{
-                    visible: root.serialnumber!=""
+                    visible: root.serialnumber!="" && root.serverErrorStatus==""
                     Layout.fillWidth: true;
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 40
                     Layout.preferredHeight: 80
                     text: root.status
                 }
+                RowLayout{
+                    Layout.fillWidth: true;
+                    visible: root.serverErrorStatus!=""
+                    Layout.alignment: Qt.AlignHCenter
+                    Label{
+
+
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: 40
+                        Material.foreground: Material.Red
+                        Layout.preferredHeight: 80
+                        text: "Erro de Servidor:"
+                    }
+                    Label{
+
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: 40
+                        Material.foreground: Material.Red
+                        Layout.preferredHeight: 80
+                        text: root.serverErrorStatus
+                    }
+
+                }
+
+
+
+
 
                 Item{
                     Layout.fillHeight: true
