@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="NetworkManager/NetworkManagerItem.qml">qml/NetworkManagerItem.qml</file>
+        <file>images/alert-outline.png</file>
+        <file alias="NetworkManager/ConfigWifiItem.qml">qml/ConfigWifiItem.qml</file>
+        <file alias="NetworkManager/WifiLevelItem.qml">qml/WifiLevelItem.qml</file>
+        <file>images/delete-forever.png</file>
+        <file>images/power-plug.png</file>
+    </qresource>
+</RCC>

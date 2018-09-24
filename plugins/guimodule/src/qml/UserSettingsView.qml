@@ -369,10 +369,8 @@ Item{
                                                 source: "qrc:/images/1496586297_wifi_Logo.png"
 
                                             }
-                                            onClicked:  {
-
-                                                console.log("pressed")
-                                                stacked_view.push(editwifi_component);
+                                            onClicked:  {                                                
+                                                editWifi()
                                             }
 
                                         }

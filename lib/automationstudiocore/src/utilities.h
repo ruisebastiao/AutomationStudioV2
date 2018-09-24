@@ -10,6 +10,8 @@
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
 
+namespace as{
+
 
 class AUTOMATIONSTUDIO_CORE_EXPORT Utilities : public QObject
 {
@@ -94,5 +96,7 @@ public slots:
     // QObject interface
 public:
     bool eventFilter(QObject *watched, QEvent *event);
+    Q_INVOKABLE bool resourceExists(QString path);
 };
+}
 #endif // UTILITIES_H

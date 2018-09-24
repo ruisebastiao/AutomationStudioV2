@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = automationmodule
-QT += qml quick serialport
+QT += qml quick serialport concurrent
 CONFIG += plugin c++14
 
 TARGET = automationmodule

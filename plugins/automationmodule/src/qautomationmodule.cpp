@@ -4,6 +4,8 @@
 #include <nodes/webservicenode.h>
 #include <nodes/stringnode.h>
 #include <nodes/modulepropertybind.h>
+#include <QtConcurrent>
+
 
 #include <Logger.h>
 
@@ -64,9 +66,13 @@ void QAutomationModule::load(QString pathstr){
     m_graphView->getContainerItem()->setY(graphViewObject["y"].toDouble());
 
 
-    QJsonArray nodesArray = m_configurationsObject["nodes"].toArray();
+
+
 
     qDebug()<<"Reading nodes";
+
+
+    QJsonArray nodesArray = m_configurationsObject["nodes"].toArray();
 
     for (int i = 0; i < nodesArray.count(); ++i) {
         QJsonObject nodeObject=nodesArray[i].toObject();
@@ -80,6 +86,10 @@ void QAutomationModule::load(QString pathstr){
         }
 
     }
+
+
+
+
 
 
 
@@ -262,6 +272,7 @@ FlowNode *QAutomationModule::getFlowNodeById(int id)
 
     return nullptr;
 }
+
 
 
 

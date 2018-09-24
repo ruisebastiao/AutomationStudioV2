@@ -1,7 +1,7 @@
 {
     "graphview": {
-        "x": 327.46158665239795,
-        "y": 180.53603375510954,
+        "x": 347.46158665239795,
+        "y": 215.53603375510954,
         "zoom": 0.7002539485051935
     },
     "moduleID": "bsvalidation_1",
@@ -61,6 +61,19 @@
         {
             "editHeight": 422,
             "editWidth": 566,
+            "errorPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 12,
+                        "portID": "input"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "Error",
+                "showinlabel": true,
+                "type": "Out"
+            },
             "executingPort": {
                 "connectedTo": [
                     {
@@ -317,6 +330,19 @@
             "name": "Module Property 5",
             "nodeX": 1757.9336790999478,
             "nodeY": 402.71104590266845,
+            "normalHeight": 147,
+            "normalWidth": 297,
+            "type": "ModulePropertyBind"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 345,
+            "id": 12,
+            "locked": false,
+            "moduleProperty": "serverErrorStatus",
+            "name": "Module Property 6",
+            "nodeX": 1058.1875355102043,
+            "nodeY": 488.3942471585556,
             "normalHeight": 147,
             "normalWidth": 297,
             "type": "ModulePropertyBind"

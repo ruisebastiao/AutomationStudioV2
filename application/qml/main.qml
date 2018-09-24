@@ -29,7 +29,30 @@ ApplicationWindow {
     }
 
 
-    
+    signal toastMessage(string message);
+
+    signal editWifi();
+
+    onEditWifi: {
+        stacked_view.push(configWifiLoader.item);
+    }
+
+    GUI.ToastManager{
+        id:toast_manager
+        anchors.fill: parent
+
+
+        Connections {
+            target: rootwindow
+            onToastMessage:{
+                toast_manager.addMessage(message)
+            }
+
+        }
+
+
+    }
+
     
     visibility: "Maximized"
     //    flags: Qt.Window |Qt.FramelessWindowHint
@@ -74,6 +97,7 @@ ApplicationWindow {
 
 
     property Settings appsettings
+    property Utilities utilities
     property Project selectedproject
     property User loggedUser
 
@@ -106,7 +130,7 @@ ApplicationWindow {
                 usersList.model=appsettings.users
                 usersList.currentIndex= -1
                 
-                automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
+                // automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
                 
                 
             }
@@ -118,8 +142,49 @@ ApplicationWindow {
 
     Component.onCompleted: {
         appsettings=automationstudio.settings;
+        //var teste=automationstudio.utilites.resourceExists("");
+        utilities=automationstudio.utilities;
+        console.log("Checking settings")
+
+
+        var hasnetworkmanager=utilities.resourceExists(":/NetworkManager/");
+        if(hasnetworkmanager){
+            wifiloader.source="qrc:///NetworkManager/NetworkManagerItem.qml";
+            wifilevel_loader.source="qrc:///NetworkManager/WifiLevelItem.qml";
+            configWifiLoader.source="qrc:///NetworkManager/ConfigWifiItem.qml"
+        }
+
+
     }
     
+
+    Connections{
+        target: wifiloader.item
+        onWifiStatusChanged:{
+            console.log("wifistatus:"+wifiStatus)
+        }
+
+        onConnectedNetworkChanged:{
+            //
+            console.log("connectedchanged:"+connectedNetwork)
+            wifilevel_loader.item.network= wifiloader.item.connectedNetwork
+        }
+    }
+
+    Loader{
+        id:wifiloader
+    }
+
+    Loader{
+        id:configWifiLoader
+        onLoaded: {
+            item.networkmanager=wifiloader.item
+        }
+
+    }
+
+
+
     
     Item{
         anchors.fill: parent
@@ -291,7 +356,10 @@ ApplicationWindow {
                                             
                                             if(stacked_view.currentItem){
                                                 if(mainState=="home"){
-                                                    if(loggedUser) return loggedUser.name
+                                                    if(loggedUser) {
+                                                        console.log("loggedUser.name:"+loggedUser.name)
+                                                        return loggedUser.name
+                                                    }
                                                     return "Novares"
                                                 }
                                                 return stacked_view.currentItem.title
@@ -375,105 +443,100 @@ ApplicationWindow {
                             
                             
                             
-                            Component{
-                                id:wifi_fab_component
-                                RoundButton{
-                                    id:wifi_fab
-                                    
-                                    
-                                    visible: false
-                                    
-                                    //                                    CustomComponents.WifiLevel{
-                                    //                                        id:connection_status
-                                    //                                        anchors.fill: parent
-                                    
-                                    //                                        network: network_manager?network_manager.connectedNetwork:null
-                                    
-                                    
-                                    
-                                    //                                    }
-                                    
-                                    
-                                    Material.elevation:0
-                                    
-                                    //opacity:networkManager_component.Ready?1:0
-                                    
-                                    Behavior on opacity {
-                                        NumberAnimation { duration: mainStateAnimationTime }
-                                    }
-                                    
-                                    
-                                    Behavior on Layout.preferredWidth {
-                                        NumberAnimation { duration: mainStateAnimationTime }
-                                    }
-                                    
-                                    
-                                    highlighted: true
-                                    //                            BusyIndicator {
-                                    //                                anchors.fill: parent
-                                    //                                anchors.margins: -2
-                                    //                                running: true
-                                    //                                Material.accent: Material.Red
-                                    //                            }
-                                    
-                                    
-                                    // Material.primary:   Material.Red
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    
-                                    
-                                    
-                                    Image {
-                                        width: 15
-                                        height: 15
-                                        
-                                        anchors.bottom: parent.bottom
-                                        anchors.right: parent.right
-                                        
-                                        anchors.rightMargin: 3
-                                        anchors.bottomMargin: 11
-                                        
-                                        
-                                        
-                                        source: "qrc:/images/alert-outline.png"
-                                        property int status:network_manager?network_manager.wifiStatus:NetworkManager.STAT_NOTINITED;
-                                        property int netCount:network_manager?network_manager.networksAvailableCount:0;
-                                        
-                                        visible: status!=NetworkManager.STAT_CONNECTED && netCount>0
-                                        
-                                        
-                                        
-                                        GUI.Blink{
-                                            running: parent.visible
-                                            blinkTime: 500
-                                            //target: parent
-                                        }
-                                        
-                                        layer.enabled: true
-                                        
-                                        layer.effect: ColorOverlay{
-                                            color: "orange"
-                                        }
-                                    }
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    onClicked: {
-                                        
-                                        if( (loggedUser&&loggedUser.role==User.AdminRole) && mainState!="editwifi"){
-                                            stacked_view.push(editwifi_component);
-                                        }
-                                        
-                                        //wpa_supplicant -Dnl80211 -B -i wlan0 -c /etc/wpa_supplicant.conf
-                                        
+
+                            RoundButton{
+                                id:wifi_fab
+
+
+                                visible: wifilevel_loader.item
+
+
+                                Loader{
+                                    id:wifilevel_loader
+
+                                    anchors.fill: parent
+
+                                    onLoaded: {
+                                        //item.network=wifiloader.item.connectedNetwork
                                     }
                                 }
+
+
+
+                                Material.elevation:0
+
+                                //opacity:networkManager_component.Ready?1:0
+
+                                Behavior on opacity {
+                                    NumberAnimation { duration: mainStateAnimationTime }
+                                }
+
+
+                                Behavior on Layout.preferredWidth {
+                                    NumberAnimation { duration: mainStateAnimationTime }
+                                }
+
+
+                                highlighted: false
+
+
+
+
+                                Image {
+                                    width: 15
+                                    height: 15
+
+                                    anchors.bottom: parent.bottom
+                                    anchors.right: parent.right
+
+                                    anchors.rightMargin: 3
+                                    anchors.bottomMargin: 11
+
+
+
+                                    source: "qrc:/images/alert-outline.png"
+
+                                    property int netCount:wifiloader.item?wifiloader.item.networksAvailableCount:0;
+
+                                    visible: wifiloader.item&&wifiloader.item.connected==false && netCount>0
+
+
+
+
+                                    GUI.Blink{
+                                        running: parent.visible
+                                        blinkTime: 500
+                                        //target: parent
+                                    }
+
+                                    layer.enabled: true
+
+                                    layer.effect: ColorOverlay{
+                                        color: "orange"
+                                    }
+                                }
+
+
+
+
+
+
+                                //                                Component{
+                                //                                    id:editwifi_component
+                                //                                    url:"qrc:///NetworkManager/ConfigWifiItem.qml";
+                                //                                }
+
+
+
+                                onClicked: {
+
+                                    if( (loggedUser&&loggedUser.role==User.AdminRole) && mainState!="editwifi"){
+                                        editWifi()
+                                    }
+
+
+                                }
+
                             }
                             ToolSeparator {
                                 rightPadding:0
@@ -561,6 +624,7 @@ ApplicationWindow {
                                 
                                 RoundButton{
                                     id:settings_fab
+                                    enabled: mainState=="home"
                                     
                                     //cursorShape: Qt.PointingHandCursor
                                     
@@ -681,9 +745,13 @@ ApplicationWindow {
             contentWidth: view.implicitWidth
             contentHeight: view.implicitHeight
             Material.foreground: "white"
-            modal: true
+            modal: false
+            dim:true
             focus: true
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+            closePolicy:Popup.NoAutoClose
+
+            onVisibleChanged: rootwindow.showModalOverlay=visible
+
             background: Rectangle{
                 color: Material.primary
                 radius: 2
@@ -691,6 +759,7 @@ ApplicationWindow {
             Component.onCompleted: {
                 pass_input.focus=true
             }
+
             
             ColumnLayout {
                 
@@ -733,7 +802,7 @@ ApplicationWindow {
         
         Drawer {
             id: drawer
-            width: Math.min(rootwindow.width, rootwindow.height) / 3
+            width: Math.min(rootwindow.width, rootwindow.height) / 2.5
             height: rootwindow.height
             dragMargin: 1
             onPositionChanged: {
@@ -771,6 +840,19 @@ ApplicationWindow {
                             onPressed: {
                                 login_container.opened=!login_container.opened
                             }
+                            onPressAndHold: {
+                                automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
+                            }
+
+                            //                            MouseArea{
+                            //                                anchors.fill: parent
+                            //                                propagateComposedEvents: true
+                            //                                pressAndHold: {
+                            //                                    automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
+                            //                                    mouse.accepted=false
+                            //                                }
+                            //                            }
+
                         }
                         Item {
                             Layout.fillHeight: true
@@ -827,8 +909,12 @@ ApplicationWindow {
                                     text: model.name
                                     highlighted: ListView.isCurrentItem
                                     onClicked: {
-                                        loginpopup.selectedUser=model.user
-                                        loginpopup.open()
+                                        //loginpopup.selectedUser=model.user
+                                        if(model.user.role!=User.AdminRole){
+                                            automationstudio.settings.currentUser=model.user
+                                        }
+
+                                        //loginpopup.open()
                                     }
                                 }
                                 
@@ -938,7 +1024,6 @@ ApplicationWindow {
             }
 
 
-
             Loader{
                 id:layoutloader
                 asynchronous: true
@@ -947,26 +1032,21 @@ ApplicationWindow {
                 anchors.fill: parent
             }
 
+
             BusyIndicator {
                 running: layoutloader.item.modulesloaded!==true
                 anchors.centerIn: parent
-                width: parent.width/2
-                height: parent.height/2
+                width: parent.width/3
+                height: parent.height/3
             }
+
+
 
 
             Component{
                 id:layoutcomponent
                 GUI.DockingLayout{
                     id:modulescontainer
-                    opacity:modulesloaded?1:0.4
-                    Behavior on opacity{
-
-                        NumberAnimation {
-                            duration: 150
-                            // easing.type: Easing.InOutQuad
-                        }
-                    }
 
                     anchors.fill: parent
                     loggedUser:appsettings?appsettings.currentUser:null
@@ -1094,15 +1174,36 @@ ApplicationWindow {
     
     
     
-    
+    property bool showModalOverlay: false
+    onShowModalOverlayChanged: console.log("showModalOverlay:"+showModalOverlay)
+
+
+    Item{
+        id:modalOverlay
+
+
+        //        color: "red"
+        anchors.centerIn: parent
+        width: parent.width
+        height: parent.height
+
+        visible: showModalOverlay
+        //        parent: window.contentItem
+        MouseArea{
+            anchors.fill: parent
+            propagateComposedEvents: false
+        }
+    }
+
+
     
     InputPanel {
         id: inputPanel
-        z: 99
+        z: 2000002
         x: 0
         y: rootwindow.height
         width: rootwindow.width
-        scale: 0.7
+        scale: 0.9
         states: State {
             name: "visible"
             when: inputPanel.active

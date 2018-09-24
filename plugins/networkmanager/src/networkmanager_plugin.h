@@ -9,4 +9,8 @@ class NetworkManagerPlugin: public QQmlExtensionPlugin
 
 public:
     void registerTypes(const char *uri);
+
+    // QQmlExtensionInterface interface
+public:
+    virtual void initializeEngine(QQmlEngine *engine, const char *uri) override;
 };

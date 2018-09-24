@@ -95,6 +95,8 @@ public:
 
     FlowNode* getFlowNodeById(int id);
 
+
+
 private:
 
     QString m_name;

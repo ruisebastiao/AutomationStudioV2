@@ -11,3 +11,5 @@ PaneHeader              1.0 qrc:///qml/PaneHeader.qml
 UserSettingsView        1.0 qrc:///qml/UserSettingsView.qml
 DockingLayout           1.0 qrc:///qml/DockingLayout.qml
 DockingItem             1.0 qrc:///qml/DockingItem.qml
+CircleProgress          1.0 qrc:///qml/CircleProgress.qml
+ToastManager            1.0 qrc:///qml/ToastManager.qml

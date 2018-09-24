@@ -44,6 +44,7 @@ void BSValidationNode::setDatain(QString datain)
     m_datain = datain;
 
     if(m_datain==""){
+        qDebug()<<"Empty data";
         return;
     }
 

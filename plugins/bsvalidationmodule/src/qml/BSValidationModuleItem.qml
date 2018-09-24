@@ -38,6 +38,11 @@ BSValidationModule {
             enabled: true
             id:visualitem
             property color currentcolor: Material.primary
+
+            Behavior on currentcolor{
+                ColorAnimation {duration: 400 }
+            }
+
             Material.background:  currentcolor
 
             Layout.fillHeight: true

@@ -18,6 +18,9 @@
 
 Q_DECLARE_LOGGING_CATEGORY(networkManager)
 
+#ifndef HAS_NETWORKMANAGER
+#define HAS_NETWORKMANAGER
+#endif
 
 class NetworkManager : public QObject
 {
@@ -43,6 +46,9 @@ public:
     Q_PROPERTY(QString wpaDriver READ wpaDriver WRITE setWpaDriver NOTIFY wpaDriverChanged)
 
     Q_PROPERTY(QString lastMessage READ lastMessage WRITE setLastMessage NOTIFY lastMessageChanged)
+
+    Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
+
 
     Q_PROPERTY(WIFIStat wifiStatus READ wifiStatus NOTIFY wifiStatusChanged)
 
@@ -133,6 +139,11 @@ public:
         return m_scanning;
     }
 
+    bool connected() const
+    {
+        return m_connected;
+    }
+
 private:
     char *ctrl_iface;
     struct wpa_ctrl *ctrl_conn;
@@ -164,9 +175,13 @@ private:
 //        qCDebug(networkManager)<<"Status Changed:"<<m_wifiStatus;
 
         if(m_wifiStatus==STAT_CONNECTED){
-            QtConcurrent::run(executeProcess, QString("udhcpc -i wlan0 -q"));
+//            QtConcurrent::run(executeProcess, QString("udhcpc -i wlan0 -q"));
+            //QtConcurrent::run(executeProcess, QString("ifup wlan0"));
+            setConnected(true);
 
-
+        }
+        if(m_wifiStatus==STAT_DISCONNECTED){
+            setConnected(false);
         }
 
         emit wifiStatusChanged(m_wifiStatus);
@@ -194,7 +209,7 @@ private:
 
     QString m_wpaDriver="nl80211";
 
-    bool m_wpsNetworksAvailable;
+    bool m_wpsNetworksAvailable=false;
 
     bool m_wpsStarted=false;
 
@@ -203,7 +218,9 @@ private:
     void getStatus();
     int m_networksAvailableCount=0;
 
-    bool m_scanning;
+    bool m_scanning=false;
+
+    bool m_connected=false;
 
 signals:
 
@@ -227,6 +244,8 @@ signals:
     void networksAvailableCountChanged(int networksAvailableCount);
 
     void scanningChanged(bool scanning);
+
+    void connectedChanged(bool connected);
 
 private slots:
     void testWpasupplicant();
@@ -336,6 +355,14 @@ public slots:
 
         m_scanning = scanning;
         emit scanningChanged(m_scanning);
+    }
+    void setConnected(bool connected)
+    {
+        if (m_connected == connected)
+            return;
+
+        m_connected = connected;
+        emit connectedChanged(m_connected);
     }
 };
 

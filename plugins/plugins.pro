@@ -14,8 +14,11 @@ SUBDIRS += \
     guimodule
 
 unix{
-SUBDIRS += \
-    networkmanager
+WITH-NETWORKMANAGER{
+    message(With network manager)    
+    SUBDIRS += \
+        networkmanager
+    }
 }
 
 QML_IMPORT_PATH += \

@@ -60,7 +60,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
                 FlowNode* targetNode=getNodeFromEdge(edgeItem);
 
                 if(targetNode){
-                    ConnectionInfo* connectioninfo=Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
+                    ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
 
                     if(connectioninfo){
                         m_connections.removeOne(connectioninfo);
@@ -86,7 +86,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
         if(targetNode!=nullptr){
             targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
             int targetid=targetNode->id();
-            ConnectionInfo* connectioninfo=Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetid));
+            ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetid));
 
             if(connectioninfo){
                 if(connectioninfo->portID()==targetPortItem->getId()){

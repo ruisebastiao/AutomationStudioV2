@@ -1,5 +1,11 @@
  INCLUDEPATH += $$PWD
 
+
+DEFINES += CONFIG_CTRL_IFACE
+
+DEFINES += CONFIG_CTRL_IFACE_UNIX
+
+
 HEADERS += \
     $$PWD/networkmanager_plugin.h \
     $$PWD/networkmanagerglobal.h \
@@ -23,4 +29,8 @@ SOURCES += \
     $$PWD/scanresults.cpp \
     $$PWD/os_unix.c \
     $$PWD/wpa_ctrl.c
+
+DISTFILES += \
+    $$PWD/qml/ConfigWifiItem.qml \
+    $$PWD/qml/NetworkManagerItem.qml
 

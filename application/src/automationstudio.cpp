@@ -32,6 +32,8 @@
 #include <QGuiApplication>
 #include <QPluginLoader>
 
+#include <automationstudiocore/utilities.h>
+
 
 namespace as{
 
@@ -47,6 +49,7 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
     ctx->setContextProperty("appDir", m_currentDir);
     m_settings= new Settings(this,m_currentDir+"/appsettings.json");
     m_systemSettings= new SystemSettings(this);
+    m_utilities= new Utilities(this);
 
 
 }
@@ -103,6 +106,7 @@ void AutomationStudio::loadPlugins(){
             QObject *plugin = pluginLoader.instance();
             if (plugin) {
                 qDebug()<<"Plugin loaded:"<<plugin;
+
             }
 
         }
@@ -132,6 +136,11 @@ void AutomationStudio::loadInternalPlugins(){
     qmlRegisterUncreatableType<as::Settings>(
                 "base", 1, 0, "Settings", "Settings is available through the \'automationstudio.settings\' property."
                 );
+
+    qmlRegisterUncreatableType<as::Utilities>(
+                "base", 1, 0, "Utilities", "Settings is available through the \'automationstudio.utilities\' property."
+                );
+
 
     qmlRegisterUncreatableType<SystemSettings >("base", 1, 0, "SystemSettings","SystemSettings is available through the \'automationstudio.systemsettings\' property.");
 

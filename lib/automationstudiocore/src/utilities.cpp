@@ -1,5 +1,6 @@
 #include "utilities.h"
 
+namespace as{
 
 Utilities::Utilities(QObject *parent) : QObject(parent)
 {
@@ -16,6 +17,10 @@ void Utilities::executeCommand(QString command, bool waitfinished)
     }
 }
 
+bool Utilities::resourceExists(QString path){
+
+    return  QFile::exists(path);
+}
 
 bool Utilities::fileExists(QString filepath)
 {
@@ -39,4 +44,4 @@ bool Utilities::eventFilter(QObject *watched, QEvent *event)
 }
 
 
-
+}

@@ -12,6 +12,10 @@ TARGET = $$qtLibraryTarget($$TARGET)
 uri = networkmanager
 
 
+RESOURCES += \
+    src/networkmanager.qrc
+
+
 OTHER_FILES += \
     qml/*.qml \
     qml/qmldir

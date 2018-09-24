@@ -80,8 +80,8 @@ public slots:
 
         auto userrole=QMetaEnum::fromType<UserRole>().keyToValue(role.toLatin1());
 
-        if (m_role == userrole)
-            return;
+//        if (m_role == userrole)
+//            return;
 
         m_role = static_cast<UserRole>(userrole);;
         emit roleChanged(m_role);

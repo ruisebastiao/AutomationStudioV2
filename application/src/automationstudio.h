@@ -21,6 +21,7 @@
 #include <QLibrary>
 
 #include <automationstudiocore/systemsettings.h>
+#include <automationstudiocore/utilities.h>
 #include <QCoreApplication>
 // Versioning
 // ----------
@@ -52,6 +53,10 @@ class AutomationStudio : public QObject{
     Q_PROPERTY(QCoreApplication* coreApplication READ coreApplication WRITE setCoreApplication NOTIFY coreApplicationChanged)
 
     Q_PROPERTY(as::Settings*       settings READ settings CONSTANT)
+
+    Q_PROPERTY(as::Utilities*       utilities READ utilities CONSTANT)
+
+
     Q_PROPERTY(SystemSettings*     systemSettings READ systemSettings NOTIFY systemSettingsChanged)
 
 public:
@@ -92,6 +97,11 @@ public:
     }
 
     void loadPlugins();
+    as::Utilities* utilities() const
+    {
+        return m_utilities;
+    }
+
 public slots:
 
     void setCoreApplication(QCoreApplication* coreApplication)
@@ -124,7 +134,11 @@ private:
     QString m_currentDir="";
 
     SystemSettings* m_systemSettings=nullptr;
+
     QCoreApplication* m_coreApplication=nullptr;
+
+
+    as::Utilities* m_utilities=nullptr;
 };
 
 inline int AutomationStudio::versionMajor(){

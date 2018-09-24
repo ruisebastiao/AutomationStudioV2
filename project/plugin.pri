@@ -57,7 +57,7 @@ TARGET_PLUGIN_PATH=$$TARGET_PATH/plugins/$$PLUGIN_PATH
 qmldir.files = qmldir
 
 unix {
-    message($$TARGET_PLUGIN_PATH)
+#    message($$TARGET_PLUGIN_PATH)
     qmldir.path = $$TARGET_PLUGIN_PATH
     target.path += $$TARGET_PLUGIN_PATH
     INSTALLS += target qmldir

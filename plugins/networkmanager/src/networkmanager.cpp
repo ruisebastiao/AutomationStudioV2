@@ -119,6 +119,8 @@ void NetworkManager::getStatus(){
 
                 if(wpa_state=="COMPLETED"){
 
+
+
                     setConnectedNetwork(m_availableNetworks->getBySSID(connected_ssid));
 
 

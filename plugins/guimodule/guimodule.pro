@@ -12,12 +12,15 @@ TARGET = $$qtLibraryTarget($$TARGET)
 uri = guimodule
 
 
+
 OTHER_FILES += \
     qml/*.qml \
     qml/qmldir
 
 DISTFILES += \
-        qmldir
+        qmldir \
+    src/qml/ToastManager.qml \
+    src/qml/ToastManager.qml
 
 qmldir.files = qmldir
 
@@ -33,4 +36,6 @@ include($$PWD/src/guimodule.pri)
 
 RESOURCES += \
     src/guimodule.qrc
+
+
 

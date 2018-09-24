@@ -33,6 +33,10 @@ public:
     Q_PROPERTY(FlowNodePort* executingPort READ executingPort WRITE setExecutingPort NOTIFY executingPortChanged USER("serialize"))
 
 
+    Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
+    Q_PROPERTY(FlowNodePort* errorPort READ errorPort WRITE setErrorPort NOTIFY errorPortChanged USER("serialize"))
+
+
     // FlowNode interface
 public:
     static QQmlComponent *delegate(QQmlEngine &engine);
@@ -217,95 +221,130 @@ public slots:
     }
 
     void setExecutingPort(FlowNodePort* executingPort)
+    {
+        if (m_executingPort == executingPort)
+            return;
+
+        m_executingPort = executingPort;
+        emit executingPortChanged(m_executingPort);
+    }
+
+
+
+
+    void setError(QString error)
+    {
+
+        m_error = error;
+        emit errorChanged(m_error);
+    }
+
+    void setErrorPort(FlowNodePort* errorPort)
 {
-    if (m_executingPort == executingPort)
+    if (m_errorPort == errorPort)
     return;
 
-m_executingPort = executingPort;
-emit executingPortChanged(m_executingPort);
+m_errorPort = errorPort;
+emit errorPortChanged(m_errorPort);
 }
 
 signals:
 
 
-    void serviceUrlChanged(QString serviceUrl);
+void serviceUrlChanged(QString serviceUrl);
 
 
 
-    void formattedUrlChanged(QString formattedUrl);
+void formattedUrlChanged(QString formattedUrl);
 
-    void param1Changed(QString param1);
+void param1Changed(QString param1);
 
-    void param2Changed(QString param2);
+void param2Changed(QString param2);
 
-    void responseChanged(QString response);
+void responseChanged(QString response);
 
-    void param1NameChanged(QString param1Name);
+void param1NameChanged(QString param1Name);
 
-    void param2NameChanged(QString param2Name);
+void param2NameChanged(QString param2Name);
 
-    void executingChanged(bool executing);
+void executingChanged(bool executing);
 
-    void param1PortChanged(FlowNodePort* param1Port);
+void param1PortChanged(FlowNodePort* param1Port);
 
-    void param1NamePortChanged(FlowNodePort* param1NamePort);
+void param1NamePortChanged(FlowNodePort* param1NamePort);
 
-    void param2PortChanged(FlowNodePort* param2Port);
+void param2PortChanged(FlowNodePort* param2Port);
 
-    void param2NamePortChanged(FlowNodePort* param2NamePort);
+void param2NamePortChanged(FlowNodePort* param2NamePort);
 
-    void responsePortChanged(FlowNodePort* responsePort);
+void responsePortChanged(FlowNodePort* responsePort);
 
-    void executingPortChanged(FlowNodePort* executingPort);
+void executingPortChanged(FlowNodePort* executingPort);
+
+void errorChanged(QString error);
+
+void errorPortChanged(FlowNodePort* errorPort);
 
 private:
 
-    void setFormattedUrl()
-    {
+void setFormattedUrl()
+{
 
 
-        m_formattedUrl = "?"+m_param1Name+"="+m_param1+"&"+m_param2Name+"="+m_param2;
-        emit formattedUrlChanged(m_formattedUrl);
-//        makeRequest();
-    }
+    m_formattedUrl = "?"+m_param1Name+"="+m_param1+"&"+m_param2Name+"="+m_param2;
+    emit formattedUrlChanged(m_formattedUrl);
+    //        makeRequest();
+}
 
 
-    QString m_serviceUrl="";
+QString m_serviceUrl="";
 
-    QString m_formattedUrl="";
-    QString m_param1="";
-    QString m_param2="";
-    QString m_response="";
-    QString m_param1Name="";
-    QString m_param2Name="";
+QString m_formattedUrl="";
+QString m_param1="";
+QString m_param2="";
+QString m_response="";
+QString m_param1Name="";
+QString m_param2Name="";
 
-    QNetworkAccessManager *m_manager=nullptr;
+QNetworkAccessManager *m_manager=nullptr;
 
-    bool m_executing=false;
+bool m_executing=false;
 
-    FlowNodePort* m_param1Port=nullptr;
+FlowNodePort* m_param1Port=nullptr;
 
-    FlowNodePort* m_param1NamePort=nullptr;
+FlowNodePort* m_param1NamePort=nullptr;
 
-    FlowNodePort* m_param2Port=nullptr;
+FlowNodePort* m_param2Port=nullptr;
 
-    FlowNodePort* m_param2NamePort=nullptr;
+FlowNodePort* m_param2NamePort=nullptr;
 
-    FlowNodePort* m_responsePort=nullptr;
+FlowNodePort* m_responsePort=nullptr;
 
-    FlowNodePort* m_executingPort=nullptr;
+FlowNodePort* m_executingPort=nullptr;
+
+QString m_error="";
+
+FlowNodePort* m_errorPort=nullptr;
 
 public:
-    void Serialize(QJsonObject &json) override;
-    void DeSerialize(QJsonObject &json) override;
-    FlowNodePort* responsePort() const
-    {
-        return m_responsePort;
-    }
-    FlowNodePort* executingPort() const
-    {
-        return m_executingPort;
-    }
+void Serialize(QJsonObject &json) override;
+void DeSerialize(QJsonObject &json) override;
+FlowNodePort* responsePort() const
+{
+    return m_responsePort;
+}
+FlowNodePort* executingPort() const
+{
+    return m_executingPort;
+}
+QString error() const
+{
+    return m_error;
+}
+FlowNodePort* errorPort() const
+{
+    return m_errorPort;
+}
 };
 
 #endif // WEBSERVICENODE_H
