@@ -25,10 +25,9 @@ linkPluginLibrary(automationmodule,   automationmodule)
 #    QML_IMPORT_PATH += \
 #    /home/rui/Qt/5.11.1/gcc_64/qml
 
-#    QMAKE_LFLAGS += \
-#        '-Wl,-rpath,\'\$$ORIGIN\'' \
-#        '-Wl,-rpath,\'\$$ORIGIN/link\''
-#        '-Wl,-rpath,\'\$$ORIGIN/lib\''
+    QMAKE_LFLAGS += \
+        "-Wl,-rpath,\'\$$ORIGIN\'"
+
 
     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/QuickQanava\'"
     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/automationmodule\'"
@@ -84,6 +83,10 @@ target.path = $${TARGET_PATH}
 configfiles.path = $${TARGET_PATH}
 
 INSTALLS += target
+
+WITH-CONFIGS{
+    INSTALLS += configfiles
+}
 
 DISTFILES += \
     ../configfiles/appsettings.json \
