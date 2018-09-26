@@ -160,7 +160,7 @@ Pane{
                 anchors.fill: parent
 
 
-                asynchronous:true
+//                asynchronous:true
                 id:moduleloader
                 onLoaded: {
                     root.loadedmodule=moduleloader.item

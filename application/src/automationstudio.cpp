@@ -97,12 +97,32 @@ void AutomationStudio::loadPlugins(){
 
     qDebug()<<"Loading plugin modules";
 
-    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs)) {
+
+
+
+    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+        QString dirpath=pluginsDir.absoluteFilePath(dirName);
+
+        QCoreApplication::addLibraryPath(dirpath);
+
+    }
+
+    QPluginLoader pluginLoader;
+
+
+    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
         QString dirpath=pluginsDir.absoluteFilePath(dirName);
         QDir pluginsDirFiles(dirpath);
 
-        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files)) {
-            QPluginLoader pluginLoader(pluginsDirFiles.absoluteFilePath(fileName));
+        QStringList filters;
+        filters << "*.dll";
+        pluginsDirFiles.setNameFilters(filters);
+
+
+        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
+            pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(fileName));
+            pluginLoader.load();
+
             QObject *plugin = pluginLoader.instance();
             if (plugin) {
                 qDebug()<<"Plugin loaded:"<<plugin;
@@ -111,6 +131,28 @@ void AutomationStudio::loadPlugins(){
 
         }
 
+
+    }
+    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+        QString dirpath=pluginsDir.absoluteFilePath(dirName);
+        QDir pluginsDirFiles(dirpath);
+        QStringList filters;
+        filters << "*.dll";
+        pluginsDirFiles.setNameFilters(filters);
+        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
+            pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(fileName));
+
+            if(pluginLoader.isLoaded()==false){
+                pluginLoader.load();
+
+                QObject *plugin = pluginLoader.instance();
+                if (plugin) {
+                    qDebug()<<"Plugin loaded:"<<plugin;
+
+                }
+
+            }
+        }
 
     }
 

@@ -89,11 +89,6 @@ void QAutomationModule::load(QString pathstr){
 
 
 
-
-
-
-
-
     qDebug()<<"Module loaded";
     emit moduleLoadedChanged(true);
 }
