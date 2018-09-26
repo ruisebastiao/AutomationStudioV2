@@ -15,13 +15,13 @@
     ],
     "users": [
         {
-            "default": true,
+            "default": false,
             "name": "Administrator",
             "pin": "4321",
             "role": "AdminRole"
         },
         {
-            "default": false,
+            "default": true,
             "name": "Production User",
             "pin": "0000",
             "role": "ProductionRole"
