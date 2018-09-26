@@ -85,7 +85,10 @@ configfiles.path = $${TARGET_PATH}
 INSTALLS += target
 
 WITH-CONFIGS{
-    INSTALLS += configfiles
+
+    QMAKE_EXTRA_TARGETS += configfiles
+    POST_TARGETDEPS += configfiles
+
 }
 
 DISTFILES += \
