@@ -13,8 +13,12 @@ Item{
 
     id:root
     clip:true
+    visible: automationstudio.systemSettings
+    property SystemSettings system: automationstudio.systemSettings
     Flickable {
+
         id: userflickable
+        visible: root.system
 
         anchors.fill: parent
         //    contentWidth: parent.width
@@ -49,7 +53,7 @@ Item{
                     Layout.fillWidth: true
                     PaneHeader{
                         id:app_header
-//                        title:qsTr("User interface")+translator.emptyString
+                        //                        title:qsTr("User interface")+translator.emptyString
                         Layout.preferredHeight: 24
                         Layout.fillWidth: true
                     }
@@ -91,10 +95,10 @@ Item{
 
                                 popup.onClosed: {
 
-//                                    if(currentIndex>=0){
-//                                        var lang=combo_language.model[combo_language.currentIndex].locale;
-//                                        loggedUser.language=lang;
-//                                    }
+                                    //                                    if(currentIndex>=0){
+                                    //                                        var lang=combo_language.model[combo_language.currentIndex].locale;
+                                    //                                        loggedUser.language=lang;
+                                    //                                    }
 
 
                                 }
@@ -105,14 +109,14 @@ Item{
                                 }
 
                                 Component.onCompleted: {
-//                                    currentIndex=Qt.binding(
-//                                                function(){
-//                                                    var setindex= Utils.arrayObjectIndexOf(combo_language.model,loggedUser.language,"locale");
-//                                                    return setindex;
-//                                                }
+                                    //                                    currentIndex=Qt.binding(
+                                    //                                                function(){
+                                    //                                                    var setindex= Utils.arrayObjectIndexOf(combo_language.model,loggedUser.language,"locale");
+                                    //                                                    return setindex;
+                                    //                                                }
 
-//                                                );
-//                                    popup.padding=1
+                                    //                                                );
+                                    //                                    popup.padding=1
 
                                 }
 
@@ -204,7 +208,7 @@ Item{
                             background.width=0
                         }
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 150
+                        Layout.preferredHeight: 250
 
                         RowLayout{
                             anchors.fill: parent
@@ -239,7 +243,7 @@ Item{
                                             Layout.margins: 5
                                             Layout.minimumWidth: 75
                                             Material.accent: selectedprimary
-//                                            text:appsettings.releaseVersion?appsettings.releaseVersion:"unknown"
+                                            //                                            text:appsettings.releaseVersion?appsettings.releaseVersion:"unknown"
                                             MaterialPlaceHolder{
 
                                                 placeHolderText:qsTr("Release")
@@ -261,15 +265,15 @@ Item{
                                                 width: 50
                                                 height: 50
                                                 highlighted: true
-                                                enabled: appsettings.checkingUpdate==false
+                                                enabled: automationstudio.settings.checkingUpdate==false
 
                                                 onPressed: {
-                                                    if(appsettings.updateAvailable){
+                                                    if(automationstudio.settings.updateAvailable){
                                                         window.close()
 
                                                     }
                                                     else{
-                                                        appsettings.checkUpdate()
+                                                        automationstudio.settings.checkUpdate()
                                                     }
                                                 }
 
@@ -277,7 +281,7 @@ Item{
                                                     anchors.fill: parent
                                                     anchors.margins: 5
                                                     running: false
-//                                                    running: appsettings.checkingUpdate?appsettings.checkingUpdate:false
+                                                    //                                                    running: appsettings.checkingUpdate?appsettings.checkingUpdate:false
                                                     //                                                    Material.accent: "#ffb47b"
                                                 }
 
@@ -312,7 +316,7 @@ Item{
                                                     NumberAnimation { target: update_icon; property: "y"; from:icon_container.height+2; to: icon_container.height/2-update_icon.width/2; duration: 250 }
                                                     loops: Animation.Infinite
                                                     running: false
-//                                                    running: appsettings.updateAvailable?appsettings.updateAvailable:false
+                                                    //                                                    running: appsettings.updateAvailable?appsettings.updateAvailable:false
 
                                                 }
                                             }
@@ -336,43 +340,69 @@ Item{
                                     anchors.margins: 5
                                     title:qsTr("Network")
 
-                                    RowLayout{
-                                        anchors.fill: parent
-                                        TextField{
-                                            id:ip_field
-                                            property SystemSettings system: automationstudio.systemSettings
-                                            onSystemChanged: {
-                                                console.log(system)
+                                    ColumnLayout{
+
+                                        id: netlayout
+                                        //anchors.fill: parent
+
+                                        RowLayout{
+
+                                            TextField{
+                                                id:ip_field
+
+
+                                                readOnly: true
+                                                Layout.margins: 5
+                                                Layout.minimumWidth: 150
+                                                Material.accent: selectedprimary
+                                                text:root.system.localIP
+                                                MaterialPlaceHolder{
+
+                                                    placeHolderText:qsTr("IP")
+                                                }
                                             }
+                                            RoundButton{
+                                                id:set_wifi_bt
+                                                Layout.preferredHeight: 56
+                                                Layout.preferredWidth: 56
+                                                highlighted: true
+                                                Image{
+                                                    //                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.centerIn: parent
+                                                    //                                                anchors.topMargin: 8
+                                                    width: 36
+                                                    height: 36
+                                                    source: "qrc:/images/1496586297_wifi_Logo.png"
 
-                                            readOnly: true
-                                            Layout.margins: 5
-                                            Layout.minimumWidth: 150
-                                            Material.accent: selectedprimary
-                                            text:system.localIP
-                                            MaterialPlaceHolder{
+                                                }
+                                                onClicked:  {
+                                                    editWifi()
+                                                }
 
-                                                placeHolderText:qsTr("IP")
                                             }
                                         }
-                                        RoundButton{
-                                            id:set_wifi_bt
-                                            Layout.preferredHeight: 56
-                                            Layout.preferredWidth: 56
-                                            highlighted: true
-                                            Image{
-                                                //                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                anchors.centerIn: parent
-                                                //                                                anchors.topMargin: 8
-                                                width: 36
-                                                height: 36
-                                                source: "qrc:/images/1496586297_wifi_Logo.png"
 
-                                            }
-                                            onClicked:  {                                                
-                                                editWifi()
-                                            }
+                                        RowLayout{
 
+                                            TextField{
+                                                id:hostname_field
+
+
+//                                                readOnly: true
+                                                Layout.margins: 5
+                                                Layout.fillWidth: true
+                                                Material.accent: selectedprimary
+                                                text:root.system.hostname
+
+                                                onAccepted: {
+                                                    root.system.setNewHostName(hostname_field.text);
+                                                }
+
+                                                MaterialPlaceHolder{
+
+                                                    placeHolderText:qsTr("Hostname")
+                                                }
+                                            }
                                         }
                                     }
                                 }

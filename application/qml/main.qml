@@ -981,12 +981,17 @@ ApplicationWindow {
                     RoundButton{
                         id:fab
                         width: 64
+                        visible:  automationstudio.reboot?true:false
                         height: 64
                         highlighted: true
+                        icon.source: "qrc:/images/if_refresh_926645.png"
                         z:9999
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
                         Material.accent: Material.primary
+                        onClicked: {
+                            automationstudio.reboot();
+                        }
                         
                     }
                 }

@@ -4,6 +4,11 @@ QT      += core qml quick
 CONFIG  += qt
 
 
+RPI{
+    message(is raspberry)
+    DEFINES += RPI
+}
+
 ## Win stack trace
 
 

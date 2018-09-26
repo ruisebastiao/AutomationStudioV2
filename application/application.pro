@@ -11,7 +11,10 @@ win32{
     QML_IMPORT_PATH += $${DEPLOY_PATH}/plugins
 
 }
-
+RPI{
+    message(is raspberry)
+    DEFINES += RPI
+}
 
 unix:!macx{
 linkPluginLibrary(QuickQanava,   QuickQanava)
@@ -80,7 +83,7 @@ configfiles.files+=\
 target.path = $${TARGET_PATH}
 configfiles.path = $${TARGET_PATH}
 
-INSTALLS += target configfiles
+INSTALLS += target
 
 DISTFILES += \
     ../configfiles/appsettings.json \

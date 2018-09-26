@@ -6,6 +6,7 @@
 #include <qobject.h>
 #include <qhostaddress.h>
 #include <qnetworkinterface.h>
+#include <qprocess.h>
 #include "QNetworkConfigurationManager"
 #include "QNetworkSession"
 
@@ -17,15 +18,21 @@ class AUTOMATIONSTUDIO_CORE_EXPORT SystemSettings:public QObject
 
     Q_PROPERTY(QString localIP READ localIP NOTIFY localIPChanged)
     Q_PROPERTY(QNetworkSession::State networkState READ networkState NOTIFY networkStateChanged)
+    Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
+
+
 private:
     QString m_localIP;
     QNetworkConfigurationManager *manager;
 
     QNetworkSession::State m_networkState;
 
+    QString m_hostname="?";
+
 public:
     SystemSettings(QObject *parent = nullptr);
 
+    Q_INVOKABLE void setNewHostName(QString name);
     QString localIP()
     {
         QList<QHostAddress> list = QNetworkInterface::allAddresses();
@@ -47,13 +54,31 @@ public:
         return m_networkState;
     }
 
+    QString hostname() const
+    {
+        return m_hostname;
+    }
+
 private slots:
     void NetworkChanged(QNetworkSession::State state);
 public slots:
 
+    void setHostname(QString hostname)
+    {
+        if (m_hostname == hostname)
+            return;
+
+        m_hostname = hostname;
+
+
+
+        emit hostnameChanged(m_hostname);
+    }
+
 signals:
     void localIPChanged(QString localIP);
     void networkStateChanged(QNetworkSession::State networkState);
+    void hostnameChanged(QString hostname);
 };
 
 #endif // SYSTEMSETTINGS_H

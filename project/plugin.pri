@@ -30,6 +30,12 @@ QT          += qml quick
 CONFIG      += qt plugin
 TARGET      = $$PLUGIN_NAME
 
+
+RPI{
+    message(is raspberry)
+    DEFINES += RPI
+}
+
 win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/plugins/$$PLUGIN_PATH/lib
     isEmpty(DEPLOY_TO_AUTOMATIONSTUDIO)|equals(DEPLOY_TO_AUTOMATIONSTUDIO, false){

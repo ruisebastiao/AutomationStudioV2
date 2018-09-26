@@ -31,6 +31,7 @@
         <file>images/settings.png</file>
         <file>images/spain_round_icon_64.png</file>
         <file>images/united_kingdom_round_icon_64.png</file>
+        <file>images/if_refresh_926645.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="UbuntuMono-Bold.ttf">fonts/UbuntuMono-Bold.ttf</file>

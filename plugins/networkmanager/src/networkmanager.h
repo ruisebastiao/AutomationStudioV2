@@ -207,7 +207,8 @@ private:
 
     NetworkInfo* m_connectedNetwork=0;
 
-    QString m_wpaDriver="nl80211";
+//    QString m_wpaDriver="nl80211";
+      QString m_wpaDriver="wext";
 
     bool m_wpsNetworksAvailable=false;
 

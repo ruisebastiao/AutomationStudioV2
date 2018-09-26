@@ -115,7 +115,17 @@ void AutomationStudio::loadPlugins(){
         QDir pluginsDirFiles(dirpath);
 
         QStringList filters;
+#if defined(Q_OS_WIN32)
         filters << "*.dll";
+#endif
+
+
+#if defined(Q_OS_LINUX)
+        filters << "*.so*";
+
+#endif
+
+
         pluginsDirFiles.setNameFilters(filters);
 
 
@@ -191,6 +201,19 @@ void AutomationStudio::loadInternalPlugins(){
     m_engine->rootContext()->setContextProperty("automationstudio",  this);
 
 }
+
+
+#ifdef RPI
+
+void AutomationStudio::reboot()
+{
+
+    this->utilities()->executeCommand("reboot",false);
+
+    //QtConcurrent::run(executeProcess, QString("wpa_supplicant -D"+wpaDriver()+" -B -i wlan0 -c /etc/wpa_supplicant.conf"));
+}
+
+#endif
 
 
 

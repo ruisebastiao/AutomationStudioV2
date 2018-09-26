@@ -81,6 +81,9 @@ public:
     void loadInternalPlugins();
 
 
+#ifdef RPI
+    Q_INVOKABLE void reboot();
+#endif
 
     Settings* settings();
     QQmlApplicationEngine*   engine();

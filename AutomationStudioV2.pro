@@ -17,6 +17,10 @@
 )
 
 
+
+
+
+
 #message($$TARGET_PATH)
 CONFIG      += warn_on qt thread c++14
 # --- Project structure ---
