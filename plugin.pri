@@ -1,18 +1,21 @@
 include(config.pri)
 
 message(----PLUGIN---)
+
+PLUGIN_PATH=$$[QT_SYSROOT]$${DEPLOY_PATH}/$$TARGET/
+
 win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
     DLLDESTDIR = $$DEPLOY_PATH
-}else:!RPI{
-    DESTDIR = $$DEPLOY_PATH/$$TARGET/
+}else:{
+    DESTDIR = $$PLUGIN_PATH
 }
 
 
 
 unix:!REMOTE_RPI{
 
-    PLUGIN_PATH=$$[QT_SYSROOT]$${DEPLOY_PATH}/$$TARGET/
+
 
     #message($$PLUGIN_PATH)
 
