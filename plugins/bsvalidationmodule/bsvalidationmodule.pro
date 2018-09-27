@@ -3,34 +3,24 @@ TARGET = bsvalidationmodule
 QT += qml quick
 CONFIG += plugin c++14
 
-PLUGIN_NAME = bsvalidationmodule
-PLUGIN_PATH = bsvalidationmodule
-
-CONFIG += plugin c++14
-
-
-# PLUGIN_NAME and PLUGIN_PATH must be set up prior to including this config file
-include($$getGlobalFile(plugin.pri))
 
 DEFINES += BSVALIDATIONMODULE_LIB
 
-uri = bsvalidationmoduleQuickQanava
+uri = bsvalidationmodule
 
 
-linkLocalLibrary(automationstudiocore,   automationstudiocore)
-linkLocalLibrary(CuteLogger,   CuteLogger)
-linkLocalPlugin(automationmodule, automationmodule)
-linkLocalPlugin(QuickQanava,   QuickQanava)
+include(../../plugin.pri)
+include(../../functions.pri)
 
+linkLocalLib(automationmodule)
+linkLocalLib(CuteLogger)
 
-    # add custom path
-    QMAKE_LFLAGS += -Wl,-rpath,$$TARGET_PATH/plugins/automationmodule
-    QMAKE_LFLAGS += -Wl,-rpath,$$TARGET_PATH/plugins/QuickQanava
-
-# Source
 
 include($$PWD/src/bsvalidationmodule.pri)
-include($$PWD/include/bsvalidationmoduleheaders.pri)
+
+include($$PWD/../../lib/automationstudiocore/include/automationstudiocoreheaders.pri)
+include($$PWD/../../lib/CuteLogger/include/cuteloggerheaders.pri)
+
 
 OTHER_FILES += \
     qml/*.qml \
@@ -55,14 +45,3 @@ qmldir.files = qmldir
 }
 
 
-
-#TARGET_PLUGIN_PATH=$$TARGET_PATH/plugins/$$PLUGIN_PATH
-
-#qmldir.files = qmldir
-
-#unix {
-#    message($$TARGET_PLUGIN_PATH)
-#    qmldir.path = $$TARGET_PLUGIN_PATH
-#    target.path += $$TARGET_PLUGIN_PATH
-#    INSTALLS += target qmldir
-#}

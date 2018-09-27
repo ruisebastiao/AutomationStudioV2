@@ -17,7 +17,7 @@
 #ifndef LVLOCKEDFILEIOSESSION_H
 #define LVLOCKEDFILEIOSESSION_H
 
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include <automationstudiocoreglobal.h>
 
 #include <QSharedPointer>
 #include <QHash>

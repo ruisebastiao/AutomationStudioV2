@@ -3,11 +3,11 @@
 
 #include <QQuickItem>
 #include <automationstudiocore/jsonserializable.h>
-#include <flownode.h>
+#include "flownode.h"
 #include <flownodemanager.h>
 #include "automationmoduleglobal.h"
 #include "qanGraphview.h"
-#include <scenegraph.h>
+#include "scenegraph.h"
 
 
 class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonSerializable

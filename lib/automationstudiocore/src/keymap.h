@@ -19,7 +19,7 @@
 
 #include <QObject>
 #include <QMap>
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 
 namespace as{
 

@@ -1,72 +1,44 @@
 TEMPLATE = app
 TARGET   = AutomationStudio
 QT      += qml quick quickcontrols2 opengl
+CONFIG +=c++14
 
 
-linkLocalLibrary(automationstudiocore,   automationstudiocore)
-linkLocalLibrary(CuteLogger,    CuteLogger)
+include(../functions.pri)
 
+
+
+QML_IMPORT_PATH += $${DEPLOY_PATH}
 
 win32{
-    QML_IMPORT_PATH += $${DEPLOY_PATH}/plugins
+
 
 }
+
 RPI{
-    message(is raspberry)
+    message(Raspberry build)
     DEFINES += RPI
 }
 
 unix:!macx{
-linkPluginLibrary(QuickQanava,   QuickQanava)
-linkPluginLibrary(automationmodule,   automationmodule)
 
-# Load library paths
-# ------------------
-#    QML_IMPORT_PATH += \
-#    /home/rui/Qt/5.11.1/gcc_64/qml
-
-    QMAKE_LFLAGS += \
-        "-Wl,-rpath,\'\$$ORIGIN\'"
-
-
-    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/QuickQanava\'"
-    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/automationmodule\'"
-                    "-Wl,-rpath,\'\$$ORIGIN/plugins/bsvalidationmodule\'"
-
-#    QMAKE_LFLAGS += \
-#                    "-Wl,-rpath,\'\$$ORIGIN/plugins/automationmodule\'"
-
-#    QMAKE_RPATHDIR += $ORIGIN/plugins/QuickQanava
-#    QMAKE_RPATHDIR += $ORIGIN/plugins/automationmodule
-
-
-
-#    QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/../mylibs\''
-
-
-#    createlinkdir.commands += $${QMAKE_MKDIR_CMD} $$shell_path($${DEPLOY_PATH}/link)
-#    QMAKE_EXTRA_TARGETS    += createlinkdir
-#    POST_TARGETDEPS        += createlinkdir
+#    RPI{
+#        DESTDIR = $${TARGET_PATH}
+#    }
 }
 
-macx{
-    QMAKE_LFLAGS += \
-        '-Wl,-rpath,\'@executable_path/../Link\'' \
-        '-Wl,-rpath,\'@executable_path/../Frameworks\''
+#message(App:$$DEPLOY_PATH)
 
-    createlinkdir.commands += $${QMAKE_MKDIR_CMD} $$shell_path($${DEPLOY_PATH}/Link)
-    QMAKE_EXTRA_TARGETS    += createlinkdir
-    POST_TARGETDEPS        += createlinkdir
-}
-
-DESTDIR = $$BUILD_PATH/bin
-
+#QML_IMPORT_PATH += $$OUT_PWD/../plugins/
+DESTDIR = $$DEPLOY_PATH
 
 
 # Application
 # -----------
 
 include($$PWD/src/main.pri)
+include($$PWD/../lib/automationstudiocore/include/automationstudiocoreheaders.pri)
+include($$PWD/../lib/CuteLogger/include/cuteloggerheaders.pri)
 
 RESOURCES += $$PWD/application.qrc
 
@@ -97,4 +69,10 @@ DISTFILES += \
     ../configfiles/projects.json
 
 
+linkLocalLib(CuteLogger)
+linkLocalLib(automationstudiocore)
 
+#win32:CONFIG(release, debug|release): LIBS += -L$$DEPLOY_PATH -lCuteLogger
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$DEPLOY_PATH -lCuteLogger
+#else:unix:!macx: LIBS += -L$$DEPLOY_PATH -lCuteLogger
+#unix:!macx|win32: LIBS += -L$$DEPLOY_PATH -lautomationstudiocore

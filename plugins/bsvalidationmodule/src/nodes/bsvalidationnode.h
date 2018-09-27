@@ -1,7 +1,7 @@
 #ifndef BSVALIDATIONNODE_H
 #define BSVALIDATIONNODE_H
 
-#include "flownode.h"
+#include "automationmodule/flownode.h"
 #include <QObject>
 
 

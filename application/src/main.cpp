@@ -18,7 +18,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QFileInfo>
-#include <automationstudiocore/libraryloadpath.h>
+//#include <automationstudiocore/libraryloadpath.h>
 #include "automationstudiocore/plugincontext.h"
 #include <ConsoleAppender.h>
 #include <RollingFileAppender.h>
@@ -88,9 +88,9 @@ int main(int argc, char *argv[]){
 
 
 
-        LibraryLoadPath::addRecursive(PluginContext::pluginPath(), PluginContext::linkPath());
-        if ( QFileInfo(PluginContext::externalPath()).exists() )
-            LibraryLoadPath::addRecursive(PluginContext::externalPath(), PluginContext::linkPath());
+//        LibraryLoadPath::addRecursive(PluginContext::pluginPath(), PluginContext::linkPath());
+//        if ( QFileInfo(PluginContext::externalPath()).exists() )
+//            LibraryLoadPath::addRecursive(PluginContext::externalPath(), PluginContext::linkPath());
 
 
         automationstudio->loadQml(QUrl(QStringLiteral("qrc:/main.qml")));

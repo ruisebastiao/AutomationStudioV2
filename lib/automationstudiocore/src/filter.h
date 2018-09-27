@@ -17,8 +17,8 @@
 #ifndef LVFILTER_H
 #define LVFILTER_H
 
-#include "automationstudiocore/automationstudiocoreglobal.h"
-#include "automationstudiocore/shareddata.h"
+#include "automationstudiocoreglobal.h"
+#include "shareddata.h"
 #include <functional>
 
 namespace as{

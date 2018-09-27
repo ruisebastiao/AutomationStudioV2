@@ -17,7 +17,7 @@
 #ifndef LVSHAREDDATA_H
 #define LVSHAREDDATA_H
 
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 
 #include <QSet>
 

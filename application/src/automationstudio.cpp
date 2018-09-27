@@ -20,7 +20,7 @@
 #include "automationstudiocore/keymap.h"
 
 #include "automationstudiocore/settings.h"
-#include "automationstudiocore/plugincontext.h"
+#include "plugincontext.h"
 
 
 #include <QUrl>
@@ -86,13 +86,15 @@ void AutomationStudio::solveImportPaths(){
     m_engine->setImportPathList(importPaths);
 
     // Add the plugins directory to the import paths
-    m_engine->addImportPath(PluginContext::pluginPath());
+    //m_engine->addImportPath(PluginContext::pluginPath());
+    QString appdir=PluginContext::executableDirPath();
+    m_engine->addImportPath(appdir);
 
     loadPlugins();
 }
 
 void AutomationStudio::loadPlugins(){
-    QDir pluginsDir(PluginContext::pluginPath());
+    QDir pluginsDir(PluginContext::executableDirPath());
 
 
     qDebug()<<"Loading plugin modules";
@@ -143,28 +145,29 @@ void AutomationStudio::loadPlugins(){
 
 
     }
-    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
-        QString dirpath=pluginsDir.absoluteFilePath(dirName);
-        QDir pluginsDirFiles(dirpath);
-        QStringList filters;
-        filters << "*.dll";
-        pluginsDirFiles.setNameFilters(filters);
-        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
-            pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(fileName));
 
-            if(pluginLoader.isLoaded()==false){
-                pluginLoader.load();
+//    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+//        QString dirpath=pluginsDir.absoluteFilePath(dirName);
+//        QDir pluginsDirFiles(dirpath);
+//        QStringList filters;
+//        filters << "*.dll";
+//        pluginsDirFiles.setNameFilters(filters);
+//        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
+//            pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(fileName));
 
-                QObject *plugin = pluginLoader.instance();
-                if (plugin) {
-                    qDebug()<<"Plugin loaded:"<<plugin;
+//            if(pluginLoader.isLoaded()==false){
+//                pluginLoader.load();
 
-                }
+//                QObject *plugin = pluginLoader.instance();
+//                if (plugin) {
+//                    qDebug()<<"Plugin loaded:"<<plugin;
 
-            }
-        }
+//                }
 
-    }
+//            }
+//        }
+
+//    }
 
 
 }

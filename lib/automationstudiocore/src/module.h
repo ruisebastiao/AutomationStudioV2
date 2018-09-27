@@ -1,7 +1,7 @@
 #ifndef MODULE_H
 #define MODULE_H
 
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 
 #include "jsonserializable.h"
 

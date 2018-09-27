@@ -10,7 +10,7 @@
 
 #include "automationmoduleglobal.h"
 
-#include <selectableedge.h>
+#include "selectableedge.h"
 
 
 class AUTOMATIONMODULE_EXPORT SceneGraph : public qan::Graph

@@ -20,7 +20,7 @@
 #include <QObject>
 #include <QMap>
 #include <QUrl>
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 
 #include "projectslistmodel.h"
 #include "userslistmodel.h"

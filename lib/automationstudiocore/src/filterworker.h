@@ -17,8 +17,8 @@
 #ifndef LVFILTERWORKER_H
 #define LVFILTERWORKER_H
 
-#include "automationstudiocore/automationstudiocoreglobal.h"
-#include "automationstudiocore/filter.h"
+#include "automationstudiocoreglobal.h"
+#include "filter.h"
 #include <QObject>
 #include <QEvent>
 #include <functional>

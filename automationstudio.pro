@@ -1,29 +1,10 @@
 
-# If you need to understand the build process in detail with all its magic,
-# look at the following files:
-# .qmake.config
-# project/functions.pri
-#
-# They are also included in this confiuration for completeness and easy access.
-
-# --- Version Check ---
-
-# Some linux distributions have qt version 4 already installed. Sometimes this
-# can lead to running the wrong qmake version. Notify the user:
-
-!qtVersionCheck(5, 6)::error( \
-    This project requires at least Qt version 5.6. \
-    Make sure you have Qt 5.6 installed and running the correct qmake. \
-)
-
-
-
-
-
-
-#message($$TARGET_PATH)
 CONFIG      += warn_on qt thread c++14
 # --- Project structure ---
+
+
+
+
 
 TEMPLATE = subdirs
 
@@ -43,17 +24,8 @@ application.depends = plugins
 plugins.depends     = lib
 
 
-# Include the global configuration files since otherwise they would never show
-# up in your project
-OTHER_FILES += \
-    .qmake.conf
+OTHER_FILES += config.pri
+OTHER_FILES += plugin.pri
+OTHER_FILES += lib.pri
 
-# Set CONFIG_DIR_IN_PROJECT_TREE in your build environment for quick access
-# to qmake config files.
-# This may require re-opening the project in the qtcreator since it has some
-# issues with its file awareness
-!defined(CONFIG_DIR_IN_PROJECT_TREE, var){
-    OTHER_FILES *= $$CONFIG_DIR/*.pri
-}
-
-OTHER_FILES *= project/*.pri
+OTHER_FILES += functions.pri

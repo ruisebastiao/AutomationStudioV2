@@ -4,7 +4,7 @@
 #include "flownode.h"
 #include <QSerialPort>
 #include <QSerialPortInfo>
-#include "Logger.h"
+#include "cutelogger/Logger.h"
 
 
 class BarcodeReaderNode : public FlowNode

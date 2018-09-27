@@ -3,39 +3,25 @@ TARGET = automationmodule
 QT += qml quick serialport concurrent
 CONFIG += plugin c++14
 
-TARGET = automationmodule
 
-PLUGIN_NAME = automationmodule
-PLUGIN_PATH = automationmodule
-
-# PLUGIN_NAME and PLUGIN_PATH must be set up prior to including this config file
-include($$getGlobalFile(plugin.pri))
+TARGET = $$qtLibraryTarget($$TARGET)
 
 DEFINES += AUTOMATIONMODULE_LIB
 
 uri = automationmodule
 
-linkLocalLibrary(automationstudiocore,   automationstudiocore)
-linkLocalLibrary(CuteLogger,CuteLogger)
-linkLocalPlugin(QuickQanava,   QuickQanava)
+include(../../plugin.pri)
 
-
-unix {
-#QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/plugins/QuickQanava\'"
-
-#    QMAKE_LFLAGS_RPATH =
-#    # add custom path
-       QMAKE_LFLAGS += -Wl,-rpath,$$TARGET_PATH/plugins/QuickQanava
-
-}
-
-
-
+include(../../functions.pri)
 
 # Source
 
 include($$PWD/src/automationmodule.pri)
 include($$PWD/include/automationmoduleheaders.pri)
+
+
+include($$PWD/../../lib/automationstudiocore/include/automationstudiocoreheaders.pri)
+include($$PWD/../../lib/CuteLogger/include/cuteloggerheaders.pri)
 
 OTHER_FILES += \
     qml/*.qml \
@@ -52,6 +38,7 @@ RESOURCES += \
     src/automationmodule.qrc
 
 
+DISTFILES = qml/qmldir
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_qmldir.target = $$OUT_PWD/qmldir
@@ -62,16 +49,11 @@ RESOURCES += \
 }
 
 
-#TARGET_PLUGIN_PATH=$$TARGET_PATH/plugins/$$PLUGIN_PATH
-
-#qmldir.files = qmldir
-
-#unix {
-#    message($$TARGET_PLUGIN_PATH)
-#    qmldir.path = $$TARGET_PLUGIN_PATH
-#    target.path += $$TARGET_PLUGIN_PATH
-#    INSTALLS += target qmldir
-#}
 
 
 
+
+
+
+linkLocalLib(QuickQanava)
+linkLocalLib(automationstudiocore)

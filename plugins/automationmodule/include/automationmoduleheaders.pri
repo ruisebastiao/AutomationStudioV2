@@ -1,12 +1,14 @@
 INCLUDEPATH += $$PWD
+INCLUDEPATH += $$PWD/automationmodule
 
 HEADERS += \
-    $$PWD/qautomationmodule.h \
-    $$PWD/selectableedge.h \
-    $$PWD/flownode.h \
-    $$PWD/flownodeport.h \
-    $$PWD/connectioninfo.h \
-    $$PWD/scenegraph.h \
-    $$PWD/flownodemanager.h
+    $$PWD/automationmodule/qautomationmodule.h \
+    $$PWD/automationmodule/automationmoduleglobal.h \
+    $$PWD/automationmodule/selectableedge.h \
+    $$PWD/automationmodule/flownode.h \
+    $$PWD/automationmodule/flownodeport.h \
+    $$PWD/automationmodule/connectioninfo.h \
+    $$PWD/automationmodule/scenegraph.h \
+    $$PWD/automationmodule/flownodemanager.h
 
 

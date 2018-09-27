@@ -14,7 +14,7 @@
 **
 ****************************************************************************/
 
-#include "automationstudiocore/settings.h"
+#include "settings.h"
 #include <QVariant>
 #include <QDir>
 #include <QQmlEngine>

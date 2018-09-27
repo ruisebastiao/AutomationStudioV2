@@ -1,0 +1,1 @@
+#include "../src/RollingFileAppender.h"

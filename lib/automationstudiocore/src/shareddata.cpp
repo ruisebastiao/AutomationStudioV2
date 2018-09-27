@@ -14,8 +14,8 @@
 **
 ****************************************************************************/
 
-#include "automationstudiocore/shareddata.h"
-#include "automationstudiocore/filter.h"
+#include "shareddata.h"
+#include "filter.h"
 #include <QReadWriteLock>
 
 namespace as{

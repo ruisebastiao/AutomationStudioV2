@@ -1,5 +1,5 @@
 #include "barcodereadernode.h"
-#include "Logger.h"
+#include "cutelogger/Logger.h"
 
 
 BarcodeReaderNode::BarcodeReaderNode(QObject *parent): FlowNode(parent) {

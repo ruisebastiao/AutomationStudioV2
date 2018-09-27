@@ -5,7 +5,9 @@ TEMPLATE = lib
 
 DEFINES += CUTELOGGER_LIBRARY
 
-INCLUDEPATH += ./include
+include(../../lib.pri)
+
+INCLUDEPATH += $$PWD/src
 
 SOURCES += src/Logger.cpp \
            src/AbstractAppender.cpp \
@@ -14,30 +16,11 @@ SOURCES += src/Logger.cpp \
            src/FileAppender.cpp \
            src/RollingFileAppender.cpp
 
-HEADERS += include/Logger.h \
-           include/CuteLogger_global.h \
-           include/AbstractAppender.h \
-           include/AbstractStringAppender.h \
-           include/ConsoleAppender.h \
-           include/FileAppender.h \
-           include/RollingFileAppender.h
+HEADERS += src/Logger.h \
+           src/CuteLogger_global.h \
+           src/AbstractAppender.h \
+           src/AbstractStringAppender.h \
+           src/ConsoleAppender.h \
+           src/FileAppender.h \
+           src/RollingFileAppender.h
 
-win32 {
-    SOURCES += src/OutputDebugAppender.cpp
-    HEADERS += include/OutputDebugAppender.h
-}
-
-android {
-    SOURCES += src/AndroidAppender.cpp
-    HEADERS += include/AndroidAppender.h
-}
-
-win32:{
-    DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
-    DLLDESTDIR = $$DEPLOY_PATH
-}else:DESTDIR = $$LIBRARY_DEPLOY_PATH
-
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}

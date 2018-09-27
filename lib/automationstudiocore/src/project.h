@@ -2,7 +2,7 @@
 #define PROJECT_H
 
 #include <QObject>
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 #include "jsonserializable.h"
 #include "modulelistmodel.h"
 

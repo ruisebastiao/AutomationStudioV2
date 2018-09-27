@@ -14,7 +14,7 @@
 **
 ****************************************************************************/
 
-#include "automationstudiocore/libraryloadpath.h"
+#include "libraryloadpath.h"
 
 #include <QDir>
 #include <QDirIterator>

@@ -19,7 +19,7 @@
 
 #include <QObject>
 #include <QCoreApplication>
-#include "automationstudiocore/filterworker.h"
+#include "filterworker.h"
 
 namespace as{
 

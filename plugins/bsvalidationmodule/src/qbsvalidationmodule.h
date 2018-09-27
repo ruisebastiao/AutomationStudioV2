@@ -2,7 +2,7 @@
 #define QBSVALIDATIONMODULE_H
 
 #include <QQuickItem>
-#include <qautomationmodule.h>
+#include <automationmodule/qautomationmodule.h>
 
 class QBSValidationModule : public QAutomationModule
 {

@@ -17,7 +17,7 @@
 #ifndef LVPLUGINCONTEXT_H
 #define LVPLUGINCONTEXT_H
 
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 
 class QQmlEngine;
 

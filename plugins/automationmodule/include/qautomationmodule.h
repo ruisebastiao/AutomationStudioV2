@@ -1,1 +1,0 @@
-#include "../src/qautomationmodule.h"

@@ -14,9 +14,9 @@
 **
 ****************************************************************************/
 
-#include "automationstudiocore/plugincontext.h"
+#include "plugincontext.h"
 
-#include "automationstudiocore/settings.h"
+#include "settings.h"
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QCoreApplication>

@@ -1,10 +1,10 @@
 #ifndef FLOWNODEPORT_H
 #define FLOWNODEPORT_H
 
-#include <Logger.h>
+#include <cutelogger/Logger.h>
 
 #include <connectioninfo.h>
-#include <scenegraph.h>
+#include "../graphs/scenegraph.h"
 
 #include <QObject>
 #include <automationstudiocore/jsonserializable.h>

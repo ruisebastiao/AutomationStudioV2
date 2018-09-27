@@ -1,7 +1,7 @@
 #ifndef JSONSERIALIZABLE_H
 #define JSONSERIALIZABLE_H
 
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 
 #include <QJsonObject>
 #include <QObject>

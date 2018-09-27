@@ -18,7 +18,7 @@
 #define LVLIBRARYLOADPATH_H
 
 #include <QString>
-#include "automationstudiocore/automationstudiocoreglobal.h"
+#include "automationstudiocoreglobal.h"
 
 namespace as{
 

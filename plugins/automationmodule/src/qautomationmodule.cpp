@@ -7,7 +7,7 @@
 #include <QtConcurrent>
 
 
-#include <Logger.h>
+#include <cutelogger/Logger.h>
 
 FlowNodeManager* QAutomationModule::flownodemanager=nullptr;
 

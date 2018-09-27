@@ -6,7 +6,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 #include "automationstudiocoreglobal.h"
-#include <automationstudiocore/project.h>
+#include <project.h>
 
 namespace as {
 
