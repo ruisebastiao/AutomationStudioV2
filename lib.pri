@@ -6,6 +6,15 @@ message(-----LIB----)
 win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
     DLLDESTDIR = $$DEPLOY_PATH
-}else:DESTDIR = $$[QT_INSTALL_LIBS]
+}else:!RPI{
+    DESTDIR = $$[QT_INSTALL_LIBS]
+}
+
+
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+}
+
 
 

@@ -2,8 +2,6 @@ TEMPLATE = lib
 TARGET = networkmanager
 QT += qml quick concurrent
 CONFIG += plugin c++14
-PLUGIN_NAME = networkmanager
-PLUGIN_PATH = networkmanager
 
 uri = networkmanager
 
@@ -31,14 +29,9 @@ DISTFILES = qml/qmldir
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
-qmldir.files = qmldir
-unix {
-    installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
-    qmldir.path = $$installPath
-    target.path = $$installPath
-    INSTALLS += target qmldir
 
 
-}
+
+include(../../plugin.pri)
 
 

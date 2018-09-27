@@ -30,7 +30,18 @@ unix:!macx{
 #message(App:$$DEPLOY_PATH)
 
 #QML_IMPORT_PATH += $$OUT_PWD/../plugins/
-DESTDIR = $$DEPLOY_PATH
+
+unix{
+    target.path = $${DEPLOY_PATH}
+    INSTALLS += target
+}
+
+
+unix:!RPI {
+    DESTDIR = $$DEPLOY_PATH
+}
+
+
 
 
 # Application
@@ -51,8 +62,8 @@ configfiles.files+=\
     ../configfiles/bsvalidation.json \
     ../configfiles/projects.json
 
-target.path = $${TARGET_PATH}
-configfiles.path = $${TARGET_PATH}
+target.path = $${DEPLOY_PATH}
+configfiles.path = $${DEPLOY_PATH}
 
 INSTALLS += target
 
@@ -60,7 +71,7 @@ WITH-CONFIGS{
 
     QMAKE_EXTRA_TARGETS += configfiles
     POST_TARGETDEPS += configfiles
-
+    INSTALLS += configfiles
 }
 
 DISTFILES += \
