@@ -11,9 +11,14 @@ win32:{
 
 
 unix:!REMOTE_RPI{
-    QMAKE_POST_LINK += $$quote(cp $${OUT_PWD}/qmldir $${DEPLOY_PATH}/$$TARGET/$$escape_expand(\n\t))
 
-    QMAKE_POST_LINK += $$quote(ln -s -f $${DEPLOY_PATH}/$${TARGET}/lib$$qtLibraryTarget($$TARGET).so $$[QT_INSTALL_LIBS]/$$escape_expand(\n\t))
+    PLUGIN_PATH=$$[QT_SYSROOT]$${DEPLOY_PATH}/$$TARGET/
+
+    #message($$PLUGIN_PATH)
+
+    QMAKE_POST_LINK += $$quote(cp $${OUT_PWD}/qmldir $$PLUGIN_PATH$$escape_expand(\n\t))
+
+    QMAKE_POST_LINK += $$quote(ln -s -f $${PLUGIN_PATH}lib$$qtLibraryTarget($$TARGET).so $$[QT_INSTALL_LIBS]/$$escape_expand(\n\t))
 }
 
 
@@ -23,7 +28,7 @@ unix{
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
 
     REMOTE_RPI{
-#    message($$[QT_INSTALL_LIBS])
+        #message($$[QT_INSTALL_LIBS])
         installPath = $$DEPLOY_PATH/$$TARGET/
     }
 
