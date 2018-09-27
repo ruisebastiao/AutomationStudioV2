@@ -6,13 +6,13 @@ message(-----LIB----)
 win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
     DLLDESTDIR = $$DEPLOY_PATH
-}else:!RPI{
+}else:!REMOTE_RPI{
     DESTDIR = $$[QT_INSTALL_LIBS]
 }
 
 
 unix {
-    target.path = $$[QT_SYSROOT]/usr/lib
+    target.path = /usr/lib
     INSTALLS += target
 }
 
