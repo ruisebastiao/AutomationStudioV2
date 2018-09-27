@@ -12,7 +12,7 @@ win32:{
 
 
 unix {
-    target.path = /usr/lib
+    target.path = $$[QT_SYSROOT]/usr/lib
     INSTALLS += target
 }
 
