@@ -2,7 +2,7 @@ include(config.pri)
 
 message(----PLUGIN---)
 
-PLUGIN_PATH=$$[QT_SYSROOT]$${DEPLOY_PATH}/$$TARGET/
+PLUGIN_PATH=$${DEPLOY_PATH}/$$TARGET/
 
 win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
