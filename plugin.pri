@@ -7,7 +7,7 @@ PLUGIN_PATH=$${DEPLOY_PATH}/$$TARGET/
 win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
     DLLDESTDIR = $$DEPLOY_PATH
-}else:!BUILDROOT{
+}else:{
     DESTDIR = $$PLUGIN_PATH
 }
 
@@ -32,10 +32,10 @@ unix{
 
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
 
-    REMOTE_RPI{
-        #message($$[QT_INSTALL_LIBS])
-        installPath = $$DEPLOY_PATH/$$TARGET/
-    }
+#    REMOTE_RPI{
+#        #message($$[QT_INSTALL_LIBS])
+#        installPath = $$DEPLOY_PATH/$$TARGET/
+#    }
 
     qmldir.path = $$installPath
     target.path = $$installPath
