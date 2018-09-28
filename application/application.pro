@@ -62,8 +62,14 @@ configfiles.files+=\
     ../configfiles/bsvalidation.json \
     ../configfiles/projects.json
 
+
 target.path = $${DEPLOY_PATH}
 configfiles.path = $${DEPLOY_PATH}
+
+RPI{
+    target.path = /root/AutomationStudio
+    configfiles.path = $${DEPLOY_PATH}
+}
 
 INSTALLS += target
 

@@ -13,15 +13,17 @@ win32:{
 
 
 
+
+
 unix:!REMOTE_RPI{
 
-
-
+    !BUILDROOT{
     #message($$PLUGIN_PATH)
 
-    QMAKE_POST_LINK += $$quote(cp $$_PRO_FILE_PWD_/qml/qmldir $$PLUGIN_PATH$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(cp $$_PRO_FILE_PWD_/qml/qmldir $$PLUGIN_PATH$$escape_expand(\n\t))
 
-    QMAKE_POST_LINK += $$quote(ln -s -f $${PLUGIN_PATH}lib$$qtLibraryTarget($$TARGET).so $$[QT_INSTALL_LIBS]/$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(ln -s -f $${PLUGIN_PATH}lib$$qtLibraryTarget($$TARGET).so $$[QT_INSTALL_LIBS]/$$escape_expand(\n\t))
+    }
 }
 
 

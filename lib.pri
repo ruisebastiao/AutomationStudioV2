@@ -10,6 +10,9 @@ win32:{
     DESTDIR = $$[QT_INSTALL_LIBS]
 }
 
+BUILDROOT{
+    DESTDIR =
+}
 
 unix {
     target.path = /usr/lib
