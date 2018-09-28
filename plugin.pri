@@ -7,7 +7,7 @@ PLUGIN_PATH=$${DEPLOY_PATH}/$$TARGET/
 win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
     DLLDESTDIR = $$DEPLOY_PATH
-}else:{
+}else:!BUILDROOT{
     DESTDIR = $$PLUGIN_PATH
 }
 
