@@ -12,7 +12,7 @@ uri = bsvalidationmodule
 include(../../plugin.pri)
 include(../../functions.pri)
 
-linkLocalLib(automationmodule)
+linkLocalPlugin(automationmodule)
 linkLocalLib(CuteLogger)
 
 

@@ -14,7 +14,7 @@ import QtGraphicalEffects 1.0
 import base 1.0
 import guimodule 1.0 as GUI
 import automationmodule 1.0
-//import bsvalidationmodule 1.0
+import bsvalidationmodule 1.0
 import QuickQanava 2.0 as Qan
 
 ApplicationWindow {
@@ -1044,6 +1044,7 @@ ApplicationWindow {
 
 
             BusyIndicator {
+
                 running: layoutloader.item.modulesloaded!==true
                 anchors.centerIn: parent
                 width: parent.width/3

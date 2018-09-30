@@ -1,5 +1,5 @@
 module automationmodule
-plugin automationmodule
+plugin automationmodule ../
 
 depends QtQuick 2.3
 

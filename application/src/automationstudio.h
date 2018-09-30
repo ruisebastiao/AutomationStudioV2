@@ -19,6 +19,7 @@
 
 #include <QString>
 #include <QLibrary>
+#include <qpluginloader.h>
 
 #include <automationstudiocore/systemsettings.h>
 #include <automationstudiocore/utilities.h>
@@ -132,7 +133,7 @@ private:
     QQmlApplicationEngine*          m_engine;
 
     QString  m_dir;
-
+    QPluginLoader* m_pluginLoader;
     as::Settings*          m_settings;
     QString m_currentDir="";
 

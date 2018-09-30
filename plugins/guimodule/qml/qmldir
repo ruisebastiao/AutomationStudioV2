@@ -1,5 +1,5 @@
 module guimodule
-plugin guimodule
+plugin guimodule ../
 
 depends QtQuick 2.3
 

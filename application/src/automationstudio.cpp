@@ -55,6 +55,7 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
 }
 
 AutomationStudio::~AutomationStudio(){
+
     delete m_settings;
 }
 
@@ -90,11 +91,11 @@ void AutomationStudio::solveImportPaths(){
     QString appdir=PluginContext::executableDirPath();
     m_engine->addImportPath(appdir);
 
-    loadPlugins();
+//    loadPlugins();
 }
 
 void AutomationStudio::loadPlugins(){
-    QDir pluginsDir(PluginContext::executableDirPath());
+    QDir pluginsDirFiles(PluginContext::executableDirPath());
 
 
     qDebug()<<"Loading plugin modules";
@@ -102,72 +103,39 @@ void AutomationStudio::loadPlugins(){
 
 
 
-    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
-        QString dirpath=pluginsDir.absoluteFilePath(dirName);
-
-        QCoreApplication::addLibraryPath(dirpath);
-
-    }
 
     QPluginLoader pluginLoader;
 
 
-    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
-        QString dirpath=pluginsDir.absoluteFilePath(dirName);
-        QDir pluginsDirFiles(dirpath);
-
-        QStringList filters;
+    QStringList filters;
 #if defined(Q_OS_WIN32)
-        filters << "*.dll";
+    filters << "*.dll";
 #endif
 
 
 #if defined(Q_OS_LINUX)
-        filters << "*.so*";
+    filters << "*.so*";
 
 #endif
 
 
-        pluginsDirFiles.setNameFilters(filters);
+    pluginsDirFiles.setNameFilters(filters);
 
 
-        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
-            pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(fileName));
-            pluginLoader.load();
+    foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
+        QString filePath=pluginsDirFiles.absoluteFilePath(fileName);
 
-            QObject *plugin = pluginLoader.instance();
-            if (plugin) {
-                qDebug()<<"Plugin loaded:"<<plugin;
 
-            }
+        pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(filePath));
+        pluginLoader.load();
+
+        QObject *plugin = pluginLoader.instance();
+        if (plugin) {
+            qDebug()<<"Plugin loaded:"<<plugin;
 
         }
 
-
     }
-
-//    foreach (QString dirName, pluginsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
-//        QString dirpath=pluginsDir.absoluteFilePath(dirName);
-//        QDir pluginsDirFiles(dirpath);
-//        QStringList filters;
-//        filters << "*.dll";
-//        pluginsDirFiles.setNameFilters(filters);
-//        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
-//            pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(fileName));
-
-//            if(pluginLoader.isLoaded()==false){
-//                pluginLoader.load();
-
-//                QObject *plugin = pluginLoader.instance();
-//                if (plugin) {
-//                    qDebug()<<"Plugin loaded:"<<plugin;
-
-//                }
-
-//            }
-//        }
-
-//    }
 
 
 }

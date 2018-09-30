@@ -55,5 +55,5 @@ DISTFILES = qml/qmldir
 
 
 
-linkLocalLib(QuickQanava)
+linkLocalPlugin(QuickQanava)
 linkLocalLib(automationstudiocore)

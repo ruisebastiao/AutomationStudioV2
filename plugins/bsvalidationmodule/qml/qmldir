@@ -1,5 +1,5 @@
 module bsvalidationmodule
-plugin bsvalidationmodule
+plugin bsvalidationmodule ../
 
 depends QtQuick 2.3
 

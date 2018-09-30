@@ -5,7 +5,9 @@ defineTest(linkLocalLib){
 
 
     win32:LIB_PATH = $$DEPLOY_PATH/lib/
-    else:LIB_PATH = $$[QT_INSTALL_LIBS]
+    else{
+        LIB_PATH = $$DEPLOY_PATH/
+    }
 
 
     LIB_NAME = $$1
@@ -19,6 +21,28 @@ defineTest(linkLocalLib){
     export(LIBS)
 
 }
+
+defineTest(linkLocalPlugin){
+
+
+
+    win32:LIB_PATH = $$DEPLOY_PATH/$1/
+    else{
+        LIB_PATH = $$DEPLOY_PATH/
+    }
+
+    LIB_NAME = $$1
+
+
+    message(link plugin:$$1)
+
+    LIBS *= -L$$LIB_PATH
+    LIBS *= -l$$LIB_NAME
+
+    export(LIBS)
+
+}
+
 
 defineReplace(deployFileCommand){
     DEPLOY_FROM = $$shell_path($$shell_quote($$1))

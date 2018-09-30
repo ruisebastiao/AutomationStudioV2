@@ -20,28 +20,14 @@ RPI{
     DEFINES += RPI
 }
 
-unix:!macx{
-
-#    RPI{
-#        DESTDIR = $${TARGET_PATH}
-#    }
-}
-
-#message(App:$$DEPLOY_PATH)
-
-#QML_IMPORT_PATH += $$OUT_PWD/../plugins/
-
-unix{
-    target.path = $${DEPLOY_PATH}
-    INSTALLS += target
-}
-
 
 unix:!RPI {
     DESTDIR = $$DEPLOY_PATH
 }
 
-
+unix{
+    QMAKE_RPATHDIR += $ORIGIN
+}
 
 
 # Application
@@ -62,16 +48,30 @@ configfiles.files+=\
     ../configfiles/bsvalidation.json \
     ../configfiles/projects.json
 
+DISTFILES += \
+    ../configfiles/appsettings.json \
+    ../configfiles/bsvalidation.json \
+    ../configfiles/projects.json
+
+
 
 target.path = $${DEPLOY_PATH}
 configfiles.path = $${DEPLOY_PATH}
 
 RPI{
-    target.path = /root/AutomationStudio
+    target.path = $${DEPLOY_PATH}
     configfiles.path = $${DEPLOY_PATH}
+#    BUILDROOT{
+#        target.path = /root/AutomationStudio/
+#        configfiles.path = /root/AutomationStudio/
+#
+#    }
 }
 
-INSTALLS += target
+unix{
+    INSTALLS += target
+}
+
 
 WITH-CONFIGS{
 
@@ -80,10 +80,6 @@ WITH-CONFIGS{
     INSTALLS += configfiles
 }
 
-DISTFILES += \
-    ../configfiles/appsettings.json \
-    ../configfiles/bsvalidation.json \
-    ../configfiles/projects.json
 
 
 linkLocalLib(CuteLogger)

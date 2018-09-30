@@ -7,16 +7,17 @@ win32:{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
     DLLDESTDIR = $$DEPLOY_PATH
 }else:!REMOTE_RPI{
-    DESTDIR = $$[QT_INSTALL_LIBS]
+        DESTDIR = $$DEPLOY_PATH
 }
 
-BUILDROOT{
-    DESTDIR =
-}
 
 unix {
+    QMAKE_RPATHDIR += $ORIGIN
+
     target.path = /usr/lib
-    INSTALLS += target
+    !BUILDROOT{
+        INSTALLS += target
+    }
 }
 
 
