@@ -23,17 +23,11 @@ unix{
 }
 else{
 
-    targetdir=$$DEPLOY_PATH/$$TARGET
-    exists($$targetdir){
-        message(dir ok)
-    }else{
-     QMAKE_POST_LINK += $${QMAKE_MKDIR} $$replace(targetdir, /, $$QMAKE_DIR_SEP)$$escape_expand(\n\t))
 
-    }
-    targetdir=$$DEPLOY_PATH/$$TARGET
+
+
     sourcefile= $$_PRO_FILE_PWD_/qml/qmldir
-
-    QMAKE_POST_LINK += $(COPY_FILE) \"$$replace(sourcefile, /, $$QMAKE_DIR_SEP)\" \"$$replace(targetdir, /, $$QMAKE_DIR_SEP)\" $$escape_expand(\n\t))
+    QMAKE_POST_LINK +=  $$quote(xcopy \"$$replace(sourcefile, /, $$QMAKE_DIR_SEP)\" \"$$replace(PLUGIN_PATH, /, $$QMAKE_DIR_SEP)\" $$escape_expand(\n\t))
 
 }
 
