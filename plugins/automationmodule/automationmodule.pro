@@ -4,7 +4,7 @@ QT += qml quick serialport concurrent
 CONFIG += plugin c++14
 
 
-TARGET = $$qtLibraryTarget($$TARGET)
+#TARGET = $$qtLibraryTarget($$TARGET)
 
 DEFINES += AUTOMATIONMODULE_LIB
 
@@ -57,3 +57,4 @@ DISTFILES = qml/qmldir
 
 linkLocalPlugin(QuickQanava)
 linkLocalLib(automationstudiocore)
+linkLocalLib(CuteLogger)

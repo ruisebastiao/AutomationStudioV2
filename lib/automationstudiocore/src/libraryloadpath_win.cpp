@@ -15,7 +15,7 @@
 ****************************************************************************/
 
 
-#include "automationstudiocore/libraryloadpath.h"
+#include "libraryloadpath.h"
 
 #include "Windows.h"
 

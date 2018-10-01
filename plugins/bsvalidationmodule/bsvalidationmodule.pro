@@ -13,7 +13,9 @@ include(../../plugin.pri)
 include(../../functions.pri)
 
 linkLocalPlugin(automationmodule)
+linkLocalPlugin(QuickQanava)
 linkLocalLib(CuteLogger)
+linkLocalPlugin(automationstudiocore)
 
 
 include($$PWD/src/bsvalidationmodule.pri)

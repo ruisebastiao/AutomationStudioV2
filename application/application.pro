@@ -11,7 +11,7 @@ include(../functions.pri)
 QML_IMPORT_PATH += $${DEPLOY_PATH}
 
 win32{
-
+DESTDIR = $${DEPLOY_PATH}
 
 }
 

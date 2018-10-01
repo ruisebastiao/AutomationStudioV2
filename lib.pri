@@ -4,7 +4,7 @@ message(-----LIB----)
 ## Destination
 
 win32:{
-    DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/lib
+    DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/
     DLLDESTDIR = $$DEPLOY_PATH
 }else:!REMOTE_RPI{
         DESTDIR = $$DEPLOY_PATH
