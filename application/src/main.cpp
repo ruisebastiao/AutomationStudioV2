@@ -86,55 +86,6 @@ int main(int argc, char *argv[]){
         AutomationStudio::Ptr automationstudio = AutomationStudio::create(argc, argv,&engine);
         automationstudio->loadInternalPlugins();
 
-        QDir pluginsDirFiles(PluginContext::executableDirPath());
-
-
-        qDebug()<<"Loading plugin modules";
-
-
-
-
-
-        QPluginLoader pluginLoader;
-
-
-        QStringList filters;
-#if defined(Q_OS_WIN32)
-        filters << "*.dll";
-#endif
-
-
-#if defined(Q_OS_LINUX)
-        filters << "*.so*";
-
-#endif
-
-
-//        pluginsDirFiles.setNameFilters(filters);
-
-
-//        foreach (QString fileName, pluginsDirFiles.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
-//            QString filePath=pluginsDirFiles.absoluteFilePath(fileName);
-
-
-//            pluginLoader.setFileName(pluginsDirFiles.absoluteFilePath(filePath));
-//            pluginLoader.load();
-
-//            QObject *plugin = pluginLoader.instance();
-//            if (plugin) {
-//                qDebug()<<"Plugin loaded:"<<plugin;
-
-//            }
-
-//        }
-
-
-
-
-        //        LibraryLoadPath::addRecursive(PluginContext::pluginPath(), PluginContext::linkPath());
-        //        if ( QFileInfo(PluginContext::externalPath()).exists() )
-        //            LibraryLoadPath::addRecursive(PluginContext::externalPath(), PluginContext::linkPath());
-
 
         automationstudio->loadQml(QUrl(QStringLiteral("qrc:/main.qml")));
 

@@ -91,7 +91,7 @@ void AutomationStudio::solveImportPaths(){
     QString appdir=PluginContext::executableDirPath();
     m_engine->addImportPath(appdir);
 
-//    loadPlugins();
+    loadPlugins();
 }
 
 void AutomationStudio::loadPlugins(){
