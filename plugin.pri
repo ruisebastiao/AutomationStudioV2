@@ -26,7 +26,7 @@ unix{
 else{
 
     sourcefile= $$_PRO_FILE_PWD_/qml/qmldir
-    QMAKE_POST_LINK +=  $$quote(xcopy \"$$replace(sourcefile, /, $$QMAKE_DIR_SEP)\" \"$$replace(PLUGIN_PATH, /, $$QMAKE_DIR_SEP)\" $$escape_expand(\n\t))
+    QMAKE_POST_LINK +=  $$quote(xcopy /Y \"$$replace(sourcefile, /, $$QMAKE_DIR_SEP)\" \"$$replace(PLUGIN_PATH, /, $$QMAKE_DIR_SEP)\" $$escape_expand(\n\t))
 
 }
 

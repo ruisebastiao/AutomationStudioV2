@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="AutomationModules/VisionModuleItem.qml">qml/VisionModuleItem.qml</file>
+        <file alias="Nodes/FileCaptureNodeItem.qml">qml/nodes/FileCaptureNodeItem.qml</file>
+        <file alias="Nodes/FrameViewerNodeItem.qml">qml/nodes/FrameViewerNodeItem.qml</file>
+        <file alias="Nodes/IDSCaptureNodeItem.qml">qml/nodes/IDSCaptureNodeItem.qml</file>
+        <file alias="Nodes/ROINodeItem.qml">qml/nodes/ROINodeItem.qml</file>
+        <file alias="Nodes/VisionSystemNodeItem.qml">qml/nodes/VisionSystemNodeItem.qml</file>
+        <file alias="Nodes/ProcessingContoursNodeItem.qml">qml/nodes/cv/ProcessingContoursNodeItem.qml</file>
+        <file alias="Nodes/ProcessingNodeItem.qml">qml/nodes/cv/ProcessingNodeItem.qml</file>
+        <file alias="Nodes/ProcessingShapesNodeItem.qml">qml/nodes/cv/ProcessingShapesNodeItem.qml</file>
+        <file alias="Nodes/ProcessingThresholdNodeItem.qml">qml/nodes/cv/ProcessingThresholdNodeItem.qml</file>
+    </qresource>
+</RCC>

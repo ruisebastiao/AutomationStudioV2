@@ -11,7 +11,15 @@ SUBDIRS += \
     QuickQanava \
     automationmodule \
     bsvalidationmodule \
-    guimodule
+    guimodule \
+
+WITH-VISION{
+    message(With vision module)
+    SUBDIRS += \
+       visionmodule
+
+}
+
 
 unix{
 WITH-NETWORKMANAGER{
@@ -37,4 +45,9 @@ automationmodule.depends       = QuickQanava
 automationmodule.depends       = guimodule
 automationmodule.depends       = usbnotifier
 bsvalidationmodule.depends     = automationmodule
+
+WITH-VISION{
+
+   visionmodule.depends     = automationmodule
+}
 

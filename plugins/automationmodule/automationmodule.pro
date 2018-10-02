@@ -10,18 +10,17 @@ DEFINES += AUTOMATIONMODULE_LIB
 
 uri = automationmodule
 
-include(../../plugin.pri)
-
-include(../../functions.pri)
+include(../../module.pri)
 
 # Source
 
 include($$PWD/src/automationmodule.pri)
+
+
 include($$PWD/include/automationmoduleheaders.pri)
+linkLocalPlugin(QuickQanava)
+include($$PWD/../QuickQanava/include/quickqanavaheaders.pri)
 
-
-include($$PWD/../../lib/automationstudiocore/include/automationstudiocoreheaders.pri)
-include($$PWD/../../lib/CuteLogger/include/cuteloggerheaders.pri)
 
 OTHER_FILES += \
     qml/*.qml \
@@ -32,7 +31,6 @@ win32{
 LIBS += -luser32
 }
 
-include($$PWD/../QuickQanava/include/quickqanavaheaders.pri)
 
 RESOURCES += \
     src/automationmodule.qrc

@@ -19,7 +19,7 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged USER("serialize"))
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(bool moduleLoaded READ moduleLoaded WRITE setModuleLoaded NOTIFY moduleLoadedChanged)
-    Q_PROPERTY(ModuleType type READ type WRITE setType NOTIFY typeChanged USER("serialize"))
+    Q_PROPERTY(ModuleType type READ type NOTIFY typeChanged USER("serialize"))
     Q_PROPERTY(qan::GraphView* graphView READ graphView WRITE setGraphView NOTIFY graphViewChanged)
     Q_PROPERTY(QString configSource READ configSource WRITE setConfigSource NOTIFY configSourceChanged)
 
@@ -28,7 +28,7 @@ public:
     enum ModuleType {
         AutomationModule,
         EpsonRobotModule,
-        VisionSystemModule,
+        VisionModule,
         BSValidationModule,
         ClockModule
     };
@@ -68,7 +68,7 @@ public:
         return enums;
     }
 
-    virtual ModuleType type() const;
+    ModuleType type() const;
 
 
     QString name() const
@@ -114,7 +114,7 @@ private:
 
     qan::GraphView* m_graphView;
 
-    ModuleType m_type;
+
     QString m_moduleID="";
 
     QString m_configSource="";
@@ -169,14 +169,7 @@ public slots:
 
 
     virtual void setGraphView(qan::GraphView* graphView);
-    void setType(ModuleType type)
-    {
-        if (m_type == type)
-            return;
 
-        m_type = type;
-        emit typeChanged(m_type);
-    }
 
     // JsonSerializable interface
     void setModuleID(QString moduleID)
@@ -218,6 +211,8 @@ public:
 protected:
    Q_INVOKABLE virtual void load(QString path);
    Q_INVOKABLE virtual void save();
+
+    ModuleType m_type=ModuleType::AutomationModule;
 
     virtual FlowNode* readNode(qan::GraphView* graphView ,QJsonObject nodeobject);
 };

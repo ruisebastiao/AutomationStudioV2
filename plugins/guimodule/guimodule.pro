@@ -1,29 +1,18 @@
-TEMPLATE = lib
 TARGET = guimodule
-QT += qml quick
-CONFIG += plugin c++14
-
 uri = guimodule
 
-
-
-include(../../plugin.pri)
-include(../../functions.pri)
-
-
-
-
-OTHER_FILES += \
-    qml/*.qml \
-    qml/qmldir
+include(../../module.pri)
 
 DISTFILES += \
         qmldir \
     src/qml/ToastManager.qml \
     src/qml/ToastManager.qml
 
+include($$PWD/src/guimodule.pri)
 
-DISTFILES = qml/qmldir
+RESOURCES += \
+    src/guimodule.qrc
+
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_qmldir.target = $$OUT_PWD/qmldir
@@ -33,9 +22,5 @@ DISTFILES = qml/qmldir
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
-include($$PWD/src/guimodule.pri)
-
-RESOURCES += \
-    src/guimodule.qrc
 
 

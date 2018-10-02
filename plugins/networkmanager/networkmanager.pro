@@ -1,23 +1,19 @@
-TEMPLATE = lib
 TARGET = networkmanager
-QT += qml quick concurrent
-CONFIG += plugin c++14
+QT += concurrent
 
 uri = networkmanager
+
+include(../../module.pri)
+
+include($$PWD/src/networkmanager.pri)
 
 
 RESOURCES += \
     src/networkmanager.qrc
 
 
-OTHER_FILES += \
-    qml/*.qml \
-    qml/qmldir
-
 DISTFILES = qmldir \
     qml/plugins.qmltypes \
-
-include($$PWD/src/networkmanager.pri)
 
 DISTFILES = qml/qmldir
 
@@ -29,9 +25,5 @@ DISTFILES = qml/qmldir
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
-
-
-
-include(../../plugin.pri)
 
 

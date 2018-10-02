@@ -1,42 +1,22 @@
-TEMPLATE = lib
+
 TARGET = bsvalidationmodule
-QT += qml quick
-CONFIG += plugin c++14
-
-
 DEFINES += BSVALIDATIONMODULE_LIB
-
 uri = bsvalidationmodule
 
 
-include(../../plugin.pri)
-include(../../functions.pri)
+include(../../module.pri)
+
+include(src/bsvalidationmodule.pri)
 
 linkLocalPlugin(automationmodule)
-linkLocalPlugin(QuickQanava)
-linkLocalLib(CuteLogger)
-linkLocalPlugin(automationstudiocore)
-
-
-include($$PWD/src/bsvalidationmodule.pri)
-
-include($$PWD/../../lib/automationstudiocore/include/automationstudiocoreheaders.pri)
-include($$PWD/../../lib/CuteLogger/include/cuteloggerheaders.pri)
-
-
-OTHER_FILES += \
-    qml/*.qml \
-    qml/qmldir
-
-
 include($$PWD/../automationmodule/include/automationmoduleheaders.pri)
-
+linkLocalPlugin(QuickQanava)
 include($$PWD/../QuickQanava/include/quickqanavaheaders.pri)
 
 RESOURCES += \
     src/bsvalidationmodule.qrc
 
-qmldir.files = qmldir
+
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_qmldir.target = $$OUT_PWD/qmldir

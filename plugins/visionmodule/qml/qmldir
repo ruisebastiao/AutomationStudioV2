@@ -1,0 +1,8 @@
+module visionmodule
+plugin visionmodule ../
+
+depends QtQuick 2.8
+
+
+VisionModuleItem                          1.0 qrc:///VisionModule/VisionModuleItem.qml
+

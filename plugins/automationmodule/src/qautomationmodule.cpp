@@ -254,7 +254,7 @@ void QAutomationModule::setGraphView(qan::GraphView* graphView)
 
 QAutomationModule::ModuleType QAutomationModule::type() const
 {
-    return ModuleType::AutomationModule;
+    return m_type;
 }
 
 FlowNode *QAutomationModule::getFlowNodeById(int id)

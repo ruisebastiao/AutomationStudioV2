@@ -29,3 +29,4 @@ OTHER_FILES += plugin.pri
 OTHER_FILES += lib.pri
 
 OTHER_FILES += functions.pri
+OTHER_FILES += module.pri

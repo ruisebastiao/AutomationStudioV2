@@ -5,12 +5,12 @@
 
 QBSValidationModule::QBSValidationModule(QQuickItem* parent)
 {
-
+    m_type=ModuleType::BSValidationModule;
 }
 
 void QBSValidationModule::load(QString path)
 {
-    qDebug()<<"Loading module";
+    qDebug()<<"Loading BSValidation module";
     QAutomationModule::load(path);
 }
 
