@@ -61,11 +61,11 @@ configfiles.path = $${DEPLOY_PATH}
 RPI{
     target.path = $${DEPLOY_PATH}
     configfiles.path = $${DEPLOY_PATH}
-#    BUILDROOT{
-#        target.path = /root/AutomationStudio/
-#        configfiles.path = /root/AutomationStudio/
-#
-#    }
+    REMOTE-RPI{
+        target.path = $$REMOTE_PATH
+        configfiles.path = $$REMOTE_PATH
+
+    }
 }
 
 unix{
