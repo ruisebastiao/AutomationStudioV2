@@ -134,6 +134,12 @@ void AutomationStudio::loadPlugins(){
             qDebug()<<"Plugin loaded:"<<plugin;
 
         }
+        else{
+           auto metadata=pluginLoader.metaData();
+           if(metadata.size()>0){
+               qDebug()<<"Error loading plugin:"<<pluginLoader.errorString();
+           }
+        }
 
     }
 

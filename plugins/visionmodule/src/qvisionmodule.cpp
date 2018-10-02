@@ -1,5 +1,9 @@
 #include "qvisionmodule.h"
 
+#include <nodes/filecapturenode.h>
+#include <nodes/idscapturenode.h>
+#include <nodes/visionsystemnode.h>
+
 
 QVisionModule::QVisionModule(QQuickItem *parent)
 {
@@ -23,21 +27,28 @@ FlowNode *QVisionModule::readNode(qan::GraphView *graphView, QJsonObject nodeobj
 
     node=QAutomationModule::readNode(graphView,nodeobject);
 
-//    if(node==nullptr){
-//        qan::Node* newnode=nullptr;
+    if(node==nullptr){
+        qan::Node* newnode=nullptr;
 
-//        if(nodeobject["type"]=="BSValidationNode"){
-//            newnode=graphView->getGraph()->insertNode<BSValidationNode>(nullptr);
-//        }
+        if(nodeobject["type"]=="IDSCaptureNode"){
+            newnode=graphView->getGraph()->insertNode<IDSCaptureNode>(nullptr);
+        }
+        else if(nodeobject["type"]=="FileCaptureNode"){
+            newnode=graphView->getGraph()->insertNode<FileCaptureNode>(nullptr);
+        }
+        else if(nodeobject["type"]=="VisionSystemNode"){
+            newnode=graphView->getGraph()->insertNode<VisionSystemNode>(nullptr);
+        }
 
 
-//        FlowNode* modulenode=dynamic_cast<FlowNode*>(newnode);
-//        if(modulenode){
-//            modulenode->DeSerialize(nodeobject);
 
-//        }
-//        node=modulenode;
-//    }
+        FlowNode* modulenode=dynamic_cast<FlowNode*>(newnode);
+        if(modulenode){
+            modulenode->DeSerialize(nodeobject);
+
+        }
+        node=modulenode;
+    }
 
 
     return  node;

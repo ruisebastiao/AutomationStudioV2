@@ -85,4 +85,7 @@ DISTFILES += \
     $$PWD/qml/nodes/cv/ProcessingContoursNodeItem.qml \
     $$PWD/qml/nodes/cv/ProcessingNodeItem.qml \
     $$PWD/qml/nodes/cv/ProcessingShapesNodeItem.qml \
-    $$PWD/qml/nodes/cv/ProcessingThresholdNodeItem.qml
+    $$PWD/qml/nodes/cv/ProcessingThresholdNodeItem.qml \
+    $$PWD/qml/utils/ROIEditor.qml \
+    $$PWD/qml/utils/ROIProcessingViewer.qml \
+    $$PWD/qml/utils/ROISideContainer.qml

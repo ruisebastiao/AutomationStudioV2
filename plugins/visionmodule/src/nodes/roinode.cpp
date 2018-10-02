@@ -29,7 +29,7 @@ QQmlComponent *ROINode::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:/components/nodes/ROINode.qml"));
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/ROINodeItem.qml"));
     return delegate.get();
 
 }

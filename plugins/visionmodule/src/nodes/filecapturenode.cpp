@@ -18,7 +18,7 @@ QQmlComponent *FileCaptureNode::delegate(QQmlEngine &engine)noexcept
 
     static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:/components/nodes/FileCaptureNode.qml"));
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/FileCaptureNodeItem.qml"));
     return delegate.get();
 
 }

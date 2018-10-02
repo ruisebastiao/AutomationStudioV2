@@ -3,14 +3,16 @@ import QtQuick.Layouts      1.3
 
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
-import com.novares.cv 1.0
 
-FlowNode{
+import automationmodule 1.0
+import visionmodule 1.0
+
+FlowNodeItem{
 
     id:root
     expandOnEdit: false
 
-
+    resizable: editMode==true
 
     onEditModeChanged: {
         if(editMode){
@@ -32,7 +34,6 @@ FlowNode{
     }
 
     contentItem:  Rectangle{
-
 
         anchors.fill: parent
         ColumnLayout{
@@ -59,6 +60,7 @@ FlowNode{
                         Layout.fillWidth: true;
                         anchors.verticalCenter: parent.verticalCenter
 
+                        enabled: editMode
                         verticalAlignment: Text.AlignVCenter
                         text:node.filePath
                         onTextChanged: {

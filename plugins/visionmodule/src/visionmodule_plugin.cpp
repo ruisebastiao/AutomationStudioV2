@@ -23,13 +23,35 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 
+#include <nodes/idscamera.h>
+#include <nodes/idscameralistmodel.h>
+#include <nodes/roinode.h>
+
+#include <cv/qimagefile.h>
+#include <cv/qimread.h>
+#include <cv/qmatview.h>
+
 void VisionModulePlugin::registerTypes(const char *uri){
     // @uri modules.visionmodule
-
     qmlRegisterType<QVisionModule>(uri, 1, 0, "VisionModule");
+    qmlRegisterType<IDSCamera>(uri, 1, 0, "IDSCamera");
+    qmlRegisterType<IDSCameraListModel>(uri, 1, 0, "IDSCameraListModel");
+
+    qmlRegisterType<QImRead>(uri, 1, 0, "QImRead");
+    qmlRegisterType<QMatView>(uri, 1, 0, "QMatView");
+    qmlRegisterType<QMatDisplay>(uri, 1, 0, "QMatDisplay");
+    qmlRegisterType<QImageFile>(uri, 1, 0, "QImageFile");
+
+    qmlRegisterType<ROINode>(uri, 1, 0, "ROINode");
+
+
+
+
+
+
 
 }
 
 void VisionModulePlugin::initializeEngine(QQmlEngine *engine, const char *){
- engine->addImportPath("qrc:///");
+    engine->addImportPath("qrc:///");
 }

@@ -6,14 +6,14 @@ import QtGraphicalEffects   1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
-import "../gui"
 
-import com.novares.models 1.0
-import com.novares.nodes 1.0
-import com.novares 1.0
+import guimodule 1.0
 
+import automationmodule 1.0
 
-FlowNode{
+import visionmodule 1.0
+
+FlowNodeItem{
     id:root
 
 //    normalWidth: 300

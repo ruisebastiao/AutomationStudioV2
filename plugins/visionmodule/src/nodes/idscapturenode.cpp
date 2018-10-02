@@ -65,7 +65,7 @@ QQmlComponent *IDSCaptureNode::delegate(QQmlEngine &engine)noexcept
 
     static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:/components/nodes/IDSCaptureNode.qml"));
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/IDSCaptureNodeItem.qml"));
     return delegate.get();
 
 }

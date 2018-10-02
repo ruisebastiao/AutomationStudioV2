@@ -3,19 +3,16 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.3
-import com.novares 1.0
-import com.novares.flow.graph 1.0
+
 import QuickQanava 2.0 as Qan
-import "qrc:/QuickQanava"   as Qan
-import "../graph"
-import com.novares.cv 1.0
-import com.novares.utilities 1.0
-import com.novares.nodes 1.0
 
-import "../gui" as GUI
+import automationmodule 1.0
+import visionmodule 1.0
+
+import guimodule 1.0 as GUI
 
 
-FlowNode{
+FlowNodeItem{
     id:root
 
 
@@ -339,7 +336,7 @@ FlowNode{
 
                 }
 
-                GUI.ROIEditor{
+                ROIEditorItem{
                     id:roieditor
 
                     selectedROINode:visionGraph.selectedNode

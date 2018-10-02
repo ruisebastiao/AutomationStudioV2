@@ -10,5 +10,8 @@
         <file alias="Nodes/ProcessingNodeItem.qml">qml/nodes/cv/ProcessingNodeItem.qml</file>
         <file alias="Nodes/ProcessingShapesNodeItem.qml">qml/nodes/cv/ProcessingShapesNodeItem.qml</file>
         <file alias="Nodes/ProcessingThresholdNodeItem.qml">qml/nodes/cv/ProcessingThresholdNodeItem.qml</file>
+        <file alias="Utils/ROIEditor.qml">qml/utils/ROIEditor.qml</file>
+        <file alias="Utils/ROIProcessingViewer.qml">qml/utils/ROIProcessingViewer.qml</file>
+        <file alias="Utils/ROISideContainer.qml">qml/utils/ROISideContainer.qml</file>
     </qresource>
 </RCC>

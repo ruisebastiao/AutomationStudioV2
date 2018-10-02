@@ -28,7 +28,7 @@ QQmlComponent *VisionSystemNode::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:/components/nodes/VisionSystemNode.qml"));
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/VisionSystemNodeItem.qml"));
     return delegate.get();
 }
 
