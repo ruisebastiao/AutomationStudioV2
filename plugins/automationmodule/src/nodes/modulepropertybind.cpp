@@ -7,9 +7,9 @@ ModulePropertyBind::ModulePropertyBind()
 
 QQmlComponent *ModulePropertyBind::delegate(QQmlEngine &engine) noexcept
 {
-    static std::unique_ptr<QQmlComponent>   delegate;
+    static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Nodes/ModulePropertyBindNodeItem.qml");
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/ModulePropertyBindNodeItem.qml"));
     return delegate.get();
 }
 

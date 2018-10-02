@@ -16,7 +16,8 @@ win32:{
 
 
 unix{
-    QMAKE_RPATHDIR += $ORIGIN
+     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
+
     QMAKE_POST_LINK += $$quote(mkdir -p $$DEPLOY_PATH/$$TARGET/$$escape_expand(\n\t))
 
     QMAKE_POST_LINK += $$quote(cp $$_PRO_FILE_PWD_/qml/qmldir $$DEPLOY_PATH/$$TARGET/$$escape_expand(\n\t))

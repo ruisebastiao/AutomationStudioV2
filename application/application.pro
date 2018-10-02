@@ -26,7 +26,7 @@ unix:!RPI {
 }
 
 unix{
-    QMAKE_RPATHDIR += $ORIGIN
+    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 }
 
 

@@ -12,7 +12,7 @@ win32:{
 
 
 unix {
-    QMAKE_RPATHDIR += $ORIGIN
+     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 
     target.path = /usr/lib
     !BUILDROOT{

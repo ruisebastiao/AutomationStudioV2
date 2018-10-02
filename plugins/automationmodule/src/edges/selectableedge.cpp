@@ -4,9 +4,9 @@
 
 QQmlComponent*  SelectableEdge::delegate(QQmlEngine& engine) noexcept
 {
-    static std::unique_ptr<QQmlComponent>   CustomEdge_delegate;
+    static UniqueQQmlComponentPtr   CustomEdge_delegate;
     if ( !CustomEdge_delegate )
-        CustomEdge_delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Edges/SelectableEdgeItem.qml");
+        CustomEdge_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Edges/SelectableEdgeItem.qml"));
     return CustomEdge_delegate.get();
 }
 

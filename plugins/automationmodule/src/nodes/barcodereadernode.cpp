@@ -102,9 +102,9 @@ void BarcodeReaderNode::inNodeOutputChanged()
 
 QQmlComponent*  BarcodeReaderNode::delegate(QQmlEngine& engine) noexcept
 {
-    static std::unique_ptr<QQmlComponent>   delegate;
+    static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Nodes/BarcodeReaderNodeItem.qml");
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/BarcodeReaderNodeItem.qml"));
     return delegate.get();
 }
 

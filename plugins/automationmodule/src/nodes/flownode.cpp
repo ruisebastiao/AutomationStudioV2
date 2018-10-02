@@ -53,9 +53,9 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 
 QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
 {
-    static std::unique_ptr<QQmlComponent>   qan_FlowNode_delegate;
+    static UniqueQQmlComponentPtr   qan_FlowNode_delegate;
     if ( !qan_FlowNode_delegate )
-        qan_FlowNode_delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Nodes/FlowNode.qml");
+        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/FlowNode.qml"));
     return qan_FlowNode_delegate.get();
 }
 

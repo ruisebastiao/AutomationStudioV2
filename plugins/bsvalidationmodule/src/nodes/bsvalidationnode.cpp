@@ -10,9 +10,9 @@ BSValidationNode::BSValidationNode(QObject *parent)
 
 QQmlComponent*  BSValidationNode::delegate(QQmlEngine& engine) noexcept
 {
-    static std::unique_ptr<QQmlComponent>   delegate;
+    static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Nodes/BSValidationNodeItem.qml");
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/BSValidationNodeItem.qml"));
     return delegate.get();
 }
 

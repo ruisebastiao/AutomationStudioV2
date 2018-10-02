@@ -5,7 +5,7 @@
 #include <QFlags>
 #include <QObject>
 #include <qanEdge.h>
-
+#include <qanUtils.h>
 
 
 

@@ -9,9 +9,9 @@ StringNode::StringNode()
 
 QQmlComponent*  StringNode::delegate(QQmlEngine& engine) noexcept
 {
-    static std::unique_ptr<QQmlComponent>   delegate;
+    static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Nodes/StringNodeItem.qml");
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/StringNodeItem.qml"));
     return delegate.get();
 }
 

@@ -20,9 +20,9 @@ WebServiceNode::WebServiceNode(QObject *parent){
 
 QQmlComponent *WebServiceNode::delegate(QQmlEngine &engine)
 {
-    static std::unique_ptr<QQmlComponent>   delegate;
+    static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Nodes/WebServiceNodeItem.qml");
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/WebServiceNodeItem.qml"));
     return delegate.get();
 }
 
