@@ -3,21 +3,16 @@ import QtQuick              2.7
 import QtQuick.Layouts      1.3
 import QtGraphicalEffects   1.0
 
-import com.novares.cv 1.0
-
 
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
-import com.novares.flow.nodes 1.0
-import com.novares.utilities 1.0
-
 import QuickQanava          2.0 as Qan
-import "qrc:/QuickQanava"   as Qan
-import "../"
 
-import "../../gui" as GUI
-FlowNode {
+import automationmodule 1.0
+import visionmodule 1.0
+
+FlowNodeItem {
     id: root
 
     property bool isPressed: false
@@ -41,7 +36,7 @@ FlowNode {
 
     resizable:true
 
-    GUI.ROISideContainer{
+    ROISideContainerItem{
         id:right_container
         z:999999
         side:"right"
@@ -74,7 +69,7 @@ FlowNode {
     }
 
 
-    GUI.ROISideContainer{
+    ROISideContainerItem{
         id:left_container
         z:999999
         side:"left"
@@ -87,6 +82,18 @@ FlowNode {
                 id:left_common
                 Layout.preferredHeight: 60
                 Layout.fillWidth: true
+                CheckBox{
+                    anchors.fill: parent
+                    checked: root.node.showOriginal
+                    text:"Show original"
+                    onCheckedChanged: {
+                        root.node.showOriginal=checked;
+                        if(root.node.configsLoaded){
+                            root.node.reProcess();
+                        }
+
+                    }
+                }
             }
             Item{
                 id:preprocessing
@@ -101,16 +108,17 @@ FlowNode {
     contentItem: ColumnLayout{
         anchors.fill: parent
 
-        Item{
+        Rectangle{
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+//            border.color: Material.primary
             Layout.margins: 5
+            clip: true
             QMatView{
 
                 id:viewer
                 property real viewerRatio:implicitWidth/implicitHeight;
-
                 height: parent.height
                 width: height*viewerRatio
                 anchors.centerIn: parent
@@ -120,6 +128,14 @@ FlowNode {
                     NumberAnimation{
                         duration: 250
                     }
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+//                    onWheel: {
+//                        console.log(wheel.y);
+//                        viewer.scale+=0.05
+//                    }
                 }
 
 

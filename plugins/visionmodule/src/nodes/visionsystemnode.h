@@ -101,9 +101,9 @@ public slots:
 
         m_frameProcessed = frameProcessed;
 
-        if(frameProcessed){
-            LOG_INFO("Node ID|"+QString::number(this->id())+"|Processing finished");
-        }
+//        if(frameProcessed){
+//            LOG_INFO("Node ID|"+QString::number(this->id())+"|Processing finished");
+//        }
         emit frameProcessedChanged(m_frameProcessed);
     }
 
@@ -195,7 +195,7 @@ private:
     bool m_processFrame=false;
     bool m_frameProcessed=false;
 
-    void readNode(QJsonObject roiobject);
+    void readROINode(QJsonObject roiobject);
 
     QList<ROINode *> m_ROINodes;
 

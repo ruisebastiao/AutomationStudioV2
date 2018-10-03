@@ -5,12 +5,8 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QuickQanava 2.0 as Qan
-import "qrc:/QuickQanava"   as Qan
-import com.novares.utilities 1.0
-import com.novares.cv 1.0
 
-import "../gui" as GUI
-//import com.novares.cv.preprocessing 1.0
+import visionmodule 1.0
 
 Qan.NodeItem {
     id:root
@@ -105,7 +101,7 @@ Qan.NodeItem {
                     height: 64
                     anchors.centerIn: parent
                     fillMode: Image.PreserveAspectFit
-                    source: root.node.locked===false?"qrc:/components/images/lock-open-outline.png":"qrc:/components/images/lock-outline.png"
+                    source: root.node.locked===false?"qrc:///Images/UnLock":"qrc:///Images/Lock"
                 }
 
                 onPressed: {
@@ -130,7 +126,7 @@ Qan.NodeItem {
 
     }
 
-    GUI.ROISideContainer{
+    ROISideContainerItem{
 
         roiPressed: root.isPressed
         roiSelected: root.selected
@@ -183,7 +179,7 @@ Qan.NodeItem {
 
     }
 
-    GUI.ROISideContainer{
+    ROISideContainerItem{
 
         roiPressed: root.isPressed
         roiSelected: root.selected
@@ -329,7 +325,7 @@ Qan.NodeItem {
     }
 
 
-    GUI.ROIProcessingViewer{
+    ROIProcessingViewerItem{
         id:processingviewer
         visible: false
         Component.onCompleted: {

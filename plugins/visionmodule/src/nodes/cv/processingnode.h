@@ -40,6 +40,9 @@ class ProcessingNode : public FlowNode
     Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged)
     Q_PROPERTY(FlowNodePort* processPort READ processPort WRITE setProcessPort NOTIFY processPortChanged USER("serialize"))
 
+    Q_PROPERTY(bool showOriginal READ showOriginal WRITE setShowOriginal NOTIFY showOriginalChanged)
+
+
 
 
 public:
@@ -128,7 +131,12 @@ public:
         return m_originalInput;
     }
 
-     virtual void DeSerialize(QJsonObject &json) override;
+    virtual void DeSerialize(QJsonObject &json) override;
+
+    bool showOriginal() const
+    {
+        return m_showOriginal;
+    }
 
 public slots:
     virtual void setInput(QMat* input)=0;
@@ -242,6 +250,15 @@ public slots:
         emit originalInputChanged(m_originalInput);
     }
 
+    void setShowOriginal(bool showOriginal)
+    {
+        if (m_showOriginal == showOriginal)
+            return;
+
+        m_showOriginal = showOriginal;
+        emit showOriginalChanged(m_showOriginal);
+    }
+
 signals:
     void inputChanged(QMat* input);
     void outputChanged(QMat* output);
@@ -279,6 +296,8 @@ signals:
 
     void processingDonePortChanged(FlowNodePort* processingDonePort);
 
+    void showOriginalChanged(bool showOriginal);
+
 private:
 
 
@@ -308,6 +327,8 @@ private:
     FlowNodePort* m_processingDonePort=nullptr;
 
 
+
+
 protected:
     QMat* m_input=nullptr;
     QMat* m_originalInput=nullptr;
@@ -317,7 +338,7 @@ protected:
     bool m_processingDone=false;
 
     QMat* m_processedFrame=nullptr;
-
+    bool m_showOriginal=false;
 
     virtual void doProcess()=0;
 

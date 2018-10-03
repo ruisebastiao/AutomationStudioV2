@@ -1214,7 +1214,7 @@ ApplicationWindow {
         x: 0
         y: rootwindow.height
         width: rootwindow.width
-        scale: 0.7
+        scale: 0.4
         states: State {
             name: "visible"
             when: inputPanel.active

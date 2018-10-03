@@ -33,7 +33,7 @@ QQmlComponent *VisionSystemNode::delegate(QQmlEngine &engine) noexcept
 }
 
 
-void VisionSystemNode::readNode(QJsonObject roiobject){
+void VisionSystemNode::readROINode(QJsonObject roiobject){
 
     if(!m_visionGraphView){
         return;
@@ -81,9 +81,11 @@ void VisionSystemNode::DeSerialize(QJsonObject &json)
 
     m_frameSourcePort= new FlowNodePort(this,qan::PortItem::Type::In,"frameSource");
     m_processFramePort= new FlowNodePort(this,qan::PortItem::Type::In,"processFrame");
-
+    m_inPorts.append(m_frameSourcePort);
+    m_inPorts.append(m_processFramePort);
 
     m_frameProcessedPort= new FlowNodePort(this,qan::PortItem::Type::Out,"frameProcessed");
+    m_outPorts.append(m_frameProcessedPort);
 
     FlowNode::DeSerialize(json);
 
@@ -92,7 +94,7 @@ void VisionSystemNode::DeSerialize(QJsonObject &json)
     for (int i = 0; i < roisArray.count(); ++i) {
         QJsonObject roiObject=roisArray[i].toObject();
         if(roiObject["type"]=="ROINode"){
-            readNode(roiObject);
+            readROINode(roiObject);
         }
     }
 

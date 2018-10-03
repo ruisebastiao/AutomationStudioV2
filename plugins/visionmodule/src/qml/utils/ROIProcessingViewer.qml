@@ -6,17 +6,10 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
 
-import com.novares 1.0
-
-import com.novares.flow.nodes 1.0
-
-import com.novares.flow.graph 1.0
-
-import "qrc:/QuickQanava" as Qan
-
 import QuickQanava 2.0 as Qan
 
-import com.novares.nodes 1.0
+import automationmodule 1.0
+import visionmodule 1.0
 
 Item{
     property alias roiEditorGraphView: roieditorgraphView

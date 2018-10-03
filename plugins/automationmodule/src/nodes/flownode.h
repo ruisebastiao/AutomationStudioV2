@@ -64,6 +64,7 @@ public:
         ObjectPropertyNode,
         ProcessingContoursNode,
         ProcessingShapesNode,
+        CannyEdgesNode,
         WebCamCaptureNode,
         ModulePropertyBind
 
@@ -83,6 +84,11 @@ public:
         //   this->getGraph()->removeNode(this);
 
     }
+
+    static void loadNodeConnections(QList<FlowNode *> nodeList);
+
+    static FlowNode* getFlowNodeById(int id,QList<FlowNode *> nodeList);
+
 
 
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;

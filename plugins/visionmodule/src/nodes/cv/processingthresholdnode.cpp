@@ -12,7 +12,7 @@ QQmlComponent *ProcessingThresholdNode::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   qan_FlowNode_delegate;
     if ( !qan_FlowNode_delegate )
-        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:/components/nodes/cv/ProcessingThresholdNode.qml"));
+        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/Cv/ProcessingThresholdNodeItem.qml"));
     return qan_FlowNode_delegate.get();
 }
 

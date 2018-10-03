@@ -12,7 +12,7 @@ FlowNodeItem{
     id:root
     expandOnEdit: false
 
-    resizable: editMode==true
+    resizable: true
 
     onEditModeChanged: {
         if(editMode){

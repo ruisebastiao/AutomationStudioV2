@@ -7,6 +7,8 @@
 #include <src/nodes/cv/processingcontoursnode.h>
 #include <src/nodes/cv/processingshapesnode.h>
 
+#include <nodes/cv/cannyedgesnode.h>
+
 
 using namespace cv;
 
@@ -62,22 +64,21 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
 {
     qan::Node* newnode=nullptr;
 
-//    if(nodeobject["type"]=="BarcodeReaderNode"){
-//        newnode=graphView->getGraph()->insertNode<BarcodeReaderNode>(nullptr);
-//    }
-//    else if(nodeobject["type"]=="WebServiceNode"){
-//        newnode=graphView->getGraph()->insertNode<WebServiceNode>(nullptr);
-//    }
-//    else if(nodeobject["type"]=="StringNode"){
-//        newnode=graphView->getGraph()->insertNode<StringNode>(nullptr);
-//    }
-//    else if(nodeobject["type"]=="ModulePropertyBind"){
-//        newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
-//        ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
-//        if(modulePropertyBindNode){
-//            modulePropertyBindNode->setModule(this);
-//        }
-//    }
+    if(nodeobject["type"]=="ProcessingThresholdNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingThresholdNode>(nullptr);
+    }
+    else if(nodeobject["type"]=="ProcessingContoursNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingContoursNode>(nullptr);
+    }
+    else if(nodeobject["type"]=="ProcessingShapesNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingShapesNode>(nullptr);
+    }
+    else if(nodeobject["type"]=="CannyEdgesNode"){
+        newnode=graphView->getGraph()->insertNode<CannyEdgesNode>(nullptr);
+    }
+    else{
+        LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
+    }
 
     ProcessingNode* node=dynamic_cast<ProcessingNode*>(newnode);
     if(node){
@@ -142,6 +143,7 @@ void ROINode::DeSerialize(QJsonObject &json)
 
     }
 
+    FlowNode::loadNodeConnections(m_ProcessingNodes);
     setConfigsLoaded(true);
 
 

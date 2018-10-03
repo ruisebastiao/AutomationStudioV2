@@ -27,6 +27,7 @@ QMatView::QMatView(QQuickItem *parent)
     , m_linearFilter(true)
 {
     setFlag(ItemHasContents, true);
+
 }
 
 QMatView::~QMatView(){

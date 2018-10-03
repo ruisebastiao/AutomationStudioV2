@@ -6,12 +6,15 @@
         <file alias="Nodes/IDSCaptureNodeItem.qml">qml/nodes/IDSCaptureNodeItem.qml</file>
         <file alias="Nodes/ROINodeItem.qml">qml/nodes/ROINodeItem.qml</file>
         <file alias="Nodes/VisionSystemNodeItem.qml">qml/nodes/VisionSystemNodeItem.qml</file>
-        <file alias="Nodes/ProcessingContoursNodeItem.qml">qml/nodes/cv/ProcessingContoursNodeItem.qml</file>
-        <file alias="Nodes/ProcessingNodeItem.qml">qml/nodes/cv/ProcessingNodeItem.qml</file>
-        <file alias="Nodes/ProcessingShapesNodeItem.qml">qml/nodes/cv/ProcessingShapesNodeItem.qml</file>
-        <file alias="Nodes/ProcessingThresholdNodeItem.qml">qml/nodes/cv/ProcessingThresholdNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingContoursNodeItem.qml">qml/nodes/cv/ProcessingContoursNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingNodeItem.qml">qml/nodes/cv/ProcessingNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingShapesNodeItem.qml">qml/nodes/cv/ProcessingShapesNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingThresholdNodeItem.qml">qml/nodes/cv/ProcessingThresholdNodeItem.qml</file>
         <file alias="Utils/ROIEditor.qml">qml/utils/ROIEditor.qml</file>
         <file alias="Utils/ROIProcessingViewer.qml">qml/utils/ROIProcessingViewer.qml</file>
         <file alias="Utils/ROISideContainer.qml">qml/utils/ROISideContainer.qml</file>
+        <file alias="Images/UnLock">images/lock-open-outline.png</file>
+        <file alias="Images/Lock">images/lock-outline.png</file>
+        <file alias="Nodes/Cv/CannyEdgesNodeItem.qml">qml/nodes/cv/CannyEdgesNodeItem.qml</file>
     </qresource>
 </RCC>

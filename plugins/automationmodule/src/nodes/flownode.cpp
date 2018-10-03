@@ -6,48 +6,86 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 {
 
 
-//    QObject::connect(QAutomationModule::flownodemanager, &FlowNodeManager::onFlowNodeLoaded,[this](FlowNode* nodeLoaded){
+    //    QObject::connect(QAutomationModule::flownodemanager, &FlowNodeManager::onFlowNodeLoaded,[this](FlowNode* nodeLoaded){
 
-//        if(nodeLoaded==this){
-//            return;
-//        }
+    //        if(nodeLoaded==this){
+    //            return;
+    //        }
 
-//        qDebug()<<"On node added";
+    //        qDebug()<<"On node added";
 
-//        foreach (FlowNodePort* flownodeport, m_outPorts) {
-//            if(flownodeport->getType()==qan::PortItem::Type::Out){
-
-
-
-
-//                for (int index1 = 0; index1 < flownodeport->getConnections().length(); ++index1) {
-//                    ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
-//                    if(connectinfo->nodeID()==nodeLoaded->id()){
-
-//                        qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
-
-//                        for (int index2 = 0; index2 < nodeLoaded->getInPorts()->getConnections().length(); ++index2) {
-//                            ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
-//                            if(connectinfo->nodeID()==nodeLoaded->id()){
-
-//                                qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
-
-
-//                            }
-//                        }
-
-//                    }
-//                }
-
-//            }
-//        }
-
-//    });
+    //        foreach (FlowNodePort* flownodeport, m_outPorts) {
+    //            if(flownodeport->getType()==qan::PortItem::Type::Out){
 
 
 
 
+    //                for (int index1 = 0; index1 < flownodeport->getConnections().length(); ++index1) {
+    //                    ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
+    //                    if(connectinfo->nodeID()==nodeLoaded->id()){
 
+    //                        qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
+
+    //                        for (int index2 = 0; index2 < nodeLoaded->getInPorts()->getConnections().length(); ++index2) {
+    //                            ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
+    //                            if(connectinfo->nodeID()==nodeLoaded->id()){
+
+    //                                qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
+
+
+    //                            }
+    //                        }
+
+    //                    }
+    //                }
+
+    //            }
+    //        }
+
+    //    });
+
+
+
+
+
+}
+
+void FlowNode::loadNodeConnections( QList<FlowNode *> nodeList)
+{
+
+    foreach (FlowNode* flownode, nodeList) {
+        foreach (FlowNodePort* flownodeport, flownode->getOutPorts()) {
+            foreach (ConnectionInfo* connection, flownodeport->getConnections()) {
+                FlowNode* targetnode=FlowNode::getFlowNodeById(connection->nodeID(),nodeList);
+                if(targetnode){
+                    qan::Edge* newedge= flownode->getScenegraph()->insertNewEdge(false,flownode,targetnode);
+                    if(newedge){
+                        for (int portindex = 0; portindex < targetnode->getInPorts().length(); ++portindex) {
+                            FlowNodePort* targetInport=targetnode->getInPorts().at(portindex);
+                            if(targetInport->getPortItem()->getId()==connection->portID()){
+                                flownode->getScenegraph()->bindEdge(newedge,flownodeport->getPortItem(),targetInport->getPortItem());
+
+                                break;
+                            }
+                        }
+
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+FlowNode *FlowNode::getFlowNodeById(int id, QList<FlowNode *> nodeList)
+{
+    for (int var = 0; var < nodeList.length(); ++var) {
+        if(nodeList.at(var)->id()==id){
+            return  nodeList.at(var);
+        }
+    }
+
+    return nullptr;
 }
 
 

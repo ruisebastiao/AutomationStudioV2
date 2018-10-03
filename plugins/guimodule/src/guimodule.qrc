@@ -11,5 +11,6 @@
         <file>qml/TextScroller.qml</file>
         <file>qml/UserSettingsView.qml</file>
         <file>qml/ToastManager.qml</file>
+        <file>qml/FlickableItem.qml</file>
     </qresource>
 </RCC>

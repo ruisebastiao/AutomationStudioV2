@@ -35,6 +35,7 @@ FlowNodeItem{
         }
     }
 
+    resizable: true
 
     contentItem:  Rectangle{
 

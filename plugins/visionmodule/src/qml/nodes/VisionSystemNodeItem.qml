@@ -20,7 +20,7 @@ FlowNodeItem{
 
 
 
-    resizable:editMode;
+    resizable:true;
 
 
     onResizeEndChanged: {

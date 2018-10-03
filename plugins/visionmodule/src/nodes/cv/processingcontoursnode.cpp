@@ -12,7 +12,7 @@ QQmlComponent *ProcessingContoursNode::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   qan_FlowNode_delegate;
     if ( !qan_FlowNode_delegate )
-        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:/components/nodes/cv/ProcessingContoursNode.qml"));
+        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/Cv/ProcessingContoursNodeItem.qml"));
     return qan_FlowNode_delegate.get();
 
 }
