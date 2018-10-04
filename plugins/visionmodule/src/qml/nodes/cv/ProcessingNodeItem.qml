@@ -223,7 +223,32 @@ FlowNodeItem {
                 ScrollIndicator.vertical: ScrollIndicator { }
                 ScrollIndicator.horizontal: ScrollIndicator { }
 
+                MouseArea{
+                    anchors.fill: parent
+                    scrollGestureEnabled: false
+
+                    onWheel: {
+                        if (wheel.modifiers & Qt.ControlModifier) {
+//                            console.log("wheel")
+//                            wheel.accepted=true
+//                            f.contentX=mouseX
+//                            f.contentY=-mouseY
+//                             f.returnToBounds();
+                        }
+                        else{
+                            wheel.accepted=false
+                        }
+
+
+
+                    }
+
+                    //                    propagateComposedEvents: true
+                }
+
+
             }
+
 
             PinchArea {
                 id: p
@@ -289,17 +314,12 @@ FlowNodeItem {
                     }
 
                     onUpdated: {
-//                        console.log(touchPoints.length)
-                         pointsPressed=touchPoints.length
+                        //                        console.log(touchPoints.length)
+                        pointsPressed=touchPoints.length
                     }
                 }
 
             }
-
-
-
-
-
 
         }
 
