@@ -5,7 +5,7 @@ import QtQuick.Controls.Material    2.1
 
 import QtQuick.Controls 2.2
 import QuickQanava          2.0 as Qan
-import "qrc:/QuickQanava"   as Qan
+
 
 Qan.EdgeItem {
     id: root

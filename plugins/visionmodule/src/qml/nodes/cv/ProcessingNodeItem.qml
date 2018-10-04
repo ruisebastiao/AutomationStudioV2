@@ -41,7 +41,7 @@ FlowNodeItem {
         z:999999
         side:"right"
         roiPressed: root.isPressed
-        roiSelected: root.selected
+        show: root.selected==true && root.editMode==true
         visible: postProcessingConfigItem
         contentItem: ColumnLayout{
             anchors.fill: parent
@@ -74,7 +74,7 @@ FlowNodeItem {
         z:999999
         side:"left"
         roiPressed: root.isPressed
-        roiSelected: root.selected
+        show: root.selected && root.editMode==true
         visible: preProcessingConfigItem
         contentItem: ColumnLayout{
             anchors.fill: parent
@@ -117,7 +117,7 @@ FlowNodeItem {
             clip: true
 
 
-
+            enabled: root.editMode
 
             Flickable {
                 id: f
@@ -131,10 +131,10 @@ FlowNodeItem {
 
                 property bool fitToScreenActive: false
 
-                property real minZoom: 0.1;
-                property real maxZoom: 2
+                property real minZoom: 1;
+                property real maxZoom: 8
 
-                property real zoomStep: 0.1
+                property real zoomStep: 0.05
 
                 onWidthChanged: {
                     if (fitToScreenActive)
@@ -198,20 +198,21 @@ FlowNodeItem {
                     f.returnToBounds();
                 }
                 function zoomIn() {
-                    if (f.scale<f.maxZoom)
+                    if (viewer.scale<f.maxZoom)
                         viewer.scale*=(1.0+zoomStep)
+
                     f.returnToBounds();
                     fitToScreenActive=false;
                     f.returnToBounds();
                 }
                 function zoomOut() {
-                    if (f.scale>f.minZoom)
+                    console.log("f.scale:"+f.scale)
+                    if (viewer.scale>f.minZoom)
                         viewer.scale*=(1.0-zoomStep)
-                    else
-                        viewer.scale=f.minZoom;
+
+
                     f.returnToBounds();
-                    fitToScreenActive=false;
-                    f.returnToBounds();
+
                 }
                 function zoomFull() {
                     viewer.scale=1;
@@ -229,11 +230,19 @@ FlowNodeItem {
 
                     onWheel: {
                         if (wheel.modifiers & Qt.ControlModifier) {
-//                            console.log("wheel")
-//                            wheel.accepted=true
-//                            f.contentX=mouseX
-//                            f.contentY=-mouseY
-//                             f.returnToBounds();
+                            //                            console.log("wheel")
+
+                            if(wheel.angleDelta.y>0){
+                                f.zoomIn()
+                            }
+                            else{
+                                f.zoomOut()
+                            }
+
+                            wheel.accepted=true
+                            //                            f.contentX=mouseX
+                            //                            f.contentY=-mouseY
+                            //                             f.returnToBounds();
                         }
                         else{
                             wheel.accepted=false
@@ -260,8 +269,8 @@ FlowNodeItem {
                 }
 
                 pinch.target: viewer
-                pinch.maximumScale: 8
-                pinch.minimumScale: 1
+                pinch.maximumScale: f.maxZoom
+                pinch.minimumScale: f.minZoom
                 onPinchStarted: {
 
                 }

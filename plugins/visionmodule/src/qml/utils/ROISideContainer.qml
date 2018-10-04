@@ -8,10 +8,10 @@ Item{
     id:root
 
     property bool roiPressed: false
-    property bool roiSelected: false
+    property bool show: false
 
-    onRoiSelectedChanged: {
-        if(roiSelected){
+    onShowChanged: {
+        if(show){
             root.visible=true
         }
     }
@@ -56,10 +56,10 @@ Item{
             x=Qt.binding(function() {
 
                 if(root.side=="right"){
-                    return roiSelected?10:-parent.width-5
+                    return show?10:-parent.width-5
                 }
                 if(root.side=="left"){
-                    return roiSelected?40:width+50
+                    return show?40:width+50
                 }
 
             })
@@ -74,7 +74,7 @@ Item{
             NumberAnimation {
                 duration: 250
                 onRunningChanged:{
-                    if(root.roiSelected==false && running==false){
+                    if(root.show==false && running==false){
                         root.visible=false
                     }
                 }

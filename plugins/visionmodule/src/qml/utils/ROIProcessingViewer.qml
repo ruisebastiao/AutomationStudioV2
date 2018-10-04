@@ -14,9 +14,9 @@ import visionmodule 1.0
 Item{
     property alias roiEditorGraphView: roieditorgraphView
 
+    anchors.fill: parent
 
     visible: true
-    anchors.fill: parent
     PinchArea{
         anchors.fill: parent
         enabled: editMode
@@ -81,6 +81,6 @@ Item{
             }
         }
     }
-
-
 }
+
+

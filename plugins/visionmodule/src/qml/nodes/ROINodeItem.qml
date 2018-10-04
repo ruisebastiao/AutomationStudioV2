@@ -129,7 +129,7 @@ Qan.NodeItem {
     ROISideContainerItem{
 
         roiPressed: root.isPressed
-        roiSelected: root.selected
+        show: root.selected && editMode
 
         contentItem: ColumnLayout{
             anchors.fill: parent
@@ -182,7 +182,7 @@ Qan.NodeItem {
     ROISideContainerItem{
 
         roiPressed: root.isPressed
-        roiSelected: root.selected
+        show: root.selected && editMode
 
         side: "left"
 

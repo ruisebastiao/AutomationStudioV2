@@ -64,6 +64,10 @@ private:
 
     int m_thresholdhigh=255;
 
+
+    // JsonSerializable interface
+public:
+    void DeSerialize(QJsonObject &json) override;
 };
 
 #endif // CANNYEDGESNODE_H

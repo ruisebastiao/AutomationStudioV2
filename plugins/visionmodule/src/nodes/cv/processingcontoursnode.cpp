@@ -26,6 +26,9 @@ void ProcessingContoursNode::DeSerialize(QJsonObject &json)
 {
     m_filteredContoursPort=new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContours");
 
+    m_outPorts.append(m_filteredContoursPort);
+
+
     ProcessingNode::DeSerialize(json);
 }
 
@@ -36,10 +39,7 @@ void ProcessingContoursNode::doProcess()
         return;
     }
 
-
-
     vector<vector<Point> > contours;
-    //    vector<vector<Point> > filtered_contours;
 
 
     if(m_input->cvMat()->empty()){
@@ -63,9 +63,9 @@ void ProcessingContoursNode::doProcess()
     {
 
         vector<Point> contour=contours[i];
-//        vector<Point> approx;
+        //        vector<Point> approx;
 
-//        approxPolyDP(countour,approx,arcLength(Mat(countour), true)*0.02,true);
+        //        approxPolyDP(countour,approx,arcLength(Mat(countour), true)*0.02,true);
 
         double contourlength=arcLength(contour,true);
         if(contourlength>minCountourLength() && contourlength<maxCountourLength()){

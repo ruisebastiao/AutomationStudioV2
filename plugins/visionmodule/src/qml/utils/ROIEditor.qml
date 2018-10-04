@@ -20,6 +20,11 @@ Item {
         }
     }
 
+    MouseArea{
+        anchors.fill: parent
+        preventStealing: true
+    }
+
     Rectangle{
         anchors.fill: parent
         opacity: 0.5
