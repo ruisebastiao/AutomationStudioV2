@@ -1,0 +1,30 @@
+{
+    "language": "pt",
+    "projects": [
+        {
+            "isDefault": true,
+            "modules": [
+                {
+                    "moduleInstance": "VisionModuleItem.qml",
+                    "settingFile": "Vision.json",
+                    "type": "Vision"
+                }
+            ],
+            "name": "Vision"
+        }
+    ],
+    "users": [
+        {
+            "default": true,
+            "name": "Administrator",
+            "pin": "4321",
+            "role": "AdminRole"
+        },
+        {
+            "default": false,
+            "name": "Production User",
+            "pin": "0000",
+            "role": "ProductionRole"
+        }
+    ]
+}
