@@ -25,7 +25,7 @@ Item {
         //Behavior on contentY { NumberAnimation {} }
         //Behavior on contentX { NumberAnimation {} }
 
-        property bool fitToScreenActive: true
+        property bool fitToScreenActive: false
 
         property real minZoom: 0.1;
         property real maxZoom: 2
@@ -58,14 +58,10 @@ Item {
 
                 property real prevScale: 1.0;
 
-//                width: childrenRect.width
-//                height: childrenRect.height
+
                 smooth: f.moving
 
 
-
-                onWidthChanged: console.debug(width)
-                onHeightChanged: console.debug(height)
                 transformOrigin: Item.Center
                 onScaleChanged: {
                     console.debug(scale)

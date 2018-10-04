@@ -112,35 +112,202 @@ FlowNodeItem {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-//            border.color: Material.primary
+            //            border.color: Material.primary
             Layout.margins: 5
             clip: true
-            QMatView{
 
-                id:viewer
-                property real viewerRatio:implicitWidth/implicitHeight;
-                height: parent.height
-                width: height*viewerRatio
-                anchors.centerIn: parent
 
-                Behavior on opacity{
 
-                    NumberAnimation{
-                        duration: 250
+
+            Flickable {
+                id: f
+                anchors.fill: parent
+                boundsBehavior: Flickable.StopAtBounds
+                contentHeight: iContainer.height;
+                contentWidth: iContainer.width;
+                clip: true
+
+
+
+                property bool fitToScreenActive: false
+
+                property real minZoom: 0.1;
+                property real maxZoom: 2
+
+                property real zoomStep: 0.1
+
+                onWidthChanged: {
+                    if (fitToScreenActive)
+                        fitToScreen();
+                }
+                onHeightChanged: {
+                    if (fitToScreenActive)
+                        fitToScreen();
+                }
+
+                Item {
+                    id: iContainer
+                    width: Math.max(viewer.width * viewer.scale, f.width)
+                    height: Math.max(viewer.height * viewer.scale, f.height)
+
+
+                    QMatView{
+
+                        id:viewer
+
+                        property real prevScale: 1.0;
+
+
+                        smooth: f.moving
+                        anchors.centerIn: parent
+
+                        transformOrigin: Item.Center
+
+                        onScaleChanged: {
+
+                            if ((width * scale) > f.width) {
+                                var xoff = (f.width / 2 + f.contentX) * scale / prevScale;
+                                f.contentX = xoff - f.width / 2
+                            }
+                            if ((height * scale) > f.height) {
+                                var yoff = (f.height / 2 + f.contentY) * scale / prevScale;
+                                f.contentY = yoff - f.height / 2
+                            }
+                            prevScale=scale;
+                        }
+
+
+
+                        Behavior on opacity{
+
+                            NumberAnimation{
+                                duration: 250
+                            }
+                        }
+
+                    }
+
+
+                }
+                function fitToScreen() {
+                    var s = Math.min(f.width / viewer.width, f.height / viewer.height, 1)
+                    viewer.scale = s;
+                    f.minZoom = s;
+                    viewer.prevScale = scale
+                    fitToScreenActive=true;
+                    f.returnToBounds();
+                }
+                function zoomIn() {
+                    if (f.scale<f.maxZoom)
+                        viewer.scale*=(1.0+zoomStep)
+                    f.returnToBounds();
+                    fitToScreenActive=false;
+                    f.returnToBounds();
+                }
+                function zoomOut() {
+                    if (f.scale>f.minZoom)
+                        viewer.scale*=(1.0-zoomStep)
+                    else
+                        viewer.scale=f.minZoom;
+                    f.returnToBounds();
+                    fitToScreenActive=false;
+                    f.returnToBounds();
+                }
+                function zoomFull() {
+                    viewer.scale=1;
+                    fitToScreenActive=false;
+                    f.returnToBounds();
+                }
+
+
+                ScrollIndicator.vertical: ScrollIndicator { }
+                ScrollIndicator.horizontal: ScrollIndicator { }
+
+            }
+
+            PinchArea {
+                id: p
+                anchors.fill: f
+
+                property bool started: started;
+                onStartedChanged: {
+
+                }
+
+                pinch.target: viewer
+                pinch.maximumScale: 8
+                pinch.minimumScale: 1
+                onPinchStarted: {
+
+                }
+
+                onPinchUpdated: {
+                    f.contentX += pinch.previousCenter.x - pinch.center.x
+                    f.contentY += pinch.previousCenter.y - pinch.center.y
+                }
+
+                onPinchFinished: {
+
+                    f.returnToBounds();
+                }
+
+
+
+                MultiPointTouchArea {
+                    anchors.fill: parent
+                    mouseEnabled: false
+                    id:mpa
+
+                    property int pointsPressed:0
+                    //                    property real start: value
+                    touchPoints: [
+                        TouchPoint {
+                            id: point1
+
+                            onPreviousXChanged: {
+                                if(mpa.pointsPressed<2){
+                                    f.contentX += previousX-x
+                                }
+
+                            }
+
+                            onPreviousYChanged: {
+                                if(mpa.pointsPressed<2){
+                                    f.contentY += previousY-y
+                                }
+                            }
+
+                        },
+
+                        TouchPoint {
+                            id: point2
+                        }
+                    ]
+
+                    onReleased: {
+                        f.returnToBounds();
+                    }
+
+                    onUpdated: {
+//                        console.log(touchPoints.length)
+                         pointsPressed=touchPoints.length
                     }
                 }
 
-                MouseArea{
-                    anchors.fill: parent
-//                    onWheel: {
-//                        console.log(wheel.y);
-//                        viewer.scale+=0.05
-//                    }
-                }
-
-
             }
+
+
+
+
+
+
         }
+
+
+
+
+
+
     }
     Connections{
 

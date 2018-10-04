@@ -28,6 +28,7 @@ QMatView::QMatView(QQuickItem *parent)
 {
     setFlag(ItemHasContents, true);
 
+
 }
 
 QMatView::~QMatView(){

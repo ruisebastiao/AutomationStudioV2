@@ -28,15 +28,15 @@ void CannyEdgesNode::doProcess()
         return;
     }
 
-//    if(m_showOriginal){
+    if(m_showOriginal){
 
-//        m_input->cvMat()->copyTo(*output()->cvMat());
+        m_input->cvMat()->copyTo(*output()->cvMat());
 
-//    }
-//    else{
+    }
+    else{
         cv::Canny(*m_input->cvMat(), *m_output->cvMat(),this->thresholdlow(), this->thresholdhigh(),3,false );
 
-//    }
+    }
 
 
     emit outputChanged(m_output);
