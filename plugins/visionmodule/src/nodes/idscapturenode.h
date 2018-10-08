@@ -30,6 +30,7 @@ class IDSCaptureNode : public CameraCaptureNode
 
 
 
+
 public:
     IDSCaptureNode();
     ~IDSCaptureNode() override;

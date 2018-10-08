@@ -169,106 +169,117 @@ void IDSCaptureNode::setCamera(bool open)
 {
 
 
+
+
     if(this->selectedCamera()==nullptr){
         return;
     }
+    QtConcurrent::run([this,open](){
+
+        setUpdatingCamera(true);
+
+        m_camHandler=this->selectedCamera()->camID();
 
 
-    m_camHandler=this->selectedCamera()->camID();
-
-
-    if(open){
-        INT nRet = is_InitCamera (&m_camHandler, NULL);
-        if(nRet==IS_SUCCESS){
-            LOG_INFO("Camera Inited ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
-
-            nRet = is_ParameterSet(m_camHandler, IS_PARAMETERSET_CMD_LOAD_EEPROM, NULL, NULL);
+        if(open){
+            INT nRet = is_InitCamera (&m_camHandler, NULL);
             if(nRet==IS_SUCCESS){
-                LOG_INFO("Camera parameters loaded ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
+                LOG_INFO("Camera Inited ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
-            }
-            if (m_pcImageMemory != NULL)
-            {
-                is_FreeImageMem( m_camHandler, m_pcImageMemory, m_lMemoryId );
-            }
-
-            m_pcImageMemory = NULL;
-
-            SENSORINFO SensorInfo;
-            is_GetSensorInfo (m_camHandler, &SensorInfo);
-
-            // init image size to sensor size by default
-            GetMaxImageSize(&m_nSizeX, &m_nSizeY);
-
-
-            is_SetColorMode (m_camHandler, IS_CM_MONO8);
-
-            // memory initialization
-            is_AllocImageMem (	m_camHandler,
-                                m_nSizeX,
-                                m_nSizeY,
-                                8,
-                                &m_pcImageMemory,
-                                &m_lMemoryId);
-
-            is_SetImageMem (m_camHandler, m_pcImageMemory, m_lMemoryId); // set memory active
-            selectedCamera()->setFrameAddress(m_pcImageMemory);
-
-            IS_SIZE_2D imageSize;
-            imageSize.s32Width = m_nSizeX;
-            imageSize.s32Height = m_nSizeY;
-
-            is_AOI(m_camHandler, IS_AOI_IMAGE_SET_SIZE, (void*)&imageSize, sizeof(imageSize));
-
-
-            nRet=is_SetDisplayMode (m_camHandler, IS_SET_DM_DIB);
-
-
-            QQmlContext *currentContext = QQmlEngine::contextForObject(this->getItem());
-            if(currentContext){
-                QQmlEngine *engine = currentContext->engine();
-                //                FrameProvider *imageProvider = (FrameProvider*)engine->imageProvider(QLatin1String("FrameProvider"));
-                //                if(imageProvider){
-                //                    imageProvider->setFrameAddress(m_pcImageMemory);
-                //                    imageProvider->setFrameSize(QSize(m_nSizeX,m_nSizeY));
-                //                }
-            }
-
-
-
-            cv::Mat* frameMat=new cv::Mat(m_nSizeY,m_nSizeX, CV_8UC1);
-            setFrameSink(new QMat(frameMat));
-
-            //setFrameSink(new IDSFrame(m_pcImageMemory,m_nSizeX,m_nSizeY));
-
-            if(nRet==IS_SUCCESS){
-
-
-                LOG_INFO("Camera setdisplay mode ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
-
-                nRet= is_CaptureVideo( m_camHandler, IS_WAIT );
-
-                if (nRet == IS_SUCCESS)
-
-                {
-                    qDebug()<<"Video Capture started OK";
-
-                    setCameraOpened(true);
+                nRet = is_ParameterSet(m_camHandler, IS_PARAMETERSET_CMD_LOAD_EEPROM, NULL, NULL);
+                if(nRet==IS_SUCCESS){
+                    LOG_INFO("Camera parameters loaded ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
                 }
+                if (m_pcImageMemory != NULL)
+                {
+                    is_FreeImageMem( m_camHandler, m_pcImageMemory, m_lMemoryId );
+                }
 
+                m_pcImageMemory = NULL;
+
+                SENSORINFO SensorInfo;
+                is_GetSensorInfo (m_camHandler, &SensorInfo);
+
+                // init image size to sensor size by default
+                GetMaxImageSize(&m_nSizeX, &m_nSizeY);
+
+
+                is_SetColorMode (m_camHandler, IS_CM_MONO8);
+
+                // memory initialization
+                is_AllocImageMem (	m_camHandler,
+                                    m_nSizeX,
+                                    m_nSizeY,
+                                    8,
+                                    &m_pcImageMemory,
+                                    &m_lMemoryId);
+
+                is_SetImageMem (m_camHandler, m_pcImageMemory, m_lMemoryId); // set memory active
+                selectedCamera()->setFrameAddress(m_pcImageMemory);
+
+                IS_SIZE_2D imageSize;
+                imageSize.s32Width = m_nSizeX;
+                imageSize.s32Height = m_nSizeY;
+
+                is_AOI(m_camHandler, IS_AOI_IMAGE_SET_SIZE, (void*)&imageSize, sizeof(imageSize));
+
+
+                nRet=is_SetDisplayMode (m_camHandler, IS_SET_DM_DIB);
+
+
+                QQmlContext *currentContext = QQmlEngine::contextForObject(this->getItem());
+                if(currentContext){
+                    QQmlEngine *engine = currentContext->engine();
+                    //                FrameProvider *imageProvider = (FrameProvider*)engine->imageProvider(QLatin1String("FrameProvider"));
+                    //                if(imageProvider){
+                    //                    imageProvider->setFrameAddress(m_pcImageMemory);
+                    //                    imageProvider->setFrameSize(QSize(m_nSizeX,m_nSizeY));
+                    //                }
+                }
+
+
+
+                cv::Mat* frameMat=new cv::Mat(m_nSizeY,m_nSizeX, CV_8UC1);
+                setFrameSink(new QMat(frameMat));
+
+                //setFrameSink(new IDSFrame(m_pcImageMemory,m_nSizeX,m_nSizeY));
+
+                if(nRet==IS_SUCCESS){
+
+
+                    LOG_INFO("Camera setdisplay mode ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
+
+
+                    nRet= is_CaptureVideo( m_camHandler, IS_WAIT );
+
+                    if (nRet == IS_SUCCESS)
+
+                    {
+                        qDebug()<<"Video Capture started OK";
+
+                        setCameraOpened(true);
+
+
+                    }
+
+
+                }
             }
+
         }
-
-    }
-    else{
+        else{
 
 
-        closeCamera();
+            closeCamera();
 
 
-        setCameraOpened(false);
-    }
+            setCameraOpened(false);
+        }
+        setUpdatingCamera(false);
+    });
+
+
 }
 
 void IDSCaptureNode::setContinuousCapture(bool continuousCapture)
@@ -426,6 +437,6 @@ void IDSCaptureNode::DeSerialize(QJsonObject &json)
 
     // checkDirect3D();
 
-   setConfigsLoaded(true);
+    setConfigsLoaded(true);
 }
 

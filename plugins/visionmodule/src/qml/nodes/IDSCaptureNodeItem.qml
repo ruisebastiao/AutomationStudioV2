@@ -91,13 +91,22 @@ FlowNodeItem{
 
 
                     Switch{
-                        enabled: node.cameraAvailable
+                        enabled: node.cameraAvailable && root.node.updatingCamera==false
                         checked: node.cameraOpened;
 
                         onCheckedChanged: {
                             node.setCamera(checked)
                         }
                     }
+                    BusyIndicator{
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: height;
+
+                        running: root.node.updatingCamera
+                        visible: true
+                    }
+
+
 
                 }
 
@@ -108,7 +117,7 @@ FlowNodeItem{
                 CheckBox{
                     id:continuouscapture_check
                     text: "Continuous Capture"
-                    enabled:  node.cameraOpened;
+                    enabled:  node.cameraOpened && root.node.updatingCamera==false;
                     onCheckedChanged: {
                         node.continuousCapture=checked
                     }

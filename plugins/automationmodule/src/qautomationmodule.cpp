@@ -4,6 +4,7 @@
 #include <nodes/webservicenode.h>
 #include <nodes/stringnode.h>
 #include <nodes/modulepropertybind.h>
+#include <nodes/proxyinputnode.h>
 #include <QtConcurrent>
 
 
@@ -116,6 +117,9 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
     else if(nodeobject["type"]=="StringNode"){
         newnode=graphView->getGraph()->insertNode<StringNode>(nullptr);
     }
+    else if(nodeobject["type"]=="ProxyInputNode"){
+        newnode=graphView->getGraph()->insertNode<ProxyInputNode>(nullptr);
+    }
     else if(nodeobject["type"]=="ModulePropertyBind"){
         newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
         ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
@@ -123,6 +127,7 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
             modulePropertyBindNode->setModule(this);
         }
     }
+
 
     FlowNode* node=dynamic_cast<FlowNode*>(newnode);
     if(node){

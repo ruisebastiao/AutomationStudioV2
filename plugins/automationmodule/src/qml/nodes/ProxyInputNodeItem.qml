@@ -3,9 +3,12 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
 import QtQuick.Layouts 1.3
-import com.novares 1.0
 
-FlowNode{
+import guimodule 1.0
+
+import automationmodule 1.0 as Module
+
+FlowNodeItem{
     //    normalWidth: 200
     //    normalHeight: 100
 

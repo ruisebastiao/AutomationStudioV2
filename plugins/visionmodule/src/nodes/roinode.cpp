@@ -84,6 +84,8 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
     if(node){
         node->DeSerialize(nodeobject);
 
+        //    connect()
+
     }
 
 
@@ -118,20 +120,79 @@ void ROINode::DeSerialize(QJsonObject &json)
         if(procnode){
             if(procnode->baseNode()){
                 m_procBaseNode=procnode;
+                node->bindSourceProperty(this,"sourceFrame","originalInput");
+
+                node->bindSourceProperty(this,"processedFrame","processedFrame");
+
             }
-            node->bindSourceProperty(this,"sourceFrame","originalInput");
-
-            node->bindSourceProperty(this,"processedFrame","processedFrame");
 
 
+            QObject::connect(procnode,&ProcessingNode::baseNodeChanged,[this,node,procnode](bool isbasenode){
+                if(isbasenode){
+
+                    m_procBaseNode=procnode;
+                    node->bindSourceProperty(this,"sourceFrame","originalInput");
+
+                    node->bindSourceProperty(this,"processedFrame","processedFrame");
+
+                    foreach (FlowNode* proc_nodeitem, this->m_ProcessingNodes) {
+                        if(proc_nodeitem!=procnode){
+                            ((ProcessingNode*)proc_nodeitem)->setBaseNode(false);
+                        }
+                    }
+
+                }
+                else{
+
+                    node->unbindSourceProperty("originalInput");
+
+                    node->unbindSourceProperty("processedFrame");
+                }
+            }
+            );
+
+
+
+
+            QMetaObject::Connection* processingconnection = new QMetaObject::Connection;
 
 
             if(procnode->endNode()){
-                QObject::connect(procnode,&ProcessingNode::processingCompleted,this,[this](){
+
+
+
+                *processingconnection=QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this]{
                     setRoiProcessingDone(true);
-                }
-                );
+                });
+
+
+
             }
+
+            QObject::connect(procnode,&ProcessingNode::endNodeChanged,[this,processingconnection,procnode](bool isendnode){
+                if(isendnode){
+
+
+                    QObject::disconnect(*processingconnection);
+
+
+                    *processingconnection=QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this]{
+                        setRoiProcessingDone(true);
+                    });
+
+                    foreach (FlowNode* proc_nodeitem, this->m_ProcessingNodes) {
+                        if(proc_nodeitem!=procnode){
+                            ((ProcessingNode*)proc_nodeitem)->setEndNode(false);
+                        }
+                    }
+                }
+                else{
+
+                    QObject::disconnect(*processingconnection);
+                }
+            }
+            );
+
 
         }
 
@@ -150,6 +211,9 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 
 }
+
+
+
 
 void ROINode::processFrameObject(QMat *frame)
 {
