@@ -384,5 +384,6 @@ public:
     QList<FlowNodePort *> getInPorts() const;
     QList<FlowNodePort *> getOutPorts() const;
     SceneGraph *getScenegraph() const;
+    FlowNodePort *getPortByID(QString id);
 };
 #endif // FLOWNODE_H

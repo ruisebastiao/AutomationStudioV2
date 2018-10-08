@@ -29,6 +29,7 @@
 #include <automationstudiocore/project.h>
 
 #include <nodes/barcodereadernode.h>
+#include <nodes/proxyinputnode.h>
 #include <nodes/webservicenode.h>
 
 
@@ -44,6 +45,7 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterType<FlowNode>(uri, 1, 0, "FlowNode");
     qmlRegisterType<BarcodeReaderNode>(uri, 1, 0, "BarcodeReaderNode");
     qmlRegisterType<WebServiceNode>(uri, 1, 0, "WebServiceNode");
+    qmlRegisterType<ProxyInputNode>(uri, 1, 0, "ProxyInputNode");
 
 
     qmlRegisterType<USBNotifier>(uri, 1, 0, "USBNotifier");

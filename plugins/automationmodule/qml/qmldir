@@ -7,4 +7,5 @@ AutomationModuleItem                    1.0 qrc:///AutomationModules/AutomationM
 FlowNodeItem                            1.0 qrc:///Nodes/FlowNodeItem.qml
 BarcodeReaderNodeItem                   1.0 qrc:///Nodes/BarcodeReaderNodeItem.qml
 StringNodeItem                   	1.0 qrc:///Nodes/StringNodeItem.qml
+ProxyInputNodeItem                   	1.0 qrc:///Nodes/ProxyInputNodeItem.qml
 ModulePropertyBindNodeItem             	1.0 qrc:///Nodes/ModulePropertyBindNodeItem.qml

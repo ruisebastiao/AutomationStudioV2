@@ -120,10 +120,36 @@ void ROINode::DeSerialize(QJsonObject &json)
         if(procnode){
             if(procnode->baseNode()){
                 m_procBaseNode=procnode;
-            }
-            node->bindSourceProperty(this,"sourceFrame","originalInput");
+                node->bindSourceProperty(this,"sourceFrame","originalInput");
 
-            node->bindSourceProperty(this,"processedFrame","processedFrame");
+                node->bindSourceProperty(this,"processedFrame","processedFrame");
+
+            }
+
+
+            QObject::connect(procnode,&ProcessingNode::baseNodeChanged,[this,node,procnode](bool isbasenode){
+                if(isbasenode){
+
+                    m_procBaseNode=procnode;
+                    node->bindSourceProperty(this,"sourceFrame","originalInput");
+
+                    node->bindSourceProperty(this,"processedFrame","processedFrame");
+
+                    foreach (FlowNode* proc_nodeitem, this->m_ProcessingNodes) {
+                        if(proc_nodeitem!=procnode){
+                            ((ProcessingNode*)proc_nodeitem)->setBaseNode(false);
+                        }
+                    }
+
+                }
+                else{
+
+                    node->unbindSourceProperty("originalInput");
+
+                    node->unbindSourceProperty("processedFrame");
+                }
+            }
+            );
 
 
 

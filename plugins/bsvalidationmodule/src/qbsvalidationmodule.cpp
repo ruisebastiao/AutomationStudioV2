@@ -26,6 +26,9 @@ FlowNode *QBSValidationModule::readNode(qan::GraphView *graphView, QJsonObject n
         if(nodeobject["type"]=="BSValidationNode"){
             newnode=graphView->getGraph()->insertNode<BSValidationNode>(nullptr);
         }
+        else{
+            LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
+        }
 
 
         FlowNode* modulenode=dynamic_cast<FlowNode*>(newnode);

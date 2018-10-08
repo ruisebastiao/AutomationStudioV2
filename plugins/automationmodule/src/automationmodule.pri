@@ -14,7 +14,8 @@ HEADERS += \
     $$PWD/usbnotifier.h \
     $$PWD/nodes/webservicenode.h \
     $$PWD/nodes/stringnode.h \
-    $$PWD/nodes/modulepropertybind.h
+    $$PWD/nodes/modulepropertybind.h \
+    $$PWD/nodes/proxyinputnode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -29,5 +30,6 @@ SOURCES += \
     $$PWD/usbnotifier.cpp \
     $$PWD/nodes/webservicenode.cpp \
     $$PWD/nodes/stringnode.cpp \
-    $$PWD/nodes/modulepropertybind.cpp
+    $$PWD/nodes/modulepropertybind.cpp \
+    $$PWD/nodes/proxyinputnode.cpp
 

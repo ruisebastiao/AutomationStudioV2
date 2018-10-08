@@ -39,6 +39,9 @@ FlowNode *QVisionModule::readNode(qan::GraphView *graphView, QJsonObject nodeobj
         else if(nodeobject["type"]=="VisionSystemNode"){
             newnode=graphView->getGraph()->insertNode<VisionSystemNode>(nullptr);
         }
+        else{
+            LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
+        }
 
 
 

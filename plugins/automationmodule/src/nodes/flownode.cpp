@@ -165,25 +165,25 @@ void FlowNode::DeSerialize(QJsonObject &json)
 
 }
 
-//FlowNodePort* FlowNode::getPortByName(QString portname)
-//{
-//    portname+="Port";
-//    for (int i = 0; i < this->metaObject()->propertyCount(); i++)
-//    {
 
 
-//        QMetaProperty property=this->metaObject()->property(i);
-//        if(property.name()==portname){
-//            property=this->metaObject()->property(i);
-//            QVariant value = this->property(property.name());
-//            return value.value<FlowNodePort*>();
-//            break;
-//        }
+FlowNodePort* FlowNode::getPortByID(QString id)
+{
 
+    foreach (FlowNodePort* port, m_inPorts) {
+        if(port->getPortItem()->getId()==id){
+            return port;
+        }
+    }
 
-//    }
+    foreach (FlowNodePort* port, m_outPorts) {
+        if(port->getPortItem()->getId()==id){
+            return port;
+        }
+    }
 
-//}
+    return nullptr;
+}
 
 void FlowNode::installBehaviour(std::unique_ptr<qan::NodeBehaviour> behaviour)
 {

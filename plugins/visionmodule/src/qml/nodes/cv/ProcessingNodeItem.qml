@@ -62,6 +62,7 @@ FlowNodeItem {
             Item{
                 Layout.preferredHeight: 60
                 Layout.fillWidth: true
+                visible: root.node.baseNode===false
                 RadioButton{
                     anchors.fill: parent
                     text: "End node"
@@ -108,6 +109,21 @@ FlowNodeItem {
                     }
                 }
             }
+            Item{
+                Layout.preferredHeight: 60
+                Layout.fillWidth: true
+                visible: root.node.endNode===false
+                RadioButton{
+                    anchors.fill: parent
+                    text: "Base node"
+                    checked: root.node.baseNode
+                    onCheckedChanged: {
+                        root.node.baseNode=checked;
+                    }
+                }
+            }
+
+
             Item{
                 id:preprocessing
                 Layout.fillHeight: true

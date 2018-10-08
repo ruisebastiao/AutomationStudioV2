@@ -77,12 +77,12 @@ void ProcessingContoursNode::doProcess()
 
     drawContours(drawing, m_filteredContours, -1, cv::Scalar(0,255,0), 1);
 
-    if(drawInSource()){
-        if(m_processedFrame && m_processedFrame->cvMat()->empty()==false){
-            drawContours(*m_processedFrame->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
+//    if(drawInSource()){
+//        if(m_processedFrame && m_processedFrame->cvMat()->empty()==false){
+//            drawContours(*m_processedFrame->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
 
-        }
-    }
+//        }
+//    }
 
 
     drawing.copyTo(*m_output->cvMat());
