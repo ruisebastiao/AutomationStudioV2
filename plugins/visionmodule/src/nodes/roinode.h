@@ -46,8 +46,6 @@ public slots:
 
 
 
-
-
     void setLiveProcessing(bool liveProcessing)
     {
         if (m_liveProcessing == liveProcessing)

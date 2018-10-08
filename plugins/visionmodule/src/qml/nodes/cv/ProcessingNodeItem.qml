@@ -60,6 +60,19 @@ FlowNodeItem {
                 }
             }
             Item{
+                Layout.preferredHeight: 60
+                Layout.fillWidth: true
+                RadioButton{
+                    anchors.fill: parent
+                    text: "End node"
+                    checked: root.node.endNode
+                    onCheckedChanged: {
+                        root.node.endNode=checked;
+                    }
+                }
+            }
+
+            Item{
                 id:postprocessing
                 Layout.fillHeight: true
                 Layout.fillWidth: true
