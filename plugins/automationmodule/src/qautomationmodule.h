@@ -6,7 +6,7 @@
 #include "flownode.h"
 #include <flownodemanager.h>
 #include "automationmoduleglobal.h"
-#include "qanGraphview.h"
+#include "qanGraphView.h"
 #include "scenegraph.h"
 
 

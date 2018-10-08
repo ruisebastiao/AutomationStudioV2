@@ -22,7 +22,7 @@ void QAutomationModule::load(QString pathstr){
 
 
     if(m_moduleConfigPath.isEmpty()) {
-        //   LOG_INFO() << "Empty path";
+        LOG_WARNING() << "Empty path";
         return ;
     }
 
@@ -30,13 +30,13 @@ void QAutomationModule::load(QString pathstr){
 
     QFile modulesettingsFile(m_moduleConfigPath);
     if(!modulesettingsFile.exists()) {
-        //   LOG_INFO() << "Does not exits: " <<m_moduleConfigPath;
+        LOG_WARNING() << "Does not exits: " <<m_moduleConfigPath;
 
         return;
     }
 
     if (!modulesettingsFile.open(QIODevice::ReadOnly)) {
-        // LOG_INFO("Couldn't open save file.");
+        LOG_WARNING("Couldn't open save file.");
         return;
     }
 

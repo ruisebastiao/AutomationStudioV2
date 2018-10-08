@@ -6,7 +6,11 @@
             "modules": [
                 {
                     "moduleInstance": "VisionModuleItem.qml",
+<<<<<<< HEAD
                     "settingFile": "Vision.json",
+=======
+                    "settingFile": "vision.json",
+>>>>>>> testing
                     "type": "Vision"
                 }
             ],

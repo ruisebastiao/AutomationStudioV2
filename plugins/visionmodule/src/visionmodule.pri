@@ -13,13 +13,6 @@ SOURCES += \
     $$PWD/nodes/roinode.cpp \
     $$PWD/nodes/visionsystemnode.cpp \
     $$PWD/nodes/webcamcapturenode.cpp \
-    $$PWD/cv/postprocessing.cpp \
-    $$PWD/cv/postprocessingcontours.cpp \
-    $$PWD/cv/preprocessing.cpp \
-    $$PWD/cv/preprocessinggaussian.cpp \
-    $$PWD/cv/preprocessingthreshold.cpp \
-    $$PWD/cv/processing.cpp \
-    $$PWD/cv/processinglistmodel.cpp \
     $$PWD/cv/qimagefile.cpp \
     $$PWD/cv/qimread.cpp \
     $$PWD/cv/qmat.cpp \
@@ -50,13 +43,6 @@ HEADERS += \
     $$PWD/nodes/roinode.h \
     $$PWD/nodes/visionsystemnode.h \
     $$PWD/nodes/webcamcapturenode.h \
-    $$PWD/cv/postprocessing.h \
-    $$PWD/cv/postprocessingcontours.h \
-    $$PWD/cv/preprocessing.h \
-    $$PWD/cv/preprocessinggaussian.h \
-    $$PWD/cv/preprocessingthreshold.h \
-    $$PWD/cv/processing.h \
-    $$PWD/cv/processinglistmodel.h \
     $$PWD/cv/qimagefile.h \
     $$PWD/cv/qimread.h \
     $$PWD/cv/qmat.h \
