@@ -251,20 +251,13 @@ void IDSCaptureNode::setCamera(bool open)
                     LOG_INFO("Camera setdisplay mode ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
 
-                    nRet= is_CaptureVideo( m_camHandler, IS_WAIT );
-
-                    if (nRet == IS_SUCCESS)
-
-                    {
-                        qDebug()<<"Video Capture started OK";
-
-                        setCameraOpened(true);
-
-
-                    }
-
-
                 }
+
+
+                setCameraOpened(true);
+
+                updateExternalTrigger(m_externalTrigger);
+                updateContinuousCapture(m_continuousCapture);
             }
 
         }
@@ -277,20 +270,16 @@ void IDSCaptureNode::setCamera(bool open)
             setCameraOpened(false);
         }
         setUpdatingCamera(false);
+
     });
 
 
 }
 
-void IDSCaptureNode::setContinuousCapture(bool continuousCapture)
-{
-    if (m_continuousCapture == continuousCapture)
-        return;
-
-    m_continuousCapture = continuousCapture;
+void IDSCaptureNode::updateContinuousCapture(bool value){
 
 
-    if(m_continuousCapture){
+    if(value){
 #ifdef __linux__
         //linux code goes here
 #elif _WIN32
@@ -302,36 +291,71 @@ void IDSCaptureNode::setContinuousCapture(bool continuousCapture)
         QFuture<void> future = QtConcurrent::run(this,&IDSCaptureNode::GetFrames);
 
         watcher.setFuture(future);
+
+
 #else
 
 #endif
 
+
+        INT nRet = is_CaptureVideo( m_camHandler, IS_DONT_WAIT );
+
+        if (nRet == IS_SUCCESS)
+
+        {
+            qDebug()<<"live capture started OK";
+
+
+
+        }
 
 
     }
     else{
 
 
+
 #ifdef __linux__
         //linux code goes here
 #elif _WIN32
         // windows code goes here
-        is_DisableEvent(m_camHandler, IS_SET_EVENT_FRAME);
 
-        is_ExitEvent(m_camHandler, IS_SET_EVENT_FRAME);
+        if(m_hEvent){
+            is_DisableEvent(m_camHandler, IS_SET_EVENT_FRAME);
 
-        CloseHandle(m_hEvent);
-        frame_processed.wakeAll();
-        terminateCapture=true;
-        watcher.waitForFinished();
+            is_ExitEvent(m_camHandler, IS_SET_EVENT_FRAME);
+
+            CloseHandle(m_hEvent);
+            frame_processed.wakeAll();
+            terminateCapture=true;
+            watcher.waitForFinished();
+        }
 #else
 
 #endif
 
-
+        // Stop live video
+        is_StopLiveVideo( m_camHandler, IS_WAIT );
     }
 
     emit continuousCaptureChanged(m_continuousCapture);
+}
+
+void IDSCaptureNode::setContinuousCapture(bool continuousCapture)
+{
+    if (m_continuousCapture == continuousCapture)
+        return;
+
+
+
+    this->setUpdatingCamera(true);
+
+    m_continuousCapture = continuousCapture;
+
+    updateContinuousCapture(continuousCapture);
+
+    this->setUpdatingCamera(false);
+
 }
 
 
@@ -345,8 +369,7 @@ void IDSCaptureNode::closeCamera(){
     setContinuousCapture(false);
 
 
-    // Stop live video
-    is_StopLiveVideo( m_camHandler, IS_WAIT );
+
 
     // Free the allocated buffer
     if( m_pcImageMemory != NULL )
@@ -361,6 +384,59 @@ void IDSCaptureNode::closeCamera(){
     m_camHandler = NULL;
 
     LOG_INFO("Camera "+selectedCamera()->serialnumber()+"("+QString::number(selectedCamera()->camID())+") closed");
+}
+
+
+void IDSCaptureNode::updateExternalTrigger(bool value){
+
+    if(m_cameraOpened==true){
+
+        INT nRet = 0;
+
+        bool wasLive=continuousCapture();
+
+        if(wasLive){
+            setContinuousCapture(false);
+        }
+        if(value){
+            nRet=is_SetTimeout(m_camHandler, IS_TRIGGER_TIMEOUT, 12000);
+
+            if (nRet == IS_SUCCESS)
+            {
+
+
+
+
+            }
+            nRet=is_SetExternalTrigger(m_camHandler, IS_SET_TRIGGER_LO_HI);
+            if (nRet == IS_SUCCESS){
+                qDebug()<<"Set external trigger OK";
+            }
+        }
+        else{
+            nRet=is_SetExternalTrigger(m_camHandler, IS_SET_TRIGGER_OFF);
+            if (nRet == IS_SUCCESS){
+                qDebug()<<"Disabled external trigger OK";
+            }
+        }
+        if(wasLive){
+            setContinuousCapture(true);
+        }
+    }
+
+
+}
+
+void IDSCaptureNode::setExternalTrigger(bool externalTrigger)
+{
+    if(externalTrigger==m_externalTrigger){
+        return;
+    }
+
+
+    updateExternalTrigger(externalTrigger);
+
+    CameraCaptureNode::setExternalTrigger(externalTrigger);
 }
 
 void IDSCaptureNode::setNewFrame(bool newFrame)

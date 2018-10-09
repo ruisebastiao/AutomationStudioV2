@@ -17,6 +17,8 @@ class CameraCaptureNode : public CaptureNode
 
     Q_PROPERTY(bool updatingCamera READ updatingCamera WRITE setUpdatingCamera NOTIFY updatingCameraChanged)
 
+    Q_PROPERTY(bool externalTrigger READ externalTrigger WRITE setExternalTrigger NOTIFY externalTriggerChanged USER("serialize"))
+
 
 
 
@@ -39,6 +41,11 @@ public:
         return m_updatingCamera;
     }
 
+    bool externalTrigger() const
+    {
+        return m_externalTrigger;
+    }
+
 public slots:
     virtual void setContinuousCapture(bool continuousCapture);
 
@@ -53,6 +60,15 @@ public slots:
         emit updatingCameraChanged(m_updatingCamera);
     }
 
+    virtual void setExternalTrigger(bool externalTrigger)
+    {
+        if (m_externalTrigger == externalTrigger)
+            return;
+
+        m_externalTrigger = externalTrigger;
+        emit externalTriggerChanged(m_externalTrigger);
+    }
+
 signals:
     void continuousCaptureChanged(bool continuousCapture);
 
@@ -60,13 +76,16 @@ signals:
 
     void updatingCameraChanged(bool updatingCamera);
 
+    void externalTriggerChanged(bool externalTrigger);
+
 protected:
     bool m_cameraOpened=false;
     bool m_continuousCapture=false;
     bool m_updatingCamera=false;
-
+    bool m_externalTrigger=false;
     virtual void closeCamera();
 private:
+
 
 };
 
