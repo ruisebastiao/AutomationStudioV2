@@ -24,7 +24,6 @@ class IDSCaptureNode : public CameraCaptureNode
 
     Q_PROPERTY(bool cameraAvailable READ cameraAvailable NOTIFY cameraAvailableChanged)
 
-    Q_PROPERTY(bool softwareTrigger READ softwareTrigger WRITE setSoftwareTrigger NOTIFY softwareTriggerChanged)
 
 
 
@@ -59,14 +58,10 @@ public:
 
 
 
-    bool softwareTrigger() const
-    {
-        return m_softwareTrigger;
-    }
-
-
     void DeSerialize(QJsonObject &json) override;
 
+    void updateExternalTrigger(bool value);
+    void updateContinuousCapture(bool value);
 public slots:
 
 
@@ -116,14 +111,6 @@ public slots:
 
     void setContinuousCapture(bool continuousCapture) override;
 
-    void setSoftwareTrigger(bool softwareTrigger)
-    {
-        if (m_softwareTrigger == softwareTrigger)
-            return;
-
-        m_softwareTrigger = softwareTrigger;
-        emit softwareTriggerChanged(m_softwareTrigger);
-    }
 
 
 private slots:
@@ -183,7 +170,7 @@ private:
     QWaitCondition frame_processed;
     QMutex mutex;
     bool terminateCapture=false;
-    HANDLE m_hEvent;
+    HANDLE m_hEvent=nullptr;
 
 
 
@@ -206,8 +193,6 @@ private:
     void GetFrames();
 
 
-    bool m_softwareTrigger=false;
-
 
     // CaptureNode interface
 public slots:
@@ -217,6 +202,10 @@ protected:
     // CameraCaptureNode interface
 protected:
     virtual void closeCamera() override;
+
+    // CameraCaptureNode interface
+public slots:
+    void setExternalTrigger(bool externalTrigger) override;
 };
 
 #endif // IDSCAPTURE_H

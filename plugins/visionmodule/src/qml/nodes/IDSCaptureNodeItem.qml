@@ -98,6 +98,12 @@ FlowNodeItem{
                             node.setCamera(checked)
                         }
                     }
+                    CheckBox{
+                        text: "Trigger mode"
+                        enabled: root.node.cameraOpened
+                        checked: root.node.externalTrigger
+                        onCheckedChanged: root.node.externalTrigger=checked
+                    }
                     BusyIndicator{
                         Layout.fillHeight: true
                         Layout.preferredWidth: height;
@@ -105,6 +111,7 @@ FlowNodeItem{
                         running: root.node.updatingCamera
                         visible: true
                     }
+
 
 
 
