@@ -110,7 +110,10 @@ void IDSCaptureNode::GetMaxImageSize(INT *pnSizeX, INT *pnSizeY)
 void IDSCaptureNode::GetFrames(){
 
 
-    int frames=0;
+
+    INT nMemID = 0;
+    char *pBuffer = nullptr;
+
 
     while(terminateCapture==false){
 
@@ -119,7 +122,9 @@ void IDSCaptureNode::GetFrames(){
         //linux code goes here
 #elif _WIN32
         // windows code goes here
-        DWORD dwRet = WaitForSingleObject(m_hEvent, 1000);
+        DWORD dwRet = WaitForSingleObject(m_hEvent, 2000);
+
+        //        dwRet = WaitForMultipleObjects(m_EvMax,m_hEv, FALSE ,INFINITE );
 
         if (dwRet == WAIT_TIMEOUT)
 
@@ -136,21 +141,45 @@ void IDSCaptureNode::GetFrames(){
         {
             /* event signalled */
 
-            //frame
-            mutex.lock();
-            qDebug()<<"Frame Captured - "<<frames++;
+            is_LockSeqBuf(m_camHandler,m_nSeqNumId[m_frameBufferCount], m_pcSeqImgMem[m_frameBufferCount]);
+            LOG_INFO()<<"Frame stored @ buffer index:"<<m_frameBufferCount++;
+
+            if( m_numBuffers == m_frameBufferCount )
+            {
+
+                m_frameBufferCount=0;
+                LOG_INFO("Buffer full, lock and processing");
 
 
-            memcpy(frameSink()->cvMat()->ptr(), m_pcImageMemory,m_nSizeX * m_nSizeY);
+                // find the latest image buffer
+                INT nNum;
+                char *pcMem, *pcMemLast;
+                is_GetActSeqBuf(m_camHandler, &nNum, &pcMem, &pcMemLast);
+                for( int i=0 ; i<m_numBuffers ; i++)
+                {
+                    pcMemLast = m_pcSeqImgMem[i];
+                    //frame
+                    mutex.lock();
 
-            emit frameSinkChanged(frameSink());
-            setFrameCaptured(true);
-
-            frame_processed.wait(&mutex);
-            setFrameCaptured(false);
-            mutex.unlock();
 
 
+                    memcpy(frameSink()->cvMat()->ptr(), pcMemLast,m_nSizeX * m_nSizeY);
+                    is_UnlockSeqBuf( m_camHandler, m_nSeqNumId[i], m_pcSeqImgMem[i] );
+
+                    emit frameSinkChanged(frameSink());
+                    setFrameCaptured(true);
+
+                    frame_processed.wait(&mutex);
+                    setFrameCaptured(false);
+                    mutex.unlock();
+
+                }
+                LOG_INFO("All buffers processed");
+
+
+
+
+            }
 
 
         }
@@ -163,6 +192,9 @@ void IDSCaptureNode::GetFrames(){
 
     }
     terminateCapture=false;
+    LOG_INFO()<<"Frame thread terminating";
+
+
 }
 
 void IDSCaptureNode::setCamera(bool open)
@@ -191,38 +223,82 @@ void IDSCaptureNode::setCamera(bool open)
                     LOG_INFO("Camera parameters loaded ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
                 }
-                if (m_pcImageMemory != NULL)
-                {
-                    is_FreeImageMem( m_camHandler, m_pcImageMemory, m_lMemoryId );
-                }
 
-                m_pcImageMemory = NULL;
 
                 SENSORINFO SensorInfo;
-                is_GetSensorInfo (m_camHandler, &SensorInfo);
+                is_GetSensorInfo(m_camHandler, &SensorInfo );
 
-                // init image size to sensor size by default
+
+                CAMINFO CamInfo;
+                is_GetCameraInfo(m_camHandler, &CamInfo );
+
+                // setup image size
                 GetMaxImageSize(&m_nSizeX, &m_nSizeY);
-
-
-                is_SetColorMode (m_camHandler, IS_CM_MONO8);
-
-                // memory initialization
-                is_AllocImageMem (	m_camHandler,
-                                    m_nSizeX,
-                                    m_nSizeY,
-                                    8,
-                                    &m_pcImageMemory,
-                                    &m_lMemoryId);
-
-                is_SetImageMem (m_camHandler, m_pcImageMemory, m_lMemoryId); // set memory active
-                selectedCamera()->setFrameAddress(m_pcImageMemory);
 
                 IS_SIZE_2D imageSize;
                 imageSize.s32Width = m_nSizeX;
                 imageSize.s32Height = m_nSizeY;
 
+                // remove when setting AOI in parameters
                 is_AOI(m_camHandler, IS_AOI_IMAGE_SET_SIZE, (void*)&imageSize, sizeof(imageSize));
+
+
+
+                INT nAllocSizeX = 0;
+                INT nAllocSizeY = 0;
+
+                m_nSizeX = nAllocSizeX = imageSize.s32Width;
+                m_nSizeY = nAllocSizeY = imageSize.s32Height;
+
+                UINT nAbsPosX = 0;
+                UINT nAbsPosY = 0;
+
+                // absolute pos?
+                is_AOI(m_camHandler, IS_AOI_IMAGE_GET_POS_X_ABS, (void*)&nAbsPosX , sizeof(nAbsPosX));
+                is_AOI(m_camHandler, IS_AOI_IMAGE_GET_POS_Y_ABS, (void*)&nAbsPosY , sizeof(nAbsPosY));
+
+                if (nAbsPosX)
+                {
+                    nAllocSizeX = SensorInfo.nMaxWidth;
+                }
+                if (nAbsPosY)
+                {
+                    nAllocSizeY = SensorInfo.nMaxHeight;
+                }
+
+                // calculate single buffer size
+                m_dwSingleBufferSize = nAllocSizeX * nAllocSizeY * m_nBitsPerPixel / 8;
+
+
+                // alloc seq buffers in a loop
+                for( int i=0; i< m_numBuffers  ; i++ )
+                {
+
+                    // allocate buffer memory
+                    nRet = is_AllocImageMem(m_camHandler,
+                                            nAllocSizeX,
+                                            nAllocSizeY,
+                                            m_nBitsPerPixel,
+                                            &m_pcSeqImgMem[i],
+                                            &m_lSeqMemId[i]);
+                    if( nRet != IS_SUCCESS )
+                    {
+                        break;  // it makes no sense to continue
+                    }
+
+                    // put memory into seq buffer
+                    nRet = is_AddToSequence(	m_camHandler, m_pcSeqImgMem[i], m_lSeqMemId[i] );
+                    m_nSeqNumId[i] = i+1; // store sequence buffer number Id
+                    if( nRet != IS_SUCCESS )
+                    {
+                        // free latest buffer
+                        is_FreeImageMem( m_camHandler, m_pcSeqImgMem[i], m_lSeqMemId[i] );
+                        break; // it makes no sense to continue
+                    }
+
+
+                }
+
 
 
                 nRet=is_SetDisplayMode (m_camHandler, IS_SET_DM_DIB);
@@ -254,6 +330,11 @@ void IDSCaptureNode::setCamera(bool open)
                 }
 
 
+
+                if (nRet == IS_SUCCESS){
+
+                }
+
                 setCameraOpened(true);
 
                 updateExternalTrigger(m_externalTrigger);
@@ -262,6 +343,8 @@ void IDSCaptureNode::setCamera(bool open)
 
         }
         else{
+
+
 
 
             closeCamera();
@@ -279,11 +362,13 @@ void IDSCaptureNode::setCamera(bool open)
 void IDSCaptureNode::updateContinuousCapture(bool value){
 
 
+    setUpdatingCamera(true);
     if(value){
 #ifdef __linux__
         //linux code goes here
 #elif _WIN32
         // windows code goes here
+        LOG_INFO()<<"starting live capture";
         m_hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
         is_InitEvent(m_camHandler, m_hEvent, IS_SET_EVENT_FRAME);
@@ -298,47 +383,61 @@ void IDSCaptureNode::updateContinuousCapture(bool value){
 #endif
 
 
+
         INT nRet = is_CaptureVideo( m_camHandler, IS_DONT_WAIT );
 
         if (nRet == IS_SUCCESS)
 
         {
-            qDebug()<<"live capture started OK";
+            LOG_INFO()<<"live capture started OK";
 
 
 
         }
 
-
+        emit continuousCaptureChanged(m_continuousCapture);
     }
     else{
 
-
+        QtConcurrent::run([this](){
 
 #ifdef __linux__
-        //linux code goes here
+            //linux code goes here
 #elif _WIN32
-        // windows code goes here
+            // windows code goes here
+            LOG_INFO()<<"stopping live capture";
 
-        if(m_hEvent){
-            is_DisableEvent(m_camHandler, IS_SET_EVENT_FRAME);
+            if(m_hEvent){
+                //       frame_processed.wakeAll();
+                terminateCapture=true;
 
-            is_ExitEvent(m_camHandler, IS_SET_EVENT_FRAME);
 
-            CloseHandle(m_hEvent);
-            frame_processed.wakeAll();
-            terminateCapture=true;
-            watcher.waitForFinished();
-        }
+                watcher.waitForFinished();
+
+                LOG_INFO()<<"Frame thread finished";
+
+                is_DisableEvent(m_camHandler, IS_SET_EVENT_FRAME);
+
+                is_ExitEvent(m_camHandler, IS_SET_EVENT_FRAME);
+
+                CloseHandle(m_hEvent);
+
+            }
 #else
 
 #endif
 
-        // Stop live video
-        is_StopLiveVideo( m_camHandler, IS_WAIT );
+
+
+            // Stop live video
+            is_StopLiveVideo( m_camHandler, IS_WAIT );
+            setUpdatingCamera(false);
+            emit continuousCaptureChanged(m_continuousCapture);
+        });
+
     }
 
-    emit continuousCaptureChanged(m_continuousCapture);
+
 }
 
 void IDSCaptureNode::setContinuousCapture(bool continuousCapture)
@@ -372,12 +471,21 @@ void IDSCaptureNode::closeCamera(){
 
 
     // Free the allocated buffer
-    if( m_pcImageMemory != NULL )
-        is_FreeImageMem( m_camHandler, m_pcImageMemory, m_lMemoryId );
 
-    m_pcImageMemory = NULL;
+    is_ClearSequence( m_camHandler );
 
-    selectedCamera()->setFrameAddress(m_pcImageMemory);
+    // free seq buffers
+    int i;
+    for( i=(m_numBuffers-1); i>=0   ; i-- )
+    {
+        // free buffers
+        if( is_FreeImageMem( m_camHandler, m_pcSeqImgMem[i], m_lSeqMemId[i] ) != IS_SUCCESS )
+        {
+            return;
+        }
+
+
+    }
 
     // Close camera
     is_ExitCamera( m_camHandler );

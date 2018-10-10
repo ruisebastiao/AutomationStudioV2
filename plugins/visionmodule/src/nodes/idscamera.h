@@ -33,10 +33,10 @@ public:
         return m_camID;
     }
 
-    char* frameAddress() const
-    {
-        return m_frameAddress;
-    }
+//    char* frameAddress() const
+//    {
+//        return m_frameAddress;
+//    }
 
 signals:
     void serialnumberChanged(QString serialnumber);
@@ -68,14 +68,14 @@ public slots:
         emit camIDChanged(m_camID);
     }
 
-    void setFrameAddress(char* frameAddress)
-    {
-        if (m_frameAddress == frameAddress)
-            return;
+//    void setFrameAddress(char* frameAddress)
+//    {
+//        if (m_frameAddress == frameAddress)
+//            return;
 
-        m_frameAddress = frameAddress;
-        emit frameAddressChanged(m_frameAddress);
-    }
+//        m_frameAddress = frameAddress;
+//        emit frameAddressChanged(m_frameAddress);
+//    }
 
 private:
 
@@ -85,7 +85,7 @@ private:
 
 
     int m_camID=-1;
-    char* m_frameAddress=0;
+//    char* m_frameAddress=0;
 };
 
 
