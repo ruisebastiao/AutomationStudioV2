@@ -77,6 +77,11 @@ public:
     static QString versionString();
     static QString header();
 
+    Q_INVOKABLE QString version()
+    {
+        return AutomationStudio::versionString();
+    }
+
     const QString& dir() const;
 
     void loadInternalPlugins();
@@ -85,6 +90,12 @@ public:
 #ifdef RPI
     Q_INVOKABLE void reboot();
 #endif
+
+
+#ifdef RPI
+    Q_INVOKABLE void halt();
+#endif
+
 
     Settings* settings();
     QQmlApplicationEngine*   engine();

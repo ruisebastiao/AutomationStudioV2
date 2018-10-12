@@ -236,6 +236,8 @@ Item{
 
                                     RowLayout{
 
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
 
                                         TextField{
                                             id:release_field
@@ -243,7 +245,7 @@ Item{
                                             Layout.margins: 5
                                             Layout.minimumWidth: 75
                                             Material.accent: selectedprimary
-                                            //                                            text:appsettings.releaseVersion?appsettings.releaseVersion:"unknown"
+                                            text:automationstudio.version()
                                             MaterialPlaceHolder{
 
                                                 placeHolderText:qsTr("Release")
@@ -325,9 +327,23 @@ Item{
 
 
 
+                                        Item{
+                                            Layout.fillWidth: true
+                                            Layout.preferredHeight: 50
 
+                                            Button{
+                                                anchors.centerIn: parent
+                                                highlighted: true
+                                                visible: root.system?root.system.boardInfo=="RPI":false
+                                                text: "Halt"
+                                                onPressed: {
 
+                                                    automationstudio.halt();
+                                                }
+                                            }
+                                        }
                                     }
+
                                 }
                             }
 
@@ -392,7 +408,7 @@ Item{
                                                 Layout.margins: 5
                                                 Layout.fillWidth: true
                                                 Material.accent: selectedprimary
-                                                text:root.system.hostname
+                                                text:root.system?root.system.hostname:""
 
                                                 onAccepted: {
                                                     root.system.setNewHostName(hostname_field.text);

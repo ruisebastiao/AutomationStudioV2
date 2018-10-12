@@ -3,13 +3,15 @@ import QtQuick 2.10
 import QtQuick.VirtualKeyboard 2.3
 
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.3
+
 
 import QtQuick.Controls.Material 2.1
 import Qt.labs.platform 1.0
 
 import QtGraphicalEffects 1.0
 
+import QtQuick.VirtualKeyboard 2.1
 
 import base 1.0
 import guimodule 1.0 as GUI
@@ -187,8 +189,215 @@ ApplicationWindow {
 
 
     
-    Item{
+    Flickable{
+        id:mainflickable
+        objectName: "mainflickable"
         anchors.fill: parent
+        interactive: false
+        flickableDirection: Flickable.VerticalFlick
+        Drawer {
+            id: drawer
+            width: Math.min(rootwindow.width, rootwindow.height) / 2.5
+            height: rootwindow.height
+            dragMargin: 1
+            onPositionChanged: {
+                if(position==0){
+                    login_container.opened=false
+                }
+            }
+
+
+
+            ColumnLayout{
+                anchors.fill: parent
+
+                spacing: 0
+                ToolBar {
+                    z:1
+                    id:drawer_toolbar
+                    Material.foreground: "white"
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 90
+
+                    RowLayout{
+                        anchors.fill: parent
+                        RoundButton{
+                            Layout.preferredHeight: 70
+                            Layout.preferredWidth: 70
+                            Image {
+                                anchors.fill: parent
+                                fillMode: Image.Pad
+                                source: "qrc:/images/ic_person_white_36dp_1x.png"
+                            }
+                            //                        text: "res"
+                            //icon.source:"qrc:/images/ic_person_white_36dp_1x.png"
+                            highlighted: true
+                            Material.background: Material.primary
+                            onPressed: {
+
+                                login_container.opened=!login_container.opened
+                            }
+                            onPressAndHold: {
+                                //                                automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
+                            }
+
+                            //                            MouseArea{
+                            //                                anchors.fill: parent
+                            //                                propagateComposedEvents: true
+                            //                                pressAndHold: {
+                            //                                    automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
+                            //                                    mouse.accepted=false
+                            //                                }
+                            //                            }
+
+                        }
+                        Item {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            Label{
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                text:loggedUser?loggedUser.name:""
+                            }
+                        }
+                    }
+
+
+                }
+                Item{
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Item{
+                        id:login_container
+                        z:1
+                        width: drawer_toolbar.width
+                        height: 150
+                        property bool opened: false
+                        //                    color: "red"
+                        x:0
+                        y:opened?-4:-height
+
+                        Behavior on y{
+                            NumberAnimation {
+                                duration: 500
+                                easing.type: Easing.InOutQuart;
+                            }
+                        }
+
+
+                        Rectangle{
+                            anchors.fill: parent
+                            anchors.margins: 0
+                            color: Material.primary
+                            radius: 2
+                            ListView{
+                                Material.foreground: "white"
+                                id:usersList
+                                anchors.topMargin: 8
+                                anchors.fill: parent
+                                focus: true
+                                //                        clip: true
+                                currentIndex: -1
+
+
+                                delegate: ItemDelegate {
+                                    width: parent.width
+                                    text: model.name
+                                    highlighted: ListView.isCurrentItem
+                                    onClicked: {
+                                        loginpopup.selectedUser=model.user
+                                        if(model.user.role!=User.AdminRole){
+                                            automationstudio.settings.currentUser=model.user
+                                        }
+                                        else{
+                                            loginpopup.open()
+
+                                        }
+
+                                    }
+                                }
+
+                                //                     model:appsettings.modules
+
+                                ScrollIndicator.vertical: ScrollIndicator { }
+                            }
+                        }
+                    }
+
+                    ColumnLayout{
+                        anchors.fill: parent
+                        //                    Label{
+                        //                        Layout.fillWidth: true
+                        //                        text:"Project list:"
+                        //                    }
+
+                        ToolBar {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 35
+                            Material.foreground: "white"
+                            Label{
+                                anchors.fill: parent
+                                verticalAlignment: Text.AlignVCenter
+
+                                horizontalAlignment: Text.AlignHCenter
+
+                                text: "Projects List"
+                            }
+                        }
+
+                        ListView {
+                            id: projectslist
+
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            focus: true
+                            clip: true
+                            currentIndex: -1
+                            onCurrentIndexChanged:{
+
+                            }
+
+                            delegate: ItemDelegate {
+                                width: parent.width
+                                text: model.name
+                                highlighted: ListView.isCurrentItem
+
+                                onClicked: {
+                                    if (projectslist.currentIndex != index) {
+                                        projectslist.currentIndex = index
+                                        appsettings.selectedProject=model.project
+                                    }
+                                    drawer.close()
+                                }
+                            }
+
+                            //                     model:appsettings.modules
+
+                            ScrollIndicator.vertical: ScrollIndicator { }
+                        }
+                    }
+                    RoundButton{
+                        id:fab
+                        width: 64
+                        visible:  automationstudio.reboot?true:false
+                        height: 64
+                        highlighted: true
+                        icon.source: "qrc:/images/if_refresh_926645.png"
+                        z:9999
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                        Material.accent: Material.primary
+                        onClicked: {
+                            automationstudio.reboot();
+                        }
+
+                    }
+                }
+            }
+        }
+
+
         ColumnLayout{
             anchors.fill: parent
             
@@ -738,8 +947,10 @@ ApplicationWindow {
             
         }
         
-        Popup {
+        GUI.PopUp {
             id:loginpopup
+
+            //            parent:inputPanel
             property User selectedUser
             x: (rootwindow.width - width) / 2
             y: (rootwindow.height - height) / 2
@@ -749,256 +960,107 @@ ApplicationWindow {
             modal: false
             dim:true
             focus: true
-            closePolicy:Popup.NoAutoClose
+            closePolicy:Popup.CloseOnEscape
 
-            onVisibleChanged: rootwindow.showModalOverlay=visible
+            onVisibleChanged:{
 
-            background: Rectangle{
-                color: Material.primary
-                radius: 2
+                if(visible){
+                    drawer.close()
+                }
             }
+
+            background:null
+
             Component.onCompleted: {
                 pass_input.focus=true
             }
 
-            
-            ColumnLayout {
-                
-                id:view
+
+
+            Flickable {
+                id: popupflickable
+
+                property real scrollMarginVertical: 0
+
+                objectName: "popupflickable"
+
                 anchors.fill: parent
-                Image {
-                    Layout.fillWidth: true;
-                    fillMode: Image.Pad
-                    source: "qrc:/images/ic_person_white_36dp_1x.png"
-                }
-                Label{
-                    Layout.fillWidth: true
-                    horizontalAlignment:Text.AlignHCenter
-                    text:loginpopup.selectedUser?loginpopup.selectedUser.name:""
-                }
-                
-                TextField{
-                    
-                    id:pass_input
-                    Layout.fillWidth: true;
-                    placeholderText: "PIN"
-                    passwordCharacter: "*"
-                    maximumLength:4
-                    echoMode: TextInput.Password
-                    inputMethodHints: Qt.ImhDigitsOnly
-                    onTextChanged: {
-                        if(loginpopup.selectedUser.pin==text){
-                            appsettings.currentUser=loginpopup.selectedUser;
-                            loginpopup.close()
-                            pass_input.text=""
-                            login_container.opened=false
-                        }
-                    }
-                }
-                
-                
-            }
-        }
-        
-        
-        Drawer {
-            id: drawer
-            width: Math.min(rootwindow.width, rootwindow.height) / 2.5
-            height: rootwindow.height
-            dragMargin: 1
-            onPositionChanged: {
-                if(position==0){
-                    login_container.opened=false
-                }
-            }
-            
-            
-            ColumnLayout{
-                anchors.fill: parent
-                
-                spacing: 0
-                ToolBar {
-                    z:1
-                    id:drawer_toolbar
-                    Material.foreground: "white"
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 90
-                    
-                    RowLayout{
-                        anchors.fill: parent
-                        RoundButton{
-                            Layout.preferredHeight: 70
-                            Layout.preferredWidth: 70
-                            Image {
-                                anchors.fill: parent
-                                fillMode: Image.Pad
-                                source: "qrc:/images/ic_person_white_36dp_1x.png"
-                            }
-                            //                        text: "res"
-                            //icon.source:"qrc:/images/ic_person_white_36dp_1x.png"
-                            highlighted: true
-                            Material.background: Material.primary
-                            onPressed: {
-                                login_container.opened=!login_container.opened
-                            }
-                            onPressAndHold: {
-                                automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
-                            }
 
-                            //                            MouseArea{
-                            //                                anchors.fill: parent
-                            //                                propagateComposedEvents: true
-                            //                                pressAndHold: {
-                            //                                    automationstudio.settings.currentUser=appsettings.users.getItemAt(0);
-                            //                                    mouse.accepted=false
-                            //                                }
-                            //                            }
+                flickableDirection: Flickable.VerticalFlick
 
+                contentWidth: view.implicitWidth
+                contentHeight: view.implicitHeight
+
+
+                Rectangle{
+                    color: Material.primary
+                    anchors.fill: parent
+
+                    radius: 2
+
+                    ColumnLayout {
+
+                        id:view
+
+                        Image {
+                            Layout.fillWidth: true;
+                            fillMode: Image.Pad
+                            source: "qrc:/images/ic_person_white_36dp_1x.png"
                         }
-                        Item {
-                            Layout.fillHeight: true
+                        Label{
                             Layout.fillWidth: true
-                            Label{
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                text:loggedUser?loggedUser.name:""
-                            }
+                            horizontalAlignment:Text.AlignHCenter
+                            text:loginpopup.selectedUser?loginpopup.selectedUser.name:""
                         }
-                    }
-                    
-                    
-                }
-                Item{
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    
-                    Item{
-                        id:login_container
-                        z:1
-                        width: drawer_toolbar.width
-                        height: 150
-                        property bool opened: false
-                        //                    color: "red"
-                        x:0
-                        y:opened?-4:-height
-                        
-                        Behavior on y{
-                            NumberAnimation {
-                                duration: 500
-                                easing.type: Easing.InOutQuart;
-                            }
-                        }
-                        
-                        
-                        Rectangle{
-                            anchors.fill: parent
-                            anchors.margins: 0
-                            color: Material.primary
-                            radius: 2
-                            ListView{
-                                Material.foreground: "white"
-                                id:usersList
-                                anchors.topMargin: 8
-                                anchors.fill: parent
-                                focus: true
-                                //                        clip: true
-                                currentIndex: -1
-                                
-                                
-                                delegate: ItemDelegate {
-                                    width: parent.width
-                                    text: model.name
-                                    highlighted: ListView.isCurrentItem
-                                    onClicked: {
-                                        //loginpopup.selectedUser=model.user
-                                        if(model.user.role!=User.AdminRole){
-                                            automationstudio.settings.currentUser=model.user
-                                        }
 
-                                        //loginpopup.open()
-                                    }
+                        TextField{
+
+
+                            GUI.MaterialPlaceHolder{
+                                id:placeholder
+                                placeHolderText:"PIN"
+
+
+                            }
+
+
+
+                            Layout.margins: 10
+                            id:pass_input
+                            Layout.fillWidth: true;
+//                            placeholderText: "PIN"
+                            passwordCharacter: "*"
+                            maximumLength:4
+                            echoMode: TextInput.Password
+                            inputMethodHints: Qt.ImhDigitsOnly
+                            onTextChanged: {
+                                if(loginpopup.selectedUser.pin==text){
+                                    appsettings.currentUser=loginpopup.selectedUser;
+                                    loginpopup.close()
+                                    pass_input.text=""
+                                    login_container.opened=false
                                 }
-                                
-                                //                     model:appsettings.modules
-                                
-                                ScrollIndicator.vertical: ScrollIndicator { }
-                            }
-                        }
-                    }
-                    
-                    ColumnLayout{
-                        anchors.fill: parent
-                        //                    Label{
-                        //                        Layout.fillWidth: true
-                        //                        text:"Project list:"
-                        //                    }
-                        
-                        ToolBar {
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 35
-                            Material.foreground: "white"
-                            Label{
-                                anchors.fill: parent
-                                verticalAlignment: Text.AlignVCenter
-                                
-                                horizontalAlignment: Text.AlignHCenter
-                                
-                                text: "Projects List"
-                            }
-                        }
-                        
-                        ListView {
-                            id: projectslist
-                            
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            focus: true
-                            clip: true
-                            currentIndex: -1
-                            onCurrentIndexChanged:{
-                                
-                            }
-                            
-                            delegate: ItemDelegate {
-                                width: parent.width
-                                text: model.name
-                                highlighted: ListView.isCurrentItem
-                                
-                                onClicked: {
-                                    if (projectslist.currentIndex != index) {
-                                        projectslist.currentIndex = index
-                                        appsettings.selectedProject=model.project
-                                    }
-                                    drawer.close()
+                                else if(text.length==maximumLength){
+                                    placeholder.placeHolderText="Invalid Pin"
+                                    placeholder.textColor=Material.color(Material.Red)
                                 }
+                                else{
+                                    placeholder.placeHolderText="PIN"
+                                    placeholder.textColor=Material.foreground
+                                }
+
                             }
-                            
-                            //                     model:appsettings.modules
-                            
-                            ScrollIndicator.vertical: ScrollIndicator { }
                         }
-                    }
-                    RoundButton{
-                        id:fab
-                        width: 64
-                        visible:  automationstudio.reboot?true:false
-                        height: 64
-                        highlighted: true
-                        icon.source: "qrc:/images/if_refresh_926645.png"
-                        z:9999
-                        anchors.right: parent.right
-                        anchors.bottom: parent.bottom
-                        Material.accent: Material.primary
-                        onClicked: {
-                            automationstudio.reboot();
-                        }
-                        
+
+
                     }
                 }
             }
         }
+
+
     }
-    
+
 
     Component{
         id:maincontentview
@@ -1165,68 +1227,134 @@ ApplicationWindow {
 
 
         }
-        
-        
 
-        
+
+
+
     }
-    
+
     Component{
         id:usersettingsview
-        
-        
+
+
         GUI.UserSettingsView{
             id:usersettings
             state:"preferences"
             property string title:qsTr("User Settings")
         }
     }
-    
-    
-    
-    
-    property bool showModalOverlay: false
-    onShowModalOverlayChanged: console.log("showModalOverlay:"+showModalOverlay)
 
 
-    Item{
-        id:modalOverlay
 
 
-        //        color: "red"
-        anchors.centerIn: parent
-        width: parent.width
-        height: parent.height
-
-        visible: showModalOverlay
-        //        parent: window.contentItem
-        MouseArea{
-            anchors.fill: parent
-            propagateComposedEvents: false
-        }
-    }
 
 
-    
+
+    //    Popup{
+    //        id:inputpanelPopup
+    //        z: 9999999
+
+    //        contentWidth: inputPanel.implicitWidth
+    //        contentHeight: inputPanel.implicitHeight
+
+    //        padding: 0
+
+    //        background: null
+
+    //        x:0
+    //        y:rootwindow.height-inputPanel.height
+
+
+
+    //        InputPanel {
+    //            id: inputPanel
+    //            z: 9999999
+
+    //            onActiveChanged: {
+    //                if(active){
+    //                    inputpanelPopup.open()
+    //                }
+    //                else{
+    //                    inputpanelPopup.close()
+    //                }
+
+
+    //            }
+
+    //            onVisibleChanged: {
+    //                console.log("visible:"+visible)
+    //            }
+
+    //            width: rootwindow.width
+
+    //            // width: 400
+    //            scale: 1
+    //            opacity: 0
+    //            visible: opacity!=0
+    //            states: State {
+    //                name: "visible"
+    //                when: inputPanel.active
+    //                PropertyChanges {
+    //                    target: inputPanel
+    //                    opacity:1
+    //                }
+    //            }
+    //            transitions: Transition {
+    //                from: ""
+    //                to: "visible"
+    //                reversible: true
+    //                ParallelAnimation {
+    //                    NumberAnimation {
+    //                        properties: "opacity"
+    //                        duration: 250
+    //                        easing.type: Easing.InOutQuad
+    //                    }
+    //                }
+    //            }
+    //            GUI.AutoScroller {}
+    //        }
+
+
+    //    }
+
+
+
+
+
     InputPanel {
         id: inputPanel
-        z: 2000002
-        x: 0
+
+        parent: Overlay.overlay
+
+        z: 1000002
+
         y: rootwindow.height
-        width: rootwindow.width
-        scale: 0.4
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+
         states: State {
             name: "visible"
+            /*  The visibility of the InputPanel can be bound to the Qt.inputMethod.visible property,
+                    but then the handwriting input panel and the keyboard input panel can be visible
+                    at the same time. Here the visibility is bound to InputPanel.active property instead,
+                    which allows the handwriting panel to control the visibility when necessary.
+                */
             when: inputPanel.active
             PropertyChanges {
                 target: inputPanel
                 y: rootwindow.height - inputPanel.height
             }
+
+
         }
+        property var mappedy: inputPanel.mapToGlobal(inputPanel.x,inputPanel.y)
         transitions: Transition {
+            id: inputPanelTransition
             from: ""
             to: "visible"
             reversible: true
+            //                    enabled: !VirtualKeyboardSettings.fullScreenMode
             ParallelAnimation {
                 NumberAnimation {
                     properties: "y"
@@ -1235,5 +1363,19 @@ ApplicationWindow {
                 }
             }
         }
+        Binding {
+            target: InputContext
+            property: "animating"
+            value: inputPanelTransition.running
+        }
+
+
+
+        GUI.AutoScroller {
+
+            panelY:inputPanel.y
+        }
     }
+
+
 }

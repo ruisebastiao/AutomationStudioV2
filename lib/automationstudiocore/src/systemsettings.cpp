@@ -26,6 +26,11 @@ SystemSettings::SystemSettings(QObject *parent):
 
 
 
+#ifdef RPI
+    m_boardInfo="RPI";
+#endif
+
+
 }
 
 void SystemSettings::setNewHostName(QString name)

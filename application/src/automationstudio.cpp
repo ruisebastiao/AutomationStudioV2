@@ -192,6 +192,19 @@ void AutomationStudio::reboot()
 
 #endif
 
+#ifdef RPI
+
+void AutomationStudio::halt()
+{
+
+    this->utilities()->executeCommand("halt",false);
+
+    //QtConcurrent::run(executeProcess, QString("wpa_supplicant -D"+wpaDriver()+" -B -i wlan0 -c /etc/wpa_supplicant.conf"));
+}
+
+#endif
+
+
 
 
 }// namespace

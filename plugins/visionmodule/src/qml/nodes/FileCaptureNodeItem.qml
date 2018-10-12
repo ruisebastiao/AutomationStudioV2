@@ -58,7 +58,7 @@ FlowNodeItem{
                         id:editfield
                         Layout.fillHeight: true;
                         Layout.fillWidth: true;
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter
 
                         enabled: editMode
                         verticalAlignment: Text.AlignVCenter

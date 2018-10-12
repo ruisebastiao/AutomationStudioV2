@@ -20,6 +20,11 @@ class AUTOMATIONSTUDIO_CORE_EXPORT SystemSettings:public QObject
     Q_PROPERTY(QNetworkSession::State networkState READ networkState NOTIFY networkStateChanged)
     Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
 
+    Q_PROPERTY(QString sysInfo READ sysInfo NOTIFY sysInfoChanged)
+
+    Q_PROPERTY(QString boardInfo READ boardInfo NOTIFY boardInfoChanged)
+
+
 
 private:
     QString m_localIP;
@@ -28,6 +33,10 @@ private:
     QNetworkSession::State m_networkState;
 
     QString m_hostname="?";
+
+    QString m_sysInfo="";
+
+    QString m_boardInfo="N/A";
 
 public:
     SystemSettings(QObject *parent = nullptr);
@@ -59,6 +68,16 @@ public:
         return m_hostname;
     }
 
+    QString sysInfo() const
+    {
+        return m_sysInfo;
+    }
+
+    QString boardInfo() const
+    {
+        return m_boardInfo;
+    }
+
 private slots:
     void NetworkChanged(QNetworkSession::State state);
 public slots:
@@ -79,6 +98,8 @@ signals:
     void localIPChanged(QString localIP);
     void networkStateChanged(QNetworkSession::State networkState);
     void hostnameChanged(QString hostname);
+    void sysInfoChanged(QString sysInfo);
+    void boardInfoChanged(QString boardInfo);
 };
 
 #endif // SYSTEMSETTINGS_H

@@ -12,5 +12,7 @@
         <file>qml/UserSettingsView.qml</file>
         <file>qml/ToastManager.qml</file>
         <file>qml/FlickableItem.qml</file>
+        <file>qml/AutoScroller.qml</file>
+        <file>qml/PopUp.qml</file>
     </qresource>
 </RCC>
