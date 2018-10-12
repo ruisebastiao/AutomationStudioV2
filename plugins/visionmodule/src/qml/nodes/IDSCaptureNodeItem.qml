@@ -16,8 +16,8 @@ import visionmodule 1.0
 FlowNodeItem{
     id:root
 
-//    normalWidth: 300
-//    normalHeight: 200
+    //    normalWidth: 300
+    //    normalHeight: 200
 
     property IDSCameraListModel cameras: node.availableCameras
 
@@ -131,6 +131,55 @@ FlowNodeItem{
                 }
 
             }
+
+            Item{
+                Layout.preferredHeight: 60
+                Layout.fillWidth: true;
+                RowLayout{
+                    anchors.fill: parent
+                    Item{
+                        Layout.fillHeight:true;
+                        Layout.fillWidth: true;
+                        Label{
+                            anchors.fill: parent
+                            verticalAlignment: Text.AlignVCenter
+
+                            text:"Acquisition buffers:"
+                        }
+                    }
+                    Item{
+                        Layout.fillHeight:true;
+
+                        Layout.fillWidth: true;
+
+                        SpinBox{
+                            anchors.fill: parent
+                            from:1
+                            to:30
+                            value: root.node.numBuffers;
+                            onValueChanged: {
+                                root.node.numBuffers=value
+                            }
+
+                            enabled: root.node.cameraOpened==false
+                            editable: false
+
+                        }
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
+
+            }
+
 
             Item{
                 Layout.fillHeight:true;

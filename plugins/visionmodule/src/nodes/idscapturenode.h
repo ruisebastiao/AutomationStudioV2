@@ -9,6 +9,7 @@
 
 
 
+#define MAX_SEQ_BUFFERS 30
 
 
 class IDSCaptureNode : public CameraCaptureNode
@@ -24,6 +25,7 @@ class IDSCaptureNode : public CameraCaptureNode
 
     Q_PROPERTY(bool cameraAvailable READ cameraAvailable NOTIFY cameraAvailableChanged)
 
+    Q_PROPERTY(int numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged  USER("serialize"))
 
 
 
@@ -62,6 +64,11 @@ public:
 
     void updateExternalTrigger(bool value);
     void updateContinuousCapture(bool value);
+    int numBuffers() const
+    {
+        return m_numBuffers;
+    }
+
 public slots:
 
 
@@ -139,6 +146,8 @@ signals:
     void softwareTriggerChanged(bool softwareTrigger);
 
 
+    void numBuffersChanged(int numBuffers);
+
 private:
 
     void setCameraAvailable(bool cameraAvailable)
@@ -181,9 +190,15 @@ private:
     INT		m_nSizeY;			// height of image
     INT		m_nPosX;			// left offset of image
     INT		m_nPosY;			// right offset of image
-    INT		m_lMemoryId;		// camera memory - buffer ID
-    char*	m_pcImageMemory=nullptr;	// camera memory - pointer to buffer
+    //    INT		m_lMemoryId;		// camera memory - buffer ID
+    //    char*	m_pcImageMemory=nullptr;	// camera memory - pointer to buffer
 
+    INT		m_lSeqMemId[MAX_SEQ_BUFFERS];	// camera memory - buffer ID
+    char*	m_pcSeqImgMem[MAX_SEQ_BUFFERS];	// camera memory - pointer to buffer
+    int		m_nSeqNumId[MAX_SEQ_BUFFERS];	// varibale to hold the number of the sequence buffer Id
+
+    int m_dwSingleBufferSize;
+    int m_nBitsPerPixel=8; // mono8
 
     //   QImage m_lastframe;
     IDSCameraListModel* m_availableCameras = new IDSCameraListModel();
@@ -193,8 +208,10 @@ private:
     void GetFrames();
 
 
-
+    int m_frameBufferCount=0;
     // CaptureNode interface
+    int m_numBuffers=1;
+
 public slots:
     void setNewFrame(bool newFrame) override;
 protected:
@@ -206,6 +223,14 @@ protected:
     // CameraCaptureNode interface
 public slots:
     void setExternalTrigger(bool externalTrigger) override;
+    void setNumBuffers(int numBuffers)
+    {
+        if (m_numBuffers == numBuffers)
+            return;
+
+        m_numBuffers = numBuffers;
+        emit numBuffersChanged(m_numBuffers);
+    }
 };
 
 #endif // IDSCAPTURE_H

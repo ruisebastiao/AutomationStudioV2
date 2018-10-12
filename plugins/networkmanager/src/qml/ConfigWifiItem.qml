@@ -218,7 +218,7 @@ Item {
             }
 
             property int delegateIndex: index
-            onDelegateIndexChanged: console.log("delegateIndex:"+delegateIndex)
+//            onDelegateIndexChanged: console.log("delegateIndex:"+delegateIndex)
 
             property NetworkInfo modelNetwork:model.display
 

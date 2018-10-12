@@ -3,10 +3,6 @@ uri = guimodule
 
 include(../../module.pri)
 
-DISTFILES += \
-        qmldir \
-    src/qml/ToastManager.qml \
-    src/qml/ToastManager.qml
 
 include($$PWD/src/guimodule.pri)
 

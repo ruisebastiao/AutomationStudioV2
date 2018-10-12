@@ -147,12 +147,8 @@
             "stringValue": "bskpp1",
             "stringValuePort": {
                 "connectedTo": [
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2"
-                    }
-                ],
+              
+              ],
                 "hidden": false,
                 "portLabel": "",
                 "showinlabel": false,
@@ -173,11 +169,6 @@
             "stringValue": "stationid",
             "stringValuePort": {
                 "connectedTo": [
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param2Name"
-                    }
                 ],
                 "hidden": false,
                 "portLabel": "",
@@ -199,11 +190,6 @@
             "stringValue": "bsid",
             "stringValuePort": {
                 "connectedTo": [
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "param1Name"
-                    }
                 ],
                 "hidden": false,
                 "portLabel": "",

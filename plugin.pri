@@ -36,13 +36,16 @@ else{
 unix{
     qmldir.files = qmldir
 
-    installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
+    qmldirinstallPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
+    plugininstallPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
+
      REMOTE-RPI{
-           installPath = $${REMOTE_PATH}/$$replace(uri, \\., /)
+           qmldirinstallPath = $${REMOTE_PATH}/$$replace(uri, \\., /)
+           plugininstallPath = $${REMOTE_PATH}
     }
 
-    qmldir.path = $$installPath
-    target.path = $$installPath
+    qmldir.path = $$qmldirinstallPath
+    target.path = $$plugininstallPath
     !BUILDROOT{
 
         INSTALLS += target qmldir
