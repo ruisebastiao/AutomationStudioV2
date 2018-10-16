@@ -120,6 +120,7 @@ ApplicationWindow {
         if(appsettings){
             appsettings.loadBaseSettings()
             stacked_view.push(maincontentview)
+            appsettings.initSocketIO();
         }
     }
     

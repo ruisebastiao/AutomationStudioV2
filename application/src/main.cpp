@@ -79,7 +79,8 @@ int main(int argc, char *argv[]){
 
 
     QGuiApplication::setApplicationName("Automation Studio");
-    QGuiApplication::setApplicationVersion(AutomationStudio::versionString());
+    QGuiApplication::setApplicationVersion(APPVERSION);
+
     QQmlApplicationEngine engine;
     try{
 

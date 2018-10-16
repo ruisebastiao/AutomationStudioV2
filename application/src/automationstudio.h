@@ -22,14 +22,11 @@
 #include <qpluginloader.h>
 
 #include <automationstudiocore/systemsettings.h>
+#include <automationstudiocore/socketio.h>
+
 #include <automationstudiocore/utilities.h>
 #include <QCoreApplication>
-// Versioning
-// ----------
 
-#define AUTOMATIONSTUDIO_VERSION_MAJOR 1
-#define AUTOMATIONSTUDIO_VERSION_MINOR 5
-#define AUTOMATIONSTUDIO_VERSION_PATCH 0
 
 // Forward declarations
 // --------------------
@@ -57,8 +54,10 @@ class AutomationStudio : public QObject{
 
     Q_PROPERTY(as::Utilities*       utilities READ utilities CONSTANT)
 
+    Q_PROPERTY(QString releaseVersion READ releaseVersion WRITE setReleaseVersion NOTIFY releaseVersionChanged)
 
-    Q_PROPERTY(SystemSettings*     systemSettings READ systemSettings NOTIFY systemSettingsChanged)
+
+    Q_PROPERTY(SystemSettings*  systemSettings READ systemSettings NOTIFY systemSettingsChanged)
 
 public:
     typedef QSharedPointer<AutomationStudio>       Ptr;
@@ -71,16 +70,10 @@ public:
 
     void loadQml(const QUrl& url);
 
-    static int versionMajor();
-    static int versionMinor();
-    static int versionPatch();
-    static QString versionString();
+
     static QString header();
 
-    Q_INVOKABLE QString version()
-    {
-        return AutomationStudio::versionString();
-    }
+
 
     const QString& dir() const;
 
@@ -117,6 +110,11 @@ public:
         return m_utilities;
     }
 
+    QString releaseVersion() const
+    {
+        return m_releaseVersion;
+    }
+
 public slots:
 
     void setCoreApplication(QCoreApplication* coreApplication)
@@ -128,10 +126,21 @@ public slots:
         emit coreApplicationChanged(m_coreApplication);
     }
 
+    void setReleaseVersion(QString releaseVersion)
+    {
+        if (m_releaseVersion == releaseVersion)
+            return;
+
+        m_releaseVersion = releaseVersion;
+        emit releaseVersionChanged(m_releaseVersion);
+    }
+
 signals:
     void systemSettingsChanged(SystemSettings* systemSettings);
 
     void coreApplicationChanged(QCoreApplication* coreApplication);
+
+    void releaseVersionChanged(QString releaseVersion);
 
 private:
     AutomationStudio(QQmlApplicationEngine* engine,QObject* parent = nullptr);
@@ -154,26 +163,12 @@ private:
 
 
     as::Utilities* m_utilities=nullptr;
+
+
+
+    QString m_releaseVersion="";
 };
 
-inline int AutomationStudio::versionMajor(){
-    return AUTOMATIONSTUDIO_VERSION_MAJOR;
-}
-
-inline int AutomationStudio::versionMinor(){
-    return AUTOMATIONSTUDIO_VERSION_MINOR;
-}
-
-inline int AutomationStudio::versionPatch(){
-    return AUTOMATIONSTUDIO_VERSION_PATCH;
-}
-
-inline QString AutomationStudio::versionString(){
-    return
-            QString::number(versionMajor()) + "." +
-            QString::number(versionMinor()) + "." +
-            QString::number(versionPatch());
-}
 
 inline const QString &AutomationStudio::dir() const{
     return m_dir;
@@ -188,11 +183,6 @@ inline QQmlApplicationEngine *AutomationStudio::engine(){
     return m_engine;
 }
 
-
-inline QString AutomationStudio::header(){
-    return " AutomationStudio v" + versionString() + "\n"
-                                                     " --------------------------------------------------- ";
-}
 
 }// namespace
 

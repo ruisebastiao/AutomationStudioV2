@@ -222,128 +222,141 @@ Item{
                                     anchors.margins: 5
                                     title:  "Info"
 
-                                    MouseArea{
-                                        id:enterProgrammingmode
+                                    //                                    MouseArea{
+                                    //                                        id:enterProgrammingmode
 
-                                        onPressAndHold: {
-                                            stacked_view.push(programmerview);
-                                        }
+                                    //                                        onPressAndHold: {
+                                    //                                            stacked_view.push(programmerview);
+                                    //                                        }
 
-                                        anchors.fill: parent
+                                    //                                        anchors.fill: parent
 
 
-                                    }
+                                    //                                    }
 
-                                    RowLayout{
+                                    ColumnLayout{
 
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
+                                        RowLayout{
 
-                                        TextField{
-                                            id:release_field
-                                            readOnly: true
-                                            Layout.margins: 5
-                                            Layout.minimumWidth: 75
-                                            Material.accent: selectedprimary
-                                            text:automationstudio.version()
-                                            MaterialPlaceHolder{
 
-                                                placeHolderText:qsTr("Release")
+                                            TextField{
+                                                id:release_field
+                                                readOnly: true
+                                                Layout.margins: 5
+                                                Layout.minimumWidth: 75
+                                                Material.accent: selectedprimary
+                                                text:automationstudio.releaseVersion
+                                                MaterialPlaceHolder{
+
+                                                    placeHolderText:qsTr("Release")
+                                                }
+
                                             }
+                                            Item{
 
-                                        }
-                                        Item{
-
-                                            Layout.fillHeight: true
-                                            Layout.preferredWidth: 50
-                                            //                                            Layout.rightMargin: 5
-                                            //                                            visible: opacity>0
-                                            //                                            Behavior on opacity{
-                                            //                                                NumberAnimation { duration: 250}
-                                            //                                            }
-                                            //                                            opacity:appsettings.updateAvailable?1:0
-                                            RoundButton{
-                                                anchors.centerIn: parent
-                                                width: 50
-                                                height: 50
-                                                highlighted: true
-                                                enabled: automationstudio.settings.checkingUpdate==false
-
-                                                onPressed: {
-                                                    if(automationstudio.settings.updateAvailable){
-                                                        window.close()
-
-                                                    }
-                                                    else{
-                                                        automationstudio.settings.checkUpdate()
-                                                    }
-                                                }
-
-                                                BusyIndicator {
-                                                    anchors.fill: parent
-                                                    anchors.margins: 5
-                                                    running: false
-                                                    //                                                    running: appsettings.checkingUpdate?appsettings.checkingUpdate:false
-                                                    //                                                    Material.accent: "#ffb47b"
-                                                }
-
-                                                Item{
-
-                                                    id:icon_container
-
+                                                Layout.fillHeight: true
+                                                Layout.preferredWidth: 50
+                                                //                                            Layout.rightMargin: 5
+                                                //                                            visible: opacity>0
+                                                //                                            Behavior on opacity{
+                                                //                                                NumberAnimation { duration: 250}
+                                                //                                            }
+                                                //                                            opacity:appsettings.updateAvailable?1:0
+                                                RoundButton{
                                                     anchors.centerIn: parent
-                                                    width: 35
-                                                    height: 35
-                                                    clip: true
-                                                    Image {
-                                                        id:update_icon
-                                                        x:width/2
-                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                    width: 50
+                                                    height: 50
+                                                    highlighted: true
+                                                    enabled: automationstudio.settings.checkingUpdate==false
 
-                                                        y:icon_container.height/2-width/2
-                                                        width: 22
-                                                        height: 22
-                                                        source: "qrc:/images/ic_arrow_upward_white_36dp_2x.png"
+                                                    onPressed: {
+                                                        if(automationstudio.settings.updateAvailable){
+                                                            window.close()
+
+                                                        }
+                                                        else{
+                                                            automationstudio.settings.checkUpdate()
+                                                        }
                                                     }
 
+                                                    BusyIndicator {
+                                                        anchors.fill: parent
+                                                        anchors.margins: 5
+                                                        running: false
+                                                        //                                                    running: appsettings.checkingUpdate?appsettings.checkingUpdate:false
+                                                        //                                                    Material.accent: "#ffb47b"
+                                                    }
+
+                                                    Item{
+
+                                                        id:icon_container
+
+                                                        anchors.centerIn: parent
+                                                        width: 35
+                                                        height: 35
+                                                        clip: true
+                                                        Image {
+                                                            id:update_icon
+                                                            x:width/2
+                                                            anchors.horizontalCenter: parent.horizontalCenter
+
+                                                            y:icon_container.height/2-width/2
+                                                            width: 22
+                                                            height: 22
+                                                            source: "qrc:/images/ic_arrow_upward_white_36dp_2x.png"
+                                                        }
+
+                                                    }
+                                                    SequentialAnimation{
+                                                        PauseAnimation {
+                                                            duration: 1500
+                                                        }
+                                                        NumberAnimation { target: update_icon; property: "y"; to: -icon_container.height-2; duration: 250 }
+                                                        PauseAnimation {
+                                                            duration: 50
+                                                        }
+                                                        NumberAnimation { target: update_icon; property: "y"; from:icon_container.height+2; to: icon_container.height/2-update_icon.width/2; duration: 250 }
+                                                        loops: Animation.Infinite
+                                                        running: false
+                                                        //                                                    running: appsettings.updateAvailable?appsettings.updateAvailable:false
+
+                                                    }
                                                 }
-                                                SequentialAnimation{
-                                                    PauseAnimation {
-                                                        duration: 1500
-                                                    }
-                                                    NumberAnimation { target: update_icon; property: "y"; to: -icon_container.height-2; duration: 250 }
-                                                    PauseAnimation {
-                                                        duration: 50
-                                                    }
-                                                    NumberAnimation { target: update_icon; property: "y"; from:icon_container.height+2; to: icon_container.height/2-update_icon.width/2; duration: 250 }
-                                                    loops: Animation.Infinite
-                                                    running: false
-                                                    //                                                    running: appsettings.updateAvailable?appsettings.updateAvailable:false
+                                            }
 
+
+
+
+                                            Item{
+                                                Layout.fillWidth: true
+                                                Layout.preferredHeight: 50
+
+                                                Button{
+                                                    anchors.centerIn: parent
+                                                    highlighted: true
+                                                    visible: root.system?root.system.boardInfo=="RPI":false
+                                                    text: "Halt"
+                                                    onPressed: {
+
+                                                        automationstudio.halt();
+                                                    }
                                                 }
                                             }
                                         }
 
+                                        RowLayout{                                           
+                                           visible: automationstudio.settings.socketIO.connected
+                                           Button{
+                                               visible: automationstudio.settings.appRegistred===false
+                                               text: "Register APP"
+                                               highlighted: true
 
-
-
-                                        Item{
-                                            Layout.fillWidth: true
-                                            Layout.preferredHeight: 50
-
-                                            Button{
-                                                anchors.centerIn: parent
-                                                highlighted: true
-                                                visible: root.system?root.system.boardInfo=="RPI":false
-                                                text: "Halt"
-                                                onPressed: {
-
-                                                    automationstudio.halt();
-                                                }
-                                            }
+                                               onPressed: {
+                                                   automationstudio.settings.registerApp();
+                                               }
+                                           }
                                         }
                                     }
-
                                 }
                             }
 
@@ -404,7 +417,7 @@ Item{
                                                 id:hostname_field
 
 
-//                                                readOnly: true
+                                                //                                                readOnly: true
                                                 Layout.margins: 5
                                                 Layout.fillWidth: true
                                                 Material.accent: selectedprimary

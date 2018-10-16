@@ -43,6 +43,9 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
     , m_settings(nullptr)
 {
     m_currentDir=QCoreApplication::applicationDirPath();
+
+    setReleaseVersion(APPVERSION);
+
     solveImportPaths();
     m_currentDir=m_currentDir+"/";
     QQmlContext* ctx{engine->rootContext()};
@@ -50,6 +53,10 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
     m_settings= new Settings(this,m_currentDir+"/appsettings.json");
     m_systemSettings= new SystemSettings(this);
     m_utilities= new Utilities(this);
+
+
+
+
 
 
 }
@@ -172,6 +179,8 @@ void AutomationStudio::loadInternalPlugins(){
 
 
     qmlRegisterUncreatableType<SystemSettings >("base", 1, 0, "SystemSettings","SystemSettings is available through the \'automationstudio.systemsettings\' property.");
+    qmlRegisterUncreatableType<SocketIO>("base", 1, 0, "SocketIO","SocketIO");
+
 
     m_engine->rootContext()->setContextProperty("appDir", m_currentDir);
 

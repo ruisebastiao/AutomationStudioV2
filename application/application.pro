@@ -85,7 +85,5 @@ WITH-CONFIGS{
 linkLocalLib(CuteLogger)
 linkLocalLib(automationstudiocore)
 
-#win32:CONFIG(release, debug|release): LIBS += -L$$DEPLOY_PATH -lCuteLogger
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$DEPLOY_PATH -lCuteLogger
-#else:unix:!macx: LIBS += -L$$DEPLOY_PATH -lCuteLogger
-#unix:!macx|win32: LIBS += -L$$DEPLOY_PATH -lautomationstudiocore
+LIBS += -lboost_system
+
