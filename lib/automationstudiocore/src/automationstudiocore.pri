@@ -19,7 +19,8 @@ HEADERS += \
     $$PWD/projectslistmodel.h \
     $$PWD/modulelistmodel.h \
     $$PWD/module.h \
-    $$PWD/utilities.h
+    $$PWD/utilities.h \
+    $$PWD/socketio.h
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
@@ -38,7 +39,8 @@ SOURCES += \
     $$PWD/projectslistmodel.cpp \
     $$PWD/modulelistmodel.cpp \
     $$PWD/module.cpp \
-    $$PWD/utilities.cpp
+    $$PWD/utilities.cpp \
+    $$PWD/socketio.cpp
 
 win32{
     SOURCES +=

@@ -23,6 +23,7 @@
 #include "automationstudiocoreglobal.h"
 
 #include "projectslistmodel.h"
+#include "socketio.h"
 #include "userslistmodel.h"
 
 namespace as{
@@ -42,6 +43,8 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
     Q_PROPERTY(ProjectsListModel* projects READ projects NOTIFY projectsChanged)
     Q_PROPERTY(QString sysInfo READ sysInfo)
     Q_PROPERTY(QString cpuType READ cpuType)
+    Q_PROPERTY(QString ethMAC READ ethMAC)
+
 
     Q_PROPERTY(UsersListModel* users READ users NOTIFY usersChanged)
     Q_PROPERTY(User* currentUser READ currentUser WRITE setCurrentUser NOTIFY currentUserChanged)
@@ -54,6 +57,13 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
     Q_PROPERTY(bool useVirtualKeyboard READ useVirtualKeyboard WRITE setUseVirtualKeyboard NOTIFY useVirtualKeyboardChanged)
 
 
+    Q_PROPERTY(SocketIO* socketIO READ socketIO WRITE setSocketIO NOTIFY socketIOChanged)
+    Q_PROPERTY(bool appRegistred READ appRegistred NOTIFY appRegistredChanged)
+
+
+
+
+
 
 public:
     Settings(QObject* parent = nullptr, QString baseconfigpath="");
@@ -64,6 +74,7 @@ public:
     Q_INVOKABLE bool save();
     Q_INVOKABLE void updateBaseSettings();
     Q_INVOKABLE void loadBaseSettings();
+    Q_INVOKABLE void initSocketIO();
 
     QString source() const
     {
@@ -124,6 +135,24 @@ public:
         return m_selectedProject;
     }
 
+
+
+    SocketIO* socketIO() const
+    {
+        return m_socketIO;
+    }
+
+    QString ethMAC() const
+    {
+        return m_ethMAC;
+    }
+
+    bool appRegistred() const
+    {
+        return m_appRegistred;
+    }
+
+    Q_INVOKABLE void registerApp();
 public slots:
 
 
@@ -181,6 +210,24 @@ public slots:
         emit selectedProjectChanged(m_selectedProject);
     }
 
+    void setSocketIO(SocketIO* socketIO)
+    {
+        if (m_socketIO == socketIO)
+            return;
+
+        m_socketIO = socketIO;
+        emit socketIOChanged(m_socketIO);
+    }
+
+    void setAppRegistred(bool appRegistred)
+    {
+        if (m_appRegistred == appRegistred)
+            return;
+
+        m_appRegistred = appRegistred;
+        emit appRegistredChanged(m_appRegistred);
+    }
+
 signals:
     void sourceChanged(QString source);
 
@@ -203,10 +250,16 @@ signals:
 
     void selectedProjectChanged(Project* selectedProject);
 
+    void socketIOServerChanged(QString socketIOServer);
+
+    void socketIOChanged(SocketIO* socketIO);
+
+    void appRegistredChanged(bool appRegistred);
+
 private:
 
 private:
-    void read(const QJsonObject &json);
+    void read(QJsonObject &json);
     void write(QJsonObject &json) const;
 
     QString m_source;
@@ -223,6 +276,10 @@ private:
     QJsonObject m_settingsobject;
     ProjectsListModel* m_projects=nullptr;
     Project* m_selectedProject=nullptr;
+
+    SocketIO* m_socketIO=nullptr;
+    QString m_ethMAC="";
+    bool m_appRegistred=false;
 };
 
 

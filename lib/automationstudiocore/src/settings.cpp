@@ -22,8 +22,14 @@
 #include <QJsonArray>
 #include <QSysInfo>
 #include <qdebug.h>
+#include <QNetworkInterface>
+#include <qhostinfo.h>
+
+#include "Logger.h"
+
 
 namespace as{
+
 
 Settings::Settings(QObject *parent, QString baseconfigpath)
     : QObject(parent)
@@ -31,6 +37,19 @@ Settings::Settings(QObject *parent, QString baseconfigpath)
     m_baseconfigpath=baseconfigpath;
 
 
+
+    foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces()) {
+
+        switch (interface.type()) {
+        case QNetworkInterface::Ethernet:
+            m_ethMAC=interface.hardwareAddress();
+            LOG_INFO("hardwareAddress:"+m_ethMAC+"("+interface.name()+")");
+            break;
+        default:
+            break;
+        }
+
+    }
 
     m_sysInfo=QSysInfo::kernelType();
     m_cpuType=QSysInfo::currentCpuArchitecture();
@@ -42,6 +61,92 @@ Settings::Settings(QObject *parent, QString baseconfigpath)
 
     m_projects= new ProjectsListModel();
     m_users= new UsersListModel();
+
+    m_socketIO= new SocketIO(this);
+
+
+    connect(m_socketIO,&SocketIO::socketIOConnected,this,[&](){
+
+        QJsonObject data;
+
+        data["mac"]=m_ethMAC;
+        data["installedversion"]=APPVERSION;
+
+
+        QJsonDocument doc(data);
+
+
+        m_socketIO->send("fromunit:setinstalledversion",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
+
+
+            if(msg.size()>0){
+
+                message::ptr data=msg.at(0);
+                if(data->get_flag() == message::flag_string){
+                    QString result=QString::fromStdString(data->get_string());
+
+                    QList<QString> results=result.split('|');
+
+                    if(results.length()>0 && results[0]=="NOK"){
+                        if(results.length()>1 && results[1]=="NOT REGISTRED"){
+                            this->setAppRegistred(false);
+                            emit this->appRegistredChanged(false);
+                        }
+                    }
+                    else{
+                        this->setAppRegistred(true);
+                        emit this->appRegistredChanged(true);
+                    }
+                }
+            }
+
+            return;
+        });
+
+
+    });
+
+
+}
+
+
+void Settings::registerApp(){
+    QJsonObject data;
+
+    data["mac"]=m_ethMAC;
+    data["installedversion"]=APPVERSION;
+    data["hostname"]=QHostInfo::localHostName();
+
+    QJsonDocument doc(data);
+
+
+    m_socketIO->send("fromunit:registerapp",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
+
+
+        if(msg.size()>0){
+
+            message::ptr data=msg.at(0);
+            if(data->get_flag() == message::flag_string){
+                QString result=QString::fromStdString(data->get_string());
+
+                QList<QString> results=result.split('|');
+
+                if(results.length()>0 && results[0]=="NOK"){
+                    if(results.length()>1 && results[1]=="NOT REGISTRED"){
+                        this->setAppRegistred(false);
+                        emit this->appRegistredChanged(false);
+                    }
+                }
+                else{
+                    this->setAppRegistred(true);
+                    emit this->appRegistredChanged(true);
+                }
+            }
+        }
+
+        return;
+    });
+
 
 
 }
@@ -157,6 +262,11 @@ void Settings::loadBaseSettings()
     return;
 }
 
+void Settings::initSocketIO()
+{
+      m_socketIO->init();
+}
+
 void Settings::setBasefileLoaded(bool basefileLoaded)
 {
     if (m_basefileLoaded == basefileLoaded)
@@ -167,9 +277,11 @@ void Settings::setBasefileLoaded(bool basefileLoaded)
 
 }
 
-void Settings::read(const QJsonObject &json)
+void Settings::read(QJsonObject &json)
 {
     setSelectedanguage(json["language"].toString());
+
+    m_socketIO->DeSerialize(json);
 
     m_projects->clear();
 
@@ -200,10 +312,14 @@ void Settings::read(const QJsonObject &json)
 
     }
 
+
+
 }
 
 void Settings::write(QJsonObject &json) const
 {
+ // TODO SERIALIZE
+
 
 }
 
