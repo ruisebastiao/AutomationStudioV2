@@ -55,6 +55,7 @@ class AutomationStudio : public QObject{
     Q_PROPERTY(as::Utilities*       utilities READ utilities CONSTANT)
 
     Q_PROPERTY(QString releaseVersion READ releaseVersion WRITE setReleaseVersion NOTIFY releaseVersionChanged)
+    Q_PROPERTY(QString buildInfo READ buildInfo WRITE setBuildInfo NOTIFY buildInfoChanged)
 
 
     Q_PROPERTY(SystemSettings*  systemSettings READ systemSettings NOTIFY systemSettingsChanged)
@@ -115,6 +116,11 @@ public:
         return m_releaseVersion;
     }
 
+    QString buildInfo() const
+    {
+        return m_buildInfo;
+    }
+
 public slots:
 
     void setCoreApplication(QCoreApplication* coreApplication)
@@ -135,12 +141,23 @@ public slots:
         emit releaseVersionChanged(m_releaseVersion);
     }
 
+    void setBuildInfo(QString buildInfo)
+    {
+        if (m_buildInfo == buildInfo)
+            return;
+
+        m_buildInfo = buildInfo;
+        emit buildInfoChanged(m_buildInfo);
+    }
+
 signals:
     void systemSettingsChanged(SystemSettings* systemSettings);
 
     void coreApplicationChanged(QCoreApplication* coreApplication);
 
     void releaseVersionChanged(QString releaseVersion);
+
+    void buildInfoChanged(QString buildInfo);
 
 private:
     AutomationStudio(QQmlApplicationEngine* engine,QObject* parent = nullptr);
@@ -167,6 +184,7 @@ private:
 
 
     QString m_releaseVersion="";
+    QString m_buildInfo="";
 };
 
 

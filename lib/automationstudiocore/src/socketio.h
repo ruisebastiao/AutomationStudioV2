@@ -51,7 +51,7 @@ private:
     void OnFailed();
     void onSocketDisconnect(std::string const& nsp);
 
-
+    void OnDoUpdate(const std::string &name, const message::ptr &data, bool hasAck, message::list &ack_resp);
 
     // JsonSerializable interface
     QString m_serverUrl="";
@@ -72,6 +72,7 @@ public:
     {
         return m_connected;
     }
+
 
 
 public slots:
@@ -96,6 +97,8 @@ signals:
     void serverUrlChanged(QString serverUrl);
     void socketIOConnected();
     void socketIODiscConnected();
+
+    void doUpdate(QString releasename);
 
     void connectedChanged(bool connected);
 };

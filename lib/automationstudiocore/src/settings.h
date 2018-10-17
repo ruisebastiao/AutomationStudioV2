@@ -22,6 +22,7 @@
 #include <QUrl>
 #include "automationstudiocoreglobal.h"
 
+#include "appupdater.h"
 #include "projectslistmodel.h"
 #include "socketio.h"
 #include "userslistmodel.h"
@@ -256,6 +257,11 @@ signals:
 
     void appRegistredChanged(bool appRegistred);
 
+
+    void doUpdate(QString releasename);
+
+    void updateDone();
+
 private:
 
 private:
@@ -278,6 +284,7 @@ private:
     Project* m_selectedProject=nullptr;
 
     SocketIO* m_socketIO=nullptr;
+    AppUpdater* m_appupdater=nullptr;
     QString m_ethMAC="";
     bool m_appRegistred=false;
 };

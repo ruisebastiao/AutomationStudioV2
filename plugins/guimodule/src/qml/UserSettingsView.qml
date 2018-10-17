@@ -14,6 +14,17 @@ Item{
     id:root
     clip:true
     visible: automationstudio.systemSettings
+    property Settings settings: automationstudio.settings
+
+//    Connections{
+//        target: settings
+//        onDoUpdate:{
+//            console.log("Updating to release:"+releasename);
+//        }
+//    }
+
+
+
     property SystemSettings system: automationstudio.systemSettings
     Flickable {
 

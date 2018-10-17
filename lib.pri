@@ -1,13 +1,18 @@
 include(config.pri)
 
-message(-----LIB----)
 ## Destination
 
-win32:{
+win32{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/
     DLLDESTDIR = $$DEPLOY_PATH
-}else:!REMOTE-RPI{
-        DESTDIR = $$DEPLOY_PATH
+}
+
+unix{
+
+  DESTDIR = $$DEPLOY_PATH
+#  REMOTE-RPI:!DO_PACKAGE{
+#    DESTDIR =
+#  }
 }
 
 

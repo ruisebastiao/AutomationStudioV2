@@ -64,6 +64,25 @@ Settings::Settings(QObject *parent, QString baseconfigpath)
 
     m_socketIO= new SocketIO(this);
 
+    m_appupdater= new AppUpdater(this);
+
+
+
+
+    connect(m_appupdater,&AppUpdater::updateDone,this,[&](){
+        emit this->updateDone();
+    });
+
+
+    connect(m_socketIO,&SocketIO::doUpdate,this,[&](QString releasename){
+        LOG_INFO()<<"Updating ::"<<releasename;
+        emit this->doUpdate(releasename);
+
+
+
+        m_appupdater->doUpdate(releasename);
+    });
+
 
     connect(m_socketIO,&SocketIO::socketIOConnected,this,[&](){
 
@@ -71,12 +90,13 @@ Settings::Settings(QObject *parent, QString baseconfigpath)
 
         data["mac"]=m_ethMAC;
         data["installedversion"]=APPVERSION;
+        data["buildinfo"]=BUILD_ID;
 
 
         QJsonDocument doc(data);
 
 
-        m_socketIO->send("fromunit:setinstalledversion",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
+        m_socketIO->send("fromapp:setinstalledversion",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
 
 
             if(msg.size()>0){
@@ -115,12 +135,13 @@ void Settings::registerApp(){
 
     data["mac"]=m_ethMAC;
     data["installedversion"]=APPVERSION;
+    data["buildinfo"]=BUILD_ID;
     data["hostname"]=QHostInfo::localHostName();
 
     QJsonDocument doc(data);
 
 
-    m_socketIO->send("fromunit:registerapp",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
+    m_socketIO->send("fromapp:registerapp",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
 
 
         if(msg.size()>0){
@@ -264,7 +285,7 @@ void Settings::loadBaseSettings()
 
 void Settings::initSocketIO()
 {
-      m_socketIO->init();
+    m_socketIO->init();
 }
 
 void Settings::setBasefileLoaded(bool basefileLoaded)
@@ -281,6 +302,9 @@ void Settings::read(QJsonObject &json)
 {
     setSelectedanguage(json["language"].toString());
 
+
+
+    m_appupdater->DeSerialize(json);
     m_socketIO->DeSerialize(json);
 
     m_projects->clear();
@@ -318,7 +342,7 @@ void Settings::read(QJsonObject &json)
 
 void Settings::write(QJsonObject &json) const
 {
- // TODO SERIALIZE
+    // TODO SERIALIZE
 
 
 }

@@ -20,7 +20,8 @@ HEADERS += \
     $$PWD/modulelistmodel.h \
     $$PWD/module.h \
     $$PWD/utilities.h \
-    $$PWD/socketio.h
+    $$PWD/socketio.h \
+    $$PWD/appupdater.h
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
@@ -40,7 +41,8 @@ SOURCES += \
     $$PWD/modulelistmodel.cpp \
     $$PWD/module.cpp \
     $$PWD/utilities.cpp \
-    $$PWD/socketio.cpp
+    $$PWD/socketio.cpp \
+    $$PWD/appupdater.cpp
 
 win32{
     SOURCES +=

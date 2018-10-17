@@ -1,14 +1,19 @@
 include(config.pri)
 
-message(----PLUGIN---)
+
 
 PLUGIN_PATH=$${DEPLOY_PATH}/$$TARGET/
 #QML_IMPORT_PATH += $${PLUGIN_PATH}
-win32:{
+win32{
     DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/
     DLLDESTDIR = $$PLUGIN_PATH/../
-}else:!REMOTE-RPI{
+}
+unix{
     DESTDIR = $$PLUGIN_PATH/../
+#    REMOTE-RPI:!DO_PACKAGE{
+#        DESTDIR =
+#    }
+
 }
 
 
@@ -18,10 +23,9 @@ win32:{
 unix{
      QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 
-     !REMOTE-RPI{
+
         QMAKE_POST_LINK += $$quote(mkdir -p $$DEPLOY_PATH/$$TARGET/$$escape_expand(\n\t))
         QMAKE_POST_LINK += $$quote(cp $$_PRO_FILE_PWD_/qml/qmldir $$DEPLOY_PATH/$$TARGET/$$escape_expand(\n\t))
-    }
 }
 else{
 

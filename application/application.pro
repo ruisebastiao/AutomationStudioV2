@@ -21,7 +21,7 @@ RPI{
 }
 
 
-unix:!RPI {
+unix{
     DESTDIR = $$DEPLOY_PATH
 }
 
@@ -86,4 +86,36 @@ linkLocalLib(CuteLogger)
 linkLocalLib(automationstudiocore)
 
 LIBS += -lboost_system
+
+
+
+
+
+message($$BUILD_ID)
+
+
+
+
+DO_PACKAGE{
+
+message("Packaging app")
+
+QMAKE_CLEAN += rm -r * $$DEPLOY_PATH/
+
+
+release_filename=$${BUILD_ID}~$${VERSION}~.tar.gz
+
+PACKAGE_PATH=$$BUILD_PATH/release
+
+QMAKE_POST_LINK += $$quote(mkdir -p $$PACKAGE_PATH$$escape_expand(\n\t))
+#QMAKE_POST_LINK += $$quote(cd $$PACKAGE_PATH/$$escape_expand(\n\t))
+QMAKE_POST_LINK += $$quote(tar -zcvf $$PACKAGE_PATH/$$release_filename -C $$DEPLOY_PATH/ ./ $$escape_expand(\n\t))
+
+#QMAKE_POST_LINK += $$quote(scp .tar.gz" cristovao@quitopt.dyndns.org:~/dreamforit/dynamicflow/releases/$$escape_expand(\n\t))
+
+
+}
+
+
+
 

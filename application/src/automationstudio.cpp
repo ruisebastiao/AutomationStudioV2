@@ -45,6 +45,7 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
     m_currentDir=QCoreApplication::applicationDirPath();
 
     setReleaseVersion(APPVERSION);
+    setBuildInfo(BUILD_ID);
 
     solveImportPaths();
     m_currentDir=m_currentDir+"/";
@@ -53,6 +54,16 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
     m_settings= new Settings(this,m_currentDir+"/appsettings.json");
     m_systemSettings= new SystemSettings(this);
     m_utilities= new Utilities(this);
+
+
+
+
+    connect(m_settings,&Settings::updateDone,this,[&](){
+       this->coreApplication()->exit(1337);
+        qApp->quit();
+        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+
+    });
 
 
 

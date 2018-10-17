@@ -31,6 +31,10 @@
 using namespace as;
 
 int main(int argc, char *argv[]){
+
+
+
+
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     QGuiApplication::addLibraryPath(as::PluginContext::librariesPath());
     QQuickStyle::setStyle("Material");
@@ -93,6 +97,8 @@ int main(int argc, char *argv[]){
         qDebug()<<"Main loaded";
         automationstudio->setCoreApplication(&app);
 
+
+
         return app.exec();
 
 
@@ -102,4 +108,6 @@ int main(int argc, char *argv[]){
         //                  typeid(*receiver).name());
 
     }
+
+
 }

@@ -40,6 +40,16 @@ ApplicationWindow {
         stacked_view.push(configWifiLoader.item);
     }
 
+    property Settings settings: automationstudio.settings
+
+    Connections{
+        target: settings
+        onDoUpdate:{
+            console.log("Updating to release:"+releasename);
+        }
+    }
+
+
     GUI.ToastManager{
         id:toast_manager
         anchors.fill: parent

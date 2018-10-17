@@ -1,15 +1,10 @@
-BUILD_PATH   = $$shadowed($$PWD)
 
 
-REMOTE_PATH=/root/AutomationStudio
+SYSTEM_BSVALIDATION{
+    RPI{
+        CONFIG+=PLUGIN-NETWORKMANAGER
+    }
+    CONFIG+=PLUGIN-BSVALIDATION
 
-DEPLOY_PATH = $$BUILD_PATH/bin
-
-RPI{
-    DEPLOY_PATH=$$[QT_SYSROOT]/root/AutomationStudio
 }
-
-VERSION=1.1.2
-
-DEFINES += APPVERSION="\\\"$$VERSION"\\\"
 

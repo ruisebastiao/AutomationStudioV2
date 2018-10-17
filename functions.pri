@@ -12,9 +12,6 @@ defineTest(linkLocalLib){
 
     LIB_NAME = $$1
 
-
-    message(link library:$$1)
-
     LIBS *= -L$$LIB_PATH
     LIBS *= -l$$LIB_NAME
 
@@ -34,8 +31,6 @@ defineTest(linkLocalPlugin){
     LIB_NAME = $$1
 
 
-    message(link plugin:$$1)
-
     LIBS *= -L$$LIB_PATH
     LIBS *= -l$$LIB_NAME
 
@@ -52,4 +47,22 @@ defineReplace(deployFileCommand){
 
     return($$QMAKE_COPY_FILE $$DEPLOY_FROM $$DEPLOY_TO)
 }
+
+
+
+# Checks the qt version
+#
+# Args: (major, minor)
+# Returns: true if version major is the same and version minor is the same or higher
+#
+defineTest(qtVersionCheck) {
+    maj = $$1
+    min = $$2
+    isEqual(QT_MAJOR_VERSION, $$maj){
+        isEqual(QT_MINOR_VERSION, $$min):return(true)
+        greaterThan(QT_MINOR_VERSION, $$min):return(true)
+    }
+    return(false)
+}
+
 
