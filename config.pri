@@ -1,6 +1,7 @@
 
 
 SYSTEM_BSVALIDATION{
+    message("BSValidaton System")
     RPI{
         CONFIG+=PLUGIN-NETWORKMANAGER
     }
@@ -8,3 +9,7 @@ SYSTEM_BSVALIDATION{
 
 }
 
+
+RPI{
+    DEPLOY_PATH=$$[QT_SYSROOT]/root/AutomationStudio
+}

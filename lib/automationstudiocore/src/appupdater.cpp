@@ -32,7 +32,7 @@ void AppUpdater::doUpdate(QString release)
     }
 
 
-    QUrl url("http://"+m_serverUrl+"/"+m_downloadPath+"/"+release);
+    QUrl url(m_serverUrl+"/"+m_downloadPath+"/"+release);
     LOG_INFO("Downloading from url:"+QString(url.toEncoded()));
 
 

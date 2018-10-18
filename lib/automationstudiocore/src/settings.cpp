@@ -31,10 +31,10 @@
 namespace as{
 
 
-Settings::Settings(QObject *parent, QString baseconfigpath)
+Settings::Settings(QObject *parent, QString appdir)
     : QObject(parent)
 {
-    m_baseconfigpath=baseconfigpath;
+    m_baseconfigpath=appdir;
 
 
 
@@ -180,7 +180,7 @@ bool Settings::load(QString basePath)
 {
 
     if(m_source.isEmpty()) {
-        qWarning() << "Empty document: " << m_source;
+        LOG_WARNING() << "Empty document: " << m_source;
         setLoaded(false);
         return false;
     }
@@ -188,13 +188,13 @@ bool Settings::load(QString basePath)
 
     QFile settingsFile(basePath+'/'+m_source);
     if(!settingsFile.exists()) {
-        qWarning() << "Does not exits: " << m_source;
+        LOG_WARNING() << "Does not exits: " << m_source;
         setLoaded(false);
         return false;
     }
 
     if (!settingsFile.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open save file.");
+        LOG_WARNING("Couldn't open save file.");
         return false;
     }
 
@@ -217,6 +217,7 @@ bool Settings::save()
 
     if (!saveFile.open(QIODevice::ReadWrite)) {
         qWarning("Couldn't open save file.");
+        saveFile.close();
         return false;
     }
 
@@ -230,6 +231,7 @@ bool Settings::save()
 
     saveFile.write(jsondoc);
 
+    saveFile.close();
     //    emit settingsSaved();
     return true;
 
@@ -343,6 +345,10 @@ void Settings::read(QJsonObject &json)
 void Settings::write(QJsonObject &json) const
 {
     // TODO SERIALIZE
+
+    m_appupdater->Serialize(json);
+    m_socketIO->Serialize(json);
+
 
 
 }

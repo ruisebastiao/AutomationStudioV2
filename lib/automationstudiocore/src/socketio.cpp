@@ -1,7 +1,7 @@
 #include "socketio.h"
 #include "Logger.h"
 #include <QNetworkInterface>
-
+#include <QUrl>
 #include <QJsonDocument>
 
 
@@ -100,9 +100,20 @@ void SocketIO::init(){
 
     _io->set_fail_listener(std::bind(&SocketIO::OnFailed,this));
 
+    QUrl serverurl(this->m_serverUrl);
 
-    LOG_INFO("Connecting to socket IO @:"+this->serverUrl());
-    _io->connect("ws://"+this->serverUrl().toStdString());
+    QString host=serverurl.host();
+    int port=serverurl.port();
+    QString formatedSocketIOUrl="ws://"+host;
+
+    if(port!=-1){
+        formatedSocketIOUrl+=":"+QString::number(port);
+    }
+
+
+
+    LOG_INFO("Connecting to socket IO @:"+formatedSocketIOUrl);
+    _io->connect(formatedSocketIOUrl.toStdString());
 }
 
 void SocketIO::send(QString eventname,QString eventdata, std::function<void (message::list const&)> const& ack){

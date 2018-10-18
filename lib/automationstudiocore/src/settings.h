@@ -67,11 +67,11 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
 
 
 public:
-    Settings(QObject* parent = nullptr, QString baseconfigpath="");
+    Settings(QObject* parent = nullptr, QString appdir="");
     ~Settings();
 
 
-    Q_INVOKABLE bool load(QString basePath="");
+    Q_INVOKABLE bool load();
     Q_INVOKABLE bool save();
     Q_INVOKABLE void updateBaseSettings();
     Q_INVOKABLE void loadBaseSettings();

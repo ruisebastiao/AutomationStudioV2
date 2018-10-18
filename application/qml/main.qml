@@ -150,7 +150,7 @@ ApplicationWindow {
             }
         }
         onSourceChanged:{
-            appsettings.load(appDir)
+            appsettings.load()
         }
     }
 

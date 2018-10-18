@@ -1,4 +1,5 @@
 {
+    "downloadPath": "api/apps/download/84c0d43f22c1124550efdb4ffa24f513",
     "language": "pt",
     "projects": [
         {
@@ -13,15 +14,17 @@
             "name": "BSValidation"
         }
     ],
+    "serverUrl": "http://keyeu-linux-svr:9006",
+    "downloadPath": "/api/apps/download/84c0d43f22c1124550efdb4ffa24f513/",
     "users": [
         {
-            "default": false,
+            "default": true,
             "name": "Administrator",
             "pin": "4321",
             "role": "AdminRole"
         },
         {
-            "default": true,
+            "default": false,
             "name": "Production User",
             "pin": "0000",
             "role": "ProductionRole"
