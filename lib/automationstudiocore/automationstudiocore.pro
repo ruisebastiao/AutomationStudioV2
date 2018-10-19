@@ -29,3 +29,5 @@ linkLocalLib(CuteLogger)
 
 
 include($$PWD/../socket.io-client-cpp/socket.io-client-cpp-headers.pri)
+
+QMAKE_POST_LINK += $$quote(rm settings.o$$escape_expand(\n\t))

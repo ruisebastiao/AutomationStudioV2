@@ -89,9 +89,7 @@ LIBS += -lboost_system
 
 
 
-message($$BUILD_ID)
-
-
+message(Build id: $$BUILD_ID)
 
 
 DO_PACKAGE{

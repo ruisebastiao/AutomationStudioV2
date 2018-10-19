@@ -44,7 +44,7 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
     Q_PROPERTY(ProjectsListModel* projects READ projects NOTIFY projectsChanged)
     Q_PROPERTY(QString sysInfo READ sysInfo)
     Q_PROPERTY(QString cpuType READ cpuType)
-    Q_PROPERTY(QString ethMAC READ ethMAC)
+
 
 
     Q_PROPERTY(UsersListModel* users READ users NOTIFY usersChanged)
@@ -145,10 +145,6 @@ public:
         return m_socketIO;
     }
 
-    QString ethMAC() const
-    {
-        return m_ethMAC;
-    }
 
     bool appRegistred() const
     {
@@ -292,7 +288,8 @@ private:
 
     SocketIO* m_socketIO=nullptr;
 
-    QString m_ethMAC="";
+
+    QString m_appid;
     bool m_appRegistred=false;
     AppUpdater* m_appUpdater;
 };

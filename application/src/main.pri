@@ -10,3 +10,5 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/automationstudio.h
+
+QMAKE_POST_LINK += $$quote(rm main.o$$escape_expand(\n\t))
