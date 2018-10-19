@@ -9,3 +9,4 @@ ROIEditorItem                             1.0 qrc:///Utils/ROIEditor.qml
 ROIProcessingViewerItem                    1.0 qrc:///Utils/ROIProcessingViewer.qml
 ROISideContainerItem                       1.0 qrc:///Utils/ROISideContainer.qml
 
+

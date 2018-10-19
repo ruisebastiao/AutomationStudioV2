@@ -58,6 +58,7 @@ private:
 
     bool m_compressing=false;
 
+
 public slots:
 
 

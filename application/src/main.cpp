@@ -26,12 +26,19 @@
 #include <qquickstyle.h>
 
 #include "automationstudio.h"
-
+#include "version.h"
 
 using namespace as;
 
+constexpr bool isequal(char const *one, char const *two) {
+    return (*one && *two) ? (*one == *two && isequal(one + 1, two + 1))
+                          : (!*one && !*two);
+}
+
+
 int main(int argc, char *argv[]){
 
+    static_assert(isequal(PRORELEASEVERS, RELEASEVERS), "PRORELEASEVERS, RELEASEVERS mismatch");
 
 
 
@@ -39,6 +46,7 @@ int main(int argc, char *argv[]){
     QGuiApplication::addLibraryPath(as::PluginContext::librariesPath());
     QQuickStyle::setStyle("Material");
     QGuiApplication app(argc, argv);
+
 
 
     ConsoleAppender* consoleAppender = new ConsoleAppender;
@@ -66,6 +74,7 @@ int main(int argc, char *argv[]){
     RollingFileAppender* rollingfileAppender = new RollingFileAppender(fileloggerpath);
 
 
+    QString release(RELEASEVERS);
 
     rollingfileAppender->setDatePattern(RollingFileAppender::DailyRollover);
     rollingfileAppender->setLogFilesLimit(5);
@@ -79,11 +88,11 @@ int main(int argc, char *argv[]){
     cuteLogger->registerCategoryAppender("qml",rollingfileAppender);
 
 
-    LOG_INFO("-----------Application Start-------------");
+    LOG_INFO("-----------Application Start ("+release+")-------------");
 
 
     QGuiApplication::setApplicationName("Automation Studio");
-    QGuiApplication::setApplicationVersion(APPVERSION);
+    QGuiApplication::setApplicationVersion(release);
 
     QQmlApplicationEngine engine;
     try{

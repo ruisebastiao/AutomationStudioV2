@@ -5,3 +5,4 @@ depends QtQuick 2.8
 
 NetworkManagerItem                          1.0 qrc:///NetworkManager/NetworkManagerItem.qml
 WifiLevelItem.qml                           1.0 qrc:///NetworkManager/WifiLevelItem.qml
+

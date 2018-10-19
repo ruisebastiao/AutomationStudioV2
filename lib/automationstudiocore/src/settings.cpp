@@ -24,6 +24,7 @@
 #include <qdebug.h>
 #include <QNetworkInterface>
 #include <qhostinfo.h>
+#include "version.h"
 
 #include "Logger.h"
 
@@ -95,14 +96,14 @@ Settings::Settings(QObject *parent, QString appdir)
         QJsonObject data;
 
         data["mac"]=m_ethMAC;
-        data["installedversion"]=APPVERSION;
+        data["installedversion"]=RELEASEVERS;
         data["buildinfo"]=BUILD_ID;
 
 
         QJsonDocument doc(data);
 
 
-        m_socketIO->send("fromapp:setinstalledversion",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
+        m_socketIO->send("fromapp:connected",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
 
 
             if(msg.size()>0){
@@ -140,7 +141,7 @@ void Settings::registerApp(){
     QJsonObject data;
 
     data["mac"]=m_ethMAC;
-    data["installedversion"]=APPVERSION;
+    data["installedversion"]=RELEASEVERS;
     data["buildinfo"]=BUILD_ID;
     data["hostname"]=QHostInfo::localHostName();
 
