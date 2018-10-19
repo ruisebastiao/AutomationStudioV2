@@ -37,14 +37,14 @@ Settings::Settings(QObject *parent, QString appdir)
 {
     m_appdir=appdir;
 
-
+    QString ethMAC;
 
     foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces()) {
 
         switch (interface.type()) {
         case QNetworkInterface::Ethernet:
-            m_ethMAC=interface.hardwareAddress();
-            LOG_INFO("hardwareAddress:"+m_ethMAC+"("+interface.name()+")");
+            ethMAC=interface.hardwareAddress();
+            LOG_INFO("hardwareAddress:"+ethMAC+"("+interface.name()+")");
             break;
         default:
             break;
@@ -52,7 +52,13 @@ Settings::Settings(QObject *parent, QString appdir)
 
     }
 
-    m_sysInfo=QSysInfo::kernelType();
+    m_appid=QString(APP_ID);
+
+    m_appid+=":"+QString(ethMAC);
+
+
+
+            m_sysInfo=QSysInfo::kernelType();
     m_cpuType=QSysInfo::currentCpuArchitecture();
 
     // LOG_INFO("Running on "+m_sysInfo+"/"+m_cpuType);
@@ -72,7 +78,7 @@ Settings::Settings(QObject *parent, QString appdir)
     connect(m_appUpdater,&AppUpdater::updateDone,this,[&](){
         QJsonObject data;
 
-        data["mac"]=m_ethMAC;
+        data["appid"]=m_appid;
 
 
         QJsonDocument doc(data);
@@ -95,8 +101,9 @@ Settings::Settings(QObject *parent, QString appdir)
 
         QJsonObject data;
 
-        data["mac"]=m_ethMAC;
+        data["appid"]=m_appid;
         data["installedversion"]=RELEASEVERS;
+
         data["buildinfo"]=BUILD_ID;
 
 
@@ -104,7 +111,6 @@ Settings::Settings(QObject *parent, QString appdir)
 
 
         m_socketIO->send("fromapp:connected",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
-
 
             if(msg.size()>0){
 
@@ -140,7 +146,7 @@ Settings::Settings(QObject *parent, QString appdir)
 void Settings::registerApp(){
     QJsonObject data;
 
-    data["mac"]=m_ethMAC;
+    data["appid"]=m_appid;
     data["installedversion"]=RELEASEVERS;
     data["buildinfo"]=BUILD_ID;
     data["hostname"]=QHostInfo::localHostName();
