@@ -21,7 +21,7 @@ public:
 
     Q_PROPERTY(bool controlPressed READ controlPressed WRITE setControlPressed NOTIFY controlPressedChanged)
 
-    Q_INVOKABLE void executeCommand(QString command, bool waitfinished=false);
+    Q_INVOKABLE void executeCommand(QString command, bool waitfinished=false, QString cwd="", bool captureStdOut=false);
     Q_INVOKABLE bool fileExists(QString filepath);
 
 
@@ -97,6 +97,13 @@ public slots:
 public:
     bool eventFilter(QObject *watched, QEvent *event);
     Q_INVOKABLE bool resourceExists(QString path);
+    static void NonBlockingWait(int ms);
+    static void NonBlockingExec(const std::function<void ()> &execFunc);
+private slots:
+    void processFinished(int exitCode);
+
+    void readyStandardOutput();
+    void readyStandardError();
 };
 }
 #endif // UTILITIES_H

@@ -21,7 +21,8 @@ HEADERS += \
     $$PWD/module.h \
     $$PWD/utilities.h \
     $$PWD/socketio.h \
-    $$PWD/appupdater.h
+    $$PWD/appupdater.h \
+    $$PWD/zipmanager.h
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     $$PWD/module.cpp \
     $$PWD/utilities.cpp \
     $$PWD/socketio.cpp \
-    $$PWD/appupdater.cpp
+    $$PWD/appupdater.cpp \
+    $$PWD/zipmanager.cpp
 
 win32{
     SOURCES +=
@@ -56,4 +58,5 @@ unix{
     SOURCES += $$PWD/libraryloadpath_unix.cpp
 }
 macx:SOURCES += $$PWD/plugincontext_mac.cpp
+
 

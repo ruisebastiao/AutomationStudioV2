@@ -14,5 +14,6 @@
         <file>qml/FlickableItem.qml</file>
         <file>qml/AutoScroller.qml</file>
         <file>qml/PopUp.qml</file>
+        <file>qml/AppUpdaterItem.qml</file>
     </qresource>
 </RCC>

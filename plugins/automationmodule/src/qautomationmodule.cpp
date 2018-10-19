@@ -17,7 +17,7 @@ QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
     QAutomationModule::flownodemanager=new FlowNodeManager();
 }
 
-void QAutomationModule::load(QString pathstr){
+void QAutomationModule::loadModuleSettings(QString pathstr){
 
     m_moduleConfigPath=pathstr;
 

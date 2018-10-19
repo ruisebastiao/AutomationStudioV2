@@ -12,7 +12,7 @@ public:
 
     // QAutomationModule interface
 protected:
-    void load(QString path) override;
+    void loadModuleSettings(QString path) override;
     void save() override;
     FlowNode *readNode(qan::GraphView *graphView, QJsonObject nodeobject) override;
 };

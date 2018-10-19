@@ -1,6 +1,6 @@
 {
-    "downloadPath": "api/apps/download/84c0d43f22c1124550efdb4ffa24f513",
     "language": "pt",
+    "downloadPath": "api/apps/download/84c0d43f22c1124550efdb4ffa24f513",
     "projects": [
         {
             "isDefault": true,
@@ -14,8 +14,7 @@
             "name": "BSValidation"
         }
     ],
-    "serverUrl": "http://keyeu-linux-svr:9006",
-    "downloadPath": "/api/apps/download/84c0d43f22c1124550efdb4ffa24f513/",
+    "serverUrl": "http://127.0.0.1:9005",
     "users": [
         {
             "default": true,

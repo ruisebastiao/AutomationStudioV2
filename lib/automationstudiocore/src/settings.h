@@ -33,7 +33,7 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
 
     Q_OBJECT
 
-    Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged)
+    Q_PROPERTY(QString source READ source NOTIFY sourceChanged)
     Q_PROPERTY(bool loaded READ loaded WRITE setLoaded NOTIFY loadedChanged)
     Q_PROPERTY(bool basefileLoaded READ basefileLoaded  NOTIFY basefileLoadedChanged)
 
@@ -60,6 +60,8 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
 
     Q_PROPERTY(SocketIO* socketIO READ socketIO WRITE setSocketIO NOTIFY socketIOChanged)
     Q_PROPERTY(bool appRegistred READ appRegistred NOTIFY appRegistredChanged)
+
+    Q_PROPERTY(AppUpdater*  appUpdater READ appUpdater)
 
 
 
@@ -154,6 +156,11 @@ public:
     }
 
     Q_INVOKABLE void registerApp();
+    AppUpdater* appUpdater() const
+    {
+        return m_appUpdater;
+    }
+
 public slots:
 
 
@@ -272,7 +279,7 @@ private:
     bool m_loaded=false;
 
     QString m_sysInfo="";
-    QString m_baseconfigpath="";
+    QString m_appdir="";
     QString m_cpuType="";
     UsersListModel* m_users=nullptr;
     User* m_currentUser=nullptr;
@@ -284,9 +291,10 @@ private:
     Project* m_selectedProject=nullptr;
 
     SocketIO* m_socketIO=nullptr;
-    AppUpdater* m_appupdater=nullptr;
+
     QString m_ethMAC="";
     bool m_appRegistred=false;
+    AppUpdater* m_appUpdater;
 };
 
 

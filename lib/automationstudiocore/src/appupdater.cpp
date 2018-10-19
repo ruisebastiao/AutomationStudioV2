@@ -1,11 +1,16 @@
 #include "appupdater.h"
 #include "Logger.h"
 
+#include <QDir>
 #include <QFileInfo>
+#include <qthread.h>
+#include <QtConcurrent>
+
 
 AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 {
-
+    m_zipper= new ZipManager(this);
+    m_utilities=new as::Utilities(this);
 }
 
 void AppUpdater::doUpdate(QString release)
@@ -14,10 +19,30 @@ void AppUpdater::doUpdate(QString release)
 
 
 
+    QString currVersion(APPVERSION);
 
-    QString saveTo="release.tar.gz";
+    m_utilities->executeCommand("rm *.zip",true,QDir::currentPath());
 
-    QFileInfo check_file(saveTo);
+    setUpdateStatus("Backup/Compressing current release");
+    setCompressing(true);
+
+    as::Utilities::NonBlockingExec([&](){
+        m_utilities->executeCommand("zip -r release"+currVersion+".zip ./",true,QDir::currentPath(),true);
+    });
+
+
+    setCompressing(false);
+
+    QString saveDir="release/";
+
+    QDir(saveDir).removeRecursively();
+
+    if(QDir(saveDir).exists()==false){
+        QDir().mkdir(saveDir);
+    }
+
+
+    QString saveTo=saveDir+"release.zip";
 
 
     m_output.setFileName(saveTo);
@@ -35,17 +60,17 @@ void AppUpdater::doUpdate(QString release)
     QUrl url(m_serverUrl+"/"+m_downloadPath+"/"+release);
     LOG_INFO("Downloading from url:"+QString(url.toEncoded()));
 
+    setUpdateStatus("Downloading update:"+release);
 
     QNetworkRequest request(url);
     currentDownload = manager.get(request);
     connect(currentDownload, SIGNAL(downloadProgress(qint64,qint64)),
-            SLOT(downloadProgress(qint64,qint64)));
+            SLOT(currentDownloadProgress(qint64,qint64)));
     connect(currentDownload, SIGNAL(finished()),
             SLOT(downloadFinished()));
     connect(currentDownload, SIGNAL(readyRead()),
             SLOT(downloadReadyRead()));
 
-    // prepare the output
 
 
 
@@ -62,13 +87,13 @@ void AppUpdater::DeSerialize(QJsonObject &json)
 
 }
 
-void AppUpdater::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
+void AppUpdater::currentDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 {
     if(bytesTotal<=0) return;
-    double progress=((double)bytesReceived/(double)bytesTotal)*100.0;
+    double progress=(double)bytesReceived/(double)bytesTotal;
 
-    qDebug()<<progress;
-    emit downloadProgressChanged(progress);
+    qDebug()<<progress*100;
+    setDownloadProgress(progress);
 
 }
 
@@ -84,11 +109,30 @@ void AppUpdater::downloadFinished()
         LOG_INFO("Succeeded");
         //TODO download ok proceed to update
 
+        QString saveDir="release/";
+        QDir::setCurrent(saveDir);
 
-        setUpdateStatusChanged("Download finished");
+        setUpdateStatus("Download finished");
 
 
-        //qApp->exit(1337);
+
+        setUpdateStatus("Extracting");
+
+        m_utilities->executeCommand("unzip -l release.zip",true,QDir::currentPath());
+
+
+
+        //m_zipper->Unzip("release.zip");
+
+        QFile::remove("release.zip");
+
+
+
+
+        m_utilities->executeCommand("mv * ../",true,QDir::currentPath());
+
+        setUpdateStatus("Done, rebooting");
+
         emit updateDone();
 
 

@@ -1,7 +1,7 @@
 {
     "graphview": {
-        "x": 347.46158665239795,
-        "y": 215.53603375510954,
+        "x": 327.46158665239795,
+        "y": 180.53603375510954,
         "zoom": 0.7002539485051935
     },
     "moduleID": "bsvalidation_1",
@@ -61,19 +61,6 @@
         {
             "editHeight": 422,
             "editWidth": 566,
-            "errorPort": {
-                "connectedTo": [
-                    {
-                        "hidden": false,
-                        "nodeID": 12,
-                        "portID": "input"
-                    }
-                ],
-                "hidden": false,
-                "portLabel": "Error",
-                "showinlabel": true,
-                "type": "Out"
-            },
             "executingPort": {
                 "connectedTo": [
                     {
@@ -147,8 +134,12 @@
             "stringValue": "bskpp1",
             "stringValuePort": {
                 "connectedTo": [
-              
-              ],
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2"
+                    }
+                ],
                 "hidden": false,
                 "portLabel": "",
                 "showinlabel": false,
@@ -169,6 +160,11 @@
             "stringValue": "stationid",
             "stringValuePort": {
                 "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param2Name"
+                    }
                 ],
                 "hidden": false,
                 "portLabel": "",
@@ -190,6 +186,11 @@
             "stringValue": "bsid",
             "stringValuePort": {
                 "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "param1Name"
+                    }
                 ],
                 "hidden": false,
                 "portLabel": "",
@@ -319,20 +320,8 @@
             "normalHeight": 147,
             "normalWidth": 297,
             "type": "ModulePropertyBind"
-        },
-        {
-            "editHeight": 250,
-            "editWidth": 345,
-            "id": 12,
-            "locked": false,
-            "moduleProperty": "serverErrorStatus",
-            "name": "Module Property 6",
-            "nodeX": 1058.1875355102043,
-            "nodeY": 488.3942471585556,
-            "normalHeight": 147,
-            "normalWidth": 297,
-            "type": "ModulePropertyBind"
         }
     ],
     "type": "AutomationModule"
 }
+ 

@@ -8,10 +8,10 @@ QBSValidationModule::QBSValidationModule(QQuickItem* parent)
     m_type=ModuleType::BSValidationModule;
 }
 
-void QBSValidationModule::load(QString path)
+void QBSValidationModule::loadModuleSettings(QString path)
 {
     qDebug()<<"Loading BSValidation module";
-    QAutomationModule::load(path);
+    QAutomationModule::loadModuleSettings(path);
 }
 
 FlowNode *QBSValidationModule::readNode(qan::GraphView *graphView, QJsonObject nodeobject)

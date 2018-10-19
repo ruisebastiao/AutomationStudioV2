@@ -15,6 +15,7 @@ void GuimodulePlugin::registerTypes(const char *uri)
 void GuimodulePlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     engine->addImportPath("qrc:///");
+
 }
 
 

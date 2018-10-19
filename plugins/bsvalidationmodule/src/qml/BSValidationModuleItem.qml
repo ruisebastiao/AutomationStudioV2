@@ -136,10 +136,10 @@ BSValidationModule {
 
 
 
-    onConfigSourceChanged:{
+//    onConfigSourceChanged:{
 
-        root.load(appDir+configSource);
-    }
+//        root.load();
+//    }
 
     AutomationModuleItem{
         id:moduleitem

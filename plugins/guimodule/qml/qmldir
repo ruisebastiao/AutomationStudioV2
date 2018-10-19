@@ -16,3 +16,4 @@ ToastManager            1.0 qrc:///qml/ToastManager.qml
 FlickableItem           1.0 qrc:///qml/FlickableItem.qml
 AutoScroller            1.0 qrc:///qml/AutoScroller.qml
 PopUp                   1.0 qrc:///qml/PopUp.qml
+AppUpdaterItem          1.0 qrc:///qml/AppUpdaterItem.qml

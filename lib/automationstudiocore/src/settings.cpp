@@ -34,7 +34,7 @@ namespace as{
 Settings::Settings(QObject *parent, QString appdir)
     : QObject(parent)
 {
-    m_baseconfigpath=appdir;
+    m_appdir=appdir;
 
 
 
@@ -64,12 +64,18 @@ Settings::Settings(QObject *parent, QString appdir)
 
     m_socketIO= new SocketIO(this);
 
-    m_appupdater= new AppUpdater(this);
+    m_appUpdater= new AppUpdater(this);
 
 
 
+    connect(m_appUpdater,&AppUpdater::updateDone,this,[&](){
+        QJsonObject data;
 
-    connect(m_appupdater,&AppUpdater::updateDone,this,[&](){
+        data["mac"]=m_ethMAC;
+
+
+        QJsonDocument doc(data);
+        m_socketIO->send("fromapp:updatedone",doc.toJson(QJsonDocument::Compact));
         emit this->updateDone();
     });
 
@@ -80,7 +86,7 @@ Settings::Settings(QObject *parent, QString appdir)
 
 
 
-        m_appupdater->doUpdate(releasename);
+        m_appUpdater->doUpdate(releasename);
     });
 
 
@@ -176,8 +182,10 @@ Settings::~Settings(){
 
 }
 
-bool Settings::load(QString basePath)
+bool Settings::load()
 {
+
+    LOG_INFO()<<"Loading setting from:"<<m_source;
 
     if(m_source.isEmpty()) {
         LOG_WARNING() << "Empty document: " << m_source;
@@ -186,19 +194,24 @@ bool Settings::load(QString basePath)
     }
 
 
-    QFile settingsFile(basePath+'/'+m_source);
+    QFile settingsFile(m_source);
+
+
     if(!settingsFile.exists()) {
         LOG_WARNING() << "Does not exits: " << m_source;
         setLoaded(false);
         return false;
     }
 
-    if (!settingsFile.open(QIODevice::ReadOnly)) {
+    if (!settingsFile.open(QIODevice::ReadWrite)) {
         LOG_WARNING("Couldn't open save file.");
+        settingsFile.close();
         return false;
     }
 
     QByteArray settingsData = settingsFile.readAll();
+
+    settingsFile.close();
 
     QJsonDocument settings(QJsonDocument::fromJson(settingsData ));
 
@@ -213,6 +226,7 @@ bool Settings::load(QString basePath)
 
 bool Settings::save()
 {
+    LOG_INFO()<<"saving settings to:"<<m_source;
     QFile saveFile(m_source);
 
     if (!saveFile.open(QIODevice::ReadWrite)) {
@@ -244,10 +258,10 @@ void Settings::updateBaseSettings()
 
 void Settings::loadBaseSettings()
 {
-    QFile basesettingsFile(m_baseconfigpath);
+    QFile basesettingsFile(m_appdir+"/appsettings.json");
 
     if(!basesettingsFile.exists()) {
-        qWarning() << "Base file does not exits: " <<m_baseconfigpath;
+        qWarning() << "Base file does not exits: " <<m_appdir;
 
         basesettingsFile.open(QIODevice::WriteOnly);
         QByteArray basesettingsData = basesettingsFile.readAll();
@@ -264,8 +278,9 @@ void Settings::loadBaseSettings()
 
     }
 
-    if (!basesettingsFile.open(QIODevice::ReadOnly)) {
+    if (!basesettingsFile.open(QIODevice::ReadWrite)) {
         qWarning("Couldn't open file.");
+        basesettingsFile.close();
         return;
     }
 
@@ -277,7 +292,7 @@ void Settings::loadBaseSettings()
     QJsonObject settingsobject=settings.object();
 
 
-    m_source=settingsobject["location"].toString();
+    setSource(m_appdir+'/'+settingsobject["location"].toString());
 
 
     setBasefileLoaded(true);
@@ -306,7 +321,7 @@ void Settings::read(QJsonObject &json)
 
 
 
-    m_appupdater->DeSerialize(json);
+    m_appUpdater->DeSerialize(json);
     m_socketIO->DeSerialize(json);
 
     m_projects->clear();
@@ -346,7 +361,7 @@ void Settings::write(QJsonObject &json) const
 {
     // TODO SERIALIZE
 
-    m_appupdater->Serialize(json);
+    m_appUpdater->Serialize(json);
     m_socketIO->Serialize(json);
 
 
