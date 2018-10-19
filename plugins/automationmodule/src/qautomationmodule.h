@@ -21,7 +21,7 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
     Q_PROPERTY(bool moduleLoaded READ moduleLoaded WRITE setModuleLoaded NOTIFY moduleLoadedChanged)
     Q_PROPERTY(ModuleType type READ type NOTIFY typeChanged USER("serialize"))
     Q_PROPERTY(qan::GraphView* graphView READ graphView WRITE setGraphView NOTIFY graphViewChanged)
-    Q_PROPERTY(QString configSource READ configSource WRITE setConfigSource NOTIFY configSourceChanged)
+
 
 
 public:
@@ -116,7 +116,7 @@ private:
 
     QString m_moduleID="";
 
-    QString m_configSource="";
+
 
 protected:
       QList<FlowNode *> m_FlowNodes;
@@ -180,16 +180,6 @@ public slots:
         emit moduleIDChanged(m_moduleID);
     }
 
-    void setConfigSource(QString configSource)
-    {
-        if (m_configSource == configSource)
-            return;
-
-        m_configSource = configSource;
-        emit configSourceChanged(m_configSource);
-
-    }
-
 public:
     void Serialize(QJsonObject &json, QObject *target) override;
     void DeSerialize(QJsonObject &json, QObject *target) override;
@@ -202,13 +192,10 @@ public:
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
-    QString configSource() const
-    {
-        return m_configSource;
-    }
+
     Q_INVOKABLE void loadConnections();
 protected:
-   Q_INVOKABLE virtual void load(QString path);
+   Q_INVOKABLE virtual void loadModuleSettings(QString path);
    Q_INVOKABLE virtual void save();
 
     ModuleType m_type=ModuleType::AutomationModule;

@@ -27,12 +27,6 @@ VisionModule {
 
 
 
-
-    onConfigSourceChanged:{
-
-        root.load(appDir+configSource);
-    }
-
     AutomationModuleItem{
         id:moduleitem
         anchors.fill: parent

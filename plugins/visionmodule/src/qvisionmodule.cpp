@@ -10,10 +10,10 @@ QVisionModule::QVisionModule(QQuickItem *parent)
     m_type=ModuleType::VisionModule;
 }
 
-void QVisionModule::load(QString path)
+void QVisionModule::loadModuleSettings(QString path)
 {
     qDebug()<<"Loading Vision module";
-    QAutomationModule::load(path);
+    QAutomationModule::loadModuleSettings(path);
 }
 
 void QVisionModule::save()

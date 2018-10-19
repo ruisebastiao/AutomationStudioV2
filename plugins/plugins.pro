@@ -1,6 +1,8 @@
 
 # Plugin build configuration,
 # !!! Modify only if you know what you are doing
+include($$PWD/../config.pri)
+
 
 TEMPLATE = subdirs
 
@@ -10,10 +12,18 @@ CONFIG += ordered
 SUBDIRS += \
     QuickQanava \
     automationmodule \
-    bsvalidationmodule \
     guimodule \
 
-WITH-VISION{
+
+
+PLUGIN-BSVALIDATION{
+    message(With bsvalidation module)
+    SUBDIRS += \
+       bsvalidationmodule
+
+}
+
+PLUGIN-VISION{
     message(With vision module)
     SUBDIRS += \
        visionmodule
@@ -22,8 +32,8 @@ WITH-VISION{
 
 
 unix{
-WITH-NETWORKMANAGER{
-    message(With network manager)    
+PLUGIN-NETWORKMANAGER{
+    message(With network manager module)
     SUBDIRS += \
         networkmanager
     }
@@ -46,7 +56,7 @@ automationmodule.depends       = guimodule
 automationmodule.depends       = usbnotifier
 bsvalidationmodule.depends     = automationmodule
 
-WITH-VISION{
+PLUGIN-VISION{
 
    visionmodule.depends     = automationmodule
 }

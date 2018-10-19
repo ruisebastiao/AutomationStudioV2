@@ -40,6 +40,16 @@ ApplicationWindow {
         stacked_view.push(configWifiLoader.item);
     }
 
+    property Settings settings: automationstudio.settings
+
+    Connections{
+        target: settings
+        onDoUpdate:{
+            console.log("Updating to release:"+releasename);
+        }
+    }
+
+
     GUI.ToastManager{
         id:toast_manager
         anchors.fill: parent
@@ -140,7 +150,7 @@ ApplicationWindow {
             }
         }
         onSourceChanged:{
-            appsettings.load(appDir)
+            appsettings.load()
         }
     }
 
@@ -1077,7 +1087,6 @@ ApplicationWindow {
 
             Component.onCompleted: {
                 if(appsettings.basefileLoaded){
-                    appsettings.load(appDir);
                     projectslist.model=appsettings.projects
                     var projects_count=appsettings.projects.count();
                     console.log("Count:"+projects_count);
@@ -1185,8 +1194,7 @@ ApplicationWindow {
                         anchors.left: parent.right
                         onPressed:{
                             if(sourcefilenokId.sourcefileOK){
-                                appsettings.updateBaseSettings();
-                                appsettings.load(appDir)
+                                appsettings.updateBaseSettings();                                
                             }else{
                                 fileDialog.open()
                             }
@@ -1320,6 +1328,18 @@ ApplicationWindow {
 
 
 
+    Connections{
+        target: automationstudio.settings
+
+        onDoUpdate:{
+           updater.visible=true
+        }
+    }
+
+    GUI.AppUpdaterItem{
+        id:updater
+        visible:false
+    }
 
 
     InputPanel {

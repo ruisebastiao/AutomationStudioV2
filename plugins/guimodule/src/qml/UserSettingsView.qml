@@ -14,6 +14,17 @@ Item{
     id:root
     clip:true
     visible: automationstudio.systemSettings
+    property Settings settings: automationstudio.settings
+
+//    Connections{
+//        target: settings
+//        onDoUpdate:{
+//            console.log("Updating to release:"+releasename);
+//        }
+//    }
+
+
+
     property SystemSettings system: automationstudio.systemSettings
     Flickable {
 
@@ -345,9 +356,27 @@ Item{
                                         }
 
                                         RowLayout{                                           
-                                           visible: automationstudio.settings.socketIO.connected
+
+                                            TextField{
+                                                id:server_field
+
+                                                Layout.margins: 5
+                                                Layout.minimumWidth: 300
+                                                Material.accent: selectedprimary
+                                                text:automationstudio.settings.socketIO.serverUrl
+                                                onAccepted: {
+                                                    automationstudio.settings.socketIO.serverUrl=text
+                                                }
+
+                                                MaterialPlaceHolder{
+
+                                                    placeHolderText:qsTr("Server URL")
+                                                }
+
+                                            }
+
                                            Button{
-                                               visible: automationstudio.settings.appRegistred===false
+                                               visible: automationstudio.settings.appRegistred===false && automationstudio.settings.socketIO.connected
                                                text: "Register APP"
                                                highlighted: true
 

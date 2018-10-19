@@ -45,14 +45,26 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
     m_currentDir=QCoreApplication::applicationDirPath();
 
     setReleaseVersion(APPVERSION);
+    setBuildInfo(BUILD_ID);
 
     solveImportPaths();
     m_currentDir=m_currentDir+"/";
     QQmlContext* ctx{engine->rootContext()};
     ctx->setContextProperty("appDir", m_currentDir);
-    m_settings= new Settings(this,m_currentDir+"/appsettings.json");
+    m_settings= new Settings(this,m_currentDir);
     m_systemSettings= new SystemSettings(this);
     m_utilities= new Utilities(this);
+
+
+
+
+    connect(m_settings,&Settings::updateDone,this,[&](){
+
+        this->coreApplication()->exit(1337);
+        qApp->quit();
+        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+
+    });
 
 
 
@@ -142,10 +154,10 @@ void AutomationStudio::loadPlugins(){
 
         }
         else{
-           auto metadata=pluginLoader.metaData();
-           if(metadata.size()>0){
-               qDebug()<<"Error loading plugin:"<<pluginLoader.errorString();
-           }
+            auto metadata=pluginLoader.metaData();
+            if(metadata.size()>0){
+                qDebug()<<"Error loading plugin:"<<pluginLoader.errorString();
+            }
         }
 
     }
@@ -180,6 +192,7 @@ void AutomationStudio::loadInternalPlugins(){
 
     qmlRegisterUncreatableType<SystemSettings >("base", 1, 0, "SystemSettings","SystemSettings is available through the \'automationstudio.systemsettings\' property.");
     qmlRegisterUncreatableType<SocketIO>("base", 1, 0, "SocketIO","SocketIO");
+    qmlRegisterUncreatableType<AppUpdater>("base", 1, 0, "AppUpdater","AppUpdater");
 
 
     m_engine->rootContext()->setContextProperty("appDir", m_currentDir);

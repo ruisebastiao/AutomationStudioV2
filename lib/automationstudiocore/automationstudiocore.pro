@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET   = automationstudiocore
-QT      += core qml quick
+QT      += core qml quick concurrent
 CONFIG  += qt
 
 include(../../functions.pri)
@@ -8,11 +8,13 @@ include(../../functions.pri)
 
 include(../../lib.pri)
 
+include($$PWD/3rdparty/minizip/minizip.pri)
 
 RPI{
     message(is raspberry)
     DEFINES += RPI
 }
+
 
 
 DEFINES += AUTOMATIONSTUDIO_CORE_LIB

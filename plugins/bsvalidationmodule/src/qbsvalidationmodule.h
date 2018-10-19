@@ -136,7 +136,7 @@ void setBsNOK(bool bsNOK)
 }
 
 protected:
-    void load(QString path) override;
+    void loadModuleSettings(QString path) override;
 
     // QAutomationModule interface
 protected:

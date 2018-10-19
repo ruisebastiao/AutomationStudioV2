@@ -28,3 +28,14 @@ OTHER_FILES += lib.pri
 
 OTHER_FILES += functions.pri
 OTHER_FILES += module.pri
+OTHER_FILES += .qmake.conf
+
+include($$PWD/functions.pri)
+
+!qtVersionCheck(5, 11)::error( \
+    This project requires at least Qt version 5.11. \
+    Make sure you have Qt 5.11 installed and running the correct qmake. \
+)
+
+
+

@@ -31,10 +31,10 @@
 namespace as{
 
 
-Settings::Settings(QObject *parent, QString baseconfigpath)
+Settings::Settings(QObject *parent, QString appdir)
     : QObject(parent)
 {
-    m_baseconfigpath=baseconfigpath;
+    m_appdir=appdir;
 
 
 
@@ -64,6 +64,31 @@ Settings::Settings(QObject *parent, QString baseconfigpath)
 
     m_socketIO= new SocketIO(this);
 
+    m_appUpdater= new AppUpdater(this);
+
+
+
+    connect(m_appUpdater,&AppUpdater::updateDone,this,[&](){
+        QJsonObject data;
+
+        data["mac"]=m_ethMAC;
+
+
+        QJsonDocument doc(data);
+        m_socketIO->send("fromapp:updatedone",doc.toJson(QJsonDocument::Compact));
+        emit this->updateDone();
+    });
+
+
+    connect(m_socketIO,&SocketIO::doUpdate,this,[&](QString releasename){
+        LOG_INFO()<<"Updating ::"<<releasename;
+        emit this->doUpdate(releasename);
+
+
+
+        m_appUpdater->doUpdate(releasename);
+    });
+
 
     connect(m_socketIO,&SocketIO::socketIOConnected,this,[&](){
 
@@ -71,12 +96,13 @@ Settings::Settings(QObject *parent, QString baseconfigpath)
 
         data["mac"]=m_ethMAC;
         data["installedversion"]=APPVERSION;
+        data["buildinfo"]=BUILD_ID;
 
 
         QJsonDocument doc(data);
 
 
-        m_socketIO->send("fromunit:setinstalledversion",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
+        m_socketIO->send("fromapp:setinstalledversion",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
 
 
             if(msg.size()>0){
@@ -115,12 +141,13 @@ void Settings::registerApp(){
 
     data["mac"]=m_ethMAC;
     data["installedversion"]=APPVERSION;
+    data["buildinfo"]=BUILD_ID;
     data["hostname"]=QHostInfo::localHostName();
 
     QJsonDocument doc(data);
 
 
-    m_socketIO->send("fromunit:registerapp",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
+    m_socketIO->send("fromapp:registerapp",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
 
 
         if(msg.size()>0){
@@ -155,29 +182,36 @@ Settings::~Settings(){
 
 }
 
-bool Settings::load(QString basePath)
+bool Settings::load()
 {
 
+    LOG_INFO()<<"Loading setting from:"<<m_source;
+
     if(m_source.isEmpty()) {
-        qWarning() << "Empty document: " << m_source;
+        LOG_WARNING() << "Empty document: " << m_source;
         setLoaded(false);
         return false;
     }
 
 
-    QFile settingsFile(basePath+'/'+m_source);
+    QFile settingsFile(m_source);
+
+
     if(!settingsFile.exists()) {
-        qWarning() << "Does not exits: " << m_source;
+        LOG_WARNING() << "Does not exits: " << m_source;
         setLoaded(false);
         return false;
     }
 
-    if (!settingsFile.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open save file.");
+    if (!settingsFile.open(QIODevice::ReadWrite)) {
+        LOG_WARNING("Couldn't open save file.");
+        settingsFile.close();
         return false;
     }
 
     QByteArray settingsData = settingsFile.readAll();
+
+    settingsFile.close();
 
     QJsonDocument settings(QJsonDocument::fromJson(settingsData ));
 
@@ -192,10 +226,12 @@ bool Settings::load(QString basePath)
 
 bool Settings::save()
 {
+    LOG_INFO()<<"saving settings to:"<<m_source;
     QFile saveFile(m_source);
 
     if (!saveFile.open(QIODevice::ReadWrite)) {
         qWarning("Couldn't open save file.");
+        saveFile.close();
         return false;
     }
 
@@ -209,6 +245,7 @@ bool Settings::save()
 
     saveFile.write(jsondoc);
 
+    saveFile.close();
     //    emit settingsSaved();
     return true;
 
@@ -221,10 +258,10 @@ void Settings::updateBaseSettings()
 
 void Settings::loadBaseSettings()
 {
-    QFile basesettingsFile(m_baseconfigpath);
+    QFile basesettingsFile(m_appdir+"/appsettings.json");
 
     if(!basesettingsFile.exists()) {
-        qWarning() << "Base file does not exits: " <<m_baseconfigpath;
+        qWarning() << "Base file does not exits: " <<m_appdir;
 
         basesettingsFile.open(QIODevice::WriteOnly);
         QByteArray basesettingsData = basesettingsFile.readAll();
@@ -241,8 +278,9 @@ void Settings::loadBaseSettings()
 
     }
 
-    if (!basesettingsFile.open(QIODevice::ReadOnly)) {
+    if (!basesettingsFile.open(QIODevice::ReadWrite)) {
         qWarning("Couldn't open file.");
+        basesettingsFile.close();
         return;
     }
 
@@ -254,7 +292,7 @@ void Settings::loadBaseSettings()
     QJsonObject settingsobject=settings.object();
 
 
-    m_source=settingsobject["location"].toString();
+    setSource(m_appdir+'/'+settingsobject["location"].toString());
 
 
     setBasefileLoaded(true);
@@ -264,7 +302,7 @@ void Settings::loadBaseSettings()
 
 void Settings::initSocketIO()
 {
-      m_socketIO->init();
+    m_socketIO->init();
 }
 
 void Settings::setBasefileLoaded(bool basefileLoaded)
@@ -281,6 +319,9 @@ void Settings::read(QJsonObject &json)
 {
     setSelectedanguage(json["language"].toString());
 
+
+
+    m_appUpdater->DeSerialize(json);
     m_socketIO->DeSerialize(json);
 
     m_projects->clear();
@@ -318,7 +359,11 @@ void Settings::read(QJsonObject &json)
 
 void Settings::write(QJsonObject &json) const
 {
- // TODO SERIALIZE
+    // TODO SERIALIZE
+
+    m_appUpdater->Serialize(json);
+    m_socketIO->Serialize(json);
+
 
 
 }

@@ -1,6 +1,7 @@
 #include "socketio.h"
 #include "Logger.h"
-
+#include <QNetworkInterface>
+#include <QUrl>
 #include <QJsonDocument>
 
 
@@ -15,6 +16,28 @@ SocketIO::SocketIO(QObject *parent)
 
     socket::ptr sock = _io->socket();
 
+    QString ethMAC;
+
+    foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces()) {
+
+        switch (interface.type()) {
+        case QNetworkInterface::Ethernet:
+            ethMAC=interface.hardwareAddress();
+
+            break;
+        default:
+            break;
+        }
+
+    }
+
+    ethMAC.replace(':','_');
+
+    QString ioeventname="toapp:"+ethMAC+":doupdate";
+//    QString ioeventname="toapp:doupdate";
+    qDebug()<<ioeventname;
+    BIND_EVENT(sock,ioeventname.toStdString(),std::bind(&SocketIO::OnDoUpdate,this,_1,_2,_3,_4));
+
 
 
     _io->set_socket_open_listener(std::bind(&SocketIO::OnConnected,this,std::placeholders::_1));
@@ -22,6 +45,25 @@ SocketIO::SocketIO(QObject *parent)
     _io->set_socket_close_listener(std::bind(&SocketIO::onSocketDisconnect,this,_1));
 
 }
+
+
+void SocketIO::OnDoUpdate(std::string const& name,message::ptr const& data,bool hasAck,message::list &ack_resp)
+{
+
+    if(data->get_flag() == message::flag_object)
+    {
+
+
+        std::map<std::string, message::ptr> eventData= data->get_map();
+        message::ptr data_ptr= eventData["updatefile"];
+        if(data_ptr){
+            QString updatefile=QString::fromStdString(data_ptr->get_string());
+
+            emit doUpdate(updatefile);
+        }
+    }
+}
+
 
 void SocketIO::OnConnected(const std::string &nsp)
 {
@@ -58,9 +100,20 @@ void SocketIO::init(){
 
     _io->set_fail_listener(std::bind(&SocketIO::OnFailed,this));
 
+    QUrl serverurl(this->m_serverUrl);
 
-    LOG_INFO("Connecting to socket IO @:"+this->serverUrl());
-    _io->connect("ws://"+this->serverUrl().toStdString());
+    QString host=serverurl.host();
+    int port=serverurl.port();
+    QString formatedSocketIOUrl="ws://"+host;
+
+    if(port!=-1){
+        formatedSocketIOUrl+=":"+QString::number(port);
+    }
+
+
+
+    LOG_INFO("Connecting to socket IO @:"+formatedSocketIOUrl);
+    _io->connect(formatedSocketIOUrl.toStdString());
 }
 
 void SocketIO::send(QString eventname,QString eventdata, std::function<void (message::list const&)> const& ack){
