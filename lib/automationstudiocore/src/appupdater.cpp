@@ -1,5 +1,6 @@
 #include "appupdater.h"
 #include "Logger.h"
+#include "version.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -19,7 +20,7 @@ void AppUpdater::doUpdate(QString release)
 
 
 
-    QString currVersion(APPVERSION);
+    QString currVersion(RELEASEVERS);
 
     m_utilities->executeCommand("rm *.zip",true,QDir::currentPath());
 

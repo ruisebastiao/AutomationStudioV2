@@ -13,3 +13,6 @@ SYSTEM_BSVALIDATION{
 RPI{
     DEPLOY_PATH=$$[QT_SYSROOT]/root/AutomationStudio
 }
+
+
+include(versioning/version.pri)

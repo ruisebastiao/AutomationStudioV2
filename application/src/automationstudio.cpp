@@ -31,6 +31,7 @@
 #include <QQuickWindow>
 #include <QGuiApplication>
 #include <QPluginLoader>
+#include "version.h"
 
 #include <automationstudiocore/utilities.h>
 
@@ -44,7 +45,7 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
 {
     m_currentDir=QCoreApplication::applicationDirPath();
 
-    setReleaseVersion(APPVERSION);
+    setReleaseVersion(RELEASEVERS);
     setBuildInfo(BUILD_ID);
 
     solveImportPaths();
@@ -62,9 +63,13 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
 
         this->coreApplication()->exit(1337);
         qApp->quit();
+
+#ifndef RPI
         QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+#endif
 
     });
+
 
 
 
