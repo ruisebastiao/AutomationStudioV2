@@ -67,7 +67,8 @@ RPI{
 
     }
     BUILDROOT{
-        DEPLOY_PATH=/root/AutomationStudio
+    target.path = /root/AutomationStudio
+    configfiles.path = /root/AutomationStudio
     }
 
 }
