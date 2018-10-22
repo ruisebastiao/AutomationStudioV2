@@ -380,7 +380,8 @@ Item{
                                                text: "Register APP"
                                                highlighted: true
 
-                                               onPressed: {
+                                               onClicked: {
+                                                   console.log("Registring app")
                                                    automationstudio.settings.registerApp();
                                                }
                                            }

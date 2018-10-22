@@ -74,7 +74,9 @@ RPI{
 
 unix{
 
-   # INSTALLS += target
+!BUILDROOT{
+   INSTALLS += target
+}
 }
 
 

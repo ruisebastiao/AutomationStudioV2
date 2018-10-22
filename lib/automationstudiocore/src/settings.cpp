@@ -154,6 +154,7 @@ void Settings::registerApp(){
     QJsonDocument doc(data);
 
 
+
     m_socketIO->send("fromapp:registerapp",doc.toJson(QJsonDocument::Compact),[&](message::list const& msg) {
 
 
@@ -162,6 +163,8 @@ void Settings::registerApp(){
             message::ptr data=msg.at(0);
             if(data->get_flag() == message::flag_string){
                 QString result=QString::fromStdString(data->get_string());
+
+                LOG_INFO()<<"registerstatus:"<<result;
 
                 QList<QString> results=result.split('|');
 
