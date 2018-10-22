@@ -1,15 +1,16 @@
 
 
 
+CONFIG += ordered
 CONFIG      += warn_on qt thread c++14
 # --- Project structure ---
 
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    application \
     lib \
-    plugins
+    plugins \
+    application
 
 # --- Subdir configurations ---
 application.subdir  = $$PWD/application
