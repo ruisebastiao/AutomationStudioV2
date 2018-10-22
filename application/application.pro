@@ -69,6 +69,7 @@ RPI{
 }
 
 unix{
+
     INSTALLS += target
 }
 
