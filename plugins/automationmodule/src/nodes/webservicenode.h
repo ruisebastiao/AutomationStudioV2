@@ -305,6 +305,7 @@ QString m_param2="";
 QString m_response="";
 QString m_param1Name="";
 QString m_param2Name="";
+QTimer* m_replytimer;
 
 QNetworkAccessManager *m_manager=nullptr;
 

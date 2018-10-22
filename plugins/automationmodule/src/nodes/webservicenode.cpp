@@ -4,9 +4,26 @@ WebServiceNode::WebServiceNode(QObject *parent){
 
     m_type=Type::WebServiceNode;
 
+    m_replytimer= new QTimer(this);
+
+    m_replytimer->setSingleShot(true);
+
     m_manager=new QNetworkAccessManager(this);
     connect(m_manager,&QNetworkAccessManager::finished,[=](QNetworkReply* reply){
-        //qDebug()<<"Network error:"<<reply->errorString();
+
+        if(reply->error()!=QNetworkReply::NoError){
+            LOG_ERROR()<<"Network error:"<<reply->errorString();
+            setError(reply->errorString());
+        }
+
+        setExecuting(false);
+
+        m_replytimer->stop();
+
+        reply->deleteLater();
+        reply=nullptr;
+
+
     });
     //    connect(m_manager,&QNetworkAccessManager::error,this,&WebServiceNode::handleFinished);
 
@@ -31,10 +48,30 @@ void WebServiceNode::makeRequest()
     QUrl url(m_serviceUrl+m_formattedUrl);
     setError("");
     setResponse("");
+
+
+    if(this->executing()){
+        setError("À espera de resposta do servidor");
+        return;
+
+    }
     setExecuting(true);
+
     QNetworkReply* reply = m_manager->get(QNetworkRequest(url));
 
 
+
+
+
+    connect(m_replytimer, &QTimer::timeout, [&](){
+//        if(reply){
+//        setExecuting(false);
+//        }
+        setError("Erro de resposta do servidor");
+        setExecuting(false);
+    });
+
+    m_replytimer->start(5000);
 
 
     connect(reply, &QNetworkReply::readyRead,[=](){
@@ -46,6 +83,7 @@ void WebServiceNode::makeRequest()
 
         this->setResponse(data);
         setExecuting(false);
+        m_replytimer->stop();
         reply->deleteLater();
     });
 
@@ -56,7 +94,13 @@ void WebServiceNode::makeRequest()
 
         setExecuting(false);
 
-        setError(reply->errorString());
+        m_replytimer->stop();
+
+        if(code!=QNetworkReply::UnknownNetworkError){
+            setError(reply->errorString());
+        }
+
+
         reply->deleteLater();
     });
 
