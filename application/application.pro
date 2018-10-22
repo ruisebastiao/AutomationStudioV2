@@ -66,6 +66,10 @@ RPI{
         configfiles.path = $$REMOTE_PATH
 
     }
+    BUILDROOT{
+        DEPLOY_PATH=/root/AutomationStudio
+    }
+
 }
 
 unix{

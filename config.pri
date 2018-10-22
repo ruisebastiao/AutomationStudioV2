@@ -13,9 +13,8 @@ SYSTEM_BSVALIDATION{
 
 RPI{
     DEPLOY_PATH=$$[QT_SYSROOT]/root/AutomationStudio
-    BUILDROOT{
-        DEPLOY_PATH=/root/AutomationStudio
-    }
+
+
     RPI_2{
         prefix_platform=_rpi2
     }
