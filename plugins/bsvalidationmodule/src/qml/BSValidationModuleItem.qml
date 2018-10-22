@@ -22,7 +22,14 @@ BSValidationModule {
             status="Dados indisponiveis"
         }
         else{
-            status="Faltam "+lefts+" passagens"
+            if(lefts.indexOf("Invalid")>=0){
+                status=lefts
+            }
+            else{
+                status="Faltam "+lefts+" passagens"
+            }
+
+
         }
     }
 
@@ -55,7 +62,7 @@ BSValidationModule {
                     if(root.bsOK){
                         return Material.color(Material.Green);
                     }
-                    if(root.bsNOK){
+                    if(root.bsNOK && root.serverErrorStatus==""){
                         return Material.color(Material.Red,Material.Shade400);
                     }
                     return "white"
@@ -77,6 +84,8 @@ BSValidationModule {
                     Layout.preferredHeight: 80
                     font.pixelSize: 40
                     text: root.waitingResponse?"Aguarda validação de bs":"Aguarda leitura de BS"
+                    fontSizeMode:Text.HorizontalFit
+                    minimumPointSize:20
                 }
                 Label{
                     id:serialnumber
@@ -85,6 +94,8 @@ BSValidationModule {
                     font.pixelSize: 40
                     Layout.preferredHeight: 80
                     text: root.serialnumber
+                    fontSizeMode:Text.HorizontalFit
+                    minimumPointSize:12
                 }
 
                 Label{
@@ -94,19 +105,21 @@ BSValidationModule {
                     font.pixelSize: 40
                     Layout.preferredHeight: 80
                     text: root.status
+                    fontSizeMode:Text.HorizontalFit
+                    minimumPointSize:12
                 }
                 RowLayout{
                     Layout.fillWidth: true;
                     visible: root.serverErrorStatus!=""
                     Layout.alignment: Qt.AlignHCenter
                     Label{
-
-
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 40
                         Material.foreground: Material.Red
                         Layout.preferredHeight: 80
                         text: "Erro de Servidor:"
+                        fontSizeMode:Text.HorizontalFit
+                        minimumPointSize:12
                     }
                     Label{
 
@@ -115,6 +128,8 @@ BSValidationModule {
                         Material.foreground: Material.Red
                         Layout.preferredHeight: 80
                         text: root.serverErrorStatus
+                        fontSizeMode:Text.HorizontalFit
+                        minimumPointSize:12
                     }
 
                 }

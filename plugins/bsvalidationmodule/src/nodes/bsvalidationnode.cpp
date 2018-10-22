@@ -90,6 +90,9 @@ void BSValidationNode::setDatain(QString datain)
             if(list.length()>0){
                 lefts=list.at(0);
             }
+            else{
+                lefts=data;
+            }
         }
         else if(i==3){
           serialnumber=data;
