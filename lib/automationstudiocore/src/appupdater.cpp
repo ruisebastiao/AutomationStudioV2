@@ -2,7 +2,6 @@
 #include "Logger.h"
 #include "version.h"
 
-#include <QDir>
 #include <QFileInfo>
 #include <qthread.h>
 #include <QtConcurrent>
@@ -10,40 +9,52 @@
 
 AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 {
-    m_zipper= new ZipManager(this);
+
     m_utilities=new as::Utilities(this);
+
+    updatedir=QDir(QDir::currentPath());
+
+
+    updatedir.cdUp();
+    if(updatedir.exists("releases")==false){
+        updatedir.mkdir("releases");
+    }
+    updatedir.cd("releases");
+    if(updatedir.exists("newrelease")==false){
+        updatedir.mkdir("newrelease");
+    }
+
+    
+
+
 }
 
 void AppUpdater::doUpdate(QString release)
 {
     LOG_INFO()<<"Updating::"<<release << "::" << m_downloadPath << "::"<<m_serverUrl;
 
-
-
     QString currVersion(RELEASEVERS);
 
-    m_utilities->executeCommand("rm *.zip",true,QDir::currentPath());
 
-    setUpdateStatus("Backup/Compressing current release");
-    setCompressing(true);
+    //    setUpdateStatus("Backup/Compressing current release");
+    //    setCompressing(true);
 
-    as::Utilities::NonBlockingExec([&](){
-        m_utilities->executeCommand("zip -r release"+currVersion+".zip ./",true,QDir::currentPath(),true);
-    });
+    ////    QDir::setCurrent(targetdir.absolutePath());
 
+    ////    as::Utilities::NonBlockingExec([&](){
+    ////        QString currVersion(RELEASEVERS);
+    ////        as::Utilities utils;
+    ////        QString cmd("zip -r "+updatedir.absolutePath()+"/release-"+currVersion+".zip ./*");
 
-    setCompressing(false);
-
-    QString saveDir="release/";
-
-    QDir(saveDir).removeRecursively();
-
-    if(QDir(saveDir).exists()==false){
-        QDir().mkdir(saveDir);
-    }
+    ////        utils.executeCommand(cmd,true,targetdir.absolutePath(),true,false);
+    ////    });
 
 
-    QString saveTo=saveDir+"release.zip";
+    ////    QThread::msleep(500);
+    //    setCompressing(false);
+
+
+    QString saveTo=updatedir.absolutePath()+"/newrelease.zip";
 
 
     m_output.setFileName(saveTo);
@@ -103,40 +114,64 @@ void AppUpdater::downloadFinished()
     //    progressBar.clear();
     m_output.close();
 
+    setUpdateStatus("Download finished");
+
     if (currentDownload->error()) {
         // download failed
         LOG_INFO("Failed to download:"+currentDownload->errorString());
     } else {
-        LOG_INFO("Succeeded");
+        LOG_INFO("Download succeeded");
         //TODO download ok proceed to update
 
-        QString saveDir="release/";
-        QDir::setCurrent(saveDir);
-
-        setUpdateStatus("Download finished");
 
 
-
-        setUpdateStatus("Extracting");
-
-        m_utilities->executeCommand("unzip -l release.zip",true,QDir::currentPath());
+        updatedir.cd("newrelease");
 
 
+        updatedir.removeRecursively();
 
-        //m_zipper->Unzip("release.zip");
-
-        QFile::remove("release.zip");
-
+        updatedir.cdUp();
 
 
+        setUpdateStatus("Extracting release");
 
-        m_utilities->executeCommand("mv * ../",true,QDir::currentPath());
+        QDir::setCurrent(updatedir.absolutePath());
+        as::Utilities utils;
 
-        setUpdateStatus("Done, rebooting");
+        utils.executeCommand("unzip newrelease.zip -d newrelease",true,updatedir.absolutePath(),true,false);
 
+
+
+        //        m_utilities->executeCommand("mv * "+targetdir.absolutePath(),true,updatedir.absolutePath()+"newrelease",true,true);
+
+        //        setUpdateStatus("Done, rebooting");
+
+        //        emit updateDone();
+
+
+
+
+        setUpdateStatus("Starting update");
+
+        setCompressing(true);
+        updatedir.cd("newrelease");
+        QDir::setCurrent(updatedir.absolutePath());
+
+
+        as::Utilities::NonBlockingExec([&](){
+            QString currVersion(RELEASEVERS);
+            as::Utilities utils;
+            QString cmd("./installer.sh");
+
+            utils.executeCommand(cmd,true,updatedir.absolutePath(),true,false,[&](QString out){
+                setUpdateStatus(out);
+            }
+            );
+        });
+
+        setCompressing(false);
+        setUpdateStatus("Finished update, restarting");
         emit updateDone();
-
-
     }
 
     currentDownload->deleteLater();

@@ -7,10 +7,11 @@
 #include "utilities.h"
 
 
+#include <QDir>
 #include <QNetworkReply>
 #include <QObject>
 #include <qfile.h>
-#include "zipmanager.h"
+
 
 
 class AUTOMATIONSTUDIO_CORE_EXPORT AppUpdater: public QObject,public JsonSerializable
@@ -43,6 +44,7 @@ private:
 
     void doInstall();
 
+    QDir updatedir;
 
 
 
@@ -50,7 +52,7 @@ private:
 
     QString m_serverUrl="";
 
-    ZipManager* m_zipper= nullptr;
+
 
     QString m_updateStatus="Waiting";
 

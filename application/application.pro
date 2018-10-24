@@ -40,7 +40,23 @@ include($$PWD/../lib/CuteLogger/include/cuteloggerheaders.pri)
 RESOURCES += $$PWD/application.qrc
 
 OTHER_FILES += \
+
     $$PWD/qml/*.qml
+
+win32{
+
+OTHER_FILES += \
+    ..//appsettings.json \
+    $$PWD/qml/*.qml
+
+}
+
+unix{
+
+OTHER_FILES += \
+    ../installer/installer.sh \
+
+}
 
 
 configfiles.files+=\
@@ -80,6 +96,8 @@ unix{
 }
 
 
+
+
 WITH-CONFIGS{
 
     QMAKE_EXTRA_TARGETS += configfiles
@@ -111,9 +129,15 @@ release_filename=$${BUILD_ID}~$${PRORELEASEVERS}~.zip
 PACKAGE_PATH=$$BUILD_PATH/release
 
 QMAKE_POST_LINK += $$quote(mkdir -p $$PACKAGE_PATH$$escape_expand(\n\t))
-QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/ && zip -r $$PACKAGE_PATH/$$release_filename ./ $$escape_expand(\n\t))
-QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$PACKAGE_PATH/$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
-#QMAKE_POST_LINK += $$quote(cp $$PACKAGE_PATH/$$release_filename /home/rui/projects/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
+
+QMAKE_POST_LINK += $$quote(cp $$PROJECT_PATH/installer/installer.sh $$PACKAGE_PATH/../installer.sh $$escape_expand(\n\t))
+
+
+QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && zip -x *.json *.log -r $$PACKAGE_PATH/$$release_filename ./bin/ installer.sh  $$escape_expand(\n\t))
+
+
+#QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$PACKAGE_PATH/$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
+QMAKE_POST_LINK += $$quote(cp $$PACKAGE_PATH/$$release_filename /home/rui/projects/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
 
 #QMAKE_POST_LINK += $$quote(tar -zcvf $$PACKAGE_PATH/$$release_filename -C $$DEPLOY_PATH/ ./ $$escape_expand(\n\t))
 }

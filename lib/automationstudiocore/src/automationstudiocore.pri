@@ -1,5 +1,7 @@
 INCLUDEPATH += $$PWD
 
+
+
 HEADERS += \
     $$PWD/libraryloadpath.h \
     $$PWD/settings.h \
@@ -21,8 +23,7 @@ HEADERS += \
     $$PWD/module.h \
     $$PWD/utilities.h \
     $$PWD/socketio.h \
-    $$PWD/appupdater.h \
-    $$PWD/zipmanager.h
+    $$PWD/appupdater.h
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
@@ -43,8 +44,7 @@ SOURCES += \
     $$PWD/module.cpp \
     $$PWD/utilities.cpp \
     $$PWD/socketio.cpp \
-    $$PWD/appupdater.cpp \
-    $$PWD/zipmanager.cpp
+    $$PWD/appupdater.cpp
 
 win32{
     SOURCES +=

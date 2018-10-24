@@ -1,9 +1,6 @@
 INCLUDEPATH += $$PWD
 INCLUDEPATH += $$PWD/automationstudiocore
 
-INCLUDEPATH += $$PWD/../3rdparty/minizip/src/
-
-
 HEADERS += \    
     $$PWD/automationstudiocore/user.h \
     $$PWD/automationstudiocore/jsonserializable.h \

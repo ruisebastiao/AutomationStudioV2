@@ -5,7 +5,7 @@
 #include <QJsonDocument>
 
 
-SocketIO::SocketIO(QObject *parent)
+SocketIO::SocketIO(QObject *parent, QString appid)
 {
     _io=std::unique_ptr<client>(new client());
     using std::placeholders::_1;
@@ -16,26 +16,9 @@ SocketIO::SocketIO(QObject *parent)
 
     socket::ptr sock = _io->socket();
 
-    QString ethMAC;
 
-    foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces()) {
+    QString ioeventname="toapp:"+appid+":doupdate";
 
-        switch (interface.type()) {
-        case QNetworkInterface::Ethernet:
-            ethMAC=interface.hardwareAddress();
-
-            break;
-        default:
-            break;
-        }
-
-    }
-
-    ethMAC.replace(':','_');
-
-    QString ioeventname="toapp:"+ethMAC+":doupdate";
-//    QString ioeventname="toapp:doupdate";
-    qDebug()<<ioeventname;
     BIND_EVENT(sock,ioeventname.toStdString(),std::bind(&SocketIO::OnDoUpdate,this,_1,_2,_3,_4));
 
 
@@ -49,6 +32,8 @@ SocketIO::SocketIO(QObject *parent)
 
 void SocketIO::OnDoUpdate(std::string const& name,message::ptr const& data,bool hasAck,message::list &ack_resp)
 {
+
+    LOG_INFO("Update message received");
 
     if(data->get_flag() == message::flag_object)
     {
@@ -79,7 +64,7 @@ void SocketIO::OnConnected(const std::string &nsp)
 
 void SocketIO::OnDisConnected(const client::close_reason &reason)
 {
-    LOG_INFO("Socket IO disconnected");
+    LOG_INFO("Socket IO disconnected:");
 
     emit socketIODiscConnected();
 

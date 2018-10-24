@@ -52,13 +52,14 @@ Settings::Settings(QObject *parent, QString appdir)
 
     }
 
-    m_appid=QString(APP_ID);
+    QString appid=QString(APP_ID);
 
-    m_appid+=":"+QString(ethMAC);
+    appid+=":"+QString(ethMAC);
+
+    setAppID(appid);
 
 
-
-            m_sysInfo=QSysInfo::kernelType();
+    m_sysInfo=QSysInfo::kernelType();
     m_cpuType=QSysInfo::currentCpuArchitecture();
 
     // LOG_INFO("Running on "+m_sysInfo+"/"+m_cpuType);
@@ -69,7 +70,7 @@ Settings::Settings(QObject *parent, QString appdir)
     m_projects= new ProjectsListModel();
     m_users= new UsersListModel();
 
-    m_socketIO= new SocketIO(this);
+    m_socketIO= new SocketIO(this,appid);
 
     m_appUpdater= new AppUpdater(this);
 
@@ -78,7 +79,7 @@ Settings::Settings(QObject *parent, QString appdir)
     connect(m_appUpdater,&AppUpdater::updateDone,this,[&](){
         QJsonObject data;
 
-        data["appid"]=m_appid;
+        data["appid"]=this->appID();
 
 
         QJsonDocument doc(data);
@@ -101,7 +102,7 @@ Settings::Settings(QObject *parent, QString appdir)
 
         QJsonObject data;
 
-        data["appid"]=m_appid;
+        data["appid"]=appID();
         data["installedversion"]=RELEASEVERS;
 
         data["buildinfo"]=BUILD_ID;
@@ -146,7 +147,7 @@ Settings::Settings(QObject *parent, QString appdir)
 void Settings::registerApp(){
     QJsonObject data;
 
-    data["appid"]=m_appid;
+    data["appid"]=appID();
     data["installedversion"]=RELEASEVERS;
     data["buildinfo"]=BUILD_ID;
     data["hostname"]=QHostInfo::localHostName();
@@ -208,24 +209,45 @@ bool Settings::load()
 
 
     if(!settingsFile.exists()) {
-        LOG_WARNING() << "Does not exits: " << m_source;
+        LOG_ERROR() << "Does not exits: " << m_source;
         setLoaded(false);
         return false;
     }
 
-    if (!settingsFile.open(QIODevice::ReadWrite)) {
-        LOG_WARNING("Couldn't open save file.");
+    if (!settingsFile.open(QIODevice::ReadOnly)) {
+        LOG_ERROR("Couldn't open save file.");
         settingsFile.close();
         return false;
     }
 
     QByteArray settingsData = settingsFile.readAll();
 
-    settingsFile.close();
+
 
     QJsonDocument settings(QJsonDocument::fromJson(settingsData ));
 
+
+    if(settings.isNull()){
+        LOG_ERROR("Failed to create JSON doc");
+        return false;
+    }
+
+    if (!settings.isObject()) {
+          LOG_ERROR() << "JSON is not an object.";
+          return false;
+      }
+
+
     m_settingsobject=settings.object();
+
+    settingsFile.close();
+
+
+    if (m_settingsobject.isEmpty()) {
+            LOG_ERROR()<< "JSON object is empty.";
+
+            return false;
+        }
 
     read(m_settingsobject);
 
@@ -250,8 +272,13 @@ bool Settings::save()
     QJsonDocument saveDoc(m_settingsobject);
 
 
-    QByteArray jsondoc = saveDoc.toJson();
 
+    QString settings_str(saveDoc.toJson(QJsonDocument::Compact));
+
+    QByteArray jsondoc = saveDoc.toJson(QJsonDocument::Indented);
+
+
+    LOG_INFO()<<"Saved settings:"<<settings_str;
 
     saveFile.write(jsondoc);
 

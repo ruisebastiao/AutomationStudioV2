@@ -39,7 +39,7 @@ class AUTOMATIONSTUDIO_CORE_EXPORT  SocketIO :public QObject,public JsonSerializ
 
 
 public:
-    SocketIO(QObject *parent = nullptr);
+    SocketIO(QObject *parent = nullptr,QString appid="");
 
 
 private:

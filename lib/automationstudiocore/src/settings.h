@@ -63,6 +63,8 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
 
     Q_PROPERTY(AppUpdater*  appUpdater READ appUpdater)
 
+    Q_PROPERTY(QString appID READ appID NOTIFY appIDChanged)
+
 
 
 
@@ -157,6 +159,11 @@ public:
         return m_appUpdater;
     }
 
+    QString appID() const
+    {
+        return m_appID;
+    }
+
 public slots:
 
 
@@ -232,6 +239,15 @@ public slots:
         emit appRegistredChanged(m_appRegistred);
     }
 
+    void setAppID(QString appID)
+    {
+        if (m_appID == appID)
+            return;
+
+        m_appID = appID;
+        emit appIDChanged(m_appID);
+    }
+
 signals:
     void sourceChanged(QString source);
 
@@ -265,6 +281,8 @@ signals:
 
     void updateDone();
 
+    void appIDChanged(QString appID);
+
 private:
 
 private:
@@ -289,9 +307,10 @@ private:
     SocketIO* m_socketIO=nullptr;
 
 
-    QString m_appid;
+
     bool m_appRegistred=false;
     AppUpdater* m_appUpdater;
+    QString m_appID="";
 };
 
 

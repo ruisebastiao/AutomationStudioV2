@@ -3,54 +3,82 @@
 
 #include <QtConcurrent>
 
+
 namespace as{
 
 Utilities::Utilities(QObject *parent) : QObject(parent)
 {
-    runCommandProcess= new QProcess(parent);
-
-
-
-    connect(runCommandProcess,&QProcess::readyReadStandardOutput,this,&Utilities::readyStandardOutput);
-
-    connect(runCommandProcess,&QProcess::readyReadStandardOutput,this,&Utilities::readyStandardError);
-
-    connect(runCommandProcess,SIGNAL(finished(int)),SLOT(processFinished(int)));
-
-
-
 
 }
 
 
 
 
-void Utilities::processFinished(int exitCode){
-    LOG_INFO()<< "Process finished";
-}
-
-void Utilities::readyStandardOutput(){
-    qDebug() << "StdOut> "+runCommandProcess->readAllStandardOutput();
-}
-
-void Utilities::readyStandardError(){
-    qDebug()<< "StdErr> "+runCommandProcess->readAllStandardError();
-}
-
-
-
-void Utilities::executeCommand(QString command,bool waitfinished,QString cwd,bool captureStdOut)
+void Utilities::executeCommand(QString command,bool waitfinished,QString cwd,bool captureStdOut,bool detached,const std::function<void (QString out)>& execFunc)
 {
     //QProcess::start()
-    runCommandProcess->setWorkingDirectory(cwd);
-    LOG_INFO()<< "Current dir"<<cwd;
+    QProcess runCommandProcess;
 
 
-    runCommandProcess->start("sh", QStringList() << "-c" << command);
+    connect(&runCommandProcess, static_cast<void (QProcess::*)(int)>(&QProcess::finished), [](int exitStatus) {
+        Q_UNUSED(exitStatus);
+        LOG_INFO()<< "Process finished";
+    });
+
+
+
+
+
+    connect(&runCommandProcess,&QProcess::readyRead,[&](){
+        QString str_stdout=runCommandProcess.readAllStandardOutput();
+        QString str_stderr=runCommandProcess.readAllStandardError();
+        if(str_stdout.length()>0){
+            foreach (QString line, str_stdout.split("\n")) {
+
+                if(line.length()>0){
+                    LOG_INFO()<<line;
+                    if(execFunc){
+                        execFunc(line);
+                    }
+                }
+            }
+        }
+        if(str_stderr.length()>0){
+            foreach (QString line, str_stderr.split("\n")) {
+
+                if(line.length()>0){
+
+                    LOG_INFO()<<line;
+                    if(execFunc){
+                        execFunc(line);
+                    }
+                }
+            }
+        }
+
+    });
+
+
+
+
+
+
+
+    runCommandProcess.setWorkingDirectory(cwd);
+    LOG_INFO()<< "Excuting command:"<<command;
+
+    if(detached){
+        runCommandProcess.startDetached("sh", QStringList() << "-c" << command);
+    }
+    else{
+        runCommandProcess.start("sh", QStringList() << "-c" << command);
+    }
+
     if(waitfinished){
-        runCommandProcess->waitForFinished();
-//        qDebug() << "StdErr> "+runCommandProcess->readAllStandardError();
-//        qDebug() << "StdOut> "+runCommandProcess->readAllStandardOutput();
+        LOG_INFO()<< "Waiting process to finish";
+        runCommandProcess.waitForFinished();
+        //        QThread::msleep(1000);
+        LOG_INFO()<< "Process finished";
     }
 }
 
