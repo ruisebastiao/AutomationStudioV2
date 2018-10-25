@@ -1054,8 +1054,15 @@ void NetworkManager::processMsg(char *msg)
                 net->setNetworkRejectReason(NetworkInfo::REJECT_CONNFAILED);
 
             }
-            // TODO: do some actions to reconnect
-            net->setNetworkStatus(NetworkInfo::NET_REJECTED);
+            else{
+                LOG_ERROR("Unknown wifi connetcion error, terminatinf wpa_supplicant");
+                net->setNetworkStatus(NetworkInfo::NET_REJECTED);
+
+                char reply[10];
+                size_t reply_len = sizeof(reply);
+                ctrlRequest("TERMINATE", reply, &reply_len);
+            }
+
         }
 
 
