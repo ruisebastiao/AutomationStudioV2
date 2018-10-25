@@ -203,7 +203,7 @@ Item {
 
             onFocusChanged: {
                 if(focus==false){
-                    console.log("not focus")
+
                     delegate_item.editMode=false
                 }
             }
@@ -585,7 +585,7 @@ Item {
                 WifiLevelItem{
 
                     property var auth:delegate_item.modelNetwork?delegate_item.modelNetwork.auth:null
-                    showAuth: autth&&auth!=NetworkInfo.AUTH_NONE_OPEN
+                    showAuth: auth&&auth!=NetworkInfo.AUTH_NONE_OPEN
 
                     network: null
 

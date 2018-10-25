@@ -61,7 +61,7 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject{
     Q_PROPERTY(SocketIO* socketIO READ socketIO WRITE setSocketIO NOTIFY socketIOChanged)
     Q_PROPERTY(bool appRegistred READ appRegistred NOTIFY appRegistredChanged)
 
-    Q_PROPERTY(AppUpdater*  appUpdater READ appUpdater)
+    Q_PROPERTY(AppUpdater*  appUpdater READ appUpdater NOTIFY appUpdaterChanged)
 
     Q_PROPERTY(QString appID READ appID NOTIFY appIDChanged)
 
@@ -282,6 +282,8 @@ signals:
     void updateDone();
 
     void appIDChanged(QString appID);
+
+    void appUpdaterChanged(AppUpdater* appUpdater);
 
 private:
 

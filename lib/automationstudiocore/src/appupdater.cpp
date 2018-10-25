@@ -120,18 +120,20 @@ void AppUpdater::downloadFinished()
     if (currentDownload->error()) {
         // download failed
         LOG_INFO("Failed to download:"+currentDownload->errorString());
+
+        return;
     } else {
         LOG_INFO("Download succeeded");
         //TODO download ok proceed to update
 
 
 
-        updatedir.cd("newrelease");
+        //  updatedir.cd("newrelease");
 
 
-        updatedir.removeRecursively();
+        // updatedir.removeRecursively();
 
-        updatedir.cdUp();
+        //updatedir.cdUp();
 
 
         setUpdateStatus("Extracting release");
@@ -139,7 +141,11 @@ void AppUpdater::downloadFinished()
         QDir::setCurrent(updatedir.absolutePath());
         as::Utilities utils;
 
-        utils.executeCommand("unzip newrelease.zip -d newrelease",true,updatedir.absolutePath(),true,false);
+        utils.executeCommand("unzip newrelease.zip -o -d newrelease",true,updatedir.absolutePath(),true,false,
+                             [&](QString out){
+            setUpdateStatus(out);
+        }
+        );
 
 
 

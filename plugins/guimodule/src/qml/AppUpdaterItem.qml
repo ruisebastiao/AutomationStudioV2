@@ -68,12 +68,21 @@ Pane {
                     }
                 }
 
+                Connections{
+                    target:automationstudio.settings.appUpdater
+                    onCompressingChanged:{
+                        progress.indeterminate=automationstudio.settings.appUpdater.compressing
+
+                    }
+                }
+
+
                 ProgressBar{
                     id:progress
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: updatestatus.bottom
                     anchors.topMargin: 5
-                    indeterminate: automationstudio.settings.appUpdater.compressing
+                    indeterminate: false
                     width: parent.width
                     height: 60
                     value: 0

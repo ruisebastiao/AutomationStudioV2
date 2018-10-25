@@ -361,7 +361,7 @@ Item{
                                                 id:server_field
 
                                                 Layout.margins: 5
-                                                Layout.minimumWidth: 300
+                                                 Layout.fillWidth:  true
                                                 Material.accent: selectedprimary
                                                 text:automationstudio.settings.socketIO.serverUrl
                                                 onAccepted: {
@@ -385,6 +385,26 @@ Item{
                                                    automationstudio.settings.registerApp();
                                                }
                                            }
+                                        }
+                                        RowLayout{
+                                            Layout.fillWidth:  true
+                                            TextField{
+                                                id:appid_field
+                                                readOnly: true
+                                                Layout.margins: 5
+                                                Layout.fillWidth:  true
+//                                                anchors.centerIn: parent
+//                                                width: parent.width
+                                                Layout.minimumWidth: 75
+                                                Material.accent: selectedprimary
+                                                text:automationstudio.settings.appID
+                                                MaterialPlaceHolder{
+
+                                                    placeHolderText:qsTr("APP ID")
+                                                }
+
+                                            }
+
                                         }
                                     }
                                 }

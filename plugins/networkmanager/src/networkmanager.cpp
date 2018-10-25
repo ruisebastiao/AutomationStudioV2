@@ -199,11 +199,11 @@ void NetworkManager::testWpasupplicant()
 
         if(m_timesToScan<=0){
             if(wifiStatus()==STAT_CONNECTED)
-                m_timesToScan=30;
+                m_timesToScan=100;
             else
-                m_timesToScan=10;
+                m_timesToScan=50;
 
-            if(wpsStarted()==false && wifiStatus()!=STAT_CONNECTING && wifiStatus()!=STAT_NOTINITED){
+            if(wpsStarted()==false && wifiStatus()!=STAT_CONNECTED && wifiStatus()!=STAT_NOTINITED){
 
                 scan();
             }
