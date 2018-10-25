@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <qthread.h>
 #include <QtConcurrent>
+#include <QCoreApplication>
 
 
 AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
@@ -12,7 +13,7 @@ AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 
     m_utilities=new as::Utilities(this);
 
-    updatedir=QDir(QDir::currentPath());
+    updatedir=QDir(QCoreApplication::applicationDirPath());
 
 
     updatedir.cdUp();

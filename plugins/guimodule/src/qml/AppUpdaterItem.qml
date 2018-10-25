@@ -59,14 +59,24 @@ Pane {
                     text: "Waiting"
                     font.pixelSize: 20
                 }
+
+                Connections{
+                    target:automationstudio.settings.appUpdater
+                    onDownloadProgressChanged:{
+                        progress.value=automationstudio.settings.appUpdater.downloadProgress;
+
+                    }
+                }
+
                 ProgressBar{
+                    id:progress
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: updatestatus.bottom
                     anchors.topMargin: 5
                     indeterminate: automationstudio.settings.appUpdater.compressing
                     width: parent.width
                     height: 60
-                    value: automationstudio.settings?automationstudio.settings.appUpdater.downloadProgress:0
+                    value: 0
                 }
 
 

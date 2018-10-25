@@ -218,7 +218,7 @@ Item {
             }
 
             property int delegateIndex: index
-//            onDelegateIndexChanged: console.log("delegateIndex:"+delegateIndex)
+            //            onDelegateIndexChanged: console.log("delegateIndex:"+delegateIndex)
 
             property NetworkInfo modelNetwork:model.display
 
@@ -263,10 +263,11 @@ Item {
 
                                 //var ret=1
 
+                                if(delegate_item.modelNetwork){
 
-                                if( delegate_item.highlighted || delegate_item.modelNetwork.networkStatus==NetworkInfo.NET_CONNECTING)
-                                    return 1
-
+                                    if( delegate_item.highlighted || delegate_item.modelNetwork.networkStatus==NetworkInfo.NET_CONNECTING)
+                                        return 1
+                                }
                                 return 0
 
                             })
@@ -398,7 +399,7 @@ Item {
                             anchors.centerIn: parent
 
 
-                            text: delegate_item.modelNetwork.ssid
+                            text: delegate_item.modelNetwork?delegate_item.modelNetwork.ssid:""
                             elide: Text.ElideMiddle
 
                         }
@@ -428,6 +429,9 @@ Item {
                                         var ret="";
 
 
+                                        if(!delegate_item.modelNetwork){
+                                            return ""
+                                        }
 
                                         if(delegate_item.modelNetwork.networkStatus==NetworkInfo.NET_REJECTED){
                                             ret+=qsTr("Network Rejected");
@@ -520,15 +524,15 @@ Item {
 
                                 font.pixelSize: 12
                                 Material.accent: selectedprimary
-                                text:delegate_item.modelNetwork.passKey
+                                text:delegate_item.modelNetwork?delegate_item.modelNetwork.passKey:""
 
 
 
                                 onFocusChanged: {
                                     if(focus){
                                         if(wifi_key.length<8){
-//                                            keyboardHelperText.text=qsTr("8 characters minimum")+translator.emptyString
-//                                            keyboardHelperText.textColor="red"
+                                            //                                            keyboardHelperText.text=qsTr("8 characters minimum")+translator.emptyString
+                                            //                                            keyboardHelperText.textColor="red"
                                         }
                                     }
                                 }
@@ -537,7 +541,11 @@ Item {
                                 Keys.onEnterPressed:  delegate_item.editMode=false
 
                                 onTextChanged: {
-                                    delegate_item.modelNetwork.passKey=text
+                                    if(delegate_item.modelNetwork){
+                                        delegate_item.modelNetwork.passKey=text
+                                    }
+
+
                                     if(wifi_key.length<8){
                                         //keyboardHelperText.text=qsTr("8 characters minimum")+translator.emptyString
                                         //keyboardHelperText.textColor="red"
@@ -576,8 +584,8 @@ Item {
 
                 WifiLevelItem{
 
-                    property var auth: delegate_item.modelNetwork.auth
-                    showAuth: auth!=NetworkInfo.AUTH_NONE_OPEN
+                    property var auth:delegate_item.modelNetwork?delegate_item.modelNetwork.auth:null
+                    showAuth: autth&&auth!=NetworkInfo.AUTH_NONE_OPEN
 
                     network: null
 

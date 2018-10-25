@@ -10,7 +10,7 @@
 #include <QFile>
 #include <dirent.h>
 #include <sys/types.h>
-
+#include "Logger.h"
 
 
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
@@ -161,7 +161,7 @@ void NetworkManager::testWpasupplicant()
             QFile wpafile("/run/wpa_supplicant");
             if(!wpafile.exists()) {
                 setWifiStatus(WIFIStat::STAT_NOTINITED);
-                qDebug()<<"WPA Supplicant not running... initializing";
+                LOG_INFO()<<"WPA Supplicant not running... initializing";
 
                 QtConcurrent::run(executeProcess, QString("wpa_supplicant -D"+wpaDriver()+" -B -i wlan0 -c /etc/wpa_supplicant.conf"));
                 check_timer->start(1000);
@@ -173,11 +173,11 @@ void NetworkManager::testWpasupplicant()
 
             len = sizeof(buf) - 1;
             if (ctrlRequest("PING", buf, &len) < 0) {
-                qDebug()<<"PING failed - trying to reconnect";
+                LOG_INFO()<<"PING failed - trying to reconnect";
                 if (openCtrlConnection(ctrl_iface) >= 0) {
                     setConnectedNetwork(0);
                     setWifiStatus(WIFIStat::STAT_DISCONNECTED);
-                    qDebug()<<"Reconnected successfully";
+                    LOG_INFO()<<"Reconnected successfully";
                 }
                 else
                     setWifiStatus(WIFIStat::STAT_NOTINITED);
@@ -204,7 +204,7 @@ void NetworkManager::testWpasupplicant()
                 m_timesToScan=10;
 
             if(wpsStarted()==false && wifiStatus()!=STAT_CONNECTING && wifiStatus()!=STAT_NOTINITED){
-                //qDebug()<<"Doing scan";
+
                 scan();
             }
         }
@@ -220,7 +220,7 @@ void NetworkManager::testWpasupplicant()
 
 void NetworkManager::start(){
     if (openCtrlConnection(ctrl_iface) < 0) {
-        qDebug()<<"Failed to open control connection to  wpa_supplicant.";
+        LOG_ERROR()<<"Failed to open control connection to  wpa_supplicant.";
         setWifiStatus(WIFIStat::STAT_NOTINITED);
     }
     else{
@@ -263,7 +263,7 @@ int NetworkManager::openCtrlConnection(const char *ifname)
                 if (strcmp(dent->d_name, ".") == 0 ||
                         strcmp(dent->d_name, "..") == 0)
                     continue;
-                qDebug()<<"Selected interface "<<dent->d_name;
+                LOG_INFO()<<"Selected interface "<<dent->d_name;
                 ctrl_iface = strdup(dent->d_name);
                 break;
             }
@@ -297,7 +297,7 @@ int NetworkManager::openCtrlConnection(const char *ifname)
         monitor_conn = NULL;
     }
 
-    qDebug()<<"Trying to connect to "<<QString(cfile);
+    LOG_INFO()<<"Trying to connect to "<<QString(cfile);
     ctrl_conn = wpa_ctrl_open(cfile);
     if (ctrl_conn == NULL) {
         free(cfile);
@@ -310,7 +310,7 @@ int NetworkManager::openCtrlConnection(const char *ifname)
         return -1;
     }
     if (wpa_ctrl_attach(monitor_conn)) {
-        qDebug()<<"Failed to attach to wpa_supplicant";
+        LOG_INFO()<<"Failed to attach to wpa_supplicant";
         wpa_ctrl_close(monitor_conn);
         monitor_conn = NULL;
         wpa_ctrl_close(ctrl_conn);
@@ -357,7 +357,7 @@ int NetworkManager::openCtrlConnection(const char *ifname)
         QStringList types = res.split(QChar(' '));
         bool wps = types.contains("WSC");
         if(wps)
-            qDebug()<<"WPS supported";
+            LOG_INFO()<<"WPS supported";
         //actionWPS->setEnabled(wps);
         //wpsTab->setEnabled(wps);
         //wpaguiTab->setTabEnabled(wpaguiTab->indexOf(wpsTab), wps);
@@ -437,7 +437,7 @@ void NetworkManager::connectNetwork(int index)
 
 
     if(net!=nullptr){
-        qDebug()<<"Connecting to SSID:"<<net->ssid();
+        LOG_INFO()<<"Connecting to SSID:"<<net->ssid();
 
         if(net->networkStatus()!=NetworkInfo::NET_CONNECTED){
             if(net->isConfigured()==false){
@@ -553,7 +553,7 @@ void NetworkManager::connectNetwork(int index)
                 reply_len = sizeof(reply);
                 ctrlRequest(cmd, reply, &reply_len);
                 if (strncmp(reply, "OK", 2) != 0) {
-                    qDebug()<<"Failed to enable network in wpa_supplicant configuration.";
+                    LOG_ERROR()<<"Failed to enable network in wpa_supplicant configuration.";
                     /* Network was added, so continue anyway */
                 }
                 ctrlRequest("SAVE_CONFIG", reply, &reply_len);
@@ -617,9 +617,9 @@ int NetworkManager::ctrlRequest(const char *cmd, char *buf, size_t *buflen)
         return -3;
     ret = wpa_ctrl_request(ctrl_conn, cmd, strlen(cmd), buf, buflen, NULL);
     if (ret == -2)
-        qDebug()<<cmd<<"command timed out.";
+        LOG_ERROR()<<cmd<<"command timed out.";
     else if (ret < 0)
-        qDebug()<<cmd<< "command failed -"<<ret;
+        LOG_ERROR()<<cmd<< "command failed -"<<ret;
 
     return ret;
 }
@@ -679,7 +679,7 @@ void NetworkManager::getConfiguratedNetworks(){
     len = sizeof(buf) - 1;
     if (ctrl_conn == NULL || ctrlRequest("LIST_NETWORKS", buf, &len) < 0) {
 
-        qDebug()<<"Could not get list_networks from wpa_supplicant";
+        LOG_ERROR()<<"Could not get list_networks from wpa_supplicant";
     }
     else{
         buf[len] = '\0';
@@ -753,7 +753,7 @@ void NetworkManager::updateResults(){
     bool globalwpsavailable=false;
 
     m_availableNetworks->MarkRemoved();
-    qDebug()<<"getting results";
+//qDebug()<<"getting results";
 
 
 
@@ -872,7 +872,6 @@ void NetworkManager::updateResults(){
     setWpsNetworksAvailable(globalwpsavailable);
 
     m_availableNetworks->ValidateRemovedNetworks();
-
     setNetworksAvailableCount(m_availableNetworks->rowCount(QModelIndex()));
 
 }
@@ -1055,7 +1054,7 @@ void NetworkManager::processMsg(char *msg)
                 net->setNetworkRejectReason(NetworkInfo::REJECT_CONNFAILED);
 
             }
-
+            // TODO: do some actions to reconnect
             net->setNetworkStatus(NetworkInfo::NET_REJECTED);
         }
 
