@@ -2,7 +2,7 @@
 
 
 CONFIG += ordered
-CONFIG      += warn_on qt thread c++14
+
 # --- Project structure ---
 
 TEMPLATE = subdirs

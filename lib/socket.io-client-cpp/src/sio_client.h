@@ -10,12 +10,14 @@
 #include <functional>
 #include "sio_message.h"
 #include "sio_socket.h"
+#include "sio_socket_global.h"
+
 
 namespace sio
 {
     class client_impl;
     
-    class client {
+    class SIO_SOCKET_EXPORT client {
     public:
         enum close_reason
         {

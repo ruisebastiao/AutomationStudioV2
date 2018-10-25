@@ -2,6 +2,8 @@
 #define SIO_SOCKET_H
 #include "sio_message.h"
 #include <functional>
+#include "sio_socket_global.h"
+
 namespace sio
 {
     class event_adapter;
@@ -43,7 +45,7 @@ namespace sio
     class packet;
     
     //The name 'socket' is taken from concept of official socket.io.
-    class socket
+    class SIO_SOCKET_EXPORT socket
     {
     public:
         typedef std::function<void(const std::string& name,message::ptr const& message,bool need_ack, message::list& ack_message)> event_listener_aux;

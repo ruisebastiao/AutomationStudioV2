@@ -1,6 +1,6 @@
 TEMPLATE = lib
 QT += qml quick
-CONFIG += plugin c++14
+CONFIG += plugin
 
 include(plugin.pri)
 include(functions.pri)
