@@ -275,7 +275,7 @@ Item {
 
                         visible: opacity==0?false:true
 
-                        enabled:  delegate_item.modelNetwork.networkStatus==NetworkInfo.NET_DISCONNECTED && (wifi_key.hasError==false || delegate_item.modelNetwork.isConfigured)
+                        enabled:  delegate_item.modelNetwork && delegate_item.modelNetwork.networkStatus==NetworkInfo.NET_DISCONNECTED && (wifi_key.hasError==false || delegate_item.modelNetwork.isConfigured)
 
                         highlighted: true//root.globalConnecting==false || (delegate_item.highlighted==false && root.globalConnecting==true)
 
@@ -283,7 +283,7 @@ Item {
                         BusyIndicator {
                             anchors.fill: parent
                             anchors.margins: -2
-                            visible: delegate_item.modelNetwork.networkStatus==NetworkInfo.NET_CONNECTING
+                            visible: delegate_item.modelNetwork&&delegate_item.modelNetwork.networkStatus==NetworkInfo.NET_CONNECTING
                             running: visible
                             Material.accent: "orange"
                         }
