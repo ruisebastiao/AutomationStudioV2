@@ -27,26 +27,9 @@ AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
     if(updatedir.exists("newrelease")==false){
         updatedir.mkdir("newrelease");
     }
-    if(updatedir.exists("backups")==false){
-        updatedir.mkdir("backups");
-    }
 
 
-   // QuaZip zipper(updatedir.path()+"/backup_oldrelease.zip");
 
-    //zipper.open(QuaZip::mdCreate);
-
-     updatedir.cd("backups");
-
-     QDir::setCurrent(updatedir.path());
-     JlCompress teste;
-
-     connect(&teste,&JlCompress::fileCompressed,[&](QString file){
-        LOG_INFO("Adding file:"+file);
-     });
-     teste.compressDir("backup.zip",QCoreApplication::applicationDirPath());
-
-    
 
 
 }
@@ -156,64 +139,42 @@ void AppUpdater::downloadFinished()
         }
         updatedir.cd("backups");
 
-//        QString currVersion(RELEASEVERS);
 
-//        QuaZip zipper(updatedir.path()+'/backup_oldrelease.zip');
-
-//        zipper.open(QuaZip::mdCreate);
-
-
-        //  updatedir.cd("newrelease");
-
-
-        // updatedir.removeRecursively();
-
-        //updatedir.cdUp();
-
-
-//        setUpdateStatus("Extracting release");
-
-//        QDir::setCurrent(updatedir.absolutePath());
-//        as::Utilities utils;
-
-//        utils.executeCommand("unzip newrelease.zip -o -d newrelease",true,updatedir.absolutePath(),true,false,
-//                             [&](QString out){
-//            setUpdateStatus(out);
-//        }
-//        );
-
-
-
-//        //        m_utilities->executeCommand("mv * "+targetdir.absolutePath(),true,updatedir.absolutePath()+"newrelease",true,true);
-
-//        //        setUpdateStatus("Done, rebooting");
-
-//        //        emit updateDone();
-
-
-
-
-//        setUpdateStatus("Starting update");
-
-//        setCompressing(true);
-//        updatedir.cd("newrelease");
-//        QDir::setCurrent(updatedir.absolutePath());
-
+        QDir::setCurrent(updatedir.path());
 
 //        as::Utilities::NonBlockingExec([&](){
-//            QString currVersion(RELEASEVERS);
-//            as::Utilities utils;
-//            QString cmd("./installer.sh");
+//            JlCompress backup;
 
-//            utils.executeCommand(cmd,true,updatedir.absolutePath(),true,false,[&](QString out){
-//                setUpdateStatus(out);
-//            }
-//            );
+//            connect(&backup,&JlCompress::fileCompressed,[&](QString file){
+//                LOG_INFO("Adding file:"+file);
+//                setUpdateStatus(file);
+//            });
+//            backup.compressDir("backup.zip",QCoreApplication::applicationDirPath());
 //        });
 
-//        setCompressing(false);
-//        setUpdateStatus("Finished update, restarting");
-//        emit updateDone();
+        updatedir.cdUp();
+        updatedir.cd("releases");
+
+        as::Utilities::NonBlockingExec([&](){
+            JlCompress newrelease;
+
+//            connect(&backup,&JlCompress::fileCompressed,[&](QString file){
+//                LOG_INFO("Adding file:"+file);
+//                setUpdateStatus(file);
+//            });
+
+            QDir::setCurrent(updatedir.path());
+            QuaZip releasezip("newrelease.zip");
+            updatedir.cd("newrelease");
+            newrelease.extractDir(releasezip,updatedir.path());
+        });
+
+
+
+
+        //        setCompressing(false);
+        //        setUpdateStatus("Finished update, restarting");
+        //        emit updateDone();
     }
 
     currentDownload->deleteLater();

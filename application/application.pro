@@ -133,13 +133,13 @@ win32:QMAKE_POST_LINK += $$quote(RMDIR /S /Q $$WINPACKAGE_PATH && mkdir $$WINPAC
 
 unix{
     QMAKE_POST_LINK += $$quote(cp $$PROJECT_PATH/installer/installer.sh $$DEPLOY_PATH/../installer.sh $$escape_expand(\n\t))
-    QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && zip -x *.json *.log -r $$PACKAGE_PATH/$$release_filename ./bin/ installer.sh  $$escape_expand(\n\t))
+    QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && zip -x *.json *.log -r $$PACKAGE_PATH/$$release_filename ./bin/  $$escape_expand(\n\t))
 }
 win32{
-    QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && 7z a -r $$PACKAGE_PATH/$$release_filename ./bin/ installer.bat  -x!*.json -x!*.log $$escape_expand(\n\t))
+    QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && 7z a -r $$PACKAGE_PATH/$$release_filename ./bin/  -x!*.json -x!*.log $$escape_expand(\n\t))
 }
 
-unix:QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$PACKAGE_PATH/$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
+QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$PACKAGE_PATH/$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
 #win32:QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$WINPACKAGE_PATH$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
 
 unix{

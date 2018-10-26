@@ -42,7 +42,7 @@ see quazip/(un)zip.h files for details. Basically it's the zlib license.
 class QUAZIP_EXPORT JlCompress: public QObject {
     Q_OBJECT
 
-private:
+ public:
     QStringList extractDir(QuaZip &zip, const QString &dir);
     QStringList getFileList(QuaZip *zip);
     QString extractFile(QuaZip &zip, QString fileName, QString fileDest);
