@@ -1,5 +1,5 @@
 include(config.pri)
-
+CONFIG      += warn_on qt thread c++14
 ## Destination
 
 win32{

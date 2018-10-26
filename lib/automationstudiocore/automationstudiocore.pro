@@ -1,10 +1,12 @@
 TEMPLATE = lib
 TARGET   = automationstudiocore
 QT      += core qml quick concurrent
-CONFIG  += qt
+CONFIG  += qt c++14
 
 include(../../functions.pri)
 
+
+#include($$PWD/3rdparty/3rdparty.pri)
 
 include(../../lib.pri)
 
@@ -23,6 +25,8 @@ include($$PWD/src/automationstudiocore.pri)
 
 
 linkLocalLib(sioclient)
+linkLocalLib(quazip)
+
 
 
 
@@ -39,3 +43,5 @@ unix:QMAKE_POST_LINK += $$quote(rm settings.o$$escape_expand(\n\t))
 win32:CONFIG(release, debug|release): QMAKE_POST_LINK += $$quote(del release\settings.obj$$escape_expand(\n\t))
 else:win32:CONFIG(debug, debug|release): QMAKE_POST_LINK += $$quote(del debug\settings.obj$$escape_expand(\n\t))
 
+
+include($$PWD/../quazip/quazip/quazip-headers.pri)

@@ -6,6 +6,9 @@
 #include <qthread.h>
 #include <QtConcurrent>
 #include <QCoreApplication>
+#include <JlCompress.h>
+
+#include "quazip.h"
 
 
 AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
@@ -24,6 +27,24 @@ AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
     if(updatedir.exists("newrelease")==false){
         updatedir.mkdir("newrelease");
     }
+    if(updatedir.exists("backups")==false){
+        updatedir.mkdir("backups");
+    }
+
+
+   // QuaZip zipper(updatedir.path()+"/backup_oldrelease.zip");
+
+    //zipper.open(QuaZip::mdCreate);
+
+     updatedir.cd("backups");
+
+     QDir::setCurrent(updatedir.path());
+     JlCompress teste;
+
+     connect(&teste,&JlCompress::fileCompressed,[&](QString file){
+        LOG_INFO("Adding file:"+file);
+     });
+     teste.compressDir("backup.zip",QCoreApplication::applicationDirPath());
 
     
 
@@ -126,6 +147,20 @@ void AppUpdater::downloadFinished()
         LOG_INFO("Download succeeded");
         //TODO download ok proceed to update
 
+        updatedir.setPath(QCoreApplication::applicationDirPath());
+
+
+        updatedir.cdUp();
+        if(updatedir.exists("backups")==false){
+            updatedir.mkdir("backups");
+        }
+        updatedir.cd("backups");
+
+//        QString currVersion(RELEASEVERS);
+
+//        QuaZip zipper(updatedir.path()+'/backup_oldrelease.zip');
+
+//        zipper.open(QuaZip::mdCreate);
 
 
         //  updatedir.cd("newrelease");
@@ -136,49 +171,49 @@ void AppUpdater::downloadFinished()
         //updatedir.cdUp();
 
 
-        setUpdateStatus("Extracting release");
+//        setUpdateStatus("Extracting release");
 
-        QDir::setCurrent(updatedir.absolutePath());
-        as::Utilities utils;
+//        QDir::setCurrent(updatedir.absolutePath());
+//        as::Utilities utils;
 
-        utils.executeCommand("unzip newrelease.zip -o -d newrelease",true,updatedir.absolutePath(),true,false,
-                             [&](QString out){
-            setUpdateStatus(out);
-        }
-        );
-
-
-
-        //        m_utilities->executeCommand("mv * "+targetdir.absolutePath(),true,updatedir.absolutePath()+"newrelease",true,true);
-
-        //        setUpdateStatus("Done, rebooting");
-
-        //        emit updateDone();
+//        utils.executeCommand("unzip newrelease.zip -o -d newrelease",true,updatedir.absolutePath(),true,false,
+//                             [&](QString out){
+//            setUpdateStatus(out);
+//        }
+//        );
 
 
 
+//        //        m_utilities->executeCommand("mv * "+targetdir.absolutePath(),true,updatedir.absolutePath()+"newrelease",true,true);
 
-        setUpdateStatus("Starting update");
+//        //        setUpdateStatus("Done, rebooting");
 
-        setCompressing(true);
-        updatedir.cd("newrelease");
-        QDir::setCurrent(updatedir.absolutePath());
+//        //        emit updateDone();
 
 
-        as::Utilities::NonBlockingExec([&](){
-            QString currVersion(RELEASEVERS);
-            as::Utilities utils;
-            QString cmd("./installer.sh");
 
-            utils.executeCommand(cmd,true,updatedir.absolutePath(),true,false,[&](QString out){
-                setUpdateStatus(out);
-            }
-            );
-        });
 
-        setCompressing(false);
-        setUpdateStatus("Finished update, restarting");
-        emit updateDone();
+//        setUpdateStatus("Starting update");
+
+//        setCompressing(true);
+//        updatedir.cd("newrelease");
+//        QDir::setCurrent(updatedir.absolutePath());
+
+
+//        as::Utilities::NonBlockingExec([&](){
+//            QString currVersion(RELEASEVERS);
+//            as::Utilities utils;
+//            QString cmd("./installer.sh");
+
+//            utils.executeCommand(cmd,true,updatedir.absolutePath(),true,false,[&](QString out){
+//                setUpdateStatus(out);
+//            }
+//            );
+//        });
+
+//        setCompressing(false);
+//        setUpdateStatus("Finished update, restarting");
+//        emit updateDone();
     }
 
     currentDownload->deleteLater();

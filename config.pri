@@ -11,6 +11,18 @@ SYSTEM_BSVALIDATION{
 }
 
 
+SYSTEM_VISION{
+
+
+    RPI{
+        CONFIG+=PLUGIN-NETWORKMANAGER
+    }
+
+    CONFIG+=PLUGIN-VISION
+
+}
+
+
 RPI{
     DEPLOY_PATH=$$[QT_SYSROOT]/root/AutomationStudio/bin
 

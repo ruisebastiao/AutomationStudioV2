@@ -110,9 +110,6 @@ WITH-CONFIGS{
 linkLocalLib(CuteLogger)
 linkLocalLib(automationstudiocore)
 
-LIBS += -lboost_system
-
-
 
 message(Build id: $$BUILD_ID)
 
@@ -121,24 +118,33 @@ DO_PACKAGE{
 
 message("Packaging app")
 
-QMAKE_CLEAN += rm -r * $$DEPLOY_PATH/
+unix:QMAKE_CLEAN += rm -r * $$DEPLOY_PATH/
+win32:QMAKE_CLEAN += cd $$DEPLOY_PATH/ && RMDIR /S /Q .
 
 
 release_filename=$${BUILD_ID}~$${PRORELEASEVERS}~.zip
 
 PACKAGE_PATH=$$BUILD_PATH/release
 
-QMAKE_POST_LINK += $$quote(mkdir -p $$PACKAGE_PATH$$escape_expand(\n\t))
+WINPACKAGE_PATH=$$replace(PACKAGE_PATH, /, $$QMAKE_DIR_SEP)\
 
-QMAKE_POST_LINK += $$quote(cp $$PROJECT_PATH/installer/installer.sh $$DEPLOY_PATH/../installer.sh $$escape_expand(\n\t))
+unix:QMAKE_POST_LINK += $$quote(mkdir -p $$PACKAGE_PATH$$escape_expand(\n\t))
+win32:QMAKE_POST_LINK += $$quote(RMDIR /S /Q $$WINPACKAGE_PATH && mkdir $$WINPACKAGE_PATH $$escape_expand(\n\t))
 
+unix{
+    QMAKE_POST_LINK += $$quote(cp $$PROJECT_PATH/installer/installer.sh $$DEPLOY_PATH/../installer.sh $$escape_expand(\n\t))
+    QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && zip -x *.json *.log -r $$PACKAGE_PATH/$$release_filename ./bin/ installer.sh  $$escape_expand(\n\t))
+}
+win32{
+    QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && 7z a -r $$PACKAGE_PATH/$$release_filename ./bin/ installer.bat  -x!*.json -x!*.log $$escape_expand(\n\t))
+}
 
-QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && zip -x *.json *.log -r $$PACKAGE_PATH/$$release_filename ./bin/ installer.sh  $$escape_expand(\n\t))
+unix:QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$PACKAGE_PATH/$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
+#win32:QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$WINPACKAGE_PATH$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
 
-
-QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$PACKAGE_PATH/$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
-QMAKE_POST_LINK += $$quote(cp $$PACKAGE_PATH/$$release_filename /home/rui/projects/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
-
+unix{
+    QMAKE_POST_LINK += $$quote(cp $$PACKAGE_PATH/$$release_filename /home/rui/projects/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))
+}
 
 }
 

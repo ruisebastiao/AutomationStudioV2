@@ -30,6 +30,7 @@ include($$PWD/../QuickQanava/include/quickqanavaheaders.pri)
 
 include(src/visionmodule.pri)
 include(../../external/opencv/opencv.pri)
+
 include(../../external/uEye/uEye.pri)
 
 
