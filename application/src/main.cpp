@@ -70,6 +70,7 @@ int main(int argc, char *argv[]){
         file.remove();
     }
 
+    //QProcess::startDetached("installer.exe");
 
     RollingFileAppender* rollingfileAppender = new RollingFileAppender(fileloggerpath);
 

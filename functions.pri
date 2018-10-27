@@ -15,7 +15,7 @@ defineTest(linkLocalLib){
 
 
 
-    win32:LIB_PATH = $$DEPLOY_PATH/dev/$$1/
+    win32:LIB_PATH = $$DEPLOY_PATH/../dev/$$1/
     else{
         LIB_PATH = $$DEPLOY_PATH/
     }
@@ -68,7 +68,7 @@ defineTest(linkLocalPlugin){
 
 
 
-    win32:LIB_PATH = $$DEPLOY_PATH/dev/$$1/
+    win32:LIB_PATH = $$DEPLOY_PATH/../dev/$$1/
     else{
         LIB_PATH = $$DEPLOY_PATH/
     }

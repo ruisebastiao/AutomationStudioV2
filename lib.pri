@@ -3,7 +3,7 @@ CONFIG      += warn_on qt thread c++14
 ## Destination
 
 win32{
-    DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/
+    DESTDIR    = $$DEPLOY_PATH/../dev/$$TARGET/
     DLLDESTDIR = $$DEPLOY_PATH
 }
 

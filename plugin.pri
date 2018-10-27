@@ -5,7 +5,7 @@ include(config.pri)
 PLUGIN_PATH=$${DEPLOY_PATH}/$$TARGET/
 #QML_IMPORT_PATH += $${PLUGIN_PATH}
 win32{
-    DESTDIR    = $$DEPLOY_PATH/dev/$$TARGET/
+    DESTDIR    = $$DEPLOY_PATH/../dev/$$TARGET/
     DLLDESTDIR = $$PLUGIN_PATH/../
 }
 unix{

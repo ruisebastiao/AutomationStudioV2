@@ -10,7 +10,9 @@ TEMPLATE = subdirs
 SUBDIRS += \
     lib \
     plugins \
+    installer \
     application
+
 
 # --- Subdir configurations ---
 application.subdir  = $$PWD/application
