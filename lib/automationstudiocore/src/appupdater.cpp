@@ -28,6 +28,29 @@ AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
         updatedir.mkdir("newrelease");
     }
 
+#ifdef Q_OS_WIN
+
+    QDir appdir(QCoreApplication::applicationDirPath());
+
+    appdir.setPath(QCoreApplication::applicationDirPath());
+
+    QStringList filters;
+    filters << "*.old";
+    appdir.setNameFilters(filters);
+
+    QFileInfoList appfileslist=appdir.entryInfoList(QDir::AllEntries|QDir::NoDotAndDotDot);
+    foreach (QFileInfo toremove, appfileslist) {
+         if(toremove.isDir()){
+             QDir dirtoremove(toremove.filePath());
+             dirtoremove.removeRecursively();
+         }
+         else {
+
+             QFile filetoremove(toremove.filePath());
+             filetoremove.remove();
+         }
+    }
+#endif
 
 }
 
@@ -176,6 +199,27 @@ void AppUpdater::downloadFinished()
 
         appdir.setPath(QCoreApplication::applicationDirPath());
 
+#ifdef Q_OS_WIN
+        QFileInfoList appfileslist=appdir.entryInfoList(QDir::AllEntries|QDir::NoDotAndDotDot);
+
+        foreach (QFileInfo torename, appfileslist) {
+
+
+            if(torename.completeSuffix().contains("json")==false && torename.completeSuffix().contains("log")==false){
+
+                setUpdateStatus("Removing current release files:| "+torename.fileName());
+                LOG_INFO("Removing current release files: | "+torename.filePath());
+
+                QFile renamefile(torename.filePath());
+                if(!renamefile.rename(torename.filePath()+".old")){
+                    LOG_ERROR("Error renaming file:"+renamefile.fileName());
+                }
+
+
+            }
+        }
+
+#endif
 
 #ifdef Q_OS_LINUX
 
@@ -205,6 +249,9 @@ void AppUpdater::downloadFinished()
 
             }
         }
+
+#endif
+
 
         updatedir.cd("bin");
 
@@ -245,7 +292,6 @@ void AppUpdater::downloadFinished()
         }
 
 
-#endif
 
         setCompressing(false);
         setUpdateStatus("Finished update, restarting");
