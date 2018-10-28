@@ -17,6 +17,11 @@ CONFIG -= app_bundle
 DEFINES += QT_DEPRECATED_WARNINGS
 
 
+unix{
+    DESTDIR = $$DEPLOY_PATH
+}
+
+
 
 win32{
 DESTDIR = $${DEPLOY_PATH}

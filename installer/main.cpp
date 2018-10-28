@@ -1,9 +1,12 @@
 #include <QCoreApplication>
 //remove UNICODE define
 #include <QDir>
+
+#ifdef Q_OS_WIN
 #include <cstdio>
 #include <windows.h>
 #include <tlhelp32.h>
+
 
 /*!
 
@@ -29,10 +32,7 @@ bool IsProcessRunning(const wchar_t *processName)
 }
 
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
-
+void waitForTerminate(){
     bool isrunning=true;
     bool firstcheck=true;
     while (isrunning) {
@@ -43,8 +43,24 @@ int main(int argc, char *argv[])
         }
 
     }
-//    QDir::
-    qDebug("Stopped");
+
+}
+
+
+#endif
+
+
+void waitForTerminate(){
+
+}
+
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    waitForTerminate();
+
+    qDebug("App install finished");
     a.exit(0);
-   // return a.exec();
 }

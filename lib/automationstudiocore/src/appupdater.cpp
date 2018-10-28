@@ -29,9 +29,6 @@ AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
     }
 
 
-
-
-
 }
 
 void AppUpdater::doUpdate(QString release)
@@ -130,6 +127,8 @@ void AppUpdater::downloadFinished()
         LOG_INFO("Download succeeded");
         //TODO download ok proceed to update
 
+        setCompressing(true);
+
         updatedir.setPath(QCoreApplication::applicationDirPath());
 
 
@@ -139,18 +138,20 @@ void AppUpdater::downloadFinished()
         }
         updatedir.cd("backups");
 
+        setUpdateStatus("Backup current release");
+
 
         QDir::setCurrent(updatedir.path());
 
-//        as::Utilities::NonBlockingExec([&](){
-//            JlCompress backup;
+        //        as::Utilities::NonBlockingExec([&](){
+        //            JlCompress backup;
 
-//            connect(&backup,&JlCompress::fileCompressed,[&](QString file){
-//                LOG_INFO("Adding file:"+file);
-//                setUpdateStatus(file);
-//            });
-//            backup.compressDir("backup.zip",QCoreApplication::applicationDirPath());
-//        });
+        //            connect(&backup,&JlCompress::fileCompressed,[&](QString file){
+        //                LOG_INFO("Adding file:"+file);
+        //                setUpdateStatus("Compressing:" file);
+        //            });
+        //            backup.compressDir("backup.zip",QCoreApplication::applicationDirPath());
+        //        });
 
         updatedir.cdUp();
         updatedir.cd("releases");
@@ -158,10 +159,10 @@ void AppUpdater::downloadFinished()
         as::Utilities::NonBlockingExec([&](){
             JlCompress newrelease;
 
-//            connect(&backup,&JlCompress::fileCompressed,[&](QString file){
-//                LOG_INFO("Adding file:"+file);
-//                setUpdateStatus(file);
-//            });
+            //            connect(&backup,&JlCompress::fileCompressed,[&](QString file){
+            //                LOG_INFO("Adding file:"+file);
+            //                setUpdateStatus(file);
+            //            });
 
             QDir::setCurrent(updatedir.path());
             QuaZip releasezip("newrelease.zip");
@@ -171,10 +172,84 @@ void AppUpdater::downloadFinished()
 
 
 
+        QDir appdir(QCoreApplication::applicationDirPath());
 
-        //        setCompressing(false);
-        //        setUpdateStatus("Finished update, restarting");
-        //        emit updateDone();
+        appdir.setPath(QCoreApplication::applicationDirPath());
+
+
+#ifdef Q_OS_LINUX
+
+        QFileInfoList appfileslist=appdir.entryInfoList(QDir::AllEntries|QDir::NoDotAndDotDot);
+
+        foreach (QFileInfo todelete, appfileslist) {
+
+            if(todelete.isDir()){
+                QDir dirtoremove(todelete.filePath());
+                setUpdateStatus("Removing current release files: | "+todelete.path());
+                LOG_INFO("Removing current release files: | "+todelete.filePath());
+
+                if(!dirtoremove.removeRecursively()){
+                    LOG_ERROR("Error deleting file:"+QFileInfo(todelete).fileName());
+                }
+            }
+            else if(todelete.completeSuffix().contains("json")==false && todelete.completeSuffix().contains("log")==false){
+
+                setUpdateStatus("Removing current release files:| "+todelete.fileName());
+                LOG_INFO("Removing current release files: | "+todelete.fileName());
+
+                QFile deletefile(todelete.filePath());
+                if(!deletefile.remove()){
+                    LOG_ERROR("Error deleting file:"+QFileInfo(todelete).filePath());
+                }
+
+
+            }
+        }
+
+        updatedir.cd("bin");
+
+        QFileInfoList newreleasefilelist = updatedir.entryInfoList(QDir::AllEntries|QDir::NoDotAndDotDot);
+
+        foreach (QFileInfo tomove, newreleasefilelist ) {
+
+            if(tomove.isDir()){
+
+                setUpdateStatus("Updating  to new release | "+tomove.filePath());
+                LOG_INFO("Updating to new release | "+tomove.fileName());
+
+                QString targetdir=appdir.path()+"/"+tomove.baseName();
+
+                QDir dirtomove;
+                if(!dirtomove.rename(tomove.filePath(),targetdir)){
+                    LOG_ERROR("Error deleting file:"+QFileInfo(targetdir).fileName());
+                }
+            }
+            else if(tomove.completeSuffix().contains("json")==false && tomove.completeSuffix().contains("log")==false){
+
+
+
+
+                setUpdateStatus("Updating to new release | "+tomove.fileName());
+                LOG_INFO("Updating to new release | "+tomove.fileName());
+
+                QString targetfile=appdir.path()+"/"+tomove.fileName();
+
+
+                QFile filetomove(tomove.filePath());
+                if(!filetomove.rename(targetfile)){
+                    LOG_ERROR("Error deleting file:"+QFileInfo(targetfile).fileName());
+                }
+
+
+            }
+        }
+
+
+#endif
+
+        setCompressing(false);
+        setUpdateStatus("Finished update, restarting");
+        emit updateDone();
     }
 
     currentDownload->deleteLater();
