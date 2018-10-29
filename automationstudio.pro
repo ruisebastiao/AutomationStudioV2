@@ -10,7 +10,6 @@ TEMPLATE = subdirs
 SUBDIRS += \
     lib \
     plugins \
-#    installer \
     application
 
 

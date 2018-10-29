@@ -93,7 +93,7 @@ public:
 
     // generate and manage our own io_service
     explicit endpoint()
-      : m_io_service(nullptr)
+      : m_io_service(NULL)
       , m_external_io_service(false)
       , m_listen_backlog(lib::asio::socket_base::max_connections)
       , m_reuse_addr(false)
@@ -145,6 +145,7 @@ public:
         src.m_external_io_service = false;
         src.m_acceptor = NULL;
         src.m_state = UNINITIALIZED;
+
     }
 
     /*endpoint & operator= (const endpoint && rhs) {
@@ -1137,6 +1138,7 @@ private:
     void log_err(log::level l, char const * msg, error_type const & ec) {
         std::stringstream s;
         s << msg << " error: " << ec << " (" << ec.message() << ")";
+
         m_elog->write(l,s.str());
     }
 
