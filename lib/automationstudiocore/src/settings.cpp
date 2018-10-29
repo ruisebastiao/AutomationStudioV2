@@ -27,6 +27,7 @@
 #include "version.h"
 
 #include "Logger.h"
+#include "crash_handler.h"
 
 
 namespace as{
@@ -38,6 +39,9 @@ Settings::Settings(QObject *parent, QString appdir)
     m_appdir=appdir;
 
     QString ethMAC;
+
+    QString m_currentDir=QCoreApplication::applicationDirPath()+"/dumps";
+    Breakpad::CrashHandler::instance()->Init(m_currentDir);
 
     foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces()) {
 

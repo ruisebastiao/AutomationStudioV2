@@ -9,6 +9,8 @@
 
 #include "crash_handler.h"
 
+#include <qcoreapplication.h>
+
 using namespace websocketpp;
 using boost::posix_time::milliseconds;
 using std::stringstream;
@@ -20,8 +22,8 @@ namespace sio
         m_impl(new client_impl())
 
     {
-//        Breakpad::CrashHandler::instance()->Init("./dumps");
-//        buggyFunc();
+        QString m_currentDir=QCoreApplication::applicationDirPath()+"/dumps";
+        Breakpad::CrashHandler::instance()->Init(m_currentDir);
     }
     
     client::~client()

@@ -5,14 +5,15 @@ TEMPLATE = lib
 
 DEFINES += SIOCLIENT_LIBRARY
 
-CONFIG += force_debug_info
 
 include($$PROJECT_PATH/shared/crashhandler/crash_handler.pri)
 
 include(../../lib.pri)
 include(lib/websocketpp/websocketpp.pri)
 include(lib/rapidjson/rapidjson.pri)
+
 include($$PWD/../../external/boost/boost.pri)
+
 
 
 INCLUDEPATH += $$PWD/src
@@ -30,5 +31,4 @@ SOURCES += \
     src/sio_socket.cpp \
     src/internal/sio_client_impl.cpp \
     src/internal/sio_packet.cpp
-
 

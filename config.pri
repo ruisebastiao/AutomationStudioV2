@@ -1,4 +1,4 @@
-CONFIG += force_debug_info
+
 
 SYSTEM_BSVALIDATION{
 

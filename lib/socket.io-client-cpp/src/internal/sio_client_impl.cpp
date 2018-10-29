@@ -15,7 +15,7 @@
 #if DEBUG || _DEBUG
 #define LOG(x) std::cout << x
 #else
-#define LOG(x)  std::cout << x
+#define LOG(x)
 #endif
 
 using boost::posix_time::milliseconds;
@@ -372,7 +372,7 @@ namespace sio
 
     void client_impl::on_fail(connection_hdl)
     {
-        LOG("pass" << endl);
+
         m_con.reset();
         m_con_state = con_closed;
         this->sockets_invoke_void(&sio::socket::on_disconnect);

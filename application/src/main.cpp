@@ -65,7 +65,10 @@ int main(int argc, char *argv[]){
 
     consoleAppender->setFormat("%{time}{yyyy-MM-ddTHH:mm:ss.zzz}|%{type:-7}|%{Function}|%{message}\n");
 
-    QString m_currentDir=QCoreApplication::applicationDirPath();//QDir::currentPath();
+    QString m_currentDir=QCoreApplication::applicationDirPath();
+    qDebug()<<"Crashes dir:"<<m_currentDir+"/crashes";
+
+
 
     QString fileloggerpath=QDir(m_currentDir).filePath("app.log");
 
@@ -79,14 +82,14 @@ int main(int argc, char *argv[]){
 
     dumpsdir.cd("dumps");
 
-
+    Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
 
     //buggyFunc();
 
 
-//    QBreakpadInstance.setDumpPath(m_currentDir+"/crashes");
+//
 
-    qDebug()<<"Crashes dir:"<<m_currentDir+"/crashes";
+
 
     QFileInfo fi(fileloggerpath);
 
@@ -116,7 +119,7 @@ int main(int argc, char *argv[]){
     cuteLogger->registerCategoryAppender("qml",rollingfileAppender);
 
 
-    Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
+
 
     LOG_INFO("-----------Application Start ("+release+")-------------");
 

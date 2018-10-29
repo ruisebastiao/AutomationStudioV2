@@ -9,7 +9,7 @@
 #if DEBUG || _DEBUG
 #define LOG(x) std::cout << x
 #else
-#define LOG(x)  std::cout << x
+#define LOG(x)
 #endif
 
 #define NULL_GUARD(_x_)  \
