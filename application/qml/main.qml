@@ -1351,9 +1351,10 @@ ApplicationWindow {
 
         y: rootwindow.height
 
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.horizontalCenter: parent.horizontalCenter
 
+
+        width:parent.width*0.75
         states: State {
             name: "visible"
             /*  The visibility of the InputPanel can be bound to the Qt.inputMethod.visible property,

@@ -27,6 +27,8 @@
 
 #include "automationstudio.h"
 #include "version.h"
+#include "crash_handler.h"
+
 
 using namespace as;
 
@@ -35,10 +37,18 @@ constexpr bool isequal(char const *one, char const *two) {
                           : (!*one && !*two);
 }
 
+int buggyFunc() {
+    delete reinterpret_cast<QString*>(0xFEE1DEAD);
+    return 0;
+}
+
+
 
 int main(int argc, char *argv[]){
 
     static_assert(isequal(PRORELEASEVERS, RELEASEVERS), "PRORELEASEVERS, RELEASEVERS mismatch");
+
+
 
 
 
@@ -60,6 +70,23 @@ int main(int argc, char *argv[]){
     QString fileloggerpath=QDir(m_currentDir).filePath("app.log");
 
     qDebug()<<"log path:"<<fileloggerpath;
+
+
+    QDir dumpsdir(m_currentDir);
+    if(dumpsdir.exists("dumps")==false){
+        dumpsdir.mkdir("dumps");
+    }
+
+    dumpsdir.cd("dumps");
+
+
+
+    //buggyFunc();
+
+
+//    QBreakpadInstance.setDumpPath(m_currentDir+"/crashes");
+
+    qDebug()<<"Crashes dir:"<<m_currentDir+"/crashes";
 
     QFileInfo fi(fileloggerpath);
 
@@ -88,6 +115,8 @@ int main(int argc, char *argv[]){
     cuteLogger->registerCategoryAppender("qml",consoleAppender);
     cuteLogger->registerCategoryAppender("qml",rollingfileAppender);
 
+
+    Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
 
     LOG_INFO("-----------Application Start ("+release+")-------------");
 

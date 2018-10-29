@@ -89,6 +89,7 @@ void SocketIO::init(){
 
     QString host=serverurl.host();
     int port=serverurl.port();
+
     QString formatedSocketIOUrl="ws://"+host;
 
     if(port!=-1){

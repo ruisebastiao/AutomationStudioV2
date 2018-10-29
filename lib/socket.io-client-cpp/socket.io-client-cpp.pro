@@ -5,6 +5,10 @@ TEMPLATE = lib
 
 DEFINES += SIOCLIENT_LIBRARY
 
+CONFIG += force_debug_info
+
+include($$PROJECT_PATH/shared/crashhandler/crash_handler.pri)
+
 include(../../lib.pri)
 include(lib/websocketpp/websocketpp.pri)
 include(lib/rapidjson/rapidjson.pri)

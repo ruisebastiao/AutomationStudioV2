@@ -4,6 +4,8 @@ INCLUDEPATH += $$PWD
 #    $$PWD/livecv.h
 
 
+include($$PROJECT_PATH/shared/crashhandler/crash_handler.pri)
+
 SOURCES += \
     $$PWD/main.cpp \
     $$PWD/automationstudio.cpp

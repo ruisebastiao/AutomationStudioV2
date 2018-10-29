@@ -16,6 +16,7 @@ RPI{
     DEFINES += RPI
 }
 
+include($$PROJECT_PATH/shared/crashhandler/crash_handler.pri)
 
 
 DEFINES += AUTOMATIONSTUDIO_CORE_LIB

@@ -15,7 +15,7 @@
 #if DEBUG || _DEBUG
 #define LOG(x) std::cout << x
 #else
-#define LOG(x)
+#define LOG(x) std::cout << x
 #endif
 
 using boost::posix_time::milliseconds;
@@ -65,6 +65,8 @@ namespace sio
     
     void client_impl::connect(const string& uri, const map<string,string>& query, const map<string, string>& headers)
     {
+
+
         if(m_reconn_timer)
         {
             m_reconn_timer->cancel();
@@ -86,6 +88,8 @@ namespace sio
                 return;
             }
         }
+
+
         m_con_state = con_opening;
         m_base_url = uri;
         m_reconn_made = 0;
@@ -101,6 +105,7 @@ namespace sio
         m_query_string=move(query_str);
 
         m_http_headers = headers;
+
 
         this->reset_states();
         m_client.get_io_service().dispatch(lib::bind(&client_impl::connect_impl,this,uri,m_query_string));
@@ -200,6 +205,8 @@ namespace sio
 
     void client_impl::connect_impl(const string& uri, const string& queryString)
     {
+
+
         do{
             websocketpp::uri uo(uri);
             ostringstream ss;
@@ -365,6 +372,7 @@ namespace sio
 
     void client_impl::on_fail(connection_hdl)
     {
+        LOG("pass" << endl);
         m_con.reset();
         m_con_state = con_closed;
         this->sockets_invoke_void(&sio::socket::on_disconnect);

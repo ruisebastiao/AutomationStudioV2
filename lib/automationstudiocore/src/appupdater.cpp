@@ -14,6 +14,8 @@
 AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 {
 
+
+
     m_utilities=new as::Utilities(this);
 
     updatedir=QDir(QCoreApplication::applicationDirPath());

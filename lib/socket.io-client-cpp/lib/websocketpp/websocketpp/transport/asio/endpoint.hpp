@@ -93,7 +93,7 @@ public:
 
     // generate and manage our own io_service
     explicit endpoint()
-      : m_io_service(NULL)
+      : m_io_service(nullptr)
       , m_external_io_service(false)
       , m_listen_backlog(lib::asio::socket_base::max_connections)
       , m_reuse_addr(false)

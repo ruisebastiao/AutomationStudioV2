@@ -7,15 +7,21 @@
 #include "sio_client.h"
 #include "internal/sio_client_impl.h"
 
+#include "crash_handler.h"
+
 using namespace websocketpp;
 using boost::posix_time::milliseconds;
 using std::stringstream;
+
 
 namespace sio
 {
     client::client():
         m_impl(new client_impl())
+
     {
+//        Breakpad::CrashHandler::instance()->Init("./dumps");
+//        buggyFunc();
     }
     
     client::~client()
