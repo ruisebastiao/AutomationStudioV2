@@ -6,7 +6,7 @@ TEMPLATE = lib
 DEFINES += SIOCLIENT_LIBRARY
 
 
-include($$PROJECT_PATH/shared/crashhandler/crash_handler.pri)
+#include($$PROJECT_PATH/shared/crashhandler/crash_handler.pri)
 
 include(../../lib.pri)
 include(lib/websocketpp/websocketpp.pri)

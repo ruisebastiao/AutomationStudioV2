@@ -4,6 +4,7 @@ QT      += qml quick quickcontrols2 opengl
 CONFIG +=c++14
 
 
+
 include(../functions.pri)
 
 
@@ -22,10 +23,9 @@ RPI{
 
 
 unix{
-    DESTDIR = $$DEPLOY_PATH
-}
 
-unix{
+
+    DESTDIR = $$DEPLOY_PATH
     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 }
 
@@ -83,12 +83,15 @@ RPI{
 
 }
 
+
 unix{
+
 
 !BUILDROOT{
    INSTALLS += target
 }
 }
+
 
 
 

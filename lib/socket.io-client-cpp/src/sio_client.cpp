@@ -7,7 +7,7 @@
 #include "sio_client.h"
 #include "internal/sio_client_impl.h"
 
-#include "crash_handler.h"
+//#include "crash_handler.h"
 
 #include <qcoreapplication.h>
 
@@ -22,8 +22,8 @@ namespace sio
         m_impl(new client_impl())
 
     {
-        QString m_currentDir=QCoreApplication::applicationDirPath()+"/dumps";
-        Breakpad::CrashHandler::instance()->Init(m_currentDir);
+//        QString m_currentDir=QCoreApplication::applicationDirPath()+"/dumps";
+//        Breakpad::CrashHandler::instance()->Init(m_currentDir);
     }
     
     client::~client()
