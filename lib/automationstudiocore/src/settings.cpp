@@ -299,7 +299,7 @@ void Settings::updateBaseSettings()
 
 void Settings::loadBaseSettings()
 {
-    QFile basesettingsFile(m_appdir+"/appsettings.json");
+    QFile basesettingsFile(m_appdir+"../configs/appsettings.json");
 
     if(!basesettingsFile.exists()) {
         qWarning() << "Base file does not exits: " <<m_appdir;
@@ -333,7 +333,7 @@ void Settings::loadBaseSettings()
     QJsonObject settingsobject=settings.object();
 
 
-    setSource(m_appdir+'/'+settingsobject["location"].toString());
+    setSource(m_appdir+"../configs/"+settingsobject["location"].toString());
 
 
     setBasefileLoaded(true);

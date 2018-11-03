@@ -70,6 +70,13 @@ int main(int argc, char *argv[]){
 
 
 
+    QDir configsdir(m_currentDir);
+    configsdir.cdUp();
+    if(configsdir.exists("configs")==false){
+        configsdir.mkdir("configs");
+    }
+
+
     QString fileloggerpath=QDir(m_currentDir).filePath("app.log");
 
     qDebug()<<"log path:"<<fileloggerpath;
@@ -82,12 +89,12 @@ int main(int argc, char *argv[]){
 
     dumpsdir.cd("dumps");
 
-//    Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
+    //    Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
 
     //buggyFunc();
 
 
-//
+    //
 
 
 
