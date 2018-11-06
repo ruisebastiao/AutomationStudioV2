@@ -115,7 +115,6 @@ Item{
                                 }
 
                                 popup.onOpened: {
-                                    //appsettings.addUser()
 
                                 }
 
@@ -272,7 +271,7 @@ Item{
                                                 //                                            Behavior on opacity{
                                                 //                                                NumberAnimation { duration: 250}
                                                 //                                            }
-                                                //                                            opacity:appsettings.updateAvailable?1:0
+
                                                 RoundButton{
                                                     anchors.centerIn: parent
                                                     width: 50
@@ -293,8 +292,7 @@ Item{
                                                     BusyIndicator {
                                                         anchors.fill: parent
                                                         anchors.margins: 5
-                                                        running: false
-                                                        //                                                    running: appsettings.checkingUpdate?appsettings.checkingUpdate:false
+                                                        running: false                                                      
                                                         //                                                    Material.accent: "#ffb47b"
                                                     }
 
@@ -329,7 +327,7 @@ Item{
                                                         NumberAnimation { target: update_icon; property: "y"; from:icon_container.height+2; to: icon_container.height/2-update_icon.width/2; duration: 250 }
                                                         loops: Animation.Infinite
                                                         running: false
-                                                        //                                                    running: appsettings.updateAvailable?appsettings.updateAvailable:false
+
 
                                                     }
                                                 }

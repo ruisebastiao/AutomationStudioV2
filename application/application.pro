@@ -45,7 +45,6 @@ OTHER_FILES += \
 win32{
 
 OTHER_FILES += \
-    ..//appsettings.json \
     $$PWD/qml/*.qml
 
 }
@@ -53,15 +52,15 @@ OTHER_FILES += \
 
 
 
-configfiles.files+=\
-    ../configfiles/appsettings.json \
-    ../configfiles/bsvalidation.json \
-    ../configfiles/projects.json
+#configfiles.files+=\
+#    ../configfiles/basesettings.json \
+#    ../configfiles/bsvalidation.json \
+#    ../configfiles/projects.json
 
-DISTFILES += \
-    ../configfiles/appsettings.json \
-    ../configfiles/bsvalidation.json \
-    ../configfiles/projects.json
+#DISTFILES += \
+#    ../configfiles/basesettings.json \
+#    ../configfiles/bsvalidation.json \
+#    ../configfiles/projects.json
 
 
 

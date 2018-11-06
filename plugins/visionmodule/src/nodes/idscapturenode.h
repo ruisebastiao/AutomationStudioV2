@@ -186,10 +186,10 @@ private:
     IDSCamera* m_selectedCamera=nullptr;
 
     HIDS m_camHandler=0;
-    INT		m_nSizeX;			// width of image
-    INT		m_nSizeY;			// height of image
-    INT		m_nPosX;			// left offset of image
-    INT		m_nPosY;			// right offset of image
+    INT		m_nSizeX=0;			// width of image
+    INT		m_nSizeY=0;			// height of image
+    INT		m_nPosX=0;			// left offset of image
+    INT		m_nPosY=0;			// right offset of image
     //    INT		m_lMemoryId;		// camera memory - buffer ID
     //    char*	m_pcImageMemory=nullptr;	// camera memory - pointer to buffer
 

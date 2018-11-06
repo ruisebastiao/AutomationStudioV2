@@ -19,8 +19,11 @@ QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 
 void QAutomationModule::loadModuleSettings(QString pathstr){
 
-    m_moduleConfigPath=pathstr;
+    m_moduleConfigPath=QDir(QCoreApplication::applicationDirPath()).filePath(pathstr);
 
+
+
+    //teste.relativeFilePath("")
 
     if(m_moduleConfigPath.isEmpty()) {
         LOG_WARNING() << "Empty path";

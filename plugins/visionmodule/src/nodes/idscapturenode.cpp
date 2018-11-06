@@ -233,14 +233,20 @@ void IDSCaptureNode::setCamera(bool open)
                 is_GetCameraInfo(m_camHandler, &CamInfo );
 
                 // setup image size
-                GetMaxImageSize(&m_nSizeX, &m_nSizeY);
+                //GetMaxImageSize(&m_nSizeX, &m_nSizeY);
+
 
                 IS_SIZE_2D imageSize;
-                imageSize.s32Width = m_nSizeX;
-                imageSize.s32Height = m_nSizeY;
+//                imageSize.s32Width = m_nSizeX;
+//                imageSize.s32Height = m_nSizeY;
 
+                is_AOI(m_camHandler, IS_AOI_IMAGE_GET_SIZE, (void*)&imageSize, sizeof(imageSize));
+
+                m_nSizeX=imageSize.s32Width;
+                m_nSizeY=imageSize.s32Height;
                 // remove when setting AOI in parameters
-                is_AOI(m_camHandler, IS_AOI_IMAGE_SET_SIZE, (void*)&imageSize, sizeof(imageSize));
+                //is_AOI(m_camHandler, IS_AOI_IMAGE_SET_SIZE, (void*)&imageSize, sizeof(imageSize));
+
 
 
 
