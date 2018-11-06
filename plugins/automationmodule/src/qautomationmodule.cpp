@@ -19,9 +19,13 @@ QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 
 void QAutomationModule::loadModuleSettings(QString pathstr){
 
-    m_moduleConfigPath=QDir(QCoreApplication::applicationDirPath()).filePath(pathstr);
+    QDir appdir=QDir(QCoreApplication::applicationDirPath());
 
+    appdir.makeAbsolute();
 
+    m_moduleConfigPath=appdir.cleanPath(pathstr);
+
+    LOG_INFO()<<"Module Settings:"<<m_moduleConfigPath;
 
     //teste.relativeFilePath("")
 
@@ -33,6 +37,7 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 
 
     QFile modulesettingsFile(m_moduleConfigPath);
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
     if(!modulesettingsFile.exists()) {
         LOG_WARNING() << "Does not exits: " <<m_moduleConfigPath;
 

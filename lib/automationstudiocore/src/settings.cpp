@@ -201,6 +201,9 @@ Settings::~Settings(){
 bool Settings::load()
 {
 
+
+
+
     LOG_INFO()<<"Loading setting from:"<<m_source;
 
     if(m_source.isEmpty()) {
@@ -342,7 +345,13 @@ void Settings::loadBaseSettings()
     QJsonObject settingsobject=settings.object();
 
 
-    setSource(settingsobject["location"].toString());
+
+    QDir appdir=QDir(QCoreApplication::applicationDirPath());
+
+    appdir.makeAbsolute();
+
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
+    setSource(appdir.cleanPath(settingsobject["location"].toString()));
 
 
     setBasefileLoaded(true);
