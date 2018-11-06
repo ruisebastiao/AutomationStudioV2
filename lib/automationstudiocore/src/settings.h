@@ -80,6 +80,8 @@ public:
     Q_INVOKABLE void updateBaseSettings();
     Q_INVOKABLE void loadBaseSettings();
     Q_INVOKABLE void initSocketIO();
+    Q_INVOKABLE void backupConfigs();
+
 
     QString source() const
     {

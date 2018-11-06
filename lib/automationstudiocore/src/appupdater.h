@@ -19,6 +19,9 @@ class AUTOMATIONSTUDIO_CORE_EXPORT AppUpdater: public QObject,public JsonSeriali
     Q_OBJECT
 
     Q_PROPERTY(QString downloadPath READ downloadPath WRITE setDownloadPath NOTIFY downloadPathChanged USER("serialize"))
+
+    Q_PROPERTY(QString uploadPath READ uploadPath WRITE setUploadPath NOTIFY uploadPathChanged USER("serialize"))
+
     Q_PROPERTY(QString serverUrl READ serverUrl WRITE setServerUrl NOTIFY serverUrlChanged USER("serialize"))
 
     Q_PROPERTY(QString updateStatus READ updateStatus WRITE setUpdateStatus NOTIFY updateStatusChanged)
@@ -37,6 +40,7 @@ public:
 private:
 
     QNetworkReply *currentDownload=nullptr;
+    QNetworkReply *currentUpload=nullptr;
     QFile m_output;
     QNetworkAccessManager manager;
 
@@ -60,6 +64,8 @@ private:
 
     bool m_compressing=false;
 
+
+    QString m_uploadPath="";
 
 public slots:
 
@@ -111,6 +117,12 @@ public:
         return m_compressing;
     }
 
+    void backupConfigs(QString appid);
+    QString uploadPath() const
+    {
+        return m_uploadPath;
+    }
+
 signals:
     void downloadPathChanged(QString downloadPath);
     void serverUrlChanged(QString serverUrl);
@@ -122,6 +134,8 @@ signals:
     void updateStatusChanged(QString updateStatus);
 
     void compressingChanged(bool compressing);
+
+    void uploadPathChanged(QString uploadPath);
 
 private slots:
 
@@ -155,6 +169,14 @@ public slots:
 
         m_compressing = compressing;
         emit compressingChanged(m_compressing);
+    }
+    void setUploadPath(QString uploadPath)
+    {
+        if (m_uploadPath == uploadPath)
+            return;
+
+        m_uploadPath = uploadPath;
+        emit uploadPathChanged(m_uploadPath);
     }
 };
 

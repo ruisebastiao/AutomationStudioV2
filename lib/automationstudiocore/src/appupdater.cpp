@@ -7,6 +7,7 @@
 #include <QtConcurrent>
 #include <QCoreApplication>
 #include <JlCompress.h>
+#include <QHttpMultiPart>
 
 #include "quazip.h"
 
@@ -42,15 +43,15 @@ AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 
     QFileInfoList appfileslist=appdir.entryInfoList(QDir::AllEntries|QDir::NoDotAndDotDot);
     foreach (QFileInfo toremove, appfileslist) {
-         if(toremove.isDir()){
-             QDir dirtoremove(toremove.filePath());
-             dirtoremove.removeRecursively();
-         }
-         else {
+        if(toremove.isDir()){
+            QDir dirtoremove(toremove.filePath());
+            dirtoremove.removeRecursively();
+        }
+        else {
 
-             QFile filetoremove(toremove.filePath());
-             filetoremove.remove();
-         }
+            QFile filetoremove(toremove.filePath());
+            filetoremove.remove();
+        }
     }
 #endif
 
@@ -307,4 +308,62 @@ void AppUpdater::downloadFinished()
 void AppUpdater::downloadReadyRead()
 {
     m_output.write(currentDownload->readAll());
+}
+
+
+
+void AppUpdater::backupConfigs(QString appid){
+
+    QDir configsdir(QCoreApplication::applicationDirPath());
+    configsdir.cdUp();
+    configsdir.cd("configs");
+
+    QDir::setCurrent(configsdir.path());
+
+
+
+    JlCompress configs_backup;
+
+    connect(&configs_backup,&JlCompress::fileCompressed,[&](QString file){
+        LOG_INFO("Backup config file:"+file);
+//        setUpdateStatus("Compressing:" file);
+    });
+
+    configs_backup.compressDir("configs.zip",configsdir.path());
+
+    QHttpMultiPart *multiPart=new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    QHttpPart filePart;
+
+
+
+    QFile* file=new QFile("configs.zip");
+    file->open(QIODevice::ReadOnly);
+
+    //add next lines
+    filePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/zip")); //or whatever type of your file.
+    filePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"configs\"; filename=\"configs.zip\""));
+    filePart.setHeader(QNetworkRequest::ContentLengthHeader, file->size());
+
+    //and your other code
+    filePart.setBodyDevice(file);
+    multiPart->append(filePart);
+    file->setParent(multiPart); // we cannot delete the file now, so delete it with the multiPart
+
+
+
+    QUrl url(m_serverUrl+"/"+m_uploadPath+"/"+appid);
+    QNetworkRequest request(url);
+
+    QNetworkAccessManager *networkManager= new QNetworkAccessManager;
+    currentUpload= networkManager->post(request, multiPart);
+    multiPart->setParent(currentUpload); // delete the multiPart with the reply
+
+//     connect(reply, SIGNAL(finished()),
+//              this, SLOT  (uploadDone()));
+
+//     connect(reply, SIGNAL(uploadProgress(qint64, qint64)),
+//              this, SLOT  (uploadProgress(qint64, qint64)));
+
+
+
 }

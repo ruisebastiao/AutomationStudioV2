@@ -21,7 +21,6 @@ RPI{
     DEFINES += RPI
 }
 
-
 unix{
 
 
@@ -110,6 +109,9 @@ linkLocalLib(automationstudiocore)
 
 
 message(Build id: $$BUILD_ID)
+
+message(App id: $$APP_ID)
+
 
 
 DO_PACKAGE{

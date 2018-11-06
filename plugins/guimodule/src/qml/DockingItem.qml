@@ -17,7 +17,7 @@ Pane{
 
 
     onLoadedmoduleChanged: {
-        loadedmodule.loadModuleSettings(appDir+loadedModuleConfig)
+        loadedmodule.loadModuleSettings(loadedModuleConfig)
     }
 
     property string loadedModuleInstance

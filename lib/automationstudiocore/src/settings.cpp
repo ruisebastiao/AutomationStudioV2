@@ -63,6 +63,7 @@ Settings::Settings(QObject *parent, QString appdir)
     setAppID(appid);
 
 
+
     m_sysInfo=QSysInfo::kernelType();
     m_cpuType=QSysInfo::currentCpuArchitecture();
 
@@ -255,6 +256,11 @@ bool Settings::load()
 
     read(m_settingsobject);
 
+    m_appUpdater->DeSerialize(m_settingsobject);
+    m_socketIO->DeSerialize(m_settingsobject);
+
+
+
     setLoaded(true);
 
     return true;
@@ -346,6 +352,12 @@ void Settings::initSocketIO()
     m_socketIO->init();
 }
 
+void Settings::backupConfigs()
+{
+
+    m_appUpdater->backupConfigs(appID());
+}
+
 void Settings::setBasefileLoaded(bool basefileLoaded)
 {
     if (m_basefileLoaded == basefileLoaded)
@@ -362,8 +374,6 @@ void Settings::read(QJsonObject &json)
 
 
 
-    m_appUpdater->DeSerialize(json);
-    m_socketIO->DeSerialize(json);
 
     m_projects->clear();
 

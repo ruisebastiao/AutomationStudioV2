@@ -39,7 +39,6 @@ linkLocalLib(CuteLogger)
 
 include($$PWD/../socket.io-client-cpp/socket.io-client-cpp-headers.pri)
 
-message(teste: $$OBJECTS_DIR)
 
 unix:QMAKE_POST_LINK += $$quote(rm settings.o$$escape_expand(\n\t))
 win32:CONFIG(release, debug|release): QMAKE_POST_LINK += $$quote(del release\settings.obj$$escape_expand(\n\t))

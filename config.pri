@@ -1,4 +1,35 @@
+prefix_sys=
 
+if(isEmpty(SYSTEM)){
+   error("No system defined")
+}
+else{
+    for(a, SYSTEM){
+        contains( a, VISION ) {
+                CONFIG+=SYSTEM_VISION
+                prefix_sys+=VISION
+        }
+        contains( a, BSVALIDATION) {
+            CONFIG+=SYSTEM_BSVALIDATION
+                prefix_sys+=BSVALIDATION
+
+         }
+        contains( a, EPSON) {
+            CONFIG+=SYSTEM_EPSON
+                prefix_sys+=EPSON
+
+         }
+
+
+    }
+}
+
+
+APP_ID=$$join(prefix_sys,_,,)
+
+
+SYSTEM_EPSON{
+}
 
 SYSTEM_BSVALIDATION{
 
@@ -35,21 +66,7 @@ RPI{
     }
 }
 
-
-
-SYSTEM_BSVALIDATION{
-    prefix_sys=BSVALIDATION
-}
-
-SYSTEM_VISION{
-    prefix_sys=VISION
-}
-
-
-
-
-
-DEFINES*=APP_ID="\\\"$$prefix_sys"\\\"
+DEFINES*=APP_ID="\\\"$$APP_ID"\\\"
 
 
 win32:{
@@ -72,5 +89,8 @@ BUILD_ID=$${prefix_os}$${TARGET_ABI}$${prefix_platform}
 DEFINES*=BUILD_ID="\\\"$$BUILD_ID"\\\"
 
 
+#DEFINES*=BUILD_ID=asd
+
 
 include(versioning/version.pri)
+

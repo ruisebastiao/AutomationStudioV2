@@ -147,6 +147,7 @@ FlowNodeItem{
                             text:"Acquisition buffers:"
                         }
                     }
+
                     Item{
                         Layout.fillHeight:true;
 
