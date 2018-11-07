@@ -24,6 +24,7 @@ public:
     };
 
     ProjectsListModel(QObject *parent = nullptr);
+    ~ProjectsListModel();
 
     // QAbstractItemModel interface
 public:

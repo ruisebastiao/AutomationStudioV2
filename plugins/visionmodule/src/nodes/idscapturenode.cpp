@@ -41,6 +41,7 @@ IDSCaptureNode::IDSCaptureNode()
 
 IDSCaptureNode::~IDSCaptureNode()
 {
+    qDebug()<<"Destroing";
     closeCamera();
     m_checkCamerasTimer->stop();
     watcher.waitForFinished();
@@ -237,8 +238,8 @@ void IDSCaptureNode::setCamera(bool open)
 
 
                 IS_SIZE_2D imageSize;
-//                imageSize.s32Width = m_nSizeX;
-//                imageSize.s32Height = m_nSizeY;
+                //                imageSize.s32Width = m_nSizeX;
+                //                imageSize.s32Height = m_nSizeY;
 
                 is_AOI(m_camHandler, IS_AOI_IMAGE_GET_SIZE, (void*)&imageSize, sizeof(imageSize));
 
@@ -472,6 +473,12 @@ void IDSCaptureNode::closeCamera(){
     }
 
     setContinuousCapture(false);
+
+    as::Utilities::NonBlockingExec([&](){
+        while(continuousCapture()==true){
+            QThread::msleep(10);
+        }
+    });
 
 
 

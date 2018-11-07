@@ -53,6 +53,9 @@ Item{
         navigable: true
         clip: true
 
+        grid: null
+        lockGridUpdate:true
+
 //        grid:null
 
         resizeHandlerColor: Material.accent

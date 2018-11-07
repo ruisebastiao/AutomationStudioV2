@@ -116,7 +116,8 @@ Item {
                             navigable: true
                             clip: true
 
-
+                            lockGridUpdate:true
+                            grid: null
                             property real lastCenterX
 
                             property real lastCenterY

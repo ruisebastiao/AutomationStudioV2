@@ -22,6 +22,8 @@ public:
 
     ModuleListModel();
 
+    ~ModuleListModel();
+
     // QAbstractItemModel interface
 public:
     int rowCount(const QModelIndex &parent) const;

@@ -195,7 +195,7 @@ void Settings::registerApp(){
 }
 
 Settings::~Settings(){
-
+    m_projects->deleteLater();
 }
 
 bool Settings::load()

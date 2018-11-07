@@ -20,6 +20,9 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Project : public QObject, public JsonSerializ
 public:
     explicit Project(QObject *parent = nullptr);
     Project(const Project& other){ }
+
+    virtual ~Project() override;
+
     QString name() const
     {
         return m_name;

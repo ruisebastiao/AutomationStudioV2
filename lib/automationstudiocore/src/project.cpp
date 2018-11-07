@@ -10,6 +10,11 @@ Project::Project(QObject *parent):QObject(parent)
 
 }
 
+Project::~Project()
+{
+    m_modules->deleteLater();
+}
+
 void Project::Serialize(QJsonObject &json)
 {
     JsonSerializable::Serialize(json,this);

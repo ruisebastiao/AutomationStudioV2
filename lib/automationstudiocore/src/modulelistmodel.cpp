@@ -5,6 +5,12 @@ ModuleListModel::ModuleListModel()
 
 }
 
+ModuleListModel::~ModuleListModel()
+{
+
+    clear();
+}
+
 int ModuleListModel::rowCount(const QModelIndex &parent) const
 {
     return m_modules.length();
@@ -53,11 +59,22 @@ void ModuleListModel::AddModule(Module *module)
 
 void ModuleListModel::clear()
 {
-    beginInsertRows(QModelIndex(), rowCount(QModelIndex()), rowCount(QModelIndex()));   // kindly provided by superclass
 
-    m_modules.clear();
+    if(m_modules.length()>0){
 
-    endInsertRows();
+        beginRemoveRows(QModelIndex(), 0,m_modules.length()-1);   // kindly provided by superclass
+
+        foreach (Module* module, m_modules) {
+            module->deleteLater();
+        }
+
+        m_modules.clear();
+
+        endRemoveRows();
+
+    }
+
+
 }
 
 QHash<int, QByteArray> ModuleListModel::roleNames() const
@@ -72,7 +89,7 @@ QHash<int, QByteArray> ModuleListModel::roleNames() const
 
 Module *ModuleListModel::getItemAt(int index)
 {
-   return m_modules.at(index);
+    return m_modules.at(index);
 }
 
 int ModuleListModel::count()

@@ -38,6 +38,14 @@ Item {
                         root.modulesloaded=true
                     }
                 }
+
+                Component.onDestruction: {
+                    console.log("Module removed:"+module)
+                }
+
+                Component.onCompleted: {
+                    console.log("New module:"+module)
+                }
             }
         }
 

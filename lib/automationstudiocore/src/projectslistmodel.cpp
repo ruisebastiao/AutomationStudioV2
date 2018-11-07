@@ -1,8 +1,15 @@
 #include "projectslistmodel.h"
-
+#include <qdebug.h>
 namespace as{
 ProjectsListModel::ProjectsListModel(QObject *parent)
 {
+
+}
+
+ProjectsListModel::~ProjectsListModel()
+{
+   clear();
+   qDebug()<<"Clearing projects";
 
 }
 
@@ -16,11 +23,21 @@ void ProjectsListModel::AddProject(Project* project){
 
 
 void ProjectsListModel::clear(){
-    beginInsertRows(QModelIndex(), rowCount(QModelIndex()), rowCount(QModelIndex()));   // kindly provided by superclass
 
-    m_projects.clear();
+    if(m_projects.length()>0){
 
-    endInsertRows();
+        beginRemoveRows(QModelIndex(), 0,m_projects.length()-1);   // kindly provided by superclass
+
+
+        foreach (Project* project, m_projects) {
+            delete project;
+        }
+
+        m_projects.clear();
+        endRemoveRows();
+    }
+
+
 }
 
 

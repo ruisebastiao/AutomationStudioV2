@@ -193,6 +193,7 @@ FlowNodeItem{
 
                         property bool doFit: false
 
+                        lockGridUpdate:true
 
                         resizeHandlerColor:"transparent"
 
@@ -202,6 +203,8 @@ FlowNodeItem{
 
                         anchors.fill: parent
                         containerSizeLocked:true
+
+                        grid: null
 
                         graph:visionGraph
 
