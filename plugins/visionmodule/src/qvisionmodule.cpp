@@ -1,6 +1,7 @@
 #include "qvisionmodule.h"
 
 #include <nodes/filecapturenode.h>
+#include <nodes/framebuffernode.h>
 #include <nodes/idscapturenode.h>
 #include <nodes/visionsystemnode.h>
 
@@ -39,6 +40,9 @@ FlowNode *QVisionModule::readNode(qan::GraphView *graphView, QJsonObject nodeobj
         }
         else if(nodeobject["type"]=="VisionSystemNode"){
             newnode=graphView->getGraph()->insertNode<VisionSystemNode>(nullptr);
+        }
+        else if(nodeobject["type"]=="FrameBufferNode"){
+            newnode=graphView->getGraph()->insertNode<FrameBufferNode>(nullptr);
         }
         else{
             LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));

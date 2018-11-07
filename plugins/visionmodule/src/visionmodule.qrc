@@ -16,5 +16,6 @@
         <file alias="Images/UnLock">images/lock-open-outline.png</file>
         <file alias="Images/Lock">images/lock-outline.png</file>
         <file alias="Nodes/Cv/CannyEdgesNodeItem.qml">qml/nodes/cv/CannyEdgesNodeItem.qml</file>
+        <file alias="Nodes/FrameBufferNodeItem.qml">Nodes/FrameBufferNodeItem.qml</file>
     </qresource>
 </RCC>

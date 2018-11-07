@@ -66,6 +66,7 @@ public:
         ProcessingShapesNode,
         CannyEdgesNode,
         WebCamCaptureNode,
+        FrameBufferNode,
         ModulePropertyBind
 
     };
