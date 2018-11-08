@@ -6,6 +6,20 @@ FrameBufferNode::FrameBufferNode()
     m_frameBuffers= new FrameBufferListModel();
 }
 
+void FrameBufferNode::processCurrent()
+{
+    QMat* currentmat= m_frameBuffers->getItemAt(m_readIndex);
+
+    m_fullBufferReaded=true;
+
+    if(currentmat!=nullptr){
+        LOG_INFO()<<"Processing frame "<<currentmat<< "at index "<<m_readIndex;
+
+        (currentmat->cvMat())->copyTo((*m_frameSink->cvMat()));
+        emit frameSinkChanged(m_frameSink);
+    }
+}
+
 
 QQmlComponent *FrameBufferNode::delegate(QQmlEngine &engine)noexcept
 {
@@ -99,7 +113,7 @@ void FrameBufferNode::setReadNextFrame(bool readNextFrame)
         QMat* currentmat= m_frameBuffers->getItemAt(m_readIndex);
 
 
-        if(currentmat!=nullptr){
+        if(currentmat!=nullptr && m_fullBufferReaded==false){
             LOG_INFO()<<"Reading frame "<<currentmat<< "at index "<<m_readIndex;
 
             (currentmat->cvMat())->copyTo((*m_frameSink->cvMat()));

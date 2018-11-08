@@ -124,7 +124,7 @@ void IDSCaptureNode::GetFrames(){
         //linux code goes here
 #elif _WIN32
         // windows code goes here
-        DWORD dwRet = WaitForSingleObject(m_hEvent, 2000);
+        DWORD dwRet = WaitForSingleObject(m_hEvent, 5000);
 
         //        dwRet = WaitForMultipleObjects(m_EvMax,m_hEv, FALSE ,INFINITE );
 

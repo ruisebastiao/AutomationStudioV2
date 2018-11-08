@@ -38,14 +38,38 @@ void CannyEdgesNode::doProcess()
 
 
     cv::GaussianBlur(temp, temp, cv::Size(7, 7), 0);
-    cv::Canny(temp, temp,this->thresholdlow(), this->thresholdhigh(),5,true );
+    cv::Canny(temp, temp,this->thresholdlow(), this->thresholdhigh() );
 
     //        m_cannyContours.clear();
     //        vector<Vec4i> hierarchy;
     //        findContours(*m_output->cvMat(), m_cannyContours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE, Point(0,0) );
 
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    findContours( temp, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE );
+    Mat drawing = Mat::zeros( temp.size(), CV_8UC3 );
 
-    temp.copyTo(*m_output->cvMat());
+    std::vector<std::vector<cv::Point>> m_filteredContours;
+
+    for(int i = 0; i < contours.size(); i++)
+    {
+
+        vector<Point> contour=contours[i];
+        //        vector<Point> approx;
+
+        //        approxPolyDP(countour,approx,arcLength(Mat(countour), true)*0.02,true);
+
+        double contourlength=arcLength(contour,true);
+        if(contourlength>500 && 10000){
+            m_filteredContours.push_back(contour);
+        }
+
+    }
+
+   drawContours(drawing, m_filteredContours, -1, cv::Scalar(0,255,0), 1);
+
+
+    drawing.copyTo(*m_output->cvMat());
 
     emit outputChanged(m_output);
 

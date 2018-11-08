@@ -108,7 +108,7 @@ public:
         }
         else if(newsize<buffers_size){
             for (int var = 0; var <buffers_size-newsize; ++var) {
-                PushFrameBuffer();
+                PopFrameBuffer();
             }
         }
     }
@@ -184,6 +184,7 @@ private:
     bool m_autoIncrementReadIndex=false;
 
     bool m_readNextFrame=false;
+    bool m_fullBufferReaded=false;
 
     FlowNodePort* m_readNextFramePort=nullptr;
 
@@ -193,6 +194,8 @@ private:
 
 public:
     FrameBufferNode();
+
+    Q_INVOKABLE void processCurrent();
 
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
@@ -379,6 +382,7 @@ public slots:
         m_readIndex = readIndex;
 
         if(m_readIndex>=m_numBuffers){
+            m_fullBufferReaded=true;
             m_readIndex=0;
         }
 
@@ -419,6 +423,9 @@ public slots:
 
 
         m_bufferFull = bufferFull;
+        if(m_bufferFull){
+            m_fullBufferReaded=false;
+        }
         emit bufferFullChanged(m_bufferFull);
     }
 

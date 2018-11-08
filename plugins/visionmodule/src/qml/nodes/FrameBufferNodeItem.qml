@@ -187,6 +187,24 @@ FlowNodeItem{
                             }
                         }
                     }
+                    Item{
+                        Layout.fillHeight:true;
+
+                        Layout.fillWidth: true
+
+                        Button{
+                            visible: root.node.editMode
+                            anchors.fill: parent
+                            text: "Process"
+
+                            onPressed: {
+                                root.node.processCurrent();
+                            }
+
+                        }
+                    }
+
+
 
 
 

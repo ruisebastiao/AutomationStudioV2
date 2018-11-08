@@ -53,7 +53,7 @@ void ProcessingContoursNode::doProcess()
     Mat drawing = Mat::zeros( m_input->cvMat()->size(), CV_8UC3 );
 
     //CV_RETR_LIST
-    findContours(*m_input->cvMat(),contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
+    findContours(*m_input->cvMat(),contours, RETR_LIST, CHAIN_APPROX_NONE);
 
     //   drawContours(drawing, contours, -1, cv::Scalar(0,255,0), 1);
 

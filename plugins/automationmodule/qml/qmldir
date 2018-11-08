@@ -9,3 +9,4 @@ BarcodeReaderNodeItem                   1.0 qrc:///Nodes/BarcodeReaderNodeItem.q
 StringNodeItem                   	1.0 qrc:///Nodes/StringNodeItem.qml
 ProxyInputNodeItem                   	1.0 qrc:///Nodes/ProxyInputNodeItem.qml
 ModulePropertyBindNodeItem             	1.0 qrc:///Nodes/ModulePropertyBindNodeItem.qml
+MultiplexedInputNodeItem             	1.0 qrc:///Nodes/MultiplexedInputNodeItem.qml

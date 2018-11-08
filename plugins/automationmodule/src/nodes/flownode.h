@@ -67,7 +67,8 @@ public:
         CannyEdgesNode,
         WebCamCaptureNode,
         FrameBufferNode,
-        ModulePropertyBind
+        ModulePropertyBind,
+        MultiplexedInputNode
 
     };
     Q_ENUM(Type)

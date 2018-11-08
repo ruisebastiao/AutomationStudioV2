@@ -5,6 +5,7 @@
 #include <nodes/stringnode.h>
 #include <nodes/modulepropertybind.h>
 #include <nodes/proxyinputnode.h>
+#include <nodes/multiplexedinputnode.h>
 #include <QtConcurrent>
 
 
@@ -131,9 +132,13 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
     else if(nodeobject["type"]=="ModulePropertyBind"){
         newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
         ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
-        if(modulePropertyBindNode){
+        /* ??? */ if(modulePropertyBindNode){
             modulePropertyBindNode->setModule(this);
         }
+    }
+    else if(nodeobject["type"]=="MultiplexedInputNode"){
+        newnode=graphView->getGraph()->insertNode<MultiplexedInputNode>(nullptr);
+
     }
 
 

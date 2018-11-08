@@ -22,6 +22,8 @@ class VisionSystemNode : public FlowNode
     Q_PROPERTY(bool frameProcessed READ frameProcessed WRITE setFrameProcessed NOTIFY frameProcessedChanged )
     Q_PROPERTY(FlowNodePort* frameProcessedPort READ frameProcessedPort WRITE setFrameProcessedPort NOTIFY frameProcessedPortChanged USER("serialize"))
 
+    Q_PROPERTY(bool processOnNewFrame READ processOnNewFrame WRITE setProcessOnNewFrame NOTIFY processOnNewFrameChanged USER("serialize"))
+
 
     Q_PROPERTY(qan::GraphView* visionGraphView READ visionGraphView WRITE setVisionGraphView NOTIFY visionGraphViewChanged)
 
@@ -62,6 +64,10 @@ public slots:
 
         m_frameSource = frameSource;
         emit frameSourceChanged(m_frameSource);
+
+        if(m_frameSource && m_frameSource->cvMat()->empty()==false && processOnNewFrame()){
+            setProcessFrame(true);
+        }
 
     }
 
@@ -147,6 +153,15 @@ public slots:
         emit frameProcessedPortChanged(m_frameProcessedPort);
     }
 
+    void setProcessOnNewFrame(bool processOnNewFrame)
+    {
+        if (m_processOnNewFrame == processOnNewFrame)
+            return;
+
+        m_processOnNewFrame = processOnNewFrame;
+        emit processOnNewFrameChanged(m_processOnNewFrame);
+    }
+
 public:
     void Serialize(QJsonObject &json);
     void DeSerialize(QJsonObject &json);
@@ -171,6 +186,11 @@ public:
         return m_frameProcessedPort;
     }
 
+    bool processOnNewFrame() const
+    {
+        return m_processOnNewFrame;
+    }
+
 signals:
 
     void frameSourceChanged(QMat* frameSource);
@@ -188,6 +208,8 @@ signals:
     void processFramePortChanged(FlowNodePort* processFramePort);
 
     void frameProcessedPortChanged(FlowNodePort* frameProcessedPort);
+
+    void processOnNewFrameChanged(bool processOnNewFrame);
 
 private:
 
@@ -207,6 +229,7 @@ private:
     FlowNodePort* m_frameSourcePort=nullptr;
     FlowNodePort* m_processFramePort=nullptr;
     FlowNodePort* m_frameProcessedPort=nullptr;
+    bool m_processOnNewFrame=false;
 };
 
 #endif // VISIONSYSTEMNODE_H

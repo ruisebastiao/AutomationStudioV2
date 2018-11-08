@@ -15,7 +15,8 @@ HEADERS += \
     $$PWD/nodes/webservicenode.h \
     $$PWD/nodes/stringnode.h \
     $$PWD/nodes/modulepropertybind.h \
-    $$PWD/nodes/proxyinputnode.h
+    $$PWD/nodes/proxyinputnode.h \
+    $$PWD/nodes/multiplexedinputnode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -31,5 +32,6 @@ SOURCES += \
     $$PWD/nodes/webservicenode.cpp \
     $$PWD/nodes/stringnode.cpp \
     $$PWD/nodes/modulepropertybind.cpp \
-    $$PWD/nodes/proxyinputnode.cpp
+    $$PWD/nodes/proxyinputnode.cpp \
+    $$PWD/nodes/multiplexedinputnode.cpp
 

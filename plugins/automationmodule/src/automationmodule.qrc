@@ -10,5 +10,6 @@
         <file alias="Nodes/WebServiceNodeItem.qml">qml/nodes/WebServiceNodeItem.qml</file>
         <file alias="Edges/SelectableEdgeItem.qml">qml/edges/SelectableEdgeItem.qml</file>
         <file alias="Nodes/ModulePropertyBindNodeItem.qml">qml/nodes/ModulePropertyBindNodeItem.qml</file>
+        <file alias="Nodes/MultiplexedInputNodeItem.qml">qml/nodes/MultiplexedInputNodeItem.qml</file>
     </qresource>
 </RCC>

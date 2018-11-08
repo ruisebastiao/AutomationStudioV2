@@ -1,0 +1,33 @@
+{
+    "downloadPath": "api/apps/download/84c0d43f22c1124550efdb4ffa24f513",
+    "language": "pt",
+    "projects": [
+        {
+            "isDefault": true,
+            "modules": [
+                {
+                    "moduleInstance": "VisionModuleItem.qml",
+                    "settingFile": "./vision.json",
+                    "type": "Vision"
+                }
+            ],
+            "name": "Vision"
+        }
+    ],
+    "serverUrl": "http://keyeu-linux-svr:9005",
+    "uploadPath": "",
+    "users": [
+        {
+            "default": true,
+            "name": "Administrator",
+            "pin": "4321",
+            "role": "AdminRole"
+        },
+        {
+            "default": false,
+            "name": "Production User",
+            "pin": "0000",
+            "role": "ProductionRole"
+        }
+    ]
+}
