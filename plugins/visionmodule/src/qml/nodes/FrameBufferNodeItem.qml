@@ -23,7 +23,7 @@ FlowNodeItem{
             anchors.fill: parent
 
             Item{
-                Layout.preferredHeight:  80
+                Layout.preferredHeight:  50
                 Layout.fillWidth: true
                 RowLayout{
 
@@ -69,12 +69,139 @@ FlowNodeItem{
 
             }
             Item{
+                Layout.preferredHeight:  50
+                Layout.fillWidth: true
+                RowLayout{
+
+
+                    anchors.fill: parent
+
+
+                    Rectangle{
+
+                        Layout.fillHeight:true;
+                        Layout.preferredWidth: wid.paintedWidth
+                        Label{
+                            id:wid
+                            anchors.fill: parent
+                            verticalAlignment: Text.AlignVCenter
+
+                            text:"Write Index:"
+                        }
+                    }
+
+                    Item{
+                        Layout.fillHeight:true;
+
+                        Layout.fillWidth: true;
+
+                        SpinBox{
+                            anchors.fill: parent
+                            from:0
+                            to:root.node.numBuffers-1;
+                            value: root.node.writeIndex;
+                            onValueChanged: {
+                                root.node.writeIndex=value
+                            }
+
+                            enabled: root.node.editMode
+                            //editable: false
+
+                        }
+
+                    }
+                    Item{
+                        Layout.fillHeight:true;
+
+                        Layout.fillWidth: true
+
+                        CheckBox{
+                            id:cid1
+                            anchors.fill: parent
+                            text: "Auto increment"
+                            checked: root.node.autoIncrementWriteIndex
+                            onCheckedChanged: {
+                                root.node.autoIncrementWriteIndex=checked
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+
+            Item{
+                Layout.preferredHeight:  50
+                Layout.fillWidth: true
+                RowLayout{
+
+
+                    anchors.fill: parent
+
+
+                    Rectangle{
+
+                        Layout.fillHeight:true;
+                        Layout.preferredWidth: lid2.paintedWidth
+                        Label{
+                            id:lid2
+                            anchors.fill: parent
+                            verticalAlignment: Text.AlignVCenter
+
+                            text:"Read Index:"
+                        }
+                    }
+
+                    Item{
+                        Layout.fillHeight:true;
+
+                        Layout.fillWidth: true;
+
+                        SpinBox{
+                            anchors.fill: parent
+                            from:0
+                            to:root.node.numBuffers-1;
+                            value: root.node.readIndex;
+                            onValueChanged: {
+                                root.node.readIndex=value
+                            }
+
+                            enabled: root.node.editMode
+
+                        }
+
+                    }
+                    Item{
+                        Layout.fillHeight:true;
+
+                        Layout.fillWidth: true
+
+                        CheckBox{
+                            id:cid2
+                            anchors.fill: parent
+                            text: "Auto increment"
+                            checked: root.node.autoIncrementReadIndex
+                            onCheckedChanged: {
+                                root.node.autoIncrementReadIndex=checked
+                            }
+                        }
+                    }
+
+
+
+                }
+
+            }
+
+
+            Item{
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Flickable {
                     id: f
                     anchors.fill: parent
-//                    boundsBehavior: Flickable.OvershootBounds
+                    //                    boundsBehavior: Flickable.OvershootBounds
                     contentHeight: iContainer.height;
                     contentWidth: iContainer.width;
                     clip: true
@@ -83,7 +210,7 @@ FlowNodeItem{
                         width: f.width
                         Repeater{
 
-                            model:root.node.numBuffers
+                            model:root.node.frameBuffers
 
                             Item{
                                 width: parent.width
@@ -94,9 +221,68 @@ FlowNodeItem{
                                     anchors.margins: 15
 
 
-                                    border.width: 2
-                                    color: "gray";
-                                    opacity: 0.2
+                                    Rectangle{
+                                        anchors.fill: parent
+
+                                        QMatView{
+
+                                            id:viewer
+                                            anchors.margins: 5
+                                            anchors.fill: parent
+                                            mat:itemMat
+
+                                        }
+
+
+                                        Rectangle{
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            anchors.left: parent.left
+                                            height: root.node.writeIndex==index?parent.height-5:0
+                                            width: 5
+                                            radius: width*0.5
+                                            Behavior on height {
+                                                NumberAnimation { duration: 150 }
+                                            }
+
+
+                                            opacity: root.node.writeIndex==index?0.75:0
+                                            Behavior on opacity {
+                                                NumberAnimation { duration: 50 }
+                                            }
+
+
+                                            color: Material.color(Material.Red)
+                                        }
+
+
+                                        Rectangle{
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            anchors.right: parent.right
+                                            height: root.node.readIndex==index?parent.height-5:0
+                                            width: 5
+                                            radius: width*0.5
+                                            Behavior on height {
+                                                NumberAnimation { duration: 150 }
+                                            }
+
+
+                                            opacity: root.node.readIndex==index?0.75:0
+                                            Behavior on opacity {
+                                                NumberAnimation { duration: 50 }
+                                            }
+
+
+                                            color: Material.color(Material.Green)
+                                        }
+
+
+                                    }
+
+
+
+
+
+
                                 }
 
 

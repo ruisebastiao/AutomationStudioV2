@@ -43,6 +43,7 @@ IDSCaptureNode::~IDSCaptureNode()
 {
     qDebug()<<"Destroing";
     closeCamera();
+    frame_processed.wakeAll();
     m_checkCamerasTimer->stop();
     watcher.waitForFinished();
 }
@@ -143,13 +144,13 @@ void IDSCaptureNode::GetFrames(){
             /* event signalled */
 
             is_LockSeqBuf(m_camHandler,m_nSeqNumId[m_frameBufferCount], m_pcSeqImgMem[m_frameBufferCount]);
-            LOG_INFO()<<"Frame stored @ buffer index:"<<m_frameBufferCount++;
+            LOG_INFO()<<"IDS Frame stored @ buffer index:"<<m_frameBufferCount++;
 
             if( m_numBuffers == m_frameBufferCount )
             {
 
                 m_frameBufferCount=0;
-                LOG_INFO("Buffer full, lock and processing");
+
 
 
                 // find the latest image buffer
@@ -164,13 +165,13 @@ void IDSCaptureNode::GetFrames(){
 
 
 
-                    memcpy(frameSink()->cvMat()->ptr(), pcMemLast,m_nSizeX * m_nSizeY);
+                    memcpy(frameSink()->cvMat()->ptr(), pcMemLast,sizeX() * sizeY());
                     is_UnlockSeqBuf( m_camHandler, m_nSeqNumId[i], m_pcSeqImgMem[i] );
 
                     emit frameSinkChanged(frameSink());
                     setFrameCaptured(true);
 
-                    frame_processed.wait(&mutex);
+                   // frame_processed.wait(&mutex);
                     setFrameCaptured(false);
                     mutex.unlock();
 
@@ -243,8 +244,8 @@ void IDSCaptureNode::setCamera(bool open)
 
                 is_AOI(m_camHandler, IS_AOI_IMAGE_GET_SIZE, (void*)&imageSize, sizeof(imageSize));
 
-                m_nSizeX=imageSize.s32Width;
-                m_nSizeY=imageSize.s32Height;
+                setSizeX(imageSize.s32Width);
+                setSizeY(imageSize.s32Height);
                 // remove when setting AOI in parameters
                 //is_AOI(m_camHandler, IS_AOI_IMAGE_SET_SIZE, (void*)&imageSize, sizeof(imageSize));
 
@@ -254,8 +255,8 @@ void IDSCaptureNode::setCamera(bool open)
                 INT nAllocSizeX = 0;
                 INT nAllocSizeY = 0;
 
-                m_nSizeX = nAllocSizeX = imageSize.s32Width;
-                m_nSizeY = nAllocSizeY = imageSize.s32Height;
+                nAllocSizeX = imageSize.s32Width;
+                nAllocSizeY = imageSize.s32Height;
 
                 UINT nAbsPosX = 0;
                 UINT nAbsPosY = 0;
@@ -323,8 +324,11 @@ void IDSCaptureNode::setCamera(bool open)
 
 
 
-                cv::Mat* frameMat=new cv::Mat(m_nSizeY,m_nSizeX, CV_8UC1);
-                setFrameSink(new QMat(frameMat));
+                //cv::Mat* frameMat=new cv::Mat(m_nSizeY,m_nSizeX, CV_8UC1);
+               // setFrameSink(new QMat(frameMat));
+
+                cv::Mat* frameMat=new cv::Mat(sizeY(),sizeX(), CV_8UC1);
+                m_frameSink=new QMat(frameMat);
 
                 //setFrameSink(new IDSFrame(m_pcImageMemory,m_nSizeX,m_nSizeY));
 

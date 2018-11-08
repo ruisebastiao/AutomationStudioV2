@@ -170,7 +170,7 @@ void IDSCameraListModel::MergeCameras(UEYE_CAMERA_LIST *idscameralist)
 void IDSCameraListModel::clear()
 
 {
-    beginRemoveRows(QModelIndex(), rowCount(QModelIndex()), rowCount(QModelIndex()));   // kindly provided by superclass
+    beginRemoveRows(QModelIndex(),0, rowCount(QModelIndex())-1);   // kindly provided by superclass
 
     m_IDSCameras.clear();
 

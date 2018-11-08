@@ -20,6 +20,9 @@ class CaptureNode : public FlowNode
     Q_PROPERTY(QMat* frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged)
     Q_PROPERTY(FlowNodePort* frameSinkPort READ frameSinkPort WRITE setFrameSinkPort NOTIFY frameSinkPortChanged USER("serialize"))
 
+    Q_PROPERTY(int sizeX READ sizeX WRITE setSizeX NOTIFY sizeXChanged)
+    Q_PROPERTY(int sizeY READ sizeY WRITE setSizeY NOTIFY sizeYChanged)
+
 
 public:
     CaptureNode();
@@ -38,6 +41,7 @@ public:
 
     QMat* frameSink() const
     {
+
         return m_frameSink;
     }
 
@@ -54,6 +58,16 @@ public:
     FlowNodePort* newFramePort() const
     {
         return m_newFramePort;
+    }
+
+    int sizeX() const
+    {
+        return m_sizeX;
+    }
+
+    int sizeY() const
+    {
+        return m_sizeY;
     }
 
 public slots:
@@ -93,6 +107,24 @@ public slots:
         emit newFramePortChanged(m_newFramePort);
     }
 
+    void setSizeX(int sizeX)
+    {
+        if (m_sizeX == sizeX)
+            return;
+
+        m_sizeX = sizeX;
+        emit sizeXChanged(m_sizeX);
+    }
+
+    void setSizeY(int sizeY)
+    {
+        if (m_sizeY == sizeY)
+            return;
+
+        m_sizeY = sizeY;
+        emit sizeYChanged(m_sizeY);
+    }
+
 signals:
 
     void newFrameChanged(bool newFrame);
@@ -109,18 +141,27 @@ signals:
 
     void newFramePortChanged(FlowNodePort* newFramePort);
 
+    void sizeXChanged(int sizeX);
+
+    void sizeYChanged(int sizeY);
+
 private:
     bool m_newFrame=false;
 
     bool m_frameCaptured=false;
-    QMat* m_frameSink=nullptr;
+
     FlowNodePort* m_frameCapturedPort=nullptr;
     FlowNodePort* m_frameSinkPort=nullptr;
 
     // JsonSerializable interface
     FlowNodePort* m_newFramePort=nullptr;
 
+    int m_sizeX=0;
+
+    int m_sizeY=0;
+
 protected:
+    QMat* m_frameSink=nullptr;
     virtual void DeSerialize(QJsonObject &json) override;
 };
 
