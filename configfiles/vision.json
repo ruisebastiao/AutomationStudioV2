@@ -1,8 +1,8 @@
 {
     "graphview": {
-        "x": 49.90665788690262,
-        "y": -19.132806314335767,
-        "zoom": 0.48264333063448744
+        "x": 540.3947852467642,
+        "y": 7.14734935432989,
+        "zoom": 0.4756445369522602
     },
     "moduleID": "vision_1",
     "name": "Vision System 1",
@@ -11,6 +11,7 @@
             "cameraID": 1,
             "editHeight": 250,
             "editWidth": 323,
+            "externalTrigger": true,
             "frameCapturedPort": {
                 "connectedTo": [
                 ],
@@ -21,6 +22,11 @@
             },
             "frameSinkPort": {
                 "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 13,
+                        "portID": "frameSource"
+                    }
                 ],
                 "hidden": false,
                 "portLabel": "Frame Sink",
@@ -36,10 +42,11 @@
                 "showinlabel": false,
                 "type": "In"
             },
-            "nodeX": -403.8783992333562,
-            "nodeY": 232.27893299913126,
-            "normalHeight": 220,
-            "normalWidth": 357,
+            "nodeX": -486.76975333087,
+            "nodeY": 1171.9440278745594,
+            "normalHeight": 293,
+            "normalWidth": 370,
+            "numBuffers": 1,
             "type": "IDSCaptureNode"
         },
         {
@@ -54,11 +61,6 @@
             },
             "frameCapturedPort": {
                 "connectedTo": [
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "processFrame"
-                    }
                 ],
                 "hidden": false,
                 "portLabel": "Frame Captured",
@@ -67,11 +69,6 @@
             },
             "frameSinkPort": {
                 "connectedTo": [
-                    {
-                        "hidden": false,
-                        "nodeID": 2,
-                        "portID": "frameSource"
-                    }
                 ],
                 "hidden": false,
                 "portLabel": "Frame Sink",
@@ -87,8 +84,8 @@
                 "showinlabel": false,
                 "type": "In"
             },
-            "nodeX": -457.06286042123645,
-            "nodeY": 723.1252901283102,
+            "nodeX": -470.37984463377416,
+            "nodeY": 28.73968476026721,
             "normalHeight": 214,
             "normalWidth": 608,
             "type": "FileCaptureNode"
@@ -98,6 +95,11 @@
             "editWidth": 3157,
             "frameProcessedPort": {
                 "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 15,
+                        "portID": "input"
+                    }
                 ],
                 "hidden": false,
                 "portLabel": "Frame Processed",
@@ -113,8 +115,8 @@
             "id": 2,
             "locked": false,
             "name": "Vision System Node",
-            "nodeX": 369.29280247688683,
-            "nodeY": 114.64170869031506,
+            "nodeX": 820.5187896143661,
+            "nodeY": 5.122020683525662,
             "normalHeight": 1003,
             "normalWidth": 1367,
             "processFramePort": {
@@ -128,18 +130,18 @@
                     "editHeight": 800,
                     "editWidth": 800,
                     "id": 3,
-                    "locked": true,
+                    "locked": false,
                     "name": "ROI 1",
-                    "nodeX": 1066.9200663531549,
-                    "nodeY": 462.06081795556156,
-                    "normalHeight": 800,
-                    "normalWidth": 800,
+                    "nodeX": 29.974806565334575,
+                    "nodeY": 36.72565114959866,
+                    "normalHeight": 1483,
+                    "normalWidth": 1502,
                     "processing": [
                         {
-                            "baseNode": false,
+                            "baseNode": true,
                             "drawInSource": false,
-                            "editHeight": 839,
-                            "editWidth": 1031,
+                            "editHeight": 1082,
+                            "editWidth": 1144,
                             "endNode": false,
                             "id": 5,
                             "inputPort": {
@@ -152,10 +154,15 @@
                             "name": "Threshold Processing",
                             "nodeX": -208.69153689606048,
                             "nodeY": 626.1388669187402,
-                            "normalHeight": 686,
-                            "normalWidth": 590,
+                            "normalHeight": 1398,
+                            "normalWidth": 1677,
                             "outputPort": {
                                 "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 8,
+                                        "portID": "input"
+                                    }
                                 ],
                                 "hidden": false,
                                 "portLabel": "Output",
@@ -170,6 +177,11 @@
                             },
                             "processingDonePort": {
                                 "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 8,
+                                        "portID": "process"
+                                    }
                                 ],
                                 "hidden": false,
                                 "portLabel": "Processing done",
@@ -184,7 +196,7 @@
                             "drawInSource": true,
                             "editHeight": 938,
                             "editWidth": 1164,
-                            "endNode": false,
+                            "endNode": true,
                             "filteredContoursPort": {
                                 "connectedTo": [
                                 ],
@@ -204,8 +216,8 @@
                             "maxCountourLength": 850,
                             "minCountourLength": 383,
                             "name": "Contours Processing",
-                            "nodeX": 1751.2856081319096,
-                            "nodeY": 1098.3249539425565,
+                            "nodeX": 978.8985983714833,
+                            "nodeY": 1096.2597480341062,
                             "normalHeight": 639,
                             "normalWidth": 562,
                             "outputPort": {
@@ -224,11 +236,6 @@
                             },
                             "processingDonePort": {
                                 "connectedTo": [
-                                    {
-                                        "hidden": false,
-                                        "nodeID": 9,
-                                        "portID": "process"
-                                    }
                                 ],
                                 "hidden": false,
                                 "portLabel": "Processing done",
@@ -248,7 +255,7 @@
                             "drawInSource": false,
                             "editHeight": 801,
                             "editWidth": 986,
-                            "endNode": true,
+                            "endNode": false,
                             "id": 9,
                             "inputPort": {
                                 "hidden": true,
@@ -258,8 +265,8 @@
                             },
                             "locked": false,
                             "name": "Shapes Detection",
-                            "nodeX": 2506.6212245523766,
-                            "nodeY": 881.8920226339429,
+                            "nodeX": 3004.3358484889077,
+                            "nodeY": 828.1966690142341,
                             "normalHeight": 661,
                             "normalWidth": 619,
                             "outputPort": {
@@ -287,7 +294,7 @@
                             "type": "ProcessingShapesNode"
                         },
                         {
-                            "baseNode": true,
+                            "baseNode": false,
                             "drawInSource": false,
                             "editHeight": 1022,
                             "editWidth": 1070,
@@ -301,17 +308,12 @@
                             },
                             "locked": false,
                             "name": "Canny Edge Detector",
-                            "nodeX": 521.2409006846333,
-                            "nodeY": 1139.1595423952824,
+                            "nodeX": -444.27539348520827,
+                            "nodeY": 1769.0242493215314,
                             "normalHeight": 889,
                             "normalWidth": 865,
                             "outputPort": {
                                 "connectedTo": [
-                                    {
-                                        "hidden": false,
-                                        "nodeID": 8,
-                                        "portID": "input"
-                                    }
                                 ],
                                 "hidden": false,
                                 "portLabel": "Canny Edges",
@@ -326,11 +328,6 @@
                             },
                             "processingDonePort": {
                                 "connectedTo": [
-                                    {
-                                        "hidden": false,
-                                        "nodeID": 8,
-                                        "portID": "process"
-                                    }
                                 ],
                                 "hidden": false,
                                 "portLabel": "Processing Done",
@@ -346,6 +343,196 @@
                 }
             ],
             "type": "VisionSystemNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 11,
+            "inputPort": {
+                "hidden": true,
+                "portLabel": "Input",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "locked": false,
+            "name": "Buffer Full - Output",
+            "nodeX": 1447.1463893410473,
+            "nodeY": 1277.5636916559909,
+            "normalHeight": 215,
+            "normalWidth": 309,
+            "outputPort": {
+                "connectedTo": [
+                ],
+                "hidden": false,
+                "portLabel": "Output",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "proxyType": "Output",
+            "type": "ProxyInputNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 12,
+            "inputPort": {
+                "hidden": false,
+                "portLabel": "Input",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "locked": false,
+            "name": "Buffer Full - Input",
+            "nodeX": 840.9412156609876,
+            "nodeY": 1194.518475285445,
+            "normalHeight": 224,
+            "normalWidth": 276,
+            "outputPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 11,
+                        "portID": "input"
+                    }
+                ],
+                "hidden": true,
+                "portLabel": "",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "proxyType": "Input",
+            "type": "ProxyInputNode"
+        },
+        {
+            "autoIncrementReadIndex": true,
+            "autoIncrementWriteIndex": true,
+            "bufferFullPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 12,
+                        "portID": "input"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "Buffer Full",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "editHeight": 1430,
+            "editWidth": 421,
+            "frameSinkPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 2,
+                        "portID": "frameSource"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "Frame Sink",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "frameSourcePort": {
+                "hidden": false,
+                "portLabel": "Frame Source",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "frameStoredPort": {
+                "connectedTo": [
+                ],
+                "hidden": false,
+                "portLabel": "Frame Stored",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "id": 13,
+            "locked": false,
+            "name": "Frame Buffer",
+            "nodeX": 205.27981604194792,
+            "nodeY": 488.46521696414914,
+            "normalHeight": 982,
+            "normalWidth": 396,
+            "numBuffers": 16,
+            "numBuffersPort": {
+                "hidden": false,
+                "portLabel": "Num Buffers",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "readNextFramePort": {
+                "hidden": false,
+                "portLabel": "Next Frame",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "type": "FrameBufferNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 15,
+            "inputPort": {
+                "hidden": false,
+                "portLabel": "Input",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "locked": false,
+            "name": "Frame Processed - Input",
+            "nodeX": 2384.110416558739,
+            "nodeY": 267.355508533527,
+            "normalHeight": 224,
+            "normalWidth": 276,
+            "outputPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 16,
+                        "portID": "input"
+                    }
+                ],
+                "hidden": true,
+                "portLabel": "",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "proxyType": "Input",
+            "type": "ProxyInputNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 16,
+            "inputPort": {
+                "hidden": true,
+                "portLabel": "Input",
+                "showinlabel": false,
+                "type": "In"
+            },
+            "locked": false,
+            "name": "Frame Processed - Output",
+            "nodeX": -487.07113766975624,
+            "nodeY": 653.1478160883732,
+            "normalHeight": 215,
+            "normalWidth": 309,
+            "outputPort": {
+                "connectedTo": [
+                    {
+                        "hidden": false,
+                        "nodeID": 13,
+                        "portID": "readNextFrame"
+                    }
+                ],
+                "hidden": false,
+                "portLabel": "Output",
+                "showinlabel": false,
+                "type": "Out"
+            },
+            "proxyType": "Output",
+            "type": "ProxyInputNode"
         }
     ],
     "type": "VisionModule"
