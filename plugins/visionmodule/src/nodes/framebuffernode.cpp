@@ -32,6 +32,16 @@ void FrameBufferNode::DeSerialize(QJsonObject &json)
     m_frameSinkPort=new FlowNodePort(this,qan::PortItem::Type::Out,"frameSink");
     m_outPorts.append(m_frameSinkPort);
 
+    m_frameStoredPort=new FlowNodePort(this,qan::PortItem::Type::Out,"frameStored");
+    m_outPorts.append(m_frameStoredPort);
+
+
+    m_frameSourcePort= new FlowNodePort(this,qan::PortItem::Type::In,"frameSource");
+    m_inPorts.append(m_frameSourcePort);
+
+
+
+
 
     FlowNode::DeSerialize(json);
 }

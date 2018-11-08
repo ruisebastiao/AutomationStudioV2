@@ -10,11 +10,19 @@ class FrameBufferNode : public FlowNode
 {
     Q_OBJECT
 
+    Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged )
+    Q_PROPERTY(FlowNodePort* frameSourcePort READ frameSourcePort WRITE setFrameSourcePort NOTIFY frameSourcePortChanged USER("serialize"))
+
+
     Q_PROPERTY(int numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged)
     Q_PROPERTY(FlowNodePort* numBuffersPort READ numBuffersPort WRITE setNumBuffersPort NOTIFY numBuffersPortChanged USER("serialize"))
 
+
     Q_PROPERTY(QMat* frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged)
     Q_PROPERTY(FlowNodePort* frameSinkPort READ frameSinkPort WRITE setFrameSinkPort NOTIFY frameSinkPortChanged USER("serialize"))
+
+    Q_PROPERTY(bool frameStored READ frameStored WRITE setFrameStored NOTIFY frameStoredChanged)
+    Q_PROPERTY(FlowNodePort* frameStoredPort READ frameStoredPort WRITE setFrameStoredPort NOTIFY frameStoredChanged USER("serialize"))
 
 
 private:
@@ -25,6 +33,14 @@ private:
     QMat* m_frameSink=nullptr;
 
     FlowNodePort* m_frameSinkPort=nullptr;
+    QMat* m_frameSource=nullptr;
+
+    FlowNodePort* m_frameSourcePort=nullptr;
+
+    bool m_frameStored=false;
+
+    FlowNodePort* m_frameStoredPort=nullptr;
+
 public:
     FrameBufferNode();
 
@@ -51,6 +67,26 @@ public:
     FlowNodePort* frameSinkPort() const
     {
         return m_frameSinkPort;
+    }
+
+    QMat* frameSource() const
+    {
+        return m_frameSource;
+    }
+
+    FlowNodePort* frameSourcePort() const
+    {
+        return m_frameSourcePort;
+    }
+
+    bool frameStored() const
+    {
+        return m_frameStored;
+    }
+
+    FlowNodePort* frameStoredPort() const
+    {
+        return m_frameStoredPort;
     }
 
 public slots:
@@ -89,11 +125,50 @@ public slots:
         emit frameSinkPortChanged(m_frameSinkPort);
     }
 
+    void setFrameSource(QMat* frameSource)
+    {
+        if (m_frameSource == frameSource)
+            return;
+
+        m_frameSource = frameSource;
+        emit frameSourceChanged(m_frameSource);
+    }
+
+    void setFrameSourcePort(FlowNodePort* frameSourcePort)
+    {
+        if (m_frameSourcePort == frameSourcePort)
+            return;
+
+        m_frameSourcePort = frameSourcePort;
+        emit frameSourcePortChanged(m_frameSourcePort);
+    }
+
+    void setFrameStored(bool frameStored)
+    {
+        if (m_frameStored == frameStored)
+            return;
+
+        m_frameStored = frameStored;
+        emit frameStoredChanged(m_frameStored);
+    }
+
+    void setFrameStoredPort(FlowNodePort* frameStoredPort)
+    {
+        if (m_frameStoredPort == frameStoredPort)
+            return;
+
+        m_frameStoredPort = frameStoredPort;
+        emit frameStoredChanged(m_frameStoredPort);
+    }
+
 signals:
     void numBuffersChanged(int numBuffers);
     void numBuffersPortChanged(FlowNodePort* numBuffersPort);
     void frameSinkChanged(QMat* frameSink);
     void frameSinkPortChanged(FlowNodePort* frameSinkPort);
+    void frameSourceChanged(QMat* frameSource);
+    void frameSourcePortChanged(FlowNodePort* frameSourcePort);
+    void frameStoredChanged(bool frameStored);
 };
 
 #endif // FRAMEBUFFERNODE_H
