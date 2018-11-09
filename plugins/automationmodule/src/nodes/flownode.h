@@ -62,6 +62,8 @@ public:
         ProcessingNode,
         ProcessingThresholdNode,
         ObjectPropertyNode,
+        ProcessingBaseNode,
+        ProcessingEndNode,
         ProcessingContoursNode,
         ProcessingShapesNode,
         CannyEdgesNode,

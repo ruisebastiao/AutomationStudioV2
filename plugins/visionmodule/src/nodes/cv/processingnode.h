@@ -17,9 +17,6 @@ class ProcessingNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool baseNode READ baseNode WRITE setBaseNode NOTIFY baseNodeChanged USER("serialize"))
-    Q_PROPERTY(bool endNode READ endNode WRITE setEndNode NOTIFY endNodeChanged USER("serialize"))
-
     Q_PROPERTY(bool drawInSource READ drawInSource WRITE setDrawInSource NOTIFY drawInSourceChanged USER("serialize"))
 
     Q_PROPERTY(bool processingDone READ processingDone WRITE setProcessingDone NOTIFY processingDoneChanged)
@@ -76,17 +73,6 @@ public:
     {
         return m_outputPort;
     }
-
-    bool baseNode() const
-    {
-        return m_baseNode;
-    }
-
-    bool endNode() const
-    {
-        return m_endNode;
-    }
-
 
 
 
@@ -171,25 +157,6 @@ public slots:
         emit outputPortChanged(m_outputPort);
     }
 
-    void setBaseNode(bool baseNode)
-    {
-        if (m_baseNode == baseNode)
-            return;
-
-        m_baseNode = baseNode;
-        emit baseNodeChanged(m_baseNode);
-    }
-
-
-
-    void setEndNode(bool endNode)
-    {
-        if (m_endNode == endNode)
-            return;
-
-        m_endNode = endNode;
-        emit endNodeChanged(m_endNode);
-    }
 
 
 
@@ -304,15 +271,6 @@ private:
 
     FlowNodePort* m_inputPort=nullptr;
     FlowNodePort* m_outputPort=nullptr;
-
-    // JsonSerializable interface
-    bool m_baseNode=false;
-
-
-
-    bool m_endNode=false;
-
-
 
 
     bool m_drawInSource=false;

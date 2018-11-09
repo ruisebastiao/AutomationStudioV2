@@ -40,12 +40,6 @@ QQmlComponent*  ProcessingNode ::delegate(QQmlEngine& engine) noexcept
 
 void ProcessingNode::reProcess()
 {
-    if(baseNode()==false){
-        if(m_originalInput && m_originalInput->cvMat()->empty()==false){
-            cvtColor(*m_originalInput->cvMat(), *m_processedFrame->cvMat(), cv::COLOR_GRAY2BGR);
-        }
-    }
-
     setProcess(true);
 }
 
@@ -64,11 +58,7 @@ void ProcessingNode::setProcess(bool process)
 
         QtConcurrent::run([this](){
             QMutexLocker ml(&mMutex);
-            if(baseNode()){
-                if(m_originalInput && m_originalInput->cvMat()->empty()==false){
-                    cvtColor(*m_originalInput->cvMat(), *m_processedFrame->cvMat(), cv::COLOR_GRAY2BGR);
-                }
-            }
+
             this->doProcess();
 
 
@@ -83,7 +73,7 @@ void ProcessingNode::doProcess()
 
     setProcessingDone(true);
 
-    if(m_endNode){
+    if(m_type==FlowNode::Type::ProcessingEndNode){
 
         emit processingCompleted();
 

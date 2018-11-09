@@ -35,6 +35,14 @@ FlowNodeItem {
     }
 
 
+    onEditModeChanged:{
+        if(editMode==false){
+            f.fitToScreen();
+        }
+
+        console.log("editmode:"+editMode)
+    }
+
     resizable:true
 
     ROISideContainerItem{
@@ -57,19 +65,6 @@ FlowNodeItem {
                     checked: root.node.drawInSource
                     onCheckedChanged: {
                         root.node.drawInSource=checked
-                    }
-                }
-            }
-            Item{
-                Layout.preferredHeight: 60
-                Layout.fillWidth: true
-                visible: root.node.baseNode===false
-                RadioButton{
-                    anchors.fill: parent
-                    text: "End node"
-                    checked: root.node.endNode
-                    onCheckedChanged: {
-                        root.node.endNode=checked;
                     }
                 }
             }
@@ -107,19 +102,6 @@ FlowNodeItem {
                             root.node.reProcess();
                         }
 
-                    }
-                }
-            }
-            Item{
-                Layout.preferredHeight: 60
-                Layout.fillWidth: true
-                visible: root.node.endNode===false
-                RadioButton{
-                    anchors.fill: parent
-                    text: "Base node"
-                    checked: root.node.baseNode
-                    onCheckedChanged: {
-                        root.node.baseNode=checked;
                     }
                 }
             }
@@ -238,6 +220,7 @@ FlowNodeItem {
         target: node
 
         onOutputChanged:{
+
             f.viewer.mat=output
         }
 

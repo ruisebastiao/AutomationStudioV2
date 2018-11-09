@@ -118,7 +118,7 @@ void ROINode::DeSerialize(QJsonObject &json)
 
         procnode=qobject_cast<ProcessingNode*>(node);
         if(procnode){
-            if(procnode->baseNode()){
+            if(procnode->getType()==FlowNode::Type::ProcessingBaseNode){
                 m_procBaseNode=procnode;
                 node->bindSourceProperty(this,"sourceFrame","originalInput");
 
@@ -127,37 +127,12 @@ void ROINode::DeSerialize(QJsonObject &json)
             }
 
 
-            QObject::connect(procnode,&ProcessingNode::baseNodeChanged,[this,node,procnode](bool isbasenode){
-                if(isbasenode){
-
-                    m_procBaseNode=procnode;
-                    node->bindSourceProperty(this,"sourceFrame","originalInput");
-
-                    node->bindSourceProperty(this,"processedFrame","processedFrame");
-
-                    foreach (FlowNode* proc_nodeitem, this->m_ProcessingNodes) {
-                        if(proc_nodeitem!=procnode){
-                            ((ProcessingNode*)proc_nodeitem)->setBaseNode(false);
-                        }
-                    }
-
-                }
-                else{
-
-                    node->unbindSourceProperty("originalInput");
-
-                    node->unbindSourceProperty("processedFrame");
-                }
-            }
-            );
-
-
 
 
             QMetaObject::Connection* processingconnection = new QMetaObject::Connection;
 
 
-            if(procnode->endNode()){
+            if(procnode->getType()==FlowNode::Type::ProcessingEndNode){
 
 
 
@@ -168,31 +143,6 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 
             }
-
-            QObject::connect(procnode,&ProcessingNode::endNodeChanged,[this,processingconnection,procnode](bool isendnode){
-                if(isendnode){
-
-
-                    QObject::disconnect(*processingconnection);
-
-
-                    *processingconnection=QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this]{
-                        setRoiProcessingDone(true);
-                    });
-
-                    foreach (FlowNode* proc_nodeitem, this->m_ProcessingNodes) {
-                        if(proc_nodeitem!=procnode){
-                            ((ProcessingNode*)proc_nodeitem)->setEndNode(false);
-                        }
-                    }
-                }
-                else{
-
-                    QObject::disconnect(*processingconnection);
-                }
-            }
-            );
-
 
         }
 

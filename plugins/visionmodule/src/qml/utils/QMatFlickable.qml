@@ -17,6 +17,11 @@ import visionmodule 1.0
 Flickable {
     id: f
 
+    Component.onCompleted: {
+
+    }
+
+
     boundsBehavior: Flickable.StopAtBounds
     contentHeight: iContainer.height;
     contentWidth: iContainer.width;
@@ -51,8 +56,17 @@ Flickable {
 
             id:viewer
 
+            property bool firstImage: true
+
             property real prevScale: 1.0;
 
+
+            onMatChanged: {
+                if(firstImage){
+                    firstImage=false
+                    f.fitToScreen()
+                }
+            }
 
             smooth: f.moving
             anchors.centerIn: parent
