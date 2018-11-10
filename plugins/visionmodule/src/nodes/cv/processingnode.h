@@ -242,7 +242,7 @@ signals:
 
     void endNodeChanged(bool endNode);
 
-    void processingCompleted();
+    void processingCompleted(ProcessingNode* node);
 
     void processingChanged(bool processing);
 

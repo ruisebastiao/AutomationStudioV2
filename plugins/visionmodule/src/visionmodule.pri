@@ -29,7 +29,10 @@ SOURCES += \
     $$PWD/nodes/cv/processingshapesnode.cpp \
     $$PWD/nodes/cv/processingthresholdnode.cpp \
     $$PWD/nodes/cv/cannyedgesnode.cpp \
-    $$PWD/nodes/framebuffernode.cpp
+    $$PWD/nodes/framebuffernode.cpp \
+    $$PWD/nodes/cv/processingbasenode.cpp \
+    $$PWD/nodes/cv/processingendnode.cpp \
+    $$PWD/nodes/cv/processingcornerharrisnode.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -60,7 +63,10 @@ HEADERS += \
     $$PWD/nodes/cv/processingshapesnode.h \
     $$PWD/nodes/cv/processingthresholdnode.h \
     $$PWD/nodes/cv/cannyedgesnode.h \
-    $$PWD/nodes/framebuffernode.h
+    $$PWD/nodes/framebuffernode.h \
+    $$PWD/nodes/cv/processingbasenode.h \
+    $$PWD/nodes/cv/processingendnode.h \
+    $$PWD/nodes/cv/processingcornerharrisnode.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc

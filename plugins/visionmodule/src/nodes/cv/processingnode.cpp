@@ -73,11 +73,6 @@ void ProcessingNode::doProcess()
 
     setProcessingDone(true);
 
-    if(m_type==FlowNode::Type::ProcessingEndNode){
-
-        emit processingCompleted();
-
-    }
 
 }
 

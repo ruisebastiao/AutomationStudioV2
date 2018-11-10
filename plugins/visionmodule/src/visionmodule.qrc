@@ -18,5 +18,8 @@
         <file alias="Nodes/Cv/CannyEdgesNodeItem.qml">qml/nodes/cv/CannyEdgesNodeItem.qml</file>
         <file alias="Nodes/FrameBufferNodeItem.qml">qml/nodes/FrameBufferNodeItem.qml</file>
         <file alias="Utils/QMatFlickable.qml">qml/utils/QMatFlickable.qml</file>
+        <file alias="Nodes/Cv/ProcessingBaseNodeItem.qml">qml/nodes/cv/ProcessingBaseNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingEndNodeItem.qml">ProcessingEndNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingCornerHarrisNodeItem.qml">qml/nodes/cv/ProcessingCornerHarrisNode.qml</file>
     </qresource>
 </RCC>

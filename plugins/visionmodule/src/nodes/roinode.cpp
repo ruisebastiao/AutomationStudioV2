@@ -8,6 +8,9 @@
 #include <src/nodes/cv/processingshapesnode.h>
 
 #include <nodes/cv/cannyedgesnode.h>
+#include <nodes/cv/processingbasenode.h>
+#include <nodes/cv/processingcornerharrisnode.h>
+#include <nodes/cv/processingendnode.h>
 
 
 using namespace cv;
@@ -76,6 +79,15 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
     else if(nodeobject["type"]=="CannyEdgesNode"){
         newnode=graphView->getGraph()->insertNode<CannyEdgesNode>(nullptr);
     }
+    else if(nodeobject["type"]=="ProcessingBaseNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingBaseNode>(nullptr);
+    }
+    else if(nodeobject["type"]=="ProcessingEndNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingEndNode>(nullptr);
+    }
+    else if(nodeobject["type"]=="ProcessingCornerHarrisNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingCornerHarrisNode>(nullptr);
+    }
     else{
         LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
     }
@@ -136,8 +148,9 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 
 
-                *processingconnection=QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this]{
-                    setRoiProcessingDone(true);
+                *processingconnection=QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
+                        this->setProcessedFrame(endnode->output());
+                        setRoiProcessingDone(true);
                 });
 
 

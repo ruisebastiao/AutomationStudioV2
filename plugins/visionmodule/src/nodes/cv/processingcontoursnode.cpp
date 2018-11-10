@@ -25,8 +25,15 @@ double ProcessingContoursNode::contourPerimeter(std::vector<Point> contour)
 void ProcessingContoursNode::DeSerialize(QJsonObject &json)
 {
     m_filteredContoursPort=new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContours");
-
     m_outPorts.append(m_filteredContoursPort);
+
+    m_filteredContourPort=new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContour");
+    m_outPorts.append(m_filteredContourPort);
+
+
+    m_filteredContourIndexPort= new FlowNodePort(this,qan::PortItem::Type::In,"filteredContourIndex");
+    m_inPorts.append(m_filteredContourIndexPort);
+
 
 
     ProcessingNode::DeSerialize(json);
@@ -68,7 +75,8 @@ void ProcessingContoursNode::doProcess()
         //        approxPolyDP(countour,approx,arcLength(Mat(countour), true)*0.02,true);
 
         double contourlength=arcLength(contour,true);
-        if(contourlength>minCountourLength() && contourlength<maxCountourLength()){
+        Rect contourRect=boundingRect(contour);
+        if((contourlength>minCountourLength() && contourlength<maxCountourLength()) && (contourRect.width>minCountourWidth() && contourRect.width<maxCountourWidth()) && (contourRect.height> minCountourHeight() && contourRect.height<maxCountourHeight()) ){
             m_filteredContours.push_back(contour);
         }
 
@@ -77,12 +85,12 @@ void ProcessingContoursNode::doProcess()
 
     drawContours(drawing, m_filteredContours, -1, cv::Scalar(0,255,0), 1);
 
-//    if(drawInSource()){
-//        if(m_processedFrame && m_processedFrame->cvMat()->empty()==false){
-//            drawContours(*m_processedFrame->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
+    //    if(drawInSource()){
+    //        if(m_processedFrame && m_processedFrame->cvMat()->empty()==false){
+    //            drawContours(*m_processedFrame->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
 
-//        }
-//    }
+    //        }
+    //    }
 
 
     drawing.copyTo(*m_output->cvMat());

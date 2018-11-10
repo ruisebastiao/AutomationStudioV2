@@ -48,6 +48,8 @@ void VisionModulePlugin::registerTypes(const char *uri){
     qRegisterMetaType<std::vector<std::vector<cv::Point>>>("std::vector<std::vector<cv::Point>>");
     qRegisterMetaType<QMat*>("QMat*");
 
+    qRegisterMetaType<std::vector<cv::Point>>("std::vector<cv::Point>");
+
 
 
 }

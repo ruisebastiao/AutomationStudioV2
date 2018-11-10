@@ -64,6 +64,7 @@ public:
         ObjectPropertyNode,
         ProcessingBaseNode,
         ProcessingEndNode,
+        ProcessingCornerHarrisNode,
         ProcessingContoursNode,
         ProcessingShapesNode,
         CannyEdgesNode,

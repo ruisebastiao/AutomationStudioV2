@@ -60,6 +60,89 @@ ProcessingNodeItem{
                 }
             }
         }
+        GroupBox{
+            //            anchors.fill: parent
+            Layout.minimumWidth: 100
+            Layout.preferredHeight: 60
+            Layout.fillWidth: true
+            title: "Min contour width"
+
+            SpinBox {
+                anchors.centerIn: parent
+                editable: true
+                from:0
+                to:root.node.maxCountourWidth
+                value: root.node.minCountourWidth
+                onValueChanged: {
+                    root.node.minCountourWidth=value
+                    if(root.node.configsLoaded){
+                        root.node.reProcess();
+                    }
+                }
+            }
+        }
+        GroupBox{
+            //            anchors.fill: parent
+            Layout.preferredHeight: 60
+            Layout.fillWidth: true
+            title: "Max contour width"
+            Layout.minimumWidth: 100
+            SpinBox {
+                anchors.centerIn: parent
+                editable: true
+                from:root.node.minCountourWidth
+                to:10000
+                value: root.node.maxCountourWidth
+                onValueChanged: {
+                    root.node.maxCountourWidth=value
+                    if(root.node.configsLoaded){
+                        root.node.reProcess();
+                    }
+                }
+            }
+        }
+        GroupBox{
+            //            anchors.fill: parent
+            Layout.minimumWidth: 100
+            Layout.preferredHeight: 60
+            Layout.fillWidth: true
+            title: "Min contour height"
+
+            SpinBox {
+                anchors.centerIn: parent
+                editable: true
+                from:0
+                to:root.node.maxCountourHeight
+                value: root.node.minCountourHeight
+                onValueChanged: {
+                    root.node.minCountourHeight=value
+                    if(root.node.configsLoaded){
+                        root.node.reProcess();
+                    }
+                }
+            }
+        }
+        GroupBox{
+            //            anchors.fill: parent
+            Layout.preferredHeight: 60
+            Layout.fillWidth: true
+            title: "Max contour height"
+            Layout.minimumWidth: 100
+            SpinBox {
+                anchors.centerIn: parent
+                editable: true
+                from:root.node.minCountourHeight
+                to:10000
+                value: root.node.maxCountourHeight
+                onValueChanged: {
+                    root.node.maxCountourHeight=value
+                    if(root.node.configsLoaded){
+                        root.node.reProcess();
+                    }
+                }
+            }
+        }
+
         Item{
             Layout.fillHeight: true
             Layout.fillWidth: true
