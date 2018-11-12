@@ -7,6 +7,8 @@
 
 #include <flownodeport.h>
 
+#include <cv/preprocessing/preprocessing.h>
+
 #include "cv/qmat.h"
 
 
@@ -17,12 +19,12 @@ class ProcessingNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool drawInSource READ drawInSource WRITE setDrawInSource NOTIFY drawInSourceChanged USER("serialize"))
+    Q_PROPERTY(bool isBaseNode READ isBaseNode WRITE setIsBaseNode NOTIFY isBaseNodeChanged USER("serialize"))
+    Q_PROPERTY(bool isEndNode READ isEndNode WRITE setIsEndNode NOTIFY isEndNodeChanged USER("serialize"))
+
 
     Q_PROPERTY(bool processingDone READ processingDone WRITE setProcessingDone NOTIFY processingDoneChanged)
     Q_PROPERTY(FlowNodePort* processingDonePort READ processingDonePort WRITE setProcessingDonePort NOTIFY processingDonePortChanged USER("serialize"))
-
-    Q_PROPERTY(QMat* originalInput READ originalInput WRITE setOriginalInput NOTIFY originalInputChanged)
 
 
     Q_PROPERTY(QMat* input READ input WRITE setInput NOTIFY inputChanged)
@@ -37,7 +39,10 @@ class ProcessingNode : public FlowNode
     Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged)
     Q_PROPERTY(FlowNodePort* processPort READ processPort WRITE setProcessPort NOTIFY processPortChanged USER("serialize"))
 
-    Q_PROPERTY(bool showOriginal READ showOriginal WRITE setShowOriginal NOTIFY showOriginalChanged)
+
+    Q_PROPERTY(PreProcessingListModel* preProcessors READ preProcessors WRITE setPreProcessors NOTIFY preProcessorsChanged USER("serialize"))
+
+//    Q_PROPERTY(Pre name READ name WRITE setName NOTIFY nameChanged)
 
 
 
@@ -75,11 +80,6 @@ public:
     }
 
 
-
-    bool drawInSource() const
-    {
-        return m_drawInSource;
-    }
 
 
     QMat* processedFrame() const
@@ -124,8 +124,23 @@ public:
         return m_showOriginal;
     }
 
+    bool isBaseNode() const
+    {
+        return m_isBaseNode;
+    }
+
+    bool isEndNode() const
+    {
+        return m_isEndNode;
+    }
+
+    PreProcessingListModel* preProcessors() const
+    {
+        return m_preProcessors;
+    }
+
 public slots:
-    virtual void setInput(QMat* input)=0;
+    void setInput(QMat* input);
 
     void reProcess();
 
@@ -157,18 +172,6 @@ public slots:
         emit outputPortChanged(m_outputPort);
     }
 
-
-
-
-
-    void setDrawInSource(bool drawInSource)
-    {
-        if (m_drawInSource == drawInSource)
-            return;
-
-        m_drawInSource = drawInSource;
-        emit drawInSourceChanged(m_drawInSource);
-    }
 
 
     void setProcessedFrame(QMat* processedFrame)
@@ -208,22 +211,32 @@ public slots:
         emit processingDonePortChanged(m_processingDonePort);
     }
 
-    void setOriginalInput(QMat* originalInput)
+
+    void setIsBaseNode(bool isBaseNode)
     {
-        if (m_originalInput == originalInput)
+        if (m_isBaseNode == isBaseNode)
             return;
 
-        m_originalInput = originalInput;
-        emit originalInputChanged(m_originalInput);
+        m_isBaseNode = isBaseNode;
+        emit isBaseNodeChanged(m_isBaseNode);
     }
 
-    void setShowOriginal(bool showOriginal)
+    void setIsEndNode(bool isEndNode)
     {
-        if (m_showOriginal == showOriginal)
+        if (m_isEndNode == isEndNode)
             return;
 
-        m_showOriginal = showOriginal;
-        emit showOriginalChanged(m_showOriginal);
+        m_isEndNode = isEndNode;
+        emit isEndNodeChanged(m_isEndNode);
+    }
+
+    void setPreProcessors(PreProcessingListModel* preProcessors)
+    {
+        if (m_preProcessors == preProcessors)
+            return;
+
+        m_preProcessors = preProcessors;
+        emit preProcessorsChanged(m_preProcessors);
     }
 
 signals:
@@ -234,21 +247,12 @@ signals:
 
     void outputPortChanged(FlowNodePort* outputPort);
 
-    void baseNodeChanged(bool baseNode);
 
-    void originalInputChanged(QMat* originalInput);
-
-    void originalInputPortChanged(FlowNodePort* originalInputPort);
-
-    void endNodeChanged(bool endNode);
 
     void processingCompleted(ProcessingNode* node);
 
     void processingChanged(bool processing);
 
-    void originalsourceFrameChanged(QMat* originalsourceFrame);
-
-    void drawInSourceChanged(bool drawInSource);
 
     void sourceFrameChanged(QMat* sourceFrame);
 
@@ -263,7 +267,12 @@ signals:
 
     void processingDonePortChanged(FlowNodePort* processingDonePort);
 
-    void showOriginalChanged(bool showOriginal);
+
+    void isBaseNodeChanged(bool isBaseNode);
+
+    void isEndNodeChanged(bool isEndNode);
+
+    void preProcessorsChanged(PreProcessingListModel* preProcessors);
 
 private:
 
@@ -272,8 +281,6 @@ private:
     FlowNodePort* m_inputPort=nullptr;
     FlowNodePort* m_outputPort=nullptr;
 
-
-    bool m_drawInSource=false;
 
 
     //    FlowNodePort* m_processedFramePort=nullptr;
@@ -287,6 +294,12 @@ private:
 
 
 
+    bool m_isBaseNode=false;
+
+    bool m_isEndNode=false;
+
+    PreProcessingListModel* m_preProcessors=nullptr;
+
 protected:
     QMat* m_input=nullptr;
     QMat* m_originalInput=nullptr;
@@ -298,7 +311,7 @@ protected:
     QMat* m_processedFrame=nullptr;
     bool m_showOriginal=false;
 
-    virtual void doProcess()=0;
+    void doProcess();
 
 
 };

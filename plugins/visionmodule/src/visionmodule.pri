@@ -24,15 +24,10 @@ SOURCES += \
     $$PWD/cv/qmatshader.cpp \
     $$PWD/cv/qmatstate.cpp \
     $$PWD/cv/qmatview.cpp \
-    $$PWD/nodes/cv/processingcontoursnode.cpp \
     $$PWD/nodes/cv/processingnode.cpp \
-    $$PWD/nodes/cv/processingshapesnode.cpp \
-    $$PWD/nodes/cv/processingthresholdnode.cpp \
-    $$PWD/nodes/cv/cannyedgesnode.cpp \
     $$PWD/nodes/framebuffernode.cpp \
-    $$PWD/nodes/cv/processingbasenode.cpp \
-    $$PWD/nodes/cv/processingendnode.cpp \
-    $$PWD/nodes/cv/processingcornerharrisnode.cpp
+    $$PWD/cv/preprocessing/preprocessing.cpp \
+    $$PWD/cv/preprocessing/preprocessingthreshold.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -58,15 +53,10 @@ HEADERS += \
     $$PWD/cv/qmatshader.h \
     $$PWD/cv/qmatstate.h \
     $$PWD/cv/qmatview.h \
-    $$PWD/nodes/cv/processingcontoursnode.h \
     $$PWD/nodes/cv/processingnode.h \
-    $$PWD/nodes/cv/processingshapesnode.h \
-    $$PWD/nodes/cv/processingthresholdnode.h \
-    $$PWD/nodes/cv/cannyedgesnode.h \
     $$PWD/nodes/framebuffernode.h \
-    $$PWD/nodes/cv/processingbasenode.h \
-    $$PWD/nodes/cv/processingendnode.h \
-    $$PWD/nodes/cv/processingcornerharrisnode.h
+    $$PWD/cv/preprocessing/preprocessing.h \
+    $$PWD/cv/preprocessing/preprocessingthreshold.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc
@@ -78,10 +68,7 @@ DISTFILES += \
     $$PWD/qml/nodes/IDSCaptureNodeItem.qml \
     $$PWD/qml/nodes/ROINodeItem.qml \
     $$PWD/qml/nodes/VisionSystemNodeItem.qml \
-    $$PWD/qml/nodes/cv/ProcessingContoursNodeItem.qml \
     $$PWD/qml/nodes/cv/ProcessingNodeItem.qml \
-    $$PWD/qml/nodes/cv/ProcessingShapesNodeItem.qml \
-    $$PWD/qml/nodes/cv/ProcessingThresholdNodeItem.qml \
     $$PWD/qml/utils/ROIEditor.qml \
     $$PWD/qml/utils/ROIProcessingViewer.qml \
     $$PWD/qml/utils/ROISideContainer.qml

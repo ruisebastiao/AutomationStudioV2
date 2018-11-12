@@ -106,7 +106,7 @@ private:
 
     QList<FlowNode *> m_ProcessingNodes;
 
-    ProcessingNode* m_procBaseNode=nullptr;
+
 
 
    // QMat* processingFrame=nullptr;

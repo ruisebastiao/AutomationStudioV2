@@ -2,17 +2,6 @@
 #include "QObject"
 
 
-#include <src/nodes/cv/processingthresholdnode.h>
-
-#include <src/nodes/cv/processingcontoursnode.h>
-#include <src/nodes/cv/processingshapesnode.h>
-
-#include <nodes/cv/cannyedgesnode.h>
-#include <nodes/cv/processingbasenode.h>
-#include <nodes/cv/processingcornerharrisnode.h>
-#include <nodes/cv/processingendnode.h>
-
-
 using namespace cv;
 
 ROINode::ROINode()
@@ -57,7 +46,7 @@ void ROINode::Serialize(QJsonObject &json)
         preprocessingArray.append(preprocessingObject);
     }
 
-    json["processing"]=preprocessingArray;
+    json["processingnode"]=preprocessingArray;
 
 
 }
@@ -67,26 +56,8 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
 {
     qan::Node* newnode=nullptr;
 
-    if(nodeobject["type"]=="ProcessingThresholdNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingThresholdNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="ProcessingContoursNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingContoursNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="ProcessingShapesNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingShapesNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="CannyEdgesNode"){
-        newnode=graphView->getGraph()->insertNode<CannyEdgesNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="ProcessingBaseNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingBaseNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="ProcessingEndNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingEndNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="ProcessingCornerHarrisNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingCornerHarrisNode>(nullptr);
+    if(nodeobject["type"]=="ProcessingNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingNode>(nullptr);
     }
     else{
         LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
@@ -113,7 +84,7 @@ void ROINode::DeSerialize(QJsonObject &json)
     FlowNode::DeSerialize(json);
 
 
-    QJsonArray processingArray = json["processing"].toArray();
+    QJsonArray processingArray = json["processingnodes"].toArray();
 
     for (int i = 0; i < processingArray.count(); ++i) {
 
@@ -130,34 +101,36 @@ void ROINode::DeSerialize(QJsonObject &json)
 
         procnode=qobject_cast<ProcessingNode*>(node);
         if(procnode){
-            if(procnode->getType()==FlowNode::Type::ProcessingBaseNode){
-                m_procBaseNode=procnode;
-                node->bindSourceProperty(this,"sourceFrame","originalInput");
-
-                node->bindSourceProperty(this,"processedFrame","processedFrame");
-
+            if(procnode->isBaseNode()){
+                node->bindSourceProperty(this,"sourceFrame","input");
             }
 
 
 
 
-            QMetaObject::Connection* processingconnection = new QMetaObject::Connection;
+            QObject::connect(procnode,&ProcessingNode::isBaseNodeChanged,this, [&](bool isbase){
+
+                if(isbase){
+                    node->bindSourceProperty(this,"sourceFrame","input");
+                }
+                else{
+                    node->unbindSourceProperty("input");
+                }
+
+            });
 
 
-            if(procnode->getType()==FlowNode::Type::ProcessingEndNode){
+
+            QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
+                this->setProcessedFrame(endnode->output());
+                setRoiProcessingDone(true);
+            });
 
 
 
-                *processingconnection=QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
-                        this->setProcessedFrame(endnode->output());
-                        setRoiProcessingDone(true);
-                });
-
-
-
-            }
 
         }
+
 
         if(node){
             m_ProcessingNodes.append(node);
@@ -183,11 +156,11 @@ void ROINode::processFrameObject(QMat *frame)
 
     setSourceFrame(frame);
 
-    if(m_procBaseNode){
-        m_procBaseNode->setInput(m_sourceFrame);
+//    if(m_procBaseNode){
+//        m_procBaseNode->setInput(m_sourceFrame);
 
-        m_procBaseNode->setProcess(true);
-    }
+//        m_procBaseNode->setProcess(true);
+//    }
 }
 
 void ROINode::setSourceFrame(QMat *sourceFrame)

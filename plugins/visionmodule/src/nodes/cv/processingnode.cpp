@@ -4,6 +4,9 @@
 ProcessingNode::ProcessingNode()
 {
     m_type=Type::ProcessingNode;
+
+    m_preProcessors=new PreProcessingListModel(this);
+
     setName("Processing node");
 }
 
@@ -12,29 +15,11 @@ ProcessingNode::~ProcessingNode()
 
 }
 
-//void ProcessingNode::process()
-//{
-//    if(configsLoaded()==false){
-//        return;
-//    }
-
-//    QtConcurrent::run([this](){
-//        QMutexLocker ml(&mMutex);
-
-//        setProcessing(true);
-//        this->doProcess();
-//        setProcessing(false);
-
-
-//    });
-
-//}
-
 QQmlComponent*  ProcessingNode ::delegate(QQmlEngine& engine) noexcept
 {
     static UniqueQQmlComponentPtr   qan_FlowNode_delegate;
     if ( !qan_FlowNode_delegate )
-        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:/components/nodes/cv/ProcessingNode.qml"));
+        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/Cv/ProcessingNodeItem.qml"));
     return qan_FlowNode_delegate.get();
 }
 
@@ -70,8 +55,19 @@ void ProcessingNode::setProcess(bool process)
 void ProcessingNode::doProcess()
 {
 
+    (*m_input->cvMat()).copyTo((*m_output->cvMat()));
 
+
+
+
+    emit outputChanged(m_output);
     setProcessingDone(true);
+
+
+
+    if(isEndNode()){
+        emit processingCompleted(this);
+    }
 
 
 }
@@ -92,6 +88,9 @@ void ProcessingNode::setInput(QMat *input)
 
     emit inputChanged(m_input);
 
+    if(isBaseNode()){
+        setProcess(true);
+    }
 
 
 }

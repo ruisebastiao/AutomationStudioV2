@@ -4,6 +4,7 @@
 #include "automationstudiocoreglobal.h"
 
 #include <QJsonObject>
+#include <qjsonarray.h>
 #include <QObject>
 
 
