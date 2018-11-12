@@ -71,4 +71,7 @@ DISTFILES += \
     $$PWD/qml/nodes/cv/ProcessingNodeItem.qml \
     $$PWD/qml/utils/ROIEditor.qml \
     $$PWD/qml/utils/ROIProcessingViewer.qml \
-    $$PWD/qml/utils/ROISideContainer.qml
+    $$PWD/qml/utils/ROISideContainer.qml \
+    $$PWD/qml/cv/preprocessing/PreProcessingThresholdItem.qml \
+    $$PWD/qml/cv/PreProcessingItem.qml \
+    $$PWD/qml/cv/PreProcessingItem.qml

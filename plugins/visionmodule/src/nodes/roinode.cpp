@@ -46,7 +46,7 @@ void ROINode::Serialize(QJsonObject &json)
         preprocessingArray.append(preprocessingObject);
     }
 
-    json["processingnode"]=preprocessingArray;
+    json["processingnodes"]=preprocessingArray;
 
 
 }

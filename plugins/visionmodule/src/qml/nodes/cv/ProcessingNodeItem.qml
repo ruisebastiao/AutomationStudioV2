@@ -20,21 +20,22 @@ FlowNodeItem {
 
     property Item preProcessingConfigItem
 
-    onPreProcessingConfigItemChanged: {
-        if(preProcessingConfigItem){
-            preProcessingConfigItem.parent=preprocessing
-        }
-    }
+    //    onPreProcessingConfigItemChanged: {
+    //        if(preProcessingConfigItem){
+    //            preProcessingConfigItem.parent=preprocessing
+    //        }
+    //    }
 
-    property Item postProcessingConfigItem
+    //    property Item postProcessingConfigItem
 
-    onPostProcessingConfigItemChanged: {
-        if(postProcessingConfigItem){
-            postProcessingConfigItem.parent=postprocessing
-        }
-    }
+    //    onPostProcessingConfigItemChanged: {
+    //        if(postProcessingConfigItem){
+    //            postProcessingConfigItem.parent=postprocessing
+    //        }
+    //    }
 
 
+    expandOnEdit: true
     onEditModeChanged:{
         if(editMode==false){
             f.fitToScreen();
@@ -51,23 +52,23 @@ FlowNodeItem {
         side:"right"
         roiPressed: root.isPressed
         show: root.selected==true && root.editMode==true
-        visible: postProcessingConfigItem
+        //        visible: postProcessingConfigItem
         contentItem: ColumnLayout{
             anchors.fill: parent
-            Item{
-                id:right_common
-                Layout.preferredHeight: 60
-                Layout.fillWidth: true
+            //            Item{
+            //                id:right_common
+            //                Layout.preferredHeight: 60
+            //                Layout.fillWidth: true
 
-                CheckBox{
-                    anchors.fill: parent
-                    text: "Draw Results in source"
-                    checked: root.node.drawInSource
-                    onCheckedChanged: {
-                        root.node.drawInSource=checked
-                    }
-                }
-            }
+            //                CheckBox{
+            //                    anchors.fill: parent
+            //                    text: "Draw Results in source"
+            //                    checked: root.node.drawInSource
+            //                    onCheckedChanged: {
+            //                        root.node.drawInSource=checked
+            //                    }
+            //                }
+            //            }
 
             Item{
                 id:postprocessing
@@ -85,30 +86,119 @@ FlowNodeItem {
         side:"left"
         roiPressed: root.isPressed
         show: root.selected && root.editMode==true
-        visible: preProcessingConfigItem
+        //        visible: preProcessingConfigItem
         contentItem: ColumnLayout{
             anchors.fill: parent
-            Item{
-                id:left_common
-                Layout.preferredHeight: 60
-                Layout.fillWidth: true
-                CheckBox{
-                    anchors.fill: parent
-                    checked: root.node.showOriginal
-                    text:"Show original"
-                    onCheckedChanged: {
-                        root.node.showOriginal=checked;
-                        if(root.node.configsLoaded){
-                            root.node.reProcess();
-                        }
+            //            Item{
+            //                id:left_common
+            //                Layout.preferredHeight: 60
+            //                Layout.fillWidth: true
+            //                CheckBox{
+            //                    anchors.fill: parent
+            //                    checked: root.node.showOriginal
+            //                    text:"Show original"
+            //                    onCheckedChanged: {
+            //                        root.node.showOriginal=checked;
+            //                        if(root.node.configsLoaded){
+            //                            root.node.reProcess();
+            //                        }
 
-                    }
-                }
-            }
+            //                    }
+            //                }
+            //            }
 
 
             Item{
                 id:preprocessing
+                GroupBox{
+                    anchors.fill: parent
+                    title: "Pre Processing"
+
+                    ListView{
+                        id:listView
+                        onCurrentIndexChanged: {
+                            console.log("index:"+currentIndex)
+                        }
+
+                        anchors.fill: parent
+                        model: root.node.preProcessors
+
+                        onModelChanged: {
+                            listView.currentIndex=0
+                        }
+
+                        Component {
+                            id: preprocessorsDelegate
+
+
+
+
+                            Item{
+//
+
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                id: wrapper
+//                                width: parent.width; height:
+                                 width: listView.width-10
+                                 height: loader.height+10
+
+                                Loader{
+                                    id:loader
+                                    anchors.top: parent.top
+                                    source:visualItem
+                                    width: parent.width-10
+                                    onLoaded: {
+                                        item.preProcessor=preProcessor
+                                    }
+
+                                }
+//                                Connections {
+//                                    target: loader.item
+//                                    onHeightChanged: {
+//                                        console.log("Height:"+height)
+//                                    }
+//                                }
+
+                                Rectangle{
+                                    width: parent.width
+                                    height: 2
+                                    color: Material.color(Material.primary)
+                                    anchors.top: loader.bottom
+
+                                }
+
+//                                MouseArea {
+//                                    anchors.fill: parent
+//                                    onPressed: {
+
+//                                        wrapper.ListView.view.currentIndex = index
+//                                    }
+
+//                                }
+                            }
+
+                        }
+
+                        //highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+
+//                        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+                        highlightFollowsCurrentItem: false
+                        focus: true
+
+
+                        delegate:preprocessorsDelegate
+
+
+
+
+                    }
+
+
+                    //                    ColumnLayout{
+                    //                        anchors.fill: parent
+                    //                    }
+                }
+
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }

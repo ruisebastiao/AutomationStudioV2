@@ -31,6 +31,8 @@
 #include <cv/qimread.h>
 #include <cv/qmatview.h>
 
+#include <cv/preprocessing/preprocessingthreshold.h>
+
 void VisionModulePlugin::registerTypes(const char *uri){
     // @uri modules.visionmodule
     qmlRegisterType<QVisionModule>(uri, 1, 0, "VisionModule");
@@ -41,6 +43,10 @@ void VisionModulePlugin::registerTypes(const char *uri){
     qmlRegisterType<QMatView>(uri, 1, 0, "QMatView");
     qmlRegisterType<QMatDisplay>(uri, 1, 0, "QMatDisplay");
     qmlRegisterType<QImageFile>(uri, 1, 0, "QImageFile");
+
+
+    qmlRegisterType<PreProcessing>(uri, 1, 0, "PreProcessing");
+    qmlRegisterType<PreProcessingThreshold>(uri, 1, 0, "PreProcessingThreshold");
 
     qmlRegisterType<ROINode>(uri, 1, 0, "ROINode");
 

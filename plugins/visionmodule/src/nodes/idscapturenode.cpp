@@ -234,45 +234,24 @@ void IDSCaptureNode::setCamera(bool open)
                 CAMINFO CamInfo;
                 is_GetCameraInfo(m_camHandler, &CamInfo );
 
-                // setup image size
-                //GetMaxImageSize(&m_nSizeX, &m_nSizeY);
 
 
-                IS_SIZE_2D imageSize;
-                //                imageSize.s32Width = m_nSizeX;
-                //                imageSize.s32Height = m_nSizeY;
+                IS_RECT  aoi_rect;
 
-                is_AOI(m_camHandler, IS_AOI_IMAGE_GET_SIZE, (void*)&imageSize, sizeof(imageSize));
 
-                setSizeX(imageSize.s32Width);
-                setSizeY(imageSize.s32Height);
-                // remove when setting AOI in parameters
-                //is_AOI(m_camHandler, IS_AOI_IMAGE_SET_SIZE, (void*)&imageSize, sizeof(imageSize));
+                is_AOI(m_camHandler, IS_AOI_IMAGE_GET_AOI, (void*)&aoi_rect, sizeof(aoi_rect));
 
+                setSizeX(aoi_rect.s32Width);
+                setSizeY(aoi_rect.s32Height);
 
 
 
                 INT nAllocSizeX = 0;
                 INT nAllocSizeY = 0;
 
-                nAllocSizeX = imageSize.s32Width;
-                nAllocSizeY = imageSize.s32Height;
+                nAllocSizeX = aoi_rect.s32Width;
+                nAllocSizeY = aoi_rect.s32Height;
 
-                UINT nAbsPosX = 0;
-                UINT nAbsPosY = 0;
-
-                // absolute pos?
-                is_AOI(m_camHandler, IS_AOI_IMAGE_GET_POS_X_ABS, (void*)&nAbsPosX , sizeof(nAbsPosX));
-                is_AOI(m_camHandler, IS_AOI_IMAGE_GET_POS_Y_ABS, (void*)&nAbsPosY , sizeof(nAbsPosY));
-
-                if (nAbsPosX)
-                {
-                    nAllocSizeX = SensorInfo.nMaxWidth;
-                }
-                if (nAbsPosY)
-                {
-                    nAllocSizeY = SensorInfo.nMaxHeight;
-                }
 
                 // calculate single buffer size
                 m_dwSingleBufferSize = nAllocSizeX * nAllocSizeY * m_nBitsPerPixel / 8;

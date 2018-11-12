@@ -11,6 +11,13 @@ class PreProcessing : public QObject,public JsonSerializable
 {
     Q_OBJECT
     Q_ENUMS(Type)
+
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize"))
+
+
+    Q_PROPERTY(Type type READ type NOTIFY typeChanged  USER("serialize"))
+
+
 public:
     enum Type {
         PreProcessingThreshold
@@ -20,28 +27,55 @@ public:
 
 signals:
 
+    void typeChanged(Type type);
+
+    void nameChanged(QString name);
+
 public slots:
+
+    void setName(QString name)
+    {
+        if (m_name == name)
+            return;
+
+        m_name = name;
+        emit nameChanged(m_name);
+    }
 
 protected:
 
     Type m_type;
+    QString m_visualItem;
+    QString m_name="";
 
-    //    QString m_visualitem
+
 
     // JsonSerializable interface
 public:
     virtual void Serialize(QJsonObject &json) override;
     virtual void DeSerialize(QJsonObject &json) override;
+    Type type() const
+    {
+        return m_type;
+    }
+    QString visualItem() const;
+    QString name() const
+    {
+        return m_name;
+    }
 };
 
 
 class PreProcessingListModel : public QAbstractListModel,public JsonSerializable
 {
     Q_OBJECT
+    Q_INTERFACES(JsonSerializable)
+
     Q_ENUMS(PreProcessingRoles)
 public:
     enum PreProcessingRoles {
-        VisualItemRole = Qt::UserRole + 1
+        VisualItemRole = Qt::UserRole + 1,
+        PreProcessorRole
 
     };
 
@@ -56,10 +90,7 @@ public:
         emit dataChanged(index(itemindex),index(itemindex));
     }
 
-    inline int rowCount(const QModelIndex &parent) const
-    {
-        return m_preprocessors.length();
-    }
+
 
 
     inline QHash<int, QByteArray> roleNames() const
@@ -67,7 +98,8 @@ public:
     {
         return {
 
-            { VisualItemRole, "itemMat" }
+            { PreProcessorRole, "preProcessor" },
+            { VisualItemRole, "visualItem" }
 
         };
     }
@@ -86,11 +118,17 @@ public:
 
         int idx=index.row();
         PreProcessing* preprocessing = getItemAt(idx);
-        if (role == VisualItemRole){
+        if(!preprocessing){
+            return QVariant();
+        }
+        if (role == PreProcessorRole){
 
             return QVariant::fromValue(preprocessing);
         }
+        if (role == VisualItemRole){
 
+            return preprocessing->visualItem();
+        }
 
 
         return QVariant();
@@ -142,6 +180,10 @@ private:
 public:
     virtual void Serialize(QJsonObject &json) override;
     virtual void DeSerialize(QJsonObject &json) override;
+
+    // QAbstractItemModel interface
+public:
+    int rowCount(const QModelIndex &parent) const override;
 };
 
 #endif // PREPROCESSING_H

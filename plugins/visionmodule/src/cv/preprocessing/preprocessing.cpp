@@ -6,6 +6,11 @@ PreProcessing::PreProcessing(QObject *parent) : QObject(parent)
 
 }
 
+QString PreProcessing::visualItem() const
+{
+    return m_visualItem;
+}
+
 void PreProcessing::Serialize(QJsonObject &json)
 {
     JsonSerializable::Serialize(json,this);
@@ -42,7 +47,7 @@ void PreProcessingListModel::Serialize(QJsonObject &json)
 void PreProcessingListModel::DeSerialize(QJsonObject &json)
 {
 
-    QJsonArray preprocessorsArray = json["preprocessors"].toArray();
+    QJsonArray preprocessorsArray = json["items"].toArray();
 
     for (int i = 0; i < preprocessorsArray.count(); ++i) {
 
@@ -54,7 +59,13 @@ void PreProcessingListModel::DeSerialize(QJsonObject &json)
 
             PreProcessingThreshold* item= new PreProcessingThreshold();
             item->DeSerialize(preprocessingObject);
+            this->addPreprocessor(item);
         }
 
     }
+}
+
+int PreProcessingListModel::rowCount(const QModelIndex &parent) const
+{
+    return m_preprocessors.length();
 }
