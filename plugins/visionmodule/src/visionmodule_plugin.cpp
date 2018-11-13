@@ -45,7 +45,7 @@ void VisionModulePlugin::registerTypes(const char *uri){
     qmlRegisterType<QImageFile>(uri, 1, 0, "QImageFile");
 
 
-    qmlRegisterType<PreProcessing>(uri, 1, 0, "PreProcessing");
+    qmlRegisterUncreatableType<PreProcessing>(uri, 1, 0, "PreProcessing","Not creatable");
     qmlRegisterType<PreProcessingThreshold>(uri, 1, 0, "PreProcessingThreshold");
 
     qmlRegisterType<ROINode>(uri, 1, 0, "ROINode");

@@ -22,7 +22,7 @@ Rectangle {
 
     property string headerText:""
 
-    height: childrenRect.height+10
+    height: editMode?childrenRect.height+10:childrenRect.height
 
     property Item containerItem
 
@@ -34,7 +34,7 @@ Rectangle {
 
     }
 
-    width: parent.width
+    width: parent.width-7
     RowLayout{
         id:header
         width: parent.width
@@ -47,7 +47,7 @@ Rectangle {
             Text{
 
                 width: parent.width
-                text: preProcessor.name
+                text: headerText
                 height:parent.height
                 fontSizeMode: Text.HorizontalFit
 
@@ -70,24 +70,23 @@ Rectangle {
                 }
             }
         }
-//        Item{
-//            Layout.fillHeight: true
-//            Layout.preferredWidth:50
-//            RoundButton{
-//                anchors.fill: parent
-//                highlighted: true
-//                onPressed: {
-//                    root.editMode=!root.editMode
-//                    console.log("PreProcessingItem editmode:"+editMode)
-//                }
-//            }
-//        }
+
+
+    }
+    Rectangle{
+        width: parent.width
+        height: 2
+        color: Material.color(Material.primary)
+        anchors.top: header.bottom
+
 
     }
     Item{
         id:container
         clip: true
         anchors.top:header.bottom
+
+        anchors.topMargin:height>5? 5:0
 
         height: editMode?containerItem.height+10:0
 
@@ -96,6 +95,15 @@ Rectangle {
         }
 
         width: parent.width
+
+    }
+
+    Rectangle{
+        width: parent.width
+        height: 2
+        color: Material.color(Material.primary)
+        anchors.top: container.bottom
+
     }
 
 }

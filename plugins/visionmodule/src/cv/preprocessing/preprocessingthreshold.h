@@ -16,22 +16,26 @@ private:
     int m_value=125;
 
 public:
-PreProcessingThreshold();
-int value() const
-{
-    return m_value;
-}
-public slots:
-void setValue(int value)
-{
-    if (m_value == value)
-        return;
+    PreProcessingThreshold();
+    int value() const
+    {
+        return m_value;
+    }
 
-    m_value = value;
-    emit valueChanged(m_value);
-}
+    void apply(QMat *input, QMat *preprocessed) override;
+public slots:
+    void setValue(int value)
+    {
+        if (m_value == value)
+            return;
+
+
+        m_value = value;
+        emit valueChanged(m_value);
+        emit preProcessorConditionChanged();
+    }
 signals:
-void valueChanged(int value);
+    void valueChanged(int value);
 };
 
 #endif // PREPROCESSINGTHRESHOLD_H

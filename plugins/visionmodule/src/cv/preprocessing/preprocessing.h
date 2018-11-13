@@ -5,6 +5,8 @@
 #include <jsonserializable.h>
 #include <qabstractitemmodel.h>
 
+#include <cv/qmat.h>
+
 
 
 class PreProcessing : public QObject,public JsonSerializable
@@ -25,12 +27,15 @@ public:
     };
     explicit PreProcessing(QObject *parent = nullptr);
 
+    virtual void apply(QMat*input,QMat* preprocessed)=0;
+
 signals:
 
     void typeChanged(Type type);
 
     void nameChanged(QString name);
 
+    void preProcessorConditionChanged();
 public slots:
 
     void setName(QString name)
@@ -170,7 +175,9 @@ public:
     }
 
 
-
+    inline int count(){
+        return  m_preprocessors.length();
+    }
 
 private:
 

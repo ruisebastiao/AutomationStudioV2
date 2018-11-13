@@ -152,29 +152,9 @@ FlowNodeItem {
                                     }
 
                                 }
-//                                Connections {
-//                                    target: loader.item
-//                                    onHeightChanged: {
-//                                        console.log("Height:"+height)
-//                                    }
-//                                }
 
-                                Rectangle{
-                                    width: parent.width
-                                    height: 2
-                                    color: Material.color(Material.primary)
-                                    anchors.top: loader.bottom
 
-                                }
 
-//                                MouseArea {
-//                                    anchors.fill: parent
-//                                    onPressed: {
-
-//                                        wrapper.ListView.view.currentIndex = index
-//                                    }
-
-//                                }
                             }
 
                         }

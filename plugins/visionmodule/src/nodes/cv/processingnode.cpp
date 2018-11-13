@@ -23,10 +23,6 @@ QQmlComponent*  ProcessingNode ::delegate(QQmlEngine& engine) noexcept
     return qan_FlowNode_delegate.get();
 }
 
-void ProcessingNode::reProcess()
-{
-    setProcess(true);
-}
 
 void ProcessingNode::setProcess(bool process)
 {
@@ -59,6 +55,14 @@ void ProcessingNode::doProcess()
 
 
 
+    int processorscount=m_preProcessors->count();
+    for (int i = 0;i<processorscount ;i++) {
+        PreProcessing* preprocessing=m_preProcessors->getItemAt(i);
+        if(preprocessing){
+            preprocessing->apply(m_input,m_output);
+        }
+    }
+
 
     emit outputChanged(m_output);
     setProcessingDone(true);
@@ -88,6 +92,9 @@ void ProcessingNode::setInput(QMat *input)
 
     emit inputChanged(m_input);
 
+    if(m_input->cvMat()->empty()){
+        return;
+    }
     if(isBaseNode()){
         setProcess(true);
     }
@@ -113,7 +120,18 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
     FlowNode::DeSerialize(json);
 
+
+    for (int i = 0; i < m_preProcessors->count(); ++i) {
+
+        connect(m_preProcessors->getItemAt(i),&PreProcessing::preProcessorConditionChanged,this,[&]{
+           this->setProcess(true);
+        });
+    }
+
+
     setConfigsLoaded(true);
+
+
 
 }
 

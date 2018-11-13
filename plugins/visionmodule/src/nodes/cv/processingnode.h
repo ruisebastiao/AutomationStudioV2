@@ -142,7 +142,6 @@ public:
 public slots:
     void setInput(QMat* input);
 
-    void reProcess();
 
     void setOutput(QMat* output)
     {

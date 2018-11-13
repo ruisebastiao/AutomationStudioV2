@@ -15,9 +15,8 @@ PreProcessingItem{
 
 
     property int thresholdValue:0
-    onThresholdValueChanged: {
-         console.log("value:"+thresholdValue)
-    }
+
+    headerText:preProcessor?preProcessor.name+" ("+thresholdValue+") ":"Threshold"
 
     Binding{
         target:root
