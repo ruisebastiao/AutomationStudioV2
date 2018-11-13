@@ -20,7 +20,7 @@ Rectangle {
 
 
 
-    property string headerText:""
+    property string headerText:preProcessor?preProcessor.name:""
 
     height: editMode?childrenRect.height+10:childrenRect.height
 
@@ -34,7 +34,8 @@ Rectangle {
 
     }
 
-    width: parent.width-7
+    width: parent.width-10
+    anchors.horizontalCenter: parent.horizontalCenter
     RowLayout{
         id:header
         width: parent.width
@@ -76,7 +77,7 @@ Rectangle {
     Rectangle{
         width: parent.width
         height: 2
-        color: Material.color(Material.primary)
+        color: Material.color(Material.Grey)
         anchors.top: header.bottom
 
 

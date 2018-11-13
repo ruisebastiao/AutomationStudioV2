@@ -1,11 +1,17 @@
 #include "processingnode.h"
 #include <QtConcurrent>
 
+using namespace cv;
+
 ProcessingNode::ProcessingNode()
 {
     m_type=Type::ProcessingNode;
 
     m_preProcessors=new PreProcessingListModel(this);
+
+
+
+
 
     setName("Processing node");
 }
@@ -51,18 +57,20 @@ void ProcessingNode::setProcess(bool process)
 void ProcessingNode::doProcess()
 {
 
-    (*m_input->cvMat()).copyTo((*m_output->cvMat()));
+//    (*m_input->cvMat()).copyTo((*m_output->cvMat()));
 
 
+    Mat processedOutput;
 
     int processorscount=m_preProcessors->count();
     for (int i = 0;i<processorscount ;i++) {
         PreProcessing* preprocessing=m_preProcessors->getItemAt(i);
         if(preprocessing){
-            preprocessing->apply(m_input,m_output);
+            preprocessing->apply(*m_input->cvMat(),processedOutput);
         }
     }
 
+    processedOutput.copyTo(*m_output->cvMat());
 
     emit outputChanged(m_output);
     setProcessingDone(true);

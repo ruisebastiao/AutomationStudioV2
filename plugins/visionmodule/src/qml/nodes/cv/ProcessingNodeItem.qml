@@ -49,6 +49,7 @@ FlowNodeItem {
     ROISideContainerItem{
         id:right_container
         z:999999
+        containerSize:350
         side:"right"
         roiPressed: root.isPressed
         show: root.selected==true && root.editMode==true
@@ -84,6 +85,7 @@ FlowNodeItem {
         id:left_container
         z:999999
         side:"left"
+        containerSize:400
         roiPressed: root.isPressed
         show: root.selected && root.editMode==true
         //        visible: preProcessingConfigItem

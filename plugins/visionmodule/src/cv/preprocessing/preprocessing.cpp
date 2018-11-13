@@ -1,4 +1,5 @@
 #include "preprocessing.h"
+#include "preprocessingcontours.h"
 #include "preprocessingthreshold.h"
 
 PreProcessing::PreProcessing(QObject *parent) : QObject(parent)
@@ -58,6 +59,13 @@ void PreProcessingListModel::DeSerialize(QJsonObject &json)
 
 
             PreProcessingThreshold* item= new PreProcessingThreshold();
+            item->DeSerialize(preprocessingObject);
+            this->addPreprocessor(item);
+        }
+        else if(preprocessingObject["type"]=="PreProcessingContours"){
+
+
+            PreProcessingContours* item= new PreProcessingContours();
             item->DeSerialize(preprocessingObject);
             this->addPreprocessor(item);
         }

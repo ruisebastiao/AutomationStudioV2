@@ -16,5 +16,6 @@
         <file alias="Utils/QMatFlickable.qml">qml/utils/QMatFlickable.qml</file>
         <file alias="PreProcessing/PreProcessingThresholdItem.qml">qml/cv/preprocessing/PreProcessingThresholdItem.qml</file>
         <file alias="PreProcessing/PreProcessingItem.qml">qml/cv/PreProcessingItem.qml</file>
+        <file alias="PreProcessing/PreProcessingContoursItem.qml">qml/cv/preprocessing/PreProcessingContoursItem.qml</file>
     </qresource>
 </RCC>

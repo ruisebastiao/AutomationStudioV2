@@ -42,6 +42,7 @@ class ProcessingNode : public FlowNode
 
     Q_PROPERTY(PreProcessingListModel* preProcessors READ preProcessors WRITE setPreProcessors NOTIFY preProcessorsChanged USER("serialize"))
 
+
 //    Q_PROPERTY(Pre name READ name WRITE setName NOTIFY nameChanged)
 
 

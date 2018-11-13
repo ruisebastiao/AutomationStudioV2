@@ -1,5 +1,5 @@
 #include "preprocessingthreshold.h"
-#include "opencv2/imgproc.hpp"
+
 
 using namespace cv;
 PreProcessingThreshold::PreProcessingThreshold()
@@ -10,8 +10,10 @@ PreProcessingThreshold::PreProcessingThreshold()
     m_name="Threshold";
 }
 
-void PreProcessingThreshold::apply(QMat *input, QMat *preprocessed){
+void PreProcessingThreshold::apply(cv::Mat& input, cv::Mat& preprocessed){
 
-    threshold((*input->cvMat()),(*preprocessed->cvMat()),value(),255,THRESH_BINARY);
+//    threshold((*input->cvMat()),(*preprocessed->cvMat()),value(),255,THRESH_BINARY);
+
+        adaptiveThreshold(input,preprocessed,value(),ADAPTIVE_THRESH_GAUSSIAN_C,CV_THRESH_BINARY,adaptativeBlockSize(),12);
 
 }

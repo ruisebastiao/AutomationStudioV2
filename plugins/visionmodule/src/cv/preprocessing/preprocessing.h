@@ -4,9 +4,10 @@
 #include <QObject>
 #include <jsonserializable.h>
 #include <qabstractitemmodel.h>
+#include <qsortfilterproxymodel.h>
 
 #include <cv/qmat.h>
-
+#include "opencv2/imgproc.hpp"
 
 
 class PreProcessing : public QObject,public JsonSerializable
@@ -16,18 +17,26 @@ class PreProcessing : public QObject,public JsonSerializable
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize"))
 
+    Q_PROPERTY(int position READ position WRITE setPosition NOTIFY positionChanged  USER("serialize"))
 
     Q_PROPERTY(Type type READ type NOTIFY typeChanged  USER("serialize"))
 
 
+    int m_position=0;
+
 public:
     enum Type {
-        PreProcessingThreshold
+        PreProcessingThreshold,
+        PreProcessingContours
 
     };
     explicit PreProcessing(QObject *parent = nullptr);
 
-    virtual void apply(QMat*input,QMat* preprocessed)=0;
+    virtual void apply(cv::Mat& input,cv::Mat& preprocessed)=0;
+
+    bool operator< (const PreProcessing &other) const {
+           return position()< other.position();
+       }
 
 signals:
 
@@ -36,6 +45,8 @@ signals:
     void nameChanged(QString name);
 
     void preProcessorConditionChanged();
+    void positionChanged(int position);
+
 public slots:
 
     void setName(QString name)
@@ -45,6 +56,15 @@ public slots:
 
         m_name = name;
         emit nameChanged(m_name);
+    }
+
+    void setPosition(int position)
+    {
+        if (m_position == position)
+            return;
+
+        m_position = position;
+        emit positionChanged(m_position);
     }
 
 protected:
@@ -68,6 +88,10 @@ public:
     {
         return m_name;
     }
+    int position() const
+    {
+        return m_position;
+    }
 };
 
 
@@ -80,7 +104,8 @@ class PreProcessingListModel : public QAbstractListModel,public JsonSerializable
 public:
     enum PreProcessingRoles {
         VisualItemRole = Qt::UserRole + 1,
-        PreProcessorRole
+        PreProcessorRole,
+        PositionRole
 
     };
 
@@ -134,6 +159,10 @@ public:
 
             return preprocessing->visualItem();
         }
+        if (role == PositionRole){
+
+            return preprocessing->position();
+        }
 
 
         return QVariant();
@@ -152,7 +181,9 @@ public:
     {
         beginInsertRows(QModelIndex(), rowCount(QModelIndex()), rowCount(QModelIndex()));   // kindly provided by superclass
 
-        m_preprocessors.append(preprocessor);
+        // TODO check for duplicate positions , assign position to last ordered (do this in caller object)
+        m_preprocessors.insert(preprocessor->position(),preprocessor);
+
 
         endInsertRows();
     }
@@ -192,5 +223,37 @@ public:
 public:
     int rowCount(const QModelIndex &parent) const override;
 };
+
+
+//class PreProcessorFilterProxyModel : public QSortFilterProxyModel
+//{
+//    Q_OBJECT
+//public:
+
+//    PreProcessorFilterProxyModel (QObject* parent = nullptr)
+//    {
+
+//    }
+
+//    ~PreProcessorFilterProxyModel ()
+//    {
+
+//    }
+
+//    Q_INVOKABLE void setFilterString(QString string)
+//    {
+
+//    }
+
+//    Q_INVOKABLE void setSortOrder(bool checked)
+//    {
+
+//    }
+////    Q_INVOKABLE void setSortRole(bool checked)
+////    {
+
+////    }
+//};
+
 
 #endif // PREPROCESSING_H

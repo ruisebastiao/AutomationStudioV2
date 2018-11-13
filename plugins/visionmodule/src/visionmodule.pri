@@ -27,7 +27,8 @@ SOURCES += \
     $$PWD/nodes/cv/processingnode.cpp \
     $$PWD/nodes/framebuffernode.cpp \
     $$PWD/cv/preprocessing/preprocessing.cpp \
-    $$PWD/cv/preprocessing/preprocessingthreshold.cpp
+    $$PWD/cv/preprocessing/preprocessingthreshold.cpp \
+    $$PWD/cv/preprocessing/preprocessingcontours.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -56,7 +57,8 @@ HEADERS += \
     $$PWD/nodes/cv/processingnode.h \
     $$PWD/nodes/framebuffernode.h \
     $$PWD/cv/preprocessing/preprocessing.h \
-    $$PWD/cv/preprocessing/preprocessingthreshold.h
+    $$PWD/cv/preprocessing/preprocessingthreshold.h \
+    $$PWD/cv/preprocessing/preprocessingcontours.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc
