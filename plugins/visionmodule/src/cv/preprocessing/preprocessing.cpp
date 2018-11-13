@@ -19,7 +19,13 @@ void PreProcessing::Serialize(QJsonObject &json)
 
 void PreProcessing::DeSerialize(QJsonObject &json)
 {
+    //const bool wasBlocked = this->blockSignals(true);
+    // no signals here
+
     JsonSerializable::DeSerialize(json,this);
+   // this->blockSignals(wasBlocked);
+
+    setLoaded(true);
 
 
 }

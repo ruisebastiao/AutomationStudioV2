@@ -10,7 +10,7 @@ PreProcessingThreshold::PreProcessingThreshold()
     m_name="Threshold";
 }
 
-void PreProcessingThreshold::apply(cv::Mat& input, cv::Mat& preprocessed){
+void PreProcessingThreshold::apply(cv::Mat& input, cv::Mat& preprocessed, Mat &original){
 
 //    threshold((*input->cvMat()),(*preprocessed->cvMat()),value(),255,THRESH_BINARY);
 

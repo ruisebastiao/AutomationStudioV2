@@ -35,7 +35,7 @@ public:
         return m_value;
     }
 
-    void apply(cv::Mat &input, cv::Mat &preprocessed) override;
+    void apply(cv::Mat &input, cv::Mat &preprocessed,cv::Mat &original) override;
     ThresholdType thresholdType() const
     {
         return m_thresholdType;

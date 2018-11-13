@@ -57,16 +57,17 @@ void ProcessingNode::setProcess(bool process)
 void ProcessingNode::doProcess()
 {
 
-//    (*m_input->cvMat()).copyTo((*m_output->cvMat()));
+
 
 
     Mat processedOutput;
+    (*m_input->cvMat()).copyTo(processedOutput);
 
     int processorscount=m_preProcessors->count();
     for (int i = 0;i<processorscount ;i++) {
         PreProcessing* preprocessing=m_preProcessors->getItemAt(i);
         if(preprocessing){
-            preprocessing->apply(*m_input->cvMat(),processedOutput);
+            preprocessing->apply(processedOutput,processedOutput,*m_input->cvMat());
         }
     }
 

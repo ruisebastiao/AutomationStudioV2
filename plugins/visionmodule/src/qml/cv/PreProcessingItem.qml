@@ -27,10 +27,10 @@ Rectangle {
     property Item containerItem
 
     onContainerItemChanged: {
-        containerItem.parent=container
-        containerItem.height=Qt.binding(function(){
-            return containerItem.childrenRect.height;
-        })
+        containerItem.parent=maincontainer
+        maincontainer.height=Qt.binding(function(){
+            return containerItem.height
+        });
 
     }
 
@@ -74,6 +74,7 @@ Rectangle {
 
 
     }
+
     Rectangle{
         width: parent.width
         height: 2
@@ -82,20 +83,40 @@ Rectangle {
 
 
     }
-    Item{
+
+
+    GroupBox{
+        visible: true
+
+        width: parent.width
+
+        title: "Settings:"
+
         id:container
         clip: true
         anchors.top:header.bottom
 
         anchors.topMargin:height>5? 5:0
 
-        height: editMode?containerItem.height+10:0
+
+
+
+        height: editMode?maincontainer.height+10:0
+
+
 
         Behavior on height{
             NumberAnimation { duration: 250 }
         }
 
-        width: parent.width
+
+        Item{
+            id:maincontainer
+            width: parent.width
+
+
+        }
+
 
     }
 
@@ -103,9 +124,12 @@ Rectangle {
         width: parent.width
         height: 2
         color: Material.color(Material.primary)
+        anchors.topMargin:container.height>5? 5:0
         anchors.top: container.bottom
 
     }
+
+
 
 }
 

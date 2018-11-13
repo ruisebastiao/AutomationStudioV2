@@ -242,6 +242,16 @@ FlowNodeItem{
                                     Rectangle{
                                         anchors.fill: parent
 
+                                        MouseArea{
+                                            anchors.fill: viewer
+                                            onPressed: {
+                                                if (root.node.editMode){
+                                                    root.node.readIndex=index
+                                                    root.node.processCurrent();
+                                                }
+                                            }
+                                        }
+
                                         QMatView{
 
                                             id:viewer

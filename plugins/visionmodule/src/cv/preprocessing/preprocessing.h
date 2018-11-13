@@ -21,8 +21,9 @@ class PreProcessing : public QObject,public JsonSerializable
 
     Q_PROPERTY(Type type READ type NOTIFY typeChanged  USER("serialize"))
 
+    Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
 
-    int m_position=0;
+
 
 public:
     enum Type {
@@ -32,11 +33,17 @@ public:
     };
     explicit PreProcessing(QObject *parent = nullptr);
 
-    virtual void apply(cv::Mat& input,cv::Mat& preprocessed)=0;
+    virtual void apply(cv::Mat& input,cv::Mat& preprocessed,cv::Mat& original)=0;
 
     bool operator< (const PreProcessing &other) const {
            return position()< other.position();
        }
+private:
+
+    int m_position=0;
+
+    bool m_loaded=false;
+
 
 signals:
 
@@ -46,6 +53,8 @@ signals:
 
     void preProcessorConditionChanged();
     void positionChanged(int position);
+
+    void loadedChanged(bool loaded);
 
 public slots:
 
@@ -65,6 +74,15 @@ public slots:
 
         m_position = position;
         emit positionChanged(m_position);
+    }
+
+    void setLoaded(bool loaded)
+    {
+        if (m_loaded == loaded)
+            return;
+
+        m_loaded = loaded;
+        emit loadedChanged(m_loaded);
     }
 
 protected:
@@ -91,6 +109,10 @@ public:
     int position() const
     {
         return m_position;
+    }
+    bool loaded() const
+    {
+        return m_loaded;
     }
 };
 
