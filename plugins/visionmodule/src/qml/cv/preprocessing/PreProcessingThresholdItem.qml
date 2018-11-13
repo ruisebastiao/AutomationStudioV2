@@ -36,6 +36,7 @@ PreProcessingItem{
                     checked:preProcessor.thresholdType==PreProcessingThreshold.Simple
                     text: "Simple"
                     onCheckedChanged: {
+                        adaptative_settings.visible=false;
                         preProcessor.thresholdType=PreProcessingThreshold.Simple
                     }
                 }
@@ -43,6 +44,7 @@ PreProcessingItem{
                     checked:preProcessor.thresholdType==PreProcessingThreshold.Adaptative
                     text: "Adaptative"
                     onCheckedChanged: {
+                        adaptative_settings.visible=true
                         preProcessor.thresholdType=PreProcessingThreshold.Adaptative
                     }
                 }
@@ -106,6 +108,8 @@ PreProcessingItem{
         }
 
         GroupBox{
+            id:adaptative_settings
+//            clip: true
             width: parent.width
             title: "Adaptative settings"
 
@@ -124,7 +128,7 @@ PreProcessingItem{
                     Layout.preferredWidth: childrenRect.width
                     editable: true
                     from:3
-                    to:201
+                    to:701
                     stepSize: 2
                     value: preProcessorThreshold.adaptativeBlockSize
                     onValueChanged: {

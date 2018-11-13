@@ -12,8 +12,17 @@ PreProcessingThreshold::PreProcessingThreshold()
 
 void PreProcessingThreshold::apply(cv::Mat& input, cv::Mat& preprocessed, Mat &original){
 
-//    threshold((*input->cvMat()),(*preprocessed->cvMat()),value(),255,THRESH_BINARY);
+    //    threshold((*input->cvMat()),(*preprocessed->cvMat()),value(),255,THRESH_BINARY);
 
-        adaptiveThreshold(input,preprocessed,value(),ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,adaptativeBlockSize(),12);
+    switch (m_thresholdType) {
+    case Adaptative:
+        adaptiveThreshold(input,preprocessed,value(),ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,adaptativeBlockSize(),2);
+        break;
+
+    case Simple:
+        threshold(input,preprocessed,value(),255,CV_THRESH_BINARY);
+        break;
+
+    }
 
 }
