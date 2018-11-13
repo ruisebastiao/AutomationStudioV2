@@ -36,6 +36,9 @@ void ProcessingNode::setProcess(bool process)
     m_process = process;
     emit processChanged(m_process);
 
+    if(!m_input || m_input->cvMat()->empty())
+        return;
+
     if(m_process){
         setProcess(false);
 
@@ -133,7 +136,9 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
     for (int i = 0; i < m_preProcessors->count(); ++i) {
 
         connect(m_preProcessors->getItemAt(i),&PreProcessing::preProcessorConditionChanged,this,[&]{
-           this->setProcess(true);
+            if(configsLoaded()){
+                this->setProcess(true);
+            }
         });
     }
 

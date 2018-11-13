@@ -16,11 +16,6 @@ PreProcessingItem{
 
     property PreProcessingThreshold preProcessorThreshold: preProcessor
 
-    onPreProcessorThresholdChanged: {
-        if(preProcessorThreshold){
-            console.log("preProcessorThreshold:"+preProcessorThreshold.value)
-        }
-    }
 
 
     containerItem: Column{
@@ -99,7 +94,7 @@ PreProcessingItem{
                     from:0
                     to:255
                     onValueChanged: {
-                        if(preProcessorThreshold){
+                        if(preProcessorThreshold && preProcessorThreshold.loaded){
                             preProcessorThreshold.value=value
                         }
                     }
@@ -133,7 +128,7 @@ PreProcessingItem{
                     stepSize: 2
                     value: preProcessorThreshold.adaptativeBlockSize
                     onValueChanged: {
-                        if(preProcessor && preProcessorThreshold.loadeded){
+                        if(preProcessor && preProcessorThreshold.loaded){
                             preProcessorThreshold.adaptativeBlockSize=value
                         }
                     }

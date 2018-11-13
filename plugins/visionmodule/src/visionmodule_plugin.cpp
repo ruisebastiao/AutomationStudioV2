@@ -31,6 +31,7 @@
 #include <cv/qimread.h>
 #include <cv/qmatview.h>
 
+#include <cv/preprocessing/preprocessingcontours.h>
 #include <cv/preprocessing/preprocessingthreshold.h>
 
 void VisionModulePlugin::registerTypes(const char *uri){
@@ -46,7 +47,8 @@ void VisionModulePlugin::registerTypes(const char *uri){
 
 
     qmlRegisterUncreatableType<PreProcessing>(uri, 1, 0, "PreProcessing","Not creatable");
-    qmlRegisterType<PreProcessingThreshold>(uri, 1, 0, "PreProcessingThreshold");
+    qmlRegisterUncreatableType<PreProcessingThreshold>(uri, 1, 0, "PreProcessingThreshold","Not creatable");
+    qmlRegisterUncreatableType<PreProcessingContours>(uri, 1, 0, "PreProcessingContours","Not creatable");
 
     qmlRegisterType<ROINode>(uri, 1, 0, "ROINode");
 

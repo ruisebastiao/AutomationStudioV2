@@ -14,188 +14,169 @@ PreProcessingItem{
     id:root
 
 
-    //    property int thresholdValue:0
-
-    //    headerText:preProcessor?preProcessor.name+" ("+thresholdValue+") ":"Threshold"
-
-    //    Binding{
-    //        target:root
-    //        property: "thresholdValue"
-    //        value: preProcessor.value
-    //    }
+    property PreProcessingContours preProcessorContours: preProcessor
 
 
-    containerItem: ColumnLayout{
+    containerItem: Column{
 
+        id:container
         width: parent.width
-        height: 450
 
-        Item{
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Row{
-                anchors.fill: parent
-                Label{
-                    text: "Min Countour Length:"
-                    height: parent.height
-                    verticalAlignment: Text.AlignVCenter
+        spacing: 5
 
-                }
-                SpinBox {
-                    id:spin_minContourLength
-                    editable: true
-                    from:0
-                    height: parent.height
-                    to:spin_maxContourLength.value
-                    value: preProcessor&&preProcessor.loadeded?preProcessor.minCountourLength:0
-                    onValueChanged: {
-                        if(preProcessor){
-                            preProcessor.minCountourLength=value
-                        }
-                    }
-                }
+
+
+        RowLayout{
+            width: parent.width
+            Label{
+                text: "Min Countour Length:"
+                Layout.preferredWidth: paintedWidth
+                verticalAlignment: Text.AlignVCenter
+
             }
-        }
-        Item{
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Row{
-                anchors.fill: parent
-                Label{
-                    text: "Max Countour Length:"
-                    height: parent.height
-                    verticalAlignment: Text.AlignVCenter
+            SpinBox {
+                id:spin_minContourLength
+                Layout.fillWidth: true
+                editable: true
+                to:90000
 
-                }
-                SpinBox {
-                    id:spin_maxContourLength
-                    editable: true
-                    from:spin_minContourLength.value
-                    height: parent.height
-                    to:20000
-                    value: preProcessor.maxCountourLength
-                    onValueChanged: {
-                        if(preProcessor){
-                            preProcessor.maxCountourLength=value
-                        }
+                value: preProcessorContours.minCountourLength
+                onValueChanged: {
+                    if(preProcessorContours&&preProcessorContours.loaded){
+                        preProcessorContours.minCountourLength=value
                     }
                 }
             }
         }
 
+        RowLayout{
+            width: parent.width
+            Label{
+                text: "Max Countour Length:"
+                Layout.preferredWidth: paintedWidth
 
-        Item{
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Row{
-                anchors.fill: parent
-                Label{
-                    text: "Min Countour Width:"
-                    height: parent.height
-                    verticalAlignment: Text.AlignVCenter
+                verticalAlignment: Text.AlignVCenter
 
-                }
-                SpinBox {
-                    id:spin_minContourWidth
-                    editable: true
-                    from:0
-                    height: parent.height
-                    to:spin_maxContourWidth.value
-                    value: preProcessor&&preProcessor.loadeded?preProcessor.minCountourWidth:0
-                    onValueChanged: {
-                        if(preProcessor){
-                            preProcessor.minCountourWidth=value
-                        }
-                    }
-                }
             }
-        }
-        Item{
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Row{
-                anchors.fill: parent
-                Label{
-                    text: "Max Countour Width:"
-                    height: parent.height
-                    verticalAlignment: Text.AlignVCenter
+            SpinBox {
 
-                }
-                SpinBox {
-                    id:spin_maxContourWidth
-                    editable: true
-                    from:spin_minContourWidth.value
-                    height: parent.height
-                    to:50000
-                    value: preProcessor&&preProcessor.loadeded?preProcessor.maxCountourWidth:0
-                    onValueChanged: {
-                        if(preProcessor){
-                            preProcessor.maxCountourWidth=value
-                        }
+                id:spin_maxContourLength
+                editable: true
+                to:90000
+                Layout.fillWidth: true
+
+                value: preProcessorContours.maxCountourLength
+                onValueChanged: {
+                    if(preProcessorContours && preProcessorContours.loaded ){
+                        preProcessorContours.maxCountourLength=value
                     }
                 }
             }
         }
 
+        RowLayout{
+            width: parent.width
 
+            Label{
+                text: "Min Countour Width:"
+                Layout.preferredWidth: paintedWidth
+                verticalAlignment: Text.AlignVCenter
 
-        Item{
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Row{
-                anchors.fill: parent
-                Label{
-                    text: "Min Countour Height:"
-                    height: parent.height
-                    verticalAlignment: Text.AlignVCenter
-
-                }
-                SpinBox {
-                    id:spin_minContourHeight
-                    editable: true
-                    from:0
-                    height: parent.height
-                    to:spin_maxContourHeight.value
-                    value:preProcessor&&preProcessor.loadeded?preProcessor.minCountourHeight:0
-                    onValueChanged: {
-                        if(preProcessor){
-                            preProcessor.minCountourHeight=value
-                        }
-                    }
-                }
             }
-        }
-        Item{
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Row{
-                anchors.fill: parent
-                Label{
-                    text: "Max Countour Height:"
-                    height: parent.height
-                    verticalAlignment: Text.AlignVCenter
+            SpinBox {
+                id:spin_minContourWidth
+                editable: true
+                to:90000
+                Layout.fillWidth: true
 
-                }
-                SpinBox {
-                    id:spin_maxContourHeight
-                    editable: true
-                    from:spin_minContourHeight.value
-                    height: parent.height
-                    to:40000
-                    value: preProcessor&&preProcessor.loadeded?preProcessor.maxCountourHeight:0
-                    onValueChanged: {
-                        if(preProcessor){
-                            preProcessor.maxCountourHeight=value
-                        }
+
+                value:preProcessorContours.minCountourWidth
+                onValueChanged: {
+                    if(preProcessorContours && preProcessorContours.loaded){
+                        preProcessorContours.minCountourWidth=value
                     }
                 }
             }
         }
 
+        RowLayout{
+            width: parent.width
+            Label{
+                text: "Max Countour Width:"
+                Layout.preferredWidth: paintedWidth
+                verticalAlignment: Text.AlignVCenter
+
+            }
+            SpinBox {
+                id:spin_maxContourWidth
+                editable: true
+                to:90000
+                Layout.fillWidth: true
+
+
+                value: preProcessorContours.maxCountourWidth
+                onValueChanged: {
+                    if(preProcessorContours && preProcessorContours.loaded){
+                        preProcessorContours.maxCountourWidth=value
+                    }
+                }
+            }
+        }
+
+        RowLayout{
+            width: parent.width
+            Label{
+                text: "Min Countour Height:"
+                Layout.preferredWidth: paintedWidth
+                verticalAlignment: Text.AlignVCenter
+
+            }
+            SpinBox {
+                id:spin_minContourHeight
+                editable: true
+                to:90000
+                Layout.fillWidth: true
+
+                value:preProcessorContours.minCountourHeight
+                onValueChanged: {
+                    if(preProcessorContours && preProcessorContours.loaded){
+                        preProcessorContours.minCountourHeight=value
+                    }
+                }
+            }
+        }
+
+        RowLayout{
+            width: parent.width
+            Label{
+                text: "Max Countour Height:"
+                Layout.preferredWidth: paintedWidth
+                verticalAlignment: Text.AlignVCenter
+
+            }
+            SpinBox {
+                Layout.fillWidth: true
+                id:spin_maxContourHeight
+                editable: true
+
+                to:90000
+
+
+                value:preProcessorContours.maxCountourHeight
+                onValueChanged: {
+                    if(preProcessorContours && preProcessorContours.loaded){
+                        preProcessorContours.maxCountourHeight=value
+                    }
+                }
+            }
+        }
+
+
         Item{
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            width: parent.width
+            height: 30
         }
     }
+
 
 }

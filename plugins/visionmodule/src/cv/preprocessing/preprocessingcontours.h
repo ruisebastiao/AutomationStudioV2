@@ -15,14 +15,14 @@ class PreProcessingContours:public PreProcessing
     Q_PROPERTY(int totalFilteredContours READ totalFilteredContours WRITE setTotalFilteredContours NOTIFY totalFilteredContoursChanged)
 
 
-    Q_PROPERTY(double minCountourLength READ minCountourLength WRITE setMinCountourLength NOTIFY minCountourLengthChanged USER("serialize"))
-    Q_PROPERTY(double maxCountourLength READ maxCountourLength WRITE setMaxCountourLength NOTIFY maxCountourLengthChanged USER("serialize"))
+    Q_PROPERTY(int minCountourLength READ minCountourLength WRITE setMinCountourLength NOTIFY minCountourLengthChanged USER("serialize"))
+    Q_PROPERTY(int maxCountourLength READ maxCountourLength WRITE setMaxCountourLength NOTIFY maxCountourLengthChanged USER("serialize"))
 
-    Q_PROPERTY(double minCountourHeight READ minCountourHeight WRITE setMinCountourHeight NOTIFY minCountourHeightChanged USER("serialize"))
-    Q_PROPERTY(double maxCountourHeight READ maxCountourHeight WRITE setMaxCountourHeight NOTIFY maxCountourHeightChanged USER("serialize"))
+    Q_PROPERTY(int minCountourHeight READ minCountourHeight WRITE setMinCountourHeight NOTIFY minCountourHeightChanged USER("serialize"))
+    Q_PROPERTY(int maxCountourHeight READ maxCountourHeight WRITE setMaxCountourHeight NOTIFY maxCountourHeightChanged USER("serialize"))
 
-    Q_PROPERTY(double minCountourWidth READ minCountourWidth WRITE setMinCountourWidth NOTIFY minCountourWidthChanged USER("serialize"))
-    Q_PROPERTY(double maxCountourWidth READ maxCountourWidth WRITE setMaxCountourWidth NOTIFY maxCountourWidthChanged USER("serialize"))
+    Q_PROPERTY(int minCountourWidth READ minCountourWidth WRITE setMinCountourWidth NOTIFY minCountourWidthChanged USER("serialize"))
+    Q_PROPERTY(int maxCountourWidth READ maxCountourWidth WRITE setMaxCountourWidth NOTIFY maxCountourWidthChanged USER("serialize"))
 
 
     Q_PROPERTY(std::vector<std::vector<cv::Point>> filteredContours READ filteredContours NOTIFY filteredContoursChanged)
@@ -50,12 +50,12 @@ public:
         return m_totalFilteredContours;
     }
 
-    double minCountourLength() const
+    int minCountourLength() const
     {
         return m_minCountourLength;
     }
 
-    double maxCountourLength() const
+    int maxCountourLength() const
     {
         return m_maxCountourLength;
     }
@@ -65,22 +65,22 @@ public:
         return m_filteredContours;
     }
 
-    double minCountourHeight() const
+    int minCountourHeight() const
     {
         return m_minCountourHeight;
     }
 
-    double maxCountourHeight() const
+    int maxCountourHeight() const
     {
         return m_maxCountourHeight;
     }
 
-    double minCountourWidth() const
+    int minCountourWidth() const
     {
         return m_minCountourWidth;
     }
 
-    double maxCountourWidth() const
+    int maxCountourWidth() const
     {
         return m_maxCountourWidth;
     }
@@ -93,7 +93,11 @@ public slots:
 
         m_threshold = threshold;
         emit thresholdChanged(m_threshold);
-        emit preProcessorConditionChanged();
+        if(loaded()){
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
+        }
     }
     void setTotalContours(int totalContours)
     {
@@ -111,71 +115,85 @@ public slots:
 
         m_totalFilteredContours = totalFilteredContours;
         emit totalFilteredContoursChanged(m_totalFilteredContours);
-        emit preProcessorConditionChanged();
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
-    void setMinCountourLength(double minCountourLength)
+    void setMinCountourLength(int minCountourLength)
     {
-        if (qFuzzyCompare(m_minCountourLength, minCountourLength))
+        if (m_minCountourLength== minCountourLength)
             return;
 
         m_minCountourLength = minCountourLength;
         emit minCountourLengthChanged(m_minCountourLength);
-        emit preProcessorConditionChanged();
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
-    void setMaxCountourLength(double maxCountourLength)
+    void setMaxCountourLength(int maxCountourLength)
     {
-        if (qFuzzyCompare(m_maxCountourLength, maxCountourLength))
+        if (m_maxCountourLength== maxCountourLength)
             return;
 
         m_maxCountourLength = maxCountourLength;
         emit maxCountourLengthChanged(m_maxCountourLength);
-        emit preProcessorConditionChanged();
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
-    void setMinCountourHeight(double minCountourHeight)
+    void setMinCountourHeight(int minCountourHeight)
     {
 
-        if (qFuzzyCompare(m_minCountourHeight, minCountourHeight))
+        if (m_minCountourHeight== minCountourHeight)
             return;
 
         m_minCountourHeight = minCountourHeight;
         emit minCountourHeightChanged(m_minCountourHeight);
-        emit preProcessorConditionChanged();
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
-    void setMaxCountourHeight(double maxCountourHeight)
+    void setMaxCountourHeight(int maxCountourHeight)
     {
 
-        if (qFuzzyCompare(m_maxCountourHeight, maxCountourHeight))
+        if (m_maxCountourHeight == maxCountourHeight)
             return;
 
         m_maxCountourHeight = maxCountourHeight;
         emit maxCountourHeightChanged(m_maxCountourHeight);
-        emit preProcessorConditionChanged();
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
-    void setMinCountourWidth(double minCountourWidth)
+    void setMinCountourWidth(int minCountourWidth)
     {
 
-        if (qFuzzyCompare(m_minCountourWidth, minCountourWidth))
+        if (m_minCountourWidth == minCountourWidth)
             return;
 
         m_minCountourWidth = minCountourWidth;
         emit minCountourWidthChanged(m_minCountourWidth);
-        emit preProcessorConditionChanged();
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
-    void setMaxCountourWidth(double maxCountourWidth)
+    void setMaxCountourWidth(int maxCountourWidth)
     {
 
-        if (qFuzzyCompare(m_maxCountourWidth, maxCountourWidth))
+        if (m_maxCountourWidth== maxCountourWidth)
             return;
 
         m_maxCountourWidth = maxCountourWidth;
         emit maxCountourWidthChanged(m_maxCountourWidth);
-        emit preProcessorConditionChanged();
+         if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
 signals:
@@ -185,32 +203,32 @@ signals:
 
     void totalFilteredContoursChanged(int totalFilteredContours);
 
-    void minCountourLengthChanged(double minCountourLength);
+    void minCountourLengthChanged(int minCountourLength);
 
-    void maxCountourLengthChanged(double maxCountourLength);
+    void maxCountourLengthChanged(int maxCountourLength);
 
     void filteredContoursChanged(std::vector<std::vector<cv::Point>> filteredContours);
 
-    void minCountourHeightChanged(double minCountourHeight);
+    void minCountourHeightChanged(int minCountourHeight);
 
-    void maxCountourHeightChanged(double maxCountourHeight);
+    void maxCountourHeightChanged(int maxCountourHeight);
 
-    void minCountourWidthChanged(double minCountourWidth);
+    void minCountourWidthChanged(int minCountourWidth);
 
-    void maxCountourWidthChanged(double maxCountourWidth);
+    void maxCountourWidthChanged(int maxCountourWidth);
 
 private:
     int m_threshold=125;
     int m_totalContours=0;
     int m_totalFilteredContours=0;
-    double m_minCountourLength=500;
-    double m_maxCountourLength=1000;
+    int m_minCountourLength=500;
+    int m_maxCountourLength=1000;
 
     std::vector<std::vector<cv::Point>> m_filteredContours;
-    double m_minCountourHeight=100;
-    double m_maxCountourHeight=1000;
-    double m_minCountourWidth=100;
-    double m_maxCountourWidth=1000;
+    int m_minCountourHeight=100;
+    int m_maxCountourHeight=1000;
+    int m_minCountourWidth=100;
+    int m_maxCountourWidth=1000;
 };
 
 #endif // PREPROCESSINGCONTOURS_H
