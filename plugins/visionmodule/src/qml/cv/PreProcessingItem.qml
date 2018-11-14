@@ -62,11 +62,11 @@ Rectangle {
             }
             MouseArea{
                 anchors.fill: parent
-                onPressAndHold: {
-                    root.editMode=!root.editMode
-                }
+//                onPressAndHold: {
+//                    root.editMode=!root.editMode
+//                }
 
-                onDoubleClicked: {
+                onPressed: {
                     root.editMode=!root.editMode
                 }
             }
@@ -85,12 +85,25 @@ Rectangle {
     }
 
 
+
+
     GroupBox{
         visible: true
 
         width: parent.width
 
         title: "Settings:"
+
+        CheckBox{
+            text: "Enabled"
+            anchors.bottom:parent.top
+//            anchors.topMargin: -20
+            anchors.right: parent.right
+            checked: preProcessor.enabled
+            onCheckedChanged: {
+                preProcessor.enabled=checked
+            }
+        }
 
         id:container
         clip: true

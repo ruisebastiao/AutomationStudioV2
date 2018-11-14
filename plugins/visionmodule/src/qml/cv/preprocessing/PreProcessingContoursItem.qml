@@ -76,6 +76,55 @@ PreProcessingItem{
 
         RowLayout{
             width: parent.width
+            Label{
+                text: "Min Countour Area:"
+                Layout.preferredWidth: paintedWidth
+                verticalAlignment: Text.AlignVCenter
+
+            }
+            SpinBox {
+                id:spin_minContourArea
+                Layout.fillWidth: true
+                editable: true
+                to:90000
+
+                value: preProcessorContours.minCountourArea
+                onValueChanged: {
+                    if(preProcessorContours&&preProcessorContours.loaded){
+                        preProcessorContours.minCountourArea=value
+                    }
+                }
+            }
+        }
+
+        RowLayout{
+            width: parent.width
+            Label{
+                text: "Max Countour Area:"
+                Layout.preferredWidth: paintedWidth
+
+                verticalAlignment: Text.AlignVCenter
+
+            }
+            SpinBox {
+
+                id:spin_maxContourArea
+                editable: true
+                to:90000
+                Layout.fillWidth: true
+
+                value: preProcessorContours.maxCountourArea
+                onValueChanged: {
+                    if(preProcessorContours && preProcessorContours.loaded ){
+                        preProcessorContours.maxCountourArea=value
+                    }
+                }
+            }
+        }
+
+
+        RowLayout{
+            width: parent.width
 
             Label{
                 text: "Min Countour Width:"
@@ -98,6 +147,8 @@ PreProcessingItem{
                 }
             }
         }
+
+
 
         RowLayout{
             width: parent.width

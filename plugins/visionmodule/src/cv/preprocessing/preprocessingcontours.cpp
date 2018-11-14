@@ -1,4 +1,5 @@
 #include "preprocessingcontours.h"
+#include "Logger.h"
 
 using namespace cv;
 using namespace std;
@@ -28,9 +29,12 @@ void PreProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
 
 
     //    Canny( input, preprocessed, threshold(), threshold()*2, 3 );
-    findContours( input, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0) );
+    findContours( input, contours, RETR_LIST, CHAIN_APPROX_SIMPLE, Point(0, 0) );
 
 
+
+    vector<vector<Vec4i>> defects;
+    vector<vector<Point>> hullsP;
 
     //   drawContours(drawing, contours, -1, cv::Scalar(0,255,0), 1);
 
@@ -40,12 +44,14 @@ void PreProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
     {
 
         vector<Point> contour=contours[i];
-        //        vector<Point> approx;
+        vector<Point >hullP;
+        vector<int> hullI;
+        vector<Vec4i> defect;
 
-        //        approxPolyDP(countour,approx,arcLength(Mat(countour), true)*0.02,true);
+
 
         double contourlength=arcLength(contour,true);
-        Rect contour_rect=boundingRect(contour);
+
 
         bool length_condition=contourlength>minCountourLength() && contourlength<maxCountourLength();
 
@@ -53,10 +59,45 @@ void PreProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
             continue;
         }
 
-        bool width_condition=contour_rect.width>minCountourWidth() && contour_rect.width<maxCountourWidth();
-        bool height_condition=contour_rect.height>minCountourHeight() && contour_rect.height<maxCountourHeight();
+        double contourarea=contourArea(contour);
+
+        bool area_condition=contourarea>minCountourArea() && contourarea<maxCountourArea();
+
+        if(area_condition==false){
+            continue;
+        }
+
+
+//        approxPolyDP(contour,contour,contourlength*0.02,true);
+        approxPolyDP(contour,contour,3,true);
+        //        Rect contour_rect=boundingRect(contour);
+        RotatedRect minrect=minAreaRect(contour);
+
+
+        bool width_condition=minrect.size.width>minCountourWidth() && minrect.size.width<maxCountourWidth();
+        bool height_condition=minrect.size.height>minCountourHeight() && minrect.size.height<maxCountourHeight();
+
+        //        convexHull(Mat(contour, hull[i], False);
+
+
+
 
         if(length_condition && width_condition && height_condition){
+//            convexHull(contour, hullP, false);
+//            convexHull(contour, hullI, false);
+//            if(hullI.size() > 3 )
+//            {
+
+//                convexityDefects(contour, hullI, defect);
+
+//                LOG_INFO()<<"Defects:"<<defect.size();
+
+//                defects.push_back(defect);
+//            }
+//            hullsP.push_back(hullP);
+
+//            drawContours( drawing, hullsP, hullsP.size()-1, cv::Scalar(0,0,255), 1, 8, vector<Vec4i>(), 0, Point() );
+
             m_filteredContours.push_back(contour);
         }
 
@@ -64,6 +105,7 @@ void PreProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
     setTotalFilteredContours(m_filteredContours.size());
 
     drawContours(drawing, m_filteredContours, -1, cv::Scalar(0,255,0), 1);
+
 
     drawing.copyTo(preprocessed);
 

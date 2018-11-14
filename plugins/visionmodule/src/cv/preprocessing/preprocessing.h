@@ -17,6 +17,8 @@ class PreProcessing : public QObject,public JsonSerializable
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize"))
 
+    Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
+
     Q_PROPERTY(int position READ position WRITE setPosition NOTIFY positionChanged  USER("serialize"))
 
     Q_PROPERTY(Type type READ type NOTIFY typeChanged  USER("serialize"))
@@ -45,6 +47,8 @@ private:
     bool m_loaded=false;
 
 
+    bool m_enabled=true;
+
 signals:
 
     void typeChanged(Type type);
@@ -55,6 +59,8 @@ signals:
     void positionChanged(int position);
 
     void loadedChanged(bool loaded);
+
+    void enabledChanged(bool enabled);
 
 public slots:
 
@@ -85,6 +91,15 @@ public slots:
         emit loadedChanged(m_loaded);
     }
 
+    void setEnabled(bool enabled)
+    {
+        if (m_enabled == enabled)
+            return;
+
+        m_enabled = enabled;
+        emit enabledChanged(m_enabled);
+    }
+
 protected:
 
     Type m_type;
@@ -113,6 +128,10 @@ public:
     bool loaded() const
     {
         return m_loaded;
+    }
+    bool enabled() const
+    {
+        return m_enabled;
     }
 };
 

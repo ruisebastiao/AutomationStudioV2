@@ -69,7 +69,7 @@ void ProcessingNode::doProcess()
     int processorscount=m_preProcessors->count();
     for (int i = 0;i<processorscount ;i++) {
         PreProcessing* preprocessing=m_preProcessors->getItemAt(i);
-        if(preprocessing){
+        if(preprocessing && preprocessing->enabled()){
             preprocessing->apply(processedOutput,processedOutput,*m_input->cvMat());
         }
     }

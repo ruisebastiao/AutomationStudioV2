@@ -29,8 +29,9 @@ PreProcessingItem{
         GroupBox{
             title: "Threshold Type:"
             width: parent.width
-//            height: 80
-            RowLayout{
+            //            height: 80
+            spacing: 5
+            Flow{
                 anchors.fill: parent
                 RadioButton{
                     checked:preProcessor.thresholdType==PreProcessingThreshold.Simple
@@ -41,20 +42,29 @@ PreProcessingItem{
                     }
                 }
                 RadioButton{
-                    checked:preProcessor.thresholdType==PreProcessingThreshold.Adaptative
-                    text: "Adaptative"
+                    checked:preProcessor.thresholdType==PreProcessingThreshold.AdaptativeGaussian
+                    text: "Adaptative Gaussian"
                     onCheckedChanged: {
                         adaptative_settings.visible=true
-                        preProcessor.thresholdType=PreProcessingThreshold.Adaptative
+                        preProcessor.thresholdType=PreProcessingThreshold.AdaptativeGaussian
                     }
                 }
+                RadioButton{
+                    checked:preProcessor.thresholdType==PreProcessingThreshold.AdaptativeMean
+                    text: "Adaptative Mean"
+                    onCheckedChanged: {
+                        adaptative_settings.visible=true
+                        preProcessor.thresholdType=PreProcessingThreshold.AdaptativeMean
+                    }
+                }
+
             }
         }
 
         GroupBox{
             width: parent.width
             title: "Threshold value"
-//            height: 80
+            //            height: 80
             RowLayout{
                 anchors.fill: parent
 
@@ -109,39 +119,62 @@ PreProcessingItem{
 
         GroupBox{
             id:adaptative_settings
-//            clip: true
+
             width: parent.width
             title: "Adaptative settings"
 
-//            height: 150
-            RowLayout{
+
+            Flow{
                 anchors.fill: parent
 
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        Layout.preferredWidth: paintedWidth
+                        text:"Adaptative Block Size"
+                    }
 
-                Label{
-                    Layout.fillWidth: true
-                    text:"Adaptative Block Size"
-                }
-
-                SpinBox {
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: childrenRect.width
-                    editable: true
-                    from:3
-                    to:701
-                    stepSize: 2
-                    value: preProcessorThreshold.adaptativeBlockSize
-                    onValueChanged: {
-                        if(preProcessor && preProcessorThreshold.loaded){
-                            preProcessorThreshold.adaptativeBlockSize=value
+                    SpinBox {
+                        Layout.fillWidth: true
+                        editable: true
+                        from:3
+                        to:701
+                        stepSize: 2
+                        value: preProcessorThreshold.adaptativeBlockSize
+                        onValueChanged: {
+                            if(preProcessor && preProcessorThreshold.loaded){
+                                preProcessorThreshold.adaptativeBlockSize=value
+                            }
                         }
                     }
                 }
+                RowLayout{
+                    width: parent.width
+                    Label{
+                       Layout.preferredWidth: paintedWidth
+                        text:"Adaptative C factor"
+                    }
+
+                    SpinBox {
+                        Layout.fillWidth: true
+                        editable: true
+                        from:2
+                        to:200
+                        stepSize: 2
+                        value: preProcessorThreshold.adaptativeC
+                        onValueChanged: {
+                            if(preProcessor && preProcessorThreshold.loaded){
+                                preProcessorThreshold.adaptativeC=value
+                            }
+                        }
+                    }
+                }
+
             }
         }
 
         Item{
-//            color: "red"
+            //            color: "red"
             width: parent.width
             height: 30
         }

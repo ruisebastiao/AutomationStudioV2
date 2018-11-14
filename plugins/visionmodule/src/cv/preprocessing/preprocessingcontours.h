@@ -24,6 +24,9 @@ class PreProcessingContours:public PreProcessing
     Q_PROPERTY(int minCountourWidth READ minCountourWidth WRITE setMinCountourWidth NOTIFY minCountourWidthChanged USER("serialize"))
     Q_PROPERTY(int maxCountourWidth READ maxCountourWidth WRITE setMaxCountourWidth NOTIFY maxCountourWidthChanged USER("serialize"))
 
+    Q_PROPERTY(int minCountourArea READ minCountourArea WRITE setMinCountourArea NOTIFY minCountourAreaChanged USER("serialize"))
+    Q_PROPERTY(int maxCountourArea READ maxCountourArea WRITE setMaxCountourArea NOTIFY maxCountourAreaChanged USER("serialize"))
+
 
     Q_PROPERTY(std::vector<std::vector<cv::Point>> filteredContours READ filteredContours NOTIFY filteredContoursChanged)
 
@@ -85,6 +88,16 @@ public:
         return m_maxCountourWidth;
     }
 
+    int minCountourArea() const
+    {
+        return m_minCountourArea;
+    }
+
+    int maxCountourArea() const
+    {
+        return m_maxCountourArea;
+    }
+
 public slots:
     void setThreshold(int threshold)
     {
@@ -93,11 +106,11 @@ public slots:
 
         m_threshold = threshold;
         emit thresholdChanged(m_threshold);
+
         if(loaded()){
-         if(loaded()){
             emit preProcessorConditionChanged();
         }
-        }
+
     }
     void setTotalContours(int totalContours)
     {
@@ -115,7 +128,7 @@ public slots:
 
         m_totalFilteredContours = totalFilteredContours;
         emit totalFilteredContoursChanged(m_totalFilteredContours);
-         if(loaded()){
+        if(loaded()){
             emit preProcessorConditionChanged();
         }
     }
@@ -127,7 +140,7 @@ public slots:
 
         m_minCountourLength = minCountourLength;
         emit minCountourLengthChanged(m_minCountourLength);
-         if(loaded()){
+        if(loaded()){
             emit preProcessorConditionChanged();
         }
     }
@@ -139,7 +152,7 @@ public slots:
 
         m_maxCountourLength = maxCountourLength;
         emit maxCountourLengthChanged(m_maxCountourLength);
-         if(loaded()){
+        if(loaded()){
             emit preProcessorConditionChanged();
         }
     }
@@ -152,7 +165,7 @@ public slots:
 
         m_minCountourHeight = minCountourHeight;
         emit minCountourHeightChanged(m_minCountourHeight);
-         if(loaded()){
+        if(loaded()){
             emit preProcessorConditionChanged();
         }
     }
@@ -165,7 +178,7 @@ public slots:
 
         m_maxCountourHeight = maxCountourHeight;
         emit maxCountourHeightChanged(m_maxCountourHeight);
-         if(loaded()){
+        if(loaded()){
             emit preProcessorConditionChanged();
         }
     }
@@ -178,7 +191,7 @@ public slots:
 
         m_minCountourWidth = minCountourWidth;
         emit minCountourWidthChanged(m_minCountourWidth);
-         if(loaded()){
+        if(loaded()){
             emit preProcessorConditionChanged();
         }
     }
@@ -191,7 +204,31 @@ public slots:
 
         m_maxCountourWidth = maxCountourWidth;
         emit maxCountourWidthChanged(m_maxCountourWidth);
-         if(loaded()){
+        if(loaded()){
+            emit preProcessorConditionChanged();
+        }
+    }
+
+    void setMinCountourArea(int minCountourArea)
+    {
+        if (m_minCountourArea == minCountourArea)
+            return;
+
+        m_minCountourArea = minCountourArea;
+        emit minCountourAreaChanged(m_minCountourArea);
+        if(loaded()){
+            emit preProcessorConditionChanged();
+        }
+    }
+
+    void setMaxCountourArea(int maxCountourArea)
+    {
+        if (m_maxCountourArea == maxCountourArea)
+            return;
+
+        m_maxCountourArea = maxCountourArea;
+        emit maxCountourAreaChanged(m_maxCountourArea);
+        if(loaded()){
             emit preProcessorConditionChanged();
         }
     }
@@ -217,6 +254,10 @@ signals:
 
     void maxCountourWidthChanged(int maxCountourWidth);
 
+    void minCountourAreaChanged(int minCountourArea);
+
+    void maxCountourAreaChanged(int maxCountourArea);
+
 private:
     int m_threshold=125;
     int m_totalContours=0;
@@ -229,6 +270,8 @@ private:
     int m_maxCountourHeight=1000;
     int m_minCountourWidth=100;
     int m_maxCountourWidth=1000;
+    int m_minCountourArea=200;
+    int m_maxCountourArea=1000;
 };
 
 #endif // PREPROCESSINGCONTOURS_H

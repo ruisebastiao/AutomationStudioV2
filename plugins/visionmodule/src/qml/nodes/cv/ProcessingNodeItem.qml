@@ -117,6 +117,7 @@ FlowNodeItem {
                     title: "Pre Processing"
 
                     ListView{
+                        clip:true
                         id:listView
                         onCurrentIndexChanged: {
                             console.log("index:"+currentIndex)
@@ -135,7 +136,7 @@ FlowNodeItem {
 
 
 
-                            Item{
+                            Rectangle{
 //
 
                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -143,6 +144,11 @@ FlowNodeItem {
 //                                width: parent.width; height:
                                  width: listView.width-10
                                  height: loader.height+10
+//                                 Rectangle{
+//                                     anchors.fill: parent
+//                                     color: Material.color(Material.accent)
+//                                     opacity: 0.5
+//                                 }
 
                                 Loader{
                                     id:loader
@@ -155,16 +161,27 @@ FlowNodeItem {
 
                                 }
 
+//                                MouseArea{
+//                                    anchors.fill: parent
+//                                    onPressed: wrapper.ListView.view.currentIndex = index;
+//                                    propagateComposedEvents: true
+//                                }
 
 
                             }
 
                         }
 
-                        //highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+//                        highlight: Rectangle {
+//                            color: "lightsteelblue";
+//                            radius: 5
+//                            z: 999
+//                            opacity: 0.3
+
+//                        }
 
 //                        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-                        highlightFollowsCurrentItem: false
+//                        highlightFollowsCurrentItem: false
                         focus: true
 
 

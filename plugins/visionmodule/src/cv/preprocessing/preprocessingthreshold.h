@@ -14,6 +14,7 @@ class PreProcessingThreshold : public PreProcessing
 
     Q_PROPERTY(int adaptativeBlockSize READ adaptativeBlockSize WRITE setAdaptativeBlockSize NOTIFY adaptativeBlockSizeChanged  USER("serialize"))
 
+    Q_PROPERTY(int adaptativeC READ adaptativeC WRITE setAdaptativeC NOTIFY adaptativeCChanged USER("serialize"))
 
     Q_PROPERTY(ThresholdType thresholdType READ thresholdType WRITE setThresholdType NOTIFY thresholdTypeChanged USER("serialize"))
 
@@ -25,7 +26,8 @@ public:
     enum ThresholdType {
 
         Simple=0,
-        Adaptative
+        AdaptativeGaussian,
+        AdaptativeMean
 
     };
     Q_ENUM(ThresholdType)
@@ -46,6 +48,11 @@ public:
         return m_adaptativeBlockSize;
     }
 
+    int adaptativeC() const
+    {
+        return m_adaptativeC;
+    }
+
 public slots:
     void setValue(int value)
     {
@@ -55,7 +62,9 @@ public slots:
 
         m_value = value;
         emit valueChanged(m_value);
-        emit preProcessorConditionChanged();
+        if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
     void setThresholdType(ThresholdType thresholdType)
     {
@@ -64,7 +73,9 @@ public slots:
 
         m_thresholdType = thresholdType;
         emit thresholdTypeChanged(m_thresholdType);
-        emit preProcessorConditionChanged();
+        if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
     void setAdaptativeBlockSize(int adaptativeBlockSize)
@@ -74,7 +85,20 @@ public slots:
 
         m_adaptativeBlockSize = adaptativeBlockSize;
         emit adaptativeBlockSizeChanged(m_adaptativeBlockSize);
-        emit preProcessorConditionChanged();
+        if(loaded()){
+            emit preProcessorConditionChanged();
+        }
+    }
+
+    void setAdaptativeC(int adaptativeC)
+    {
+        if (m_adaptativeC == adaptativeC)
+            return;
+
+        m_adaptativeC = adaptativeC;
+        if(loaded()){
+            emit preProcessorConditionChanged();
+        }
     }
 
 signals:
@@ -84,12 +108,15 @@ signals:
 
     void adaptativeBlockSizeChanged(int adaptativeBlockSize);
 
+    void adaptativeCChanged(int adaptativeC);
+
 private:
 
     int m_value=125;
 
     ThresholdType m_thresholdType=Simple;
     int m_adaptativeBlockSize=11;
+    int m_adaptativeC=2;
 };
 
 #endif // PREPROCESSINGTHRESHOLD_H
