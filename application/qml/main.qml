@@ -1344,6 +1344,8 @@ ApplicationWindow {
 
     InputPanel {
         id: inputPanel
+        enabled: false
+        visible: false
 
         parent: Overlay.overlay
 

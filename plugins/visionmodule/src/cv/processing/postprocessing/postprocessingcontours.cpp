@@ -56,7 +56,7 @@ void PostProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
         double contourlength=arcLength(contour,true);
 
 
-        bool length_condition=contourlength>minCountourLength() && contourlength<maxCountourLength();
+        bool length_condition=(minCountourLength()==0 && maxCountourLength()==0) || contourlength>minCountourLength() && contourlength<maxCountourLength();
 
         if(length_condition==false){
             continue;
@@ -64,7 +64,7 @@ void PostProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
 
         double contourarea=contourArea(contour);
 
-        bool area_condition=contourarea>minCountourArea() && contourarea<maxCountourArea();
+        bool area_condition=(minCountourArea()==0 && maxCountourArea()==0) ||  (contourarea>minCountourArea() && contourarea<maxCountourArea());
 
         if(area_condition==false){
             continue;
@@ -77,8 +77,8 @@ void PostProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
         RotatedRect minrect=minAreaRect(contour);
 
 
-        bool width_condition=minrect.size.width>minCountourWidth() && minrect.size.width<maxCountourWidth();
-        bool height_condition=minrect.size.height>minCountourHeight() && minrect.size.height<maxCountourHeight();
+        bool width_condition= (minCountourWidth()==0 && maxCountourWidth()==0) || (minrect.size.width>minCountourWidth() && minrect.size.width<maxCountourWidth());
+        bool height_condition= (minCountourHeight()==0 && maxCountourHeight()==0) || (minrect.size.height>minCountourHeight() && minrect.size.height<maxCountourHeight());
 
         //        convexHull(Mat(contour, hull[i], False);
 

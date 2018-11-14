@@ -94,16 +94,16 @@ void FrameBufferNode::setFrameSource(QMat *frameSource)
 
     if(currentmat!=nullptr){
         (frameSource->cvMat())->copyTo((*currentmat->cvMat()));
-        int storeindex=writeIndex();
-        QtConcurrent::run([&](){
+//        int storeindex=writeIndex();
+//        QtConcurrent::run([&](){
 
-             QMat* storemat= m_frameBuffers->getItemAt(storeindex);
+//             QMat* storemat= m_frameBuffers->getItemAt(storeindex);
 
-             QString name=QString("img_%1.jpg").arg(storeindex);
+//             QString name=QString("img_%1.jpg").arg(storeindex);
 
-             cv::imwrite(name.toStdString(),(*storemat->cvMat()));
+//             cv::imwrite(name.toStdString(),(*storemat->cvMat()));
 
-        });
+//        });
 
         m_frameBuffers->indexDataChanged(writeIndex());
         if(autoIncrementWriteIndex()){

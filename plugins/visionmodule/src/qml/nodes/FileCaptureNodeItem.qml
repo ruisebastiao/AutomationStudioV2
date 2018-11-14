@@ -66,6 +66,10 @@ FlowNodeItem{
                         onTextChanged: {
                             node.filePath=text
                         }
+                        onAccepted: {
+                            imagefile.file="";
+                            imagefile.file=node.filePath;
+                        }
                     }
 
                 }

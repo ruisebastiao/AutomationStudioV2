@@ -38,7 +38,7 @@ ProcessingItem{
                 id:spin_minContourLength
                 Layout.fillWidth: true
                 editable: true
-                to:90000
+                to:900000
 
                 value: postProcessorContours.minCountourLength
                 onValueChanged: {
@@ -62,7 +62,7 @@ ProcessingItem{
 
                 id:spin_maxContourLength
                 editable: true
-                to:90000
+                to:9000000
                 Layout.fillWidth: true
 
                 value: postProcessorContours.maxCountourLength
@@ -86,7 +86,7 @@ ProcessingItem{
                 id:spin_minContourArea
                 Layout.fillWidth: true
                 editable: true
-                to:90000
+                to:9000000
 
                 value: postProcessorContours.minCountourArea
                 onValueChanged: {
@@ -107,10 +107,12 @@ ProcessingItem{
 
             }
             SpinBox {
-
+                inputMethodHints: Qt.ImhDigitsOnly
                 id:spin_maxContourArea
                 editable: true
-                to:90000
+                stepSize: 1
+
+                to:9000000
                 Layout.fillWidth: true
 
                 value: postProcessorContours.maxCountourArea
@@ -135,7 +137,7 @@ ProcessingItem{
             SpinBox {
                 id:spin_minContourWidth
                 editable: true
-                to:90000
+                to:9000000
                 Layout.fillWidth: true
 
 
@@ -161,7 +163,7 @@ ProcessingItem{
             SpinBox {
                 id:spin_maxContourWidth
                 editable: true
-                to:90000
+                to:9000000
                 Layout.fillWidth: true
 
 
@@ -185,7 +187,7 @@ ProcessingItem{
             SpinBox {
                 id:spin_minContourHeight
                 editable: true
-                to:90000
+                to:9000000
                 Layout.fillWidth: true
 
                 value:postProcessorContours.minCountourHeight
@@ -210,7 +212,7 @@ ProcessingItem{
                 id:spin_maxContourHeight
                 editable: true
 
-                to:90000
+                to:9000000
 
 
                 value:postProcessorContours.maxCountourHeight
