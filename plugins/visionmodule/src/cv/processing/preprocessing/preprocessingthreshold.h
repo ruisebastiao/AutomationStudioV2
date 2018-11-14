@@ -1,11 +1,13 @@
 #ifndef PREPROCESSINGTHRESHOLD_H
 #define PREPROCESSINGTHRESHOLD_H
 
-#include "preprocessing.h"
+
 
 #include <QObject>
 
-class PreProcessingThreshold : public PreProcessing
+#include <cv/processing/processing.h>
+
+class PreProcessingThreshold : public Processing
 {
     Q_OBJECT
 
@@ -63,7 +65,7 @@ public slots:
         m_value = value;
         emit valueChanged(m_value);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
     void setThresholdType(ThresholdType thresholdType)
@@ -74,7 +76,7 @@ public slots:
         m_thresholdType = thresholdType;
         emit thresholdTypeChanged(m_thresholdType);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -86,7 +88,7 @@ public slots:
         m_adaptativeBlockSize = adaptativeBlockSize;
         emit adaptativeBlockSizeChanged(m_adaptativeBlockSize);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -97,7 +99,7 @@ public slots:
 
         m_adaptativeC = adaptativeC;
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 

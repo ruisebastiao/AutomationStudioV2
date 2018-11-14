@@ -9,6 +9,8 @@ ProcessingNode::ProcessingNode()
 
     m_preProcessors=new PreProcessingListModel(this);
 
+    m_postProcessors=new PostProcessingListModel(this);
+
 
 
 
@@ -68,7 +70,7 @@ void ProcessingNode::doProcess()
 
     int processorscount=m_preProcessors->count();
     for (int i = 0;i<processorscount ;i++) {
-        PreProcessing* preprocessing=m_preProcessors->getItemAt(i);
+        Processing* preprocessing=m_preProcessors->getItemAt(i);
         if(preprocessing && preprocessing->enabled()){
             preprocessing->apply(processedOutput,processedOutput,*m_input->cvMat());
         }
@@ -135,7 +137,7 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
     for (int i = 0; i < m_preProcessors->count(); ++i) {
 
-        connect(m_preProcessors->getItemAt(i),&PreProcessing::preProcessorConditionChanged,this,[&]{
+        connect(m_preProcessors->getItemAt(i),&Processing::processorConditionChanged,this,[&]{
             if(configsLoaded()){
                 this->setProcess(true);
             }

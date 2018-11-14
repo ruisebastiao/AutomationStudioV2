@@ -9,12 +9,12 @@ import QtQuick.Controls.Material 2.2
 
 import visionmodule 1.0
 
-PreProcessingItem{
+ProcessingItem{
 
     id:root
-    headerText:preProcessor?preProcessor.name+" ("+preProcessor.value+") ":"Threshold"
+    headerText:processorThreshold?processorThreshold.name+" ("+processorThreshold.value+") ":"Threshold"
 
-    property PreProcessingThreshold preProcessorThreshold: preProcessor
+    property PreProcessingThreshold processorThreshold: processor
 
 
 
@@ -34,27 +34,27 @@ PreProcessingItem{
             Flow{
                 anchors.fill: parent
                 RadioButton{
-                    checked:preProcessor.thresholdType==PreProcessingThreshold.Simple
+                    checked:processorThreshold.thresholdType==PreProcessingThreshold.Simple
                     text: "Simple"
                     onCheckedChanged: {
                         adaptative_settings.visible=false;
-                        preProcessor.thresholdType=PreProcessingThreshold.Simple
+                        processorThreshold.thresholdType=PreProcessingThreshold.Simple
                     }
                 }
                 RadioButton{
-                    checked:preProcessor.thresholdType==PreProcessingThreshold.AdaptativeGaussian
+                    checked:processorThreshold.thresholdType==PreProcessingThreshold.AdaptativeGaussian
                     text: "Adaptative Gaussian"
                     onCheckedChanged: {
                         adaptative_settings.visible=true
-                        preProcessor.thresholdType=PreProcessingThreshold.AdaptativeGaussian
+                        processorThreshold.thresholdType=PreProcessingThreshold.AdaptativeGaussian
                     }
                 }
                 RadioButton{
-                    checked:preProcessor.thresholdType==PreProcessingThreshold.AdaptativeMean
+                    checked:processorThreshold.thresholdType==PreProcessingThreshold.AdaptativeMean
                     text: "Adaptative Mean"
                     onCheckedChanged: {
                         adaptative_settings.visible=true
-                        preProcessor.thresholdType=PreProcessingThreshold.AdaptativeMean
+                        processorThreshold.thresholdType=PreProcessingThreshold.AdaptativeMean
                     }
                 }
 
@@ -75,7 +75,7 @@ PreProcessingItem{
                     to: 255
                     from:0
                     stepSize: 1
-                    value:preProcessorThreshold.value
+                    value:processorThreshold.value
                     live: false
                     onValueChanged: {
                         thresholdSpin.value=value
@@ -106,8 +106,8 @@ PreProcessingItem{
                     from:0
                     to:255
                     onValueChanged: {
-                        if(preProcessorThreshold && preProcessorThreshold.loaded){
-                            preProcessorThreshold.value=value
+                        if(processorThreshold && processorThreshold.loaded){
+                            processorThreshold.value=value
                         }
                     }
 
@@ -140,10 +140,10 @@ PreProcessingItem{
                         from:3
                         to:701
                         stepSize: 2
-                        value: preProcessorThreshold.adaptativeBlockSize
+                        value: processorThreshold.adaptativeBlockSize
                         onValueChanged: {
-                            if(preProcessor && preProcessorThreshold.loaded){
-                                preProcessorThreshold.adaptativeBlockSize=value
+                            if(processorThreshold && processorThreshold.loaded){
+                                processorThreshold.adaptativeBlockSize=value
                             }
                         }
                     }
@@ -161,10 +161,10 @@ PreProcessingItem{
                         from:2
                         to:200
                         stepSize: 2
-                        value: preProcessorThreshold.adaptativeC
+                        value: processorThreshold.adaptativeC
                         onValueChanged: {
-                            if(preProcessor && preProcessorThreshold.loaded){
-                                preProcessorThreshold.adaptativeC=value
+                            if(processorThreshold && processorThreshold.loaded){
+                                processorThreshold.adaptativeC=value
                             }
                         }
                     }

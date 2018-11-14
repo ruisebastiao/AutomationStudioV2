@@ -49,7 +49,7 @@ FlowNodeItem {
     ROISideContainerItem{
         id:right_container
         z:999999
-        containerSize:350
+        containerSize:400
         side:"right"
         roiPressed: root.isPressed
         show: root.selected==true && root.editMode==true
@@ -71,11 +71,66 @@ FlowNodeItem {
             //                }
             //            }
 
+
             Item{
                 id:postprocessing
+                GroupBox{
+                    anchors.fill: parent
+                    title: "Post Processing"
+
+                    ListView{
+                        clip:true
+                        id:postprocessing_list
+                        onCurrentIndexChanged: {
+                            //console.log("index:"+currentIndex)
+                        }
+
+                        anchors.fill: parent
+                        model: root.node.postProcessors
+
+                        onModelChanged: {
+                            postprocessing_list.currentIndex=0
+                        }
+
+                        Component {
+                            id: postprocessors_Delegate
+
+                            Rectangle{
+
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                id: postprocessor_wrapper
+
+                                width: postprocessing_list.width-10
+                                height: postprocessor_loader.height+10
+
+                                Loader{
+                                    id:postprocessor_loader
+                                    anchors.top: parent.top
+                                    source:visualItem
+                                    width: parent.width-10
+                                    onLoaded: {
+                                        item.processor=processor
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        focus: true
+
+                        delegate:postprocessors_Delegate
+
+
+                    }
+
+                }
+
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
+
         }
 
     }
@@ -118,74 +173,51 @@ FlowNodeItem {
 
                     ListView{
                         clip:true
-                        id:listView
+                        id:preprocessing_list
                         onCurrentIndexChanged: {
-                            console.log("index:"+currentIndex)
+
                         }
 
                         anchors.fill: parent
                         model: root.node.preProcessors
 
                         onModelChanged: {
-                            listView.currentIndex=0
+                            preprocessing_list.currentIndex=0
                         }
 
                         Component {
-                            id: preprocessorsDelegate
+                            id: preprocessing_Delegate
 
 
 
 
                             Rectangle{
-//
+                                //
 
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                id: wrapper
-//                                width: parent.width; height:
-                                 width: listView.width-10
-                                 height: loader.height+10
-//                                 Rectangle{
-//                                     anchors.fill: parent
-//                                     color: Material.color(Material.accent)
-//                                     opacity: 0.5
-//                                 }
-
+                                id: preprocessing_wrapper
+                                //                                width: parent.width; height:
+                                width: preprocessing_list.width-10
+                                height: preprocessing_loader.height+10
                                 Loader{
-                                    id:loader
+                                    id:preprocessing_loader
                                     anchors.top: parent.top
                                     source:visualItem
                                     width: parent.width-10
                                     onLoaded: {
-                                        item.preProcessor=preProcessor
+                                        item.processor=processor
                                     }
 
                                 }
-
-//                                MouseArea{
-//                                    anchors.fill: parent
-//                                    onPressed: wrapper.ListView.view.currentIndex = index;
-//                                    propagateComposedEvents: true
-//                                }
-
 
                             }
 
                         }
 
-//                        highlight: Rectangle {
-//                            color: "lightsteelblue";
-//                            radius: 5
-//                            z: 999
-//                            opacity: 0.3
-
-//                        }
-
-//                        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-//                        highlightFollowsCurrentItem: false
                         focus: true
 
 
-                        delegate:preprocessorsDelegate
+                        delegate:preprocessing_Delegate
 
 
 

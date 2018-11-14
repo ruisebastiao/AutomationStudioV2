@@ -1,11 +1,14 @@
 #ifndef PREPROCESSINGMASK_H
 #define PREPROCESSINGMASK_H
 
-#include "preprocessing.h"
+#include <cv/processing/processing.h>
 
 
 
-class PreProcessingMask : public PreProcessing
+
+
+
+class PreProcessingMask : public Processing
 {
     Q_OBJECT
 

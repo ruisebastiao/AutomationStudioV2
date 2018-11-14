@@ -9,12 +9,12 @@ import QtQuick.Controls.Material 2.2
 
 import visionmodule 1.0
 
-PreProcessingItem{
+ProcessingItem{
 
     id:root
 
 
-    property PreProcessingContours preProcessorContours: preProcessor
+    property PostProcessingContours postProcessorContours: processor
 
 
     containerItem: Column{
@@ -40,10 +40,10 @@ PreProcessingItem{
                 editable: true
                 to:90000
 
-                value: preProcessorContours.minCountourLength
+                value: postProcessorContours.minCountourLength
                 onValueChanged: {
-                    if(preProcessorContours&&preProcessorContours.loaded){
-                        preProcessorContours.minCountourLength=value
+                    if(postProcessorContours&&postProcessorContours.loaded){
+                        postProcessorContours.minCountourLength=value
                     }
                 }
             }
@@ -65,10 +65,10 @@ PreProcessingItem{
                 to:90000
                 Layout.fillWidth: true
 
-                value: preProcessorContours.maxCountourLength
+                value: postProcessorContours.maxCountourLength
                 onValueChanged: {
-                    if(preProcessorContours && preProcessorContours.loaded ){
-                        preProcessorContours.maxCountourLength=value
+                    if(postProcessorContours && postProcessorContours.loaded ){
+                        postProcessorContours.maxCountourLength=value
                     }
                 }
             }
@@ -88,10 +88,10 @@ PreProcessingItem{
                 editable: true
                 to:90000
 
-                value: preProcessorContours.minCountourArea
+                value: postProcessorContours.minCountourArea
                 onValueChanged: {
-                    if(preProcessorContours&&preProcessorContours.loaded){
-                        preProcessorContours.minCountourArea=value
+                    if(postProcessorContours&&postProcessorContours.loaded){
+                        postProcessorContours.minCountourArea=value
                     }
                 }
             }
@@ -113,10 +113,10 @@ PreProcessingItem{
                 to:90000
                 Layout.fillWidth: true
 
-                value: preProcessorContours.maxCountourArea
+                value: postProcessorContours.maxCountourArea
                 onValueChanged: {
-                    if(preProcessorContours && preProcessorContours.loaded ){
-                        preProcessorContours.maxCountourArea=value
+                    if(postProcessorContours && postProcessorContours.loaded ){
+                        postProcessorContours.maxCountourArea=value
                     }
                 }
             }
@@ -139,10 +139,10 @@ PreProcessingItem{
                 Layout.fillWidth: true
 
 
-                value:preProcessorContours.minCountourWidth
+                value:postProcessorContours.minCountourWidth
                 onValueChanged: {
-                    if(preProcessorContours && preProcessorContours.loaded){
-                        preProcessorContours.minCountourWidth=value
+                    if(postProcessorContours && postProcessorContours.loaded){
+                        postProcessorContours.minCountourWidth=value
                     }
                 }
             }
@@ -165,10 +165,10 @@ PreProcessingItem{
                 Layout.fillWidth: true
 
 
-                value: preProcessorContours.maxCountourWidth
+                value: postProcessorContours.maxCountourWidth
                 onValueChanged: {
-                    if(preProcessorContours && preProcessorContours.loaded){
-                        preProcessorContours.maxCountourWidth=value
+                    if(postProcessorContours && postProcessorContours.loaded){
+                        postProcessorContours.maxCountourWidth=value
                     }
                 }
             }
@@ -188,10 +188,10 @@ PreProcessingItem{
                 to:90000
                 Layout.fillWidth: true
 
-                value:preProcessorContours.minCountourHeight
+                value:postProcessorContours.minCountourHeight
                 onValueChanged: {
-                    if(preProcessorContours && preProcessorContours.loaded){
-                        preProcessorContours.minCountourHeight=value
+                    if(postProcessorContours && postProcessorContours.loaded){
+                        postProcessorContours.minCountourHeight=value
                     }
                 }
             }
@@ -213,10 +213,10 @@ PreProcessingItem{
                 to:90000
 
 
-                value:preProcessorContours.maxCountourHeight
+                value:postProcessorContours.maxCountourHeight
                 onValueChanged: {
-                    if(preProcessorContours && preProcessorContours.loaded){
-                        preProcessorContours.maxCountourHeight=value
+                    if(postProcessorContours && postProcessorContours.loaded){
+                        postProcessorContours.maxCountourHeight=value
                     }
                 }
             }

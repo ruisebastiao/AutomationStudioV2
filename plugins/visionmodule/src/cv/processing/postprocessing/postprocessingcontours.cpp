@@ -1,21 +1,24 @@
-#include "preprocessingcontours.h"
+#include "postprocessingcontours.h"
 #include "Logger.h"
 
 using namespace cv;
 using namespace std;
 
-PreProcessingContours::PreProcessingContours()
+PostProcessingContours::PostProcessingContours()
 {
 
-    m_type=Type::PreProcessingContours;
-    m_visualItem="qrc:///PreProcessing/PreProcessingContoursItem.qml";
+    m_type=Type::PostProcessingContours;
+    m_visualItem="qrc:///Processing/PostProcessing/PostProcessingContoursItem.qml";
     m_name="Contours";
 
 }
 
-void PreProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
+void PostProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
 {
     vector<vector<Point> > contours;
+
+//    vector<vector<Point> > contours_box;
+
     vector<Vec4i> hierarchy;
 
     m_filteredContours.clear();
@@ -83,20 +86,11 @@ void PreProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
 
 
         if(length_condition && width_condition && height_condition){
-//            convexHull(contour, hullP, false);
-//            convexHull(contour, hullI, false);
-//            if(hullI.size() > 3 )
-//            {
+            cv::Point2f vertices[4];
+             minrect.points(vertices);
+             for(int i = 0; i < 4; ++i)
+               cv::line(drawing, vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 1, CV_AA);
 
-//                convexityDefects(contour, hullI, defect);
-
-//                LOG_INFO()<<"Defects:"<<defect.size();
-
-//                defects.push_back(defect);
-//            }
-//            hullsP.push_back(hullP);
-
-//            drawContours( drawing, hullsP, hullsP.size()-1, cv::Scalar(0,0,255), 1, 8, vector<Vec4i>(), 0, Point() );
 
             m_filteredContours.push_back(contour);
         }
@@ -113,3 +107,19 @@ void PreProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
 
 
 }
+
+
+//            convexHull(contour, hullP, false);
+//            convexHull(contour, hullI, false);
+//            if(hullI.size() > 3 )
+//            {
+
+//                convexityDefects(contour, hullI, defect);
+
+//                LOG_INFO()<<"Defects:"<<defect.size();
+
+//                defects.push_back(defect);
+//            }
+//            hullsP.push_back(hullP);
+
+//            drawContours( drawing, hullsP, hullsP.size()-1, cv::Scalar(0,0,255), 1, 8, vector<Vec4i>(), 0, Point() );

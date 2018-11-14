@@ -1,11 +1,11 @@
-#ifndef PREPROCESSINGCONTOURS_H
-#define PREPROCESSINGCONTOURS_H
+#ifndef POSTPROCESSINGCONTOURS_H
+#define POSTPROCESSINGCONTOURS_H
 
-#include "preprocessing.h"
+#include "../processing.h"
 
 
 
-class PreProcessingContours:public PreProcessing
+class PostProcessingContours:public Processing
 {
     Q_OBJECT
 
@@ -34,7 +34,7 @@ class PreProcessingContours:public PreProcessing
 
 
 public:
-    PreProcessingContours();
+    PostProcessingContours();
 
     // PreProcessing interface
 public:
@@ -108,7 +108,7 @@ public slots:
         emit thresholdChanged(m_threshold);
 
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
 
     }
@@ -129,7 +129,7 @@ public slots:
         m_totalFilteredContours = totalFilteredContours;
         emit totalFilteredContoursChanged(m_totalFilteredContours);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -141,7 +141,7 @@ public slots:
         m_minCountourLength = minCountourLength;
         emit minCountourLengthChanged(m_minCountourLength);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -153,7 +153,7 @@ public slots:
         m_maxCountourLength = maxCountourLength;
         emit maxCountourLengthChanged(m_maxCountourLength);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -166,7 +166,7 @@ public slots:
         m_minCountourHeight = minCountourHeight;
         emit minCountourHeightChanged(m_minCountourHeight);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -179,7 +179,7 @@ public slots:
         m_maxCountourHeight = maxCountourHeight;
         emit maxCountourHeightChanged(m_maxCountourHeight);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -192,7 +192,7 @@ public slots:
         m_minCountourWidth = minCountourWidth;
         emit minCountourWidthChanged(m_minCountourWidth);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -205,7 +205,7 @@ public slots:
         m_maxCountourWidth = maxCountourWidth;
         emit maxCountourWidthChanged(m_maxCountourWidth);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -217,7 +217,7 @@ public slots:
         m_minCountourArea = minCountourArea;
         emit minCountourAreaChanged(m_minCountourArea);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -229,7 +229,7 @@ public slots:
         m_maxCountourArea = maxCountourArea;
         emit maxCountourAreaChanged(m_maxCountourArea);
         if(loaded()){
-            emit preProcessorConditionChanged();
+            emit processorConditionChanged();
         }
     }
 
@@ -274,4 +274,4 @@ private:
     int m_maxCountourArea=1000;
 };
 
-#endif // PREPROCESSINGCONTOURS_H
+#endif // POSTPROCESSINGCONTOURS_H

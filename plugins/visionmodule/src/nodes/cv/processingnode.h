@@ -7,7 +7,11 @@
 
 #include <flownodeport.h>
 
-#include <cv/preprocessing/preprocessing.h>
+#include <cv/processing/preprocessing/preprocessinglistmodel.h>
+
+#include <cv/processing/postprocessing/postprocessinglistmodel.h>
+
+
 
 #include "cv/qmat.h"
 
@@ -41,6 +45,7 @@ class ProcessingNode : public FlowNode
 
 
     Q_PROPERTY(PreProcessingListModel* preProcessors READ preProcessors WRITE setPreProcessors NOTIFY preProcessorsChanged USER("serialize"))
+    Q_PROPERTY(PostProcessingListModel* postProcessors READ postProcessors WRITE setPostProcessors NOTIFY postProcessorsChanged USER("serialize"))
 
 
 //    Q_PROPERTY(Pre name READ name WRITE setName NOTIFY nameChanged)
@@ -138,6 +143,11 @@ public:
     PreProcessingListModel* preProcessors() const
     {
         return m_preProcessors;
+    }
+
+    PostProcessingListModel* postProcessors() const
+    {
+        return m_postProcessors;
     }
 
 public slots:
@@ -239,6 +249,15 @@ public slots:
         emit preProcessorsChanged(m_preProcessors);
     }
 
+    void setPostProcessors(PostProcessingListModel* postProcessors)
+    {
+        if (m_postProcessors == postProcessors)
+            return;
+
+        m_postProcessors = postProcessors;
+        emit postProcessorsChanged(m_postProcessors);
+    }
+
 signals:
     void inputChanged(QMat* input);
     void outputChanged(QMat* output);
@@ -274,6 +293,8 @@ signals:
 
     void preProcessorsChanged(PreProcessingListModel* preProcessors);
 
+    void postProcessorsChanged(PostProcessingListModel* postProcessors);
+
 private:
 
 
@@ -299,6 +320,8 @@ private:
     bool m_isEndNode=false;
 
     PreProcessingListModel* m_preProcessors=nullptr;
+
+    PostProcessingListModel* m_postProcessors=nullptr;
 
 protected:
     QMat* m_input=nullptr;

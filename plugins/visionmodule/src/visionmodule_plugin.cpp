@@ -31,8 +31,10 @@
 #include <cv/qimread.h>
 #include <cv/qmatview.h>
 
-#include <cv/preprocessing/preprocessingcontours.h>
-#include <cv/preprocessing/preprocessingthreshold.h>
+
+#include <cv/processing/preprocessing/preprocessingthreshold.h>
+
+#include <cv/processing/postprocessing/postprocessingcontours.h>
 
 void VisionModulePlugin::registerTypes(const char *uri){
     // @uri modules.visionmodule
@@ -46,9 +48,18 @@ void VisionModulePlugin::registerTypes(const char *uri){
     qmlRegisterType<QImageFile>(uri, 1, 0, "QImageFile");
 
 
-    qmlRegisterUncreatableType<PreProcessing>(uri, 1, 0, "PreProcessing","Not creatable");
+    qmlRegisterUncreatableType<Processing>(uri, 1, 0, "Processing","Not creatable");
+
+    qmlRegisterType<PreProcessingListModel>(uri, 1, 0, "PreProcessingListModel");
+    qmlRegisterType<PostProcessingListModel>(uri, 1, 0, "PostProcessingListModel");
+
+
     qmlRegisterUncreatableType<PreProcessingThreshold>(uri, 1, 0, "PreProcessingThreshold","Not creatable");
-    qmlRegisterUncreatableType<PreProcessingContours>(uri, 1, 0, "PreProcessingContours","Not creatable");
+
+
+    qmlRegisterUncreatableType<PostProcessingContours>(uri, 1, 0, "PostProcessingContours","Not creatable");
+
+
 
     qmlRegisterType<ROINode>(uri, 1, 0, "ROINode");
 

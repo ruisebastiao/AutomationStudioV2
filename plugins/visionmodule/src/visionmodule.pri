@@ -26,10 +26,13 @@ SOURCES += \
     $$PWD/cv/qmatview.cpp \
     $$PWD/nodes/cv/processingnode.cpp \
     $$PWD/nodes/framebuffernode.cpp \
-    $$PWD/cv/preprocessing/preprocessing.cpp \
-    $$PWD/cv/preprocessing/preprocessingthreshold.cpp \
-    $$PWD/cv/preprocessing/preprocessingcontours.cpp \
-    $$PWD/cv/preprocessing/preprocessingmask.cpp
+    $$PWD/cv/processing/preprocessing/preprocessingthreshold.cpp \
+    $$PWD/cv/processing/preprocessing/preprocessingmask.cpp \
+    $$PWD/cv/processing/processing.cpp \
+    $$PWD/cv/processing/postprocessing/postprocessingcontours.cpp \
+    $$PWD/cv/processing/processinglistmodel.cpp \
+    $$PWD/cv/processing/preprocessing/preprocessinglistmodel.cpp \
+    $$PWD/cv/processing/postprocessing/postprocessinglistmodel.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -57,10 +60,13 @@ HEADERS += \
     $$PWD/cv/qmatview.h \
     $$PWD/nodes/cv/processingnode.h \
     $$PWD/nodes/framebuffernode.h \
-    $$PWD/cv/preprocessing/preprocessing.h \
-    $$PWD/cv/preprocessing/preprocessingthreshold.h \
-    $$PWD/cv/preprocessing/preprocessingcontours.h \
-    $$PWD/cv/preprocessing/preprocessingmask.h
+    $$PWD/cv/processing/preprocessing/preprocessingthreshold.h \
+    $$PWD/cv/processing/preprocessing/preprocessingmask.h \
+    $$PWD/cv/processing/processing.h \
+    $$PWD/cv/processing/postprocessing/postprocessingcontours.h \
+    $$PWD/cv/processing/processinglistmodel.h \
+    $$PWD/cv/processing/preprocessing/preprocessinglistmodel.h \
+    $$PWD/cv/processing/postprocessing/postprocessinglistmodel.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc
@@ -76,6 +82,5 @@ DISTFILES += \
     $$PWD/qml/utils/ROIEditor.qml \
     $$PWD/qml/utils/ROIProcessingViewer.qml \
     $$PWD/qml/utils/ROISideContainer.qml \
-    $$PWD/qml/cv/preprocessing/PreProcessingThresholdItem.qml \
-    $$PWD/qml/cv/PreProcessingItem.qml \
-    $$PWD/qml/cv/PreProcessingItem.qml
+    $$PWD/qml/cv/processing/postprocessing/PreProcessingContoursItem.qml
+

@@ -16,11 +16,11 @@ Rectangle {
     property bool editMode: false
 
 
-    property PreProcessing preProcessor;
+    property Processing processor;
 
 
 
-    property string headerText:preProcessor?preProcessor.name:""
+    property string headerText:processor?processor.name:""
 
     height: editMode?childrenRect.height+10:childrenRect.height
 
@@ -62,10 +62,6 @@ Rectangle {
             }
             MouseArea{
                 anchors.fill: parent
-//                onPressAndHold: {
-//                    root.editMode=!root.editMode
-//                }
-
                 onPressed: {
                     root.editMode=!root.editMode
                 }
@@ -99,9 +95,9 @@ Rectangle {
             anchors.bottom:parent.top
 //            anchors.topMargin: -20
             anchors.right: parent.right
-            checked: preProcessor.enabled
+            checked: processor.enabled
             onCheckedChanged: {
-                preProcessor.enabled=checked
+                processor.enabled=checked
             }
         }
 
