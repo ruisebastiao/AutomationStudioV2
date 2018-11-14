@@ -274,4 +274,6 @@ private:
     int m_maxCountourArea=1000;
 };
 
+Q_DECLARE_METATYPE(std::vector<std::vector<cv::Point>>);
+
 #endif // POSTPROCESSINGCONTOURS_H

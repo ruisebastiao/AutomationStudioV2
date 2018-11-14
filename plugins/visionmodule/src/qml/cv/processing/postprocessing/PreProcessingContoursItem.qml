@@ -17,219 +17,240 @@ ProcessingItem{
     property PostProcessingContours postProcessorContours: processor
 
 
-    containerItem: Column{
-
-        id:container
+    containerItem: GroupBox{
         width: parent.width
 
-        spacing: 5
+        ColumnLayout{
 
-
-
-        RowLayout{
             width: parent.width
-            Label{
-                text: "Min Countour Length:"
-                Layout.preferredWidth: paintedWidth
-                verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
-                id:spin_minContourLength
+
+            Column{
+                id:container
                 Layout.fillWidth: true
-                editable: true
-                to:900000
+                spacing: 5
 
-                value: postProcessorContours.minCountourLength
-                onValueChanged: {
-                    if(postProcessorContours&&postProcessorContours.loaded){
-                        postProcessorContours.minCountourLength=value
+
+
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        text: "Min Countour Length:"
+                        Layout.preferredWidth: paintedWidth
+                        verticalAlignment: Text.AlignVCenter
+
+                    }
+                    SpinBox {
+                        id:spin_minContourLength
+                        Layout.fillWidth: true
+                        editable: true
+                        to:900000
+
+                        value: postProcessorContours.minCountourLength
+                        onValueChanged: {
+                            if(postProcessorContours&&postProcessorContours.loaded){
+                                postProcessorContours.minCountourLength=value
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        RowLayout{
-            width: parent.width
-            Label{
-                text: "Max Countour Length:"
-                Layout.preferredWidth: paintedWidth
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        text: "Max Countour Length:"
+                        Layout.preferredWidth: paintedWidth
 
-                verticalAlignment: Text.AlignVCenter
+                        verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
+                    }
+                    SpinBox {
 
-                id:spin_maxContourLength
-                editable: true
-                to:9000000
-                Layout.fillWidth: true
+                        id:spin_maxContourLength
+                        editable: true
+                        to:9000000
+                        Layout.fillWidth: true
 
-                value: postProcessorContours.maxCountourLength
-                onValueChanged: {
-                    if(postProcessorContours && postProcessorContours.loaded ){
-                        postProcessorContours.maxCountourLength=value
+                        value: postProcessorContours.maxCountourLength
+                        onValueChanged: {
+                            if(postProcessorContours && postProcessorContours.loaded ){
+                                postProcessorContours.maxCountourLength=value
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        RowLayout{
-            width: parent.width
-            Label{
-                text: "Min Countour Area:"
-                Layout.preferredWidth: paintedWidth
-                verticalAlignment: Text.AlignVCenter
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        text: "Min Countour Area:"
+                        Layout.preferredWidth: paintedWidth
+                        verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
-                id:spin_minContourArea
-                Layout.fillWidth: true
-                editable: true
-                to:9000000
+                    }
+                    SpinBox {
+                        id:spin_minContourArea
+                        Layout.fillWidth: true
+                        editable: true
+                        to:9000000
 
-                value: postProcessorContours.minCountourArea
-                onValueChanged: {
-                    if(postProcessorContours&&postProcessorContours.loaded){
-                        postProcessorContours.minCountourArea=value
+                        value: postProcessorContours.minCountourArea
+                        onValueChanged: {
+                            if(postProcessorContours&&postProcessorContours.loaded){
+                                postProcessorContours.minCountourArea=value
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        RowLayout{
-            width: parent.width
-            Label{
-                text: "Max Countour Area:"
-                Layout.preferredWidth: paintedWidth
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        text: "Max Countour Area:"
+                        Layout.preferredWidth: paintedWidth
 
-                verticalAlignment: Text.AlignVCenter
+                        verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
-                inputMethodHints: Qt.ImhDigitsOnly
-                id:spin_maxContourArea
-                editable: true
-                stepSize: 1
+                    }
+                    SpinBox {
+                        inputMethodHints: Qt.ImhDigitsOnly
+                        id:spin_maxContourArea
+                        editable: true
+                        stepSize: 1
 
-                to:9000000
-                Layout.fillWidth: true
+                        to:9000000
+                        Layout.fillWidth: true
 
-                value: postProcessorContours.maxCountourArea
-                onValueChanged: {
-                    if(postProcessorContours && postProcessorContours.loaded ){
-                        postProcessorContours.maxCountourArea=value
+                        value: postProcessorContours.maxCountourArea
+                        onValueChanged: {
+                            if(postProcessorContours && postProcessorContours.loaded ){
+                                postProcessorContours.maxCountourArea=value
+                            }
+                        }
                     }
                 }
-            }
-        }
 
 
-        RowLayout{
-            width: parent.width
+                RowLayout{
+                    width: parent.width
 
-            Label{
-                text: "Min Countour Width:"
-                Layout.preferredWidth: paintedWidth
-                verticalAlignment: Text.AlignVCenter
+                    Label{
+                        text: "Min Countour Width:"
+                        Layout.preferredWidth: paintedWidth
+                        verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
-                id:spin_minContourWidth
-                editable: true
-                to:9000000
-                Layout.fillWidth: true
+                    }
+                    SpinBox {
+                        id:spin_minContourWidth
+                        editable: true
+                        to:9000000
+                        Layout.fillWidth: true
 
 
-                value:postProcessorContours.minCountourWidth
-                onValueChanged: {
-                    if(postProcessorContours && postProcessorContours.loaded){
-                        postProcessorContours.minCountourWidth=value
+                        value:postProcessorContours.minCountourWidth
+                        onValueChanged: {
+                            if(postProcessorContours && postProcessorContours.loaded){
+                                postProcessorContours.minCountourWidth=value
+                            }
+                        }
                     }
                 }
-            }
-        }
 
 
 
-        RowLayout{
-            width: parent.width
-            Label{
-                text: "Max Countour Width:"
-                Layout.preferredWidth: paintedWidth
-                verticalAlignment: Text.AlignVCenter
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        text: "Max Countour Width:"
+                        Layout.preferredWidth: paintedWidth
+                        verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
-                id:spin_maxContourWidth
-                editable: true
-                to:9000000
-                Layout.fillWidth: true
+                    }
+                    SpinBox {
+                        id:spin_maxContourWidth
+                        editable: true
+                        to:9000000
+                        Layout.fillWidth: true
 
 
-                value: postProcessorContours.maxCountourWidth
-                onValueChanged: {
-                    if(postProcessorContours && postProcessorContours.loaded){
-                        postProcessorContours.maxCountourWidth=value
+                        value: postProcessorContours.maxCountourWidth
+                        onValueChanged: {
+                            if(postProcessorContours && postProcessorContours.loaded){
+                                postProcessorContours.maxCountourWidth=value
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        RowLayout{
-            width: parent.width
-            Label{
-                text: "Min Countour Height:"
-                Layout.preferredWidth: paintedWidth
-                verticalAlignment: Text.AlignVCenter
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        text: "Min Countour Height:"
+                        Layout.preferredWidth: paintedWidth
+                        verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
-                id:spin_minContourHeight
-                editable: true
-                to:9000000
-                Layout.fillWidth: true
+                    }
+                    SpinBox {
+                        id:spin_minContourHeight
+                        editable: true
+                        to:9000000
+                        Layout.fillWidth: true
 
-                value:postProcessorContours.minCountourHeight
-                onValueChanged: {
-                    if(postProcessorContours && postProcessorContours.loaded){
-                        postProcessorContours.minCountourHeight=value
+                        value:postProcessorContours.minCountourHeight
+                        onValueChanged: {
+                            if(postProcessorContours && postProcessorContours.loaded){
+                                postProcessorContours.minCountourHeight=value
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        RowLayout{
-            width: parent.width
-            Label{
-                text: "Max Countour Height:"
-                Layout.preferredWidth: paintedWidth
-                verticalAlignment: Text.AlignVCenter
+                RowLayout{
+                    width: parent.width
+                    Label{
+                        text: "Max Countour Height:"
+                        Layout.preferredWidth: paintedWidth
+                        verticalAlignment: Text.AlignVCenter
 
-            }
-            SpinBox {
-                Layout.fillWidth: true
-                id:spin_maxContourHeight
-                editable: true
+                    }
+                    SpinBox {
+                        Layout.fillWidth: true
+                        id:spin_maxContourHeight
+                        editable: true
 
-                to:9000000
+                        to:9000000
 
 
-                value:postProcessorContours.maxCountourHeight
-                onValueChanged: {
-                    if(postProcessorContours && postProcessorContours.loaded){
-                        postProcessorContours.maxCountourHeight=value
+                        value:postProcessorContours.maxCountourHeight
+                        onValueChanged: {
+                            if(postProcessorContours && postProcessorContours.loaded){
+                                postProcessorContours.maxCountourHeight=value
+                            }
+                        }
                     }
                 }
+
+                GroupBox{
+                    visible: true
+
+                    width: parent.width
+
+                    title: "Output:"
+                    ColumnLayout{
+
+                    }
+                }
+
             }
-        }
 
+            Item{
+                Layout.fillWidth: true
 
-        Item{
-            width: parent.width
-            height: 30
+                Layout.preferredHeight:  30
+            }
         }
     }
-
-
 }
+
+
+

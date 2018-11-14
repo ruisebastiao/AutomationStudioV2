@@ -47,6 +47,7 @@ void PostProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
     {
 
         vector<Point> contour=contours[i];
+        vector<Point> approx_contour;
         vector<Point >hullP;
         vector<int> hullI;
         vector<Vec4i> defect;
@@ -72,9 +73,9 @@ void PostProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
 
 
 //        approxPolyDP(contour,contour,contourlength*0.02,true);
-        approxPolyDP(contour,contour,3,true);
+        approxPolyDP(contour,approx_contour,3,true);
         //        Rect contour_rect=boundingRect(contour);
-        RotatedRect minrect=minAreaRect(contour);
+        RotatedRect minrect=minAreaRect(approx_contour);
 
 
         bool width_condition= (minCountourWidth()==0 && maxCountourWidth()==0) || (minrect.size.width>minCountourWidth() && minrect.size.width<maxCountourWidth());
@@ -86,10 +87,10 @@ void PostProcessingContours::apply(Mat& input, Mat& preprocessed, Mat &original)
 
 
         if(length_condition && width_condition && height_condition){
-            cv::Point2f vertices[4];
-             minrect.points(vertices);
-             for(int i = 0; i < 4; ++i)
-               cv::line(drawing, vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 1, CV_AA);
+//            cv::Point2f vertices[4];
+//             minrect.points(vertices);
+//             for(int i = 0; i < 4; ++i)
+//               cv::line(drawing, vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 1, CV_AA);
 
 
             m_filteredContours.push_back(contour);
