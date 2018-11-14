@@ -1,4 +1,7 @@
 #include "framebuffernode.h"
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
 
 FrameBufferNode::FrameBufferNode()
 {
@@ -91,6 +94,17 @@ void FrameBufferNode::setFrameSource(QMat *frameSource)
 
     if(currentmat!=nullptr){
         (frameSource->cvMat())->copyTo((*currentmat->cvMat()));
+        int storeindex=writeIndex();
+        QtConcurrent::run([&](){
+
+             QMat* storemat= m_frameBuffers->getItemAt(storeindex);
+
+             QString name=QString("img_%1.jpg").arg(storeindex);
+
+             cv::imwrite(name.toStdString(),(*storemat->cvMat()));
+
+        });
+
         m_frameBuffers->indexDataChanged(writeIndex());
         if(autoIncrementWriteIndex()){
             setWriteIndex(writeIndex()+1);
