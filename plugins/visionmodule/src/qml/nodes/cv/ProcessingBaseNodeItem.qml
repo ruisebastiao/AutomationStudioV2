@@ -8,6 +8,15 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
 
-Item {
+import QuickQanava          2.0 as Qan
+
+import automationmodule 1.0
+import visionmodule 1.0
+
+ProcessingNodeItem{
+    id:root
+    expandOnEdit: true
+
+
 
 }

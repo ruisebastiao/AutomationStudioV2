@@ -1,24 +1,26 @@
-
-import QtQuick              2.7
+import QtQuick              2.8
 import QtQuick.Layouts      1.3
-import QtGraphicalEffects   1.0
-
 
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
-import QuickQanava          2.0 as Qan
-
 import automationmodule 1.0
 import visionmodule 1.0
-
 
 FlowNodeItem {
     id: root
 
     property bool isPressed: false
 
-    property Item processingConfigItem
+    property Item processingConfigItem:null
+
+    onProcessingConfigItemChanged:  {
+        if(processingConfigItem){
+            processingConfigItem.parent=processinigConfigContainer
+        }
+    }
+
+
 
 
     expandOnEdit: true
@@ -38,10 +40,17 @@ FlowNodeItem {
         containerSize:450
         side:"right"
         roiPressed: root.isPressed
-        show: root.selected==true && root.editMode==true
-        //        visible: postProcessingConfigItem
+        show: root.processingConfigItem && root.selected==true && root.editMode==true
+        visible: root.processingConfigItem
         contentItem: ColumnLayout{
             anchors.fill: parent
+
+            Item{
+                id:processinigConfigContainer
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+
 
         }
 

@@ -19,26 +19,18 @@ ProcessingNode::~ProcessingNode()
 
 }
 
-QQmlComponent*  ProcessingNode ::delegate(QQmlEngine& engine) noexcept
-{
-    static UniqueQQmlComponentPtr   qan_FlowNode_delegate;
-    if ( !qan_FlowNode_delegate )
-        qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/Cv/ProcessingNodeItem.qml"));
-    return qan_FlowNode_delegate.get();
-}
 
 
 void ProcessingNode::setProcess(bool process)
 {
 
-    m_process = process;
-    emit processChanged(m_process);
+    emit processChanged(process);
 
     if(!m_input || m_input->cvMat()->empty())
         return;
 
-    if(m_process){
-        setProcess(false);
+    if(process){
+
 
         if(configsLoaded()==false){
             return;
@@ -63,9 +55,9 @@ void ProcessingNode::doProcess()
 
 
 
-    if(isEndNode()){
-        emit processingCompleted(this);
-    }
+//    if(m_processingType==ProcessingType::ProcessingEndNode){
+//        emit processingCompleted(this);
+//    }
 
 
 }
@@ -73,25 +65,13 @@ void ProcessingNode::doProcess()
 void ProcessingNode::setInput(QMat *input)
 {
 
-    if(!input){
-        return;
-    }
 
     m_input = input;
 
-    if(m_input){
+    setOriginalInput(input);
 
-        setOutput(m_input);
-    }
 
     emit inputChanged(m_input);
-
-    if(m_input->cvMat()->empty()){
-        return;
-    }
-    if(isBaseNode()){
-        setProcess(true);
-    }
 
 
 }
@@ -114,7 +94,22 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
     FlowNode::DeSerialize(json);
 
+    if(m_inputPort->portLabel()==""){
+        m_inputPort->setPortLabel("Input");
+    }
 
+    if(m_processPort->portLabel()==""){
+        m_processPort->setPortLabel("Process");
+    }
+
+    if(m_outputPort->portLabel()==""){
+        m_outputPort->setPortLabel("Output");
+    }
+
+
+    if(m_processingDonePort->portLabel()==""){
+        m_processingDonePort->setPortLabel("Processing Done");
+    }
 
     setConfigsLoaded(true);
 

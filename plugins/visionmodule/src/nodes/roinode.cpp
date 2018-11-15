@@ -1,6 +1,10 @@
 #include "roinode.h"
 #include "QObject"
 
+#include <nodes/cv/processingbasenode.h>
+#include <nodes/cv/processingfilternode.h>
+#include <nodes/cv/processingthresholdnode.h>
+
 
 using namespace cv;
 
@@ -33,20 +37,20 @@ void ROINode::Serialize(QJsonObject &json)
 {
     FlowNode::Serialize(json);
 
-    QJsonArray preprocessingArray;
+    QJsonArray processingnodesArray;
 
     for (int i = 0; i < m_ProcessingNodes.length(); ++i) {
 
-        QJsonObject preprocessingObject;
+        QJsonObject processingnodeObject;
 
         FlowNode* processing=static_cast<FlowNode*>(m_ProcessingNodes.at(i));
 
-        processing->Serialize(preprocessingObject);
+        processing->Serialize(processingnodeObject);
 
-        preprocessingArray.append(preprocessingObject);
+        processingnodesArray.append(processingnodeObject);
     }
 
-    json["processingnodes"]=preprocessingArray;
+    json["processingnodes"]=processingnodesArray;
 
 
 }
@@ -56,11 +60,17 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
 {
     qan::Node* newnode=nullptr;
 
-    if(nodeobject["type"]=="ProcessingNode"){
-//        newnode=graphView->getGraph()->insertNode<ProcessingNode>(nullptr);
+    if(nodeobject["processingType"]=="ProcessingBaseNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingBaseNode>(nullptr);
+    }
+    else if(nodeobject["processingType"]=="ProcessingThresholdNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingThresholdNode>(nullptr);
+    }
+    else if(nodeobject["processingType"]=="ProcessingFilterNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingFilterNode>(nullptr);
     }
     else{
-        LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
+        LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodeobject["processingType"].toString()));
     }
 
     ProcessingNode* node=dynamic_cast<ProcessingNode*>(newnode);
@@ -101,7 +111,7 @@ void ROINode::DeSerialize(QJsonObject &json)
 
         procnode=qobject_cast<ProcessingNode*>(node);
         if(procnode){
-            if(procnode->isBaseNode()){
+            if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
                 node->bindSourceProperty(this,"sourceFrame","input");
             }
 

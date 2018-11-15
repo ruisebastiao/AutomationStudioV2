@@ -25,7 +25,11 @@ SOURCES += \
     $$PWD/cv/qmatstate.cpp \
     $$PWD/cv/qmatview.cpp \
     $$PWD/nodes/cv/processingnode.cpp \
-    $$PWD/nodes/framebuffernode.cpp
+    $$PWD/nodes/framebuffernode.cpp \
+    $$PWD/nodes/cv/processingbasenode.cpp \
+    $$PWD/nodes/cv/processingthresholdnode.cpp \
+    $$PWD/nodes/cv/processingdrawingnode.cpp \
+    $$PWD/nodes/cv/processingfilternode.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -52,7 +56,11 @@ HEADERS += \
     $$PWD/cv/qmatstate.h \
     $$PWD/cv/qmatview.h \
     $$PWD/nodes/cv/processingnode.h \
-    $$PWD/nodes/framebuffernode.h
+    $$PWD/nodes/framebuffernode.h \
+    $$PWD/nodes/cv/processingbasenode.h \
+    $$PWD/nodes/cv/processingthresholdnode.h \
+    $$PWD/nodes/cv/processingdrawingnode.h \
+    $$PWD/nodes/cv/processingfilternode.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc

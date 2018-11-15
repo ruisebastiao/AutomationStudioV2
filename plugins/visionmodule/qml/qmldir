@@ -10,4 +10,4 @@ ROIProcessingViewerItem                    1.0 qrc:///Utils/ROIProcessingViewer.
 ROISideContainerItem                       1.0 qrc:///Utils/ROISideContainer.qml
 FrameBufferNodeItem                        1.0 qrc:///Nodes/FrameBufferNodeItem.qml
 QMatFlickable                              1.0 qrc:///Utils/QMatFlickable.qml
-ProcessingItem                             1.0 qrc:///Processing/ProcessingItem.qml
+ProcessingNodeItem                         1.0 qrc:///Nodes/Cv/ProcessingNodeItem.qml

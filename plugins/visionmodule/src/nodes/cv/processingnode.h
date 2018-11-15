@@ -19,8 +19,6 @@ class ProcessingNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool isBaseNode READ isBaseNode WRITE setIsBaseNode NOTIFY isBaseNodeChanged USER("serialize"))
-    Q_PROPERTY(bool isEndNode READ isEndNode WRITE setIsEndNode NOTIFY isEndNodeChanged USER("serialize"))
 
 
     Q_PROPERTY(bool processingDone READ processingDone WRITE setProcessingDone NOTIFY processingDoneChanged)
@@ -30,26 +28,44 @@ class ProcessingNode : public FlowNode
     Q_PROPERTY(QMat* input READ input WRITE setInput NOTIFY inputChanged)
     Q_PROPERTY(FlowNodePort* inputPort READ inputPort WRITE setInputPort NOTIFY inputPortChanged USER("serialize"))
 
-    Q_PROPERTY(QMat* output READ output WRITE setOutput NOTIFY outputChanged)
+    Q_PROPERTY(QMat* output READ output NOTIFY outputChanged)
     Q_PROPERTY(FlowNodePort* outputPort READ outputPort WRITE setOutputPort NOTIFY outputPortChanged USER("serialize"))
 
     Q_PROPERTY(QMat* processedFrame READ processedFrame WRITE setProcessedFrame NOTIFY processedFrameChanged)
 
 
-    Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged)
+    Q_PROPERTY(bool process  WRITE setProcess NOTIFY processChanged)
     Q_PROPERTY(FlowNodePort* processPort READ processPort WRITE setProcessPort NOTIFY processPortChanged USER("serialize"))
 
 
+    Q_PROPERTY(ProcessingType  processingType  READ processingType CONSTANT FINAL USER("serialize"))
+    Q_PROPERTY(bool inPlaceProcessing READ inPlaceProcessing WRITE setInPlaceProcessing NOTIFY inPlaceProcessingChanged)
 
 
+
+    Q_PROPERTY(QMat* originalInput READ originalInput WRITE setOriginalInput NOTIFY originalInputChanged)
+
+
+    Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
+
+    
 public:
+    enum class ProcessingType {
+        ProcessingBaseNode,
+        ProcessingEndNode,
+        ProcessingDrawingNode,
+        ProcessingThresholdNode,
+        ProcessingFilterNode
+
+    };
+    Q_ENUM(ProcessingType)
+
 
     ProcessingNode();
 
     ~ProcessingNode() override;
 
 
-    static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
 
 
@@ -82,15 +98,6 @@ public:
         return m_processedFrame;
     }
 
-    //    FlowNodePort* processedFramePort() const
-    //    {
-    //        return m_processedFramePort;
-    //    }
-
-    bool process() const
-    {
-        return m_process;
-    }
 
     FlowNodePort* processPort() const
     {
@@ -119,30 +126,27 @@ public:
         return m_showOriginal;
     }
 
-    bool isBaseNode() const
+
+    ProcessingType processingType() const
     {
-        return m_isBaseNode;
+        return m_processingType;
     }
 
-    bool isEndNode() const
+    bool inPlaceProcessing() const
     {
-        return m_isEndNode;
+        return m_inPlaceProcessing;
     }
 
+
+    bool enabled() const
+    {
+        return m_enabled;
+    }
 
 public slots:
-    void setInput(QMat* input);
+    virtual void setInput(QMat* input)=0;
 
 
-    void setOutput(QMat* output)
-    {
-        if(!m_output && output){
-            m_output=new QMat();
-        }
-
-
-        //  emit outputChanged(m_output);
-    }
 
     void setInputPort(FlowNodePort* inputPort)
     {
@@ -202,24 +206,34 @@ public slots:
     }
 
 
-    void setIsBaseNode(bool isBaseNode)
-    {
-        if (m_isBaseNode == isBaseNode)
-            return;
 
-        m_isBaseNode = isBaseNode;
-        emit isBaseNodeChanged(m_isBaseNode);
+    void setOriginalInput(QMat* originalInput)
+    {
+
+        if(!originalInput || originalInput->cvMat()->empty())
+            return;
+        originalInput->cvMat()->copyTo(*m_originalInput->cvMat());
+
+        emit originalInputChanged(m_originalInput);
     }
 
-    void setIsEndNode(bool isEndNode)
+    void setInPlaceProcessing(bool inPlaceProcessing)
     {
-        if (m_isEndNode == isEndNode)
+        if (m_inPlaceProcessing == inPlaceProcessing)
             return;
 
-        m_isEndNode = isEndNode;
-        emit isEndNodeChanged(m_isEndNode);
+        m_inPlaceProcessing = inPlaceProcessing;
+        emit inPlaceProcessingChanged(m_inPlaceProcessing);
     }
 
+    void setEnabled(bool enabled)
+    {
+        if (m_enabled == enabled)
+            return;
+
+        m_enabled = enabled;
+        emit enabledChanged(m_enabled);
+    }
 
 signals:
     void inputChanged(QMat* input);
@@ -256,35 +270,25 @@ signals:
 
 
 
+    void originalInputChanged(QMat* originalInput);
+
+    void inPlaceProcessingChanged(bool inPlaceProcessing);
+
+    void enabledChanged(bool enabled);
+
 private:
 
 
 
-    FlowNodePort* m_inputPort=nullptr;
-    FlowNodePort* m_outputPort=nullptr;
+    bool m_inPlaceProcessing=false;
 
 
-
-    //    FlowNodePort* m_processedFramePort=nullptr;
-
-    bool m_process=false;
-
-    FlowNodePort* m_processPort=nullptr;
-
-    FlowNodePort* m_processingDonePort=nullptr;
-
-
-
-
-    bool m_isBaseNode=false;
-
-    bool m_isEndNode=false;
-
-
+    bool m_enabled=true;
 
 protected:
     QMat* m_input=nullptr;
-    QMat* m_originalInput=nullptr;
+    QMat* m_originalInput=new QMat();
+
 
     QMat* m_output=new QMat();
     QMutex mMutex;
@@ -294,6 +298,15 @@ protected:
     bool m_showOriginal=false;
 
     virtual void doProcess()=0;
+
+    ProcessingType m_processingType;
+    FlowNodePort* m_inputPort=nullptr;
+    FlowNodePort* m_outputPort=nullptr;
+
+
+    FlowNodePort* m_processPort=nullptr;
+
+    FlowNodePort* m_processingDonePort=nullptr;
 
 
 };
