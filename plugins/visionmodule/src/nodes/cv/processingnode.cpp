@@ -7,10 +7,6 @@ ProcessingNode::ProcessingNode()
 {
     m_type=Type::ProcessingNode;
 
-    m_preProcessors=new PreProcessingListModel(this);
-
-    m_postProcessors=new PostProcessingListModel(this);
-
 
 
 
@@ -61,30 +57,6 @@ void ProcessingNode::setProcess(bool process)
 
 void ProcessingNode::doProcess()
 {
-
-
-
-
-    Mat processedOutput;
-    (*m_input->cvMat()).copyTo(processedOutput);
-
-    int preprocessorscount=m_preProcessors->count();
-    for (int i = 0;i<preprocessorscount ;i++) {
-        Processing* preprocessing=m_preProcessors->getItemAt(i);
-        if(preprocessing && preprocessing->enabled()){
-            preprocessing->apply(processedOutput,processedOutput,*m_input->cvMat());
-        }
-    }
-    int postprocessorscount=m_postProcessors->count();
-    for (int i = 0;i<postprocessorscount ;i++) {
-        Processing* postprocessing=m_postProcessors->getItemAt(i);
-        if(postprocessing && postprocessing->enabled()){
-            postprocessing->apply(processedOutput,processedOutput,*m_input->cvMat());
-        }
-    }
-
-
-    processedOutput.copyTo(*m_output->cvMat());
 
     emit outputChanged(m_output);
     setProcessingDone(true);
@@ -142,24 +114,6 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
     FlowNode::DeSerialize(json);
 
-
-    for (int i = 0; i < m_preProcessors->count(); ++i) {
-
-        connect(m_preProcessors->getItemAt(i),&Processing::processorConditionChanged,this,[&]{
-            if(configsLoaded()){
-                this->setProcess(true);
-            }
-        });
-    }
-
-    for (int i = 0; i < m_postProcessors->count(); ++i) {
-
-        connect(m_postProcessors->getItemAt(i),&Processing::processorConditionChanged,this,[&]{
-            if(configsLoaded()){
-                this->setProcess(true);
-            }
-        });
-    }
 
 
     setConfigsLoaded(true);

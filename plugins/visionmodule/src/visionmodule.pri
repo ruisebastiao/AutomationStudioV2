@@ -25,14 +25,7 @@ SOURCES += \
     $$PWD/cv/qmatstate.cpp \
     $$PWD/cv/qmatview.cpp \
     $$PWD/nodes/cv/processingnode.cpp \
-    $$PWD/nodes/framebuffernode.cpp \
-    $$PWD/cv/processing/preprocessing/preprocessingthreshold.cpp \
-    $$PWD/cv/processing/preprocessing/preprocessingmask.cpp \
-    $$PWD/cv/processing/processing.cpp \
-    $$PWD/cv/processing/postprocessing/postprocessingcontours.cpp \
-    $$PWD/cv/processing/processinglistmodel.cpp \
-    $$PWD/cv/processing/preprocessing/preprocessinglistmodel.cpp \
-    $$PWD/cv/processing/postprocessing/postprocessinglistmodel.cpp
+    $$PWD/nodes/framebuffernode.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -59,14 +52,7 @@ HEADERS += \
     $$PWD/cv/qmatstate.h \
     $$PWD/cv/qmatview.h \
     $$PWD/nodes/cv/processingnode.h \
-    $$PWD/nodes/framebuffernode.h \
-    $$PWD/cv/processing/preprocessing/preprocessingthreshold.h \
-    $$PWD/cv/processing/preprocessing/preprocessingmask.h \
-    $$PWD/cv/processing/processing.h \
-    $$PWD/cv/processing/postprocessing/postprocessingcontours.h \
-    $$PWD/cv/processing/processinglistmodel.h \
-    $$PWD/cv/processing/preprocessing/preprocessinglistmodel.h \
-    $$PWD/cv/processing/postprocessing/postprocessinglistmodel.h
+    $$PWD/nodes/framebuffernode.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc

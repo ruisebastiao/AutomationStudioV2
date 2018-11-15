@@ -14,8 +14,5 @@
         <file alias="Images/Lock">images/lock-outline.png</file>
         <file alias="Nodes/FrameBufferNodeItem.qml">qml/nodes/FrameBufferNodeItem.qml</file>
         <file alias="Utils/QMatFlickable.qml">qml/utils/QMatFlickable.qml</file>
-        <file alias="Processing/PreProcessing/PreProcessingThresholdItem.qml">qml/cv/processing/preprocessing/PreProcessingThresholdItem.qml</file>
-        <file alias="Processing/ProcessingItem.qml">qml/cv/processing/ProcessingItem.qml</file>
-        <file alias="Processing/PostProcessing/PostProcessingContoursItem.qml">qml/cv/processing/postprocessing/PreProcessingContoursItem.qml</file>
     </qresource>
 </RCC>

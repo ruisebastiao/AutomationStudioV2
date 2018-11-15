@@ -7,10 +7,6 @@
 
 #include <flownodeport.h>
 
-#include <cv/processing/preprocessing/preprocessinglistmodel.h>
-
-#include <cv/processing/postprocessing/postprocessinglistmodel.h>
-
 
 
 #include "cv/qmat.h"
@@ -42,13 +38,6 @@ class ProcessingNode : public FlowNode
 
     Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged)
     Q_PROPERTY(FlowNodePort* processPort READ processPort WRITE setProcessPort NOTIFY processPortChanged USER("serialize"))
-
-
-    Q_PROPERTY(PreProcessingListModel* preProcessors READ preProcessors WRITE setPreProcessors NOTIFY preProcessorsChanged USER("serialize"))
-    Q_PROPERTY(PostProcessingListModel* postProcessors READ postProcessors WRITE setPostProcessors NOTIFY postProcessorsChanged USER("serialize"))
-
-
-//    Q_PROPERTY(Pre name READ name WRITE setName NOTIFY nameChanged)
 
 
 
@@ -140,15 +129,6 @@ public:
         return m_isEndNode;
     }
 
-    PreProcessingListModel* preProcessors() const
-    {
-        return m_preProcessors;
-    }
-
-    PostProcessingListModel* postProcessors() const
-    {
-        return m_postProcessors;
-    }
 
 public slots:
     void setInput(QMat* input);
@@ -240,23 +220,6 @@ public slots:
         emit isEndNodeChanged(m_isEndNode);
     }
 
-    void setPreProcessors(PreProcessingListModel* preProcessors)
-    {
-        if (m_preProcessors == preProcessors)
-            return;
-
-        m_preProcessors = preProcessors;
-        emit preProcessorsChanged(m_preProcessors);
-    }
-
-    void setPostProcessors(PostProcessingListModel* postProcessors)
-    {
-        if (m_postProcessors == postProcessors)
-            return;
-
-        m_postProcessors = postProcessors;
-        emit postProcessorsChanged(m_postProcessors);
-    }
 
 signals:
     void inputChanged(QMat* input);
@@ -291,9 +254,7 @@ signals:
 
     void isEndNodeChanged(bool isEndNode);
 
-    void preProcessorsChanged(PreProcessingListModel* preProcessors);
 
-    void postProcessorsChanged(PostProcessingListModel* postProcessors);
 
 private:
 
@@ -319,9 +280,7 @@ private:
 
     bool m_isEndNode=false;
 
-    PreProcessingListModel* m_preProcessors=nullptr;
 
-    PostProcessingListModel* m_postProcessors=nullptr;
 
 protected:
     QMat* m_input=nullptr;
@@ -334,7 +293,7 @@ protected:
     QMat* m_processedFrame=nullptr;
     bool m_showOriginal=false;
 
-    void doProcess();
+    virtual void doProcess()=0;
 
 
 };

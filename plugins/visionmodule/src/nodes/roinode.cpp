@@ -57,7 +57,7 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
     qan::Node* newnode=nullptr;
 
     if(nodeobject["type"]=="ProcessingNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingNode>(nullptr);
+//        newnode=graphView->getGraph()->insertNode<ProcessingNode>(nullptr);
     }
     else{
         LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
