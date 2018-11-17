@@ -8,9 +8,6 @@ ProcessingNode::ProcessingNode()
     m_type=Type::ProcessingNode;
 
 
-
-
-
     setName("Processing node");
 }
 
@@ -26,8 +23,8 @@ void ProcessingNode::setProcess(bool process)
 
     emit processChanged(process);
 
-    if(!m_input || m_input->cvMat()->empty())
-        return;
+//    if(!m_input || m_input->cvMat()->empty())
+//        return;
 
     if(process){
 
@@ -44,6 +41,11 @@ void ProcessingNode::setProcess(bool process)
 
         });
     }
+}
+
+void ProcessingNode::setProcessedMat(QMat *processedMat)
+{
+    m_processedMat = processedMat;
 }
 
 
@@ -65,10 +67,7 @@ void ProcessingNode::doProcess()
 void ProcessingNode::setInput(QMat *input)
 {
 
-
     m_input = input;
-
-    setOriginalInput(input);
 
 
     emit inputChanged(m_input);

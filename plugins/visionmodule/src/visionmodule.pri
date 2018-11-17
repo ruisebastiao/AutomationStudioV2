@@ -29,7 +29,9 @@ SOURCES += \
     $$PWD/nodes/cv/processingbasenode.cpp \
     $$PWD/nodes/cv/processingthresholdnode.cpp \
     $$PWD/nodes/cv/processingdrawingnode.cpp \
-    $$PWD/nodes/cv/processingfilternode.cpp
+    $$PWD/nodes/cv/processingfilternode.cpp \
+    $$PWD/nodes/cv/processingendnode.cpp \
+    $$PWD/nodes/cv/processingcontoursnode.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -60,7 +62,9 @@ HEADERS += \
     $$PWD/nodes/cv/processingbasenode.h \
     $$PWD/nodes/cv/processingthresholdnode.h \
     $$PWD/nodes/cv/processingdrawingnode.h \
-    $$PWD/nodes/cv/processingfilternode.h
+    $$PWD/nodes/cv/processingfilternode.h \
+    $$PWD/nodes/cv/processingendnode.h \
+    $$PWD/nodes/cv/processingcontoursnode.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc

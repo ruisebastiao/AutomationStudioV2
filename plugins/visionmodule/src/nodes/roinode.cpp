@@ -2,6 +2,8 @@
 #include "QObject"
 
 #include <nodes/cv/processingbasenode.h>
+#include <nodes/cv/processingcontoursnode.h>
+#include <nodes/cv/processingendnode.h>
 #include <nodes/cv/processingfilternode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
@@ -69,6 +71,12 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
     else if(nodeobject["processingType"]=="ProcessingFilterNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingFilterNode>(nullptr);
     }
+    else if(nodeobject["processingType"]=="ProcessingEndNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingEndNode>(nullptr);
+    }
+    else if(nodeobject["processingType"]=="ProcessingContoursNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingContoursNode>(nullptr);
+    }
     else{
         LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodeobject["processingType"].toString()));
     }
@@ -109,8 +117,10 @@ void ROINode::DeSerialize(QJsonObject &json)
         node=readProcessingNode(m_roiEditorGraphView,processingObject);
 
 
+
         procnode=qobject_cast<ProcessingNode*>(node);
         if(procnode){
+            procnode->setProcessedMat(this->processedFrame());
             if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
                 node->bindSourceProperty(this,"sourceFrame","input");
             }
@@ -132,7 +142,7 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 
             QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
-                this->setProcessedFrame(endnode->output());
+//                emit processedFrameChanged(m_processedFrame);
                 setRoiProcessingDone(true);
             });
 
@@ -184,10 +194,12 @@ void ROINode::setSourceFrame(QMat *sourceFrame)
         in(cv::Rect( getItem()->x(),  getItem()->y(),  getItem()->width(),  getItem()->height())).copyTo(*m_sourceFrame->cvMat());
 
 
+        cvtColor(*m_sourceFrame->cvMat(),*m_processedFrame->cvMat(),CV_GRAY2BGR);
+
 
         emit sourceFrameChanged(m_sourceFrame);
 
-        emit processedFrameChanged(m_processedFrame);
+//        emit processedFrameChanged(m_processedFrame);
 
 
     }
@@ -201,6 +213,8 @@ void ROINode::setRoiProcessingDone(bool roiProcessingDone)
 
     m_roiProcessingDone = roiProcessingDone;
     emit processedFrameChanged(m_processedFrame);
+
+    LOG_INFO()<<"ROI Processing Done";
 
     emit roiProcessingDoneChanged(m_roiProcessingDone);
 }

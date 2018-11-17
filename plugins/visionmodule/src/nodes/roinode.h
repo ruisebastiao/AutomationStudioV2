@@ -25,7 +25,7 @@ public:
 
 
     Q_PROPERTY(QMat* sourceFrame READ sourceFrame WRITE setSourceFrame NOTIFY sourceFrameChanged)
-    Q_PROPERTY(QMat* processedFrame READ processedFrame WRITE setProcessedFrame NOTIFY processedFrameChanged)
+    Q_PROPERTY(QMat* processedFrame READ processedFrame NOTIFY processedFrameChanged)
 
 
     Q_PROPERTY(bool liveProcessing READ liveProcessing WRITE setLiveProcessing NOTIFY liveProcessingChanged)
@@ -70,12 +70,7 @@ public slots:
 
     void setRoiProcessingDone(bool roiProcessingDone);
 
-    void setProcessedFrame(QMat* processedFrame)
-    {
 
-        m_processedFrame = processedFrame;
-        emit processedFrameChanged(m_processedFrame);
-    }
 
 signals:
 

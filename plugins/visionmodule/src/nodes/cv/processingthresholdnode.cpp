@@ -58,6 +58,10 @@ void ProcessingThresholdNode::doProcess()
             break;
 
         }
+
+//        targetMat->copyTo(*m_processedMat->cvMat());
     }
+
+
     ProcessingNode::doProcess();
 }

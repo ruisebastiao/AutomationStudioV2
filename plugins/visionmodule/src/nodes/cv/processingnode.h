@@ -31,7 +31,7 @@ class ProcessingNode : public FlowNode
     Q_PROPERTY(QMat* output READ output NOTIFY outputChanged)
     Q_PROPERTY(FlowNodePort* outputPort READ outputPort WRITE setOutputPort NOTIFY outputPortChanged USER("serialize"))
 
-    Q_PROPERTY(QMat* processedFrame READ processedFrame WRITE setProcessedFrame NOTIFY processedFrameChanged)
+
 
 
     Q_PROPERTY(bool process  WRITE setProcess NOTIFY processChanged)
@@ -43,9 +43,6 @@ class ProcessingNode : public FlowNode
 
 
 
-    Q_PROPERTY(QMat* originalInput READ originalInput WRITE setOriginalInput NOTIFY originalInputChanged)
-
-
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
 
     
@@ -55,7 +52,8 @@ public:
         ProcessingEndNode,
         ProcessingDrawingNode,
         ProcessingThresholdNode,
-        ProcessingFilterNode
+        ProcessingFilterNode,
+        ProcessingContoursNode
 
     };
     Q_ENUM(ProcessingType)
@@ -93,10 +91,6 @@ public:
 
 
 
-    QMat* processedFrame() const
-    {
-        return m_processedFrame;
-    }
 
 
     FlowNodePort* processPort() const
@@ -114,10 +108,7 @@ public:
         return m_processingDone;
     }
 
-    QMat* originalInput() const
-    {
-        return m_originalInput;
-    }
+
 
     virtual void DeSerialize(QJsonObject &json) override;
 
@@ -142,6 +133,8 @@ public:
     {
         return m_enabled;
     }
+
+    void setProcessedMat(QMat *processedMat);
 
 public slots:
     virtual void setInput(QMat* input)=0;
@@ -168,12 +161,6 @@ public slots:
 
 
 
-    void setProcessedFrame(QMat* processedFrame)
-    {
-
-        m_processedFrame = processedFrame;
-        emit processedFrameChanged(m_processedFrame);
-    }
 
 
     void setProcess(bool process);
@@ -207,15 +194,6 @@ public slots:
 
 
 
-    void setOriginalInput(QMat* originalInput)
-    {
-
-        if(!originalInput || originalInput->cvMat()->empty())
-            return;
-        originalInput->cvMat()->copyTo(*m_originalInput->cvMat());
-
-        emit originalInputChanged(m_originalInput);
-    }
 
     void setInPlaceProcessing(bool inPlaceProcessing)
     {
@@ -252,7 +230,6 @@ signals:
 
     void sourceFrameChanged(QMat* sourceFrame);
 
-    void processedFrameChanged(QMat* processedFrame);
 
 
     void processChanged(bool process);
@@ -287,14 +264,13 @@ private:
 
 protected:
     QMat* m_input=nullptr;
-    QMat* m_originalInput=new QMat();
 
 
     QMat* m_output=new QMat();
     QMutex mMutex;
     bool m_processingDone=false;
 
-    QMat* m_processedFrame=nullptr;
+    QMat* m_processedMat=nullptr;
     bool m_showOriginal=false;
 
     virtual void doProcess()=0;
