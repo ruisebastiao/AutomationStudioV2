@@ -29,6 +29,8 @@ void ProcessingGeometricNode::setInput(QMat *input)
 void ProcessingGeometricNode::doProcess()
 {
 
+    qDebug() << "typeName for first :" << m_input1.typeName();
+
     vector<RotatedRect> rotatedrect_obj = m_input1.value<vector<RotatedRect>>();
 
     vector<Rect> rect_obj = m_input1.value<vector<Rect>>();
