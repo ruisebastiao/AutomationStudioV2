@@ -53,8 +53,8 @@ public:
         ProcessingDrawingNode,
         ProcessingThresholdNode,
         ProcessingFilterNode,
-        ProcessingContoursNode
-
+        ProcessingContoursNode,
+        ProcessingShapesNode
     };
     Q_ENUM(ProcessingType)
 

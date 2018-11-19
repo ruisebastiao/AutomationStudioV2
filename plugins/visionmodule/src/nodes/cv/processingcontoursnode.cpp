@@ -28,7 +28,7 @@ void ProcessingContoursNode::doProcess()
 
     vector<vector<Point> > contours;
 
-//    vector<vector<Point> > contours_box;
+    //    vector<vector<Point> > contours_box;
 
     vector<Vec4i> hierarchy;
 
@@ -81,7 +81,7 @@ void ProcessingContoursNode::doProcess()
         }
 
 
-//        approxPolyDP(contour,contour,contourlength*0.02,true);
+        //        approxPolyDP(contour,contour,contourlength*0.02,true);
         approxPolyDP(contour,approx_contour,3,true);
         //        Rect contour_rect=boundingRect(contour);
         RotatedRect minrect=minAreaRect(approx_contour);
@@ -96,10 +96,10 @@ void ProcessingContoursNode::doProcess()
 
 
         if(length_condition && width_condition && height_condition){
-//            cv::Point2f vertices[4];
-//             minrect.points(vertices);
-//             for(int i = 0; i < 4; ++i)
-//               cv::line(drawing, vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 1, CV_AA);
+            //            cv::Point2f vertices[4];
+            //             minrect.points(vertices);
+            //             for(int i = 0; i < 4; ++i)
+            //               cv::line(drawing, vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 1, CV_AA);
 
 
             m_filteredContours.push_back(contour);
@@ -117,7 +117,7 @@ void ProcessingContoursNode::doProcess()
     emit filteredContoursChanged(m_filteredContours);
 
 
-//    emit outputChanged(m_processedMat);
+    //    emit outputChanged(m_processedMat);
 
     // *m_processedMat->cvMat()= cv::Mat::zeros( m_processedMat->cvMat()->size(), m_processedMat->cvMat()->type() );
     ProcessingNode::doProcess();
@@ -125,7 +125,16 @@ void ProcessingContoursNode::doProcess()
 
 void ProcessingContoursNode::DeSerialize(QJsonObject &json)
 {
+    m_filteredContoursPort = new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContoursPort");
+
+    m_outPorts.append(m_filteredContoursPort);
+
+
     ProcessingNode::DeSerialize(json);
+
+    if(m_filteredContoursPort->portLabel()==""){
+        m_filteredContoursPort->setPortLabel("Filtered Contours");
+    }
 
     m_outputPort->setHidden(true);
 }
