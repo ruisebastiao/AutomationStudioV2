@@ -76,10 +76,10 @@ ProcessingNodeItem{
                     }
 
                     wheelEnabled: true
-                    onPositionChanged: {
-                        thresholdSpin.value=valueAt(position)
+//                    onPositionChanged: {
+//                        thresholdSpin.value=valueAt(position)
 
-                    }
+//                    }
 
 
 

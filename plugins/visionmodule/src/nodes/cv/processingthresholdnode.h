@@ -65,7 +65,7 @@ public slots:
         emit valueChanged(m_value);
 
         if(configsLoaded()){
-            setProcess(true);
+            emit processingSettingsChanged();
         }
     }
 
@@ -78,7 +78,7 @@ public slots:
         emit adaptativeBlockSizeChanged(m_adaptativeBlockSize);
 
         if(configsLoaded()){
-            setProcess(true);
+            emit processingSettingsChanged();
         }
     }
 
@@ -91,7 +91,7 @@ public slots:
         emit adaptativeCChanged(m_adaptativeC);
 
         if(configsLoaded()){
-            setProcess(true);
+            emit processingSettingsChanged();
         }
     }
 
@@ -104,7 +104,7 @@ public slots:
         emit thresholdTypeChanged(m_thresholdType);
 
         if(configsLoaded()){
-            setProcess(true);
+            emit processingSettingsChanged();
         }
     }
 

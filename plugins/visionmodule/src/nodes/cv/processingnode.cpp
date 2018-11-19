@@ -23,8 +23,8 @@ void ProcessingNode::setProcess(bool process)
 
     emit processChanged(process);
 
-//    if(!m_input || m_input->cvMat()->empty())
-//        return;
+    //    if(!m_input || m_input->cvMat()->empty())
+    //        return;
 
     if(process){
 
@@ -43,6 +43,11 @@ void ProcessingNode::setProcess(bool process)
     }
 }
 
+void ProcessingNode::reProcess(QMat *out)
+{
+    this->doProcess();
+}
+
 void ProcessingNode::setProcessedMat(QMat *processedMat)
 {
     m_processedMat = processedMat;
@@ -52,14 +57,12 @@ void ProcessingNode::setProcessedMat(QMat *processedMat)
 void ProcessingNode::doProcess()
 {
 
+
     emit outputChanged(m_output);
+
+
+
     setProcessingDone(true);
-
-
-
-//    if(m_processingType==ProcessingType::ProcessingEndNode){
-//        emit processingCompleted(this);
-//    }
 
 
 }

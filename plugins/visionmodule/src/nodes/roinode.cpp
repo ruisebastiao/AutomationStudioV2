@@ -102,6 +102,7 @@ void ROINode::DeSerialize(QJsonObject &json)
     FlowNode::DeSerialize(json);
 
 
+
     QJsonArray processingArray = json["processingnodes"].toArray();
 
     for (int i = 0; i < processingArray.count(); ++i) {
@@ -123,6 +124,7 @@ void ROINode::DeSerialize(QJsonObject &json)
             procnode->setProcessedMat(this->processedFrame());
             if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
                 node->bindSourceProperty(this,"sourceFrame","input");
+                m_basenode=qobject_cast<ProcessingBaseNode*>(procnode);
             }
 
 
@@ -138,6 +140,22 @@ void ROINode::DeSerialize(QJsonObject &json)
                 }
 
             });
+
+
+
+            // TODO improve "reprocess" on processing settings changed
+
+            QObject::connect(procnode,&ProcessingNode::processingSettingsChanged,this, [&](){
+
+//                if(m_basenode){
+//                    m_basenode->setProcess(true);
+//                }
+
+                  cvtColor(*m_sourceFrame->cvMat(),*m_processedFrame->cvMat(),CV_GRAY2BGR);
+                 emit sourceFrameChanged(m_sourceFrame);
+
+            });
+
 
 
 
@@ -176,11 +194,6 @@ void ROINode::processFrameObject(QMat *frame)
 
     setSourceFrame(frame);
 
-//    if(m_procBaseNode){
-//        m_procBaseNode->setInput(m_sourceFrame);
-
-//        m_procBaseNode->setProcess(true);
-//    }
 }
 
 void ROINode::setSourceFrame(QMat *sourceFrame)
@@ -199,7 +212,6 @@ void ROINode::setSourceFrame(QMat *sourceFrame)
 
         emit sourceFrameChanged(m_sourceFrame);
 
-//        emit processedFrameChanged(m_processedFrame);
 
 
     }

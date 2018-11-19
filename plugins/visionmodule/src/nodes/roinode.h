@@ -10,6 +10,8 @@
 
 #include <qanGraphView.h>
 
+#include <nodes/cv/processingbasenode.h>
+
 
 
 class ROINode : public FlowNode
@@ -116,6 +118,7 @@ private:
     bool m_roiProcessingDone=false;
 
     QMat* m_processedFrame=new QMat();
+    ProcessingBaseNode* m_basenode=nullptr;
 
 public:
     void Serialize(QJsonObject &json);

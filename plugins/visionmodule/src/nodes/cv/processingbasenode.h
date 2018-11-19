@@ -7,6 +7,7 @@
 
 class ProcessingBaseNode : public ProcessingNode
 {
+    Q_OBJECT
 public:
     ProcessingBaseNode();
 

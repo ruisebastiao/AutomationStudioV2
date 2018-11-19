@@ -165,6 +165,7 @@ public slots:
 
     void setProcess(bool process);
 
+    void reProcess(QMat* out);
 
 
     void setProcessPort(FlowNodePort* processPort)
@@ -211,6 +212,11 @@ public slots:
 
         m_enabled = enabled;
         emit enabledChanged(m_enabled);
+
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
+
     }
 
 signals:
@@ -252,6 +258,9 @@ signals:
     void inPlaceProcessingChanged(bool inPlaceProcessing);
 
     void enabledChanged(bool enabled);
+
+
+    void processingSettingsChanged();
 
 private:
 

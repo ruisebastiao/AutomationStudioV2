@@ -24,6 +24,7 @@ void ProcessingThresholdNode::setInput(QMat *input)
 
 void ProcessingThresholdNode::doProcess()
 {
+
     if(!m_input || m_input->cvMat()->empty()){
         return;
     }

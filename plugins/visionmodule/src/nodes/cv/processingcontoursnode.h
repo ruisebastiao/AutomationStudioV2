@@ -104,6 +104,9 @@ public slots:
 
         m_totalContours = totalContours;
         emit totalContoursChanged(m_totalContours);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMinCountourLength(int minCountourLength)
@@ -113,6 +116,9 @@ public slots:
 
         m_minCountourLength = minCountourLength;
         emit minCountourLengthChanged(m_minCountourLength);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMinCountourHeight(int minCountourHeight)
@@ -122,6 +128,9 @@ public slots:
 
         m_minCountourHeight = minCountourHeight;
         emit minCountourHeightChanged(m_minCountourHeight);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMaxCountourHeight(int maxCountourHeight)
@@ -131,6 +140,9 @@ public slots:
 
         m_maxCountourHeight = maxCountourHeight;
         emit maxCountourHeightChanged(m_maxCountourHeight);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMinCountourWidth(int minCountourWidth)
@@ -140,6 +152,9 @@ public slots:
 
         m_minCountourWidth = minCountourWidth;
         emit minCountourWidthChanged(m_minCountourWidth);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMinCountourArea(int minCountourArea)
@@ -149,6 +164,9 @@ public slots:
 
         m_minCountourArea = minCountourArea;
         emit minCountourAreaChanged(m_minCountourArea);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMaxCountourArea(int maxCountourArea)
@@ -158,6 +176,9 @@ public slots:
 
         m_maxCountourArea = maxCountourArea;
         emit maxCountourAreaChanged(m_maxCountourArea);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMaxCountourLength(int maxCountourLength)
@@ -167,6 +188,9 @@ public slots:
 
         m_maxCountourLength = maxCountourLength;
         emit maxCountourLengthChanged(m_maxCountourLength);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setMaxCountourWidth(int maxCountourWidth)
@@ -176,6 +200,9 @@ public slots:
 
         m_maxCountourWidth = maxCountourWidth;
         emit maxCountourWidthChanged(m_maxCountourWidth);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setTotalFilteredContours(int totalFilteredContours)
@@ -185,6 +212,9 @@ public slots:
 
         m_totalFilteredContours = totalFilteredContours;
         emit totalFilteredContoursChanged(m_totalFilteredContours);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
     void setFilteredContoursPort(FlowNodePort* filteredContoursPort)
@@ -194,6 +224,9 @@ public slots:
 
         m_filteredContoursPort = filteredContoursPort;
         emit filteredContoursPortChanged(m_filteredContoursPort);
+        if(configsLoaded()){
+            emit processingSettingsChanged();
+        }
     }
 
 signals:
