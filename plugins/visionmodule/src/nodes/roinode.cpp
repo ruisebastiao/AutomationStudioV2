@@ -3,8 +3,11 @@
 
 #include <nodes/cv/processingbasenode.h>
 #include <nodes/cv/processingcontoursnode.h>
+#include <nodes/cv/processingenclosingnode.h>
 #include <nodes/cv/processingendnode.h>
 #include <nodes/cv/processingfilternode.h>
+#include <nodes/cv/processinggeometricnode.h>
+#include <nodes/cv/processinglogicalnode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
 
@@ -77,6 +80,15 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
     else if(nodeobject["processingType"]=="ProcessingContoursNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingContoursNode>(nullptr);
     }
+    else if(nodeobject["processingType"]=="ProcessingLogicalNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingLogicalNode>(nullptr);
+    }
+    else if(nodeobject["processingType"]=="ProcessingEnclosingNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingEnclosingNode>(nullptr);
+    }
+    else if(nodeobject["processingType"]=="ProcessingGeometricNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingGeometricNode>(nullptr);
+    }
     else{
         LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodeobject["processingType"].toString()));
     }
@@ -121,7 +133,7 @@ void ROINode::DeSerialize(QJsonObject &json)
 
         procnode=qobject_cast<ProcessingNode*>(node);
         if(procnode){
-            procnode->setProcessedMat(this->processedFrame());
+            procnode->setOriginalFrame(this->processedFrame());
             if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
                 node->bindSourceProperty(this,"sourceFrame","input");
                 m_basenode=qobject_cast<ProcessingBaseNode*>(procnode);
@@ -140,22 +152,6 @@ void ROINode::DeSerialize(QJsonObject &json)
                 }
 
             });
-
-
-
-            // TODO improve "reprocess" on processing settings changed
-
-            QObject::connect(procnode,&ProcessingNode::processingSettingsChanged,this, [&](){
-
-//                if(m_basenode){
-//                    m_basenode->setProcess(true);
-//                }
-
-                  cvtColor(*m_sourceFrame->cvMat(),*m_processedFrame->cvMat(),CV_GRAY2BGR);
-                 emit sourceFrameChanged(m_sourceFrame);
-
-            });
-
 
 
 
@@ -179,6 +175,7 @@ void ROINode::DeSerialize(QJsonObject &json)
     }
 
     FlowNode::loadNodeConnections(m_ProcessingNodes);
+
     setConfigsLoaded(true);
 
 

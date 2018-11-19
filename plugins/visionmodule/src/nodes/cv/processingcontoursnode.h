@@ -27,7 +27,7 @@ class ProcessingContoursNode : public ProcessingNode
 
 
     Q_PROPERTY(std::vector<std::vector<cv::Point>> filteredContours READ filteredContours NOTIFY filteredContoursChanged)
-    Q_PROPERTY(FlowNodePort* filteredContoursPort READ filteredContoursPort WRITE setFilteredContoursPort NOTIFY filteredContoursPortChanged)
+    Q_PROPERTY(FlowNodePort* filteredContoursPort READ filteredContoursPort WRITE setFilteredContoursPort NOTIFY filteredContoursPortChanged USER("serialize"))
 
 
 
@@ -104,9 +104,7 @@ public slots:
 
         m_totalContours = totalContours;
         emit totalContoursChanged(m_totalContours);
-        if(configsLoaded()){
-            emit processingSettingsChanged();
-        }
+
     }
 
     void setMinCountourLength(int minCountourLength)
@@ -117,7 +115,7 @@ public slots:
         m_minCountourLength = minCountourLength;
         emit minCountourLengthChanged(m_minCountourLength);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -129,7 +127,7 @@ public slots:
         m_minCountourHeight = minCountourHeight;
         emit minCountourHeightChanged(m_minCountourHeight);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -141,7 +139,7 @@ public slots:
         m_maxCountourHeight = maxCountourHeight;
         emit maxCountourHeightChanged(m_maxCountourHeight);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -153,7 +151,7 @@ public slots:
         m_minCountourWidth = minCountourWidth;
         emit minCountourWidthChanged(m_minCountourWidth);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -165,7 +163,7 @@ public slots:
         m_minCountourArea = minCountourArea;
         emit minCountourAreaChanged(m_minCountourArea);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -177,7 +175,7 @@ public slots:
         m_maxCountourArea = maxCountourArea;
         emit maxCountourAreaChanged(m_maxCountourArea);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -189,7 +187,7 @@ public slots:
         m_maxCountourLength = maxCountourLength;
         emit maxCountourLengthChanged(m_maxCountourLength);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -201,7 +199,7 @@ public slots:
         m_maxCountourWidth = maxCountourWidth;
         emit maxCountourWidthChanged(m_maxCountourWidth);
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
     }
 
@@ -212,9 +210,7 @@ public slots:
 
         m_totalFilteredContours = totalFilteredContours;
         emit totalFilteredContoursChanged(m_totalFilteredContours);
-        if(configsLoaded()){
-            emit processingSettingsChanged();
-        }
+
     }
 
     void setFilteredContoursPort(FlowNodePort* filteredContoursPort)
@@ -224,9 +220,7 @@ public slots:
 
         m_filteredContoursPort = filteredContoursPort;
         emit filteredContoursPortChanged(m_filteredContoursPort);
-        if(configsLoaded()){
-            emit processingSettingsChanged();
-        }
+
     }
 
 signals:

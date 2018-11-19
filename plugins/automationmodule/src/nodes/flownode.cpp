@@ -71,8 +71,8 @@ void FlowNode::loadNodeConnections( QList<FlowNode *> nodeList)
 
                     }
                 }
-
             }
+            flownode->setConnectionsLoaded(true);
         }
     }
 }

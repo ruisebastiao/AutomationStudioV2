@@ -43,14 +43,15 @@ void ProcessingNode::setProcess(bool process)
     }
 }
 
-void ProcessingNode::reProcess(QMat *out)
+void ProcessingNode::reProcess()
 {
+
     this->doProcess();
 }
 
-void ProcessingNode::setProcessedMat(QMat *processedMat)
+void ProcessingNode::setOriginalFrame(QMat *originalFrame)
 {
-    m_processedMat = processedMat;
+    m_originalFrame=originalFrame;
 }
 
 
@@ -63,6 +64,7 @@ void ProcessingNode::doProcess()
 
 
     setProcessingDone(true);
+
 
 
 }
@@ -80,6 +82,9 @@ void ProcessingNode::setInput(QMat *input)
 
 void ProcessingNode::DeSerialize(QJsonObject &json)
 {
+    // no signals here
+
+
     m_inputPort= new FlowNodePort(this,qan::PortItem::Type::In,"input");
     m_outputPort= new FlowNodePort(this,qan::PortItem::Type::Out,"output");
 
@@ -115,6 +120,8 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
     setConfigsLoaded(true);
 
+
+//    this->blockSignals(true);
 
 
 }

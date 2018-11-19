@@ -1,8 +1,8 @@
 {
     "graphview": {
-        "x": -274.40359164368306,
-        "y": 37.04491321872473,
-        "zoom": 0.4799009159050866
+        "x": -277.258866873211,
+        "y": 37.25660799215274,
+        "zoom": 0.48264333063448744
     },
     "moduleID": "vision_1",
     "name": "Vision System 1",
@@ -52,7 +52,7 @@
         {
             "editHeight": 301,
             "editWidth": 790,
-            "filePath": "/home/rui/projects/automationstudio/capture/img_4.jpg",
+            "filePath": "C:\\Users\\LM36\\Documents\\Novares\\Automacao\\automationstudio\\capture\\img_15.jpg",
             "filePathPort": {
                 "hidden": false,
                 "portLabel": "",
@@ -151,8 +151,8 @@
                             },
                             "locked": false,
                             "name": "Base Processing Node",
-                            "nodeX": 0.48898377812622584,
-                            "nodeY": -218.04822396650923,
+                            "nodeX": -83.75441097107773,
+                            "nodeY": 198.30855392859524,
                             "normalHeight": 325,
                             "normalWidth": 428,
                             "outputPort": {
@@ -191,10 +191,10 @@
                             "type": "ProcessingNode"
                         },
                         {
-                            "adaptativeBlockSize": 101,
+                            "adaptativeBlockSize": 41,
                             "adaptativeC": 2,
-                            "editHeight": 1201,
-                            "editWidth": 1162,
+                            "editHeight": 811,
+                            "editWidth": 904,
                             "enabled": true,
                             "id": 501,
                             "inputPort": {
@@ -205,15 +205,20 @@
                             },
                             "locked": false,
                             "name": "Center Threshold Processing",
-                            "nodeX": 992.1022951334394,
+                            "nodeX": 969.7834844378051,
                             "nodeY": -25.82249398220813,
-                            "normalHeight": 381,
-                            "normalWidth": 414,
+                            "normalHeight": 405,
+                            "normalWidth": 423,
                             "outputPort": {
                                 "connectedTo": [
                                     {
                                         "hidden": false,
                                         "nodeID": 505,
+                                        "portID": "input"
+                                    },
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 506,
                                         "portID": "input"
                                     }
                                 ],
@@ -233,6 +238,67 @@
                                     {
                                         "hidden": false,
                                         "nodeID": 505,
+                                        "portID": "process"
+                                    },
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 506,
+                                        "portID": "process"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Processing Done",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processingType": "ProcessingThresholdNode",
+                            "thresholdType": "AdaptativeMean",
+                            "type": "ProcessingNode",
+                            "value": 255
+                        },
+                        {
+                            "adaptativeBlockSize": 47,
+                            "adaptativeC": 2,
+                            "editHeight": 463,
+                            "editWidth": 499,
+                            "enabled": true,
+                            "id": 511,
+                            "inputPort": {
+                                "hidden": false,
+                                "portLabel": "Input",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "locked": false,
+                            "name": "Rotation Threshold Processing",
+                            "nodeX": 999.3312891423241,
+                            "nodeY": 495.8604201235049,
+                            "normalHeight": 381,
+                            "normalWidth": 414,
+                            "outputPort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 507,
+                                        "portID": "input"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Output",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processPort": {
+                                "hidden": false,
+                                "portLabel": "Process",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "processingDonePort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 507,
                                         "portID": "process"
                                     }
                                 ],
@@ -259,8 +325,8 @@
                             },
                             "locked": false,
                             "name": "Center Filter Processing",
-                            "nodeX": 535.4613239141817,
-                            "nodeY": -136.8697299843011,
+                            "nodeX": 462.5583861504475,
+                            "nodeY": 268.1465909253337,
                             "normalHeight": 335,
                             "normalWidth": 338,
                             "outputPort": {
@@ -268,6 +334,11 @@
                                     {
                                         "hidden": false,
                                         "nodeID": 501,
+                                        "portID": "input"
+                                    },
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 511,
                                         "portID": "input"
                                     }
                                 ],
@@ -288,6 +359,11 @@
                                         "hidden": false,
                                         "nodeID": 501,
                                         "portID": "process"
+                                    },
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 511,
+                                        "portID": "process"
                                     }
                                 ],
                                 "hidden": false,
@@ -304,17 +380,17 @@
                             "enabled": true,
                             "id": 504,
                             "inputPort": {
-                                "hidden": false,
+                                "hidden": true,
                                 "portLabel": "Input",
                                 "showinlabel": false,
                                 "type": "In"
                             },
                             "locked": false,
                             "name": "End Node",
-                            "nodeX": 2343.5064489795905,
-                            "nodeY": 88.20605232862385,
-                            "normalHeight": 327,
-                            "normalWidth": 480,
+                            "nodeX": 3452.1864799093223,
+                            "nodeY": 270.6279481259588,
+                            "normalHeight": 84,
+                            "normalWidth": 414,
                             "outputPort": {
                                 "connectedTo": [
                                 ],
@@ -344,7 +420,20 @@
                             "editHeight": 828,
                             "editWidth": 743,
                             "enabled": true,
-                            "id": 505,
+                            "filteredContoursPort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 531,
+                                        "portID": "contours"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Filtered Contours",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "id": 507,
                             "inputPort": {
                                 "hidden": false,
                                 "portLabel": "Input",
@@ -352,19 +441,19 @@
                                 "type": "In"
                             },
                             "locked": false,
-                            "maxCountourArea": 500000,
-                            "maxCountourHeight": 2000,
-                            "maxCountourLength": 10000,
-                            "maxCountourWidth": 2000,
-                            "minCountourArea": 0,
-                            "minCountourHeight": 1000,
-                            "minCountourLength": 3000,
-                            "minCountourWidth": 1000,
-                            "name": "Find center contour",
-                            "nodeX": 1603.2612203035064,
-                            "nodeY": -69.8503453689168,
-                            "normalHeight": 289,
-                            "normalWidth": 378,
+                            "maxCountourArea": 13500,
+                            "maxCountourHeight": 200,
+                            "maxCountourLength": 1000,
+                            "maxCountourWidth": 200,
+                            "minCountourArea": 8500,
+                            "minCountourHeight": 50,
+                            "minCountourLength": 200,
+                            "minCountourWidth": 50,
+                            "name": "Find Rotation Contours",
+                            "nodeX": 1500.5822649724655,
+                            "nodeY": 556.6507286637208,
+                            "normalHeight": 362,
+                            "normalWidth": 306,
                             "outputPort": {
                                 "connectedTo": [
                                 ],
@@ -383,7 +472,7 @@
                                 "connectedTo": [
                                     {
                                         "hidden": false,
-                                        "nodeID": 504,
+                                        "nodeID": 531,
                                         "portID": "process"
                                     }
                                 ],
@@ -393,6 +482,330 @@
                                 "type": "Out"
                             },
                             "processingType": "ProcessingContoursNode",
+                            "type": "ProcessingNode"
+                        },
+                        {
+                            "editHeight": 701,
+                            "editWidth": 657,
+                            "enabled": true,
+                            "filteredContoursPort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 532,
+                                        "portID": "contours"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Filtered Contours",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "id": 506,
+                            "inputPort": {
+                                "hidden": false,
+                                "portLabel": "Input",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "locked": false,
+                            "maxCountourArea": 600000,
+                            "maxCountourHeight": 0,
+                            "maxCountourLength": 0,
+                            "maxCountourWidth": 0,
+                            "minCountourArea": 550000,
+                            "minCountourHeight": 0,
+                            "minCountourLength": 0,
+                            "minCountourWidth": 0,
+                            "name": "Find center contour",
+                            "nodeX": 1531.2736998980427,
+                            "nodeY": 123.81150920411471,
+                            "normalHeight": 340,
+                            "normalWidth": 282,
+                            "outputPort": {
+                                "connectedTo": [
+                                ],
+                                "hidden": true,
+                                "portLabel": "Output",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processPort": {
+                                "hidden": false,
+                                "portLabel": "Process",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "processingDonePort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 532,
+                                        "portID": "process"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Processing Done",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processingType": "ProcessingContoursNode",
+                            "type": "ProcessingNode"
+                        },
+                        {
+                            "editHeight": 250,
+                            "editWidth": 250,
+                            "enabled": true,
+                            "id": 520,
+                            "inputPort": {
+                                "hidden": true,
+                                "portLabel": "Input",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "locked": false,
+                            "logicalInput1Port": {
+                                "hidden": false,
+                                "portLabel": "Logical Input 1",
+                                "showinlabel": true,
+                                "type": "In"
+                            },
+                            "logicalInput2Port": {
+                                "hidden": false,
+                                "portLabel": "Logical Input 2",
+                                "showinlabel": true,
+                                "type": "In"
+                            },
+                            "logicalOutputPort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 533,
+                                        "portID": "process"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Logical Output",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "logicalType": "AND",
+                            "name": "Processing Done",
+                            "nodeX": 2502.9847509596743,
+                            "nodeY": 354.6903493729503,
+                            "normalHeight": 210,
+                            "normalWidth": 295,
+                            "outputPort": {
+                                "connectedTo": [
+                                ],
+                                "hidden": true,
+                                "portLabel": "Output",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processPort": {
+                                "hidden": true,
+                                "portLabel": "Process",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "processingDonePort": {
+                                "connectedTo": [
+                                ],
+                                "hidden": true,
+                                "portLabel": "Processing Done",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processingType": "ProcessingLogicalNode",
+                            "type": "ProcessingNode"
+                        },
+                        {
+                            "contoursPort": {
+                                "hidden": false,
+                                "portLabel": "Contours",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "editHeight": 579,
+                            "editWidth": 591,
+                            "enabled": true,
+                            "enclosingShapesPort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 533,
+                                        "portID": "input2"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Enclosing Shapes",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "enclosingType": "RotatedRectEnclosing",
+                            "id": 531,
+                            "inputPort": {
+                                "hidden": true,
+                                "portLabel": "Input",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 1999.0977770619998,
+                            "nodeY": 551.4315892271809,
+                            "normalHeight": 362,
+                            "normalWidth": 357,
+                            "outputPort": {
+                                "connectedTo": [
+                                ],
+                                "hidden": true,
+                                "portLabel": "Output",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processPort": {
+                                "hidden": false,
+                                "portLabel": "Process",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "processingDonePort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 520,
+                                        "portID": "logicalInput2"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Processing Done",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processingType": "ProcessingEnclosingNode",
+                            "type": "ProcessingNode"
+                        },
+                        {
+                            "contoursPort": {
+                                "hidden": false,
+                                "portLabel": "Contours",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "editHeight": 579,
+                            "editWidth": 591,
+                            "enabled": true,
+                            "enclosingShapesPort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 533,
+                                        "portID": "input1"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Enclosing Shapes",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "enclosingType": "BoundingRectEnclosing",
+                            "id": 532,
+                            "inputPort": {
+                                "hidden": true,
+                                "portLabel": "Input",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 2007.5221165369207,
+                            "nodeY": 81.77466350036866,
+                            "normalHeight": 362,
+                            "normalWidth": 357,
+                            "outputPort": {
+                                "connectedTo": [
+                                ],
+                                "hidden": true,
+                                "portLabel": "Output",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processPort": {
+                                "hidden": false,
+                                "portLabel": "Process",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "processingDonePort": {
+                                "connectedTo": [
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 520,
+                                        "portID": "logicalInput1"
+                                    }
+                                ],
+                                "hidden": false,
+                                "portLabel": "Processing Done",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processingType": "ProcessingEnclosingNode",
+                            "type": "ProcessingNode"
+                        },
+                        {
+                            "editHeight": 250,
+                            "editWidth": 250,
+                            "enabled": true,
+                            "id": 533,
+                            "input1Port": {
+                                "hidden": false,
+                                "portLabel": "Input 1",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "input2Port": {
+                                "hidden": false,
+                                "portLabel": "Input 2",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "inputPort": {
+                                "hidden": true,
+                                "portLabel": "Input",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 2993.2610081186613,
+                            "nodeY": 361.31835643348256,
+                            "normalHeight": 187,
+                            "normalWidth": 306,
+                            "outputPort": {
+                                "connectedTo": [
+                                ],
+                                "hidden": true,
+                                "portLabel": "Output",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processPort": {
+                                "hidden": false,
+                                "portLabel": "Process",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
+                            "processingDonePort": {
+                                "connectedTo": [
+                                ],
+                                "hidden": false,
+                                "portLabel": "Processing Done",
+                                "showinlabel": false,
+                                "type": "Out"
+                            },
+                            "processingType": "ProcessingGeometricNode",
                             "type": "ProcessingNode"
                         }
                     ],

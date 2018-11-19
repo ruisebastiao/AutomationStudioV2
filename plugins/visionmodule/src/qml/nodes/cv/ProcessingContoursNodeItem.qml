@@ -239,7 +239,7 @@ ProcessingNodeItem{
                 ColumnLayout{
                     width: parent.width
                     Rectangle{
-                        color: "red"
+//                        color: "red"
                         Layout.fillWidth: true
                         Layout.preferredHeight: 150
                     }

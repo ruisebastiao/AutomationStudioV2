@@ -20,5 +20,8 @@
         <file alias="Nodes/Cv/ProcessingEndNodeItem.qml">qml/nodes/cv/ProcessingEndNodeItem.qml</file>
         <file alias="Nodes/Cv/ProcessingContoursNodeItem.qml">qml/nodes/cv/ProcessingContoursNodeItem.qml</file>
         <file alias="Nodes/Cv/ProcessingShapesNodeItem.qml">qml/nodes/cv/ProcessingShapesNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingLogicalNodeItem.qml">qml/nodes/cv/ProcessingLogicalNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingEnclosingNodeItem.qml">qml/nodes/cv/ProcessingEnclosingNodeItem.qml</file>
+        <file alias="Nodes/Cv/ProcessingGeometricNode.qml">qml/nodes/cv/ProcessingGeometricNode.qml</file>
     </qresource>
 </RCC>

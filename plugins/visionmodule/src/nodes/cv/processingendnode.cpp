@@ -34,6 +34,7 @@ void ProcessingEndNode::DeSerialize(QJsonObject &json)
 {
     ProcessingNode::DeSerialize(json);
 
+    m_inputPort->setHidden(true);
     m_outputPort->setHidden(true);
     m_processingDonePort->setHidden(true);
 }

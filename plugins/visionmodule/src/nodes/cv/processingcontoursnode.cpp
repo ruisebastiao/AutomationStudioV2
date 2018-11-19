@@ -20,6 +20,10 @@ QQmlComponent *ProcessingContoursNode::delegate(QQmlEngine &engine) noexcept
 
 void ProcessingContoursNode::setInput(QMat *input)
 {
+//    if(m_input){
+//        m_input->cvMat()->copyTo(*m_originalInput->cvMat());
+//    }
+
     ProcessingNode::setInput(input);
 }
 
@@ -34,8 +38,11 @@ void ProcessingContoursNode::doProcess()
 
     m_filteredContours.clear();
 
-    m_output=m_processedMat;
 
+
+
+    // TODO during real time processing this should be removed, only needed if in config mode
+    m_originalFrame->cvMat()->copyTo(*m_output->cvMat());
 
 
 
@@ -108,7 +115,7 @@ void ProcessingContoursNode::doProcess()
     }
     setTotalFilteredContours(m_filteredContours.size());
 
-    drawContours(*m_processedMat->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
+    drawContours(*m_output->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
 
 
     LOG_INFO()<<"Total contours:"<<m_totalContours;
@@ -116,16 +123,12 @@ void ProcessingContoursNode::doProcess()
 
     emit filteredContoursChanged(m_filteredContours);
 
-
-    //    emit outputChanged(m_processedMat);
-
-    // *m_processedMat->cvMat()= cv::Mat::zeros( m_processedMat->cvMat()->size(), m_processedMat->cvMat()->type() );
     ProcessingNode::doProcess();
 }
 
 void ProcessingContoursNode::DeSerialize(QJsonObject &json)
 {
-    m_filteredContoursPort = new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContoursPort");
+    m_filteredContoursPort = new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContours");
 
     m_outPorts.append(m_filteredContoursPort);
 

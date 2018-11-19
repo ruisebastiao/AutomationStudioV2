@@ -34,13 +34,15 @@ class ProcessingNode : public FlowNode
 
 
 
-    Q_PROPERTY(bool process  WRITE setProcess NOTIFY processChanged)
+    Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged)
     Q_PROPERTY(FlowNodePort* processPort READ processPort WRITE setProcessPort NOTIFY processPortChanged USER("serialize"))
 
 
     Q_PROPERTY(ProcessingType  processingType  READ processingType CONSTANT FINAL USER("serialize"))
     Q_PROPERTY(bool inPlaceProcessing READ inPlaceProcessing WRITE setInPlaceProcessing NOTIFY inPlaceProcessingChanged)
 
+
+    Q_PROPERTY(QMat* originalInput READ originalInput WRITE setOriginalInput NOTIFY originalInputChanged)
 
 
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
@@ -54,7 +56,11 @@ public:
         ProcessingThresholdNode,
         ProcessingFilterNode,
         ProcessingContoursNode,
-        ProcessingShapesNode
+        ProcessingShapesNode,
+        ProcessingLogicalNode,
+        ProcessingEnclosingNode,
+        ProcessingGeometricNode
+
     };
     Q_ENUM(ProcessingType)
 
@@ -134,7 +140,17 @@ public:
         return m_enabled;
     }
 
-    void setProcessedMat(QMat *processedMat);
+    void setOriginalFrame(QMat *originalFrame);
+
+    QMat* originalInput() const
+    {
+        return m_originalInput;
+    }
+
+    bool process() const
+    {
+        return m_process;
+    }
 
 public slots:
     virtual void setInput(QMat* input)=0;
@@ -165,7 +181,7 @@ public slots:
 
     void setProcess(bool process);
 
-    void reProcess(QMat* out);
+    void reProcess();
 
 
     void setProcessPort(FlowNodePort* processPort)
@@ -214,9 +230,17 @@ public slots:
         emit enabledChanged(m_enabled);
 
         if(configsLoaded()){
-            emit processingSettingsChanged();
+            setProcess(true);
         }
 
+    }
+
+    void setOriginalInput(QMat* originalInput)
+    {
+
+
+        m_originalInput = originalInput;
+        emit originalInputChanged(m_originalInput);
     }
 
 signals:
@@ -260,7 +284,7 @@ signals:
     void enabledChanged(bool enabled);
 
 
-    void processingSettingsChanged();
+
 
 private:
 
@@ -271,15 +295,20 @@ private:
 
     bool m_enabled=true;
 
+
+
+    bool m_process;
+
 protected:
     QMat* m_input=nullptr;
-
+    QMat* m_originalInput=new QMat();
 
     QMat* m_output=new QMat();
     QMutex mMutex;
     bool m_processingDone=false;
 
-    QMat* m_processedMat=nullptr;
+    QMat* m_originalFrame=new QMat();
+
     bool m_showOriginal=false;
 
     virtual void doProcess()=0;
@@ -297,6 +326,11 @@ protected:
 };
 
 
+Q_DECLARE_METATYPE(cv::Rect);
+Q_DECLARE_METATYPE(std::vector<cv::Rect>);
+
+Q_DECLARE_METATYPE(cv::RotatedRect);
+Q_DECLARE_METATYPE(std::vector<cv::RotatedRect>);
 
 
 

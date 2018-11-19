@@ -35,6 +35,9 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     Q_PROPERTY(qreal nodeY READ nodeY WRITE setNodeY NOTIFY nodeYChanged)
 
 
+    Q_PROPERTY(bool connectionsLoaded READ connectionsLoaded WRITE setConnectionsLoaded NOTIFY connectionsLoadedChanged)
+
+
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
 
     Q_PROPERTY(bool locked READ locked WRITE setLocked NOTIFY lockedChanged  USER("serialize"))
@@ -42,6 +45,8 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     Q_PROPERTY(bool centerOnEdit READ centerOnEdit WRITE setCenterOnEdit NOTIFY centerOnEditChanged)
 
     Q_INVOKABLE virtual void inPortState(QString id,bool enabled);
+
+
 
 
 
@@ -159,6 +164,8 @@ private:
     bool m_centerOnEdit=false;
 
 
+
+    bool m_connectionsLoaded=false;
 
 public slots:
     virtual void    inNodeOutputChanged();
@@ -282,6 +289,19 @@ public slots:
         emit centerOnEditChanged(m_centerOnEdit);
     }
 
+    void setConnectionsLoaded(bool connectionsLoaded)
+    {
+        if (m_connectionsLoaded == connectionsLoaded)
+            return;
+
+        m_connectionsLoaded = connectionsLoaded;
+
+        if(m_connectionsLoaded){
+            this->blockSignals(false);
+        }
+        emit connectionsLoadedChanged(m_connectionsLoaded);
+    }
+
 signals:
     void nameChanged(QString name);
 
@@ -316,6 +336,8 @@ signals:
     void nodeYChanged(qreal nodeY);
 
     void centerOnEditChanged(bool centerOnEdit);
+
+    void connectionsLoadedChanged(bool connectionsLoaded);
 
 protected:
 
@@ -383,5 +405,9 @@ public:
     QList<FlowNodePort *> getOutPorts() const;
     SceneGraph *getScenegraph() const;
     FlowNodePort *getPortByID(QString id);
+    bool connectionsLoaded() const
+    {
+        return m_connectionsLoaded;
+    }
 };
 #endif // FLOWNODE_H

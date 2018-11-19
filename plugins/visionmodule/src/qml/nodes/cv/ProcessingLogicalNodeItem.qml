@@ -18,14 +18,5 @@ ProcessingNodeItem{
     expandOnEdit: true
 
 
-    processingConfigItem: ColumnLayout{
-        anchors.fill: parent
-
-        Item{
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-    }
 
 }

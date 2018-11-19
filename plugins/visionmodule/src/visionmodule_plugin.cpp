@@ -31,6 +31,7 @@
 #include <cv/qimread.h>
 #include <cv/qmatview.h>
 
+#include <nodes/cv/processingenclosingnode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
 
@@ -50,10 +51,19 @@ void VisionModulePlugin::registerTypes(const char *uri){
 
 
     qmlRegisterUncreatableType<ProcessingThresholdNode>(uri, 1, 0, "ProcessingThresholdNode","Uncreatable");
+    qmlRegisterUncreatableType<ProcessingEnclosingNode>(uri, 1, 0, "ProcessingEnclosingNode","Uncreatable");
 
 //
 
     qRegisterMetaType<std::vector<std::vector<cv::Point>>>("std::vector<std::vector<cv::Point>>");
+
+    qRegisterMetaType<cv::RotatedRect>("cv::RotatedRect");
+    qRegisterMetaType<std::vector<cv::RotatedRect>>("std::vector<cv::RotatedRect>");
+
+    qRegisterMetaType<cv::Rect>("cv::Rect");
+    qRegisterMetaType<std::vector<cv::Rect>>("std::vector<cv::Rect>");
+
+
     qRegisterMetaType<QMat*>("QMat*");
 
     qRegisterMetaType<std::vector<cv::Point>>("std::vector<cv::Point>");

@@ -19,6 +19,10 @@ QQmlComponent *ProcessingThresholdNode::delegate(QQmlEngine &engine) noexcept
 void ProcessingThresholdNode::setInput(QMat *input)
 {
     
+    //    if(m_input){
+    //        m_input->cvMat()->copyTo(*m_originalInput->cvMat());
+    //    }
+
     ProcessingNode::setInput(input);
 }
 
