@@ -35,7 +35,9 @@ SOURCES += \
     $$PWD/nodes/cv/processingshapesnode.cpp \
     $$PWD/nodes/cv/processinglogicalnode.cpp \
     $$PWD/nodes/cv/processingenclosingnode.cpp \
-    $$PWD/nodes/cv/processinggeometricnode.cpp
+    $$PWD/nodes/cv/processinggeometricnode.cpp \
+    $$PWD/nodes/cv/processingnumericnode.cpp \
+    $$PWD/nodes/cv/processingmasknode.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -72,7 +74,9 @@ HEADERS += \
     $$PWD/nodes/cv/processingshapesnode.h \
     $$PWD/nodes/cv/processinglogicalnode.h \
     $$PWD/nodes/cv/processingenclosingnode.h \
-    $$PWD/nodes/cv/processinggeometricnode.h
+    $$PWD/nodes/cv/processinggeometricnode.h \
+    $$PWD/nodes/cv/processingnumericnode.h \
+    $$PWD/nodes/cv/processingmasknode.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc

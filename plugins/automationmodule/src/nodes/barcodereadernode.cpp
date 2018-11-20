@@ -5,7 +5,7 @@
 BarcodeReaderNode::BarcodeReaderNode(QObject *parent): FlowNode(parent) {
 
     m_type=Type::BarcodeReaderNode;
-
+    m_typeName="Barcode Reader";
 
 
 

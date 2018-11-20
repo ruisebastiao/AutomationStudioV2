@@ -8,6 +8,8 @@
 #include <nodes/cv/processingfilternode.h>
 #include <nodes/cv/processinggeometricnode.h>
 #include <nodes/cv/processinglogicalnode.h>
+#include <nodes/cv/processingmasknode.h>
+#include <nodes/cv/processingnumericnode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
 
@@ -20,12 +22,13 @@ ROINode::ROINode()
 
 ROINode::~ROINode()
 {
-    m_roiEditorGraphView->deleteLater();
-    for (int var = 0; var < m_ProcessingNodes.length(); ++var) {
-        ProcessingNode* procnode= qobject_cast<ProcessingNode*>(m_ProcessingNodes.at(var));
-        procnode->setParent(nullptr);
-        procnode->deleteLater();
-    }
+//    m_roiEditorGraphView->deleteLater();
+//    for (int var = 0; var < m_ProcessingNodes.length(); ++var) {
+//        ProcessingNode* procnode= qobject_cast<ProcessingNode*>(m_ProcessingNodes.at(var));
+//        procnode->setParent(nullptr);
+//        procnode->deleteLater();
+//    }
+
 }
 
 QQmlComponent *ROINode::delegate(QQmlEngine &engine) noexcept
@@ -89,13 +92,35 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
     else if(nodeobject["processingType"]=="ProcessingGeometricNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingGeometricNode>(nullptr);
     }
+    else if(nodeobject["processingType"]=="ProcessingNumericNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingNumericNode>(nullptr);
+    }
+    else if(nodeobject["processingType"]=="ProcessingMaskNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingMaskNode>(nullptr);
+    }
     else{
         LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodeobject["processingType"].toString()));
     }
 
+
+
     ProcessingNode* node=dynamic_cast<ProcessingNode*>(newnode);
     if(node){
         node->DeSerialize(nodeobject);
+
+        connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
+            int nodepos=m_ProcessingNodes.indexOf( nodetoremove);
+            if(nodepos>0){
+                FlowNode* noderemoved=m_ProcessingNodes.at(nodepos);
+                if(noderemoved){
+                    m_ProcessingNodes.removeAll(noderemoved);
+                    this->m_roiEditorGraphView->getGraph()->removeNode(noderemoved);
+
+                }
+
+            }
+        });
+
 
         //    connect()
 

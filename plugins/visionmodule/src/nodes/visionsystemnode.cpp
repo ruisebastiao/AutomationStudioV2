@@ -15,11 +15,6 @@ VisionSystemNode::VisionSystemNode()
 VisionSystemNode::~VisionSystemNode()
 {
 
-    for (int var = 0; var < m_ROINodes.length(); ++var) {
-        ROINode* roinode= qobject_cast<ROINode*>(m_ROINodes.at(var));
-
-        roinode->deleteLater();
-    }
 
 
 }
@@ -51,6 +46,19 @@ void VisionSystemNode::readROINode(QJsonObject roiobject){
             this->setFrameProcessed(true);
         }
         );
+
+        connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
+            int nodepos=m_ROINodes.indexOf( static_cast<ROINode*>(nodetoremove));
+            if(nodepos>0){
+                ROINode* noderemoved=m_ROINodes.at(nodepos);
+                if(noderemoved){
+                    m_ROINodes.removeAll(noderemoved);
+                    this->m_visionGraphView->getGraph()->removeNode(noderemoved);
+
+                }
+
+            }
+        });
 
 
     }

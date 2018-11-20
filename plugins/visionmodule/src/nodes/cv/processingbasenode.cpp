@@ -3,6 +3,7 @@
 ProcessingBaseNode::ProcessingBaseNode()
 {
     m_processingType=ProcessingType::ProcessingBaseNode;
+
 }
 
 QQmlComponent *ProcessingBaseNode::delegate(QQmlEngine &engine) noexcept

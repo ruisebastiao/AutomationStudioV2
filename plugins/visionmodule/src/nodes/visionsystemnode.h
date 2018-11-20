@@ -34,7 +34,7 @@ public:
 
     VisionSystemNode();
 
-    ~VisionSystemNode();
+    virtual ~VisionSystemNode() override;
 
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 

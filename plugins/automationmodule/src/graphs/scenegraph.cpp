@@ -80,21 +80,6 @@ void SceneGraph::bindEdge(qan::Edge *edge, qan::PortItem *outPort, qan::PortItem
 {
     qan::Graph::bindEdge(edge,outPort,inPort);
 
-    //    FlowNode* targetNode=(FlowNode*)edge->getDestination();
-    //    if(targetNode!=nullptr){
 
-    //        QString sourceID=outPort->getId();
-
-
-    //        QString targetID=inPort->getId();
-    //        targetNode->bindInputPort(edge->getSource(),sourceID,targetID);
-
-    //    }
-
-    //    FlowNode* sourceNode=(FlowNode*)edge->getSource();
-
-    //    if(sourceNode){
-    //        sourceNode->addPortConnection(edge);
-    //    }
 
 }

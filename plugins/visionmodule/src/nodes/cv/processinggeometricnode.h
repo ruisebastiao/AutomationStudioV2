@@ -16,6 +16,9 @@ class ProcessingGeometricNode : public ProcessingNode
     Q_PROPERTY(QVariant input2 READ input2 WRITE setInput2 NOTIFY input2Changed)
     Q_PROPERTY(FlowNodePort* input2Port READ input2Port WRITE setInput2Port NOTIFY input2PortChanged USER("serialize"))
 
+    Q_PROPERTY(QVariant input3 READ input3 WRITE setInput3 NOTIFY input3Changed)
+    Q_PROPERTY(FlowNodePort* input3Port READ input3Port WRITE setInput3Port NOTIFY input3PortChanged USER("serialize"))
+
     Q_PROPERTY(QVariant output1 READ output1 WRITE setOutput1 NOTIFY output1Changed)
     Q_PROPERTY(FlowNodePort* output1Port READ output1Port WRITE setOutput1Port NOTIFY output1PortChanged USER("serialize"))
 
@@ -35,7 +38,8 @@ private:
 
 public:
     enum GeometricType {
-        GeometricLineSegment=0,
+        Geometric2PointLine=0,
+        GeometricPointAngleLengthLine,
         Geometric3PointCircle
     };
     Q_ENUM(GeometricType)
@@ -134,6 +138,24 @@ public slots:
         emit output1PortChanged(m_output1Port);
     }
 
+    void setInput3(QVariant input3)
+    {
+        if (m_input3 == input3)
+            return;
+
+        m_input3 = input3;
+        emit input3Changed(m_input3);
+    }
+
+    void setInput3Port(FlowNodePort* input3Port)
+    {
+        if (m_input3Port == input3Port)
+            return;
+
+        m_input3Port = input3Port;
+        emit input3PortChanged(m_input3Port);
+    }
+
 protected:
     void doProcess() override;
 
@@ -175,6 +197,16 @@ public:
         return m_output1Port;
     }
 
+    QVariant input3() const
+    {
+        return m_input3;
+    }
+
+    FlowNodePort* input3Port() const
+    {
+        return m_input3Port;
+    }
+
 signals:
     void input1Changed(QVariant input1);
     void input1PortChanged(FlowNodePort* input1Port);
@@ -186,13 +218,19 @@ signals:
 
     void output1PortChanged(FlowNodePort* output1Port);
 
+    void input3Changed(QVariant input3);
+
+    void input3PortChanged(FlowNodePort* input3Port);
+
 private:
 
-    GeometricType m_geometricType=GeometricLineSegment;
+    GeometricType m_geometricType=Geometric2PointLine;
 
     QVariant m_output1;
     FlowNodePort* m_output1Port=nullptr;
     QLineF lineSegment();
+    QVariant m_input3;
+    FlowNodePort* m_input3Port=nullptr;
 };
 
 #endif // PROCESSINGGEOMETRICNODE_H

@@ -6,47 +6,30 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 {
 
 
-    //    QObject::connect(QAutomationModule::flownodemanager, &FlowNodeManager::onFlowNodeLoaded,[this](FlowNode* nodeLoaded){
 
-    //        if(nodeLoaded==this){
-    //            return;
-    //        }
+}
 
-    //        qDebug()<<"On node added";
+std::ostream& operator <<(std::ostream &out, const FlowNode &c)
+{
+    out <<c;
 
-    //        foreach (FlowNodePort* flownodeport, m_outPorts) {
-    //            if(flownodeport->getType()==qan::PortItem::Type::Out){
+    return out;
+}
 
+QDataStream& operator <<(QDataStream &stream, FlowNode &c) {
 
+    stream<< c;
+    return stream;
 
+}
 
-    //                for (int index1 = 0; index1 < flownodeport->getConnections().length(); ++index1) {
-    //                    ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
-    //                    if(connectinfo->nodeID()==nodeLoaded->id()){
-
-    //                        qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
-
-    //                        for (int index2 = 0; index2 < nodeLoaded->getInPorts()->getConnections().length(); ++index2) {
-    //                            ConnectionInfo* connectinfo=flownodeport->getConnections().at(index1);
-    //                            if(connectinfo->nodeID()==nodeLoaded->id()){
-
-    //                                qan::Edge* newedge= m_scenegraph->insertNewEdge(false,this,nodeLoaded);
+FlowNode::~FlowNode()
+{
+    //
+    LOG_INFO()<<"Deleting node:"<<this->id()<<"|"<<this->name();
 
 
-    //                            }
-    //                        }
-
-    //                    }
-    //                }
-
-    //            }
-    //        }
-
-    //    });
-
-
-
-
+    //    this->getGraph()->re->deleteEdge(m_inputPort->getPortItem()->getInEdgeItems().at(0)->getEdge());
 
 }
 
@@ -95,6 +78,11 @@ QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
     if ( !qan_FlowNode_delegate )
         qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/FlowNode.qml"));
     return qan_FlowNode_delegate.get();
+}
+
+void FlowNode::remove()
+{
+    emit removeNode(this);
 }
 
 SceneGraph *FlowNode::getScenegraph() const

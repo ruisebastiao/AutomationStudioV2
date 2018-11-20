@@ -49,6 +49,7 @@ void ProcessingNode::reProcess()
     this->doProcess();
 }
 
+
 void ProcessingNode::setOriginalFrame(QMat *originalFrame)
 {
     m_originalFrame=originalFrame;

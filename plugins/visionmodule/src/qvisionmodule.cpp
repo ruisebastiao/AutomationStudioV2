@@ -22,7 +22,6 @@ void QVisionModule::save()
     QAutomationModule::save();
 }
 
-
 FlowNode *QVisionModule::readNode(qan::GraphView *graphView, QJsonObject nodeobject)
 {
     FlowNode* node=nullptr;

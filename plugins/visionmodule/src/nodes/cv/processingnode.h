@@ -59,7 +59,9 @@ public:
         ProcessingShapesNode,
         ProcessingLogicalNode,
         ProcessingEnclosingNode,
-        ProcessingGeometricNode
+        ProcessingGeometricNode,
+        ProcessingNumericNode,
+        ProcessingMaskNode
 
     };
     Q_ENUM(ProcessingType)
@@ -68,7 +70,6 @@ public:
     ProcessingNode();
 
     ~ProcessingNode() override;
-
 
 
 
@@ -300,6 +301,7 @@ private:
     bool m_process;
 
 protected:
+
     QMat* m_input=nullptr;
     QMat* m_originalInput=new QMat();
 

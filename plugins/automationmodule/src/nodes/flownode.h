@@ -8,7 +8,7 @@
 
 #include <flownodeport.h>
 
-
+using namespace std;
 
 class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializable
 {
@@ -18,6 +18,9 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     Q_INTERFACES(JsonSerializable)
 
     Q_PROPERTY(Type type READ getType CONSTANT FINAL USER("serialize"))
+
+    Q_PROPERTY(QString typeName READ getTypename CONSTANT FINAL)
+
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged USER("serialize"))
 
     Q_PROPERTY(bool configsLoaded READ configsLoaded WRITE setConfigsLoaded NOTIFY configsLoadedChanged)
@@ -50,6 +53,21 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
 
 
 
+    bool operator==(const FlowNode &a)
+    {
+        return a.id()==id();
+    }
+
+    bool operator==(const FlowNode* a)
+    {
+        return a->id()==id();
+    }
+
+    friend ostream& operator<<(ostream &os, const  FlowNode& c);
+    friend QDataStream& operator <<(QDataStream &stream, FlowNode &c);
+
+
+
 public:
     enum class Type {
         NodeNone,
@@ -77,16 +95,13 @@ public:
     FlowNode( QObject* parent = nullptr );
 
 
-    //    explicit FlowNode( Type type, QQuickItem* parent = nullptr ) :
-    //        qan::Node{parent}, m_type{type} { /* Nil */ }
+    operator QString() const { return getTypename()+"(ID:"+QString::number(id())+")"; }
 
 
 
-    virtual ~FlowNode() {
 
-        //   this->getGraph()->removeNode(this);
+    virtual ~FlowNode() override;
 
-    }
 
     static void loadNodeConnections(QList<FlowNode *> nodeList);
 
@@ -116,6 +131,7 @@ public:
 
 
 
+    Q_INVOKABLE void remove();
 
 protected:
     Type            m_type{Type::NodeNone};
@@ -166,6 +182,8 @@ private:
 
 
     bool m_connectionsLoaded=false;
+
+
 
 public slots:
     virtual void    inNodeOutputChanged();
@@ -305,6 +323,7 @@ public slots:
 signals:
     void nameChanged(QString name);
 
+    void removeNode(FlowNode*);
 
     void bindPortLabelToProperty(qan::PortItem* portItem,QString nodeProperty);
 
@@ -342,7 +361,7 @@ signals:
 protected:
 
     QString m_name="";
-
+    QString m_typeName="Flow Node";
     QList<FlowNodePort*> m_inPorts;
     QList<FlowNodePort*> m_outPorts;
 
@@ -408,6 +427,10 @@ public:
     bool connectionsLoaded() const
     {
         return m_connectionsLoaded;
+    }
+    QString getTypename() const
+    {
+        return m_typeName;
     }
 };
 #endif // FLOWNODE_H

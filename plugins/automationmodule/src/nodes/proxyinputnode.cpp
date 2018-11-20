@@ -5,6 +5,7 @@ ProxyInputNode::ProxyInputNode()
 
     m_type=Type::ProxyInputNode;
 
+    m_typeName="In/Out Proxy";
 
     m_proxyNodes= new ProxyInputNodeListModel();
 }

@@ -20,7 +20,7 @@ class ROINode : public FlowNode
 public:
     ROINode();
 
-    ~ROINode();
+    virtual ~ROINode() override;
 
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 

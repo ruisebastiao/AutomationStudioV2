@@ -238,6 +238,32 @@ Qan.NodeItem {
     }
 
 
+    RoundButton{
+        width: 48
+        height: 48
+        antialiasing: true
+        visible: root.node.editMode
+        z:99999
+        x:5
+
+        y:0
+        highlighted: true
+        Image {
+            width: 30
+            height: 30
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+            source: "qrc:/images/baseline_delete_white_48dp.png"
+        }
+        onPressed: {
+            root.node.remove()
+        }
+
+    }
+
+
+
+
     Rectangle{
         id:background;
         anchors.fill: parent

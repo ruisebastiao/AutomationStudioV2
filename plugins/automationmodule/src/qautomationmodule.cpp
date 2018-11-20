@@ -93,9 +93,29 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
         if(node){
 
             m_FlowNodes.append(node);
+
+            connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
+                int nodepos=m_FlowNodes.indexOf(nodetoremove);
+                if(nodepos>0){
+                    FlowNode* noderemoved=m_FlowNodes.at(nodepos);
+                    if(noderemoved){
+                        m_FlowNodes.removeAll(noderemoved);
+                        //noderemoved->deleteLater();
+                        this->m_graphView->getGraph()->removeNode(noderemoved);
+                        //this->m_graphView->getGraph()->remove
+                    }
+
+                }
+            });
+
+            qDebug()<<"Testing:"<<*node;
+
         }
 
     }
+
+
+
 
 
 
