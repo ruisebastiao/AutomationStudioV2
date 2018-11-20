@@ -108,6 +108,7 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
     if(node){
         node->DeSerialize(nodeobject);
 
+
         connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
             int nodepos=m_ProcessingNodes.indexOf( nodetoremove);
             if(nodepos>0){
