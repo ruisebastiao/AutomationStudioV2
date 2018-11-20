@@ -22,5 +22,5 @@ else:win32:CONFIG(debug, debug|release){
  linkExternalLib(opencv/lib,opencv,_imgcodecs341d)
 linkExternalLib(opencv/lib,opencv,_videoio341d)
 }
-else:unix: LIBS += -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -L/usr/local/lib/
+else:unix: LIBS += -lopencv_core -lopencv_imgproc -lopencv_videoio -lopencv_imgcodecs -L/usr/local/lib/
 

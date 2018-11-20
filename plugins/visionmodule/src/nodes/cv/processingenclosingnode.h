@@ -128,7 +128,7 @@ private:
 
     std::vector<std::vector<cv::Point>> m_contours;
     FlowNodePort* m_contoursPort=nullptr;
-    QVariant m_enclosingShapes=QVariant(NULL);
+    QVariant m_enclosingShapes=QVariant();
 
     FlowNodePort* m_enclosingShapesPort=nullptr;
     EnclosingType m_enclosingType=RotatedRectEnclosing;

@@ -1,8 +1,5 @@
 #include "processinggeometricnode.h"
 
-using namespace cv;
-using namespace std;
-
 
 ProcessingGeometricNode::ProcessingGeometricNode()
 {
@@ -26,19 +23,110 @@ void ProcessingGeometricNode::setInput(QMat *input)
 
 }
 
+QLineF ProcessingGeometricNode::lineSegment(){
+
+    QLineF result;
+
+    cv::Point pt1,pt2;
+
+
+
+    if(strcmp(m_input1.typeName(),"std::vector<cv::Rect>")==0) {
+        std::vector<cv::Rect> rect_obj = m_input1.value<std::vector<cv::Rect>>();
+
+        // TODO process empty vectors
+
+        if(rect_obj.size()>0){
+
+
+            // if vector take index 0 Rect
+
+            cv::Rect input1_rect=rect_obj.at(0);
+            pt1=cv::Point(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
+        }
+
+    }
+    else if(strcmp(m_input1.typeName(),"std::vector<cv::RotatedRect>")==0) {
+        std::vector<cv::RotatedRect> rect_obj = m_input1.value<std::vector<cv::RotatedRect>>();
+
+        // TODO process empty vectors
+
+        if(rect_obj.size()>0){
+
+
+            // if vector take index 0 Rect
+
+            cv::RotatedRect input1_rect=rect_obj.at(0);
+            pt1=input1_rect.center;
+        }
+
+    }
+
+
+    if(strcmp(m_input2.typeName(),"std::vector<cv::Rect>")==0) {
+        std::vector<cv::Rect> rect_obj = m_input2.value<std::vector<cv::Rect>>();
+
+        // TODO process empty vectors
+
+        if(rect_obj.size()>0){
+
+
+            // if vector take index 0 Rect
+
+            cv::Rect input2_rect=rect_obj.at(0);
+            pt2=cv::Point(input2_rect.x+(input2_rect.width/2),input2_rect.y+(input2_rect.height/2));
+        }
+
+    }
+    else if(strcmp(m_input2.typeName(),"std::vector<cv::RotatedRect>")==0) {
+        std::vector<cv::RotatedRect> rect_obj = m_input2.value<std::vector<cv::RotatedRect>>();
+
+        // TODO process empty vectors
+
+        if(rect_obj.size()>1){
+
+
+            // TODO add at index property value serializable
+
+            cv::RotatedRect input2_rect=rect_obj.at(1);
+            pt2=input2_rect.center;
+        }
+
+    }
+
+
+
+    line(*m_output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+
+    result=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
+
+
+    return result;
+
+}
+
 void ProcessingGeometricNode::doProcess()
 {
 
-    qDebug() << "typeName for first :" << m_input1.typeName();
+    // TODO during real time processing this should be removed, only needed if in config mode
+    m_originalFrame->cvMat()->copyTo(*m_output->cvMat());
 
-    vector<RotatedRect> rotatedrect_obj = m_input1.value<vector<RotatedRect>>();
 
-    vector<Rect> rect_obj = m_input1.value<vector<Rect>>();
+    switch (m_geometricType) {
+    case GeometricLineSegment:
 
-    //
-    if(rect_obj.size()>0){
 
+        m_output1=QVariant::fromValue(lineSegment());
+
+        break;
+    case Geometric3PointCircle:
+        break;
     }
+
+    emit output1Changed(m_output1);
+
+    ProcessingNode::doProcess();
+
 
 }
 
@@ -48,30 +136,34 @@ void ProcessingGeometricNode::DeSerialize(QJsonObject &json)
     m_input1Port= new FlowNodePort(this,qan::PortItem::Type::In,"input1");
     m_input2Port= new FlowNodePort(this,qan::PortItem::Type::In,"input2");
 
+    m_output1Port= new FlowNodePort(this,qan::PortItem::Type::Out,"output1");
+
+
     m_inPorts.append(m_input1Port);
     m_inPorts.append(m_input2Port);
+
+    m_outPorts.append(m_output1Port);
 
 
     ProcessingNode::DeSerialize(json);
 
     m_inputPort->setHidden(true);
-
-
     m_outputPort->setHidden(true);
 
     if(m_processPort->portLabel()==""){
         m_processPort->setPortLabel("process");
     }
 
-    if(m_input1Port->portLabel()==""){
-        m_input1Port->setPortLabel("Input 1");
-    }
-    if(m_input2Port->portLabel()==""){
-        m_input2Port->setPortLabel("Input 2");
-    }
 
-//    if(m_input1Port->portLabel()==""){
-//        m_input1Port->setPortLabel("Logical Output");
-//    }
+    switch (m_geometricType) {
+    case GeometricLineSegment:
+        m_input1Port->setPortLabel("Start Point");
+        m_input2Port->setPortLabel("End Point");
+        m_output1Port->setPortLabel("Line Segment");
+
+        break;
+    case Geometric3PointCircle:
+        break;
+    }
 
 }

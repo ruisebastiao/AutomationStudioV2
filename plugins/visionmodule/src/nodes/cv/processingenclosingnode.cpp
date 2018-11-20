@@ -32,7 +32,7 @@ void ProcessingEnclosingNode::doProcess()
 
 
 
-    vector<RotatedRect> rotatedenclosingshapes;
+    std::vector<cv::RotatedRect> rotatedenclosingshapes;
     vector<Rect> rectenclosingshapes;
 
 
@@ -57,27 +57,35 @@ void ProcessingEnclosingNode::doProcess()
             }
 
             drawMarker(*m_output->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
-        }
+
+
 
             break;
+        }
         case BoundingRectEnclosing:
-            Rect minrect=boundingRect(approx_contour);
-            cv::rectangle(*m_output->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
+        {
+            cv::Rect minrect=boundingRect(approx_contour);
+            rectangle(*m_output->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
             drawMarker(*m_output->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
             rectenclosingshapes.push_back(minrect);
             break;
+        }
         }
 
     }
 
     switch (m_enclosingType) {
     case RotatedRectEnclosing:
-          m_enclosingShapes=QVariant::fromValue(rotatedenclosingshapes);
+        m_enclosingShapes=QVariant::fromValue(rotatedenclosingshapes);
         break;
     case BoundingRectEnclosing:
         m_enclosingShapes=QVariant::fromValue(rectenclosingshapes);
+
+
         break;
     }
+
+;
 
     emit enclosingShapesChanged(m_enclosingShapes);
 
