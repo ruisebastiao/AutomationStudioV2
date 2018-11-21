@@ -17,19 +17,20 @@ Item {
         if(selectedROINode){
            selectedROINode.processingContainer.parent=container
             selectedROINode.processingContainer.visible=true
+
         }
     }
 
-    MouseArea{
-        anchors.fill: parent
-        preventStealing: true
-    }
+//    MouseArea{
+//        anchors.fill: parent
+//        preventStealing: true
+//    }
 
-    Rectangle{
-        anchors.fill: parent
-        opacity: 0.5
+//    Rectangle{
+//        anchors.fill: parent
+//        opacity: 0.5
 
-    }
+//    }
 
     Item{
         id:container

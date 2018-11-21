@@ -74,6 +74,7 @@ FlowNode *FlowNode::getFlowNodeById(int id, QList<FlowNode *> nodeList)
 
 QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
 {
+
     static UniqueQQmlComponentPtr   qan_FlowNode_delegate;
     if ( !qan_FlowNode_delegate )
         qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/FlowNode.qml"));

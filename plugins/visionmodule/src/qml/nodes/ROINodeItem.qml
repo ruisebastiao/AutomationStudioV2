@@ -329,9 +329,11 @@ Qan.NodeItem {
     ROIProcessingViewerItem{
         id:processingviewer
         visible: false
+        roinode:node
         Component.onCompleted: {
             node.processingContainer=processingviewer
             node.roiEditorGraphView=processingviewer.roiEditorGraphView
+
         }
     }
 

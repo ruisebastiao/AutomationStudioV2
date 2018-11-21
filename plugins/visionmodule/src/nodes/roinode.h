@@ -37,6 +37,8 @@ public:
     Q_PROPERTY(bool roiProcessingDone READ roiProcessingDone WRITE setRoiProcessingDone NOTIFY roiProcessingDoneChanged)
 
 
+    Q_PROPERTY(QStringList processingNodeTypes READ processingNodeTypes NOTIFY processingNodeTypesChanged)
+
 
 public:
     void processFrameObject(QMat* frame);
@@ -93,6 +95,8 @@ signals:
 
     void processedFrameChanged(QMat* processedFrame);
 
+    void processingNodeTypesChanged(QStringList processingNodeTypes);
+
 private:
 
 
@@ -119,6 +123,8 @@ private:
 
     QMat* m_processedFrame=new QMat();
     ProcessingBaseNode* m_basenode=nullptr;
+
+    QStringList m_processingNodeTypes;
 
 public:
     void Serialize(QJsonObject &json);
@@ -149,6 +155,23 @@ public:
         return m_processedFrame;
     }
     ProcessingNode *readProcessingNode(qan::GraphView *graphView, QJsonObject nodeobject);
+    QStringList processingNodeTypes()
+    {
+        using map_type = std::map<ProcessingNode::ProcessingType, string>;
+
+        int count = static_cast<int>(ProcessingNode::processingTypeTable.size());
+
+        if(m_processingNodeTypes.length()!=count){
+            m_processingNodeTypes.clear();
+            BOOST_FOREACH(map_type::value_type &p, ProcessingNode::processingTypeTable) {
+                ProcessingNode::ProcessingType procType=p.first;
+                string str=ProcessingNode::processingTypeTable[procType];
+                m_processingNodeTypes.append(QString::fromStdString(str));
+            }
+
+        }
+        return m_processingNodeTypes;
+    }
 };
 
 #endif // ROINODE_H

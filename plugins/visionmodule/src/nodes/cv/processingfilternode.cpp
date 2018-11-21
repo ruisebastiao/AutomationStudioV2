@@ -6,6 +6,7 @@ ProcessingFilterNode::ProcessingFilterNode()
 {
 
     m_processingType=ProcessingType::ProcessingFilterNode;
+    ProcessingNode::processingTypeTable[m_processingType]="Linear filters";
 }
 
 

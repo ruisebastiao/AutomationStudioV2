@@ -4,6 +4,7 @@
 ProcessingGeometricNode::ProcessingGeometricNode()
 {
     m_processingType=ProcessingType::ProcessingGeometricNode;
+    ProcessingNode::processingTypeTable[m_processingType]="Geometric Functions";
 }
 
 

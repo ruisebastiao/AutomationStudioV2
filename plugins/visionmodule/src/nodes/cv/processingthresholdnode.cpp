@@ -5,6 +5,7 @@ using namespace cv;
 ProcessingThresholdNode::ProcessingThresholdNode()
 {
     m_processingType=ProcessingType::ProcessingThresholdNode;
+    ProcessingNode::processingTypeTable[m_processingType]="Binarization";
 }
 
 QQmlComponent *ProcessingThresholdNode::delegate(QQmlEngine &engine) noexcept

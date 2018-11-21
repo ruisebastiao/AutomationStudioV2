@@ -12,9 +12,14 @@ import automationmodule 1.0
 import visionmodule 1.0
 
 Item{
+    id:root
     property alias roiEditorGraphView: roieditorgraphView
 
+    property ROINode roinode
+
     anchors.fill: parent
+
+
 
     visible: true
     PinchArea{
@@ -39,6 +44,7 @@ Item{
             roieditorgraphView.dragActive=true
             roieditorgraphView.viewPosition=pinch.center
 
+
         }
 
         onPinchFinished: {
@@ -46,9 +52,12 @@ Item{
         }
     }
 
+
     Qan.GraphView {
         id: roieditorgraphView
+        height:parent.height
         anchors.fill: parent
+
         graph: roieditorGraph
         navigable: true
         clip: true
@@ -56,7 +65,14 @@ Item{
         grid: null
         lockGridUpdate:true
 
-//        grid:null
+
+
+        onRightClicked:{
+            //console.log("Right")
+            contextMenu.popup();
+        }
+
+        //        grid:null
 
         resizeHandlerColor: Material.accent
         gridThickColor: Material.theme === Material.Dark ? "#4e4e4e" : "#c1c1c1"
@@ -81,9 +97,67 @@ Item{
                 defaultEdgeStyle.lineType = Qan.EdgeStyle.Curved
 
 
+
+
             }
         }
     }
+
+    Menu {
+        id: contextMenu
+        width: 200
+        height: 300
+        contentItem:Rectangle{
+            color: "transparent"
+            border.width: 2
+            border.color: Material.color(Material.primary)
+            anchors.fill: parent
+            GroupBox{
+                anchors.fill: parent
+                anchors.margins: 5
+                title: "Add processing node"
+                ListView {
+                    id: listView1
+                    clip: true
+                    anchors.fill: parent
+                    onCurrentIndexChanged: {
+                        console.log(currentIndex)
+                    }
+
+
+                    model: root.roinode.processingNodeTypes
+                    delegate:Item {
+                        id:proc_delegate
+                        width: parent.width
+                        height: 40
+                        Label{
+
+                            text: modelData
+                            anchors.fill: parent
+                            font.pixelSize: 16
+                            horizontalAlignment:Text.AlignLeft
+                            verticalAlignment: Text.AlignVCenter
+                            //                     fontSizeMode:Text.Fit
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered:{
+                                proc_delegate.ListView.view.currentIndex = index;
+
+                            }
+                        }
+                    }
+                    highlight: Rectangle {
+                        color: "lightsteelblue";
+                        radius: 5
+                    }
+                    focus: true
+                }
+            }
+        }
+    }
+
 }
 
 

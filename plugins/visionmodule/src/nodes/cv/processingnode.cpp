@@ -3,6 +3,8 @@
 
 using namespace cv;
 
+map<ProcessingNode::ProcessingType,string> ProcessingNode::processingTypeTable;
+
 ProcessingNode::ProcessingNode()
 {
     m_type=Type::ProcessingNode;
@@ -48,6 +50,7 @@ void ProcessingNode::reProcess()
 
     this->doProcess();
 }
+
 
 
 void ProcessingNode::setOriginalFrame(QMat *originalFrame)

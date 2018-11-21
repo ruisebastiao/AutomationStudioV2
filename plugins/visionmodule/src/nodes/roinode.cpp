@@ -204,6 +204,7 @@ void ROINode::DeSerialize(QJsonObject &json)
 
     setConfigsLoaded(true);
 
+    emit processingNodeTypesChanged(m_processingNodeTypes);
 
 
 

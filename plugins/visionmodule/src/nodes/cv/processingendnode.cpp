@@ -3,6 +3,9 @@
 ProcessingEndNode::ProcessingEndNode()
 {
     m_processingType=ProcessingType::ProcessingEndNode;
+
+// TODO this shold appear should be dynamic created impossible to remove???
+    ProcessingNode::processingTypeTable[m_processingType]="End Node";
 }
 
 

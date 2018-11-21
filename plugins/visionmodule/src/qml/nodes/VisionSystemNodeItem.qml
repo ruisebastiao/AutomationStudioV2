@@ -146,6 +146,16 @@ FlowNodeItem{
                 Rectangle{
                     id:navigable_container
 
+                    opacity: maincontainer.state=="editroi"?0:1
+                    visible: opacity!=0
+                    Behavior on opacity{
+                        SequentialAnimation{
+
+                            NumberAnimation { duration: 250 }
+
+                        }
+                    }
+
                     border.color: Material.color(Material.accent)
                     border.width: 3
 
@@ -227,6 +237,7 @@ FlowNodeItem{
                         Component.onCompleted: {
                             node.visionGraphView=visionGraphView
                             node.centerOnEdit= true
+
 
                         }
 
@@ -324,20 +335,20 @@ FlowNodeItem{
 
                 }
 
-                FastBlur {
-                    anchors.fill: navigable_container
-                    source: navigable_container
-                    visible: radius!=0
-                    radius: maincontainer.state=="editroi"?32:0
-                    Behavior on radius{
-                        SequentialAnimation{
+//                FastBlur {
+//                    anchors.fill: navigable_container
+//                    source: navigable_container
+//                    visible: radius!=0
+//                    radius: maincontainer.state=="editroi"?32:0
+//                    Behavior on radius{
+//                        SequentialAnimation{
 
-                            NumberAnimation { duration: 250 }
+//                            NumberAnimation { duration: 250 }
 
-                        }
-                    }
+//                        }
+//                    }
 
-                }
+//                }
 
                 ROIEditorItem{
                     id:roieditor

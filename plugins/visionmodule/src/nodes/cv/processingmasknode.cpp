@@ -3,6 +3,7 @@
 ProcessingMaskNode::ProcessingMaskNode()
 {
     m_processingType=ProcessingType::ProcessingMaskNode;
+    ProcessingNode::processingTypeTable[m_processingType]="Masking";
 }
 
 QQmlComponent *ProcessingMaskNode::delegate(QQmlEngine &engine) noexcept

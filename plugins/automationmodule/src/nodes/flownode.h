@@ -19,8 +19,6 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
 
     Q_PROPERTY(Type type READ getType CONSTANT FINAL USER("serialize"))
 
-    Q_PROPERTY(QString typeName READ getTypename CONSTANT FINAL)
-
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged USER("serialize"))
 
     Q_PROPERTY(bool configsLoaded READ configsLoaded WRITE setConfigsLoaded NOTIFY configsLoadedChanged)
@@ -95,7 +93,11 @@ public:
     FlowNode( QObject* parent = nullptr );
 
 
-    operator QString() const { return getTypename()+"(ID:"+QString::number(id())+")"; }
+    operator QString() const {
+        QString  ret(metaObject()->className());
+        ret.append("::ID::"+QString::number(id()));
+        return ret;
+    }
 
 
 
@@ -361,7 +363,7 @@ signals:
 protected:
 
     QString m_name="";
-    QString m_typeName="Flow Node";
+
     QList<FlowNodePort*> m_inPorts;
     QList<FlowNodePort*> m_outPorts;
 
@@ -428,9 +430,6 @@ public:
     {
         return m_connectionsLoaded;
     }
-    QString getTypename() const
-    {
-        return m_typeName;
-    }
+
 };
 #endif // FLOWNODE_H

@@ -17,7 +17,8 @@ public:
 %{CN}::%{CN}()%{JS: ('%{SharedDataInit}') ? ' : %{SharedDataInit}' : ''}
 @endif
 {
-
+	m_processingType=ProcessingType::%{CN}Node;  
+    m_processingTypeTable[m_processingType]=;
 }
 
 

@@ -6,6 +6,7 @@ using namespace std;
 ProcessingEnclosingNode::ProcessingEnclosingNode()
 {
     m_processingType=ProcessingType::ProcessingEnclosingNode;
+    ProcessingNode::processingTypeTable[m_processingType]="Enclosing Shapes";
 }
 
 

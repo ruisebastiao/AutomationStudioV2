@@ -7,12 +7,14 @@
 
 #include <flownodeport.h>
 
+#include <boost/foreach.hpp>
 
 
 #include "cv/qmat.h"
 
 
 #include "opencv2/imgproc.hpp"
+
 
 
 class ProcessingNode : public FlowNode
@@ -47,8 +49,10 @@ class ProcessingNode : public FlowNode
 
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
 
-    
+
+
 public:
+
     enum class ProcessingType {
         ProcessingBaseNode,
         ProcessingEndNode,
@@ -65,6 +69,7 @@ public:
 
     };
     Q_ENUM(ProcessingType)
+
 
 
     ProcessingNode();
@@ -152,6 +157,10 @@ public:
     {
         return m_process;
     }
+
+    static map<ProcessingNode::ProcessingType, string> processingTypeTable;
+
+
 
 public slots:
     virtual void setInput(QMat* input)=0;
@@ -287,7 +296,10 @@ signals:
 
 
 
+    void processingNodeTypesChanged(QStringList processingNodeTypes);
+
 private:
+
 
 
 
@@ -298,7 +310,8 @@ private:
 
 
 
-    bool m_process;
+    bool m_process=false;
+
 
 protected:
 
@@ -323,6 +336,7 @@ protected:
     FlowNodePort* m_processPort=nullptr;
 
     FlowNodePort* m_processingDonePort=nullptr;
+
 
 
 };
