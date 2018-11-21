@@ -34,21 +34,3 @@ void MultiplexedInputNode::DeSerialize(QJsonObject &json)
     FlowNode::DeSerialize(json) ;
 }
 
-void MultiplexedInputNode::initializePorts()
-{
-    /// in
-    ///
-    m_in1Port= new FlowNodePort(this,qan::PortItem::Type::In,"in1");
-    m_inPorts.append(m_in1Port);
-
-    m_in2Port= new FlowNodePort(this,qan::PortItem::Type::In,"in2");
-    m_inPorts.append(m_in2Port);
-
-
-    /// Out
-
-    m_outPort=new FlowNodePort(this,qan::PortItem::Type::Out,"out");
-    m_outPorts.append(m_outPort);
-
-}
-

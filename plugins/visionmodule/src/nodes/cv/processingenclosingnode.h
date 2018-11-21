@@ -9,11 +9,9 @@ class ProcessingEnclosingNode : public ProcessingNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(std::vector<std::vector<cv::Point>> contours READ contours WRITE setContours NOTIFY contoursChanged)
-    Q_PROPERTY(FlowNodePort* contoursPort READ contoursPort WRITE setContoursPort NOTIFY contoursPortChanged USER("serialize"))
+    Q_PROPERTY(std::vector<std::vector<cv::Point>> contours READ contours WRITE setContours NOTIFY contoursChanged REVISION 30)
 
-    Q_PROPERTY(QVariant enclosingShapes READ enclosingShapes WRITE setEnclosingShapes NOTIFY enclosingShapesChanged)
-    Q_PROPERTY(FlowNodePort* enclosingShapesPort READ enclosingShapesPort WRITE setEnclosingShapesPort NOTIFY enclosingShapesPortChanged USER("serialize"))
+    Q_PROPERTY(QVariant enclosingShapes READ enclosingShapes WRITE setEnclosingShapes NOTIFY enclosingShapesChanged REVISION 31)
 
     Q_PROPERTY(EnclosingType enclosingType READ enclosingType WRITE setEnclosingType NOTIFY enclosingTypeChanged USER("serialize"))
 
@@ -41,14 +39,6 @@ public slots:
         emit contoursChanged(m_contours);
     }
 
-    void setContoursPort(FlowNodePort* contoursPort)
-    {
-        if (m_contoursPort == contoursPort)
-            return;
-
-        m_contoursPort = contoursPort;
-        emit contoursPortChanged(m_contoursPort);
-    }
 
     void setEnclosingShapes(QVariant enclosingShapes)
     {
@@ -58,14 +48,6 @@ public slots:
         emit enclosingShapesChanged(m_enclosingShapes);
     }
 
-    void setEnclosingShapesPort(FlowNodePort* enclosingShapesPort)
-    {
-        if (m_enclosingShapesPort == enclosingShapesPort)
-            return;
-
-        m_enclosingShapesPort = enclosingShapesPort;
-        emit enclosingShapesPortChanged(m_enclosingShapesPort);
-    }
 
     void setEnclosingType(EnclosingType enclosingType)
     {
@@ -74,7 +56,7 @@ public slots:
 
         m_enclosingType = enclosingType;
         emit enclosingTypeChanged(m_enclosingType);
-        if(configsLoaded() && connectionsLoaded()){
+        if(configsLoaded() ){
             setProcess(true);
         }
     }
@@ -88,20 +70,11 @@ public:
 
 
 
-    FlowNodePort* contoursPort() const
-    {
-        return m_contoursPort;
-    }
-
     QVariant enclosingShapes() const
     {
         return m_enclosingShapes;
     }
 
-    FlowNodePort* enclosingShapesPort() const
-    {
-        return m_enclosingShapesPort;
-    }
 
     std::vector<std::vector<cv::Point>> contours() const
     {
@@ -116,26 +89,19 @@ public:
 signals:
     void contoursChanged(std::vector<std::vector<cv::Point>> contours);
 
-    void contoursPortChanged(FlowNodePort* contoursPort);
-
     void enclosingShapesChanged(QVariant enclosingShapes);
-
-    void enclosingShapesPortChanged(FlowNodePort* enclosingShapesPort);
 
     void enclosingTypeChanged(EnclosingType enclosingType);
 
 private:
 
     std::vector<std::vector<cv::Point>> m_contours;
-    FlowNodePort* m_contoursPort=nullptr;
     QVariant m_enclosingShapes=QVariant();
-
-    FlowNodePort* m_enclosingShapesPort=nullptr;
     EnclosingType m_enclosingType=RotatedRectEnclosing;
 
     // FlowNode interface
 public:
-    void initializePorts() override;
+
 };
 
 #endif // PROCESSINGENCLOSINGNODE_H

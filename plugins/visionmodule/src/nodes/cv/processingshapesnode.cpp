@@ -19,7 +19,10 @@ QQmlComponent *ProcessingShapesNode::delegate(QQmlEngine &engine) noexcept
 void ProcessingShapesNode::DeSerialize(QJsonObject &json)
 {
     ProcessingNode::DeSerialize(json);
-    m_inputPort->setHidden(true);
+    FlowNodePort* port=getPortFromKey("input");
+    if(port){
+        port->setHidden(true);
+    }
 
 }
 

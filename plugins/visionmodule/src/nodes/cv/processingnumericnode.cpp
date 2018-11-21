@@ -35,18 +35,26 @@ void ProcessingNumericNode::DeSerialize(QJsonObject &json)
 
     ProcessingNode::DeSerialize(json);
 
-    m_inputPort->setHidden(true);
-    m_outputPort->setHidden(true);
-    m_processPort->setHidden(true);
+    FlowNodePort* port=getPortFromKey("input");
+    if(port){
+        port->setHidden(true);
+    }
+    port=getPortFromKey("output");
+    if(port){
+        port->setHidden(true);
+    }
+    port=getPortFromKey("process");
+    if(port){
+        port->setHidden(true);
+    }
 
-    m_valuePort->setPortLabel("Value");
+
+    port=getPortFromKey("value");
+    if(port){
+        port->setPortLabel("Value");
+    }
+
+
 
 }
 
-void ProcessingNumericNode::initializePorts()
-{
-    m_valuePort= new FlowNodePort(this,qan::PortItem::Type::Out,"value");
-    m_outPorts.append(m_valuePort);
-
-    ProcessingNode::initializePorts();
-}

@@ -26,11 +26,6 @@ void ModulePropertyBind::setModule(QAutomationModule *module)
 
 }
 
-void ModulePropertyBind::initializePorts()
-{
-    m_inputPort=new FlowNodePort(this,qan::PortItem::Type::In,"input");
-    m_inPorts.append(m_inputPort);
-}
 
 void ModulePropertyBind::Serialize(QJsonObject &json)
 {

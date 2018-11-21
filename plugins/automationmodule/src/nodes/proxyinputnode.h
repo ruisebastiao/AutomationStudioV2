@@ -35,13 +35,10 @@ class ProxyInputNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVariant input READ input WRITE setInput NOTIFY inputChanged)
-    Q_PROPERTY(QVariant output READ output WRITE setOutput NOTIFY outputChanged)
+    Q_PROPERTY(QVariant input READ input WRITE setInput NOTIFY inputChanged REVISION 30)
+    Q_PROPERTY(QVariant output READ output WRITE setOutput NOTIFY outputChanged REVISION 31)
 
     Q_PROPERTY(QString proxyType READ proxyType WRITE setProxyType NOTIFY proxyTypeChanged USER("serialize"))
-
-    Q_PROPERTY(FlowNodePort* inputPort READ inputPort WRITE setInputPort NOTIFY inputPortChanged USER("serialize"))
-    Q_PROPERTY(FlowNodePort* outputPort READ outputPort WRITE setOutputPort NOTIFY outputPortChanged USER("serialize"))
 
     Q_PROPERTY(FlowNode* selectedBindedNode READ selectedBindedNode WRITE setSelectedBindedNode NOTIFY selectedBindedNodeChanged)
 
@@ -55,15 +52,6 @@ public:
 
 
 
-    FlowNodePort* inputPort() const
-    {
-        return m_inputPort;
-    }
-
-    FlowNodePort* outputPort() const
-    {
-        return m_outputPort;
-    }
 
     ProxyInputNodeListModel* proxyNodes() const
     {
@@ -95,23 +83,6 @@ public slots:
 
 
 
-    void setInputPort(FlowNodePort* inputPort)
-    {
-        if (m_inputPort == inputPort)
-            return;
-
-        m_inputPort = inputPort;
-        emit inputPortChanged(m_inputPort);
-    }
-
-    void setOutputPort(FlowNodePort* outputPort)
-    {
-        if (m_outputPort == outputPort)
-            return;
-
-        m_outputPort = outputPort;
-        emit outputPortChanged(m_outputPort);
-    }
 
     void setProxyNodes(ProxyInputNodeListModel* proxyNodes)
     {
@@ -131,31 +102,31 @@ public slots:
         m_proxyType = proxyType;
         emit proxyTypeChanged(m_proxyType);
 
-        if(!m_inputPort){
-            return;
-        }
+//        if(!m_inputPort){
+//            return;
+//        }
 
         SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
 
-        if(m_proxyType=="Output"){
-            m_outputPort->setHidden(false);
+//        if(m_proxyType=="Output"){
+//            m_outputPort->setHidden(false);
 
-            m_inputPort->setHidden(true);
+//            m_inputPort->setHidden(true);
 
-        }
-        else{
-            m_outputPort->setHidden(true);
+//        }
+//        else{
+//            m_outputPort->setHidden(true);
 
-            m_inputPort->setHidden(false);
+//            m_inputPort->setHidden(false);
 
-        }
+//        }
 
-        if(m_inputPort->getPortItem()->getInEdgeItems().size()>0){
-            graph->deleteEdge(m_inputPort->getPortItem()->getInEdgeItems().at(0)->getEdge());
-        }
-        if(m_outputPort->getPortItem()->getOutEdgeItems().size()>0){
-            graph->deleteEdge(m_outputPort->getPortItem()->getOutEdgeItems().at(0)->getEdge());
-        }
+//        if(m_inputPort->getPortItem()->getInEdgeItems().size()>0){
+//            graph->deleteEdge(m_inputPort->getPortItem()->getInEdgeItems().at(0)->getEdge());
+//        }
+//        if(m_outputPort->getPortItem()->getOutEdgeItems().size()>0){
+//            graph->deleteEdge(m_outputPort->getPortItem()->getOutEdgeItems().at(0)->getEdge());
+//        }
 
     }
 
@@ -187,32 +158,32 @@ public slots:
         }
         SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
 
-        if(inputPort()->getPortItem()->getInEdgeItems().size()>0){
+//        if(inputPort()->getPortItem()->getInEdgeItems().size()>0){
 
-            qan::EdgeItem* edgeitem=inputPort()->getPortItem()->getInEdgeItems().at(0);
-            graph->deleteEdge(edgeitem->getEdge());
+//            qan::EdgeItem* edgeitem=inputPort()->getPortItem()->getInEdgeItems().at(0);
+//            graph->deleteEdge(edgeitem->getEdge());
 
-            QObject::connect(edgeitem, &qan::EdgeItem::destroyed, this, [this,graph](QObject* edgeObject){
-                if(m_selectedBindedNode){
-                    qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
-                    FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
+//            QObject::connect(edgeitem, &qan::EdgeItem::destroyed, this, [this,graph](QObject* edgeObject){
+//                if(m_selectedBindedNode){
+//                    qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
+//                    FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
 
-                    if(outPort){
-                        graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
-                    }
-                }
-            });
-        }
-        else{
-            if(m_selectedBindedNode){
-                qan::Edge* newedge=graph->insertNewEdge(false,m_selectedBindedNode,this);
-                FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
+//                    if(outPort){
+//                   //     graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
+//                    }
+//                }
+//            });
+//        }
+//        else{
+//            if(m_selectedBindedNode){
+//                qan::Edge* newedge=graph->insertNewEdge(false,m_selectedBindedNode,this);
+//                FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
 
-                if(outPort){
-                    graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
-                }
-            }
-        }
+//                if(outPort){
+//                    //graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
+//                }
+//            }
+//        }
 
 
 
@@ -242,9 +213,7 @@ public slots:
 signals:
 
 
-    void inputPortChanged(FlowNodePort* inputPort);
 
-    void outputPortChanged(FlowNodePort* outputPort);
 
     void proxyNodesChanged(ProxyInputNodeListModel* proxyNodes);
 
@@ -258,9 +227,6 @@ signals:
 
 private:
 
-
-    FlowNodePort* m_inputPort=nullptr;
-    FlowNodePort* m_outputPort=nullptr;
 
 
     // JsonSerializable interface
@@ -281,7 +247,7 @@ protected:
 
     // FlowNode interface
 public:
-    void initializePorts() override;
+    
 };
 
 #endif // PROXYINPUTNODE_H

@@ -64,9 +64,9 @@ void WebServiceNode::makeRequest()
 
 
     connect(m_replytimer, &QTimer::timeout, [&](){
-//        if(reply){
-//        setExecuting(false);
-//        }
+        //        if(reply){
+        //        setExecuting(false);
+        //        }
         setError("Erro de resposta do servidor");
         setExecuting(false);
     });
@@ -121,25 +121,5 @@ void WebServiceNode::DeSerialize(QJsonObject &json)
 
 }
 
-void WebServiceNode::initializePorts()
-{
-    m_param1Port=new FlowNodePort(this,qan::PortItem::Type::In,"param1");
-    m_param1NamePort=new FlowNodePort(this,qan::PortItem::Type::In,"param1Name");
-    m_param2Port=new FlowNodePort(this,qan::PortItem::Type::In,"param2");
-    m_param2NamePort=new FlowNodePort(this,qan::PortItem::Type::In,"param2Name");
-
-    m_inPorts.append(m_param1Port);
-    m_inPorts.append(m_param1NamePort);
-    m_inPorts.append(m_param2Port);
-    m_inPorts.append(m_param2NamePort);
 
 
-    m_responsePort=new FlowNodePort(this,qan::PortItem::Type::Out,"response");
-    m_executingPort=new FlowNodePort(this,qan::PortItem::Type::Out,"executing");
-    m_errorPort=new FlowNodePort(this,qan::PortItem::Type::Out,"error");
-
-    m_outPorts.append(m_responsePort);
-    m_outPorts.append(m_executingPort);
-    m_outPorts.append(m_errorPort);
-
-}

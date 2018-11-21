@@ -62,7 +62,7 @@ protected:
 
     // FlowNode interface
 public:
-    void initializePorts() override;
+    
 };
 
 #endif // FILECAPTURENODE_H

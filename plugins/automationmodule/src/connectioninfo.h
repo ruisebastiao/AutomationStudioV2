@@ -16,9 +16,16 @@ class ConnectionInfo:public QObject,public JsonSerializable
 
 public:
     ConnectionInfo();
+    ~ConnectionInfo();
     Q_PROPERTY(int nodeID READ nodeID WRITE setNodeID NOTIFY nodeIDChanged USER("serialize"))
     Q_PROPERTY(QString portID READ portID WRITE setPortID NOTIFY portIDChanged USER("serialize"))
     Q_PROPERTY(bool hidden READ hidden WRITE setHidden NOTIFY hiddenChanged USER("serialize"))
+
+    operator QString() const {
+        QString  ret(metaObject()->className());
+        ret.append(" :: Target Node:"+QString::number(nodeID())+" :: Target Port:"+portID());
+        return ret;
+    }
 
 
     int nodeID() const

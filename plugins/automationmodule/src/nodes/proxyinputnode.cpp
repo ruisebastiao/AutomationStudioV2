@@ -38,37 +38,27 @@ void ProxyInputNode::DeSerialize(QJsonObject &json)
     }
 
 
-    QObject::connect(m_outputPort->getPortItem(), &qan::PortItem::outEdgeAdded, this, [this](qan::EdgeItem& outEdgeItem){
+//    QObject::connect(m_outputPort->getPortItem(), &qan::PortItem::outEdgeAdded, this, [this](qan::EdgeItem& outEdgeItem){
 
 
 
-        auto proxynode=qobject_cast<ProxyInputNode*>(outEdgeItem.getEdge()->getDestination());
-        if(proxynode){
+//        auto proxynode=qobject_cast<ProxyInputNode*>(outEdgeItem.getEdge()->getDestination());
+//        if(proxynode){
 
-            proxynode->setSelectedBindedNode(this);
-        }
-
-
-
-
-    });
+//            proxynode->setSelectedBindedNode(this);
+//        }
 
 
 
-    setConfigsLoaded(true);
+
+//    });
+
+
+
+//    setConfigsLoaded(true);
     // updatePorts();
 
 
-}
-
-void ProxyInputNode::initializePorts()
-{
-    m_inputPort=new FlowNodePort(this,qan::PortItem::Type::In,"input");
-
-    m_inPorts.append(m_inputPort);
-
-    m_outputPort=new FlowNodePort(this,qan::PortItem::Type::Out,"output");
-    m_outPorts.append(m_outputPort);
 }
 
 void ProxyInputNodeListModel::onNodeAdded(FlowNode *nodeloaded)

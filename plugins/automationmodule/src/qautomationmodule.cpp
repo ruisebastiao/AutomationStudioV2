@@ -58,7 +58,7 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 
     m_configurationsObject=modulesettings.object();
 
-    DeSerialize(m_configurationsObject,this);
+    DeSerialize(m_configurationsObject);
 
 
     QJsonObject graphViewObject=m_configurationsObject["graphview"].toObject();
@@ -126,8 +126,9 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 void QAutomationModule::loadConnections(){
     qDebug()<<"Setting node connections";
 
-
-    FlowNode::loadNodeConnections(this->m_FlowNodes);
+    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
+        node->loadNodeConnections();
+    }
 
 
 
@@ -180,7 +181,7 @@ void QAutomationModule::save()
 
 
 
-    Serialize(m_configurationsObject,this);
+    Serialize(m_configurationsObject);
 
 
     QJsonArray nodesArrayList = m_configurationsObject["nodes"].toArray();
@@ -278,7 +279,8 @@ QAutomationModule::ModuleType QAutomationModule::type() const
 
 
 
-void QAutomationModule::Serialize(QJsonObject &json, QObject *target)
+
+void QAutomationModule::Serialize(QJsonObject &json)
 {
     QJsonObject graphViewObject;
 
@@ -296,21 +298,13 @@ void QAutomationModule::Serialize(QJsonObject &json, QObject *target)
 
 
 
-    JsonSerializable::Serialize(json,target);
-}
-
-void QAutomationModule::DeSerialize(QJsonObject &json, QObject *target)
-{
-
-    JsonSerializable::DeSerialize(json,target);
-}
-
-void QAutomationModule::Serialize(QJsonObject &json)
-{
-    Serialize(json,this);
+    JsonSerializable::Serialize(json,this);
 }
 
 void QAutomationModule::DeSerialize(QJsonObject &json)
 {
-    DeSerialize(json,this);
+     JsonSerializable::DeSerialize(json,this);
+
+
+
 }

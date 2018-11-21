@@ -34,6 +34,7 @@ signals:
 
 private:
     QList<FlowNode*> m_flownodes;
+    QMap<int,FlowNode*> m_flownodesTable;
 
 
 
@@ -74,6 +75,8 @@ public:
 
     FlowNode::Type getFilterType() const;
     void setFilterType(const FlowNode::Type &filterType);
+    QMap<int, FlowNode *> getFlownodesTable() const;
+    void removeNode(FlowNode *node);
 };
 
 

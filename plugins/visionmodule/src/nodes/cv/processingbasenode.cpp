@@ -2,7 +2,7 @@
 
 ProcessingBaseNode::ProcessingBaseNode()
 {
-    m_processingType=ProcessingType::ProcessingBaseNode;  
+    m_processingType=ProcessingType::ProcessingBaseNode;
 
     // TODO this shold appear should be dynamic created impossible to remove???
     ProcessingNode::processingTypeTable[m_processingType]="Base";
@@ -28,11 +28,19 @@ void ProcessingBaseNode::DeSerialize(QJsonObject &json)
 {
     ProcessingNode::DeSerialize(json);
 
-    m_inputPort->setHidden(true);
-
-    if(m_processPort->portLabel()==""){
-        m_processPort->setPortLabel("Process");
+    FlowNodePort* port=getPortFromKey("input");
+    if(port){
+        port->setHidden(true);
     }
+
+    port=getPortFromKey("input");
+    if(port){
+        if(port->portLabel()==""){
+            port->setPortLabel("Process");
+        }
+    }
+
+
 }
 
 void ProcessingBaseNode::setInput(QMat *input)

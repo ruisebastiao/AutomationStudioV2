@@ -5,6 +5,11 @@ ConnectionInfo::ConnectionInfo()
 
 }
 
+ConnectionInfo::~ConnectionInfo()
+{
+
+}
+
 void ConnectionInfo::Serialize(QJsonObject &json)
 {
     JsonSerializable::Serialize(json,this);

@@ -20,15 +20,15 @@ class BarcodeReaderNode : public FlowNode
     Q_PROPERTY(QString suffix READ suffix WRITE setSuffix NOTIFY suffixChanged USER("serialize"))
 
 
-    Q_PROPERTY(bool opened READ opened WRITE setOpened NOTIFY openedChanged)
-    Q_PROPERTY(FlowNodePort* openedPort READ openedPortPort WRITE setOpenedPort NOTIFY openedChanged USER("serialize"))
+    Q_PROPERTY(bool opened READ opened WRITE setOpened NOTIFY openedChanged REVISION 31)
 
 
-    Q_PROPERTY(QString dataout READ dataout WRITE setDataout NOTIFY dataoutChanged)
-    Q_PROPERTY(FlowNodePort* dataoutPort READ dataoutPort WRITE setDataoutPort NOTIFY dataoutPortChanged USER("serialize"))
 
-    Q_PROPERTY(QString rawdata READ rawdata WRITE setRawdata NOTIFY rawdataChanged)
-    Q_PROPERTY(FlowNodePort* rawdataPort READ rawdataPort WRITE setRawdataPort NOTIFY rawdataPortChanged USER("serialize"))
+    Q_PROPERTY(QString dataout READ dataout WRITE setDataout NOTIFY dataoutChanged REVISION 31)
+
+
+    Q_PROPERTY(QString rawdata READ rawdata WRITE setRawdata NOTIFY rawdataChanged REVISION 31)
+
 
 
     Q_PROPERTY(QStringList portsAvailable READ portsAvailable NOTIFY portsAvailableChanged)
@@ -158,14 +158,7 @@ public slots:
         emit suffixChanged(m_suffix);
     }
 
-    void setDataoutPort(FlowNodePort* dataoutPort)
-    {
-        if (m_dataoutPort == dataoutPort)
-            return;
 
-        m_dataoutPort = dataoutPort;
-        emit dataoutPortChanged(m_dataoutPort);
-    }
 
     void setOpenOnConnect(bool openOnConnect)
     {
@@ -176,15 +169,6 @@ public slots:
         emit openOnConnectChanged(m_openOnConnect);
     }
 
-    void setOpenedPort(FlowNodePort* openedPort)
-    {
-        if (m_openedPort == openedPort)
-            return;
-
-        m_openedPort = openedPort;
-        emit openedChanged(m_openedPort);
-    }
-
     void setRawdata(QString rawdata)
     {
 
@@ -192,15 +176,6 @@ public slots:
         m_rawdata = rawdata;
         emit rawdataChanged(m_rawdata);
     }
-
-    void setRawdataPort(FlowNodePort* rawdataPort)
-{
-    if (m_rawdataPort == rawdataPort)
-    return;
-
-m_rawdataPort = rawdataPort;
-emit rawdataPortChanged(m_rawdataPort);
-}
 
 protected slots:
     void                inNodeOutputChanged();
@@ -225,13 +200,13 @@ signals:
 
     void suffixChanged(QString suffix);
 
-    void dataoutPortChanged(FlowNodePort* dataoutPort);
+
 
     void openOnConnectChanged(bool openOnConnect);
 
     void rawdataChanged(QString rawdata);
 
-    void rawdataPortChanged(FlowNodePort* rawdataPort);
+
 
 private:
 
@@ -252,15 +227,10 @@ private:
 
     QString m_suffix="";
 
-    FlowNodePort* m_dataoutPort=nullptr;
-
     bool m_openOnConnect=false;
-
-    FlowNodePort* m_openedPort=nullptr;
 
     QString m_rawdata="";
 
-    FlowNodePort* m_rawdataPort=nullptr;
 
 private slots:
     void handleReadyRead();
@@ -288,7 +258,6 @@ public:
     {
         return m_dataout;
     }
-    void DeSerialize(QJsonObject &json);
     QString prefix() const
     {
         return m_prefix;
@@ -297,30 +266,20 @@ public:
     {
         return m_suffix;
     }
-    FlowNodePort* dataoutPort() const
-    {
-        return m_dataoutPort;
-    }
+
+    void DeSerialize(QJsonObject &json);
+
+    // FlowNode interface
+public:
+
     bool openOnConnect() const
     {
         return m_openOnConnect;
-    }
-    FlowNodePort* openedPortPort() const
-    {
-        return m_openedPort;
     }
     QString rawdata() const
     {
         return m_rawdata;
     }
-    FlowNodePort* rawdataPort() const
-    {
-        return m_rawdataPort;
-    }
-
-    // FlowNode interface
-public:
-    void initializePorts() override;
 };
 
 

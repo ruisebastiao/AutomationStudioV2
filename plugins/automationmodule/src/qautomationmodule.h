@@ -41,6 +41,7 @@ public:
 
 
     static FlowNodeManager* flownodemanager;
+    //static QList<ConnectionInfo*> FlowNodeConnections;
 
     template<typename QEnum>
     static std::string QtEnumToString (const QEnum value)
@@ -181,8 +182,8 @@ public slots:
     }
 
 public:
-    void Serialize(QJsonObject &json, QObject *target) override;
-    void DeSerialize(QJsonObject &json, QObject *target) override;
+//    void Serialize(QJsonObject &json, QObject *target) override;
+//    void DeSerialize(QJsonObject &json, QObject *target) override;
     QString moduleID() const
     {
         return m_moduleID;

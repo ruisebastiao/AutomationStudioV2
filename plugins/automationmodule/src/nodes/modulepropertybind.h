@@ -10,8 +10,8 @@ class ModulePropertyBind : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVariant input READ input WRITE setInput NOTIFY inputChanged)
-    Q_PROPERTY(FlowNodePort* inputPort READ inputPort WRITE setInputPort NOTIFY inputPortChanged)
+    Q_PROPERTY(QVariant input READ input WRITE setInput NOTIFY inputChanged REVISION 30)
+
 
     Q_PROPERTY(QStringList moduleProperties READ moduleProperties WRITE setModuleProperties NOTIFY modulePropertiesChanged)
     Q_PROPERTY(QString moduleProperty READ moduleProperty WRITE setModuleProperty NOTIFY modulePropertyChanged USER("serialize"))
@@ -28,11 +28,6 @@ public:
         return m_input;
     }
 
-    FlowNodePort* inputPort() const
-    {
-        return m_inputPort;
-    }
-
 
 
 public slots:
@@ -43,14 +38,6 @@ public slots:
         emit inputChanged(m_input);
     }
 
-    void setInputPort(FlowNodePort* inputPort)
-    {
-        if (m_inputPort == inputPort)
-            return;
-
-        m_inputPort = inputPort;
-        emit inputPortChanged(m_inputPort);
-    }
 
     void setModuleProperties(QStringList moduleProperties)
     {
@@ -73,7 +60,7 @@ public slots:
 signals:
     void inputChanged(QVariant input);
 
-    void inputPortChanged(FlowNodePort* inputPort);
+
 
     void modulePropertiesChanged(QStringList moduleProperties);
 
@@ -84,7 +71,7 @@ signals:
 private:
 
     QVariant m_input=QVariant::fromValue(false);
-    FlowNodePort* m_inputPort=nullptr;
+
     QAutomationModule* m_module=nullptr;
 
     // JsonSerializable interface
@@ -108,7 +95,7 @@ public:
 
     // FlowNode interface
 public:
-    void initializePorts() override;
+    
 };
 
 #endif // MODULEPROPERTYBIND_H

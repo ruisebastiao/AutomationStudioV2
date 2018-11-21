@@ -617,6 +617,6 @@ void IDSCaptureNode::DeSerialize(QJsonObject &json)
 
     // checkDirect3D();
 
-    setConfigsLoaded(true);
+//    setConfigsLoaded(true);
 }
 

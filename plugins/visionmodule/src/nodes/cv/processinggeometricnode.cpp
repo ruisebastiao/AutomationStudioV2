@@ -167,23 +167,6 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
 }
 
-void ProcessingGeometricNode::initializePorts()
-{
-    m_input1Port= new FlowNodePort(this,qan::PortItem::Type::In,"input1");
-    m_input2Port= new FlowNodePort(this,qan::PortItem::Type::In,"input2");
-    m_input3Port= new FlowNodePort(this,qan::PortItem::Type::In,"input3");
-
-    m_output1Port= new FlowNodePort(this,qan::PortItem::Type::Out,"output1");
-
-
-    m_inPorts.append(m_input1Port);
-    m_inPorts.append(m_input2Port);
-    m_inPorts.append(m_input3Port);
-
-    m_outPorts.append(m_output1Port);
-
-    ProcessingNode::initializePorts();
-}
 
 void ProcessingGeometricNode::doProcess()
 {
@@ -217,35 +200,65 @@ void ProcessingGeometricNode::DeSerialize(QJsonObject &json)
 
 
     ProcessingNode::DeSerialize(json);
-
-    m_inputPort->setHidden(true);
-    m_outputPort->setHidden(true);
-
-    if(m_processPort->portLabel()==""){
-        m_processPort->setPortLabel("process");
+    FlowNodePort* port=getPortFromKey("input");
+    if(port){
+        port->setHidden(true);
     }
-
+    port=getPortFromKey("output");
+    if(port){
+        port->setHidden(true);
+    }
 
     switch (m_geometricType) {
     case Geometric2PointLine:
-        m_input1Port->setPortLabel("Start Point");
-        m_input2Port->setHidden(false);
-        m_input2Port->setPortLabel("End Point");
 
-        m_input3Port->setHidden(true);
-        m_output1Port->setPortLabel("Line Segment");
+        port=getPortFromKey("input1");
+        if(port){
+            port->setHidden(false);
+            port->setPortLabel("Start Point");
+        }
+        port=getPortFromKey("input2");
+        if(port){
+            port->setHidden(false);
+            port->setPortLabel("End Point");
+        }
+
+        port=getPortFromKey("input3");
+        if(port){
+            port->setHidden(true);
+
+        }
+
 
         break;
     case GeometricPointAngleLengthLine:
-        m_input1Port->setPortLabel("Center Point");
-        m_input2Port->setPortLabel("Angle");
-        m_input3Port->setHidden(false);
-        m_input3Port->setPortLabel("Length");
-        m_output1Port->setPortLabel("Line Segment");
+        port=getPortFromKey("input1");
+        if(port){
+            port->setHidden(false);
+            port->setPortLabel("Center Point");
+        }
+        port=getPortFromKey("input2");
+        if(port){
+            port->setHidden(false);
+            port->setPortLabel("Angle");
+        }
+
+        port=getPortFromKey("input3");
+        if(port){
+            port->setHidden(false);
+            port->setPortLabel("Length");
+        }
+
+
 
         break;
     case Geometric3PointCircle:
         break;
     }
 
+    port=getPortFromKey("output1");
+    if(port){
+        port->setHidden(false);
+        port->setPortLabel("Line Segment");
+    }
 }

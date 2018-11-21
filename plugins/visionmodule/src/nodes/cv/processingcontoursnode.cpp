@@ -136,18 +136,10 @@ void ProcessingContoursNode::DeSerialize(QJsonObject &json)
 
     ProcessingNode::DeSerialize(json);
 
-    if(m_filteredContoursPort->portLabel()==""){
-        m_filteredContoursPort->setPortLabel("Filtered Contours");
+
+    FlowNodePort* port=getPortFromKey("output");
+    if(port){
+        port->setHidden(true);
     }
-
-    m_outputPort->setHidden(true);
 }
 
-void ProcessingContoursNode::initializePorts()
-{
-    m_filteredContoursPort = new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContours");
-
-    m_outPorts.append(m_filteredContoursPort);
-
-    ProcessingNode::initializePorts();
-}

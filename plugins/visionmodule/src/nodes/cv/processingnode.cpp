@@ -58,27 +58,6 @@ QString ProcessingNode::name() const
     return FlowNode::name();
 }
 
-void ProcessingNode::initializePorts()
-{
-    m_inputPort= new FlowNodePort(this,qan::PortItem::Type::In,"input");
-    m_outputPort= new FlowNodePort(this,qan::PortItem::Type::Out,"output");
-
-
-    m_processPort= new FlowNodePort(this,qan::PortItem::Type::In,"process");
-    m_processingDonePort=new FlowNodePort(this,qan::PortItem::Type::Out,"processingDone");
-
-
-    m_inPorts.append(m_inputPort);
-    m_inPorts.append(m_processPort);
-
-    m_outPorts.append(m_outputPort);
-    m_outPorts.append(m_processingDonePort);
-
-    FlowNode::initializePorts();
-
-}
-
-
 
 void ProcessingNode::setOriginalFrame(QMat *originalFrame)
 {
@@ -116,27 +95,11 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
     FlowNode::DeSerialize(json);
 
-    if(m_inputPort->portLabel()==""){
-        m_inputPort->setPortLabel("Input");
-    }
-
-    if(m_processPort->portLabel()==""){
-        m_processPort->setPortLabel("Process");
-    }
-
-    if(m_outputPort->portLabel()==""){
-        m_outputPort->setPortLabel("Output");
-    }
 
 
-    if(m_processingDonePort->portLabel()==""){
-        m_processingDonePort->setPortLabel("Processing Done");
-    }
-
-    setConfigsLoaded(true);
 
 
-//    this->blockSignals(true);
+
 
 
 }

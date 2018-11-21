@@ -119,33 +119,3 @@ void FrameBufferNode::setReadNextFrame(bool readNextFrame)
     }
     emit readNextFrameChanged(m_readNextFrame);
 }
-
-void FrameBufferNode::initializePorts()
-{
-    /// in
-    ///
-    m_numBuffersPort= new FlowNodePort(this,qan::PortItem::Type::In,"numBuffers");
-    m_inPorts.append(m_numBuffersPort);
-
-    m_readNextFramePort= new FlowNodePort(this,qan::PortItem::Type::In,"readNextFrame");
-    m_inPorts.append(m_readNextFramePort);
-
-
-    m_frameSourcePort= new FlowNodePort(this,qan::PortItem::Type::In,"frameSource");
-    m_inPorts.append(m_frameSourcePort);
-
-
-    /// Out
-
-    m_frameSinkPort=new FlowNodePort(this,qan::PortItem::Type::Out,"frameSink");
-    m_outPorts.append(m_frameSinkPort);
-
-    m_frameStoredPort=new FlowNodePort(this,qan::PortItem::Type::Out,"frameStored");
-    m_outPorts.append(m_frameStoredPort);
-
-    m_bufferFullPort=new FlowNodePort(this,qan::PortItem::Type::Out,"bufferFull");
-    m_outPorts.append(m_bufferFullPort);
-
-    FlowNode::initializePorts();
-
-}

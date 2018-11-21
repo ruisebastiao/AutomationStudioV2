@@ -35,11 +35,3 @@ void FileCaptureNode::DeSerialize(QJsonObject &json)
     CaptureNode::DeSerialize(json);
 }
 
-void FileCaptureNode::initializePorts()
-{
-    m_filePathPort= new FlowNodePort(this,qan::PortItem::Type::In,"filePath");
-    m_inPorts.append(m_filePathPort);
-
-    CaptureNode::initializePorts();
-
-}

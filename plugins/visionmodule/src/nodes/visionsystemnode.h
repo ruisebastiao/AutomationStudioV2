@@ -13,14 +13,14 @@ class VisionSystemNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged )
-    Q_PROPERTY(FlowNodePort* frameSourcePort READ frameSourcePort WRITE setFrameSourcePort NOTIFY frameSourcePortChanged USER("serialize"))
+    Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
 
-    Q_PROPERTY(bool processFrame READ processFrame WRITE setProcessFrame NOTIFY processFrameChanged )
-    Q_PROPERTY(FlowNodePort* processFramePort READ processFramePort WRITE setProcessFramePort NOTIFY processFramePortChanged USER("serialize"))
 
-    Q_PROPERTY(bool frameProcessed READ frameProcessed WRITE setFrameProcessed NOTIFY frameProcessedChanged )
-    Q_PROPERTY(FlowNodePort* frameProcessedPort READ frameProcessedPort WRITE setFrameProcessedPort NOTIFY frameProcessedPortChanged USER("serialize"))
+    Q_PROPERTY(bool processFrame READ processFrame WRITE setProcessFrame NOTIFY processFrameChanged REVISION 31)
+
+
+    Q_PROPERTY(bool frameProcessed READ frameProcessed WRITE setFrameProcessed NOTIFY frameProcessedChanged REVISION 31)
+
 
     Q_PROPERTY(bool processOnNewFrame READ processOnNewFrame WRITE setProcessOnNewFrame NOTIFY processOnNewFrameChanged USER("serialize"))
 
@@ -126,32 +126,6 @@ public slots:
     }
 
 
-    void setFrameSourcePort(FlowNodePort* frameSourcePort)
-    {
-        if (m_frameSourcePort == frameSourcePort)
-            return;
-
-        m_frameSourcePort = frameSourcePort;
-        emit frameSourcePortChanged(m_frameSourcePort);
-    }
-
-    void setProcessFramePort(FlowNodePort* processFramePort)
-    {
-        if (m_processFramePort == processFramePort)
-            return;
-
-        m_processFramePort = processFramePort;
-        emit processFramePortChanged(m_processFramePort);
-    }
-
-    void setFrameProcessedPort(FlowNodePort* frameProcessedPort)
-    {
-        if (m_frameProcessedPort == frameProcessedPort)
-            return;
-
-        m_frameProcessedPort = frameProcessedPort;
-        emit frameProcessedPortChanged(m_frameProcessedPort);
-    }
 
     void setProcessOnNewFrame(bool processOnNewFrame)
     {
@@ -171,20 +145,6 @@ public:
         return m_visionGraphView;
     }
 
-    FlowNodePort* frameSourcePort() const
-    {
-        return m_frameSourcePort;
-    }
-
-    FlowNodePort* processFramePort() const
-    {
-        return m_processFramePort;
-    }
-
-    FlowNodePort* frameProcessedPort() const
-    {
-        return m_frameProcessedPort;
-    }
 
     bool processOnNewFrame() const
     {
@@ -226,14 +186,11 @@ private:
 
     qan::GraphView* m_visionGraphView=nullptr;
 
-    FlowNodePort* m_frameSourcePort=nullptr;
-    FlowNodePort* m_processFramePort=nullptr;
-    FlowNodePort* m_frameProcessedPort=nullptr;
     bool m_processOnNewFrame=false;
 
     // FlowNode interface
 public:
-    void initializePorts() override;
+    
 };
 
 #endif // VISIONSYSTEMNODE_H

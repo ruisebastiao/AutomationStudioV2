@@ -198,9 +198,9 @@ void ROINode::DeSerialize(QJsonObject &json)
 
     }
 
-    FlowNode::loadNodeConnections(m_ProcessingNodes);
+//    FlowNode::loadNodeConnections(m_ProcessingNodes);
 
-    setConfigsLoaded(true);
+//    setConfigsLoaded(true);
 
     emit processingNodeTypesChanged(m_processingNodeTypes);
 
@@ -227,7 +227,7 @@ void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
 
         initializeProcessingNode(procnode);
 
-        procnode->initializePorts();
+        //procnode->initializePorts(QJsonObject());
 
 
     }

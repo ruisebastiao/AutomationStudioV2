@@ -34,6 +34,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
 
     m_port->setId(portID);
+    m_port->setLabel(portID);
 
     m_scenegraph= qobject_cast<SceneGraph*>(m_port->getNode()->getGraph());
 
@@ -108,60 +109,6 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
 
     });
-
-//    QObject::connect(QAutomationModule::flownodemanager, &FlowNodeManager::onFlowNodeLoaded,[this](FlowNode* nodeLoaded){
-
-//        qDebug()<<"On node added :"<<this->m_node->id();
-
-//        int nodeid=m_node->id();
-
-//        if(nodeLoaded->id()!=nodeid){
-
-//            for (int i = 0; i < m_connections.length(); ++i) {
-
-//                ConnectionInfo* connection=m_connections.at(i);
-//                if(nodeLoaded->id()==connection->nodeID()){
-//                    SceneGraph* scenegraph= qobject_cast<SceneGraph*>(m_port->getNode()->getGraph());
-
-//                    qan::Edge* newedge= scenegraph->insertNewEdge(false,m_node,nodeLoaded);
-
-
-//                    FlowNodePort* targetFlowNodePort=nodeLoaded->getPortByName(connection->portID());
-
-//                    if(targetFlowNodePort){
-//                        scenegraph->bindEdge(newedge,m_port,targetFlowNodePort->getPortItem());
-//                    }
-//                }
-
-//            }
-//        }
-//        else{
-//            for (int i = 0; i < m_connections.length(); ++i) {
-
-//                ConnectionInfo* connection=m_connections.at(i);
-//                auto findednode=QAutomationModule::flownodemanager->getByID(connection->nodeID());
-//                if(findednode){
-//                    FlowNodePort* nodeport = findednode->getPortByName(connection->portID());
-//                    if(nodeport){
-//                        qan::PortItem* portitem=nodeport->getPortItem();
-//                        if(portitem){
-
-//                            //if(portitem->getInEdgeItems().size()==0){
-//                                SceneGraph* scenegraph= qobject_cast<SceneGraph*>(m_port->getNode()->getGraph());
-
-//                                qan::Edge* newedge= scenegraph->insertNewEdge(false,m_node,findednode);
-
-//                                scenegraph->bindEdge(newedge,m_port,nodeport->getPortItem());
-
-//                            //}
-//                        }
-//                    }
-//                }
-
-//            }
-//        }
-//    });
-
 
 
 
@@ -251,8 +198,6 @@ void FlowNodePort::DeSerialize(QJsonObject &json)
         QJsonObject connectedToObject=connectedToArray[i].toObject();
         ConnectionInfo* connection= new ConnectionInfo();
         connection->DeSerialize(connectedToObject);
-
-
         m_connections.append(connection);
     }
 
@@ -260,9 +205,6 @@ void FlowNodePort::DeSerialize(QJsonObject &json)
 }
 
 
-void FlowNodePort::CheckForNodeConnections(ConnectionInfo* connection){
-
-}
 
 qan::PortItem *FlowNodePort::getPortItem()
 {

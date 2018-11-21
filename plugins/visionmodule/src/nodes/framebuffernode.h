@@ -125,27 +125,27 @@ class FrameBufferNode : public FlowNode
 
 
     /// IN ports
-    Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged )
-    Q_PROPERTY(FlowNodePort* frameSourcePort READ frameSourcePort WRITE setFrameSourcePort NOTIFY frameSourcePortChanged USER("serialize"))
-
-    Q_PROPERTY(bool readNextFrame READ readNextFrame WRITE setReadNextFrame NOTIFY readNextFrameChanged )
-    Q_PROPERTY(FlowNodePort* readNextFramePort READ readNextFramePort WRITE setReadNextFramePort NOTIFY readNextFramePortChanged USER("serialize"))
+    Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
 
 
-    Q_PROPERTY(int numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged USER("serialize"))
-    Q_PROPERTY(FlowNodePort* numBuffersPort READ numBuffersPort WRITE setNumBuffersPort NOTIFY numBuffersPortChanged USER("serialize"))
+    Q_PROPERTY(bool readNextFrame READ readNextFrame WRITE setReadNextFrame NOTIFY readNextFrameChanged REVISION 30)
+
+
+
+    Q_PROPERTY(int numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged USER("serialize") REVISION 30)
+
 
 
     /////OUT ports
 
-    Q_PROPERTY(QMat* frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged)
-    Q_PROPERTY(FlowNodePort* frameSinkPort READ frameSinkPort WRITE setFrameSinkPort NOTIFY frameSinkPortChanged USER("serialize"))
+    Q_PROPERTY(QMat* frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged REVISION 31)
 
-    Q_PROPERTY(bool frameStored READ frameStored WRITE setFrameStored NOTIFY frameStoredChanged)
-    Q_PROPERTY(FlowNodePort* frameStoredPort READ frameStoredPort WRITE setFrameStoredPort NOTIFY frameStoredChanged USER("serialize"))
 
-    Q_PROPERTY(bool bufferFull READ bufferFull WRITE setBufferFull NOTIFY bufferFullChanged)
-    Q_PROPERTY(FlowNodePort* bufferFullPort READ bufferFullPort WRITE setBufferFullPort NOTIFY bufferFullChanged USER("serialize"))
+    Q_PROPERTY(bool frameStored READ frameStored WRITE setFrameStored NOTIFY frameStoredChanged REVISION 31)
+
+
+    Q_PROPERTY(bool bufferFull READ bufferFull WRITE setBufferFull NOTIFY bufferFullChanged REVISION 31)
+
 
 
 
@@ -159,19 +159,13 @@ class FrameBufferNode : public FlowNode
 
 private:
     int m_numBuffers=0;
-
-    FlowNodePort* m_numBuffersPort=nullptr;
-
     QMat* m_frameSink=new QMat();
 
-    FlowNodePort* m_frameSinkPort=nullptr;
     QMat* m_frameSource=nullptr;
 
-    FlowNodePort* m_frameSourcePort=nullptr;
 
     bool m_frameStored=false;
 
-    FlowNodePort* m_frameStoredPort=nullptr;
 
     FrameBufferListModel* m_frameBuffers=nullptr;
 
@@ -186,11 +180,9 @@ private:
     bool m_readNextFrame=false;
     bool m_fullBufferReaded=false;
 
-    FlowNodePort* m_readNextFramePort=nullptr;
 
     bool m_bufferFull=false;
 
-    FlowNodePort* m_bufferFullPort=nullptr;
 
 public:
     FrameBufferNode();
@@ -207,40 +199,24 @@ public:
     {
         return m_numBuffers;
     }
-    FlowNodePort* numBuffersPort() const
-    {
-        return m_numBuffersPort;
-    }
 
     QMat* frameSink() const
     {
         return m_frameSink;
     }
 
-    FlowNodePort* frameSinkPort() const
-    {
-        return m_frameSinkPort;
-    }
 
     QMat* frameSource() const
     {
         return m_frameSource;
     }
 
-    FlowNodePort* frameSourcePort() const
-    {
-        return m_frameSourcePort;
-    }
 
     bool frameStored() const
     {
         return m_frameStored;
     }
 
-    FlowNodePort* frameStoredPort() const
-    {
-        return m_frameStoredPort;
-    }
 
     FrameBufferListModel* frameBuffers() const
     {
@@ -272,20 +248,12 @@ public:
         return m_readNextFrame;
     }
 
-    FlowNodePort* readNextFramePort() const
-    {
-        return m_readNextFramePort;
-    }
 
     bool bufferFull() const
     {
         return m_bufferFull;
     }
 
-    FlowNodePort* bufferFullPort() const
-    {
-        return m_bufferFullPort;
-    }
 
 public slots:
     void setNumBuffers(int numBuffers)
@@ -297,14 +265,6 @@ public slots:
         m_frameBuffers->SetNewSize(numBuffers);
         emit numBuffersChanged(m_numBuffers);
     }
-    void setNumBuffersPort(FlowNodePort* numBuffersPort)
-    {
-        if (m_numBuffersPort == numBuffersPort)
-            return;
-
-        m_numBuffersPort = numBuffersPort;
-        emit numBuffersPortChanged(m_numBuffersPort);
-    }
 
     void setFrameSink(QMat* frameSink)
     {
@@ -314,25 +274,9 @@ public slots:
         emit frameSinkChanged(m_frameSink);
     }
 
-    void setFrameSinkPort(FlowNodePort* frameSinkPort)
-    {
-        if (m_frameSinkPort == frameSinkPort)
-            return;
-
-        m_frameSinkPort = frameSinkPort;
-        emit frameSinkPortChanged(m_frameSinkPort);
-    }
 
     void setFrameSource(QMat* frameSource);
 
-    void setFrameSourcePort(FlowNodePort* frameSourcePort)
-    {
-        if (m_frameSourcePort == frameSourcePort)
-            return;
-
-        m_frameSourcePort = frameSourcePort;
-        emit frameSourcePortChanged(m_frameSourcePort);
-    }
 
     void setFrameStored(bool frameStored)
     {
@@ -341,16 +285,6 @@ public slots:
         emit frameStoredChanged(m_frameStored);
     }
 
-    void setFrameStoredPort(FlowNodePort* frameStoredPort)
-    {
-        if (m_frameStoredPort == frameStoredPort)
-            return;
-
-        m_frameStoredPort = frameStoredPort;
-        emit frameStoredChanged(m_frameStoredPort);
-
-
-    }
 
     void setFrameBuffers(FrameBufferListModel* frameBuffers)
     {
@@ -409,15 +343,6 @@ public slots:
 
     void setReadNextFrame(bool readNextFrame);
 
-    void setReadNextFramePort(FlowNodePort* readNextFramePort)
-    {
-        if (m_readNextFramePort == readNextFramePort)
-            return;
-
-        m_readNextFramePort = readNextFramePort;
-        emit readNextFramePortChanged(m_readNextFramePort);
-    }
-
     void setBufferFull(bool bufferFull)
     {
 
@@ -429,22 +354,14 @@ public slots:
         emit bufferFullChanged(m_bufferFull);
     }
 
-    void setBufferFullPort(FlowNodePort* bufferFullPort)
-    {
-        if (m_bufferFullPort == bufferFullPort)
-            return;
-
-        m_bufferFullPort = bufferFullPort;
-        emit bufferFullChanged(m_bufferFullPort);
-    }
 
 signals:
     void numBuffersChanged(int numBuffers);
-    void numBuffersPortChanged(FlowNodePort* numBuffersPort);
+
     void frameSinkChanged(QMat* frameSink);
-    void frameSinkPortChanged(FlowNodePort* frameSinkPort);
+
     void frameSourceChanged(QMat* frameSource);
-    void frameSourcePortChanged(FlowNodePort* frameSourcePort);
+
     void frameStoredChanged(bool frameStored);
     void frameBuffersChanged(FrameBufferListModel* frameBuffers);
     void writeIndexChanged(int writeIndex);
@@ -452,12 +369,11 @@ signals:
     void autoIncrementWriteIndexChanged(bool autoIncrementWriteIndex);
     void autoIncrementReadIndexChanged(bool autoIncrementReadIndex);
     void readNextFrameChanged(bool readNextFrame);
-    void readNextFramePortChanged(FlowNodePort* readNextFramePort);
     void bufferFullChanged(bool bufferFull);
 
     // FlowNode interface
 public:
-    void initializePorts() override;
+    
 };
 
 #endif // FRAMEBUFFERNODE_H

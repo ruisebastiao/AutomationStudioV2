@@ -23,31 +23,18 @@ class ProcessingNode : public FlowNode
 
 
 
-    Q_PROPERTY(bool processingDone READ processingDone WRITE setProcessingDone NOTIFY processingDoneChanged)
-    Q_PROPERTY(FlowNodePort* processingDonePort READ processingDonePort WRITE setProcessingDonePort NOTIFY processingDonePortChanged USER("serialize"))
 
+    Q_PROPERTY(QMat* input READ input WRITE setInput NOTIFY inputChanged REVISION 30)
+    Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged REVISION 30)
 
-    Q_PROPERTY(QMat* input READ input WRITE setInput NOTIFY inputChanged)
-    Q_PROPERTY(FlowNodePort* inputPort READ inputPort WRITE setInputPort NOTIFY inputPortChanged USER("serialize"))
-
-    Q_PROPERTY(QMat* output READ output NOTIFY outputChanged)
-    Q_PROPERTY(FlowNodePort* outputPort READ outputPort WRITE setOutputPort NOTIFY outputPortChanged USER("serialize"))
-
-
-
-
-    Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged)
-    Q_PROPERTY(FlowNodePort* processPort READ processPort WRITE setProcessPort NOTIFY processPortChanged USER("serialize"))
-
-
-    Q_PROPERTY(ProcessingType  processingType  READ processingType CONSTANT FINAL USER("serialize"))
-    Q_PROPERTY(bool inPlaceProcessing READ inPlaceProcessing WRITE setInPlaceProcessing NOTIFY inPlaceProcessingChanged)
+    Q_PROPERTY(bool processingDone READ processingDone WRITE setProcessingDone NOTIFY processingDoneChanged REVISION 31)
+    Q_PROPERTY(QMat* output READ output NOTIFY outputChanged REVISION 31)
 
 
     Q_PROPERTY(QMat* originalInput READ originalInput WRITE setOriginalInput NOTIFY originalInputChanged)
-
-
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
+    Q_PROPERTY(ProcessingType  processingType  READ processingType CONSTANT FINAL USER("serialize"))
+    Q_PROPERTY(bool inPlaceProcessing READ inPlaceProcessing WRITE setInPlaceProcessing NOTIFY inPlaceProcessingChanged)
 
 
 
@@ -90,30 +77,6 @@ public:
         return m_output;
     }
 
-    FlowNodePort* inputPort() const
-    {
-        return m_inputPort;
-    }
-
-    FlowNodePort* outputPort() const
-    {
-        return m_outputPort;
-    }
-
-
-
-
-
-
-    FlowNodePort* processPort() const
-    {
-        return m_processPort;
-    }
-
-    FlowNodePort* processingDonePort() const
-    {
-        return m_processingDonePort;
-    }
 
     bool processingDone() const
     {
@@ -165,43 +128,10 @@ public:
 public slots:
     virtual void setInput(QMat* input)=0;
 
-
-
-    void setInputPort(FlowNodePort* inputPort)
-    {
-        if (m_inputPort == inputPort)
-            return;
-
-        m_inputPort = inputPort;
-        emit inputPortChanged(m_inputPort);
-    }
-
-    void setOutputPort(FlowNodePort* outputPort)
-    {
-        if (m_outputPort == outputPort)
-            return;
-
-        m_outputPort = outputPort;
-        emit outputPortChanged(m_outputPort);
-    }
-
-
-
-
-
     void setProcess(bool process);
 
     void reProcess();
 
-
-    void setProcessPort(FlowNodePort* processPort)
-    {
-        if (m_processPort == processPort)
-            return;
-
-        m_processPort = processPort;
-        emit processPortChanged(m_processPort);
-    }
 
     void setProcessingDone(bool processingDone)
     {
@@ -209,17 +139,6 @@ public slots:
         m_processingDone = processingDone;
         emit processingDoneChanged(m_processingDone);
     }
-
-    void setProcessingDonePort(FlowNodePort* processingDonePort)
-    {
-        if (m_processingDonePort == processingDonePort)
-            return;
-
-        m_processingDonePort = processingDonePort;
-        emit processingDonePortChanged(m_processingDonePort);
-    }
-
-
 
 
     void setInPlaceProcessing(bool inPlaceProcessing)
@@ -257,11 +176,6 @@ signals:
     void inputChanged(QMat* input);
     void outputChanged(QMat* output);
 
-    void inputPortChanged(FlowNodePort* inputPort);
-
-    void outputPortChanged(FlowNodePort* outputPort);
-
-
 
     void processingCompleted(ProcessingNode* node);
 
@@ -270,18 +184,10 @@ signals:
 
     void sourceFrameChanged(QMat* sourceFrame);
 
-
-
     void processChanged(bool process);
 
-    void processPortChanged(FlowNodePort* processPort);
 
     void processingDoneChanged(bool processingDone);
-
-    void processingDonePortChanged(FlowNodePort* processingDonePort);
-
-
-
 
 
     void originalInputChanged(QMat* originalInput);
@@ -326,13 +232,6 @@ protected:
     virtual void doProcess()=0;
 
     ProcessingType m_processingType;
-    FlowNodePort* m_inputPort=nullptr;
-    FlowNodePort* m_outputPort=nullptr;
-
-
-    FlowNodePort* m_processPort=nullptr;
-
-    FlowNodePort* m_processingDonePort=nullptr;
 
 
 
@@ -341,7 +240,7 @@ protected:
 public:
     QString name() const override;
 
-    void initializePorts() override;
+    
 
 
 };

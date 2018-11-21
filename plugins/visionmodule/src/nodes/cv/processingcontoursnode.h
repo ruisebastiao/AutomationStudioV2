@@ -26,10 +26,7 @@ class ProcessingContoursNode : public ProcessingNode
     Q_PROPERTY(int maxCountourArea READ maxCountourArea WRITE setMaxCountourArea NOTIFY maxCountourAreaChanged USER("serialize"))
 
 
-    Q_PROPERTY(std::vector<std::vector<cv::Point>> filteredContours READ filteredContours NOTIFY filteredContoursChanged)
-    Q_PROPERTY(FlowNodePort* filteredContoursPort READ filteredContoursPort WRITE setFilteredContoursPort NOTIFY filteredContoursPortChanged USER("serialize"))
-
-
+    Q_PROPERTY(std::vector<std::vector<cv::Point>> filteredContours READ filteredContours NOTIFY filteredContoursChanged REVISION 31)
 
 
 public:
@@ -213,15 +210,6 @@ public slots:
 
     }
 
-    void setFilteredContoursPort(FlowNodePort* filteredContoursPort)
-    {
-        if (m_filteredContoursPort == filteredContoursPort)
-            return;
-
-        m_filteredContoursPort = filteredContoursPort;
-        emit filteredContoursPortChanged(m_filteredContoursPort);
-
-    }
 
 signals:
     void totalContoursChanged(int totalContours);
@@ -246,8 +234,6 @@ signals:
 
     void totalFilteredContoursChanged(int totalFilteredContours);
 
-    void filteredContoursPortChanged(FlowNodePort* filteredContoursPort);
-
 protected:
     virtual void doProcess() override;
 
@@ -268,19 +254,13 @@ private:
     std::vector<std::vector<cv::Point>> m_filteredContours;
     int m_totalFilteredContours=0;
 
-    // JsonSerializable interface
-    FlowNodePort* m_filteredContoursPort=nullptr;
+
 
 public:
 virtual void DeSerialize(QJsonObject &json) override;
-FlowNodePort* filteredContoursPort() const
-{
-    return m_filteredContoursPort;
-}
-
 // FlowNode interface
 public:
-void initializePorts() override;
+
 };
 
 #endif // PROCESSINGCONTOURSNODE_H

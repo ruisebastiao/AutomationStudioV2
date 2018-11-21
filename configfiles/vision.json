@@ -1,8 +1,8 @@
 {
     "graphview": {
-        "x": -275.7690978645412,
-        "y": 36.32091600599432,
-        "zoom": 0.47052184344105846
+        "x": -277.258866873211,
+        "y": 37.25660799215274,
+        "zoom": 0.48264333063448744
     },
     "moduleID": "vision_1",
     "name": "Vision System 1",
@@ -52,7 +52,7 @@
         {
             "editHeight": 301,
             "editWidth": 790,
-            "filePath": "/home/rui/projects/automationstudio/capture/img_15.jpg",
+            "filePath": "C:\\Users\\LM36\\Documents\\Novares\\Automacao\\automationstudio\\capture\\img_15.jpg",
             "filePathPort": {
                 "hidden": false,
                 "portLabel": "",
@@ -636,6 +636,11 @@
                                         "hidden": false,
                                         "nodeID": 533,
                                         "portID": "input1"
+                                    },
+                                    {
+                                        "hidden": false,
+                                        "nodeID": 533,
+                                        "portID": "input1"
                                     }
                                 ],
                                 "hidden": false,
@@ -652,7 +657,7 @@
                                 "type": "In"
                             },
                             "locked": false,
-                            "name": "",
+                            "name": "Enclosing Shapes",
                             "nodeX": 1999.0977770619998,
                             "nodeY": 551.4315892271809,
                             "normalHeight": 362,
@@ -714,7 +719,7 @@
                                 "type": "In"
                             },
                             "locked": false,
-                            "name": "",
+                            "name": "Enclosing Shapes",
                             "nodeX": 2007.5221165369207,
                             "nodeY": 81.77466350036866,
                             "normalHeight": 423,
@@ -748,7 +753,7 @@
                             "editHeight": 1048,
                             "editWidth": 909,
                             "enabled": true,
-                            "geometricType": "GeometricLineSegment",
+                            "geometricType": "Geometric2PointLine",
                             "id": 533,
                             "input1Port": {
                                 "hidden": false,
@@ -762,6 +767,12 @@
                                 "showinlabel": false,
                                 "type": "In"
                             },
+                            "input3Port": {
+                                "hidden": true,
+                                "portLabel": "",
+                                "showinlabel": false,
+                                "type": "In"
+                            },
                             "inputPort": {
                                 "hidden": true,
                                 "portLabel": "Input",
@@ -769,7 +780,7 @@
                                 "type": "In"
                             },
                             "locked": false,
-                            "name": "",
+                            "name": "Geometric Functions",
                             "nodeX": 2580.4136454812988,
                             "nodeY": 630.3662873596991,
                             "normalHeight": 222,

@@ -13,28 +13,28 @@ public:
 
     Q_PROPERTY(QString serviceUrl READ serviceUrl WRITE setServiceUrl NOTIFY serviceUrlChanged USER("serialize"))
 
-    Q_PROPERTY(QString param1 READ param1 WRITE setParam1 NOTIFY param1Changed)
-    Q_PROPERTY(FlowNodePort* param1Port READ param1Port WRITE setParam1Port NOTIFY param1PortChanged USER("serialize"))
-    Q_PROPERTY(QString param1Name READ param1Name WRITE setParam1Name NOTIFY param1NameChanged)
-    Q_PROPERTY(FlowNodePort* param1NamePort READ param1NamePort WRITE setParam1NamePort NOTIFY param1NamePortChanged USER("serialize"))
+    Q_PROPERTY(QString param1 READ param1 WRITE setParam1 NOTIFY param1Changed REVISION 30)
 
-    Q_PROPERTY(QString param2 READ param2 WRITE setParam2 NOTIFY param2Changed )
-    Q_PROPERTY(FlowNodePort* param2Port READ param2Port WRITE setParam2Port NOTIFY param2PortChanged USER("serialize"))
-    Q_PROPERTY(QString param2Name READ param2Name WRITE setParam2Name NOTIFY param2NameChanged)
-    Q_PROPERTY(FlowNodePort* param2NamePort READ param2NamePort WRITE setParam2NamePort NOTIFY param2NamePortChanged USER("serialize"))
+    Q_PROPERTY(QString param1Name READ param1Name WRITE setParam1Name NOTIFY param1NameChanged REVISION 30)
+
+
+    Q_PROPERTY(QString param2 READ param2 WRITE setParam2 NOTIFY param2Changed REVISION 30)
+
+    Q_PROPERTY(QString param2Name READ param2Name WRITE setParam2Name NOTIFY param2NameChanged REVISION 30)
+
 
     Q_PROPERTY(QString formattedUrl READ formattedUrl NOTIFY formattedUrlChanged )
 
-    Q_PROPERTY(QString response READ response WRITE setResponse NOTIFY responseChanged)
-    Q_PROPERTY(FlowNodePort* responsePort READ responsePort WRITE setResponsePort NOTIFY responsePortChanged USER("serialize"))
+    Q_PROPERTY(QString response READ response WRITE setResponse NOTIFY responseChanged REVISION 31)
 
 
-    Q_PROPERTY(bool executing READ executing WRITE setExecuting NOTIFY executingChanged)
-    Q_PROPERTY(FlowNodePort* executingPort READ executingPort WRITE setExecutingPort NOTIFY executingPortChanged USER("serialize"))
+
+    Q_PROPERTY(bool executing READ executing WRITE setExecuting NOTIFY executingChanged REVISION 31)
 
 
-    Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
-    Q_PROPERTY(FlowNodePort* errorPort READ errorPort WRITE setErrorPort NOTIFY errorPortChanged USER("serialize"))
+
+    Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged REVISION 31)
+
 
 
     // FlowNode interface
@@ -82,26 +82,6 @@ public:
     bool executing() const
     {
         return m_executing;
-    }
-
-    FlowNodePort* param1Port() const
-    {
-        return m_param1Port;
-    }
-
-    FlowNodePort* param1NamePort() const
-    {
-        return m_param1NamePort;
-    }
-
-    FlowNodePort* param2Port() const
-    {
-        return m_param2Port;
-    }
-
-    FlowNodePort* param2NamePort() const
-    {
-        return m_param2NamePort;
     }
 
 public slots:
@@ -175,61 +155,6 @@ public slots:
         emit executingChanged(m_executing);
     }
 
-    void setParam1Port(FlowNodePort* param1Port)
-    {
-        if (m_param1Port == param1Port)
-            return;
-
-        m_param1Port = param1Port;
-        emit param1PortChanged(m_param1Port);
-    }
-
-    void setParam1NamePort(FlowNodePort* param1NamePort)
-    {
-        if (m_param1NamePort == param1NamePort)
-            return;
-
-        m_param1NamePort = param1NamePort;
-        emit param1NamePortChanged(m_param1NamePort);
-    }
-
-    void setParam2Port(FlowNodePort* param2Port)
-    {
-        if (m_param2Port == param2Port)
-            return;
-
-        m_param2Port = param2Port;
-        emit param2PortChanged(m_param2Port);
-    }
-
-    void setParam2NamePort(FlowNodePort* param2NamePort)
-    {
-        if (m_param2NamePort == param2NamePort)
-            return;
-
-        m_param2NamePort = param2NamePort;
-        emit param2NamePortChanged(m_param2NamePort);
-    }
-
-    void setResponsePort(FlowNodePort* responsePort)
-    {
-        if (m_responsePort == responsePort)
-            return;
-
-        m_responsePort = responsePort;
-        emit responsePortChanged(m_responsePort);
-    }
-
-    void setExecutingPort(FlowNodePort* executingPort)
-    {
-        if (m_executingPort == executingPort)
-            return;
-
-        m_executingPort = executingPort;
-        emit executingPortChanged(m_executingPort);
-    }
-
-
 
 
     void setError(QString error)
@@ -239,14 +164,7 @@ public slots:
         emit errorChanged(m_error);
     }
 
-    void setErrorPort(FlowNodePort* errorPort)
-    {
-        if (m_errorPort == errorPort)
-            return;
 
-        m_errorPort = errorPort;
-        emit errorPortChanged(m_errorPort);
-    }
 
 signals:
 
@@ -269,21 +187,9 @@ signals:
 
     void executingChanged(bool executing);
 
-    void param1PortChanged(FlowNodePort* param1Port);
 
-    void param1NamePortChanged(FlowNodePort* param1NamePort);
-
-    void param2PortChanged(FlowNodePort* param2Port);
-
-    void param2NamePortChanged(FlowNodePort* param2NamePort);
-
-    void responsePortChanged(FlowNodePort* responsePort);
-
-    void executingPortChanged(FlowNodePort* executingPort);
 
     void errorChanged(QString error);
-
-    void errorPortChanged(FlowNodePort* errorPort);
 
 private:
 
@@ -311,17 +217,7 @@ private:
 
     bool m_executing=false;
 
-    FlowNodePort* m_param1Port=nullptr;
 
-    FlowNodePort* m_param1NamePort=nullptr;
-
-    FlowNodePort* m_param2Port=nullptr;
-
-    FlowNodePort* m_param2NamePort=nullptr;
-
-    FlowNodePort* m_responsePort=nullptr;
-
-    FlowNodePort* m_executingPort=nullptr;
 
     QString m_error="";
 
@@ -330,26 +226,15 @@ private:
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
-    FlowNodePort* responsePort() const
-    {
-        return m_responsePort;
-    }
-    FlowNodePort* executingPort() const
-    {
-        return m_executingPort;
-    }
+
+
+    // FlowNode interface
+public:
+
     QString error() const
     {
         return m_error;
     }
-    FlowNodePort* errorPort() const
-    {
-        return m_errorPort;
-    }
-
-    // FlowNode interface
-public:
-    void initializePorts() override;
 };
 
 #endif // WEBSERVICENODE_H

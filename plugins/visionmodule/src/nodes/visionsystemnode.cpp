@@ -65,18 +65,6 @@ void VisionSystemNode::readROINode(QJsonObject roiobject){
 
 }
 
-void VisionSystemNode::initializePorts()
-{
-    m_frameSourcePort= new FlowNodePort(this,qan::PortItem::Type::In,"frameSource");
-    m_processFramePort= new FlowNodePort(this,qan::PortItem::Type::In,"processFrame");
-    m_inPorts.append(m_frameSourcePort);
-    m_inPorts.append(m_processFramePort);
-
-    m_frameProcessedPort= new FlowNodePort(this,qan::PortItem::Type::Out,"frameProcessed");
-    m_outPorts.append(m_frameProcessedPort);
-    FlowNode::initializePorts();
-
-}
 
 void VisionSystemNode::Serialize(QJsonObject &json)
 {

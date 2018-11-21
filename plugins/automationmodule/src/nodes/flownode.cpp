@@ -6,6 +6,11 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 {
 
 
+    //QList<FlowNode *> nodeList;
+
+    //nodeList.indexOf()
+
+
 
 }
 
@@ -27,45 +32,67 @@ FlowNode::~FlowNode()
 {
     //
     LOG_INFO()<<"Deleting node:"<<this->id()<<"|"<<this->name();
-
+    QAutomationModule::flownodemanager->removeNode(this);
 
     //    this->getGraph()->re->deleteEdge(m_inputPort->getPortItem()->getInEdgeItems().at(0)->getEdge());
 
 }
 
-void FlowNode::loadNodeConnections( QList<FlowNode *> nodeList)
+//void FlowNode::loadNodeConnections( QList<FlowNode *> nodeList)
+//{
+
+//    foreach (FlowNode* flownode, nodeList) {
+//        foreach (FlowNodePort* flownodeport, flownode->getOutPorts()) {
+//            QList<ConnectionInfo*> connections=flownodeport->getConnections();
+//            foreach (ConnectionInfo* connection, connections) {
+//                FlowNode* targetnode=FlowNode::getFlowNodeById(connection->nodeID(),nodeList);
+//                if(targetnode){
+
+//                    for (int portindex = 0; portindex < targetnode->getInPorts().length(); ++portindex) {
+//                        FlowNodePort* targetInport=targetnode->getInPorts().at(portindex);
+//                        qan::PortItem* inport=targetInport->getPortItem();
+//                        if(inport->getInEdgeItems().size()>0){
+//                            LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*flownode<<"| target node:"<< *targetnode<<")";
+//                            continue;
+//                        }
+//                        qan::Edge* newedge= flownode->getScenegraph()->insertNewEdge(false,flownode,targetnode);
+//                        if(newedge){
+//                            if(targetInport->getPortItem()->getId()==connection->portID()){
+//                                flownode->getScenegraph()->bindEdge(newedge,flownodeport->getPortItem(),targetInport->getPortItem());
+
+//                                break;
+//                            }
+//                        }
+
+//                    }
+//                }
+//            }
+//            flownode->setConnectionsLoaded(true);
+//        }
+//    }
+//}
+
+
+void FlowNode::loadNodeConnections()
 {
+    //
 
-    foreach (FlowNode* flownode, nodeList) {
-        foreach (FlowNodePort* flownodeport, flownode->getOutPorts()) {
-            QList<ConnectionInfo*> connections=flownodeport->getConnections();
-            foreach (ConnectionInfo* connection, connections) {
-                FlowNode* targetnode=FlowNode::getFlowNodeById(connection->nodeID(),nodeList);
-                if(targetnode){
+    foreach (FlowNodePort* nodeoutport, this->m_outPorts) {
+        foreach (ConnectionInfo* connection, nodeoutport->getConnections()) {
 
-                    for (int portindex = 0; portindex < targetnode->getInPorts().length(); ++portindex) {
-                        FlowNodePort* targetInport=targetnode->getInPorts().at(portindex);
-                        qan::PortItem* inport=targetInport->getPortItem();
-                        if(inport->getInEdgeItems().size()>0){
-                            LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*flownode<<"| target node:"<< *targetnode<<")";
-                            continue;
-                        }
-                        qan::Edge* newedge= flownode->getScenegraph()->insertNewEdge(false,flownode,targetnode);
-                        if(newedge){
-                            if(targetInport->getPortItem()->getId()==connection->portID()){
-                                flownode->getScenegraph()->bindEdge(newedge,flownodeport->getPortItem(),targetInport->getPortItem());
 
-                                break;
-                            }
-                        }
+            FlowNode* targetnode=QAutomationModule::flownodemanager->getFlownodesTable()[connection->nodeID()];
 
-                    }
-                }
+            if(targetnode){
+                FlowNodePort* targetport= targetnode->getInPorts()[connection->portID().toStdString()];
+
             }
-            flownode->setConnectionsLoaded(true);
+            //std::get
         }
+
     }
 }
+
 
 FlowNode *FlowNode::getFlowNodeById(int id, QList<FlowNode *> nodeList)
 {
@@ -93,10 +120,66 @@ void FlowNode::remove()
     emit removeNode(this);
 }
 
-void FlowNode::initializePorts()
+void FlowNode::initializePorts(QJsonObject &json)
 {
+    for (int i = 0; i < this->metaObject()->propertyCount(); i++)
+    {
 
+        QMetaProperty property = this->metaObject()->property(i);
+        const char* propName=property.name();
+
+
+        // INPUT PORTS => Revision 30
+        if(property.revision()==30){
+
+
+            FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::In,propName);
+            if(newport){
+                QJsonObject portObject;
+                string portObjectName=propName;
+                portObjectName.append("Port");
+                portObject=json[portObjectName.c_str()].toObject();
+
+                newport->DeSerialize(portObject);
+
+                string portkey=QString::number(id()).toStdString()+"|"+propName;
+                m_inPorts[portkey]=newport;
+            }
+            continue;
+        }
+
+        // OUTPUT PORTS => Revision 31
+        if(property.revision()==31){
+            FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::Out,propName);
+            if(newport){
+
+                QJsonObject portObject;
+                string portObjectName=propName;
+                portObjectName.append("Port");
+                portObject=json[portObjectName.c_str()].toObject();
+
+                newport->DeSerialize(portObject);
+                string portkey=QString::number(id()).toStdString()+"|"+propName;
+                m_outPorts[portkey]=newport;
+            }
+
+            continue;
+        }
+    }
 }
+
+FlowNodePort *FlowNode::getPortFromKey(QString key)
+{
+    string keystr=QString::number(id()).toStdString();
+    keystr.append("|");
+    keystr.append(key.toStdString());
+    FlowNodePort* port=m_inPorts[keystr];
+    if(port){
+        return port;
+    }
+    return m_outPorts[keystr];
+}
+
 
 SceneGraph *FlowNode::getScenegraph() const
 {
@@ -108,21 +191,14 @@ void FlowNode::inNodeOutputChanged()
 
 }
 
-QList<FlowNodePort *> FlowNode::getOutPorts() const
+QMap<string,FlowNodePort *> FlowNode::getOutPorts() const
 {
     return m_outPorts;
 }
 
-QList<FlowNodePort *> FlowNode::getInPorts() const
+QMap<string,FlowNodePort *> FlowNode::getInPorts() const
 {
     return m_inPorts;
-}
-
-
-
-void FlowNode::inPortState(QString id,bool enabled)
-{
-
 }
 
 
@@ -148,7 +224,7 @@ void FlowNode::Serialize(QJsonObject &json)
 void FlowNode::DeSerialize(QJsonObject &json)
 {
 
-    initializePorts();
+    initializePorts(json);
 
     JsonSerializable::DeSerialize(json,this);
     getItem()->setProperty("x",QVariant::fromValue(json["nodeX"].toDouble()));
@@ -165,6 +241,7 @@ void FlowNode::DeSerialize(QJsonObject &json)
 
     emit QAutomationModule::flownodemanager->onFlowNodeLoaded(this);
 
+    setConfigsLoaded(true);
 }
 
 

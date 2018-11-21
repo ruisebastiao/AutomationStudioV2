@@ -13,6 +13,8 @@ using namespace std;
 class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializable
 {
 
+    // PROPERTIES WITH REVISION 30 WILL BE ATTACHED TO IN PORTS PORTS
+    // PROPERTIES WITH REVISION 31 WILL BE ATTACHED TO OUT PORTS PORTS
 
     Q_OBJECT
     Q_INTERFACES(JsonSerializable)
@@ -36,7 +38,7 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     Q_PROPERTY(qreal nodeY READ nodeY WRITE setNodeY NOTIFY nodeYChanged)
 
 
-    Q_PROPERTY(bool connectionsLoaded READ connectionsLoaded WRITE setConnectionsLoaded NOTIFY connectionsLoadedChanged)
+//    Q_PROPERTY(bool connectionsLoaded READ connectionsLoaded WRITE setConnectionsLoaded NOTIFY connectionsLoadedChanged)
 
 
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
@@ -45,24 +47,7 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
 
     Q_PROPERTY(bool centerOnEdit READ centerOnEdit WRITE setCenterOnEdit NOTIFY centerOnEditChanged)
 
-    Q_INVOKABLE virtual void inPortState(QString id,bool enabled);
 
-
-
-
-
-    bool operator==(const FlowNode &a)
-    {
-        return a.id()==id();
-    }
-
-    bool operator==(const FlowNode* a)
-    {
-        return a->id()==id();
-    }
-
-    friend ostream& operator<<(ostream &os, const  FlowNode& c);
-    friend QDataStream& operator <<(QDataStream &stream, FlowNode &c);
 
 
 
@@ -93,6 +78,7 @@ public:
     FlowNode( QObject* parent = nullptr );
 
 
+
     operator QString() const {
         QString  ret(metaObject()->className());
         ret.append("::ID::"+QString::number(id()));
@@ -101,12 +87,27 @@ public:
 
 
 
+    bool operator==(const FlowNode &a)
+    {
+        return a.id()==id();
+    }
+
+    bool operator==(const FlowNode* a)
+    {
+        return a->id()==id();
+    }
+
+    friend ostream& operator<<(ostream &os, const  FlowNode& c);
+    friend QDataStream& operator <<(QDataStream &stream, FlowNode &c);
+
+
 
     virtual ~FlowNode() override;
 
 
 
-    static void loadNodeConnections(QList<FlowNode *> nodeList);
+//    static void loadNodeConnections(QList<FlowNode *> nodeList);
+    void loadNodeConnections();
 
     static FlowNode* getFlowNodeById(int id,QList<FlowNode *> nodeList);
 
@@ -135,12 +136,15 @@ public:
 
 
     Q_INVOKABLE void remove();
-    virtual void initializePorts();
+private:
+   void initializePorts(QJsonObject &json);
 
 protected:
     Type            m_type{Type::NodeNone};
 
 
+
+    FlowNodePort* getPortFromKey(QString key);
 
 private:
 
@@ -185,7 +189,7 @@ private:
 
 
 
-    bool m_connectionsLoaded=false;
+//    bool m_connectionsLoaded=false;
 
 
 
@@ -313,18 +317,18 @@ public slots:
         emit centerOnEditChanged(m_centerOnEdit);
     }
 
-    void setConnectionsLoaded(bool connectionsLoaded)
-    {
-        if (m_connectionsLoaded == connectionsLoaded)
-            return;
+//    void setConnectionsLoaded(bool connectionsLoaded)
+//    {
+//        if (m_connectionsLoaded == connectionsLoaded)
+//            return;
 
-        m_connectionsLoaded = connectionsLoaded;
+//        m_connectionsLoaded = connectionsLoaded;
 
-        if(m_connectionsLoaded){
-            this->blockSignals(false);
-        }
-        emit connectionsLoadedChanged(m_connectionsLoaded);
-    }
+//        if(m_connectionsLoaded){
+//            this->blockSignals(false);
+//        }
+//        emit connectionsLoadedChanged(m_connectionsLoaded);
+//    }
 
 signals:
     void nameChanged(QString name);
@@ -368,8 +372,8 @@ protected:
 
     QString m_name="";
 
-    QList<FlowNodePort*> m_inPorts;
-    QList<FlowNodePort*> m_outPorts;
+    QMap<string,FlowNodePort*> m_inPorts;
+    QMap<string,FlowNodePort*> m_outPorts;
 
     // JsonSerializable interface
 public:
@@ -426,14 +430,14 @@ public:
     void installBehaviour(std::unique_ptr<qan::NodeBehaviour> behaviour) override;
 
     //void updateConnections(FlowNodePort* sourceNode,);
-    QList<FlowNodePort *> getInPorts() const;
-    QList<FlowNodePort *> getOutPorts() const;
+    QMap<string,FlowNodePort *> getInPorts() const;
+    QMap<string,FlowNodePort *> getOutPorts() const;
     SceneGraph *getScenegraph() const;
     FlowNodePort *getPortByID(QString id);
-    bool connectionsLoaded() const
-    {
-        return m_connectionsLoaded;
-    }
+//    bool connectionsLoaded() const
+//    {
+//        return m_connectionsLoaded;
+//    }
 
 };
 #endif // FLOWNODE_H

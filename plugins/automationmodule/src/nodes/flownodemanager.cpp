@@ -4,9 +4,14 @@ FlowNodeManager::FlowNodeManager(QObject *parent):QAbstractListModel(parent){
     m_filterType= FlowNode::Type::NodeNone;
 
 
-       QObject::connect(this,SIGNAL(onFlowNodeLoaded(FlowNode*)),this,SLOT(onNodeAdded(FlowNode*)));
+    QObject::connect(this,SIGNAL(onFlowNodeLoaded(FlowNode*)),this,SLOT(onNodeAdded(FlowNode*)));
 
 
+}
+
+QMap<int, FlowNode *> FlowNodeManager::getFlownodesTable() const
+{
+    return m_flownodesTable;
 }
 
 FlowNode *FlowNodeManager::getByID(int id)
@@ -31,11 +36,31 @@ void FlowNodeManager::addNode(FlowNode *node)
     beginInsertRows(QModelIndex(), rowCount(QModelIndex()), rowCount(QModelIndex()));   // kindly provided by superclass
 
     m_flownodes.append(node);
+    m_flownodesTable[node->id()]=node;
 
     endInsertRows();
 
     emit lengthChanged(m_flownodes.size());
 }
+
+
+void FlowNodeManager::removeNode(FlowNode *node)
+
+{
+    int itemIndex=m_flownodes.indexOf(node);
+
+    if(itemIndex>=0){
+        beginRemoveRows(QModelIndex(), static_cast<int>(itemIndex), static_cast<int>(itemIndex));   // kindly provided by superclass
+
+        m_flownodes.removeAt(itemIndex);
+        m_flownodesTable.take(itemIndex);
+
+        endRemoveRows();
+
+        emit lengthChanged(m_flownodes.size());
+    }
+}
+
 
 int FlowNodeManager::rowCount(const QModelIndex &parent) const
 

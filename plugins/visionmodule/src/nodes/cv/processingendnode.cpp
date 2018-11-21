@@ -37,7 +37,17 @@ void ProcessingEndNode::DeSerialize(QJsonObject &json)
 {
     ProcessingNode::DeSerialize(json);
 
-    m_inputPort->setHidden(true);
-    m_outputPort->setHidden(true);
-    m_processingDonePort->setHidden(true);
+    FlowNodePort* port=getPortFromKey("input");
+    if(port){
+        port->setHidden(true);
+    }
+    port=getPortFromKey("output");
+    if(port){
+        port->setHidden(true);
+    }
+    port=getPortFromKey("processing");
+    if(port){
+        port->setHidden(true);
+    }
+
 }

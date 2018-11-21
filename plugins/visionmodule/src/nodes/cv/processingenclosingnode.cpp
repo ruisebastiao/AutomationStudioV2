@@ -103,25 +103,13 @@ void ProcessingEnclosingNode::DeSerialize(QJsonObject &json)
 
 
     ProcessingNode::DeSerialize(json);
-    m_inputPort->setHidden(true);
-    m_outputPort->setHidden(true);
-
-    if(m_contoursPort->portLabel()==""){
-        m_contoursPort->setPortLabel("Contours");
+    FlowNodePort* port=getPortFromKey("input");
+    if(port){
+        port->setHidden(true);
+    }
+    port=getPortFromKey("output");
+    if(port){
+        port->setHidden(true);
     }
 
-    if(m_enclosingShapesPort->portLabel()==""){
-        m_enclosingShapesPort->setPortLabel("Enclosing Shapes");
-    }
-}
-
-void ProcessingEnclosingNode::initializePorts()
-{
-    m_contoursPort= new FlowNodePort(this,qan::PortItem::Type::In,"contours");
-    m_enclosingShapesPort= new FlowNodePort(this,qan::PortItem::Type::Out,"enclosingShapes");
-
-    m_inPorts.append(m_contoursPort);
-    m_outPorts.append(m_enclosingShapesPort);
-
-    ProcessingNode::initializePorts();
 }

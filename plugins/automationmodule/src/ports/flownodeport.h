@@ -84,7 +84,7 @@ private:
     bool m_hidden=false;
 
     FlowNode *getNodeFromEdge(qan::EdgeItem *edgeitem);
-    void CheckForNodeConnections(ConnectionInfo *connection);
+
 public:
 
     void Serialize(QJsonObject &json) override;
@@ -92,8 +92,6 @@ public:
 
     qan::PortItem* getPortItem();
 
-
-    void createConnections(QList<FlowNode *> &nodes);
 
 
     // JsonSerializable interface
