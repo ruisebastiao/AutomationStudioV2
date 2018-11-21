@@ -4,6 +4,7 @@ StringNode::StringNode()
 {
 
     m_type=Type::StringNode;
+
 }
 
 
@@ -22,11 +23,17 @@ void StringNode::Serialize(QJsonObject &json)
 
 void StringNode::DeSerialize(QJsonObject &json)
 {
-    m_stringValuePort=new FlowNodePort(this,qan::PortItem::Type::Out,"stringValue");
 
-    m_outPorts.append(m_stringValuePort);
 
 
     FlowNode::DeSerialize(json);
+}
+
+void StringNode::initializePorts()
+{
+
+    m_stringValuePort=new FlowNodePort(this,qan::PortItem::Type::Out,"stringValue");
+    m_outPorts.append(m_stringValuePort);
+
 }
 

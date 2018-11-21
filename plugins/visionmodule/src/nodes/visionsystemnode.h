@@ -230,6 +230,10 @@ private:
     FlowNodePort* m_processFramePort=nullptr;
     FlowNodePort* m_frameProcessedPort=nullptr;
     bool m_processOnNewFrame=false;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // VISIONSYSTEMNODE_H

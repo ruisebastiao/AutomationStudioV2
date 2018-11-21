@@ -180,6 +180,10 @@ protected:
 public:
     void DeSerialize(QJsonObject &json) override;
     static QQmlComponent *delegate(QQmlEngine &engine) noexcept;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // PROCESSINGLOGICALNODE_H

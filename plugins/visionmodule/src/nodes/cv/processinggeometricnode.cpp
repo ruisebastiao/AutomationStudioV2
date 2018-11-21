@@ -5,6 +5,8 @@ ProcessingGeometricNode::ProcessingGeometricNode()
 {
     m_processingType=ProcessingType::ProcessingGeometricNode;
     ProcessingNode::processingTypeTable[m_processingType]="Geometric Functions";
+
+
 }
 
 
@@ -165,6 +167,24 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
 }
 
+void ProcessingGeometricNode::initializePorts()
+{
+    m_input1Port= new FlowNodePort(this,qan::PortItem::Type::In,"input1");
+    m_input2Port= new FlowNodePort(this,qan::PortItem::Type::In,"input2");
+    m_input3Port= new FlowNodePort(this,qan::PortItem::Type::In,"input3");
+
+    m_output1Port= new FlowNodePort(this,qan::PortItem::Type::Out,"output1");
+
+
+    m_inPorts.append(m_input1Port);
+    m_inPorts.append(m_input2Port);
+    m_inPorts.append(m_input3Port);
+
+    m_outPorts.append(m_output1Port);
+
+    ProcessingNode::initializePorts();
+}
+
 void ProcessingGeometricNode::doProcess()
 {
     m_output1=QVariant();
@@ -194,18 +214,6 @@ void ProcessingGeometricNode::doProcess()
 void ProcessingGeometricNode::DeSerialize(QJsonObject &json)
 {
 
-    m_input1Port= new FlowNodePort(this,qan::PortItem::Type::In,"input1");
-    m_input2Port= new FlowNodePort(this,qan::PortItem::Type::In,"input2");
-    m_input3Port= new FlowNodePort(this,qan::PortItem::Type::In,"input3");
-
-    m_output1Port= new FlowNodePort(this,qan::PortItem::Type::Out,"output1");
-
-
-    m_inPorts.append(m_input1Port);
-    m_inPorts.append(m_input2Port);
-    m_inPorts.append(m_input3Port);
-
-    m_outPorts.append(m_output1Port);
 
 
     ProcessingNode::DeSerialize(json);

@@ -25,7 +25,7 @@ WebServiceNode::WebServiceNode(QObject *parent){
 
 
     });
-    //    connect(m_manager,&QNetworkAccessManager::error,this,&WebServiceNode::handleFinished);
+
 
 
 
@@ -115,6 +115,14 @@ void WebServiceNode::Serialize(QJsonObject &json)
 void WebServiceNode::DeSerialize(QJsonObject &json)
 {
 
+
+
+    FlowNode::DeSerialize(json);
+
+}
+
+void WebServiceNode::initializePorts()
+{
     m_param1Port=new FlowNodePort(this,qan::PortItem::Type::In,"param1");
     m_param1NamePort=new FlowNodePort(this,qan::PortItem::Type::In,"param1Name");
     m_param2Port=new FlowNodePort(this,qan::PortItem::Type::In,"param2");
@@ -133,8 +141,5 @@ void WebServiceNode::DeSerialize(QJsonObject &json)
     m_outPorts.append(m_responsePort);
     m_outPorts.append(m_executingPort);
     m_outPorts.append(m_errorPort);
-
-
-    FlowNode::DeSerialize(json);
 
 }

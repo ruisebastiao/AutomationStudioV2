@@ -105,6 +105,7 @@ public:
     virtual ~FlowNode() override;
 
 
+
     static void loadNodeConnections(QList<FlowNode *> nodeList);
 
     static FlowNode* getFlowNodeById(int id,QList<FlowNode *> nodeList);
@@ -115,7 +116,7 @@ public:
     //    virtual void write(QJsonObject &json) const;
     //    virtual void read(QJsonObject &json);
 
-    QString name() const
+    virtual QString name() const
     {
         return m_name;
     }
@@ -134,6 +135,7 @@ public:
 
 
     Q_INVOKABLE void remove();
+    virtual void initializePorts();
 
 protected:
     Type            m_type{Type::NodeNone};
@@ -184,6 +186,8 @@ private:
 
 
     bool m_connectionsLoaded=false;
+
+
 
 
 
@@ -282,7 +286,7 @@ public slots:
 
     void setNodeX(qreal nodeX)
     {
-        qWarning("Floating point comparison needs context sanity check");
+
         if (qFuzzyCompare(m_nodeX, nodeX))
             return;
 
@@ -292,7 +296,7 @@ public slots:
 
     void setNodeY(qreal nodeY)
     {
-        qWarning("Floating point comparison needs context sanity check");
+
         if (qFuzzyCompare(m_nodeY, nodeY))
             return;
 

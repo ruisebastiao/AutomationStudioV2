@@ -277,6 +277,10 @@ FlowNodePort* filteredContoursPort() const
 {
     return m_filteredContoursPort;
 }
+
+// FlowNode interface
+public:
+void initializePorts() override;
 };
 
 #endif // PROCESSINGCONTOURSNODE_H

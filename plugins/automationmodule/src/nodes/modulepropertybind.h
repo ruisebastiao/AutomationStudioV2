@@ -105,6 +105,10 @@ public:
     {
         return m_moduleProperty;
     }
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // MODULEPROPERTYBIND_H

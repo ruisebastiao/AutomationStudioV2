@@ -38,13 +38,20 @@ void FlowNode::loadNodeConnections( QList<FlowNode *> nodeList)
 
     foreach (FlowNode* flownode, nodeList) {
         foreach (FlowNodePort* flownodeport, flownode->getOutPorts()) {
-            foreach (ConnectionInfo* connection, flownodeport->getConnections()) {
+            QList<ConnectionInfo*> connections=flownodeport->getConnections();
+            foreach (ConnectionInfo* connection, connections) {
                 FlowNode* targetnode=FlowNode::getFlowNodeById(connection->nodeID(),nodeList);
                 if(targetnode){
-                    qan::Edge* newedge= flownode->getScenegraph()->insertNewEdge(false,flownode,targetnode);
-                    if(newedge){
-                        for (int portindex = 0; portindex < targetnode->getInPorts().length(); ++portindex) {
-                            FlowNodePort* targetInport=targetnode->getInPorts().at(portindex);
+
+                    for (int portindex = 0; portindex < targetnode->getInPorts().length(); ++portindex) {
+                        FlowNodePort* targetInport=targetnode->getInPorts().at(portindex);
+                        qan::PortItem* inport=targetInport->getPortItem();
+                        if(inport->getInEdgeItems().size()>0){
+                            LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*flownode<<"| target node:"<< *targetnode<<")";
+                            continue;
+                        }
+                        qan::Edge* newedge= flownode->getScenegraph()->insertNewEdge(false,flownode,targetnode);
+                        if(newedge){
                             if(targetInport->getPortItem()->getId()==connection->portID()){
                                 flownode->getScenegraph()->bindEdge(newedge,flownodeport->getPortItem(),targetInport->getPortItem());
 
@@ -84,6 +91,11 @@ QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
 void FlowNode::remove()
 {
     emit removeNode(this);
+}
+
+void FlowNode::initializePorts()
+{
+
 }
 
 SceneGraph *FlowNode::getScenegraph() const
@@ -136,6 +148,7 @@ void FlowNode::Serialize(QJsonObject &json)
 void FlowNode::DeSerialize(QJsonObject &json)
 {
 
+    initializePorts();
 
     JsonSerializable::DeSerialize(json,this);
     getItem()->setProperty("x",QVariant::fromValue(json["nodeX"].toDouble()));

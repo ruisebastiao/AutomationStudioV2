@@ -281,9 +281,6 @@ signals:
     void processingDonePortChanged(FlowNodePort* processingDonePort);
 
 
-    void isBaseNodeChanged(bool isBaseNode);
-
-    void isEndNodeChanged(bool isEndNode);
 
 
 
@@ -337,6 +334,14 @@ protected:
 
     FlowNodePort* m_processingDonePort=nullptr;
 
+
+
+
+    // FlowNode interface
+public:
+    QString name() const override;
+
+    void initializePorts() override;
 
 
 };

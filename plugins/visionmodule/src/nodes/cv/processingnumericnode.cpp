@@ -4,6 +4,10 @@ ProcessingNumericNode::ProcessingNumericNode()
 {
     m_processingType=ProcessingType::ProcessingNumericNode;
     ProcessingNode::processingTypeTable[m_processingType]="Numeric value";
+
+
+
+
 }
 
 QQmlComponent *ProcessingNumericNode::delegate(QQmlEngine &engine) noexcept
@@ -28,10 +32,6 @@ void ProcessingNumericNode::doProcess()
 void ProcessingNumericNode::DeSerialize(QJsonObject &json)
 {
 
-    m_valuePort= new FlowNodePort(this,qan::PortItem::Type::Out,"value");
-
-    m_outPorts.append(m_valuePort);
-
 
     ProcessingNode::DeSerialize(json);
 
@@ -41,4 +41,12 @@ void ProcessingNumericNode::DeSerialize(QJsonObject &json)
 
     m_valuePort->setPortLabel("Value");
 
+}
+
+void ProcessingNumericNode::initializePorts()
+{
+    m_valuePort= new FlowNodePort(this,qan::PortItem::Type::Out,"value");
+    m_outPorts.append(m_valuePort);
+
+    ProcessingNode::initializePorts();
 }

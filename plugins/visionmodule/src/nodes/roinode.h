@@ -37,7 +37,7 @@ public:
     Q_PROPERTY(bool roiProcessingDone READ roiProcessingDone WRITE setRoiProcessingDone NOTIFY roiProcessingDoneChanged)
 
 
-    Q_PROPERTY(QStringList processingNodeTypes READ processingNodeTypes NOTIFY processingNodeTypesChanged)
+    Q_PROPERTY(QVariantList processingNodeTypes READ processingNodeTypes NOTIFY processingNodeTypesChanged)
 
 
 public:
@@ -95,7 +95,7 @@ signals:
 
     void processedFrameChanged(QMat* processedFrame);
 
-    void processingNodeTypesChanged(QStringList processingNodeTypes);
+    void processingNodeTypesChanged(QVariantList processingNodeTypes);
 
 private:
 
@@ -124,7 +124,7 @@ private:
     QMat* m_processedFrame=new QMat();
     ProcessingBaseNode* m_basenode=nullptr;
 
-    QStringList m_processingNodeTypes;
+    QVariantList m_processingNodeTypes;
 
 public:
     void Serialize(QJsonObject &json);
@@ -155,23 +155,30 @@ public:
         return m_processedFrame;
     }
     ProcessingNode *readProcessingNode(qan::GraphView *graphView, QJsonObject nodeobject);
-    QStringList processingNodeTypes()
+    QVariantList  processingNodeTypes()
     {
         using map_type = std::map<ProcessingNode::ProcessingType, string>;
 
         int count = static_cast<int>(ProcessingNode::processingTypeTable.size());
+
+
 
         if(m_processingNodeTypes.length()!=count){
             m_processingNodeTypes.clear();
             BOOST_FOREACH(map_type::value_type &p, ProcessingNode::processingTypeTable) {
                 ProcessingNode::ProcessingType procType=p.first;
                 string str=ProcessingNode::processingTypeTable[procType];
-                m_processingNodeTypes.append(QString::fromStdString(str));
+                QVariantMap map;
+                map.insert(QVariant::fromValue(procType).value<QString>(),QString::fromStdString(str));
+                m_processingNodeTypes.append(map);
             }
 
         }
         return m_processingNodeTypes;
     }
+    Q_INVOKABLE void addProcNode(QPoint loc, QVariantMap nodeinfo);
+    ProcessingNode *createProcessingNode(qan::GraphView *graphView, QString nodetype);
+    void initializeProcessingNode(ProcessingNode *procnode);
 };
 
 #endif // ROINODE_H

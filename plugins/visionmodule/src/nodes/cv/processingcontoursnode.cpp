@@ -8,6 +8,10 @@ ProcessingContoursNode::ProcessingContoursNode()
 {
     m_processingType=ProcessingType::ProcessingContoursNode;
     ProcessingNode::processingTypeTable[m_processingType]="Contours";
+
+
+
+
 }
 
 QQmlComponent *ProcessingContoursNode::delegate(QQmlEngine &engine) noexcept
@@ -129,10 +133,6 @@ void ProcessingContoursNode::doProcess()
 
 void ProcessingContoursNode::DeSerialize(QJsonObject &json)
 {
-    m_filteredContoursPort = new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContours");
-
-    m_outPorts.append(m_filteredContoursPort);
-
 
     ProcessingNode::DeSerialize(json);
 
@@ -141,4 +141,13 @@ void ProcessingContoursNode::DeSerialize(QJsonObject &json)
     }
 
     m_outputPort->setHidden(true);
+}
+
+void ProcessingContoursNode::initializePorts()
+{
+    m_filteredContoursPort = new FlowNodePort(this,qan::PortItem::Type::Out,"filteredContours");
+
+    m_outPorts.append(m_filteredContoursPort);
+
+    ProcessingNode::initializePorts();
 }

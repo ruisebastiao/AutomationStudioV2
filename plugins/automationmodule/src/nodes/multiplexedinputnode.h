@@ -135,6 +135,10 @@ signals:
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // MULTIPLEXEDINPUTNODE_H

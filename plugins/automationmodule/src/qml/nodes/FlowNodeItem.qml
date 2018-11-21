@@ -32,7 +32,13 @@ Qan.NodeItem {
 
 
     Component.onCompleted: {
+        if(serializedDims){
+            root.width=root.node.normalWidth;
+        }
 
+        if(serializedDims){
+            root.height=root.node.normalHeight;
+        }
     }
 
 
@@ -54,6 +60,7 @@ Qan.NodeItem {
             }
         }
 
+        //on
         onBindSourceProperty:{
 
 
@@ -242,7 +249,7 @@ Qan.NodeItem {
         width: 48
         height: 48
         antialiasing: true
-        visible: root.node.editMode
+        visible: root.node.editMode && selected
         z:99999
         x:5
 

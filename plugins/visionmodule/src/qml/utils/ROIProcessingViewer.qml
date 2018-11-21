@@ -110,7 +110,7 @@ Item{
         contentItem:Rectangle{
             color: "transparent"
             border.width: 2
-            border.color: Material.color(Material.primary)
+            border.color: Material.color(Material.accent)
             anchors.fill: parent
             GroupBox{
                 anchors.fill: parent
@@ -120,22 +120,27 @@ Item{
                     id: listView1
                     clip: true
                     anchors.fill: parent
-                    onCurrentIndexChanged: {
-                        console.log(currentIndex)
-                    }
-
-
                     model: root.roinode.processingNodeTypes
                     delegate:Item {
                         id:proc_delegate
                         width: parent.width
                         height: 40
+                        property var modelDataObject: modelData
+                        property var key;
+                        property string value
+                        onModelDataObjectChanged: {
+                            for (var prop in modelDataObject) {
+                                key=prop
+                                value= modelDataObject[prop]
+                            }
+                        }
+
                         Label{
 
-                            text: modelData
+                            text: value
                             anchors.fill: parent
                             font.pixelSize: 16
-                            horizontalAlignment:Text.AlignLeft
+                            horizontalAlignment:Text.AlignHLeft
                             verticalAlignment: Text.AlignVCenter
                             //                     fontSizeMode:Text.Fit
                         }
@@ -145,6 +150,13 @@ Item{
                             onEntered:{
                                 proc_delegate.ListView.view.currentIndex = index;
 
+                            }
+
+                            onPressed: {
+
+
+                                root.roinode.addProcNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                contextMenu.dismiss()
                             }
                         }
                     }

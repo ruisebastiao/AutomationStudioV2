@@ -22,12 +22,12 @@ ROINode::ROINode()
 
 ROINode::~ROINode()
 {
-//    m_roiEditorGraphView->deleteLater();
-//    for (int var = 0; var < m_ProcessingNodes.length(); ++var) {
-//        ProcessingNode* procnode= qobject_cast<ProcessingNode*>(m_ProcessingNodes.at(var));
-//        procnode->setParent(nullptr);
-//        procnode->deleteLater();
-//    }
+    //    m_roiEditorGraphView->deleteLater();
+    //    for (int var = 0; var < m_ProcessingNodes.length(); ++var) {
+    //        ProcessingNode* procnode= qobject_cast<ProcessingNode*>(m_ProcessingNodes.at(var));
+    //        procnode->setParent(nullptr);
+    //        procnode->deleteLater();
+    //    }
 
 }
 
@@ -64,52 +64,77 @@ void ROINode::Serialize(QJsonObject &json)
 }
 
 
-ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObject nodeobject)
-{
+
+//void add
+
+ProcessingNode *ROINode::createProcessingNode(qan::GraphView *graphView, QString nodetype){
     qan::Node* newnode=nullptr;
 
-    if(nodeobject["processingType"]=="ProcessingBaseNode"){
+    if(nodetype=="ProcessingBaseNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingBaseNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingThresholdNode"){
+    else if(nodetype=="ProcessingThresholdNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingThresholdNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingFilterNode"){
+    else if(nodetype=="ProcessingFilterNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingFilterNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingEndNode"){
+    else if(nodetype=="ProcessingEndNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingEndNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingContoursNode"){
+    else if(nodetype=="ProcessingContoursNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingContoursNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingLogicalNode"){
+    else if(nodetype=="ProcessingLogicalNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingLogicalNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingEnclosingNode"){
+    else if(nodetype=="ProcessingEnclosingNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingEnclosingNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingGeometricNode"){
+    else if(nodetype=="ProcessingGeometricNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingGeometricNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingNumericNode"){
+    else if(nodetype=="ProcessingNumericNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingNumericNode>(nullptr);
     }
-    else if(nodeobject["processingType"]=="ProcessingMaskNode"){
+    else if(nodetype=="ProcessingMaskNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingMaskNode>(nullptr);
     }
     else{
-        LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodeobject["processingType"].toString()));
+        LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodetype));
     }
 
 
 
-    ProcessingNode* node=dynamic_cast<ProcessingNode*>(newnode);
+    ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(newnode);
+
+
+    return procnode;
+
+
+
+}
+
+ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObject nodeobject)
+{
+
+
+    ProcessingNode* node=dynamic_cast<ProcessingNode*>(createProcessingNode(graphView,nodeobject["processingType"].toString()));
     if(node){
         node->DeSerialize(nodeobject);
+    }
 
 
-        connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
+
+    return node;
+
+}
+
+
+void ROINode::initializeProcessingNode(ProcessingNode* procnode){
+
+    if(procnode){
+        connect(procnode,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
             int nodepos=m_ProcessingNodes.indexOf( nodetoremove);
             if(nodepos>0){
                 FlowNode* noderemoved=m_ProcessingNodes.at(nodepos);
@@ -123,17 +148,30 @@ ProcessingNode *ROINode::readProcessingNode(qan::GraphView *graphView, QJsonObje
         });
 
 
-        //    connect()
+
+
+        procnode->setOriginalFrame(this->processedFrame());
+        if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
+            procnode->bindSourceProperty(this,"sourceFrame","input");
+            m_basenode=qobject_cast<ProcessingBaseNode*>(procnode);
+        }
+
+
+
+
+
+        QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
+            setRoiProcessingDone(true);
+        });
+
+
+        m_ProcessingNodes.append(procnode);
 
     }
 
 
 
-    return node;
-
 }
-
-
 
 void ROINode::DeSerialize(QJsonObject &json)
 {
@@ -147,54 +185,14 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 
 
-        FlowNode* node=nullptr;
-        ProcessingNode* procnode=nullptr;
 
         QJsonObject processingObject=processingArray[i].toObject();
 
 
-        node=readProcessingNode(m_roiEditorGraphView,processingObject);
+        ProcessingNode* procnode=readProcessingNode(m_roiEditorGraphView,processingObject);
 
+        initializeProcessingNode(procnode);
 
-
-        procnode=qobject_cast<ProcessingNode*>(node);
-        if(procnode){
-            procnode->setOriginalFrame(this->processedFrame());
-            if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
-                node->bindSourceProperty(this,"sourceFrame","input");
-                m_basenode=qobject_cast<ProcessingBaseNode*>(procnode);
-            }
-
-
-
-
-            QObject::connect(procnode,&ProcessingNode::isBaseNodeChanged,this, [&](bool isbase){
-
-                if(isbase){
-                    node->bindSourceProperty(this,"sourceFrame","input");
-                }
-                else{
-                    node->unbindSourceProperty("input");
-                }
-
-            });
-
-
-
-            QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
-//                emit processedFrameChanged(m_processedFrame);
-                setRoiProcessingDone(true);
-            });
-
-
-
-
-        }
-
-
-        if(node){
-            m_ProcessingNodes.append(node);
-        }
 
 
 
@@ -210,6 +208,32 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 }
 
+void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
+    qDebug()<<"Adding node:"<<nodeinfo<<" @ "<<loc;
+
+    QString procType;
+    QMapIterator<QString, QVariant> i(nodeinfo);
+    while (i.hasNext()) {
+        i.next();
+        procType=i.key();
+
+    }
+
+    ProcessingNode *procnode=createProcessingNode(m_roiEditorGraphView,procType);
+
+    if(procnode){
+        procnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
+        procnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
+
+        initializeProcessingNode(procnode);
+
+        procnode->initializePorts();
+
+
+    }
+
+
+}
 
 
 

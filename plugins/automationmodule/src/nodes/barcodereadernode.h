@@ -317,6 +317,10 @@ public:
     {
         return m_rawdataPort;
     }
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 

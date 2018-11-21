@@ -163,6 +163,10 @@ private:
 protected:
     QMat* m_frameSink=nullptr;
     virtual void DeSerialize(QJsonObject &json) override;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // CAPTURENODE_H

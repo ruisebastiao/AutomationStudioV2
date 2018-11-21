@@ -4,6 +4,8 @@ ProcessingLogicalNode::ProcessingLogicalNode()
 {
     m_processingType=ProcessingType::ProcessingLogicalNode;
     ProcessingNode::processingTypeTable[m_processingType]="Logical Operations";
+
+
 }
 
 
@@ -14,6 +16,21 @@ QQmlComponent *ProcessingLogicalNode::delegate(QQmlEngine &engine) noexcept
         delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/Cv/ProcessingLogicalNodeItem.qml"));
     return delegate.get();
 
+}
+
+void ProcessingLogicalNode::initializePorts()
+{
+    m_logicalInput1Port= new FlowNodePort(this,qan::PortItem::Type::In,"logicalInput1");
+    m_logicalInput2Port= new FlowNodePort(this,qan::PortItem::Type::In,"logicalInput2");
+
+    m_inPorts.append(m_logicalInput1Port);
+    m_inPorts.append(m_logicalInput2Port);
+
+    m_logicalOutputPort= new FlowNodePort(this,qan::PortItem::Type::Out,"logicalOutput");
+
+    m_outPorts.append(m_logicalOutputPort);
+
+    ProcessingNode::initializePorts();
 }
 
 
@@ -35,15 +52,7 @@ void ProcessingLogicalNode::doProcess()
 void ProcessingLogicalNode::DeSerialize(QJsonObject &json)
 {
 
-    m_logicalInput1Port= new FlowNodePort(this,qan::PortItem::Type::In,"logicalInput1");
-    m_logicalInput2Port= new FlowNodePort(this,qan::PortItem::Type::In,"logicalInput2");
 
-    m_inPorts.append(m_logicalInput1Port);
-    m_inPorts.append(m_logicalInput2Port);
-
-    m_logicalOutputPort= new FlowNodePort(this,qan::PortItem::Type::Out,"logicalOutput");
-
-    m_outPorts.append(m_logicalOutputPort);
 
 
     ProcessingNode::DeSerialize(json);

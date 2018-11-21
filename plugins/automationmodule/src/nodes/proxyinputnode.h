@@ -278,6 +278,10 @@ private:
 
 protected:
     virtual void DeSerialize(QJsonObject &json) override;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // PROXYINPUTNODE_H

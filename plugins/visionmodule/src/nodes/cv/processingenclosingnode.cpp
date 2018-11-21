@@ -7,6 +7,7 @@ ProcessingEnclosingNode::ProcessingEnclosingNode()
 {
     m_processingType=ProcessingType::ProcessingEnclosingNode;
     ProcessingNode::processingTypeTable[m_processingType]="Enclosing Shapes";
+
 }
 
 
@@ -99,11 +100,7 @@ void ProcessingEnclosingNode::doProcess()
 
 void ProcessingEnclosingNode::DeSerialize(QJsonObject &json)
 {
-    m_contoursPort= new FlowNodePort(this,qan::PortItem::Type::In,"contours");
-    m_enclosingShapesPort= new FlowNodePort(this,qan::PortItem::Type::Out,"enclosingShapes");
 
-    m_inPorts.append(m_contoursPort);
-    m_outPorts.append(m_enclosingShapesPort);
 
     ProcessingNode::DeSerialize(json);
     m_inputPort->setHidden(true);
@@ -116,4 +113,15 @@ void ProcessingEnclosingNode::DeSerialize(QJsonObject &json)
     if(m_enclosingShapesPort->portLabel()==""){
         m_enclosingShapesPort->setPortLabel("Enclosing Shapes");
     }
+}
+
+void ProcessingEnclosingNode::initializePorts()
+{
+    m_contoursPort= new FlowNodePort(this,qan::PortItem::Type::In,"contours");
+    m_enclosingShapesPort= new FlowNodePort(this,qan::PortItem::Type::Out,"enclosingShapes");
+
+    m_inPorts.append(m_contoursPort);
+    m_outPorts.append(m_enclosingShapesPort);
+
+    ProcessingNode::initializePorts();
 }

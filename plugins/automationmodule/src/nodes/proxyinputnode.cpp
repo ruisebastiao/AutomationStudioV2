@@ -7,6 +7,9 @@ ProxyInputNode::ProxyInputNode()
 
 
 
+
+
+
     m_proxyNodes= new ProxyInputNodeListModel();
 }
 
@@ -20,13 +23,6 @@ QQmlComponent *ProxyInputNode::delegate(QQmlEngine &engine)
 
 void ProxyInputNode::DeSerialize(QJsonObject &json)
 {
-    m_inputPort=new FlowNodePort(this,qan::PortItem::Type::In,"input");
-
-    m_inPorts.append(m_inputPort);
-
-    m_outputPort=new FlowNodePort(this,qan::PortItem::Type::Out,"output");
-    m_outPorts.append(m_outputPort);
-
 
     FlowNode::DeSerialize(json);
 
@@ -63,6 +59,16 @@ void ProxyInputNode::DeSerialize(QJsonObject &json)
     // updatePorts();
 
 
+}
+
+void ProxyInputNode::initializePorts()
+{
+    m_inputPort=new FlowNodePort(this,qan::PortItem::Type::In,"input");
+
+    m_inPorts.append(m_inputPort);
+
+    m_outputPort=new FlowNodePort(this,qan::PortItem::Type::Out,"output");
+    m_outPorts.append(m_outputPort);
 }
 
 void ProxyInputNodeListModel::onNodeAdded(FlowNode *nodeloaded)

@@ -132,6 +132,10 @@ private:
 
     FlowNodePort* m_enclosingShapesPort=nullptr;
     EnclosingType m_enclosingType=RotatedRectEnclosing;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // PROCESSINGENCLOSINGNODE_H

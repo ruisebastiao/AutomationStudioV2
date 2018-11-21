@@ -59,6 +59,10 @@ private:
     // JsonSerializable interface
 protected:
     virtual void DeSerialize(QJsonObject &json) override;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // FILECAPTURENODE_H

@@ -231,6 +231,10 @@ private:
     QLineF lineSegment();
     QVariant m_input3;
     FlowNodePort* m_input3Port=nullptr;
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // PROCESSINGGEOMETRICNODE_H

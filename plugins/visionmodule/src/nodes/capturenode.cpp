@@ -29,6 +29,13 @@ void CaptureNode::setFrameSink(QMat *frameSink)
 
 void CaptureNode::DeSerialize(QJsonObject &json)
 {
+
+
+    FlowNode::DeSerialize(json);
+}
+
+void CaptureNode::initializePorts()
+{
     m_newFramePort= new FlowNodePort(this,qan::PortItem::Type::In,"newFrame");
     m_inPorts.append(m_newFramePort);
 
@@ -37,6 +44,5 @@ void CaptureNode::DeSerialize(QJsonObject &json)
 
     m_outPorts.append(m_frameSinkPort);
     m_outPorts.append(m_frameCapturedPort);
-
-    FlowNode::DeSerialize(json);
+    FlowNode::initializePorts();
 }

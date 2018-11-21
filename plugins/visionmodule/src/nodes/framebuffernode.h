@@ -454,6 +454,10 @@ signals:
     void readNextFrameChanged(bool readNextFrame);
     void readNextFramePortChanged(FlowNodePort* readNextFramePort);
     void bufferFullChanged(bool bufferFull);
+
+    // FlowNode interface
+public:
+    void initializePorts() override;
 };
 
 #endif // FRAMEBUFFERNODE_H
