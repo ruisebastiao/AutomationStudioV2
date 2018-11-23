@@ -44,6 +44,9 @@ unix:HEADERS += $$PWD/src/client/linux/handler/exception_handler.h
 unix:HEADERS += $$PWD/src/client/linux/crash_generation/crash_generation_client.h
 unix:HEADERS += $$PWD/src/client/linux/handler/minidump_descriptor.h
 unix:HEADERS += $$PWD/src/client/linux/minidump_writer/minidump_writer.h
+
+unix:HEADERS += $$PWD/src/client/linux/microdump_writer/microdump_writer.h
+
 unix:HEADERS += $$PWD/src/client/linux/minidump_writer/line_reader.h
 unix:HEADERS += $$PWD/src/client/linux/minidump_writer/linux_dumper.h
 unix:HEADERS += $$PWD/src/client/linux/minidump_writer/linux_ptrace_dumper.h
@@ -88,6 +91,17 @@ unix:SOURCES += $$PWD/src/common/linux/guid_creator.cc
 unix:SOURCES += $$PWD/src/common/linux/elfutils.cc
 unix:SOURCES += $$PWD/src/common/string_conversion.cc
 unix:SOURCES += $$PWD/src/common/convert_UTF.c
+
+
+unix:HEADERS += $$PWD/src/client/linux/dump_writer_common/thread_info.h
+unix:SOURCES += $$PWD/src/client/linux/dump_writer_common/thread_info.cc
+
+unix:HEADERS += $$PWD/src/client/linux/dump_writer_common/ucontext_reader.h
+unix:SOURCES += $$PWD/src/client/linux/dump_writer_common/ucontext_reader.cc
+
+unix:SOURCES += $$PWD/src/client/linux/microdump_writer/microdump_writer.cc
+
+
 #breakpad app need debug info inside binaries
 unix:QMAKE_CXXFLAGS+=-g
 

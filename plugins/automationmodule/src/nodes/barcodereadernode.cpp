@@ -152,23 +152,3 @@ void BarcodeReaderNode::DeSerialize(QJsonObject &json)
     checkPorts();
 
 }
-
-//void BarcodeReaderNode::initializePorts()
-//{
-
-
-
-//    m_dataoutPort=new FlowNodePort(this,qan::PortItem::Type::Out,"dataout");
-
-//    m_openedPort=new FlowNodePort(this,qan::PortItem::Type::Out,"opened");
-
-//    m_rawdataPort=new FlowNodePort(this,qan::PortItem::Type::Out,"rawdata");
-
-//    m_outPorts[m_dataoutPort->getPortItem()->getId().toStdString()]=m_dataoutPort;
-//    m_outPorts[m_openedPort->getPortItem()->getId().toStdString()]=m_openedPort;
-//    m_outPorts[m_rawdataPort->getPortItem()->getId().toStdString()]=m_rawdataPort;
-
-//}
-
-
-

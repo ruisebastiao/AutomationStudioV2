@@ -36,6 +36,8 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
     m_port->setId(portID);
     m_port->setLabel(portID);
 
+    setPortLabel(portID);
+    m_port->setDraggable(true);
     m_scenegraph= qobject_cast<SceneGraph*>(m_port->getNode()->getGraph());
 
 
@@ -53,6 +55,10 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
     });
 
     QObject::connect(m_port, &qan::PortItem::outEdgeAdded, this, [this](qan::EdgeItem& outEdgeItem){
+
+        if(!m_deserialized){
+            return;
+        }
 
         QObject::connect(&outEdgeItem, &qan::EdgeItem::destroyed, this, [this](QObject* edgeObject){
             LOG_INFO("Out edge destroyed");
@@ -87,15 +93,21 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
         if(targetNode!=nullptr){
             targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
             int targetid=targetNode->id();
-            ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetid));
 
-            if(connectioninfo){
-                if(connectioninfo->portID()==targetPortItem->getId()){
-                    return;
-                }
+            ConnectionInfo ci(targetid,targetPortItem->getId());
+            if(m_connections.contains(&ci)){
+                return;
             }
 
-            connectioninfo= new ConnectionInfo();
+//            ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetid));
+
+//            if(connectioninfo){
+//                if(connectioninfo->portID()==targetPortItem->getId()){
+//                    return;
+//                }
+//            }
+
+            ConnectionInfo* connectioninfo= new ConnectionInfo();
 
 
             connectioninfo->setNodeID(targetNode->id());
@@ -178,6 +190,11 @@ void FlowNodePort::Serialize(QJsonObject &json)
         json["connectedTo"]=connectedToArrayObject;
     }
 
+    QJsonObject portItemObject;
+    portItemObject["x"]=m_port->x();
+    portItemObject["y"]=m_port->y();
+
+    json["portItem"]=portItemObject;
 
 }
 
@@ -201,6 +218,28 @@ void FlowNodePort::DeSerialize(QJsonObject &json)
         m_connections.append(connection);
     }
 
+    m_deserialized=true;
+
+    QJsonObject portItemObject=json["portItem"].toObject();
+
+//    qDebug()<<"YYYY:"<<portItemObject["y"].toDouble();
+
+    this->m_port->setProperty("x",QVariant::fromValue(portItemObject["x"].toDouble()));
+    this->m_port->setProperty("yPosition",QVariant::fromValue(portItemObject["y"].toDouble()));
+
+
+//    QTimer* teste = new QTimer();
+
+//    teste->setInterval(10000);
+
+//    teste->setSingleShot(true);
+//    connect(teste,&QTimer::timeout,this,[this,portItemObject](){
+//        this->m_port->setProperty("x",QVariant::fromValue(portItemObject["x"].toDouble()));
+//        this->m_port->setProperty("y",QVariant::fromValue(portItemObject["y"].toDouble()));
+
+//    });
+
+//    teste->start();
 
 }
 

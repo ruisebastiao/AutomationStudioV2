@@ -30,6 +30,44 @@ Qan.NodeItem {
         }
     }
 
+    leftDock: Item{
+        id: leftdock
+        width: 24
+        z: 1.5   // Selection item z=1.0, dock must be on top of selection
+
+
+        anchors.rightMargin: 2
+
+        property var hostNodeItem
+
+        onHostNodeItemChanged: {
+            if(hostNodeItem){
+                leftdock.height=hostNodeItem.height
+                leftdock.anchors.right=hostNodeItem.left
+                leftdock.anchors.verticalCenter= hostNodeItem.verticalCenter
+            }
+        }
+
+    }
+
+    rightDock: Item{
+        id: rightdock
+        width: 24
+        z: 1.5   // Selection item z=1.0, dock must be on top of selection
+
+        property var hostNodeItem
+
+        anchors.leftMargin: 2
+        onHostNodeItemChanged: {
+            if(hostNodeItem){
+                rightdock.height=hostNodeItem.height
+                rightdock.anchors.left=hostNodeItem.right
+                rightdock.anchors.verticalCenter= hostNodeItem.verticalCenter
+            }
+        }
+
+    }
+
 
     Component.onCompleted: {
         if(serializedDims){
@@ -68,26 +106,26 @@ Qan.NodeItem {
                 return;
             }
 
-           // console.log("Node: "+root.node+" | Binding target:"+targetProperty+"("+root.node[targetProperty]+") to source:"+sourceProperty)
+            // console.log("Node: "+root.node+" | Binding target:"+targetProperty+"("+root.node[targetProperty]+") to source:"+sourceProperty)
 
 
 
 
-//            if( root.node[targetProperty]==undefined ){
-//                console.log("Undefined target property:"+targetProperty+"| Node:"+root.node+" id:"+root.node.id);
-//            }
-//            else{
-                root.node[targetProperty]=Qt.binding(function() {
-//                    if(sourceNode[sourceProperty]==undefined ){
-//                        console.log("Undefined source property:"+sourceProperty+"| Node:"+root.node+" id:"+root.node.id);
-//                        return null
-//                    }
+            //            if( root.node[targetProperty]==undefined ){
+            //                console.log("Undefined target property:"+targetProperty+"| Node:"+root.node+" id:"+root.node.id);
+            //            }
+            //            else{
+            root.node[targetProperty]=Qt.binding(function() {
+                //                    if(sourceNode[sourceProperty]==undefined ){
+                //                        console.log("Undefined source property:"+sourceProperty+"| Node:"+root.node+" id:"+root.node.id);
+                //                        return null
+                //                    }
 
 
 
-                    return sourceNode[sourceProperty];
-                })
-//            }
+                return sourceNode[sourceProperty];
+            })
+            //            }
         }
         onBindPropertyToTarget:{
 
@@ -337,7 +375,7 @@ Qan.NodeItem {
 
             Item{
                 id:containerLayout
-//                Layout.preferredHeight:container.childrenRect.height
+                //                Layout.preferredHeight:container.childrenRect.height
                 Layout.fillHeight: true
 
                 Layout.fillWidth: true
@@ -370,26 +408,26 @@ Qan.NodeItem {
 
 
 
-//    Item{
-//        id:overlay
-//        anchors.fill: parent
+    //    Item{
+    //        id:overlay
+    //        anchors.fill: parent
 
 
-//        z:100
+    //        z:100
 
 
 
-//        MouseGrabber{
-//            anchors.fill: parent
-//            proxyTo: root
-//            viewport: window
-//            active:root.editMode==false
+    //        MouseGrabber{
+    //            anchors.fill: parent
+    //            proxyTo: root
+    //            viewport: window
+    //            active:root.editMode==false
 
 
-//        }
+    //        }
 
 
-//    }
+    //    }
 
 
 

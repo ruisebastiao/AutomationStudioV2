@@ -9,6 +9,8 @@
 QVisionModule::QVisionModule(QQuickItem *parent)
 {
     m_type=ModuleType::VisionModule;
+    ProcessingNode::registerProcessingTypes();
+
 }
 
 void QVisionModule::loadModuleSettings(QString path)

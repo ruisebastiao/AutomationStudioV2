@@ -16,6 +16,10 @@ class ConnectionInfo:public QObject,public JsonSerializable
 
 public:
     ConnectionInfo();
+
+
+    ConnectionInfo(int nodeid,QString portid);
+
     ~ConnectionInfo();
     Q_PROPERTY(int nodeID READ nodeID WRITE setNodeID NOTIFY nodeIDChanged USER("serialize"))
     Q_PROPERTY(QString portID READ portID WRITE setPortID NOTIFY portIDChanged USER("serialize"))
@@ -26,6 +30,16 @@ public:
         ret.append(" :: Target Node:"+QString::number(nodeID())+" :: Target Port:"+portID());
         return ret;
     }
+
+        bool operator==(const ConnectionInfo &a)
+        {
+            return a.nodeID()==nodeID() && a.portID()==portID();
+        }
+
+        friend bool operator==(const ConnectionInfo&a , const ConnectionInfo& b){
+            return a.nodeID()==b.nodeID() && a.portID()==b.portID();
+        }
+//    virtual bool isEqual(const ConnectionInfo& obj) const { return obj.nodeID()== nodeID(); }
 
 
     int nodeID() const

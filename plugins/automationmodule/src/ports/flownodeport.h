@@ -77,11 +77,13 @@ private:
     QList<ConnectionInfo*> m_connections;
 
 
-    QString m_portLabel="No label";
+    QString m_portLabel="";
 
     bool m_showinlabel=false;
 
     bool m_hidden=false;
+
+    bool m_deserialized=false;
 
     FlowNode *getNodeFromEdge(qan::EdgeItem *edgeitem);
 

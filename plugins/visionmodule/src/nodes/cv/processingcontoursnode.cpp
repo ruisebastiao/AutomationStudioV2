@@ -10,8 +10,6 @@ ProcessingContoursNode::ProcessingContoursNode()
     ProcessingNode::processingTypeTable[m_processingType]="Contours";
 
 
-
-
 }
 
 QQmlComponent *ProcessingContoursNode::delegate(QQmlEngine &engine) noexcept
@@ -34,6 +32,10 @@ void ProcessingContoursNode::setInput(QMat *input)
 
 void ProcessingContoursNode::doProcess()
 {
+
+    if(!input() || input()->cvMat()->empty()){
+        return;
+    }
 
     vector<vector<Point> > contours;
 

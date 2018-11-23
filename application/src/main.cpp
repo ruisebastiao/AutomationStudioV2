@@ -27,8 +27,9 @@
 
 #include "automationstudio.h"
 #include "version.h"
-//#include "crash_handler.h"
+#include "crash_handler.h"
 
+//#include "qt_breakpad.h"
 
 using namespace as;
 
@@ -89,7 +90,10 @@ int main(int argc, char *argv[]){
 
     dumpsdir.cd("dumps");
 
-    //    Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
+    Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
+
+//    QtBreakpad::init(dumpsdir.absolutePath());
+
 
     //buggyFunc();
 

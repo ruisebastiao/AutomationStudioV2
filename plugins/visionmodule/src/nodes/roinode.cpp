@@ -22,12 +22,7 @@ ROINode::ROINode()
 
 ROINode::~ROINode()
 {
-    //    m_roiEditorGraphView->deleteLater();
-    //    for (int var = 0; var < m_ProcessingNodes.length(); ++var) {
-    //        ProcessingNode* procnode= qobject_cast<ProcessingNode*>(m_ProcessingNodes.at(var));
-    //        procnode->setParent(nullptr);
-    //        procnode->deleteLater();
-    //    }
+
 
 }
 

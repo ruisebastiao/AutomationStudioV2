@@ -65,6 +65,18 @@ public:
 
 
 
+    static void registerProcessingTypes(){
+        int enumscount=QMetaEnum::fromType<ProcessingType>().keyCount();
+
+        for (int i = 0; i < enumscount; ++i) {
+            ProcessingType procctype= static_cast<ProcessingType>(QMetaEnum::fromType<ProcessingType>().value(i));
+            std::string enum_str=std::string(QMetaEnum::fromType<ProcessingType>().valueToKey(i));
+
+            ProcessingNode::processingTypeTable[procctype]=enum_str;
+
+        }
+
+    }
 
 
 
@@ -196,10 +208,6 @@ signals:
 
     void enabledChanged(bool enabled);
 
-
-
-
-    void processingNodeTypesChanged(QStringList processingNodeTypes);
 
 private:
 

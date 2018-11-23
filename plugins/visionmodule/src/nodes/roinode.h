@@ -110,10 +110,10 @@ private:
 
 
 
-   // QMat* processingFrame=nullptr;
+    // QMat* processingFrame=nullptr;
 
-//    template<class Node_t>
-//    FlowNode* readProcessingNode(QJsonObject roiobject);
+    //    template<class Node_t>
+    //    FlowNode* readProcessingNode(QJsonObject roiobject);
 
     //QQuickItem* m_processingContainer=nullptr;
 
@@ -159,21 +159,16 @@ public:
     {
         using map_type = std::map<ProcessingNode::ProcessingType, string>;
 
-        int count = static_cast<int>(ProcessingNode::processingTypeTable.size());
-
-
-
-        if(m_processingNodeTypes.length()!=count){
-            m_processingNodeTypes.clear();
-            BOOST_FOREACH(map_type::value_type &p, ProcessingNode::processingTypeTable) {
-                ProcessingNode::ProcessingType procType=p.first;
-                string str=ProcessingNode::processingTypeTable[procType];
-                QVariantMap map;
-                map.insert(QVariant::fromValue(procType).value<QString>(),QString::fromStdString(str));
-                m_processingNodeTypes.append(map);
-            }
-
+        m_processingNodeTypes.clear();
+        BOOST_FOREACH(map_type::value_type &p, ProcessingNode::processingTypeTable) {
+            ProcessingNode::ProcessingType procType=p.first;
+            string str=ProcessingNode::processingTypeTable[procType];
+            QVariantMap map;
+            map.insert(QVariant::fromValue(procType).value<QString>(),QString::fromStdString(str));
+            m_processingNodeTypes.append(map);
         }
+
+
         return m_processingNodeTypes;
     }
     Q_INVOKABLE void addProcNode(QPoint loc, QVariantMap nodeinfo);

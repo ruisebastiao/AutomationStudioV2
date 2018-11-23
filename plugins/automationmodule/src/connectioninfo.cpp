@@ -5,6 +5,12 @@ ConnectionInfo::ConnectionInfo()
 
 }
 
+ConnectionInfo::ConnectionInfo(int nodeid, QString portid)
+{
+    m_nodeID=nodeid;
+    m_portID=portid;
+}
+
 ConnectionInfo::~ConnectionInfo()
 {
 

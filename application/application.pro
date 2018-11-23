@@ -4,6 +4,7 @@ QT      += qml quick quickcontrols2 opengl
 CONFIG +=c++14
 
 
+#include(../qt-breakpad/qt-breakpad.pri)
 
 include(../functions.pri)
 

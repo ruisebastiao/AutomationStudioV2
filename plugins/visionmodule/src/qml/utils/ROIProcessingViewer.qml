@@ -152,7 +152,7 @@ Item{
 
                             }
 
-                            onPressed: {
+                            onClicked: {
 
 
                                 root.roinode.addProcNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
