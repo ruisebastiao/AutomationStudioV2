@@ -4,6 +4,7 @@
 
 
 #include <QObject>
+#include <QtDebug>
 
 #include <automationstudiocore/jsonserializable.h>
 
@@ -31,15 +32,13 @@ public:
         return ret;
     }
 
-        bool operator==(const ConnectionInfo &a)
-        {
-            return a.nodeID()==nodeID() && a.portID()==portID();
-        }
 
-        friend bool operator==(const ConnectionInfo&a , const ConnectionInfo& b){
-            return a.nodeID()==b.nodeID() && a.portID()==b.portID();
-        }
-//    virtual bool isEqual(const ConnectionInfo& obj) const { return obj.nodeID()== nodeID(); }
+    bool operator==(const ConnectionInfo &a) const
+    {
+        bool retval=a.nodeID()==nodeID() && a.portID()==portID();
+        qDebug()<<"ret1:"<<retval;
+        return retval;
+    }
 
 
     int nodeID() const

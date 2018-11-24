@@ -7,6 +7,9 @@
 #include <automationstudiocore/jsonserializable.h>
 
 #include <flownodeport.h>
+#include <random>
+
+
 
 using namespace std;
 
@@ -134,10 +137,10 @@ public:
 
 
 
+    void initializePorts(QJsonObject &json);
 
     Q_INVOKABLE void remove();
 private:
-   void initializePorts(QJsonObject &json);
 
 protected:
     Type            m_type{Type::NodeNone};

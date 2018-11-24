@@ -127,12 +127,6 @@ void FlowNode::initializePorts(QJsonObject &json)
 
             FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::In,propName);
             if(newport){
-                //                QJsonObject portObject;
-                //                string portObjectName=propName;
-                //                portObjectName.append("Port");
-                //                portObject=json[portObjectName.c_str()].toObject();
-
-                //                newport->DeSerialize(portObject);
 
                 string portkey=QString::number(id()).toStdString()+"|"+propName;
                 m_inPorts[portkey]=newport;
@@ -145,12 +139,6 @@ void FlowNode::initializePorts(QJsonObject &json)
             FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::Out,propName);
             if(newport){
 
-                //                QJsonObject portObject;
-                //                string portObjectName=propName;
-                //                portObjectName.append("Port");
-                //                portObject=json[portObjectName.c_str()].toObject();
-
-                //                newport->DeSerialize(portObject);
                 string portkey=QString::number(id()).toStdString()+"|"+propName;
                 m_outPorts[portkey]=newport;
             }

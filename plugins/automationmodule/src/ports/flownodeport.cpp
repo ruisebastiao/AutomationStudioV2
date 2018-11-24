@@ -67,7 +67,24 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
                 FlowNode* targetNode=getNodeFromEdge(edgeItem);
 
                 if(targetNode){
-                    ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
+
+                    qan::PortItem* targetPortItem=qobject_cast<qan::PortItem*>(edgeItem->getDestinationItem());
+
+                    ////TODO
+//                    ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
+
+                    ConnectionInfo ci(targetNode->id(),targetPortItem->getId());
+                    auto connection_finded=std::find_if(m_connections.begin(), m_connections.end(),
+                                     [&](ConnectionInfo* e) { return (e->nodeID() == targetNode->id() && e->portID()==targetPortItem->getId()); });
+
+
+                    if(connection_finded == m_connections.end()){
+                        // finded
+                        return;
+                    }
+
+                    ConnectionInfo* connectioninfo=*(connection_finded);
+
 
                     if(connectioninfo){
                         m_connections.removeOne(connectioninfo);
@@ -94,18 +111,17 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
             targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
             int targetid=targetNode->id();
 
+
+
             ConnectionInfo ci(targetid,targetPortItem->getId());
-            if(m_connections.contains(&ci)){
+            auto connection_finded=std::find_if(m_connections.begin(), m_connections.end(),
+                             [&](ConnectionInfo* e) { return (e->nodeID() == targetid && e->portID()==targetPortItem->getId()); });
+
+
+            if(connection_finded != m_connections.end()){
+                // finded
                 return;
             }
-
-//            ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetid));
-
-//            if(connectioninfo){
-//                if(connectioninfo->portID()==targetPortItem->getId()){
-//                    return;
-//                }
-//            }
 
             ConnectionInfo* connectioninfo= new ConnectionInfo();
 
@@ -222,24 +238,24 @@ void FlowNodePort::DeSerialize(QJsonObject &json)
 
     QJsonObject portItemObject=json["portItem"].toObject();
 
-//    qDebug()<<"YYYY:"<<portItemObject["y"].toDouble();
+    //    qDebug()<<"YYYY:"<<portItemObject["y"].toDouble();
 
     this->m_port->setProperty("x",QVariant::fromValue(portItemObject["x"].toDouble()));
     this->m_port->setProperty("yPosition",QVariant::fromValue(portItemObject["y"].toDouble()));
 
 
-//    QTimer* teste = new QTimer();
+    //    QTimer* teste = new QTimer();
 
-//    teste->setInterval(10000);
+    //    teste->setInterval(10000);
 
-//    teste->setSingleShot(true);
-//    connect(teste,&QTimer::timeout,this,[this,portItemObject](){
-//        this->m_port->setProperty("x",QVariant::fromValue(portItemObject["x"].toDouble()));
-//        this->m_port->setProperty("y",QVariant::fromValue(portItemObject["y"].toDouble()));
+    //    teste->setSingleShot(true);
+    //    connect(teste,&QTimer::timeout,this,[this,portItemObject](){
+    //        this->m_port->setProperty("x",QVariant::fromValue(portItemObject["x"].toDouble()));
+    //        this->m_port->setProperty("y",QVariant::fromValue(portItemObject["y"].toDouble()));
 
-//    });
+    //    });
 
-//    teste->start();
+    //    teste->start();
 
 }
 

@@ -222,7 +222,8 @@ void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
 
         initializeProcessingNode(procnode);
 
-        //procnode->initializePorts(QJsonObject());
+        QJsonObject Qo;
+        procnode->initializePorts(Qo);
 
 
     }
