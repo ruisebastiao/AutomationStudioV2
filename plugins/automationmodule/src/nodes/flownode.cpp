@@ -127,7 +127,7 @@ void FlowNode::initializePorts(QJsonObject &json)
 
             FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::In,propName);
             if(newport){
-
+//                newport->setHidden(true);
                 string portkey=QString::number(id()).toStdString()+"|"+propName;
                 m_inPorts[portkey]=newport;
             }
@@ -138,7 +138,7 @@ void FlowNode::initializePorts(QJsonObject &json)
         if(property.revision()==31){
             FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::Out,propName);
             if(newport){
-
+//                newport->setHidden(true);
                 string portkey=QString::number(id()).toStdString()+"|"+propName;
                 m_outPorts[portkey]=newport;
             }

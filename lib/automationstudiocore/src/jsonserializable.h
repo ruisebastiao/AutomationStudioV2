@@ -2,7 +2,7 @@
 #define JSONSERIALIZABLE_H
 
 #include "automationstudiocoreglobal.h"
-
+#include <qvariant.h>
 #include <QJsonObject>
 #include <qjsonarray.h>
 #include <QObject>
@@ -27,5 +27,6 @@ public:
 
 
 };
+Q_DECLARE_METATYPE(QVariant*);
 Q_DECLARE_INTERFACE(JsonSerializable, "JsonSerializable")
 #endif // JSONSERIALIZABLE_H

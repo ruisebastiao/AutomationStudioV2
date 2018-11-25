@@ -107,9 +107,6 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 
                 }
             });
-
-            qDebug()<<"Testing:"<<*node;
-
         }
 
     }

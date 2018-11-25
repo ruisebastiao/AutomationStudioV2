@@ -34,6 +34,73 @@ FlowNodeItem {
 
     resizable:true
 
+
+
+    ROISideContainerItem{
+        id:left_container
+        z:999999
+        containerSize:450
+        side:"left"
+        roiPressed: root.isPressed
+        show: root.processingConfigItem && root.selected==true && root.editMode==true
+        visible: root.processingConfigItem
+        contentItem: ColumnLayout{
+            anchors.fill: parent
+            GroupBox{
+                title: "Common Settings"
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                ColumnLayout{
+                    anchors.fill: parent
+                    CheckBox{
+                        Layout.fillWidth: true
+                        text: "Apply mask"
+                        checked: root.node.configsLoaded && root.node.applyMask
+                        onCheckedChanged: {
+
+                            root.node.applyMask=checked
+                        }
+                    }
+
+                    CheckBox{
+                        Layout.fillWidth: true
+                        text: "Draw on input source"
+                        checked: root.node.configsLoaded && root.node.drawOnSource
+                        onCheckedChanged: {
+
+                            root.node.drawOnSource=checked
+                        }
+                    }
+
+                    Item{
+
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                }
+
+
+            }
+
+            Item{
+                id:commonConfigContainer
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+            Item{
+
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+
+
+        }
+
+    }
+
+
     ROISideContainerItem{
         id:right_container
         z:999999
@@ -55,6 +122,7 @@ FlowNodeItem {
         }
 
     }
+
 
 
 

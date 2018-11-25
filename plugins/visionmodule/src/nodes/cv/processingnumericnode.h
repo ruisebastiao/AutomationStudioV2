@@ -9,7 +9,7 @@ class ProcessingNumericNode : public ProcessingNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(double value READ value WRITE setValue NOTIFY valueChanged USER("serialize") REVISION 31)
+    Q_PROPERTY(double numericValue READ numericValue WRITE setNumericValue NOTIFY numericValueChanged USER("serialize") REVISION 31)
 
 
 public:
@@ -18,9 +18,9 @@ public:
       static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
       // ProcessingNode interface
-      double value() const
+      double numericValue() const
       {
-          return m_value;
+          return m_numericValue;
       }
 
 
@@ -28,19 +28,18 @@ public:
 public slots:
     void setInput(QMat *input) override;
 
-    void setValue(double value)
+    void setNumericValue(double value)
     {
-      if (qFuzzyCompare(m_value, value))
-            return;
 
-        m_value = value;
-        emit valueChanged(m_value);
+
+        m_numericValue = value;
+        emit numericValueChanged(m_numericValue);
     }
 
 
 
 signals:
-    void valueChanged(double value);
+    void numericValueChanged(double value);
 
 
 protected:
@@ -48,7 +47,7 @@ protected:
 
 
 private:
-    double m_value=0;
+    double m_numericValue=0.0;
 
 
     // JsonSerializable interface
@@ -58,6 +57,10 @@ public:
     // FlowNode interface
 public:
     
+
+    // JsonSerializable interface
+public:
+    virtual void Serialize(QJsonObject &json) override;
 };
 
 #endif // PROCESSINGNUMERICNODE_H

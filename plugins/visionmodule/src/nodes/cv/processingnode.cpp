@@ -9,6 +9,9 @@ ProcessingNode::ProcessingNode()
 {
     m_type=Type::ProcessingNode;
 
+
+//    setApplyMask(false);
+//    setDrawOnSource(false);
 }
 
 ProcessingNode::~ProcessingNode()
@@ -98,7 +101,8 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
 
 
-
+    setApplyMask(m_applyMask);
+    setDrawOnSource(m_drawOnSource);
 
 
 

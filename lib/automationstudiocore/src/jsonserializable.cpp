@@ -24,6 +24,11 @@ void JsonSerializable::Serialize(QJsonObject &json, QObject *target)
                 }
                 else{
 
+                    auto teste=qvariant_cast<QVariant>(value);
+
+//                    if(){
+                       qDebug()<<"prop:"<<property.name()<<"|Val:"<<teste;
+//                    }
                     auto isobject=value.canConvert<QObject*>();
                     if(isobject){
                         QObject* propvalue=value.value<QObject*>();

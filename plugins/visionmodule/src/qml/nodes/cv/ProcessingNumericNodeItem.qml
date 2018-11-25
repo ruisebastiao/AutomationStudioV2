@@ -18,16 +18,35 @@ ProcessingNodeItem{
     expandOnEdit: true
 
 
-    processingConfigItem: ColumnLayout{
+
+    contentItem: ColumnLayout{
         anchors.fill: parent
         GroupBox{
             title: "Value:"
             Layout.fillWidth: true
             spacing: 5
-            TextEdit{
-                inputMethodHints:Qt.ImhFormattedNumbersOnly
-                width: parent.width
+            SpinBox{
+                id:spin_value
+                editable: true
+                enabled: root.node.editMode
+                stepSize: 1
+                value:root.node.numericValue
+                onValueChanged: {
+                    if(root.node.configsLoaded){
+                        root.node.numericValue=value
+                    }
+                }
             }
+
+            //            TextInput{
+            //                readOnly: root.node.editMode
+            //                inputMethodHints:Qt.ImhFormattedNumbersOnly
+            //                onAccepted: {
+            //                    root.node.value=
+            //                }
+
+            //                width: parent.width
+            //            }
         }
         Item{
             Layout.fillHeight: true

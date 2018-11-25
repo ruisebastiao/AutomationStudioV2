@@ -51,6 +51,7 @@ int main(int argc, char *argv[]){
 
 
 
+//      qRegisterMetaType<QVariant*>("QVariant*");
 
 
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));

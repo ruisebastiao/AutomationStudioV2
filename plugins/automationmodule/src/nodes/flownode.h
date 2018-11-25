@@ -146,7 +146,6 @@ protected:
     Type            m_type{Type::NodeNone};
 
 
-
     FlowNodePort* getPortFromKey(QString key);
 
 private:
@@ -158,14 +157,7 @@ private:
     bool m_configsLoaded=false;
 
     int m_id=0;
-    void setId(int id)
-    {
-        if (m_id == id)
-            return;
 
-        m_id = id;
-        emit idChanged(m_id);
-    }
 
     int m_editWidth=250;
 
@@ -385,6 +377,17 @@ public:
 
     // JsonSerializable interface
 public:
+
+
+    void setId(int id)
+    {
+        if (m_id == id)
+            return;
+
+        m_id = id;
+        emit idChanged(m_id);
+    }
+
     int editWidth() const
     {
         return m_editWidth;

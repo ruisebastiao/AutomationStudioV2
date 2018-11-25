@@ -23,6 +23,8 @@ class ProcessingNode : public FlowNode
 
 
 
+    Q_PROPERTY(QMat* maskInput READ maskInput WRITE setMaskInput NOTIFY maskInputChanged REVISION 30)
+    Q_PROPERTY(QMat* drawSource READ drawSource WRITE setDrawSource NOTIFY drawSourceChanged REVISION 30)
 
     Q_PROPERTY(QMat* input READ input WRITE setInput NOTIFY inputChanged REVISION 30)
     Q_PROPERTY(bool process READ process WRITE setProcess NOTIFY processChanged REVISION 30)
@@ -35,6 +37,9 @@ class ProcessingNode : public FlowNode
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
     Q_PROPERTY(ProcessingType  processingType  READ processingType CONSTANT FINAL USER("serialize"))
     Q_PROPERTY(bool inPlaceProcessing READ inPlaceProcessing WRITE setInPlaceProcessing NOTIFY inPlaceProcessingChanged)
+
+    Q_PROPERTY(bool applyMask READ applyMask WRITE setApplyMask NOTIFY applyMaskChanged USER("serialize"))
+    Q_PROPERTY(bool drawOnSource READ drawOnSource WRITE setDrawOnSource NOTIFY drawOnSourceChanged USER("serialize"))
 
 
 
@@ -184,6 +189,81 @@ public slots:
         emit originalInputChanged(m_originalInput);
     }
 
+    void setMaskInput(QMat* maskInput)
+    {
+        if (m_maskInput == maskInput)
+            return;
+
+        m_maskInput = maskInput;
+        emit maskInputChanged(m_maskInput);
+    }
+
+    void setDrawSource(QMat* drawSource)
+    {
+        if (m_drawSource == drawSource)
+            return;
+
+        m_drawSource = drawSource;
+        emit drawSourceChanged(m_drawSource);
+    }
+
+    void setApplyMask(bool applyMask)
+    {
+        FlowNodePort* port=getPortFromKey("maskInput");
+
+        if(port){
+            if(!applyMask){
+
+                auto edgeitem=  port->getPortItem()->getInEdgeItems().at(0);
+                if(edgeitem){
+                    this->getGraph()->removeEdge(edgeitem->getEdge());
+                }
+                port->setHidden(true);
+            }
+            else{
+                port->setHidden(false);
+            }
+        }
+        if (m_applyMask == applyMask)
+            return;
+
+
+        m_applyMask = applyMask;
+
+
+        emit applyMaskChanged(m_applyMask);
+    }
+
+    void setDrawOnSource(bool drawOnSource)
+    {
+
+        FlowNodePort* port=getPortFromKey("drawSource");
+
+
+        if(port){
+            if(!drawOnSource ){
+
+                auto edgeitem=  port->getPortItem()->getInEdgeItems().at(0);
+                if(edgeitem){
+                    this->getGraph()->removeEdge(edgeitem->getEdge());
+                }
+                port->setHidden(true);
+            }
+            else{
+                port->setHidden(false);
+            }
+        }
+
+        if (m_drawOnSource == drawOnSource)
+            return;
+
+        m_drawOnSource = drawOnSource;
+
+
+
+        emit drawOnSourceChanged(m_drawOnSource);
+    }
+
 signals:
     void inputChanged(QMat* input);
     void outputChanged(QMat* output);
@@ -209,6 +289,14 @@ signals:
     void enabledChanged(bool enabled);
 
 
+    void maskInputChanged(QMat* maskInput);
+
+    void drawSourceChanged(QMat* drawSource);
+
+    void applyMaskChanged(bool applyMask);
+
+    void drawOnSourceChanged(bool drawOnSource);
+
 private:
 
 
@@ -223,6 +311,14 @@ private:
 
     bool m_process=false;
 
+
+    QMat* m_maskInput= new QMat();
+
+    QMat* m_drawSource=new QMat();
+
+    bool m_applyMask=false;
+
+    bool m_drawOnSource=false;
 
 protected:
 
@@ -251,8 +347,23 @@ public:
     
 
 
+    QMat* maskInput() const
+    {
+        return m_maskInput;
+    }
+    QMat* drawSource() const
+    {
+        return m_drawSource;
+    }
+    bool applyMask() const
+    {
+        return m_applyMask;
+    }
+    bool drawOnSource() const
+    {
+        return m_drawOnSource;
+    }
 };
-
 
 Q_DECLARE_METATYPE(cv::Rect);
 Q_DECLARE_METATYPE(std::vector<cv::Rect>);

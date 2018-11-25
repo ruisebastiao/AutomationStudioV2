@@ -5,9 +5,6 @@ ProcessingNumericNode::ProcessingNumericNode()
     m_processingType=ProcessingType::ProcessingNumericNode;
     ProcessingNode::processingTypeTable[m_processingType]="Numeric value";
 
-
-
-
 }
 
 QQmlComponent *ProcessingNumericNode::delegate(QQmlEngine &engine) noexcept
@@ -39,10 +36,20 @@ void ProcessingNumericNode::DeSerialize(QJsonObject &json)
     if(port){
         port->setHidden(true);
     }
+
+
+
+
     port=getPortFromKey("output");
     if(port){
         port->setHidden(true);
     }
+
+    port=getPortFromKey("processingDone");
+    if(port){
+        port->setHidden(true);
+    }
+
     port=getPortFromKey("process");
     if(port){
         port->setHidden(true);
@@ -56,5 +63,10 @@ void ProcessingNumericNode::DeSerialize(QJsonObject &json)
 
 
 
+}
+
+void ProcessingNumericNode::Serialize(QJsonObject &json)
+{
+ ProcessingNode::Serialize(json);
 }
 

@@ -1,5 +1,6 @@
 #include "roinode.h"
 #include "QObject"
+#include "qautomationmodule.h"
 
 #include <nodes/cv/processingbasenode.h>
 #include <nodes/cv/processingcontoursnode.h>
@@ -193,9 +194,6 @@ void ROINode::DeSerialize(QJsonObject &json)
 
     }
 
-//    FlowNode::loadNodeConnections(m_ProcessingNodes);
-
-//    setConfigsLoaded(true);
 
     emit processingNodeTypesChanged(m_processingNodeTypes);
 
@@ -220,6 +218,29 @@ void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
         procnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
         procnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
 
+
+        std::sort(std::begin(m_ProcessingNodes), std::end(m_ProcessingNodes), [](FlowNode* a, FlowNode *b) {return a->id() < b->id(); });
+
+        int nodeid=-1;
+
+        // find first id available
+        for (int var = 0; var < m_ProcessingNodes.length()-1; ++var) {
+            if(m_ProcessingNodes.at(var+1)->id()-m_ProcessingNodes.at(var)->id()>1){
+                // check for available ids
+                ProcessingNode *node= static_cast<ProcessingNode*>(m_ProcessingNodes.at(var));
+                nodeid=node->id()+1;
+                //                qDebug()<<"ID:"<<node->id();
+                break;
+            }
+        }
+
+        if(nodeid==-1){
+            nodeid=m_ProcessingNodes.length();
+        }
+
+
+        procnode->setId(nodeid);
+
         initializeProcessingNode(procnode);
 
         QJsonObject Qo;
@@ -227,8 +248,6 @@ void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
 
 
     }
-
-
 }
 
 
