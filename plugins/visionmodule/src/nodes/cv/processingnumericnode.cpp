@@ -3,7 +3,6 @@
 ProcessingNumericNode::ProcessingNumericNode()
 {
     m_processingType=ProcessingType::ProcessingNumericNode;
-    ProcessingNode::processingTypeTable[m_processingType]="Numeric value";
 
 }
 

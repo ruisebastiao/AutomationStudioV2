@@ -3,7 +3,6 @@
 ProcessingShapesNode::ProcessingShapesNode()
 {
     m_processingType=ProcessingType::ProcessingShapesNode;
-    ProcessingNode::processingTypeTable[m_processingType]="Shapes Fitting";
 }
 
 QQmlComponent *ProcessingShapesNode::delegate(QQmlEngine &engine) noexcept

@@ -3,9 +3,6 @@
 ProcessingBaseNode::ProcessingBaseNode()
 {
     m_processingType=ProcessingType::ProcessingBaseNode;
-
-    // TODO this shold appear should be dynamic created impossible to remove???
-    ProcessingNode::processingTypeTable[m_processingType]="Base";
 }
 
 QQmlComponent *ProcessingBaseNode::delegate(QQmlEngine &engine) noexcept

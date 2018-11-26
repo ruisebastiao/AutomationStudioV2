@@ -36,6 +36,12 @@ FlowNode::~FlowNode()
 
 }
 
+void FlowNode::addCommonNode(QPoint loc, QVariantMap nodeinfo)
+{
+
+}
+
+
 
 void FlowNode::loadNodeConnections()
 {
@@ -95,6 +101,24 @@ FlowNode *FlowNode::getFlowNodeById(int id, QList<FlowNode *> nodeList)
     }
 
     return nullptr;
+}
+
+int FlowNode::getAvailableID(QList<FlowNode *> list)
+{
+    // find first id available
+    std::sort(std::begin(list), std::end(list), [](FlowNode* a, FlowNode *b) {return a->id() < b->id(); });
+
+    for (int var = 0; var < list.length()-1; ++var) {
+        if(list.at(var+1)->id()-list.at(var)->id()>1){
+            // check for available ids
+            FlowNode *node= list.at(var);
+            return node->id()+1;
+            //                qDebug()<<"ID:"<<node->id();
+
+        }
+    }
+
+    return -1;
 }
 
 

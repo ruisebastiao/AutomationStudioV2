@@ -7,7 +7,7 @@ using namespace std;
 ProcessingContoursNode::ProcessingContoursNode()
 {
     m_processingType=ProcessingType::ProcessingContoursNode;
-    ProcessingNode::processingTypeTable[m_processingType]="Contours";
+
 
 
 }

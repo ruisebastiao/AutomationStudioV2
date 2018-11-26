@@ -70,16 +70,88 @@ public:
 
 
 
-    static void registerProcessingTypes(){
-        int enumscount=QMetaEnum::fromType<ProcessingType>().keyCount();
+    static QVariantList getProcessingTypes(){
+        QVariantList ret;
 
+        int enumscount=QMetaEnum::fromType<ProcessingType>().keyCount();
         for (int i = 0; i < enumscount; ++i) {
             ProcessingType procctype= static_cast<ProcessingType>(QMetaEnum::fromType<ProcessingType>().value(i));
-            std::string enum_str=std::string(QMetaEnum::fromType<ProcessingType>().valueToKey(i));
 
-            ProcessingNode::processingTypeTable[procctype]=enum_str;
+            QVariantMap map;
+
+
+            switch (procctype) {
+
+            case ProcessingType::ProcessingContoursNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Contours");
+
+                break;
+
+            case ProcessingType::ProcessingDrawingNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Drawing");
+
+                break;
+
+            case ProcessingType::ProcessingEnclosingNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Enclosing shapes");
+
+                break;
+
+            case ProcessingType::ProcessingFilterNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Filtering");
+
+                break;
+
+            case ProcessingType::ProcessingGeometricNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Geometric Operations");
+
+                break;
+
+            case ProcessingType::ProcessingLogicalNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Logic Operations");
+
+                break;
+
+
+            case ProcessingType::ProcessingMaskNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Mask");
+
+                break;
+            case ProcessingType::ProcessingShapesNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Shape Finder");
+
+                break;
+            case ProcessingType::ProcessingThresholdNode:
+                map.insert(QVariant::fromValue(procctype).value<QString>(),"Binarization");
+
+                break;
+
+
+            default:
+//                static_assert(true, "");
+                break;
+            }
+
+            if(map.empty()==false)
+                ret.append(map);
 
         }
+
+
+        return ret;
+
+        //        using map_type = std::map<ProcessingNode::ProcessingType, string>;
+
+        //        m_processingNodeTypes.clear();
+        //        BOOST_FOREACH(map_type::value_type &p, ProcessingNode::processingTypeTable) {
+        //            ProcessingNode::ProcessingType procType=p.first;
+        //            string str=ProcessingNode::processingTypeTable[procType];
+        //            QVariantMap map;
+        //            map.insert(QVariant::fromValue(procType).value<QString>(),QString::fromStdString(str));
+        //            m_processingNodeTypes.append(map);
+        //        }
+
+
 
     }
 
@@ -138,7 +210,6 @@ public:
         return m_process;
     }
 
-    static map<ProcessingNode::ProcessingType, string> processingTypeTable;
 
 
 

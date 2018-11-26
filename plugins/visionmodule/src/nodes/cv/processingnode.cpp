@@ -3,15 +3,13 @@
 
 using namespace cv;
 
-map<ProcessingNode::ProcessingType,string> ProcessingNode::processingTypeTable;
-
 ProcessingNode::ProcessingNode()
 {
     m_type=Type::ProcessingNode;
 
 
-//    setApplyMask(false);
-//    setDrawOnSource(false);
+    //    setApplyMask(false);
+    //    setDrawOnSource(false);
 }
 
 ProcessingNode::~ProcessingNode()
@@ -54,11 +52,30 @@ void ProcessingNode::reProcess()
 
 QString ProcessingNode::name() const
 {
-    if(m_name==""){
-        return QString::fromStdString(processingTypeTable[m_processingType]);
+
+
+    QVariantList proctypes=getProcessingTypes();
+
+    QVariantList::const_iterator procType = std::find_if(proctypes.begin(),proctypes.end(),
+                                                         [&](const QVariant&x) {
+
+        QVariantMap value=x.value<QVariantMap>();
+        QString val1=value.keys().at(0);
+        QString val2=QVariant::fromValue(m_processingType).value<QString>();
+
+        return val1==val2;
+    });
+
+    if(procType ==proctypes.end()){
+        // finded
+        return "?";
     }
 
-    return FlowNode::name();
+    QVariantMap map=(*procType).value<QVariantMap>();
+    QString retval=map.value(QVariant::fromValue(m_processingType ).value<QString>()).toString();
+    return retval;
+
+    //    return FlowNode::name();
 }
 
 

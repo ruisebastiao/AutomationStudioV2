@@ -107,6 +107,8 @@ private:
 
     QList<FlowNode *> m_ProcessingNodes;
 
+    QList<FlowNode *> m_CommonNodes;
+
 
 
 
@@ -157,23 +159,16 @@ public:
     ProcessingNode *readProcessingNode(qan::GraphView *graphView, QJsonObject nodeobject);
     QVariantList  processingNodeTypes()
     {
-        using map_type = std::map<ProcessingNode::ProcessingType, string>;
-
-        m_processingNodeTypes.clear();
-        BOOST_FOREACH(map_type::value_type &p, ProcessingNode::processingTypeTable) {
-            ProcessingNode::ProcessingType procType=p.first;
-            string str=ProcessingNode::processingTypeTable[procType];
-            QVariantMap map;
-            map.insert(QVariant::fromValue(procType).value<QString>(),QString::fromStdString(str));
-            m_processingNodeTypes.append(map);
-        }
-
-
         return m_processingNodeTypes;
     }
+
     Q_INVOKABLE void addProcNode(QPoint loc, QVariantMap nodeinfo);
     ProcessingNode *createProcessingNode(qan::GraphView *graphView, QString nodetype);
     void initializeProcessingNode(ProcessingNode *procnode);
+
+    // FlowNode interface
+public:
+    virtual void addCommonNode(QPoint loc, QVariantMap nodeinfo) override;
 };
 
 #endif // ROINODE_H

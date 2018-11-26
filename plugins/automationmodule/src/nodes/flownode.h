@@ -109,12 +109,15 @@ public:
 
 
 
+    virtual void addCommonNode(QPoint loc, QVariantMap nodeinfo);
+
+
 //    static void loadNodeConnections(QList<FlowNode *> nodeList);
     void loadNodeConnections();
 
     static FlowNode* getFlowNodeById(int id,QList<FlowNode *> nodeList);
 
-
+    static int getAvailableID(QList<FlowNode*> list);
 
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
     //    virtual void write(QJsonObject &json) const;

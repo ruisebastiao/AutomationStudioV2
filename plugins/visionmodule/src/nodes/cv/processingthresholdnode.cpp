@@ -5,7 +5,6 @@ using namespace cv;
 ProcessingThresholdNode::ProcessingThresholdNode()
 {
     m_processingType=ProcessingType::ProcessingThresholdNode;
-    ProcessingNode::processingTypeTable[m_processingType]="Binarization";
 }
 
 QQmlComponent *ProcessingThresholdNode::delegate(QQmlEngine &engine) noexcept
@@ -68,7 +67,7 @@ void ProcessingThresholdNode::doProcess()
         }
 
         targetMat.copyTo(*m_output->cvMat());
-//        targetMat->copyTo(*m_processedMat->cvMat());
+        //        targetMat->copyTo(*m_processedMat->cvMat());
     }
 
 

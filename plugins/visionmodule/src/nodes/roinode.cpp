@@ -19,6 +19,8 @@ using namespace cv;
 ROINode::ROINode()
 {
     m_type=Type::ROINode;
+
+    m_processingNodeTypes=ProcessingNode::getProcessingTypes();
 }
 
 ROINode::~ROINode()
@@ -169,6 +171,7 @@ void ROINode::initializeProcessingNode(ProcessingNode* procnode){
 
 }
 
+
 void ROINode::DeSerialize(QJsonObject &json)
 {
     FlowNode::DeSerialize(json);
@@ -201,8 +204,10 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 }
 
-void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
-    qDebug()<<"Adding node:"<<nodeinfo<<" @ "<<loc;
+
+void ROINode::addCommonNode(QPoint loc, QVariantMap nodeinfo)
+{
+    qDebug()<<"Adding common node:"<<nodeinfo<<" @ "<<loc;
 
     QString procType;
     QMapIterator<QString, QVariant> i(nodeinfo);
@@ -219,25 +224,50 @@ void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
         procnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
 
 
-        std::sort(std::begin(m_ProcessingNodes), std::end(m_ProcessingNodes), [](FlowNode* a, FlowNode *b) {return a->id() < b->id(); });
 
-        int nodeid=-1;
+        int nodeid=FlowNode::getAvailableID(m_ProcessingNodes);
 
-        // find first id available
-        for (int var = 0; var < m_ProcessingNodes.length()-1; ++var) {
-            if(m_ProcessingNodes.at(var+1)->id()-m_ProcessingNodes.at(var)->id()>1){
-                // check for available ids
-                ProcessingNode *node= static_cast<ProcessingNode*>(m_ProcessingNodes.at(var));
-                nodeid=node->id()+1;
-                //                qDebug()<<"ID:"<<node->id();
-                break;
-            }
-        }
 
         if(nodeid==-1){
             nodeid=m_ProcessingNodes.length();
         }
 
+        procnode->setId(nodeid);
+
+        initializeProcessingNode(procnode);
+
+        QJsonObject Qo;
+        procnode->initializePorts(Qo);
+
+
+    }
+}
+
+void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
+    qDebug()<<"Adding Processing node:"<<nodeinfo<<" @ "<<loc;
+
+    QString procType;
+    QMapIterator<QString, QVariant> i(nodeinfo);
+    while (i.hasNext()) {
+        i.next();
+        procType=i.key();
+
+    }
+
+    ProcessingNode *procnode=createProcessingNode(m_roiEditorGraphView,procType);
+
+    if(procnode){
+        procnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
+        procnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
+
+
+
+        int nodeid=FlowNode::getAvailableID(m_ProcessingNodes);
+
+
+        if(nodeid==-1){
+            nodeid=m_ProcessingNodes.length();
+        }
 
         procnode->setId(nodeid);
 

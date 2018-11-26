@@ -9,7 +9,6 @@
 QVisionModule::QVisionModule(QQuickItem *parent)
 {
     m_type=ModuleType::VisionModule;
-    ProcessingNode::registerProcessingTypes();
 
 }
 

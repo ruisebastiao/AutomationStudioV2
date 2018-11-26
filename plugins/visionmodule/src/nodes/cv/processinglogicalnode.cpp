@@ -3,7 +3,6 @@
 ProcessingLogicalNode::ProcessingLogicalNode()
 {
     m_processingType=ProcessingType::ProcessingLogicalNode;
-    ProcessingNode::processingTypeTable[m_processingType]="Logical Operations";
 
 
 }
