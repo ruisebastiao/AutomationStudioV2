@@ -82,7 +82,9 @@ public slots:
 
 
 
+    void updateProxyType();
 
+    void initProxyNode();
 
     void setProxyNodes(ProxyInputNodeListModel* proxyNodes)
     {
@@ -102,31 +104,7 @@ public slots:
         m_proxyType = proxyType;
         emit proxyTypeChanged(m_proxyType);
 
-//        if(!m_inputPort){
-//            return;
-//        }
-
-        SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
-
-//        if(m_proxyType=="Output"){
-//            m_outputPort->setHidden(false);
-
-//            m_inputPort->setHidden(true);
-
-//        }
-//        else{
-//            m_outputPort->setHidden(true);
-
-//            m_inputPort->setHidden(false);
-
-//        }
-
-//        if(m_inputPort->getPortItem()->getInEdgeItems().size()>0){
-//            graph->deleteEdge(m_inputPort->getPortItem()->getInEdgeItems().at(0)->getEdge());
-//        }
-//        if(m_outputPort->getPortItem()->getOutEdgeItems().size()>0){
-//            graph->deleteEdge(m_outputPort->getPortItem()->getOutEdgeItems().at(0)->getEdge());
-//        }
+        updateProxyType();
 
     }
 
@@ -158,32 +136,32 @@ public slots:
         }
         SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
 
-//        if(inputPort()->getPortItem()->getInEdgeItems().size()>0){
+        if(m_inputPort->getPortItem()->getInEdgeItems().size()>0){
 
-//            qan::EdgeItem* edgeitem=inputPort()->getPortItem()->getInEdgeItems().at(0);
-//            graph->deleteEdge(edgeitem->getEdge());
+            qan::EdgeItem* edgeitem=m_inputPort->getPortItem()->getInEdgeItems().at(0);
+            graph->deleteEdge(edgeitem->getEdge());
 
-//            QObject::connect(edgeitem, &qan::EdgeItem::destroyed, this, [this,graph](QObject* edgeObject){
-//                if(m_selectedBindedNode){
-//                    qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
-//                    FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
+            QObject::connect(edgeitem, &qan::EdgeItem::destroyed, this, [this,graph](QObject* edgeObject){
+                if(m_selectedBindedNode){
+                    qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
+                    FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
 
-//                    if(outPort){
-//                   //     graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
-//                    }
-//                }
-//            });
-//        }
-//        else{
-//            if(m_selectedBindedNode){
-//                qan::Edge* newedge=graph->insertNewEdge(false,m_selectedBindedNode,this);
-//                FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
+                    if(outPort){
+                        graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
+                    }
+                }
+            });
+        }
+        else{
+            if(m_selectedBindedNode){
+                qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
+                FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
 
-//                if(outPort){
-//                    //graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
-//                }
-//            }
-//        }
+                if(outPort){
+                    graph->bindEdge(newedge,outPort->getPortItem(),m_inputPort->getPortItem());
+                }
+            }
+        }
 
 
 
@@ -234,6 +212,11 @@ private:
 
     QString m_proxyType="";
 
+    FlowNodePort* m_outputPort=nullptr;
+    FlowNodePort* m_inputPort=nullptr;
+
+
+
 
 
     FlowNode* m_selectedBindedNode=nullptr;
@@ -248,6 +231,10 @@ protected:
     // FlowNode interface
 public:
     
+
+    // FlowNode interface
+public:
+    virtual void initializePorts(QJsonObject &json) override;
 };
 
 #endif // PROXYINPUTNODE_H

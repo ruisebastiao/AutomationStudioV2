@@ -10,6 +10,10 @@ void SceneGraph::deleteEdge(qan::Edge *edge)
     //FlowNode* sourcenode=qobject_cast<FlowNode*>(edge->getSource());
 
 
+    if(!edge){
+        return;
+    }
+
     edge->getItem()->deleteLater();
 
     // TODO
