@@ -28,6 +28,7 @@ ProcessingNodeItem{
             SpinBox{
                 id:spin_value
                 editable: true
+                to:90000000
                 enabled: root.node.editMode
                 stepSize: 1
                 value:root.node.numericValue

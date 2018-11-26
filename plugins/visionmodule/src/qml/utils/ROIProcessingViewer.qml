@@ -105,68 +105,97 @@ Item{
 
     Menu {
         id: contextMenu
-        width: 200
+        width: 300
         height: 300
-        contentItem:Rectangle{
-            color: "transparent"
-            border.width: 2
-            border.color: Material.color(Material.accent)
+        contentItem:ColumnLayout{
             anchors.fill: parent
-            GroupBox{
-                anchors.fill: parent
-                anchors.margins: 5
-                title: "Add processing node"
-                ListView {
-                    id: listView1
-                    clip: true
-                    anchors.fill: parent
-                    model: root.roinode.processingNodeTypes
-                    delegate:Item {
-                        id:proc_delegate
-                        width: parent.width
-                        height: 40
-                        property var modelDataObject: modelData
-                        property var key;
-                        property string value
-                        onModelDataObjectChanged: {
-                            for (var prop in modelDataObject) {
-                                key=prop
-                                value= modelDataObject[prop]
-                            }
-                        }
-
-                        Label{
-
-                            text: value
-                            anchors.fill: parent
-                            font.pixelSize: 16
-                            horizontalAlignment:Text.AlignHLeft
-                            verticalAlignment: Text.AlignVCenter
-                            //                     fontSizeMode:Text.Fit
-                        }
-                        MouseArea{
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onEntered:{
-                                proc_delegate.ListView.view.currentIndex = index;
-
-                            }
-
-                            onClicked: {
-
-
-                                root.roinode.addProcNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
-                                contextMenu.dismiss()
-                            }
-                        }
-                    }
-                    highlight: Rectangle {
-                        color: "lightsteelblue";
-                        radius: 5
-                    }
-                    focus: true
+            TabBar {
+                id: bar
+                width: parent.width
+                TabButton {
+                    width: implicitWidth
+                    text: qsTr("Processing")
+                }
+                TabButton {
+                    width: implicitWidth
+                    text: qsTr("Common")
                 }
             }
+            StackLayout {
+                width: parent.width
+
+                currentIndex: bar.currentIndex
+                Item {
+                    id: procTab
+
+                    Layout.fillWidth:true
+                    Layout.fillHeight:true
+
+                    Rectangle{
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        ListView {
+                            id: listView1
+                            clip: true
+                            anchors.fill: parent
+                            model: root.roinode.processingNodeTypes
+                            delegate:Item {
+                                id:proc_delegate
+                                width: parent.width
+                                height: 40
+                                property var modelDataObject: modelData
+                                property var key;
+                                property string value
+                                onModelDataObjectChanged: {
+                                    for (var prop in modelDataObject) {
+                                        key=prop
+                                        value= modelDataObject[prop]
+                                    }
+                                }
+
+                                Label{
+
+                                    text: value
+                                    anchors.fill: parent
+                                    font.pixelSize: 16
+                                    horizontalAlignment:Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                    //                     fontSizeMode:Text.Fit
+                                }
+                                MouseArea{
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    onEntered:{
+                                        proc_delegate.ListView.view.currentIndex = index;
+
+                                    }
+
+                                    onClicked: {
+
+
+                                        root.roinode.addProcNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                        contextMenu.dismiss()
+                                    }
+                                }
+                            }
+                            highlight: Rectangle {
+                                color: "lightsteelblue";
+                                radius: 5
+                            }
+                            focus: true
+                        }
+
+                    }
+                }
+                Item {
+                    id: commonTab
+
+                    Layout.fillWidth:true
+                    Layout.fillHeight:true
+                }
+            }
+
+
         }
     }
 

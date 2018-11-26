@@ -13,7 +13,7 @@
 #include "cv/qmat.h"
 
 
-#include "opencv2/imgproc.hpp"
+#include <opencv2/opencv.hpp>
 
 
 
@@ -191,8 +191,6 @@ public slots:
 
     void setMaskInput(QMat* maskInput)
     {
-        if (m_maskInput == maskInput)
-            return;
 
         m_maskInput = maskInput;
         emit maskInputChanged(m_maskInput);
@@ -312,9 +310,6 @@ private:
     bool m_process=false;
 
 
-    QMat* m_maskInput= new QMat();
-
-    QMat* m_drawSource=new QMat();
 
     bool m_applyMask=false;
 
@@ -324,6 +319,9 @@ protected:
 
     QMat* m_input=nullptr;
     QMat* m_originalInput=new QMat();
+    QMat* m_maskInput= new QMat();
+
+    QMat* m_drawSource=new QMat();
 
     QMat* m_output=new QMat();
     QMutex mMutex;

@@ -13,11 +13,12 @@ class ProcessingMaskNode : public ProcessingNode
 
     Q_PROPERTY(QVariant input1 READ input1 WRITE setInput1 NOTIFY input1Changed REVISION 30)
     Q_PROPERTY(QVariant input2 READ input2 WRITE setInput2 NOTIFY input2Changed REVISION 30)
-    Q_PROPERTY(QVariant input3 READ input1 WRITE setInput1 NOTIFY input1Changed REVISION 30)
-    Q_PROPERTY(QVariant input4 READ input2 WRITE setInput2 NOTIFY input2Changed REVISION 30)
+    Q_PROPERTY(QVariant input3 READ input3 WRITE setInput3 NOTIFY input3Changed REVISION 30)
+    Q_PROPERTY(QVariant input4 READ input4 WRITE setInput4 NOTIFY input4Changed REVISION 30)
 
+    Q_PROPERTY(QMat* maskOutput READ maskOutput WRITE setMaskOutput NOTIFY maskOutputChanged REVISION 31)
 
-//    Q_PROPERTY(QVariant input2 READ input2 WRITE setInput2 NOTIFY input2Changed REVISION 31)
+    //    Q_PROPERTY(QVariant input2 READ input2 WRITE setInput2 NOTIFY input2Changed REVISION 31)
 
 
 
@@ -39,9 +40,11 @@ private:
 
     QVariant m_input2;
 
-QVariant m_input3;
+    QVariant m_input3;
 
-QVariant m_input4;
+    QVariant m_input4;
+
+    QMat* m_maskOutput= new QMat();
 
 public:
     void DeSerialize(QJsonObject &json) override;
@@ -62,6 +65,21 @@ public:
         return m_input2;
     }
 
+    QVariant input3() const
+    {
+        return m_input3;
+    }
+
+    QVariant input4() const
+    {
+        return m_input4;
+    }
+
+    QMat* maskOutput() const
+    {
+        return m_maskOutput;
+    }
+
 public slots:
     void setInput(QMat *input) override;
 
@@ -76,8 +94,6 @@ public slots:
 
     void setInput1(QVariant input1)
     {
-        if (m_input1 == input1)
-            return;
 
         m_input1 = input1;
         emit input1Changed(m_input1);
@@ -85,11 +101,33 @@ public slots:
 
     void setInput2(QVariant input2)
     {
-        if (m_input2 == input2)
-            return;
 
         m_input2 = input2;
         emit input2Changed(m_input2);
+    }
+
+    void setInput3(QVariant input3)
+    {
+
+        m_input3 = input3;
+        emit input3Changed(m_input3);
+    }
+
+    void setInput4(QVariant input4)
+    {
+
+
+        m_input4 = input4;
+        emit input4Changed(m_input4);
+    }
+
+    void setMaskOutput(QMat* maskOutput)
+    {
+        if (m_maskOutput == maskOutput)
+            return;
+
+        m_maskOutput = maskOutput;
+        emit maskOutputChanged(m_maskOutput);
     }
 
 signals:
@@ -98,6 +136,12 @@ signals:
     void input1Changed(QVariant input1);
 
     void input2Changed(QVariant input2);
+
+    void input3Changed(QVariant input3);
+
+    void input4Changed(QVariant input4);
+
+    void maskOutputChanged(QMat* maskOutput);
 
 protected:
     void doProcess() override;

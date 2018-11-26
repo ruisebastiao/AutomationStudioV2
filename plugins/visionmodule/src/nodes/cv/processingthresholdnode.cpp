@@ -41,30 +41,33 @@ void ProcessingThresholdNode::doProcess()
 
 
 
-        Mat* targetMat;
+        Mat targetMat;
 
-        //    setInPlaceProcessing(true);
-        if(inPlaceProcessing()){
-            targetMat=m_input->cvMat();
-            m_output=m_input;
+        if(!m_maskInput||m_maskInput->cvMat()->empty()){
+
+            m_input->cvMat()->copyTo(targetMat);
         }
         else{
-            targetMat=m_output->cvMat();
+
+            m_input->cvMat()->copyTo(targetMat,*m_maskInput->cvMat());
+
+
         }
 
         switch (m_thresholdType) {
         case AdaptativeGaussian:
-            adaptiveThreshold(*m_input->cvMat(),*targetMat,value(),ADAPTIVE_THRESH_GAUSSIAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize,m_adaptativeC);
+            adaptiveThreshold(targetMat,targetMat,value(),ADAPTIVE_THRESH_GAUSSIAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize,m_adaptativeC);
             break;
         case AdaptativeMean:
-            adaptiveThreshold(*m_input->cvMat(),*targetMat,value(),ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize,m_adaptativeC);
+            adaptiveThreshold(targetMat,targetMat,value(),ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize,m_adaptativeC);
             break;
         case Simple:
-            threshold(*m_input->cvMat(),*targetMat,value(),255,CV_THRESH_BINARY);
+            threshold(targetMat,targetMat,value(),255,CV_THRESH_BINARY);
             break;
 
         }
 
+        targetMat.copyTo(*m_output->cvMat());
 //        targetMat->copyTo(*m_processedMat->cvMat());
     }
 
