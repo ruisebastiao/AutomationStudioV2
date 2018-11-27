@@ -27,6 +27,14 @@ QQmlComponent *VisionSystemNode::delegate(QQmlEngine &engine) noexcept
     return delegate.get();
 }
 
+void VisionSystemNode::setFrameBufferSource(FrameBufferListModel *frameBufferSource)
+{
+
+    m_frameBufferSource = frameBufferSource;
+    emit frameBufferSourceChanged(m_frameBufferSource);
+
+}
+
 
 void VisionSystemNode::readROINode(QJsonObject roiobject){
 

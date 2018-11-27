@@ -1,6 +1,7 @@
 #ifndef VISIONSYSTEMNODE_H
 #define VISIONSYSTEMNODE_H
 
+#include "framebuffernode.h"
 #include "frameviewernode.h"
 #include "roinode.h"
 
@@ -15,8 +16,10 @@ class VisionSystemNode : public FlowNode
 
     Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
 
+    Q_PROPERTY(FrameBufferListModel* frameBufferSource READ frameBufferSource WRITE setFrameBufferSource NOTIFY frameBufferSourceChanged REVISION 30)
 
-    Q_PROPERTY(bool processFrame READ processFrame WRITE setProcessFrame NOTIFY processFrameChanged REVISION 31)
+
+    Q_PROPERTY(bool processFrame READ processFrame WRITE setProcessFrame NOTIFY processFrameChanged REVISION 30)
 
 
     Q_PROPERTY(bool frameProcessed READ frameProcessed WRITE setFrameProcessed NOTIFY frameProcessedChanged REVISION 31)
@@ -86,6 +89,7 @@ public slots:
 
             QtConcurrent::run([this](){
 
+
                 foreach (FlowNode* node, m_ROINodes) {
                     ROINode* roi=static_cast<ROINode*>(node);
                     roi->processFrameObject(m_frameSource);
@@ -107,9 +111,9 @@ public slots:
 
         m_frameProcessed = frameProcessed;
 
-//        if(frameProcessed){
-//            LOG_INFO("Node ID|"+QString::number(this->id())+"|Processing finished");
-//        }
+        //        if(frameProcessed){
+        //            LOG_INFO("Node ID|"+QString::number(this->id())+"|Processing finished");
+        //        }
         emit frameProcessedChanged(m_frameProcessed);
     }
 
@@ -135,6 +139,9 @@ public slots:
         m_processOnNewFrame = processOnNewFrame;
         emit processOnNewFrameChanged(m_processOnNewFrame);
     }
+
+    void setFrameBufferSource(FrameBufferListModel* frameBufferSource);
+
 
 public:
     void Serialize(QJsonObject &json);
@@ -171,6 +178,8 @@ signals:
 
     void processOnNewFrameChanged(bool processOnNewFrame);
 
+    void frameBufferSourceChanged(FrameBufferListModel* frameBufferSource);
+
 private:
 
     QMat* m_frameSource=nullptr;
@@ -189,8 +198,14 @@ private:
     bool m_processOnNewFrame=false;
 
     // FlowNode interface
+    FrameBufferListModel* m_frameBufferSource=nullptr;
+
 public:
-    
+
+    FrameBufferListModel* frameBufferSource() const
+    {
+        return m_frameBufferSource;
+    }
 };
 
 #endif // VISIONSYSTEMNODE_H

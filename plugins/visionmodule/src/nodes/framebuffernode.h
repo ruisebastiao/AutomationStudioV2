@@ -47,6 +47,10 @@ public:
     }
 
 
+    inline int bufferSize(){
+        return m_buffers.length();
+    }
+
     inline QVariant data(const QModelIndex &index, int role) const
     {
 
@@ -149,7 +153,7 @@ class FrameBufferNode : public FlowNode
 
 
 
-    Q_PROPERTY(FrameBufferListModel* frameBuffers READ frameBuffers WRITE setFrameBuffers NOTIFY frameBuffersChanged)
+    Q_PROPERTY(FrameBufferListModel* frameBuffers READ frameBuffers WRITE setFrameBuffers NOTIFY frameBuffersChanged  REVISION 31)
 
     Q_PROPERTY(int writeIndex READ writeIndex WRITE setWriteIndex NOTIFY writeIndexChanged)
     Q_PROPERTY(int readIndex READ readIndex WRITE setReadIndex NOTIFY readIndexChanged)
