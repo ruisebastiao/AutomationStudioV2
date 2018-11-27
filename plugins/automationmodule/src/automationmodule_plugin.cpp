@@ -32,6 +32,8 @@
 #include <nodes/proxyinputnode.h>
 #include <nodes/webservicenode.h>
 
+#include <graphs/commonscenegraph.h>
+
 
 void AutomationModulePlugin::registerTypes(const char *uri){
     // @uri modules.automationmodule
@@ -41,7 +43,10 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
     qmlRegisterType<QAutomationModule>(uri, 1, 0, "AutomationModule");
 
-    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
+//    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
+
+    qmlRegisterType<CommonSceneGraph>(uri, 1, 0, "CommonSceneGraph");
+
     qmlRegisterType<FlowNode>(uri, 1, 0, "FlowNode");
     qmlRegisterType<BarcodeReaderNode>(uri, 1, 0, "BarcodeReaderNode");
     qmlRegisterType<WebServiceNode>(uri, 1, 0, "WebServiceNode");

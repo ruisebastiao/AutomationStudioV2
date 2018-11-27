@@ -20,6 +20,7 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     // PROPERTIES WITH REVISION 31 WILL BE ATTACHED TO OUT PORTS PORTS
 
     Q_OBJECT
+
     Q_INTERFACES(JsonSerializable)
 
     Q_PROPERTY(Type type READ getType CONSTANT FINAL USER("serialize"))
@@ -73,12 +74,20 @@ public:
         WebCamCaptureNode,
         FrameBufferNode,
         ModulePropertyBind,
-        MultiplexedInputNode
+        MultiplexedInputNode,
+        NumericNode
 
     };
     Q_ENUM(Type)
 
     FlowNode( QObject* parent = nullptr );
+
+
+
+
+    static QVariantList getCommonTypes();
+
+
 
 
 
@@ -89,6 +98,7 @@ public:
     }
 
 
+    //static void registerContainer()
 
     bool operator==(const FlowNode &a)
     {
@@ -109,7 +119,7 @@ public:
 
 
 
-    virtual void addCommonNode(QPoint loc, QVariantMap nodeinfo);
+    Q_INVOKABLE virtual void addCommonNode(QPoint loc, QVariantMap nodeinfo);
 
 
 //    static void loadNodeConnections(QList<FlowNode *> nodeList);

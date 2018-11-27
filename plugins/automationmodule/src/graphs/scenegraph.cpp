@@ -7,7 +7,6 @@
 
 void SceneGraph::deleteEdge(qan::Edge *edge)
 {
-    //FlowNode* sourcenode=qobject_cast<FlowNode*>(edge->getSource());
 
 
     if(!edge){
@@ -17,13 +16,10 @@ void SceneGraph::deleteEdge(qan::Edge *edge)
     edge->getItem()->deleteLater();
 
     // TODO
-    //sourcenode->deletePortConnection(edge);
 
     qan::Graph::removeEdge(edge);
 
 
-
-    //    edge=nullptr;
 }
 
 QPointer<QQuickItem> SceneGraph::createDock(qan::NodeItem::Dock dock, qan::Node &node) noexcept

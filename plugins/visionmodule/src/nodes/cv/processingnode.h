@@ -140,16 +140,6 @@ public:
 
         return ret;
 
-        //        using map_type = std::map<ProcessingNode::ProcessingType, string>;
-
-        //        m_processingNodeTypes.clear();
-        //        BOOST_FOREACH(map_type::value_type &p, ProcessingNode::processingTypeTable) {
-        //            ProcessingNode::ProcessingType procType=p.first;
-        //            string str=ProcessingNode::processingTypeTable[procType];
-        //            QVariantMap map;
-        //            map.insert(QVariant::fromValue(procType).value<QString>(),QString::fromStdString(str));
-        //            m_processingNodeTypes.append(map);
-        //        }
 
 
 

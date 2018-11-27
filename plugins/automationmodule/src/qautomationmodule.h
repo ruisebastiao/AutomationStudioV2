@@ -193,6 +193,8 @@ public:
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
+    static FlowNode* readCommonNode(qan::GraphView* graphView ,QJsonObject nodeobject);
+    static FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype);
 
     Q_INVOKABLE void loadConnections();
 protected:
@@ -202,6 +204,9 @@ protected:
     ModuleType m_type=ModuleType::AutomationModule;
 
     virtual FlowNode* readNode(qan::GraphView* graphView ,QJsonObject nodeobject);
+
+
+
 };
 
 #endif // QAUTOMATIONMODULE_H

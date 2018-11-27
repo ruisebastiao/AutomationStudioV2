@@ -1,11 +1,11 @@
-#ifndef PROCESSINGNUMERICNODE_H
-#define PROCESSINGNUMERICNODE_H
+#ifndef NUMERICNODE_H
+#define NUMERICNODE_H
 
-#include "processingnode.h"
+#include "flownode.h"
 
 
 
-class ProcessingNumericNode : public ProcessingNode
+class NumericNode : public FlowNode
 {
     Q_OBJECT
 
@@ -13,7 +13,7 @@ class ProcessingNumericNode : public ProcessingNode
 
 
 public:
-    ProcessingNumericNode();
+    NumericNode();
 
       static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
@@ -26,7 +26,6 @@ public:
 
 
 public slots:
-    void setInput(QMat *input) override;
 
     void setNumericValue(double value)
     {
@@ -41,9 +40,6 @@ public slots:
 signals:
     void numericValueChanged(double value);
 
-
-protected:
-    void doProcess() override;
 
 
 private:

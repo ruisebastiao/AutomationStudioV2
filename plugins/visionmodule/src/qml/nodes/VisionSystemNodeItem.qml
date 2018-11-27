@@ -292,7 +292,7 @@ FlowNodeItem{
                     }
 
 
-                    SceneGraph {
+                    CommonSceneGraph {
                         id: visionGraph
 
                         connectorCreateDefaultEdge: false

@@ -39,6 +39,8 @@ public:
 
     Q_PROPERTY(QVariantList processingNodeTypes READ processingNodeTypes NOTIFY processingNodeTypesChanged)
 
+    Q_PROPERTY(QVariantList commonNodeTypes READ commonNodeTypes NOTIFY commonNodeTypesChanged)
+
 
 public:
     void processFrameObject(QMat* frame);
@@ -97,6 +99,8 @@ signals:
 
     void processingNodeTypesChanged(QVariantList processingNodeTypes);
 
+    void commonNodeTypesChanged(QVariantList commonNodeTypes);
+
 private:
 
 
@@ -128,9 +132,11 @@ private:
 
     QVariantList m_processingNodeTypes;
 
+    QVariantList m_commonNodeTypes;
+
 public:
-    void Serialize(QJsonObject &json);
-    void DeSerialize(QJsonObject &json);
+    void Serialize(QJsonObject &json) override;
+    void DeSerialize(QJsonObject &json) override;
 
     bool liveProcessing() const
     {
@@ -169,6 +175,10 @@ public:
     // FlowNode interface
 public:
     virtual void addCommonNode(QPoint loc, QVariantMap nodeinfo) override;
+    QVariantList commonNodeTypes() const
+    {
+        return m_commonNodeTypes;
+    }
 };
 
 #endif // ROINODE_H

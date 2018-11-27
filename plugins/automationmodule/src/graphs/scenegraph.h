@@ -48,7 +48,7 @@ public slots:
 
     // Graph interface
 public:
-    qan::Edge *insertNewEdge(bool hidden, qan::Node *source, qan::Node *destination);
+    virtual qan::Edge *insertNewEdge(bool hidden, qan::Node *source, qan::Node *destination);
     //    qan::Edge *insertEdge(qan::Node *source, qan::Edge *destination, QQmlComponent *edgeComponent= nullptr) override;
 
     // Graph interface

@@ -10,7 +10,6 @@
 #include <nodes/cv/processinggeometricnode.h>
 #include <nodes/cv/processinglogicalnode.h>
 #include <nodes/cv/processingmasknode.h>
-#include <nodes/cv/processingnumericnode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
 
@@ -21,6 +20,7 @@ ROINode::ROINode()
     m_type=Type::ROINode;
 
     m_processingNodeTypes=ProcessingNode::getProcessingTypes();
+    m_commonNodeTypes=FlowNode::getCommonTypes();
 }
 
 ROINode::~ROINode()
@@ -59,11 +59,26 @@ void ROINode::Serialize(QJsonObject &json)
     json["processingnodes"]=processingnodesArray;
 
 
+    QJsonArray commonnodesArray;
+
+    for (int i = 0; i < m_CommonNodes.length(); ++i) {
+
+        QJsonObject commonnodeObject;
+
+        FlowNode* commonnode=static_cast<FlowNode*>(m_CommonNodes.at(i));
+
+        commonnode->Serialize(commonnodeObject);
+
+        commonnodesArray.append(commonnodeObject);
+    }
+
+    json["commonnodes"]=commonnodesArray;
+
+
 }
 
 
 
-//void add
 
 ProcessingNode *ROINode::createProcessingNode(qan::GraphView *graphView, QString nodetype){
     qan::Node* newnode=nullptr;
@@ -91,9 +106,6 @@ ProcessingNode *ROINode::createProcessingNode(qan::GraphView *graphView, QString
     }
     else if(nodetype=="ProcessingGeometricNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingGeometricNode>(nullptr);
-    }
-    else if(nodetype=="ProcessingNumericNode"){
-        newnode=graphView->getGraph()->insertNode<ProcessingNumericNode>(nullptr);
     }
     else if(nodetype=="ProcessingMaskNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingMaskNode>(nullptr);
@@ -197,8 +209,23 @@ void ROINode::DeSerialize(QJsonObject &json)
 
     }
 
-
     emit processingNodeTypesChanged(m_processingNodeTypes);
+
+
+    QJsonArray commonNodesArray = json["commonnodes"].toArray();
+
+    for (int i = 0; i < commonNodesArray.count(); ++i) {
+
+
+        QJsonObject commonnodeObject=commonNodesArray[i].toObject();
+        FlowNode* commonnode=QAutomationModule::readCommonNode(m_roiEditorGraphView,commonnodeObject);
+        m_CommonNodes.append(commonnode);
+
+
+    }
+
+
+
 
 
 
@@ -217,27 +244,31 @@ void ROINode::addCommonNode(QPoint loc, QVariantMap nodeinfo)
 
     }
 
-    ProcessingNode *procnode=createProcessingNode(m_roiEditorGraphView,procType);
+    FlowNode *commonnode=QAutomationModule::createCommonNode(m_roiEditorGraphView,procType);
 
-    if(procnode){
-        procnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
-        procnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
+    if(commonnode){
+        commonnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
+        commonnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
 
 
+        std::list<FlowNode*> allnodeslist;
 
-        int nodeid=FlowNode::getAvailableID(m_ProcessingNodes);
+
+        allnodeslist.merge(m_ProcessingNodes.toStdList());
+        allnodeslist.merge(m_CommonNodes.toStdList());
+
+        QList<FlowNode*> allnodes=QList<FlowNode*>::fromStdList(allnodeslist);
+
+        int nodeid=FlowNode::getAvailableID(allnodes);
 
 
         if(nodeid==-1){
-            nodeid=m_ProcessingNodes.length();
+            nodeid=m_ProcessingNodes.length()+m_CommonNodes.length();
         }
 
-        procnode->setId(nodeid);
+        commonnode->setId(nodeid);
 
-        initializeProcessingNode(procnode);
-
-        QJsonObject Qo;
-        procnode->initializePorts(Qo);
+        m_CommonNodes.append(commonnode);
 
 
     }

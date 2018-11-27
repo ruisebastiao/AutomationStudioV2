@@ -6,6 +6,7 @@
 #include <nodes/modulepropertybind.h>
 #include <nodes/proxyinputnode.h>
 #include <nodes/multiplexedinputnode.h>
+#include <nodes/numericnode.h>
 #include <QtConcurrent>
 
 
@@ -138,15 +139,6 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
     if(nodeobject["type"]=="BarcodeReaderNode"){
         newnode=graphView->getGraph()->insertNode<BarcodeReaderNode>(nullptr);
     }
-    else if(nodeobject["type"]=="WebServiceNode"){
-        newnode=graphView->getGraph()->insertNode<WebServiceNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="StringNode"){
-        newnode=graphView->getGraph()->insertNode<StringNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="ProxyInputNode"){
-        newnode=graphView->getGraph()->insertNode<ProxyInputNode>(nullptr);
-    }
     else if(nodeobject["type"]=="ModulePropertyBind"){
         newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
         ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
@@ -154,9 +146,8 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
             modulePropertyBindNode->setModule(this);
         }
     }
-    else if(nodeobject["type"]=="MultiplexedInputNode"){
-        newnode=graphView->getGraph()->insertNode<MultiplexedInputNode>(nullptr);
-
+    if(!newnode){
+        newnode=QAutomationModule::readCommonNode(graphView,nodeobject);
     }
 
 
@@ -170,6 +161,46 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
 
     return node;
 
+}
+
+FlowNode *QAutomationModule::readCommonNode(qan::GraphView *graphView, QJsonObject nodeobject)
+{
+    qan::Node* newnode=nullptr;
+
+   newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString());
+
+
+    FlowNode* node=dynamic_cast<FlowNode*>(newnode);
+    if(node){
+        node->DeSerialize(nodeobject);
+
+    }
+
+
+    return node;
+
+}
+
+FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString nodetype)
+{
+    qan::Node* newnode=nullptr;
+
+    if(nodetype=="WebServiceNode"){
+         newnode=graphView->getGraph()->insertNode<WebServiceNode>(nullptr);
+     }
+     else if(nodetype=="StringNode"){
+         newnode=graphView->getGraph()->insertNode<StringNode>(nullptr);
+     }
+     else if(nodetype=="ProxyInputNode"){
+         newnode=graphView->getGraph()->insertNode<ProxyInputNode>(nullptr);
+     }
+     else if(nodetype=="NumericNode"){
+         newnode=graphView->getGraph()->insertNode<NumericNode>(nullptr);
+     }
+     else if(nodetype=="MultiplexedInputNode"){
+         newnode=graphView->getGraph()->insertNode<MultiplexedInputNode>(nullptr);
+     }
+    return dynamic_cast<FlowNode*>(newnode);
 }
 
 void QAutomationModule::save()

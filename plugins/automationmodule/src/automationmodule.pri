@@ -16,7 +16,9 @@ HEADERS += \
     $$PWD/nodes/stringnode.h \
     $$PWD/nodes/modulepropertybind.h \
     $$PWD/nodes/proxyinputnode.h \
-    $$PWD/nodes/multiplexedinputnode.h
+    $$PWD/nodes/multiplexedinputnode.h \
+    $$PWD/graphs/commonscenegraph.h \
+    $$PWD/nodes/numericnode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -33,5 +35,7 @@ SOURCES += \
     $$PWD/nodes/stringnode.cpp \
     $$PWD/nodes/modulepropertybind.cpp \
     $$PWD/nodes/proxyinputnode.cpp \
-    $$PWD/nodes/multiplexedinputnode.cpp
+    $$PWD/nodes/multiplexedinputnode.cpp \
+    $$PWD/graphs/commonscenegraph.cpp \
+    $$PWD/nodes/numericnode.cpp
 

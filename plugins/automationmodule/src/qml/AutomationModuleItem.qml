@@ -126,7 +126,7 @@ Item {
 
                             resizeHandlerColor: Material.accent
                             gridThickColor: Material.theme === Material.Dark ? "#4e4e4e" : "#c1c1c1"
-                            SceneGraph {
+                            CommonSceneGraph {
                                 id: dataflowGraph
 
 

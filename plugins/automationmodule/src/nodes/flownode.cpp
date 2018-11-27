@@ -14,6 +14,59 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 
 }
 
+QVariantList FlowNode::getCommonTypes()
+{
+    QVariantList ret;
+
+    int enumscount=QMetaEnum::fromType<Type>().keyCount();
+    for (int i = 0; i < enumscount; ++i) {
+        Type nodetype= static_cast<Type>(QMetaEnum::fromType<Type>().value(i));
+
+        QVariantMap map;
+
+
+        switch (nodetype) {
+
+        case Type::ObjectPropertyNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Object Property");
+
+            break;
+
+        case Type::ProxyInputNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"In/Out Proxy");
+
+            break;
+
+        case Type::StringNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"String");
+
+            break;
+
+        case Type::WebServiceNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"WebService");
+
+            break;
+
+        case Type::NumericNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Numeric");
+
+            break;
+
+
+        default:
+//                static_assert(true, "");
+            break;
+        }
+
+        if(map.empty()==false)
+            ret.append(map);
+
+    }
+
+
+    return ret;
+}
+
 std::ostream& operator <<(std::ostream &out, const FlowNode &c)
 {
     out <<c;

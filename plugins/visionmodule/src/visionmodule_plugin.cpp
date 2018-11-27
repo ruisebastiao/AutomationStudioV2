@@ -34,6 +34,8 @@
 #include <nodes/cv/processingenclosingnode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
+#include <graphs/processingscenegraph.h>
+
 
 void VisionModulePlugin::registerTypes(const char *uri){
     // @uri modules.visionmodule
@@ -48,6 +50,8 @@ void VisionModulePlugin::registerTypes(const char *uri){
 
 
     qmlRegisterType<ROINode>(uri, 1, 0, "ROINode");
+
+    qmlRegisterType<ProcessingSceneGraph>(uri, 1, 0, "ProcessingSceneGraph");
 
 
     qmlRegisterUncreatableType<ProcessingThresholdNode>(uri, 1, 0, "ProcessingThresholdNode","Uncreatable");

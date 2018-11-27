@@ -76,7 +76,7 @@ Item{
 
         resizeHandlerColor: Material.accent
         gridThickColor: Material.theme === Material.Dark ? "#4e4e4e" : "#c1c1c1"
-        SceneGraph {
+        ProcessingSceneGraph {
             id: roieditorGraph
 
 
@@ -135,7 +135,7 @@ Item{
                         anchors.fill: parent
                         anchors.margins: 5
                         ListView {
-                            id: listView1
+                            id: listView_proc
                             clip: true
                             anchors.fill: parent
                             model: root.roinode.processingNodeTypes
@@ -192,6 +192,61 @@ Item{
 
                     Layout.fillWidth:true
                     Layout.fillHeight:true
+                    Rectangle{
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        ListView {
+                            id: listView_common
+                            clip: true
+                            anchors.fill: parent
+                            model: root.roinode.commonNodeTypes
+                            delegate:Item {
+                                id:common_delegate
+                                width: parent.width
+                                height: 40
+                                property var modelDataObject: modelData
+                                property var key;
+                                property string value
+                                onModelDataObjectChanged: {
+                                    for (var prop in modelDataObject) {
+                                        key=prop
+                                        value= modelDataObject[prop]
+                                    }
+                                }
+
+                                Label{
+
+                                    text: value
+                                    anchors.fill: parent
+                                    font.pixelSize: 16
+                                    horizontalAlignment:Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                    //                     fontSizeMode:Text.Fit
+                                }
+                                MouseArea{
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    onEntered:{
+                                        common_delegate.ListView.view.currentIndex = index;
+
+                                    }
+
+                                    onClicked: {
+
+
+                                        root.roinode.addCommonNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                        contextMenu.dismiss()
+                                    }
+                                }
+                            }
+                            highlight: Rectangle {
+                                color: "lightsteelblue";
+                                radius: 5
+                            }
+                            focus: true
+                        }
+
+                    }
                 }
             }
 
