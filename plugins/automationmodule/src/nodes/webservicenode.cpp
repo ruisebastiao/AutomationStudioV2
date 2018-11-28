@@ -50,7 +50,7 @@ void WebServiceNode::makeRequest()
     setResponse("");
 
 
-    if(this->executing()){
+    if(this->executing().value<bool>()){
         setError("À espera de resposta do servidor");
         return;
 

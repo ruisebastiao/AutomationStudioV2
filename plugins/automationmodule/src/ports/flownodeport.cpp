@@ -91,7 +91,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
                         FlowNode* destination=qobject_cast<FlowNode*>(edgeItem->getDestinationItem()->getNode());
 
-                        destination->unbindSourceProperty(connectioninfo->portID());
+//                        destination->unbindSourceProperty(connectioninfo->portID());
 
                     }
 
@@ -108,7 +108,9 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
         qan::PortItem* targetPortItem=qobject_cast<qan::PortItem*>(outEdgeItem.getDestinationItem());
 
         if(targetNode!=nullptr){
-            targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
+
+//            targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
+
             int targetid=targetNode->id();
 
 
@@ -149,7 +151,7 @@ void FlowNodePort::setShowinlabel(bool showinlabel)
 
     m_showinlabel = showinlabel;
     if(m_showinlabel){
-        m_node->bindPortLabelToProperty(m_port,m_port->getId());
+//        m_node->bindPortLabelToProperty(m_port,m_port->getId());
     }
     emit showinlabelChanged(m_showinlabel);
 

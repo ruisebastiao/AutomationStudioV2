@@ -162,7 +162,7 @@ void ROINode::initializeProcessingNode(ProcessingNode* procnode){
 
         procnode->setOriginalFrame(this->processedFrame());
         if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
-            procnode->bindSourceProperty(this,"sourceFrame","input");
+//            procnode->bindSourceProperty(this,"sourceFrame","input");
             m_basenode=qobject_cast<ProcessingBaseNode*>(procnode);
         }
 

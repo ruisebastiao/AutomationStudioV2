@@ -343,13 +343,13 @@ signals:
 
     void removeNode(FlowNode*);
 
-    void bindPortLabelToProperty(qan::PortItem* portItem,QString nodeProperty);
+//    void bindPortLabelToProperty(qan::PortItem* portItem,QString nodeProperty);
 
-    void bindSourceProperty(qan::Node* sourceNode,QString sourceProperty,QString targetProperty);
+//    void bindSourceProperty(qan::Node* sourceNode,QString sourceProperty,QString targetProperty);
 
-    void unbindSourceProperty(QString targetProperty);
+//    void unbindSourceProperty(QString targetProperty);
 
-    void bindPropertyToTarget(QString sourceproperty,QObject* target,QString targetproperty);
+//    void bindPropertyToTarget(QString sourceproperty,QObject* target,QString targetproperty);
     //    void bindToOutput( qan::Node* outputNode);
 
     void configsLoadedChanged(bool configsLoaded);

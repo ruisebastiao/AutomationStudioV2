@@ -13,27 +13,27 @@ public:
 
     Q_PROPERTY(QString serviceUrl READ serviceUrl WRITE setServiceUrl NOTIFY serviceUrlChanged USER("serialize"))
 
-    Q_PROPERTY(QString param1 READ param1 WRITE setParam1 NOTIFY param1Changed REVISION 30)
+    Q_PROPERTY(QVariant  param1 READ param1 WRITE setParam1 NOTIFY param1Changed REVISION 30)
 
-    Q_PROPERTY(QString param1Name READ param1Name WRITE setParam1Name NOTIFY param1NameChanged REVISION 30)
+    Q_PROPERTY(QVariant  param1Name READ param1Name WRITE setParam1Name NOTIFY param1NameChanged REVISION 30)
 
 
-    Q_PROPERTY(QString param2 READ param2 WRITE setParam2 NOTIFY param2Changed REVISION 30)
+    Q_PROPERTY(QVariant  param2 READ param2 WRITE setParam2 NOTIFY param2Changed REVISION 30)
 
-    Q_PROPERTY(QString param2Name READ param2Name WRITE setParam2Name NOTIFY param2NameChanged REVISION 30)
+    Q_PROPERTY(QVariant  param2Name READ param2Name WRITE setParam2Name NOTIFY param2NameChanged REVISION 30)
 
 
     Q_PROPERTY(QString formattedUrl READ formattedUrl NOTIFY formattedUrlChanged )
 
-    Q_PROPERTY(QString response READ response WRITE setResponse NOTIFY responseChanged REVISION 31)
+    Q_PROPERTY(QVariant  response READ response WRITE setResponse NOTIFY responseChanged REVISION 31)
 
 
 
-    Q_PROPERTY(bool executing READ executing WRITE setExecuting NOTIFY executingChanged REVISION 31)
+    Q_PROPERTY(QVariant executing READ executing WRITE setExecuting NOTIFY executingChanged REVISION 31)
 
 
 
-    Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged REVISION 31)
+    Q_PROPERTY(QVariant error READ error WRITE setError NOTIFY errorChanged REVISION 31)
 
 
 
@@ -54,32 +54,32 @@ public:
         return m_formattedUrl;
     }
 
-    QString param1() const
+    QVariant  param1() const
     {
         return m_param1;
     }
 
-    QString param2() const
+    QVariant  param2() const
     {
         return m_param2;
     }
 
-    QString response() const
+    QVariant  response() const
     {
         return m_response;
     }
 
-    QString param1Name() const
+    QVariant  param1Name() const
     {
         return m_param1Name;
     }
 
-    QString param2Name() const
+    QVariant  param2Name() const
     {
         return m_param2Name;
     }
 
-    bool executing() const
+    QVariant  executing() const
     {
         return m_executing;
     }
@@ -99,9 +99,9 @@ public slots:
 
 
 
-    void setParam1(QString param1)
+    void setParam1(QVariant  param1)
     {
-        if (param1=="")
+        if (param1.value<QString>()=="")
             return;
 
         m_param1 = param1;
@@ -110,7 +110,7 @@ public slots:
         makeRequest();
     }
 
-    void setParam2(QString param2)
+    void setParam2(QVariant param2)
     {
         if (m_param2 == param2)
             return;
@@ -120,14 +120,14 @@ public slots:
         emit param2Changed(m_param2);
     }
 
-    void setResponse(QString response)
+    void setResponse(QVariant response)
     {
 
         m_response = response;
         emit responseChanged(m_response);
     }
 
-    void setParam1Name(QString param1Name)
+    void setParam1Name(QVariant param1Name)
     {
         if (m_param1Name == param1Name)
             return;
@@ -137,7 +137,7 @@ public slots:
         emit param1NameChanged(m_param1Name);
     }
 
-    void setParam2Name(QString param2Name)
+    void setParam2Name(QVariant param2Name)
     {
         if (m_param2Name == param2Name)
             return;
@@ -147,7 +147,7 @@ public slots:
         emit param2NameChanged(m_param2Name);
     }
 
-    void setExecuting(bool executing)
+    void setExecuting(QVariant executing)
     {
 
 
@@ -157,7 +157,7 @@ public slots:
 
 
 
-    void setError(QString error)
+    void setError(QVariant error)
     {
 
         m_error = error;
@@ -175,21 +175,21 @@ signals:
 
     void formattedUrlChanged(QString formattedUrl);
 
-    void param1Changed(QString param1);
+    void param1Changed(QVariant  param1);
 
-    void param2Changed(QString param2);
+    void param2Changed(QVariant  param2);
 
-    void responseChanged(QString response);
+    void responseChanged(QVariant  response);
 
-    void param1NameChanged(QString param1Name);
+    void param1NameChanged(QVariant  param1Name);
 
-    void param2NameChanged(QString param2Name);
+    void param2NameChanged(QVariant  param2Name);
 
-    void executingChanged(bool executing);
+    void executingChanged(QVariant  executing);
 
 
 
-    void errorChanged(QString error);
+    void errorChanged(QVariant  error);
 
 private:
 
@@ -197,29 +197,29 @@ private:
     {
 
 
-        m_formattedUrl = "?"+m_param1Name+"="+m_param1+"&"+m_param2Name+"="+m_param2;
+        m_formattedUrl = "?"+m_param1Name.value<QString>()+"="+m_param1.value<QString>()+"&"+m_param2Name.value<QString>()+"="+m_param2.value<QString>();
         emit formattedUrlChanged(m_formattedUrl);
         //        makeRequest();
     }
 
 
     QString m_serviceUrl="";
-
     QString m_formattedUrl="";
-    QString m_param1="";
-    QString m_param2="";
-    QString m_response="";
-    QString m_param1Name="";
-    QString m_param2Name="";
+
+    QVariant m_param1=QVariant::fromValue(QString());
+    QVariant m_param2=QVariant::fromValue(QString());
+    QVariant m_response=QVariant::fromValue(QString());
+    QVariant m_param1Name=QVariant::fromValue(QString());
+    QVariant m_param2Name=QVariant::fromValue(QString());
     QTimer* m_replytimer;
 
     QNetworkAccessManager *m_manager=nullptr;
 
-    bool m_executing=false;
+    QVariant m_executing=QVariant::fromValue(false);
 
 
 
-    QString m_error="";
+    QVariant m_error=QVariant::fromValue(QString());
 
     FlowNodePort* m_errorPort=nullptr;
 
@@ -231,7 +231,7 @@ public:
     // FlowNode interface
 public:
 
-    QString error() const
+    QVariant  error() const
     {
         return m_error;
     }
