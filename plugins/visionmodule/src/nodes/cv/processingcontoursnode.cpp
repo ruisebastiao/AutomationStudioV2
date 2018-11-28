@@ -21,7 +21,7 @@ QQmlComponent *ProcessingContoursNode::delegate(QQmlEngine &engine) noexcept
 
 }
 
-void ProcessingContoursNode::setInput(QMat *input)
+void ProcessingContoursNode::setInput(QVariant input)
 {
 //    if(m_input){
 //        m_input->cvMat()->copyTo(*m_originalInput->cvMat());
@@ -33,7 +33,9 @@ void ProcessingContoursNode::setInput(QMat *input)
 void ProcessingContoursNode::doProcess()
 {
 
-    if(!input() || input()->cvMat()->empty()){
+    QMat* in=m_input.value<QMat*>();
+
+    if(!in || in->cvMat()->empty()){
         return;
     }
 
@@ -49,13 +51,13 @@ void ProcessingContoursNode::doProcess()
 
 
     // TODO during real time processing this should be removed, only needed if in config mode
-    m_originalFrame->cvMat()->copyTo(*m_output->cvMat());
+    m_originalFrame->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
 
 
 
 
     //    Canny( input, preprocessed, threshold(), threshold()*2, 3 );
-    findContours( *input()->cvMat(), contours, RETR_LIST, CHAIN_APPROX_SIMPLE, Point(0, 0) );
+    findContours( *in->cvMat(), contours, RETR_LIST, CHAIN_APPROX_SIMPLE, Point(0, 0) );
 
 
 
@@ -122,7 +124,7 @@ void ProcessingContoursNode::doProcess()
     }
     setTotalFilteredContours(m_filteredContours.size());
 
-    drawContours(*m_output->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
+    drawContours(*m_output.value<QMat*>()->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
 
 
     LOG_INFO()<<"Total contours:"<<m_totalContours;

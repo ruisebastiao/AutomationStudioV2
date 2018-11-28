@@ -19,7 +19,7 @@ ProcessingNode::~ProcessingNode()
 
 
 
-void ProcessingNode::setProcess(bool process)
+void ProcessingNode::setProcess(QVariant process)
 {
 
     emit processChanged(process);
@@ -27,7 +27,7 @@ void ProcessingNode::setProcess(bool process)
     //    if(!m_input || m_input->cvMat()->empty())
     //        return;
 
-    if(process){
+    if(process.value<bool>()){
 
 
         if(configsLoaded()==false){
@@ -79,12 +79,6 @@ QString ProcessingNode::name() const
 }
 
 
-void ProcessingNode::setOriginalFrame(QMat *originalFrame)
-{
-    m_originalFrame=originalFrame;
-}
-
-
 void ProcessingNode::doProcess()
 {
 
@@ -99,7 +93,7 @@ void ProcessingNode::doProcess()
 
 }
 
-void ProcessingNode::setInput(QMat *input)
+void ProcessingNode::setInput(QVariant input)
 {
 
     m_input = input;

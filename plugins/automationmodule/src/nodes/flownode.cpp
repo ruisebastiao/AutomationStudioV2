@@ -117,7 +117,8 @@ void FlowNode::loadNodeConnections()
                     string portkey=QString::number(connection->nodeID()).toStdString();
                     portkey.append("|");
                     portkey.append(connection->portID().toStdString());
-                    FlowNodePort* targetport= targetnode->getInPorts()[portkey];
+                    QMap<string,FlowNodePort *>  map=targetnode->getInPorts();
+                    FlowNodePort* targetport= map.value(portkey,nullptr);
                     if(targetport){
 
                         qan::PortItem* inport=targetport->getPortItem();

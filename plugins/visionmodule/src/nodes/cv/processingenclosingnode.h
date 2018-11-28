@@ -30,7 +30,7 @@ public:
     // ProcessingNode interface
     static QQmlComponent *delegate(QQmlEngine &engine) noexcept;
 public slots:
-    void setInput(QMat *input) override;
+    void setInput(QVariant input) override;
 
     void setContours(std::vector<std::vector<cv::Point>> contours)
     {

@@ -9,7 +9,7 @@ class NumericNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(double numericValue READ numericValue WRITE setNumericValue NOTIFY numericValueChanged USER("serialize") REVISION 31)
+    Q_PROPERTY(QVariant numericValue READ numericValue WRITE setNumericValue NOTIFY numericValueChanged USER("serialize") REVISION 31)
 
 
 public:
@@ -18,7 +18,7 @@ public:
       static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
       // ProcessingNode interface
-      double numericValue() const
+      QVariant numericValue() const
       {
           return m_numericValue;
       }
@@ -27,7 +27,7 @@ public:
 
 public slots:
 
-    void setNumericValue(double value)
+    void setNumericValue(QVariant value)
     {
 
 
@@ -38,12 +38,12 @@ public slots:
 
 
 signals:
-    void numericValueChanged(double value);
+    void numericValueChanged(QVariant value);
 
 
 
 private:
-    double m_numericValue=0.0;
+    QVariant m_numericValue=QVariant::fromValue(0.0);
 
 
     // JsonSerializable interface

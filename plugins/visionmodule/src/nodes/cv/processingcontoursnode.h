@@ -92,7 +92,7 @@ public:
     }
 
 public slots:
-    virtual void setInput(QMat *input) override;
+    virtual void setInput(QVariant input) override;
 
     void setTotalContours(int totalContours)
     {

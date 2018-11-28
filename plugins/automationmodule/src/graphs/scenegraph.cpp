@@ -13,11 +13,16 @@ void SceneGraph::deleteEdge(qan::Edge *edge)
         return;
     }
 
-    edge->getItem()->deleteLater();
+   auto edgeitem= edge->getItem();
 
+       edgeitem->deleteLater();
     // TODO
 
     qan::Graph::removeEdge(edge);
+
+
+//    edge->deleteLater();//->setItem(nullptr);
+//    edge=nullptr;
 
 
 }

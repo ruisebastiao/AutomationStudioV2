@@ -81,7 +81,7 @@ public:
     }
 
 public slots:
-    void setInput(QMat *input) override;
+    void setInput(QVariant input) override;
 
     void setMaskType(MaskType maskType)
     {

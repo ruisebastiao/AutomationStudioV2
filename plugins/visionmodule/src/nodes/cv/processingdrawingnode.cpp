@@ -7,7 +7,7 @@ ProcessingDrawingNode::ProcessingDrawingNode()
 
 }
 
-void ProcessingDrawingNode::setInput(QMat *input)
+void ProcessingDrawingNode::setInput(QVariant input)
 {
     ProcessingNode::setInput(input);
     doProcess();

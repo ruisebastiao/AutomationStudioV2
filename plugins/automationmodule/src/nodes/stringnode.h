@@ -9,7 +9,7 @@ class StringNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString stringValue READ stringValue WRITE setStringValue NOTIFY stringValueChanged USER("serialize") REVISION 31)
+    Q_PROPERTY(QVariant stringValue READ stringValue WRITE setStringValue NOTIFY stringValueChanged USER("serialize") REVISION 31)
 
 
 
@@ -18,12 +18,12 @@ public:
     StringNode();
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
-    QString stringValue() const
+    QVariant stringValue() const
     {
         return m_stringValue;
     }
 public slots:
-    void setStringValue(QString stringValue)
+    void setStringValue(QVariant stringValue)
     {
 
         m_stringValue = stringValue;
@@ -32,12 +32,12 @@ public slots:
 
 
 signals:
-    void stringValueChanged(QString stringValue);
+    void stringValueChanged(QVariant stringValue);
 
 
 
 private:
-      QString m_stringValue="";
+      QVariant m_stringValue=QVariant::fromValue(QString(""));
 
 
 

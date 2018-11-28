@@ -34,17 +34,25 @@ void BarcodeReaderNode::handleReadyRead()
 
     if(m_serialPort->isOpen()){
         m_readData.append(m_serialPort->readAll());
-        m_rawdata=m_readData;
-        m_rawdata=m_rawdata.replace('\n',"");
+        QString temp(m_readData);
+        temp=temp.replace('\n',"");
+        m_rawdata=QVariant::fromValue(temp);
+
+
         if(m_readData.contains('\n')){
 
             m_readData=m_readData.replace('\n',"");
             m_readData=m_readData.replace('\r',"");
 
-            m_dataout=m_readData;
+            QString temp(m_readData);
+            temp=temp.replace('\n',"");
 
-            m_dataout=m_dataout.replace(prefix(),"");
-            m_dataout=m_dataout.replace(suffix(),"");
+            temp=temp.replace(prefix(),"");
+            temp=temp.replace(suffix(),"");
+
+            m_dataout=QVariant::fromValue(temp);
+
+
 
 
             setDataout(m_dataout);

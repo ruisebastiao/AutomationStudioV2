@@ -60,7 +60,7 @@ void ProcessingMaskNode::DeSerialize(QJsonObject &json)
 
 }
 
-void ProcessingMaskNode::setInput(QMat *input)
+void ProcessingMaskNode::setInput(QVariant input)
 {
     ProcessingNode::setInput(input);
 }
@@ -68,9 +68,16 @@ void ProcessingMaskNode::setInput(QMat *input)
 void ProcessingMaskNode::doProcess()
 {
 
-    if(!m_input||m_input->cvMat()->empty() ){
+
+    QMat* in=m_input.value<QMat*>();
+    QMat* out=m_output.value<QMat*>();
+
+
+    if(!in || in->cvMat()->empty() || !out){
+        // TODO Send Error
         return;
     }
+
 
     switch (m_maskType) {
     case MaskCircleRadius:
@@ -105,16 +112,16 @@ void ProcessingMaskNode::doProcess()
         }
 
 
-        Mat temp= Mat::zeros(m_input->cvMat()->size(), CV_8UC1);
-        m_input->cvMat()->copyTo(*m_output->cvMat());
+        Mat temp= Mat::zeros(in->cvMat()->size(), CV_8UC1);
+        in->cvMat()->copyTo(*out->cvMat());
 
         if(inner_radius<=0){
-            circle(*m_output->cvMat(),center,radius,Scalar(255),-1);
+            circle(*in->cvMat(),center,radius,Scalar(255),-1);
             circle(temp,center,radius,Scalar(255),-1);
 
         }
         else{
-            circle(*m_output->cvMat(),center,radius-inner_radius,Scalar(255),inner_radius);
+            circle(*out->cvMat(),center,radius-inner_radius,Scalar(255),inner_radius);
             circle(temp,center,radius-inner_radius,Scalar(255),inner_radius);
 
         }

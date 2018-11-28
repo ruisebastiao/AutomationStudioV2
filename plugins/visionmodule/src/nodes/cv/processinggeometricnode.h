@@ -36,7 +36,7 @@ public:
 
     // ProcessingNode interface
 public slots:
-    void setInput(QMat *input) override;
+    void setInput(QVariant input) override;
 
     void setInput1(QVariant input1)
     {
@@ -147,7 +147,7 @@ public:
 signals:
     void input1Changed(QVariant input1);
 
-    void input2Changed(QVariant input2);   
+    void input2Changed(QVariant input2);
     void geometricTypeChanged(GeometricType geometricType);
     void output1Changed(QVariant output1);
     void input3Changed(QVariant input3);
@@ -158,12 +158,14 @@ private:
 
     GeometricType m_geometricType=Geometric2PointLine;
 
-    QVariant m_output1;
+    QVariant m_output1=QVariant::fromValue(new QMat());
+    QVariant m_input1=QVariant::fromValue(new QMat());
+    QVariant m_input2=QVariant::fromValue(new QMat());
+    QVariant m_input3=QVariant::fromValue(new QMat());
 
     QLineF lineSegment();
-    QVariant m_input1;
-    QVariant m_input2;
-    QVariant m_input3;
+
+
 
 
     // FlowNode interface

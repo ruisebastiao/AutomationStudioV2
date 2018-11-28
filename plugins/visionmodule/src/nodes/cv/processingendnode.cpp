@@ -16,16 +16,18 @@ QQmlComponent *ProcessingEndNode::delegate(QQmlEngine &engine) noexcept
 
 }
 
-void ProcessingEndNode::setInput(QMat *input)
+void ProcessingEndNode::setInput(QVariant input)
 {
     ProcessingNode::setInput(input);
 }
 
 void ProcessingEndNode::doProcess()
 {
-    if(m_input && m_input->cvMat()->empty()==false){
+    QMat* in=m_input.value<QMat*>();
 
-        m_input->cvMat()->copyTo(*m_output->cvMat());
+    if( in && in->cvMat()->empty()==false){
+
+        in->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
     }
     ProcessingNode::doProcess();
     emit processingCompleted(this);

@@ -56,20 +56,23 @@ FlowNodeItem {
                     CheckBox{
                         Layout.fillWidth: true
                         text: "Apply mask"
-                        checked: root.node.configsLoaded && root.node.applyMask
+                        checked: root.node && root.node.applyMask
                         onCheckedChanged: {
-
-                            root.node.applyMask=checked
+                            if(root.node.configsLoaded){
+                                root.node.applyMask=checked
+                            }
                         }
                     }
 
                     CheckBox{
                         Layout.fillWidth: true
                         text: "Draw on input source"
-                        checked: root.node.configsLoaded && root.node.drawOnSource
+                        checked: root.node && root.node.drawOnSource
                         onCheckedChanged: {
 
-                            root.node.drawOnSource=checked
+                            if(root.node.configsLoaded){
+                                root.node.drawOnSource=checked
+                            }
                         }
                     }
 
@@ -228,6 +231,7 @@ FlowNodeItem {
 
         target: node
 
+        ignoreUnknownSignals: true
         onOutputChanged:{
 
             f.viewer.mat=output

@@ -18,7 +18,7 @@ QQmlComponent *ProcessingLogicalNode::delegate(QQmlEngine &engine) noexcept
 }
 
 
-void ProcessingLogicalNode::setInput(QMat *input)
+void ProcessingLogicalNode::setInput(QVariant input)
 {
 
 }

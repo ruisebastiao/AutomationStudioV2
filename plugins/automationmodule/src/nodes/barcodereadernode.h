@@ -20,14 +20,14 @@ class BarcodeReaderNode : public FlowNode
     Q_PROPERTY(QString suffix READ suffix WRITE setSuffix NOTIFY suffixChanged USER("serialize"))
 
 
-    Q_PROPERTY(bool opened READ opened WRITE setOpened NOTIFY openedChanged REVISION 31)
+    Q_PROPERTY(QVariant opened READ opened WRITE setOpened NOTIFY openedChanged REVISION 31)
 
 
 
-    Q_PROPERTY(QString dataout READ dataout WRITE setDataout NOTIFY dataoutChanged REVISION 31)
+    Q_PROPERTY(QVariant dataout READ dataout WRITE setDataout NOTIFY dataoutChanged REVISION 31)
 
 
-    Q_PROPERTY(QString rawdata READ rawdata WRITE setRawdata NOTIFY rawdataChanged REVISION 31)
+    Q_PROPERTY(QVariant rawdata READ rawdata WRITE setRawdata NOTIFY rawdataChanged REVISION 31)
 
 
 
@@ -115,10 +115,9 @@ public slots:
 
 
 
-    void setOpened(bool opened)
+    void setOpened(QVariant opened)
     {
-        if (m_opened == opened)
-            return;
+
 
         m_opened = opened;
         emit openedChanged(m_opened);
@@ -133,7 +132,7 @@ public slots:
         emit triggerChanged(m_trigger);
     }
 
-    void setDataout(QString dataout)
+    void setDataout(QVariant  dataout)
     {
 
         m_dataout = dataout;
@@ -169,7 +168,7 @@ public slots:
         emit openOnConnectChanged(m_openOnConnect);
     }
 
-    void setRawdata(QString rawdata)
+    void setRawdata(QVariant rawdata)
     {
 
 
@@ -188,13 +187,13 @@ signals:
     void portChanged(QString port);
 
 
-    void openedChanged(bool opened);
+    void openedChanged(QVariant  opened);
 
-    void triggerChanged(bool trigger);
+    void triggerChanged(QVariant  trigger);
 
     void portsAvailableChanged(QStringList portsAvailable);
 
-    void dataoutChanged(QString dataout);
+    void dataoutChanged(QVariant dataout);
 
     void prefixChanged(QString prefix);
 
@@ -204,7 +203,7 @@ signals:
 
     void openOnConnectChanged(bool openOnConnect);
 
-    void rawdataChanged(QString rawdata);
+    void rawdataChanged(QVariant rawdata);
 
 
 
@@ -215,13 +214,13 @@ private:
     QString m_port="";
 
 
-    bool m_opened=false;
+    QVariant m_opened=QVariant::fromValue(false);
 
     bool m_trigger=false;
 
     QStringList m_portsAvailable;
 
-    QString m_dataout;
+    QVariant  m_dataout=QVariant::fromValue(QString(""));
 
     QString m_prefix="";
 
@@ -229,7 +228,7 @@ private:
 
     bool m_openOnConnect=false;
 
-    QString m_rawdata="";
+    QVariant m_rawdata=QVariant::fromValue(QString(""));
 
 
 private slots:
@@ -242,7 +241,7 @@ private slots:
     // FlowNode interface
 public:
 
-    bool opened() const
+    QVariant opened() const
     {
         return m_opened;
     }
@@ -254,15 +253,15 @@ public:
     {
         return m_portsAvailable;
     }
-    QString dataout() const
+    QVariant  dataout() const
     {
         return m_dataout;
     }
-    QString prefix() const
+    QString  prefix() const
     {
         return m_prefix;
     }
-    QString suffix() const
+    QString  suffix() const
     {
         return m_suffix;
     }
@@ -276,7 +275,7 @@ public:
     {
         return m_openOnConnect;
     }
-    QString rawdata() const
+    QVariant rawdata() const
     {
         return m_rawdata;
     }

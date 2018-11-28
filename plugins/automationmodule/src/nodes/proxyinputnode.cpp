@@ -25,6 +25,9 @@ QQmlComponent *ProxyInputNode::delegate(QQmlEngine &engine)
 
 void ProxyInputNode::updateProxyType()
 {
+    if(configsLoaded()==false)
+        return;
+
     if(!m_inputPort){
         return;
     }

@@ -16,7 +16,12 @@ QQmlComponent *ProcessingBaseNode::delegate(QQmlEngine &engine) noexcept
 
 void ProcessingBaseNode::doProcess()
 {
-    m_input->cvMat()->copyTo(*m_output->cvMat());
+//    m_input->cvMat()->copyTo(*m_output->cvMat());
+
+
+    QMat* in=m_input.value<QMat*>();
+
+    in->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
 
     ProcessingNode::doProcess();
 }
@@ -40,15 +45,16 @@ void ProcessingBaseNode::DeSerialize(QJsonObject &json)
 
 }
 
-void ProcessingBaseNode::setInput(QMat *input)
+void ProcessingBaseNode::setInput(QVariant input)
 {
-    if(!input){
+    if(input.canConvert<QMat*>()==false){
         return;
     }
 
     ProcessingNode::setInput(input);
 
-    if(input->cvMat()->empty()==false){
+    QMat* mat=input.value<QMat*>();
+    if(mat && mat->cvMat()->empty()==false){
         setProcess(true);
     }
 

@@ -16,7 +16,7 @@ QQmlComponent *ProcessingThresholdNode::delegate(QQmlEngine &engine) noexcept
 
 }
 
-void ProcessingThresholdNode::setInput(QMat *input)
+void ProcessingThresholdNode::setInput(QVariant input)
 {
     
     //    if(m_input){
@@ -29,7 +29,11 @@ void ProcessingThresholdNode::setInput(QMat *input)
 void ProcessingThresholdNode::doProcess()
 {
 
-    if(!m_input || m_input->cvMat()->empty()){
+
+    QMat* in=m_input.value<QMat*>();
+    QMat* mask=m_maskInput.value<QMat*>();
+
+    if(!in || in->cvMat()->empty()){
         return;
     }
 
@@ -42,13 +46,13 @@ void ProcessingThresholdNode::doProcess()
 
         Mat targetMat;
 
-        if(!m_maskInput||m_maskInput->cvMat()->empty()){
+        if(!mask ||mask->cvMat()->empty()){
 
-            m_input->cvMat()->copyTo(targetMat);
+            in->cvMat()->copyTo(targetMat);
         }
         else{
 
-            m_input->cvMat()->copyTo(targetMat,*m_maskInput->cvMat());
+            in->cvMat()->copyTo(targetMat,*mask->cvMat());
 
 
         }
@@ -66,7 +70,7 @@ void ProcessingThresholdNode::doProcess()
 
         }
 
-        targetMat.copyTo(*m_output->cvMat());
+        targetMat.copyTo(*m_output.value<QMat*>()->cvMat());
         //        targetMat->copyTo(*m_processedMat->cvMat());
     }
 

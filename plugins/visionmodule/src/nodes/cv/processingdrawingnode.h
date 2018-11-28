@@ -12,7 +12,7 @@ public:
 
     // ProcessingNode interface
 public slots:
-    virtual void setInput(QMat *input) override;
+    virtual void setInput(QVariant input) override;
 
 protected:
     virtual void doProcess() override;

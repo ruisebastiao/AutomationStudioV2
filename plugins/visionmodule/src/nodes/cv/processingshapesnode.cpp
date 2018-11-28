@@ -25,7 +25,7 @@ void ProcessingShapesNode::DeSerialize(QJsonObject &json)
 
 }
 
-void ProcessingShapesNode::setInput(QMat *input)
+void ProcessingShapesNode::setInput(QVariant input)
 {
 
     ProcessingNode::setInput(input);

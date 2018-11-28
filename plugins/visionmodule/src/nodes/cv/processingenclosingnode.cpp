@@ -19,7 +19,7 @@ QQmlComponent *ProcessingEnclosingNode::delegate(QQmlEngine &engine) noexcept
 
 }
 
-void ProcessingEnclosingNode::setInput(QMat *input)
+void ProcessingEnclosingNode::setInput(QVariant input)
 {
 
 }
@@ -27,8 +27,17 @@ void ProcessingEnclosingNode::setInput(QMat *input)
 void ProcessingEnclosingNode::doProcess()
 {
 
+    QMat* in=m_input.value<QMat*>();
+    QMat* out=m_output.value<QMat*>();
+
+
+    if(!in || in->cvMat()->empty() || !out){
+        // TODO Send Error
+        return;
+    }
+
     // TODO during real time processing this should be removed, only needed if in config mode
-    m_originalFrame->cvMat()->copyTo(*m_output->cvMat());
+    m_originalFrame->cvMat()->copyTo(*out->cvMat());
 
 
 
@@ -54,10 +63,10 @@ void ProcessingEnclosingNode::doProcess()
             cv::Point2f vertices[4];
             minrect.points(vertices);
             for(int i = 0; i < 4; ++i){
-                cv::line(*m_output->cvMat(), vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 2, CV_AA);
+                cv::line(*out->cvMat(), vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 2, CV_AA);
             }
 
-            drawMarker(*m_output->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
+            drawMarker(*out->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
 
 
 
@@ -66,8 +75,8 @@ void ProcessingEnclosingNode::doProcess()
         case BoundingRectEnclosing:
         {
             cv::Rect minrect=boundingRect(approx_contour);
-            rectangle(*m_output->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
-            drawMarker(*m_output->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
+            rectangle(*out->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
+            drawMarker(*out->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
             rectenclosingshapes.push_back(minrect);
             break;
         }

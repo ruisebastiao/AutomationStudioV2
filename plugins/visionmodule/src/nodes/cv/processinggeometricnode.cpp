@@ -19,7 +19,7 @@ QQmlComponent *ProcessingGeometricNode::delegate(QQmlEngine &engine) noexcept
 
 
 
-void ProcessingGeometricNode::setInput(QMat *input)
+void ProcessingGeometricNode::setInput(QVariant input)
 {
 
 }
@@ -32,6 +32,8 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
     double angle,length;
 
+    QMat* in=m_input.value<QMat*>();
+    QMat* out=m_output.value<QMat*>();
 
     switch (m_geometricType) {
     case GeometricPointAngleLengthLine:
@@ -150,7 +152,7 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
 
 
-        line(*m_output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+        line(*out->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
 
         result=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
 
@@ -168,10 +170,10 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
 void ProcessingGeometricNode::doProcess()
 {
-    m_output1=QVariant();
+
 
     // TODO during real time processing this should be removed, only needed if in config mode
-    m_originalFrame->cvMat()->copyTo(*m_output->cvMat());
+    m_originalFrame->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
 
 
     switch (m_geometricType) {
