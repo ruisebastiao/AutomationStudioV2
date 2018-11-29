@@ -111,6 +111,28 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
 //            targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
 
+            int index = nodeOut->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(qPrintable("inChanged(QVariant)")));
+
+        //    nodeOut->setIn(5);
+
+            if (index == -1) {
+                qWarning("Wrong signal name!");
+
+            }
+            QMetaMethod signal = nodeOut->metaObject()->method(index);
+
+            index = nodeIn->metaObject()->indexOfSlot(QMetaObject::normalizedSignature(qPrintable("setOut(QVariant)")));
+            if (index == -1) {
+                qWarning("Wrong slot name!");
+
+            }
+
+            QMetaMethod slot = nodeIn->metaObject()->method(index);
+
+            QObject::connect(nodeOut, signal, nodeIn, slot);
+
+
+
             int targetid=targetNode->id();
 
 
