@@ -27,7 +27,7 @@ QQmlComponent *VisionSystemNode::delegate(QQmlEngine &engine) noexcept
     return delegate.get();
 }
 
-void VisionSystemNode::setFrameBufferSource(FrameBufferListModel *frameBufferSource)
+void VisionSystemNode::setFrameBufferSource(QVariant frameBufferSource)
 {
 
     m_frameBufferSource = frameBufferSource;

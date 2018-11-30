@@ -334,9 +334,10 @@ void ROINode::setSourceFrame(QMat *sourceFrame)
         cvtColor(*m_sourceFrame->cvMat(),*m_processedFrame->cvMat(),CV_GRAY2BGR);
 
 
+
         emit sourceFrameChanged(m_sourceFrame);
 
-
+        m_basenode->setInput(QVariant::fromValue(m_sourceFrame));
 
     }
 

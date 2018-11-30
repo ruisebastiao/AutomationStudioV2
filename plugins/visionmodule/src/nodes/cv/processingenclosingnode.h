@@ -9,7 +9,7 @@ class ProcessingEnclosingNode : public ProcessingNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(std::vector<std::vector<cv::Point>> contours READ contours WRITE setContours NOTIFY contoursChanged REVISION 30)
+    Q_PROPERTY(QVariant contours READ contours WRITE setContours NOTIFY contoursChanged REVISION 30)
 
     Q_PROPERTY(QVariant enclosingShapes READ enclosingShapes WRITE setEnclosingShapes NOTIFY enclosingShapesChanged REVISION 31)
 
@@ -32,7 +32,7 @@ public:
 public slots:
     void setInput(QVariant input) override;
 
-    void setContours(std::vector<std::vector<cv::Point>> contours)
+    void setContours(QVariant contours)
     {
 
         m_contours = contours;
@@ -76,7 +76,7 @@ public:
     }
 
 
-    std::vector<std::vector<cv::Point>> contours() const
+    QVariant contours() const
     {
         return m_contours;
     }
@@ -87,7 +87,7 @@ public:
     }
 
 signals:
-    void contoursChanged(std::vector<std::vector<cv::Point>> contours);
+    void contoursChanged(QVariant contours);
 
     void enclosingShapesChanged(QVariant enclosingShapes);
 
@@ -95,7 +95,7 @@ signals:
 
 private:
 
-    std::vector<std::vector<cv::Point>> m_contours;
+    QVariant m_contours=QVariant::fromValue(std::vector<std::vector<cv::Point>>());
     QVariant m_enclosingShapes=QVariant();
     EnclosingType m_enclosingType=RotatedRectEnclosing;
 

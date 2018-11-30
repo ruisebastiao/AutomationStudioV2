@@ -16,7 +16,7 @@ class ProcessingMaskNode : public ProcessingNode
     Q_PROPERTY(QVariant input3 READ input3 WRITE setInput3 NOTIFY input3Changed REVISION 30)
     Q_PROPERTY(QVariant input4 READ input4 WRITE setInput4 NOTIFY input4Changed REVISION 30)
 
-    Q_PROPERTY(QMat* maskOutput READ maskOutput WRITE setMaskOutput NOTIFY maskOutputChanged REVISION 31)
+    Q_PROPERTY(QVariant maskOutput READ maskOutput WRITE setMaskOutput NOTIFY maskOutputChanged REVISION 31)
 
     //    Q_PROPERTY(QVariant input2 READ input2 WRITE setInput2 NOTIFY input2Changed REVISION 31)
 
@@ -44,7 +44,7 @@ private:
 
     QVariant m_input4;
 
-    QMat* m_maskOutput= new QMat();
+    QVariant m_maskOutput=QVariant::fromValue(new QMat());
 
 public:
     void DeSerialize(QJsonObject &json) override;
@@ -75,7 +75,7 @@ public:
         return m_input4;
     }
 
-    QMat* maskOutput() const
+    QVariant maskOutput() const
     {
         return m_maskOutput;
     }
@@ -121,7 +121,7 @@ public slots:
         emit input4Changed(m_input4);
     }
 
-    void setMaskOutput(QMat* maskOutput)
+    void setMaskOutput(QVariant maskOutput)
     {
         if (m_maskOutput == maskOutput)
             return;
@@ -141,7 +141,7 @@ signals:
 
     void input4Changed(QVariant input4);
 
-    void maskOutputChanged(QMat* maskOutput);
+    void maskOutputChanged(QVariant maskOutput);
 
 protected:
     void doProcess() override;

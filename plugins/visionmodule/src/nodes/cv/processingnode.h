@@ -443,6 +443,7 @@ public:
 
 Q_DECLARE_METATYPE(cv::Rect);
 Q_DECLARE_METATYPE(std::vector<cv::Rect>);
+Q_DECLARE_METATYPE(std::vector<std::vector<cv::Point>>)
 
 Q_DECLARE_METATYPE(cv::RotatedRect);
 Q_DECLARE_METATYPE(std::vector<cv::RotatedRect>);

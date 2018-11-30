@@ -6,7 +6,7 @@ using namespace cv;
 FrameBufferNode::FrameBufferNode()
 {
     m_type=FlowNode::Type::FrameBufferNode;
-    m_frameBuffers= new FrameBufferListModel();
+    //    m_frameBuffers= new FrameBufferListModel();
 
 
 
@@ -16,14 +16,18 @@ FrameBufferNode::FrameBufferNode()
 
 void FrameBufferNode::processCurrent()
 {
-    QMat* currentmat= m_frameBuffers->getItemAt(m_readIndex);
+    FrameBufferListModel* framebuffers=m_frameBuffers.value<FrameBufferListModel*>();
+
+    QMat* currentmat= framebuffers->getItemAt(m_readIndex);
+
+    QMat* framesink=m_frameSink.value<QMat*>();
 
     m_fullBufferReaded=true;
 
     if(currentmat!=nullptr){
         LOG_INFO()<<"Processing frame "<<currentmat<< "at index "<<m_readIndex;
 
-        (currentmat->cvMat())->copyTo((*m_frameSink->cvMat()));
+        (currentmat->cvMat())->copyTo((*framesink->cvMat()));
         emit frameSinkChanged(m_frameSink);
     }
 }
@@ -55,35 +59,40 @@ void FrameBufferNode::DeSerialize(QJsonObject &json)
     FlowNode::DeSerialize(json);
 }
 
-void FrameBufferNode::setFrameSource(QMat *frameSource)
+void FrameBufferNode::setFrameSource(QVariant frameSource)
 {
 
 
     m_frameSource = frameSource;
 
-    if(!frameSource || frameSource->cvMat()->empty()){
+//    QMat* mat=m_frameSink.value<QMat*>();
+
+    QMat* framesource=m_frameSource.value<QMat*>();
+    if(!framesource || framesource->cvMat()->empty()){
         return;
     }
 
     LOG_INFO()<<"Storing frame "<<frameSource<< "at index "<<m_writeIndex;
+    FrameBufferListModel* framebuffers=m_frameBuffers.value<FrameBufferListModel*>();
 
-    QMat* currentmat= m_frameBuffers->getItemAt(m_writeIndex);
+
+    QMat* currentmat= framebuffers->getItemAt(m_writeIndex);
 
 
     if(currentmat!=nullptr){
-        (frameSource->cvMat())->copyTo((*currentmat->cvMat()));
-//        int storeindex=writeIndex();
-//        QtConcurrent::run([&](){
+        (framesource->cvMat())->copyTo((*currentmat->cvMat()));
+        //        int storeindex=writeIndex();
+        //        QtConcurrent::run([&](){
 
-//             QMat* storemat= m_frameBuffers->getItemAt(storeindex);
+        //             QMat* storemat= m_frameBuffers->getItemAt(storeindex);
 
-//             QString name=QString("img_%1.jpg").arg(storeindex);
+        //             QString name=QString("img_%1.jpg").arg(storeindex);
 
-//             cv::imwrite(name.toStdString(),(*storemat->cvMat()));
+        //             cv::imwrite(name.toStdString(),(*storemat->cvMat()));
 
-//        });
+        //        });
 
-        m_frameBuffers->indexDataChanged(writeIndex());
+        framebuffers->indexDataChanged(writeIndex());
         if(autoIncrementWriteIndex()){
             setWriteIndex(writeIndex()+1);
         }
@@ -94,21 +103,21 @@ void FrameBufferNode::setFrameSource(QMat *frameSource)
 
 }
 
-void FrameBufferNode::setReadNextFrame(bool readNextFrame)
+void FrameBufferNode::setReadNextFrame(QVariant readNextFrame)
 {
 
     m_readNextFrame = readNextFrame;
-    if(m_readNextFrame){
+    if(m_readNextFrame.value<bool>()){
 
-
-
-        QMat* currentmat= m_frameBuffers->getItemAt(m_readIndex);
+        FrameBufferListModel* framebuffers=m_frameBuffers.value<FrameBufferListModel*>();
+        QMat* currentmat= framebuffers->getItemAt(m_readIndex);
+        QMat* framesink= m_frameSink.value<QMat*>();
 
 
         if(currentmat!=nullptr && m_fullBufferReaded==false){
             LOG_INFO()<<"Reading frame "<<currentmat<< "at index "<<m_readIndex;
 
-            (currentmat->cvMat())->copyTo((*m_frameSink->cvMat()));
+            (currentmat->cvMat())->copyTo((*framesink->cvMat()));
             emit frameSinkChanged(m_frameSink);
 
             if(autoIncrementReadIndex()){

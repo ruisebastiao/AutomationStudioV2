@@ -129,31 +129,31 @@ class FrameBufferNode : public FlowNode
 
 
     /// IN ports
-    Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
+    Q_PROPERTY(QVariant frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
 
 
-    Q_PROPERTY(bool readNextFrame READ readNextFrame WRITE setReadNextFrame NOTIFY readNextFrameChanged REVISION 30)
+    Q_PROPERTY(QVariant readNextFrame READ readNextFrame WRITE setReadNextFrame NOTIFY readNextFrameChanged REVISION 30)
 
 
 
-    Q_PROPERTY(int numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged USER("serialize") REVISION 30)
+    Q_PROPERTY(QVariant numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged USER("serialize") REVISION 30)
 
 
 
     /////OUT ports
 
-    Q_PROPERTY(QMat* frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged REVISION 31)
+    Q_PROPERTY(QVariant frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged REVISION 31)
 
 
-    Q_PROPERTY(bool frameStored READ frameStored WRITE setFrameStored NOTIFY frameStoredChanged REVISION 31)
+    Q_PROPERTY(QVariant frameStored READ frameStored WRITE setFrameStored NOTIFY frameStoredChanged REVISION 31)
 
 
-    Q_PROPERTY(bool bufferFull READ bufferFull WRITE setBufferFull NOTIFY bufferFullChanged REVISION 31)
+    Q_PROPERTY(QVariant bufferFull READ bufferFull WRITE setBufferFull NOTIFY bufferFullChanged REVISION 31)
 
 
 
 
-    Q_PROPERTY(FrameBufferListModel* frameBuffers READ frameBuffers WRITE setFrameBuffers NOTIFY frameBuffersChanged  REVISION 31)
+    Q_PROPERTY(QVariant frameBuffers READ frameBuffers WRITE setFrameBuffers NOTIFY frameBuffersChanged  REVISION 31)
 
     Q_PROPERTY(int writeIndex READ writeIndex WRITE setWriteIndex NOTIFY writeIndexChanged)
     Q_PROPERTY(int readIndex READ readIndex WRITE setReadIndex NOTIFY readIndexChanged)
@@ -162,16 +162,15 @@ class FrameBufferNode : public FlowNode
     Q_PROPERTY(bool autoIncrementReadIndex READ autoIncrementReadIndex WRITE setAutoIncrementReadIndex NOTIFY autoIncrementReadIndexChanged USER("serialize"))
 
 private:
-    int m_numBuffers=0;
-    QMat* m_frameSink=new QMat();
 
-    QMat* m_frameSource=nullptr;
+    QVariant m_numBuffers=QVariant::fromValue(0);
+    QVariant m_frameSink=QVariant::fromValue(new QMat());
+    QVariant m_frameSource=QVariant::fromValue(new QMat());
 
+    QVariant m_frameStored=QVariant::fromValue(false);
+    QVariant m_frameBuffers=QVariant::fromValue(new FrameBufferListModel());
 
-    bool m_frameStored=false;
-
-
-    FrameBufferListModel* m_frameBuffers=nullptr;
+    QVariant m_readNextFrame=QVariant::fromValue(false);
 
     int m_writeIndex=0;
 
@@ -181,11 +180,10 @@ private:
 
     bool m_autoIncrementReadIndex=false;
 
-    bool m_readNextFrame=false;
     bool m_fullBufferReaded=false;
 
 
-    bool m_bufferFull=false;
+    QVariant m_bufferFull=QVariant::fromValue(false);
 
 
 public:
@@ -199,30 +197,30 @@ public:
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
-    int numBuffers() const
+    QVariant numBuffers() const
     {
         return m_numBuffers;
     }
 
-    QMat* frameSink() const
+    QVariant frameSink() const
     {
         return m_frameSink;
     }
 
 
-    QMat* frameSource() const
+    QVariant frameSource() const
     {
         return m_frameSource;
     }
 
 
-    bool frameStored() const
+    QVariant frameStored() const
     {
         return m_frameStored;
     }
 
 
-    FrameBufferListModel* frameBuffers() const
+    QVariant frameBuffers() const
     {
         return m_frameBuffers;
     }
@@ -247,30 +245,34 @@ public:
         return m_autoIncrementReadIndex;
     }
 
-    bool readNextFrame() const
+    QVariant readNextFrame() const
     {
         return m_readNextFrame;
     }
 
 
-    bool bufferFull() const
+    QVariant bufferFull() const
     {
         return m_bufferFull;
     }
 
 
 public slots:
-    void setNumBuffers(int numBuffers)
+    void setNumBuffers(QVariant numBuffers)
     {
-        if (m_numBuffers == numBuffers)
+
+        if(m_numBuffers.value<int>()==numBuffers.value<int>()){
             return;
+        }
 
         m_numBuffers = numBuffers;
-        m_frameBuffers->SetNewSize(numBuffers);
+        int newsize=m_numBuffers.value<int>();
+        FrameBufferListModel* framebuffers=m_frameBuffers.value<FrameBufferListModel*>();
+        framebuffers->SetNewSize(newsize);
         emit numBuffersChanged(m_numBuffers);
     }
 
-    void setFrameSink(QMat* frameSink)
+    void setFrameSink(QVariant  frameSink)
     {
 
 
@@ -279,10 +281,10 @@ public slots:
     }
 
 
-    void setFrameSource(QMat* frameSource);
+    void setFrameSource(QVariant frameSource);
 
 
-    void setFrameStored(bool frameStored)
+    void setFrameStored(QVariant frameStored)
     {
 
         m_frameStored = frameStored;
@@ -290,10 +292,9 @@ public slots:
     }
 
 
-    void setFrameBuffers(FrameBufferListModel* frameBuffers)
+    void setFrameBuffers(QVariant frameBuffers)
     {
-        if (m_frameBuffers == frameBuffers)
-            return;
+
 
         m_frameBuffers = frameBuffers;
         emit frameBuffersChanged(m_frameBuffers);
@@ -305,7 +306,8 @@ public slots:
             return;
 
         m_writeIndex = writeIndex;
-        if(m_writeIndex>=m_numBuffers){
+
+        if(m_writeIndex>=m_numBuffers.value<int>()){
             setBufferFull(true);
             m_writeIndex=0;
         }
@@ -319,7 +321,7 @@ public slots:
 
         m_readIndex = readIndex;
 
-        if(m_readIndex>=m_numBuffers){
+        if(m_readIndex>=m_numBuffers.value<int>()){
             m_fullBufferReaded=true;
             m_readIndex=0;
         }
@@ -345,14 +347,14 @@ public slots:
         emit autoIncrementReadIndexChanged(m_autoIncrementReadIndex);
     }
 
-    void setReadNextFrame(bool readNextFrame);
+    void setReadNextFrame(QVariant readNextFrame);
 
-    void setBufferFull(bool bufferFull)
+    void setBufferFull(QVariant bufferFull)
     {
 
 
         m_bufferFull = bufferFull;
-        if(m_bufferFull){
+        if(m_bufferFull.value<bool>()){
             m_fullBufferReaded=false;
         }
         emit bufferFullChanged(m_bufferFull);
@@ -360,20 +362,20 @@ public slots:
 
 
 signals:
-    void numBuffersChanged(int numBuffers);
+    void numBuffersChanged(QVariant numBuffers);
 
-    void frameSinkChanged(QMat* frameSink);
+    void frameSinkChanged(QVariant frameSink);
 
-    void frameSourceChanged(QMat* frameSource);
+    void frameSourceChanged(QVariant frameSource);
 
-    void frameStoredChanged(bool frameStored);
-    void frameBuffersChanged(FrameBufferListModel* frameBuffers);
+    void frameStoredChanged(QVariant frameStored);
+    void frameBuffersChanged(QVariant frameBuffers);
     void writeIndexChanged(int writeIndex);
     void readIndexChanged(int readIndex);
     void autoIncrementWriteIndexChanged(bool autoIncrementWriteIndex);
     void autoIncrementReadIndexChanged(bool autoIncrementReadIndex);
-    void readNextFrameChanged(bool readNextFrame);
-    void bufferFullChanged(bool bufferFull);
+    void readNextFrameChanged(QVariant readNextFrame);
+    void bufferFullChanged(QVariant bufferFull);
 
     // FlowNode interface
 public:

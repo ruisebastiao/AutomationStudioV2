@@ -125,7 +125,8 @@ void ProcessingMaskNode::doProcess()
             circle(temp,center,radius-inner_radius,Scalar(255),inner_radius);
 
         }
-        temp.copyTo(*m_maskOutput->cvMat());
+        QMat* maskoutput=m_maskOutput.value<QMat*>();
+        temp.copyTo(*maskoutput->cvMat());
 
         emit maskOutputChanged(m_maskOutput);
         break;

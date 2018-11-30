@@ -307,7 +307,7 @@ void IDSCaptureNode::setCamera(bool open)
                // setFrameSink(new QMat(frameMat));
 
                 cv::Mat* frameMat=new cv::Mat(sizeY(),sizeX(), CV_8UC1);
-                m_frameSink=new QMat(frameMat);
+
 
                 //setFrameSink(new IDSFrame(m_pcImageMemory,m_nSizeX,m_nSizeY));
 
@@ -543,9 +543,9 @@ void IDSCaptureNode::setExternalTrigger(bool externalTrigger)
     CameraCaptureNode::setExternalTrigger(externalTrigger);
 }
 
-void IDSCaptureNode::setNewFrame(bool newFrame)
+void IDSCaptureNode::setNewFrame(QVariant newFrame)
 {
-    if(newFrame){
+    if(newFrame.value<bool>()){
         frame_processed.wakeAll();
     }
 

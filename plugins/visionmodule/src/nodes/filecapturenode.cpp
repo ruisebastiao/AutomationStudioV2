@@ -25,7 +25,16 @@ QQmlComponent *FileCaptureNode::delegate(QQmlEngine &engine)noexcept
 
 void FileCaptureNode::processFile()
 {
-
+    if(m_useSequence==true){
+        int replacepos=m_filePath.indexOf('%');
+        QString currentfilesequence=m_filePath;
+        currentfilesequence.replace(replacepos,1,QString::number(m_fileIndex));
+        emit processFileChanged(currentfilesequence);
+        setFileIndex(m_fileIndex+1);
+    }
+    else{
+        emit processFileChanged(m_filePath);
+    }
 }
 
 void FileCaptureNode::DeSerialize(QJsonObject &json)

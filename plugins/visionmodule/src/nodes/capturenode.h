@@ -11,13 +11,13 @@ class CaptureNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool newFrame READ newFrame WRITE setNewFrame NOTIFY newFrameChanged REVISION 30)
+    Q_PROPERTY(QVariant newFrame READ newFrame WRITE setNewFrame NOTIFY newFrameChanged REVISION 30)
 
 
-    Q_PROPERTY(bool frameCaptured READ frameCaptured WRITE setFrameCaptured NOTIFY frameCapturedChanged REVISION 31)
+    Q_PROPERTY(QVariant frameCaptured READ frameCaptured WRITE setFrameCaptured NOTIFY frameCapturedChanged REVISION 31)
 
 
-    Q_PROPERTY(QMat* frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged REVISION 31)
+    Q_PROPERTY(QVariant frameSink READ frameSink WRITE setFrameSink NOTIFY frameSinkChanged REVISION 31)
 
 
     Q_PROPERTY(int sizeX READ sizeX WRITE setSizeX NOTIFY sizeXChanged)
@@ -27,19 +27,19 @@ class CaptureNode : public FlowNode
 public:
     CaptureNode();
 
-    bool newFrame() const
+    QVariant newFrame() const
     {
         return m_newFrame;
     }
 
 
-    bool frameCaptured() const
+    QVariant frameCaptured() const
     {
         return m_frameCaptured;
     }
 
 
-    QMat* frameSink() const
+    QVariant frameSink() const
     {
 
         return m_frameSink;
@@ -57,13 +57,13 @@ public:
     }
 
 public slots:
-    virtual void setNewFrame(bool newFrame);
+    virtual void setNewFrame(QVariant newFrame);
 
-    virtual void setFrameCaptured(bool frameCaptured);
+    virtual void setFrameCaptured(QVariant frameCaptured);
 
 
 
-    virtual void setFrameSink(QMat* frameSink);
+    virtual void setFrameSink(QVariant frameSink);
 
 
     void setSizeX(int sizeX)
@@ -86,22 +86,22 @@ public slots:
 
 signals:
 
-    void newFrameChanged(bool newFrame);
+    void newFrameChanged(QVariant newFrame);
 
 
-    void frameCapturedChanged(bool frameCaptured);
+    void frameCapturedChanged(QVariant frameCaptured);
 
 
-    void frameSinkChanged(QMat* frameSink);
+    void frameSinkChanged(QVariant frameSink);
 
     void sizeXChanged(int sizeX);
 
     void sizeYChanged(int sizeY);
 
 private:
-    bool m_newFrame=false;
+    QVariant m_newFrame=QVariant::fromValue(false);
 
-    bool m_frameCaptured=false;
+    QVariant m_frameCaptured=QVariant::fromValue(false);
 
 
     int m_sizeX=0;
@@ -109,7 +109,7 @@ private:
     int m_sizeY=0;
 
 protected:
-    QMat* m_frameSink=nullptr;
+    QVariant m_frameSink=QVariant::fromValue(new QMat());
     virtual void DeSerialize(QJsonObject &json) override;
 
     // FlowNode interface

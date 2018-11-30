@@ -71,11 +71,11 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
                     qan::PortItem* targetPortItem=qobject_cast<qan::PortItem*>(edgeItem->getDestinationItem());
 
                     ////TODO
-//                    ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
+                    //                    ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
 
                     ConnectionInfo ci(targetNode->id(),targetPortItem->getId());
                     auto connection_finded=std::find_if(m_connections.begin(), m_connections.end(),
-                                     [&](ConnectionInfo* e) { return (e->nodeID() == targetNode->id() && e->portID()==targetPortItem->getId()); });
+                                                        [&](ConnectionInfo* e) { return (e->nodeID() == targetNode->id() && e->portID()==targetPortItem->getId()); });
 
 
                     if(connection_finded == m_connections.end()){
@@ -91,7 +91,21 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
                         FlowNode* destination=qobject_cast<FlowNode*>(edgeItem->getDestinationItem()->getNode());
 
-//                        destination->unbindSourceProperty(connectioninfo->portID());
+
+
+
+                        //                        QMetaObject::disconnect()
+                        QVariant val=QVariant();
+
+
+                        //  if(val.isValid()){
+                        m_edgeSlot.invoke(targetNode,Qt::DirectConnection,Q_ARG(QVariant,val));
+
+                        //}
+                        QObject::disconnect(m_edgeConnection);
+
+
+                        //                        destination->unbindSourceProperty(connectioninfo->portID());
 
                     }
 
@@ -109,37 +123,55 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
         if(targetNode!=nullptr){
 
-//            targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
+            //            targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
 
-            int index = nodeOut->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(qPrintable("inChanged(QVariant)")));
+            QString signalname=m_port->getId()+"Changed(QVariant)";
 
-        //    nodeOut->setIn(5);
+
+            int index = m_node->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(qPrintable(signalname)));
+
+            //    nodeOut->setIn(5);
 
             if (index == -1) {
-                qWarning("Wrong signal name!");
-
-            }
-            QMetaMethod signal = nodeOut->metaObject()->method(index);
-
-            index = nodeIn->metaObject()->indexOfSlot(QMetaObject::normalizedSignature(qPrintable("setOut(QVariant)")));
-            if (index == -1) {
-                qWarning("Wrong slot name!");
+                LOG_WARNING()<<"Wrong signal name:"+signalname + " in node:"<<*m_node;
 
             }
 
-            QMetaMethod slot = nodeIn->metaObject()->method(index);
+            QMetaMethod signal = m_node->metaObject()->method(index);
 
-            QObject::connect(nodeOut, signal, nodeIn, slot);
 
+            QString propname=targetPortItem->getId();
+            propname.replace(0,1,propname.at(0).toUpper());
+            QString slotname="set"+propname+"(QVariant)";
+
+            index = targetNode->metaObject()->indexOfSlot(QMetaObject::normalizedSignature(qPrintable(slotname)));
+            if (index == -1) {
+                LOG_WARNING()<<"Wrong slot name:"+slotname+ " in node:"<<*targetNode;
+
+            }
+
+            m_edgeSlot = targetNode->metaObject()->method(index);
+
+            m_edgeConnection=outEdgeItem.connect(m_node, signal, targetNode, m_edgeSlot);
+
+
+
+            index= m_node->metaObject()->indexOfProperty(qPrintable(m_port->getId()));
+            QMetaProperty prop=m_node->metaObject()->property(index);
+
+            QVariant val=prop.read(m_node);
+
+
+            if(val.isValid()){
+                m_edgeSlot.invoke(targetNode,Qt::DirectConnection,Q_ARG(QVariant,val));
+
+            }
 
 
             int targetid=targetNode->id();
-
-
-
             ConnectionInfo ci(targetid,targetPortItem->getId());
             auto connection_finded=std::find_if(m_connections.begin(), m_connections.end(),
-                             [&](ConnectionInfo* e) { return (e->nodeID() == targetid && e->portID()==targetPortItem->getId()); });
+                                                [&](ConnectionInfo* e) { return (e->nodeID() == targetid && e->portID()==targetPortItem->getId()); });
 
 
             if(connection_finded != m_connections.end()){
@@ -173,7 +205,7 @@ void FlowNodePort::setShowinlabel(bool showinlabel)
 
     m_showinlabel = showinlabel;
     if(m_showinlabel){
-//        m_node->bindPortLabelToProperty(m_port,m_port->getId());
+        //        m_node->bindPortLabelToProperty(m_port,m_port->getId());
     }
     emit showinlabelChanged(m_showinlabel);
 

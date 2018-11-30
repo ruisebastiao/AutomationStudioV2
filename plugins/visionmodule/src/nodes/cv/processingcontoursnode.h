@@ -26,7 +26,7 @@ class ProcessingContoursNode : public ProcessingNode
     Q_PROPERTY(int maxCountourArea READ maxCountourArea WRITE setMaxCountourArea NOTIFY maxCountourAreaChanged USER("serialize"))
 
 
-    Q_PROPERTY(std::vector<std::vector<cv::Point>> filteredContours READ filteredContours NOTIFY filteredContoursChanged REVISION 31)
+    Q_PROPERTY(QVariant filteredContours READ filteredContours NOTIFY filteredContoursChanged REVISION 31)
 
 
 public:
@@ -71,7 +71,7 @@ public:
         return m_maxCountourArea;
     }
 
-    std::vector<std::vector<cv::Point>> filteredContours() const
+    QVariant filteredContours() const
     {
         return m_filteredContours;
     }
@@ -226,7 +226,7 @@ signals:
 
     void maxCountourAreaChanged(int maxCountourArea);
 
-    void filteredContoursChanged(std::vector<std::vector<cv::Point>> filteredContours);
+    void filteredContoursChanged(QVariant filteredContours);
 
     void maxCountourLengthChanged(int maxCountourLength);
 
@@ -251,7 +251,9 @@ private:
 
     int m_minCountourArea=1000;
     int m_maxCountourArea=50000;
-    std::vector<std::vector<cv::Point>> m_filteredContours;
+
+    QVariant m_filteredContours=QVariant::fromValue(std::vector<std::vector<cv::Point>>());
+
     int m_totalFilteredContours=0;
 
 
@@ -262,5 +264,6 @@ virtual void DeSerialize(QJsonObject &json) override;
 public:
 
 };
+
 
 #endif // PROCESSINGCONTOURSNODE_H

@@ -29,6 +29,10 @@ public:
 
     Q_PROPERTY(qan::PortItem::Type type READ getType CONSTANT FINAL USER("serialize"))
 
+private:
+
+    QMetaObject::Connection m_edgeConnection;
+    QMetaMethod m_edgeSlot;
 
 public slots:
 

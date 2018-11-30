@@ -5,7 +5,7 @@ CaptureNode::CaptureNode()
 
 }
 
-void CaptureNode::setNewFrame(bool newFrame)
+void CaptureNode::setNewFrame(QVariant newFrame)
 {
     m_newFrame = newFrame;
 
@@ -14,13 +14,13 @@ void CaptureNode::setNewFrame(bool newFrame)
     m_newFrame=false;
 }
 
-void CaptureNode::setFrameCaptured(bool frameCaptured)
+void CaptureNode::setFrameCaptured(QVariant frameCaptured)
 {
     m_frameCaptured = frameCaptured;
     emit frameCapturedChanged(m_frameCaptured);
 }
 
-void CaptureNode::setFrameSink(QMat *frameSink)
+void CaptureNode::setFrameSink(QVariant frameSink)
 {
 
     m_frameSink = frameSink;

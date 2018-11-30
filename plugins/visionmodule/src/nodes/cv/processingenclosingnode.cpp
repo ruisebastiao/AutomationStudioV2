@@ -27,14 +27,14 @@ void ProcessingEnclosingNode::setInput(QVariant input)
 void ProcessingEnclosingNode::doProcess()
 {
 
-    QMat* in=m_input.value<QMat*>();
+//    QMat* in=m_input.value<QMat*>();
     QMat* out=m_output.value<QMat*>();
+    std::vector<std::vector<cv::Point>> _contours=m_contours.value<std::vector<std::vector<cv::Point>>>();
 
-
-    if(!in || in->cvMat()->empty() || !out){
-        // TODO Send Error
-        return;
-    }
+//    if(!in || in->cvMat()->empty() || !out){
+//        // TODO Send Error
+//        return;
+//    }
 
     // TODO during real time processing this should be removed, only needed if in config mode
     m_originalFrame->cvMat()->copyTo(*out->cvMat());
@@ -46,9 +46,9 @@ void ProcessingEnclosingNode::doProcess()
     vector<Rect> rectenclosingshapes;
 
 
-    for(int i = 0; i < m_contours.size(); i++)
+    for(int i = 0; i < _contours.size(); i++)
     {
-        vector<Point> contour=m_contours[i];
+        vector<Point> contour=_contours[i];
         vector<Point> approx_contour;
 
         //        approxPolyDP(contour,contour,contourlength*0.02,true);

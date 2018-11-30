@@ -35,9 +35,12 @@ void ProcessingContoursNode::doProcess()
 
     QMat* in=m_input.value<QMat*>();
 
+
     if(!in || in->cvMat()->empty()){
         return;
     }
+
+    std::vector<std::vector<cv::Point>> fileredcontours=m_filteredContours.value<std::vector<std::vector<cv::Point>>>();
 
     vector<vector<Point> > contours;
 
@@ -118,19 +121,19 @@ void ProcessingContoursNode::doProcess()
             //               cv::line(drawing, vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 1, CV_AA);
 
 
-            m_filteredContours.push_back(contour);
+            fileredcontours.push_back(contour);
         }
 
     }
-    setTotalFilteredContours(m_filteredContours.size());
+    setTotalFilteredContours(fileredcontours.size());
 
-    drawContours(*m_output.value<QMat*>()->cvMat(), m_filteredContours, -1, cv::Scalar(0,255,0), 1);
+    drawContours(*m_output.value<QMat*>()->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
 
 
     LOG_INFO()<<"Total contours:"<<m_totalContours;
-    LOG_INFO()<<"Fildtered contours:"<<m_filteredContours.size();
+    LOG_INFO()<<"Fildtered contours:"<<fileredcontours.size();
 
-    emit filteredContoursChanged(m_filteredContours);
+    emit filteredContoursChanged(QVariant::fromValue<std::vector<std::vector<cv::Point>>>(fileredcontours));
 
     ProcessingNode::doProcess();
 }

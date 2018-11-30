@@ -14,15 +14,15 @@ class VisionSystemNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(QMat* frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
+    Q_PROPERTY(QVariant frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
 
-    Q_PROPERTY(FrameBufferListModel* frameBufferSource READ frameBufferSource WRITE setFrameBufferSource NOTIFY frameBufferSourceChanged REVISION 30)
-
-
-    Q_PROPERTY(bool processFrame READ processFrame WRITE setProcessFrame NOTIFY processFrameChanged REVISION 30)
+    Q_PROPERTY(QVariant frameBufferSource READ frameBufferSource WRITE setFrameBufferSource NOTIFY frameBufferSourceChanged REVISION 30)
 
 
-    Q_PROPERTY(bool frameProcessed READ frameProcessed WRITE setFrameProcessed NOTIFY frameProcessedChanged REVISION 31)
+    Q_PROPERTY(QVariant processFrame READ processFrame WRITE setProcessFrame NOTIFY processFrameChanged REVISION 30)
+
+
+    Q_PROPERTY(QVariant frameProcessed READ frameProcessed WRITE setFrameProcessed NOTIFY frameProcessedChanged REVISION 31)
 
 
     Q_PROPERTY(bool processOnNewFrame READ processOnNewFrame WRITE setProcessOnNewFrame NOTIFY processOnNewFrameChanged USER("serialize"))
@@ -43,17 +43,17 @@ public:
 
 
 
-    QMat* frameSource() const
+    QVariant frameSource() const
     {
         return m_frameSource;
     }
 
-    bool processFrame() const
+    QVariant processFrame() const
     {
         return m_processFrame;
     }
 
-    bool frameProcessed() const
+    QVariant frameProcessed() const
     {
         return m_frameProcessed;
     }
@@ -61,20 +61,20 @@ public:
 public slots:
 
 
-    void setFrameSource(QMat* frameSource)
+    void setFrameSource(QVariant frameSource)
     {
-
 
         m_frameSource = frameSource;
         emit frameSourceChanged(m_frameSource);
 
-        if(m_frameSource && m_frameSource->cvMat()->empty()==false && processOnNewFrame()){
+        QMat* framesource=m_frameSource.value<QMat*>();
+        if(framesource && framesource->cvMat()->empty()==false && processOnNewFrame()){
             setProcessFrame(true);
         }
 
     }
 
-    void setProcessFrame(bool processFrame)
+    void setProcessFrame(QVariant processFrame)
     {
 
         m_processFrame = processFrame;
@@ -82,17 +82,18 @@ public slots:
 
         emit processFrameChanged(m_processFrame);
 
-        if(processFrame){
+        if(processFrame.value<bool>()){
 
             LOG_INFO("Node ID|"+QString::number(this->id())+"|Processing started");
-
 
             QtConcurrent::run([this](){
 
 
+                QMat* framesource=m_frameSource.value<QMat*>();
+
                 foreach (FlowNode* node, m_ROINodes) {
                     ROINode* roi=static_cast<ROINode*>(node);
-                    roi->processFrameObject(m_frameSource);
+                    roi->processFrameObject(framesource);
 
                 }
 
@@ -105,7 +106,7 @@ public slots:
         }
     }
 
-    void setFrameProcessed(bool frameProcessed)
+    void setFrameProcessed(QVariant frameProcessed)
     {
 
 
@@ -140,7 +141,7 @@ public slots:
         emit processOnNewFrameChanged(m_processOnNewFrame);
     }
 
-    void setFrameBufferSource(FrameBufferListModel* frameBufferSource);
+    void setFrameBufferSource(QVariant frameBufferSource);
 
 
 public:
@@ -160,11 +161,11 @@ public:
 
 signals:
 
-    void frameSourceChanged(QMat* frameSource);
+    void frameSourceChanged(QVariant frameSource);
 
-    void processFrameChanged(bool processFrame);
+    void processFrameChanged(QVariant processFrame);
 
-    void frameProcessedChanged(bool frameProcessed);
+    void frameProcessedChanged(QVariant frameProcessed);
 
 
 
@@ -178,13 +179,13 @@ signals:
 
     void processOnNewFrameChanged(bool processOnNewFrame);
 
-    void frameBufferSourceChanged(FrameBufferListModel* frameBufferSource);
+    void frameBufferSourceChanged(QVariant frameBufferSource);
 
 private:
 
-    QMat* m_frameSource=nullptr;
-    bool m_processFrame=false;
-    bool m_frameProcessed=false;
+    QVariant m_frameSource=QVariant::fromValue(new QMat());
+    QVariant m_processFrame=QVariant::fromValue(false);
+    QVariant m_frameProcessed=QVariant::fromValue(false);
 
     void readROINode(QJsonObject roiobject);
 
@@ -198,11 +199,11 @@ private:
     bool m_processOnNewFrame=false;
 
     // FlowNode interface
-    FrameBufferListModel* m_frameBufferSource=nullptr;
+    QVariant m_frameBufferSource=QVariant::fromValue(new FrameBufferListModel());
 
 public:
 
-    FrameBufferListModel* frameBufferSource() const
+    QVariant frameBufferSource() const
     {
         return m_frameBufferSource;
     }

@@ -213,7 +213,7 @@ private:
     int m_numBuffers=1;
 
 public slots:
-    void setNewFrame(bool newFrame) override;
+    void setNewFrame(QVariant newFrame) override;
 protected:
 
     // CameraCaptureNode interface

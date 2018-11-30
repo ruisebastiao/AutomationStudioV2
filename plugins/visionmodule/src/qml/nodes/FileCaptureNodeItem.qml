@@ -21,6 +21,14 @@ FlowNodeItem{
     }
 
 
+    Connections{
+        target:root.node
+        onProcessFileChanged:{
+            imagefile.file="";
+            imagefile.file=filepath;
+
+        }
+    }
 
     QImRead{
         id:imagefile
@@ -39,13 +47,15 @@ FlowNodeItem{
         ColumnLayout{
             anchors.fill: parent
             Item{
-                Layout.fillHeight:true;
+                //                Layout.fillHeight:true;
                 Layout.fillWidth: true;
+                Layout.margins: 5
+                Layout.preferredHeight:50
                 RowLayout{
                     anchors.fill: parent
                     Label{
                         id:lbl
-                        Layout.fillHeight: true;
+                        //                        : : true;
                         Layout.fillWidth: true;
 
                         text: "Path: "
@@ -56,19 +66,67 @@ FlowNodeItem{
 
                     TextField{
                         id:editfield
-                        Layout.fillHeight: true;
+                        //                        Layout.fillHeight: true;
                         Layout.fillWidth: true;
                         Layout.alignment: Qt.AlignVCenter
 
                         enabled: editMode
                         verticalAlignment: Text.AlignVCenter
                         text:node.filePath
-                        onTextChanged: {
-                            node.filePath=text
-                        }
+                        //                        onTextChanged: {
+
+                        //                        }
                         onAccepted: {
-                            imagefile.file="";
-                            imagefile.file=node.filePath;
+                            node.filePath=text
+                            root.node.processFile();
+                        }
+                        onFocusChanged: {
+                            if(focus==false){
+                                node.filePath=text
+                            }
+                        }
+                    }
+
+                }
+            }
+            Item{
+                Layout.fillWidth: true;
+                Layout.margins: 5
+                Layout.preferredHeight:50
+                RowLayout{
+                    anchors.fill: parent
+                    CheckBox{
+                        Layout.fillWidth: true
+                        text:"Read sequence"
+                        checked: node.useSequence
+                        onCheckedChanged: {
+                            node.useSequence=checked
+                        }
+                    }
+
+                    Label{
+                        Layout.fillWidth: true
+                        text: "Index:"
+                    }
+
+                    SpinBox{
+                        Layout.fillWidth: true
+                        value: node.fileIndex
+                        onValueChanged: {
+                            node.fileIndex=value
+                        }
+                    }
+
+                    Label{
+                        Layout.fillWidth: true
+                        text: "Size:"
+                    }
+
+                    SpinBox{
+                        Layout.fillWidth: true
+                        value: node.sequenceSize
+                        onValueChanged: {
+                            node.sequenceSize=value
                         }
                     }
 
@@ -86,9 +144,9 @@ FlowNodeItem{
                     highlighted: true
 
                     onClicked: {
-                        //root.node.processFile();
-                        imagefile.file="";
-                        imagefile.file=node.filePath;
+                        root.node.processFile();
+                        //                        imagefile.file="";
+                        //                        imagefile.file=node.filePath;
 
                     }
                 }

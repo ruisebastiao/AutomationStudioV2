@@ -34,13 +34,10 @@ void ProcessingNode::setProcess(QVariant process)
             return;
         }
 
-        QtConcurrent::run([this](){
-            QMutexLocker ml(&mMutex);
 
-            this->doProcess();
+        this->doProcess();
 
 
-        });
     }
 }
 
