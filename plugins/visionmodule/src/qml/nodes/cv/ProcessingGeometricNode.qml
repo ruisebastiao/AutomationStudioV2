@@ -17,6 +17,8 @@ ProcessingNodeItem{
     id:root
     expandOnEdit: true
 
-
+    processingConfigItem: ColumnLayout{
+        anchors.fill: parent
+    }
 
 }

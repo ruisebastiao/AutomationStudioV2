@@ -25,5 +25,6 @@
         <file alias="Nodes/Cv/ProcessingGeometricNode.qml">qml/nodes/cv/ProcessingGeometricNode.qml</file>
         <file alias="Nodes/Cv/ProcessingNumericNodeItem.qml">qml/nodes/cv/ProcessingNumericNodeItem.qml</file>
         <file alias="Nodes/Cv/ProcessingMaskNodeItem.qml">qml/nodes/cv/ProcessingMaskNode.qml</file>
+        <file alias="Nodes/Cv/ProcessingDrawingNodeItem.qml">qml/nodes/cv/ProcessingDrawingNodeItem.qml</file>
     </qresource>
 </RCC>

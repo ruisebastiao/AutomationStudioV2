@@ -4,6 +4,7 @@
 
 #include <nodes/cv/processingbasenode.h>
 #include <nodes/cv/processingcontoursnode.h>
+#include <nodes/cv/processingdrawingnode.h>
 #include <nodes/cv/processingenclosingnode.h>
 #include <nodes/cv/processingendnode.h>
 #include <nodes/cv/processingfilternode.h>
@@ -110,6 +111,9 @@ ProcessingNode *ROINode::createProcessingNode(qan::GraphView *graphView, QString
     else if(nodetype=="ProcessingMaskNode"){
         newnode=graphView->getGraph()->insertNode<ProcessingMaskNode>(nullptr);
     }
+    else if(nodetype=="ProcessingDrawingNode"){
+        newnode=graphView->getGraph()->insertNode<ProcessingDrawingNode>(nullptr);
+    }
     else{
         LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodetype));
     }
@@ -160,9 +164,8 @@ void ROINode::initializeProcessingNode(ProcessingNode* procnode){
 
 
 
-        procnode->setOriginalFrame(this->processedFrame());
+        procnode->setDrawSource(this->processedFrame());
         if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
-//            procnode->bindSourceProperty(this,"sourceFrame","input");
             m_basenode=qobject_cast<ProcessingBaseNode*>(procnode);
         }
 
@@ -171,6 +174,8 @@ void ROINode::initializeProcessingNode(ProcessingNode* procnode){
 
 
         QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
+            //QMat* processed= endnode->output().value<QMat*>();
+
             setRoiProcessingDone(true);
         });
 
@@ -293,7 +298,16 @@ void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
 
 
 
-        int nodeid=FlowNode::getAvailableID(m_ProcessingNodes);
+        std::list<FlowNode*> allnodeslist;
+
+        allnodeslist.merge(m_ProcessingNodes.toStdList());
+        allnodeslist.merge(m_CommonNodes.toStdList());
+
+        QList<FlowNode*> allnodes=QList<FlowNode*>::fromStdList(allnodeslist);
+
+
+
+        int nodeid=FlowNode::getAvailableID(allnodes);
 
 
         if(nodeid==-1){
@@ -335,7 +349,7 @@ void ROINode::setSourceFrame(QMat *sourceFrame)
 
 
 
-        emit sourceFrameChanged(m_sourceFrame);
+//        emit sourceFrameChanged(m_sourceFrame);
 
         m_basenode->setInput(QVariant::fromValue(m_sourceFrame));
 

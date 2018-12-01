@@ -33,7 +33,10 @@ void ProcessingContoursNode::setInput(QVariant input)
 void ProcessingContoursNode::doProcess()
 {
 
+    // TODO
+    // value colde be read once at variant change
     QMat* in=m_input.value<QMat*>();
+
 
 
     if(!in || in->cvMat()->empty()){
@@ -54,7 +57,7 @@ void ProcessingContoursNode::doProcess()
 
 
     // TODO during real time processing this should be removed, only needed if in config mode
-    m_originalFrame->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
+//    m_originalFrame->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
 
 
 
@@ -127,7 +130,8 @@ void ProcessingContoursNode::doProcess()
     }
     setTotalFilteredContours(fileredcontours.size());
 
-    drawContours(*m_output.value<QMat*>()->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
+
+    drawContours(*m_drawSource->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
 
 
     LOG_INFO()<<"Total contours:"<<m_totalContours;

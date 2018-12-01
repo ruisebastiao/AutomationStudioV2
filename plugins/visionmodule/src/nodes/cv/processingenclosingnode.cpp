@@ -27,17 +27,17 @@ void ProcessingEnclosingNode::setInput(QVariant input)
 void ProcessingEnclosingNode::doProcess()
 {
 
-//    QMat* in=m_input.value<QMat*>();
-    QMat* out=m_output.value<QMat*>();
+    //    QMat* in=m_input.value<QMat*>();
+    // QMat* out=m_output.value<QMat*>();
     std::vector<std::vector<cv::Point>> _contours=m_contours.value<std::vector<std::vector<cv::Point>>>();
 
-//    if(!in || in->cvMat()->empty() || !out){
-//        // TODO Send Error
-//        return;
-//    }
+    //    if(!in || in->cvMat()->empty() || !out){
+    //        // TODO Send Error
+    //        return;
+    //    }
 
     // TODO during real time processing this should be removed, only needed if in config mode
-    m_originalFrame->cvMat()->copyTo(*out->cvMat());
+    //   m_originalFrame->cvMat()->copyTo(*out->cvMat());
 
 
 
@@ -62,12 +62,12 @@ void ProcessingEnclosingNode::doProcess()
             rotatedenclosingshapes.push_back(minrect);
             cv::Point2f vertices[4];
             minrect.points(vertices);
+
             for(int i = 0; i < 4; ++i){
-                cv::line(*out->cvMat(), vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 2, CV_AA);
+                cv::line(*m_drawSource->cvMat(), vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 2, CV_AA);
             }
 
-            drawMarker(*out->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
-
+            drawMarker(*m_drawSource->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
 
 
             break;
@@ -75,10 +75,11 @@ void ProcessingEnclosingNode::doProcess()
         case BoundingRectEnclosing:
         {
             cv::Rect minrect=boundingRect(approx_contour);
-            rectangle(*out->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
-            drawMarker(*out->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
+            rectangle(*m_drawSource->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
+            drawMarker(*m_drawSource->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
             rectenclosingshapes.push_back(minrect);
             break;
+
         }
         }
 
@@ -95,7 +96,7 @@ void ProcessingEnclosingNode::doProcess()
         break;
     }
 
-;
+    ;
 
     emit enclosingShapesChanged(m_enclosingShapes);
 

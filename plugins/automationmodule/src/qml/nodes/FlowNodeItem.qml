@@ -7,6 +7,7 @@ import QtGraphicalEffects   1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
+import guimodule 1.0 as GUI
 
 import QuickQanava          2.0 as Qan
 
@@ -98,58 +99,58 @@ Qan.NodeItem {
             }
         }
 
-//        //on
-//        onBindSourceProperty:{
+        //        //on
+        //        onBindSourceProperty:{
 
 
-//            if(!sourceNode){
-//                return;
-//            }
+        //            if(!sourceNode){
+        //                return;
+        //            }
 
-//            // console.log("Node: "+root.node+" | Binding target:"+targetProperty+"("+root.node[targetProperty]+") to source:"+sourceProperty)
-
-
-
-
-//            //            if( root.node[targetProperty]==undefined ){
-//            //                console.log("Undefined target property:"+targetProperty+"| Node:"+root.node+" id:"+root.node.id);
-//            //            }
-//            //            else{
-//            root.node[targetProperty]=Qt.binding(function() {
-//                //                    if(sourceNode[sourceProperty]==undefined ){
-//                //                        console.log("Undefined source property:"+sourceProperty+"| Node:"+root.node+" id:"+root.node.id);
-//                //                        return null
-//                //                    }
+        //            // console.log("Node: "+root.node+" | Binding target:"+targetProperty+"("+root.node[targetProperty]+") to source:"+sourceProperty)
 
 
 
-//                return sourceNode[sourceProperty];
-//            })
-//            //            }
-//        }
-//        onBindPropertyToTarget:{
 
-//            target[targetproperty]=Qt.binding(function() {
-//                return root.node[sourceproperty];
-//            });
-//        }
+        //            //            if( root.node[targetProperty]==undefined ){
+        //            //                console.log("Undefined target property:"+targetProperty+"| Node:"+root.node+" id:"+root.node.id);
+        //            //            }
+        //            //            else{
+        //            root.node[targetProperty]=Qt.binding(function() {
+        //                //                    if(sourceNode[sourceProperty]==undefined ){
+        //                //                        console.log("Undefined source property:"+sourceProperty+"| Node:"+root.node+" id:"+root.node.id);
+        //                //                        return null
+        //                //                    }
 
-//        onUnbindSourceProperty:{
 
-//            root.node[targetProperty]=null;
 
-//        }
+        //                return sourceNode[sourceProperty];
+        //            })
+        //            //            }
+        //        }
+        //        onBindPropertyToTarget:{
 
-//        onBindPortLabelToProperty:{
+        //            target[targetproperty]=Qt.binding(function() {
+        //                return root.node[sourceproperty];
+        //            });
+        //        }
 
-//            var portItemLabel=portItem.label;
-//            portItem.label=Qt.binding(function() {
+        //        onUnbindSourceProperty:{
 
-//                return portItemLabel+" ("+root.node[nodeProperty]+")";
+        //            root.node[targetProperty]=null;
 
-//            })
+        //        }
 
-//        }
+        //        onBindPortLabelToProperty:{
+
+        //            var portItemLabel=portItem.label;
+        //            portItem.label=Qt.binding(function() {
+
+        //                return portItemLabel+" ("+root.node[nodeProperty]+")";
+
+        //            })
+
+        //        }
 
 
         onConfigsLoadedChanged:{
@@ -352,13 +353,73 @@ Qan.NodeItem {
                     visible: customHeader===null
                     Label{
                         id:header_text
-                        text:root.node.name
-
+                        text:root.node.name+" | ID:"+root.node.id
+                        opacity: 1-node_name_editor.opacity
+                        visible: opacity!=0
                         anchors.fill: parent
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
 
+
+                        MouseArea{
+                            id:ma_editnodename
+                            visible: node_name_editor.visible==false
+                            anchors.fill: parent
+                            enabled: editMode
+
+                            onDoubleClicked:   {
+                                node_name_editor.opacity=1;
+                                node_name_editor.focus=true;
+
+                            }
+                        }
+
+
                     }
+
+                    TextField{
+                        id:node_name_editor
+                        anchors.topMargin: 5
+                        visible: opacity!=0
+                        opacity: 0
+                        selectByMouse:true
+                        Behavior on opacity {
+                            NumberAnimation{
+                                duration: 250
+                            }
+                        }
+                        onTextChanged: {
+                            if(root.node.configsLoaded){
+                                root.node.name=text
+                            }
+                        }
+
+                        onAccepted: {
+                            focus=false
+                        }
+
+                        text:root.node.name
+
+
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        width: contentWidth
+
+                        GUI.MaterialPlaceHolder{
+                            id:placeholder
+                            placeHolderText:"Node Name:"
+                        }
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        onFocusChanged: {
+                            if(focus==false){
+                                node_name_editor.opacity=0;
+                            }
+                        }
+
+                    }
+
                 }
 
 

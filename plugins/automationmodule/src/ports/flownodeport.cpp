@@ -44,7 +44,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
     QObject::connect(m_port, &qan::PortItem::inEdgeAdded, this, [this](qan::EdgeItem& inEdgeItem){
 
         QObject::connect(&inEdgeItem, &qan::EdgeItem::destroyed, this, [this](QObject* edgeObject){
-            LOG_INFO("In edge destroyed");
+//            LOG_INFO("In edge destroyed");
             qan::EdgeItem* edgeItem=qobject_cast<qan::EdgeItem*>(edgeObject);
             if(edgeItem!=nullptr){
 
@@ -61,7 +61,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
         }
 
         QObject::connect(&outEdgeItem, &qan::EdgeItem::destroyed, this, [this](QObject* edgeObject){
-            LOG_INFO("Out edge destroyed");
+//            LOG_INFO("Out edge destroyed");
             qan::EdgeItem* edgeItem=qobject_cast<qan::EdgeItem*>(edgeObject);
             if(edgeItem!=nullptr){
                 FlowNode* targetNode=getNodeFromEdge(edgeItem);

@@ -197,7 +197,7 @@ FlowNodeItem{
                             anchors.fill: parent
                             text: "Process"
 
-                            onPressed: {
+                            onClicked: {
                                 root.node.processCurrent();
                             }
 
@@ -244,7 +244,7 @@ FlowNodeItem{
 
                                         MouseArea{
                                             anchors.fill: viewer
-                                            onPressed: {
+                                            onClicked: {
                                                 if (root.node.editMode){
                                                     root.node.readIndex=index
                                                     root.node.processCurrent();

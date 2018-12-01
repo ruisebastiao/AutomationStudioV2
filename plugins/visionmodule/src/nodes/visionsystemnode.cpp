@@ -49,7 +49,6 @@ void VisionSystemNode::readROINode(QJsonObject roiobject){
         node->DeSerialize(roiobject);
         m_ROINodes.append(node);
 
-        //node->bindSourceProperty(this,"sourceFrame","input");
         QObject::connect(node,&ROINode::roiProcessingDoneChanged,this,[this](){
             this->setFrameProcessed(true);
         }
