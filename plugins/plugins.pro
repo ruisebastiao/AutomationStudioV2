@@ -31,6 +31,14 @@ PLUGIN-VISION{
 }
 
 
+PLUGIN-EPSON{
+    message(With Epson module)
+    SUBDIRS += \
+       epsonmodule
+
+}
+
+
 unix{
 PLUGIN-NETWORKMANAGER{
     message(With network manager module)

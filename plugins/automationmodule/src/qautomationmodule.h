@@ -27,7 +27,7 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
 public:
     enum ModuleType {
         AutomationModule,
-        EpsonRobotModule,
+        EpsonModule,
         VisionModule,
         BSValidationModule,
         ClockModule

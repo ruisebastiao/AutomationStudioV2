@@ -123,6 +123,10 @@ FlowNode *FlowNode::addFlowNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView
         commonnode->setId(nodeid);
         emit QAutomationModule::flownodemanager->onFlowNodeLoaded(commonnode);
 
+        if(commonnode){
+            commonnode->initializeNode();
+        }
+
         return commonnode;
 
 
@@ -219,6 +223,11 @@ QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
     if ( !qan_FlowNode_delegate )
         qan_FlowNode_delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/FlowNode.qml"));
     return qan_FlowNode_delegate.get();
+}
+
+void FlowNode::initializeNode()
+{
+
 }
 
 void FlowNode::remove()

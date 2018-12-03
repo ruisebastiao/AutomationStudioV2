@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="AutomationModules/EpsonModuleItem.qml">qml/EpsonModuleItem.qml</file>
+    </qresource>
+</RCC>

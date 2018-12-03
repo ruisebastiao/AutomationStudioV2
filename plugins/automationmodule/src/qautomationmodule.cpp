@@ -16,7 +16,7 @@ FlowNodeManager* QAutomationModule::flownodemanager=nullptr;
 
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 {
-    QAutomationModule::flownodemanager=new FlowNodeManager();
+//    QAutomationModule::flownodemanager;
     m_commonNodeTypes=FlowNode::getCommonTypes();
 
 }
@@ -54,10 +54,10 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
     if(!modulesettingsFile.exists()) {
         LOG_WARNING() << "Does not exits: " <<m_moduleConfigPath;
 
-        return;
+
     }
 
-    if (!modulesettingsFile.open(QIODevice::ReadOnly)) {
+    if (!modulesettingsFile.open(QIODevice::ReadWrite)) {
         LOG_WARNING("Couldn't open save file.");
         return;
     }
@@ -162,15 +162,7 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
     }
 
 
-    FlowNode* node=dynamic_cast<FlowNode*>(newnode);
-    if(node){
-        node->DeSerialize(nodeobject);
-
-    }
-
-
-
-    return node;
+    return dynamic_cast<FlowNode*>(newnode);
 
 }
 
@@ -178,7 +170,7 @@ FlowNode *QAutomationModule::readCommonNode(qan::GraphView *graphView, QJsonObje
 {
     qan::Node* newnode=nullptr;
 
-   newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString());
+    newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString());
 
 
     FlowNode* node=dynamic_cast<FlowNode*>(newnode);
@@ -196,22 +188,26 @@ FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString
 {
     qan::Node* newnode=nullptr;
 
+    FlowNode* newflownode=nullptr;
+
     if(nodetype=="WebServiceNode"){
-         newnode=graphView->getGraph()->insertNode<WebServiceNode>(nullptr);
-     }
-     else if(nodetype=="StringNode"){
-         newnode=graphView->getGraph()->insertNode<StringNode>(nullptr);
-     }
-     else if(nodetype=="ProxyInputNode"){
-         newnode=graphView->getGraph()->insertNode<ProxyInputNode>(nullptr);
-     }
-     else if(nodetype=="NumericNode"){
-         newnode=graphView->getGraph()->insertNode<NumericNode>(nullptr);
-     }
-     else if(nodetype=="MultiplexedInputNode"){
-         newnode=graphView->getGraph()->insertNode<MultiplexedInputNode>(nullptr);
-     }
-    return dynamic_cast<FlowNode*>(newnode);
+        newnode=graphView->getGraph()->insertNode<WebServiceNode>(nullptr);
+    }
+    else if(nodetype=="StringNode"){
+        newnode=graphView->getGraph()->insertNode<StringNode>(nullptr);
+    }
+    else if(nodetype=="ProxyInputNode"){
+        newnode=graphView->getGraph()->insertNode<ProxyInputNode>(nullptr);
+    }
+    else if(nodetype=="NumericNode"){
+        newnode=graphView->getGraph()->insertNode<NumericNode>(nullptr);
+    }
+    else if(nodetype=="MultiplexedInputNode"){
+        newnode=graphView->getGraph()->insertNode<MultiplexedInputNode>(nullptr);
+    }
+    newflownode= dynamic_cast<FlowNode*>(newnode);
+
+    return newflownode;
 }
 
 void QAutomationModule::save()
@@ -223,27 +219,24 @@ void QAutomationModule::save()
     Serialize(m_configurationsObject);
 
 
-    QJsonArray nodesArrayList = m_configurationsObject["nodes"].toArray();
+    QJsonArray nodesArrayList;// = m_configurationsObject["nodes"].toArray();
 
 
     for (int nodeIndex = 0; nodeIndex < m_FlowNodes.count(); ++nodeIndex) {
         FlowNode* node=m_FlowNodes.at(nodeIndex);
 
+        QJsonObject nodeoject;
 
-        for (int nodeObjectIndex = 0; nodeObjectIndex < nodesArrayList.count(); ++nodeObjectIndex) {
-            QJsonObject nodeobject=nodesArrayList[nodeObjectIndex].toObject();
-            if(nodeobject["id"]==node->id()){
-                node->Serialize(nodeobject);
-                nodesArrayList[nodeIndex]=nodeobject;
-                break;
-            }
-        }
+        //        for (int nodeObjectIndex = 0; nodeObjectIndex < nodesArrayList.count(); ++nodeObjectIndex) {
+        //            QJsonObject nodeobject=nodesArrayList[nodeObjectIndex].toObject();
+        //            if(nodeobject["id"]==node->id()){
+        node->Serialize(nodeoject);
+        nodesArrayList.append(nodeoject);
+        //                break;
+        //            }
 
 
     }
-
-    //graphView()->getZoom()
-
 
     m_configurationsObject["nodes"]=nodesArrayList;
     QJsonDocument saveDoc(m_configurationsObject);
@@ -342,7 +335,7 @@ void QAutomationModule::Serialize(QJsonObject &json)
 
 void QAutomationModule::DeSerialize(QJsonObject &json)
 {
-     JsonSerializable::DeSerialize(json,this);
+    JsonSerializable::DeSerialize(json,this);
 
 
 

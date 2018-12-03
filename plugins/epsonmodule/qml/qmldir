@@ -1,0 +1,8 @@
+module epsonmodule
+plugin epsonmodule ../
+
+depends QtQuick 2.8
+
+
+EpsonModuleItem                          1.0 qrc:///EpsonModule/EpsonModuleItem.qml
+

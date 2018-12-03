@@ -50,6 +50,7 @@ APP_ID=$$join(prefix_sys,_,,)
 
 
 SYSTEM_EPSON{
+    CONFIG+=PLUGIN-EPSON
 }
 
 SYSTEM_BSVALIDATION{

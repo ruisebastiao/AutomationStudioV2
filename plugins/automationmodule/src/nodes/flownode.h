@@ -152,6 +152,7 @@ public:
     }
 
 
+    virtual void initializeNode();
 
     virtual void initializePorts(QJsonObject &json);
 
