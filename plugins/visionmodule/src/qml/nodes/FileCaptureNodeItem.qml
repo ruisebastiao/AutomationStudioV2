@@ -47,6 +47,7 @@ FlowNodeItem{
         ColumnLayout{
             anchors.fill: parent
             Item{
+                enabled: editMode
                 //                Layout.fillHeight:true;
                 Layout.fillWidth: true;
                 Layout.margins: 5
@@ -90,6 +91,8 @@ FlowNodeItem{
                 }
             }
             Item{
+
+                enabled: editMode
                 Layout.fillWidth: true;
                 Layout.margins: 5
                 Layout.preferredHeight:50

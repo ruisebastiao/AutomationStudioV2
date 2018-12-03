@@ -234,7 +234,7 @@ Item{
                                     onClicked: {
 
 
-                                        root.roinode.addCommonNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                        root.roinode.addCommonNode(Qt.point(contextMenu.x,contextMenu.y),modelData,roieditorgraphView)
                                         contextMenu.dismiss()
                                     }
                                 }

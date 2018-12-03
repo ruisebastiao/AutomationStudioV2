@@ -7,6 +7,7 @@
 #include <automationstudiocore/jsonserializable.h>
 
 #include <flownodeport.h>
+#include <qanGraphView.h>
 #include <random>
 
 
@@ -119,7 +120,7 @@ public:
 
 
 
-    Q_INVOKABLE virtual void addCommonNode(QPoint loc, QVariantMap nodeinfo);
+    Q_INVOKABLE virtual FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
 
 
 //    static void loadNodeConnections(QList<FlowNode *> nodeList);

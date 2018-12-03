@@ -237,45 +237,11 @@ void ROINode::DeSerialize(QJsonObject &json)
 }
 
 
-void ROINode::addCommonNode(QPoint loc, QVariantMap nodeinfo)
+FlowNode *ROINode::addCommonNode(QPoint loc, QVariantMap nodeinfo,qan::GraphView* graphview)
 {
-    qDebug()<<"Adding common node:"<<nodeinfo<<" @ "<<loc;
-
-    QString procType;
-    QMapIterator<QString, QVariant> i(nodeinfo);
-    while (i.hasNext()) {
-        i.next();
-        procType=i.key();
-
-    }
-
-    FlowNode *commonnode=QAutomationModule::createCommonNode(m_roiEditorGraphView,procType);
-
+    FlowNode* commonnode=FlowNode::addCommonNode(loc,nodeinfo,graphview);
     if(commonnode){
-        commonnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
-        commonnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
-
-
-        std::list<FlowNode*> allnodeslist;
-
-
-        allnodeslist.merge(m_ProcessingNodes.toStdList());
-        allnodeslist.merge(m_CommonNodes.toStdList());
-
-        QList<FlowNode*> allnodes=QList<FlowNode*>::fromStdList(allnodeslist);
-
-        int nodeid=FlowNode::getAvailableID(allnodes);
-
-
-        if(nodeid==-1){
-            nodeid=m_ProcessingNodes.length()+m_CommonNodes.length();
-        }
-
-        commonnode->setId(nodeid);
-
         m_CommonNodes.append(commonnode);
-
-
     }
 }
 
@@ -298,23 +264,13 @@ void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){
 
 
 
-        std::list<FlowNode*> allnodeslist;
-
-        allnodeslist.merge(m_ProcessingNodes.toStdList());
-        allnodeslist.merge(m_CommonNodes.toStdList());
-
-        QList<FlowNode*> allnodes=QList<FlowNode*>::fromStdList(allnodeslist);
-
-
-
-        int nodeid=FlowNode::getAvailableID(allnodes);
-
-
+        int nodeid=FlowNode::getAvailableID(QAutomationModule::flownodemanager->flownodes());
         if(nodeid==-1){
-            nodeid=m_ProcessingNodes.length();
+            nodeid=QAutomationModule::flownodemanager->length();
         }
-
         procnode->setId(nodeid);
+        emit QAutomationModule::flownodemanager->onFlowNodeLoaded(procnode);
+
 
         initializeProcessingNode(procnode);
 
@@ -349,7 +305,7 @@ void ROINode::setSourceFrame(QMat *sourceFrame)
 
 
 
-//        emit sourceFrameChanged(m_sourceFrame);
+        //        emit sourceFrameChanged(m_sourceFrame);
 
         m_basenode->setInput(QVariant::fromValue(m_sourceFrame));
 

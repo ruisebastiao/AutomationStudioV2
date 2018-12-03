@@ -174,7 +174,7 @@ public:
 
     // FlowNode interface
 public:
-    virtual void addCommonNode(QPoint loc, QVariantMap nodeinfo) override;
+    virtual FlowNode* addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview) override;
     QVariantList commonNodeTypes() const
     {
         return m_commonNodeTypes;

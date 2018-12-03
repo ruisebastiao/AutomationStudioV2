@@ -54,7 +54,7 @@ QVariantList FlowNode::getCommonTypes()
 
 
         default:
-//                static_assert(true, "");
+            //                static_assert(true, "");
             break;
         }
 
@@ -89,8 +89,38 @@ FlowNode::~FlowNode()
 
 }
 
-void FlowNode::addCommonNode(QPoint loc, QVariantMap nodeinfo)
+FlowNode* FlowNode::addCommonNode(QPoint loc, QVariantMap nodeinfo,qan::GraphView* graphview)
 {
+    qDebug()<<"Adding common node:"<<nodeinfo<<" @ "<<loc;
+
+    QString procType;
+    QMapIterator<QString, QVariant> i(nodeinfo);
+    while (i.hasNext()) {
+        i.next();
+        procType=i.key();
+
+    }
+
+    FlowNode *commonnode=QAutomationModule::createCommonNode(graphview,procType);
+
+    if(commonnode){
+        commonnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
+        commonnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
+
+
+
+        int nodeid=FlowNode::getAvailableID(QAutomationModule::flownodemanager->flownodes());
+        if(nodeid==-1){
+            nodeid=QAutomationModule::flownodemanager->length();
+        }
+        commonnode->setId(nodeid);
+        emit QAutomationModule::flownodemanager->onFlowNodeLoaded(commonnode);
+
+        return commonnode;
+
+
+    }
+
 
 }
 
@@ -205,7 +235,7 @@ void FlowNode::initializePorts(QJsonObject &json)
 
             FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::In,propName);
             if(newport){
-//                newport->setHidden(true);
+                //                newport->setHidden(true);
                 string portkey=QString::number(id()).toStdString()+"|"+propName;
                 m_inPorts[portkey]=newport;
             }
@@ -216,7 +246,7 @@ void FlowNode::initializePorts(QJsonObject &json)
         if(property.revision()==31){
             FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::Out,propName);
             if(newport){
-//                newport->setHidden(true);
+                //                newport->setHidden(true);
                 string portkey=QString::number(id()).toStdString()+"|"+propName;
                 m_outPorts[portkey]=newport;
             }
