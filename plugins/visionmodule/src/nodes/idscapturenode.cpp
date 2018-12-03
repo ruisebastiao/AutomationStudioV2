@@ -143,6 +143,7 @@ void IDSCaptureNode::GetFrames(){
         {
             /* event signalled */
 
+            QMat* framesink= m_frameSink.value<QMat*>();
             is_LockSeqBuf(m_camHandler,m_nSeqNumId[m_frameBufferCount], m_pcSeqImgMem[m_frameBufferCount]);
             LOG_INFO()<<"IDS Frame stored @ buffer index:"<<m_frameBufferCount++;
 
@@ -165,7 +166,7 @@ void IDSCaptureNode::GetFrames(){
 
 
 
-                    memcpy(frameSink()->cvMat()->ptr(), pcMemLast,sizeX() * sizeY());
+                    memcpy(framesink->cvMat()->ptr(), pcMemLast,sizeX() * sizeY());
                     is_UnlockSeqBuf( m_camHandler, m_nSeqNumId[i], m_pcSeqImgMem[i] );
 
                     emit frameSinkChanged(frameSink());

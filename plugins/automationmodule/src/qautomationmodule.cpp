@@ -17,6 +17,17 @@ FlowNodeManager* QAutomationModule::flownodemanager=nullptr;
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 {
     QAutomationModule::flownodemanager=new FlowNodeManager();
+    m_commonNodeTypes=FlowNode::getCommonTypes();
+
+}
+
+FlowNode *QAutomationModule::addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview)
+{
+    FlowNode* commonnode=FlowNode::addFlowNode(loc,nodeinfo,graphview);
+    if(commonnode){
+        m_FlowNodes.append(commonnode);
+    }
+    return commonnode;
 }
 
 void QAutomationModule::loadModuleSettings(QString pathstr){

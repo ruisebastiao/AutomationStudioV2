@@ -122,6 +122,8 @@ public:
 
     Q_INVOKABLE virtual FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
 
+     static FlowNode *addFlowNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
+
 
 //    static void loadNodeConnections(QList<FlowNode *> nodeList);
     void loadNodeConnections();

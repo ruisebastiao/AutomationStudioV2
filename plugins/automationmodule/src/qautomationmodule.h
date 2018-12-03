@@ -22,7 +22,7 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
     Q_PROPERTY(ModuleType type READ type NOTIFY typeChanged USER("serialize"))
     Q_PROPERTY(qan::GraphView* graphView READ graphView WRITE setGraphView NOTIFY graphViewChanged)
 
-
+    Q_PROPERTY(QVariantList commonNodeTypes READ commonNodeTypes NOTIFY commonNodeTypesChanged)
 
 public:
     enum ModuleType {
@@ -39,6 +39,8 @@ public:
     QAutomationModule(QQuickItem *parent=nullptr);
     QAutomationModule(const QAutomationModule& other){ }
 
+
+    Q_INVOKABLE virtual FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
 
     static FlowNodeManager* flownodemanager;
     //static QList<ConnectionInfo*> FlowNodeConnections;
@@ -119,6 +121,8 @@ private:
 
 
 
+    QVariantList m_commonNodeTypes;
+
 protected:
       QList<FlowNode *> m_FlowNodes;
 
@@ -139,6 +143,8 @@ signals:
 
     void moduleIDChanged(QString moduleID);
     void configSourceChanged(QString configSource);
+
+    void commonNodeTypesChanged(QVariantList commonNodeTypes);
 
 public slots:
     void setName(QString name)
@@ -197,6 +203,11 @@ public:
     static FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype);
 
     Q_INVOKABLE void loadConnections();
+    QVariantList commonNodeTypes() const
+    {
+        return m_commonNodeTypes;
+    }
+
 protected:
    Q_INVOKABLE virtual void loadModuleSettings(QString path);
    Q_INVOKABLE virtual void save();

@@ -5,10 +5,11 @@
 
 #include <QAbstractListModel>
 
+#include "automationmoduleglobal.h"
 
 
 
-class FlowNodeManager : public QAbstractListModel
+class AUTOMATIONMODULE_EXPORT FlowNodeManager : public QAbstractListModel
 {
     Q_OBJECT
     Q_ENUMS(FlowNodeManagerRoles)

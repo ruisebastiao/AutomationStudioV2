@@ -243,6 +243,7 @@ FlowNode *ROINode::addCommonNode(QPoint loc, QVariantMap nodeinfo,qan::GraphView
     if(commonnode){
         m_CommonNodes.append(commonnode);
     }
+    return commonnode;
 }
 
 void ROINode::addProcNode(QPoint loc,QVariantMap nodeinfo){

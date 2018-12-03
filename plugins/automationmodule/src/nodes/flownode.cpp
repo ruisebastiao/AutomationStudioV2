@@ -91,17 +91,24 @@ FlowNode::~FlowNode()
 
 FlowNode* FlowNode::addCommonNode(QPoint loc, QVariantMap nodeinfo,qan::GraphView* graphview)
 {
+
+    return  FlowNode::addFlowNode(loc,nodeinfo,graphview);
+
+}
+
+FlowNode *FlowNode::addFlowNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview)
+{
     qDebug()<<"Adding common node:"<<nodeinfo<<" @ "<<loc;
 
-    QString procType;
+    QString nodeType;
     QMapIterator<QString, QVariant> i(nodeinfo);
     while (i.hasNext()) {
         i.next();
-        procType=i.key();
+        nodeType=i.key();
 
     }
 
-    FlowNode *commonnode=QAutomationModule::createCommonNode(graphview,procType);
+    FlowNode *commonnode=QAutomationModule::createCommonNode(graphview,nodeType);
 
     if(commonnode){
         commonnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
@@ -120,7 +127,6 @@ FlowNode* FlowNode::addCommonNode(QPoint loc, QVariantMap nodeinfo,qan::GraphVie
 
 
     }
-
 
 }
 

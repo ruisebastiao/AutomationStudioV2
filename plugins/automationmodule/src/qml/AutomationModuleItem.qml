@@ -124,6 +124,11 @@ Item {
 
                             property real lastZoom
 
+                            onRightClicked:{
+                                //console.log("Right")
+                                contextMenu.popup();
+                            }
+
                             resizeHandlerColor: Material.accent
                             gridThickColor: Material.theme === Material.Dark ? "#4e4e4e" : "#c1c1c1"
                             CommonSceneGraph {
@@ -241,10 +246,7 @@ Item {
                                     TabBar {
                                         id: bar
                                         width: parent.width
-                                        TabButton {
-                                            width: implicitWidth
-                                            text: qsTr("Processing")
-                                        }
+
                                         TabButton {
                                             width: implicitWidth
                                             text: qsTr("Common")
@@ -266,7 +268,7 @@ Item {
                                                     id: listView_common
                                                     clip: true
                                                     anchors.fill: parent
-                                                    model: root.roinode.commonNodeTypes
+                                                    model: root.loadedmodule.commonNodeTypes
                                                     delegate:Item {
                                                         id:common_delegate
                                                         width: parent.width
@@ -301,7 +303,7 @@ Item {
                                                             onClicked: {
 
 
-                                                                root.roinode.addCommonNode(Qt.point(contextMenu.x,contextMenu.y),modelData,roieditorgraphView)
+                                                                root.loadedmodule.addCommonNode(Qt.point(contextMenu.x,contextMenu.y),modelData,graphView)
                                                                 contextMenu.dismiss()
                                                             }
                                                         }
