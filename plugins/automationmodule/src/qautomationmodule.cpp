@@ -17,7 +17,7 @@ FlowNodeManager* QAutomationModule::flownodemanager=nullptr;
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 {
 //    QAutomationModule::flownodemanager;
-    m_commonNodeTypes=FlowNode::getCommonTypes();
+    m_commonNodeTypes.append(FlowNode::getCommonTypes());
 
 }
 

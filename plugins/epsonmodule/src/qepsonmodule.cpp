@@ -1,11 +1,31 @@
 #include "qepsonmodule.h"
+#include "flownode.h"
 
 
 QEpsonModule::QEpsonModule(QQuickItem *parent)
 {
     m_type=ModuleType::EpsonModule;
 
+    QList<QVariant> modulelist;
+    modulelist.append(getModuleNodeTypes());
+    m_commonNodeTypes.append(modulelist);
 }
+
+
+QVariantList QEpsonModule::getModuleNodeTypes() const
+{
+    QVariantList ret;
+
+    QVariantMap map;
+
+    map.insert(QVariant::fromValue(FlowNode::Type::EpsonNode).value<QString>(),"Epson");
+
+
+
+    return ret;
+}
+
+
 
 void QEpsonModule::loadModuleSettings(QString path)
 {
@@ -27,21 +47,21 @@ FlowNode *QEpsonModule::readNode(qan::GraphView *graphView, QJsonObject nodeobje
     if(node==nullptr){
         qan::Node* newnode=nullptr;
 
-//        if(nodeobject["type"]=="IDSCaptureNode"){
-//            newnode=graphView->getGraph()->insertNode<IDSCaptureNode>(nullptr);
-//        }
-//        else if(nodeobject["type"]=="FileCaptureNode"){
-//            newnode=graphView->getGraph()->insertNode<FileCaptureNode>(nullptr);
-//        }
-//        else if(nodeobject["type"]=="VisionSystemNode"){
-//            newnode=graphView->getGraph()->insertNode<VisionSystemNode>(nullptr);
-//        }
-//        else if(nodeobject["type"]=="FrameBufferNode"){
-//            newnode=graphView->getGraph()->insertNode<FrameBufferNode>(nullptr);
-//        }
-//        else{
-            LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
-//        }
+        //        if(nodeobject["type"]=="IDSCaptureNode"){
+        //            newnode=graphView->getGraph()->insertNode<IDSCaptureNode>(nullptr);
+        //        }
+        //        else if(nodeobject["type"]=="FileCaptureNode"){
+        //            newnode=graphView->getGraph()->insertNode<FileCaptureNode>(nullptr);
+        //        }
+        //        else if(nodeobject["type"]=="VisionSystemNode"){
+        //            newnode=graphView->getGraph()->insertNode<VisionSystemNode>(nullptr);
+        //        }
+        //        else if(nodeobject["type"]=="FrameBufferNode"){
+        //            newnode=graphView->getGraph()->insertNode<FrameBufferNode>(nullptr);
+        //        }
+        //        else{
+        LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
+        //        }
 
 
 

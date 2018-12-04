@@ -7,6 +7,7 @@ class QEpsonModule: public QAutomationModule
 {
 Q_OBJECT
 
+    QVariantList getModuleNodeTypes() const;
 public:
     QEpsonModule(QQuickItem *parent=nullptr);
 

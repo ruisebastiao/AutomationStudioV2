@@ -6,11 +6,6 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 {
 
 
-    //QList<FlowNode *> nodeList;
-
-    //nodeList.indexOf()
-
-
 
 }
 

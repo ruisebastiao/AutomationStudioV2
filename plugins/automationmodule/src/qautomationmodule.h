@@ -121,10 +121,10 @@ private:
 
 
 
-    QVariantList m_commonNodeTypes;
 
 protected:
       QList<FlowNode *> m_FlowNodes;
+      QVariantList m_commonNodeTypes;
 
 
 signals:

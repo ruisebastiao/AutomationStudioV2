@@ -23,7 +23,8 @@ HEADERS += \
     $$PWD/module.h \
     $$PWD/utilities.h \
     $$PWD/socketio.h \
-    $$PWD/appupdater.h
+    $$PWD/appupdater.h \
+    $$PWD/tcpclient.h
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
@@ -44,7 +45,8 @@ SOURCES += \
     $$PWD/module.cpp \
     $$PWD/utilities.cpp \
     $$PWD/socketio.cpp \
-    $$PWD/appupdater.cpp
+    $$PWD/appupdater.cpp \
+    $$PWD/tcpclient.cpp
 
 win32{
     SOURCES +=

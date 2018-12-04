@@ -75,6 +75,7 @@ public:
         WebCamCaptureNode,
         FrameBufferNode,
         ModulePropertyBind,
+        EpsonNode,
         MultiplexedInputNode,
         NumericNode
 
