@@ -43,6 +43,15 @@ FlowNodeItem{
                     placeHolderText:"Command"
                 }
             }
+            Button{
+                Layout.fillWidth: true
+                Layout.preferredHeight: 50
+                highlighted: true
+                text: "Send"
+                onClicked: {
+                    root.node.doSendCommand()
+                }
+            }
         }
     }
 

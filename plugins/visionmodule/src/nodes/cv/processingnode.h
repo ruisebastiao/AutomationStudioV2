@@ -24,7 +24,7 @@ class ProcessingNode : public FlowNode
 
 
     Q_PROPERTY(QVariant maskInput READ maskInput WRITE setMaskInput NOTIFY maskInputChanged REVISION 30)
-    Q_PROPERTY(QMat* drawSource READ drawSource WRITE setDrawSource NOTIFY drawSourceChanged)
+    Q_PROPERTY(QVariant drawSource READ drawSource WRITE setDrawSource NOTIFY drawSourceChanged REVISION 30)
 
     Q_PROPERTY(QVariant input READ input WRITE setInput NOTIFY inputChanged REVISION 30)
     Q_PROPERTY(QVariant process READ process WRITE setProcess NOTIFY processChanged REVISION 30)
@@ -33,7 +33,7 @@ class ProcessingNode : public FlowNode
     Q_PROPERTY(QVariant output READ output NOTIFY outputChanged REVISION 31)
 
 
-    Q_PROPERTY(QMat* originalInput READ originalInput WRITE setOriginalInput NOTIFY originalInputChanged)
+
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged USER("serialize"))
     Q_PROPERTY(ProcessingType  processingType  READ processingType CONSTANT FINAL USER("serialize"))
     Q_PROPERTY(bool inPlaceProcessing READ inPlaceProcessing WRITE setInPlaceProcessing NOTIFY inPlaceProcessingChanged)
@@ -202,12 +202,6 @@ public:
         return m_enabled;
     }
 
-//    void setOriginalFrame(QVariant originalFrame);
-
-   QMat* originalInput() const
-    {
-        return m_originalInput;
-    }
 
     bool process() const
     {
@@ -256,13 +250,7 @@ public slots:
 
     }
 
-    void setOriginalInput(QMat* originalInput)
-    {
 
-
-        m_originalInput = originalInput;
-        emit originalInputChanged(m_originalInput);
-    }
 
     void setMaskInput(QVariant maskInput)
     {
@@ -271,14 +259,21 @@ public slots:
         emit maskInputChanged(m_maskInput);
     }
 
-    void setDrawSource(QMat* drawSource)
+    void setDrawSource(QVariant drawSource)
     {
 
 
         m_drawSource = drawSource;
-        if(m_drawSource && m_drawSource->cvMat()->empty()==false){
-            m_drawSource->cvMat()->copyTo(*m_originalInput->cvMat());
+        QMat* drawsource=m_drawSource.value<QMat*>();
+        QMat* output=m_output.value<QMat*>();
+        if (drawsource) {
+            drawsource->cvMat()->copyTo(*m_originalSource->cvMat());
+            if(output){
+                drawsource->cvMat()->copyTo(*output->cvMat());
+            }
+
         }
+
         emit drawSourceChanged(m_drawSource);
     }
 
@@ -371,7 +366,7 @@ signals:
 
     void maskInputChanged(QVariant maskInput);
 
-    void drawSourceChanged(QMat* drawSource);
+    void drawSourceChanged(QVariant drawSource);
 
     void applyMaskChanged(bool applyMask);
 
@@ -404,15 +399,14 @@ private:
 
 protected:
 
-//    QMat* m_originalFrame=new QMat();
-    QMat* m_originalInput=new QMat();
 
     QVariant m_input=QVariant::fromValue(new QMat());
 
     
     QVariant m_maskInput= QVariant::fromValue(new QMat());
 
-    QMat* m_drawSource=new QMat();
+    QVariant m_drawSource=QVariant::fromValue(new QMat());
+    QMat* m_originalSource=new QMat();
 
     QVariant m_output=QVariant::fromValue(new QMat());
 
@@ -438,7 +432,7 @@ public:
     {
         return m_maskInput;
     }
-    QMat* drawSource() const
+    QVariant drawSource() const
     {
         return m_drawSource;
     }

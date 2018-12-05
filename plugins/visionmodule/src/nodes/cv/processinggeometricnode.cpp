@@ -33,7 +33,11 @@ QLineF ProcessingGeometricNode::lineSegment(){
     double angle,length;
 
     QMat* in=m_input.value<QMat*>();
-//    QMat* out=m_output.value<QMat*>();
+
+    QMat* output=m_output.value<QMat*>();
+    QMat* drawsource=m_drawSource.value<QMat*>();
+
+
 
     switch (m_geometricType) {
     case GeometricPointAngleLengthLine:
@@ -150,12 +154,19 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
         }
 
+        QMat* drawsource=m_drawSource.value<QMat*>();
 
+        if(drawsource && drawsource->cvMat()->empty()==false){
 
-        line(*m_drawSource->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+            line(*drawsource->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+            if(output){
+                line(*output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+            }
 
+        }
         result=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
 
+        qDebug()<<"Result:"<<result;
         break;
     }
 

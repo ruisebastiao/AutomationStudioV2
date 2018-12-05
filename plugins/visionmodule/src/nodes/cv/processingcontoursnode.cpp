@@ -37,6 +37,10 @@ void ProcessingContoursNode::doProcess()
     // value colde be read once at variant change
     QMat* in=m_input.value<QMat*>();
 
+    // TODO move local vars to protected
+    QMat* output=m_output.value<QMat*>();
+    QMat* drawsource=m_drawSource.value<QMat*>();
+
 
 
     if(!in || in->cvMat()->empty()){
@@ -52,13 +56,6 @@ void ProcessingContoursNode::doProcess()
     vector<Vec4i> hierarchy;
 
     m_filteredContours.clear();
-
-
-    QMat* v_output=m_output.value<QMat*>();
-
-    // TODO during real time processing this should be removed, only needed if in config mode
-    m_originalInput->cvMat()->copyTo(*v_output->cvMat());
-
 
 
 
@@ -131,11 +128,18 @@ void ProcessingContoursNode::doProcess()
     setTotalFilteredContours(fileredcontours.size());
 
 
-    drawContours(*m_drawSource->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
 
-    drawContours(*v_output->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
 
-    m_output=QVariant::fromValue(v_output);
+    if(drawsource && drawsource->cvMat()->empty()==false){
+        drawContours(*drawsource->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
+        if(output){
+            drawContours(*output->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
+        }
+    }
+
+    //    drawContours(*v_output->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
+
+    //    m_output=QVariant::fromValue(v_output);
 
     LOG_INFO()<<"Total contours:"<<m_totalContours;
     LOG_INFO()<<"Fildtered contours:"<<fileredcontours.size();

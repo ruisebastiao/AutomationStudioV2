@@ -20,9 +20,13 @@ class CommandSender : public FlowNode
     Q_PROPERTY(QVariant send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
 
 
+
 public:
     CommandSender();
     static QQmlComponent *delegate(QQmlEngine &engine) noexcept;
+
+    Q_INVOKABLE void doSendCommand();
+
     QStringList commandsAvailable() const
     {
         return m_commandsAvailable;

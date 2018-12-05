@@ -1,5 +1,10 @@
 #include "commandsender.h"
 
+void CommandSender::doSendCommand()
+{
+    setSend(true);
+}
+
 CommandSender::CommandSender()
 {
     m_type=Type::CommandSender;

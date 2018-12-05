@@ -30,6 +30,8 @@ void ProcessingEnclosingNode::doProcess()
     //    QMat* in=m_input.value<QMat*>();
     // QMat* out=m_output.value<QMat*>();
     std::vector<std::vector<cv::Point>> _contours=m_contours.value<std::vector<std::vector<cv::Point>>>();
+    QMat* output=m_output.value<QMat*>();
+    QMat* drawsource=m_drawSource.value<QMat*>();
 
     //    if(!in || in->cvMat()->empty() || !out){
     //        // TODO Send Error
@@ -63,21 +65,49 @@ void ProcessingEnclosingNode::doProcess()
             cv::Point2f vertices[4];
             minrect.points(vertices);
 
-            for(int i = 0; i < 4; ++i){
-                cv::line(*m_drawSource->cvMat(), vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 2, CV_AA);
+            QMat* drawsource=m_drawSource.value<QMat*>();
+
+            if(drawsource && drawsource->cvMat()->empty()==false){
+
+
+                for(int i = 0; i < 4; ++i){
+
+                    cv::line(*drawsource->cvMat(), vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 2, CV_AA);
+                     if(output){
+                         cv::line(*output->cvMat(), vertices[i], vertices[(i + 1) % 4], cv::Scalar(0, 0, 255), 2, CV_AA);
+                     }
+                }
+
+                drawMarker(*drawsource->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
+                if(output){
+                    drawMarker(*output->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
+                }
             }
-
-            drawMarker(*m_drawSource->cvMat(),minrect.center,cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
-
 
             break;
         }
         case BoundingRectEnclosing:
         {
             cv::Rect minrect=boundingRect(approx_contour);
-            rectangle(*m_drawSource->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
-            drawMarker(*m_drawSource->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
-            rectenclosingshapes.push_back(minrect);
+
+
+
+            if(drawsource && drawsource->cvMat()->empty()==false){
+
+
+                rectangle(*drawsource->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
+                drawMarker(*drawsource->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
+
+
+                if(output){
+                    rectangle(*output->cvMat(), minrect, cv::Scalar(0, 0, 255), 2, CV_AA);
+                    drawMarker(*output->cvMat(),Point(minrect.x+minrect.width/2,minrect.y+minrect.height/2),cv::Scalar(0, 0, 255),MARKER_CROSS,20, 2,8);
+                }
+
+
+
+                rectenclosingshapes.push_back(minrect);
+            }
             break;
 
         }

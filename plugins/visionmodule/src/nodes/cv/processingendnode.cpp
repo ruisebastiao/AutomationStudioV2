@@ -23,12 +23,14 @@ void ProcessingEndNode::setInput(QVariant input)
 
 void ProcessingEndNode::doProcess()
 {
-    QMat* in=m_input.value<QMat*>();
+    //QMat* in=m_input.value<QMat*>();
 
-    if( in && in->cvMat()->empty()==false){
+    //    if( in && in->cvMat()->empty()==false){
 
-        in->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
-    }
+    //        in->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
+    //    }
+
+    m_output=m_input;
     ProcessingNode::doProcess();
     emit processingCompleted(this);
 }
@@ -39,8 +41,9 @@ void ProcessingEndNode::DeSerialize(QJsonObject &json)
 
     FlowNodePort* port=getPortFromKey("input");
     if(port){
-        port->setHidden(true);
+        port->setHidden(false);
     }
+
     port=getPortFromKey("output");
     if(port){
         port->setHidden(true);
