@@ -24,6 +24,10 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
 
     Q_PROPERTY(QVariantList commonNodeTypes READ commonNodeTypes NOTIFY commonNodeTypesChanged)
 
+    Q_PROPERTY(QVariantList moduleNodeTypes READ moduleNodeTypes NOTIFY moduleNodeTypesChanged)
+
+    Q_PROPERTY(QString moduleName READ moduleName NOTIFY moduleNameChanged)
+
 public:
     enum ModuleType {
         AutomationModule,
@@ -41,6 +45,7 @@ public:
 
 
     Q_INVOKABLE virtual FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
+    Q_INVOKABLE virtual void addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
 
     static FlowNodeManager* flownodemanager;
     //static QList<ConnectionInfo*> FlowNodeConnections;
@@ -101,6 +106,8 @@ public:
 
 private:
 
+    FlowNode* readNode(qan::GraphView* graphView ,QJsonObject nodeobject);
+
     QString m_name;
 
 
@@ -120,12 +127,16 @@ private:
     QString m_moduleID="";
 
 
+    QVariantList m_commonNodeTypes;
+
+
+
 
 
 protected:
       QList<FlowNode *> m_FlowNodes;
-      QVariantList m_commonNodeTypes;
-
+        QString m_moduleName="";
+      QVariantList m_moduleNodeTypes;
 
 signals:
     void nameChanged(QString name);
@@ -145,6 +156,10 @@ signals:
     void configSourceChanged(QString configSource);
 
     void commonNodeTypesChanged(QVariantList commonNodeTypes);
+
+    void moduleNodeTypesChanged(QVariantList moduleNodeTypes);
+
+    void moduleNameChanged(QString moduleName);
 
 public slots:
     void setName(QString name)
@@ -199,8 +214,14 @@ public:
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
-    static FlowNode* readCommonNode(qan::GraphView* graphView ,QJsonObject nodeobject);
+
+
     static FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype);
+
+    virtual FlowNode *createModuleNode(qan::GraphView* graphView , QString nodetype)=0;
+
+
+
 
     Q_INVOKABLE void loadConnections();
     QVariantList commonNodeTypes() const
@@ -208,13 +229,24 @@ public:
         return m_commonNodeTypes;
     }
 
+    QVariantList moduleNodeTypes() const
+    {
+        return m_moduleNodeTypes;
+    }
+
+    QString moduleName() const
+    {
+        return m_moduleName;
+    }
+
+
 protected:
    Q_INVOKABLE virtual void loadModuleSettings(QString path);
    Q_INVOKABLE virtual void save();
 
     ModuleType m_type=ModuleType::AutomationModule;
 
-    virtual FlowNode* readNode(qan::GraphView* graphView ,QJsonObject nodeobject);
+
 
 
 

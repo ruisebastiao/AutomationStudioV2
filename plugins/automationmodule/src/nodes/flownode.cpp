@@ -111,16 +111,9 @@ FlowNode *FlowNode::addFlowNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView
 
 
 
-        int nodeid=FlowNode::getAvailableID(QAutomationModule::flownodemanager->flownodes());
-        if(nodeid==-1){
-            nodeid=QAutomationModule::flownodemanager->length();
-        }
-        commonnode->setId(nodeid);
-        emit QAutomationModule::flownodemanager->onFlowNodeLoaded(commonnode);
 
-        if(commonnode){
-            commonnode->initializeNode();
-        }
+         commonnode->initializeNode();
+
 
         return commonnode;
 
@@ -222,6 +215,16 @@ QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
 
 void FlowNode::initializeNode()
 {
+    int nodeid=FlowNode::getAvailableID(QAutomationModule::flownodemanager->flownodes());
+    if(nodeid==-1){
+        nodeid=QAutomationModule::flownodemanager->length();
+    }
+    setId(nodeid);
+    emit QAutomationModule::flownodemanager->onFlowNodeLoaded(this);
+
+    QJsonObject jo;
+    initializePorts(jo);
+
 
 }
 

@@ -251,6 +251,10 @@ Item {
                                             width: implicitWidth
                                             text: qsTr("Common")
                                         }
+                                        TabButton {
+                                            width: implicitWidth
+                                            text: root.loadedmodule.moduleName
+                                        }
                                     }
                                     StackLayout {
                                         width: parent.width
@@ -317,6 +321,69 @@ Item {
 
                                             }
                                         }
+
+                                        Item {
+                                            id: moduleTab
+
+                                            Layout.fillWidth:true
+                                            Layout.fillHeight:true
+                                            Rectangle{
+                                                anchors.fill: parent
+                                                anchors.margins: 5
+                                                ListView {
+                                                    id: listView_module
+                                                    clip: true
+                                                    anchors.fill: parent
+                                                    model: root.loadedmodule.moduleNodeTypes
+                                                    delegate:Item {
+                                                        id:module_delegate
+                                                        width: parent.width
+                                                        height: 40
+                                                        property var modelDataObject: modelData
+                                                        property var key;
+                                                        property string value
+                                                        onModelDataObjectChanged: {
+                                                            for (var prop in modelDataObject) {
+                                                                key=prop
+                                                                value= modelDataObject[prop]
+                                                            }
+                                                        }
+
+                                                        Label{
+
+                                                            text: value
+                                                            anchors.fill: parent
+                                                            font.pixelSize: 16
+                                                            horizontalAlignment:Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            //                     fontSizeMode:Text.Fit
+                                                        }
+                                                        MouseArea{
+                                                            anchors.fill: parent
+                                                            hoverEnabled: true
+                                                            onEntered:{
+                                                                module_delegate.ListView.view.currentIndex = index;
+
+                                                            }
+
+                                                            onClicked: {
+
+
+                                                                root.loadedmodule.addModuleNode(Qt.point(contextMenu.x,contextMenu.y),modelData,graphView)
+                                                                contextMenu.dismiss()
+                                                            }
+                                                        }
+                                                    }
+                                                    highlight: Rectangle {
+                                                        color: "lightsteelblue";
+                                                        radius: 5
+                                                    }
+                                                    focus: true
+                                                }
+
+                                            }
+                                        }
+
                                     }
 
 

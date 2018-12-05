@@ -34,7 +34,7 @@ public:
     QHash<int, QByteArray> roleNames() const;
 public slots:
     Module *getItemAt(int index);
-    int count();
+    Q_INVOKABLE int count();
 
 private:
 

@@ -223,7 +223,10 @@ void ROINode::DeSerialize(QJsonObject &json)
 
 
         QJsonObject commonnodeObject=commonNodesArray[i].toObject();
-        FlowNode* commonnode=QAutomationModule::readCommonNode(m_roiEditorGraphView,commonnodeObject);
+        FlowNode* commonnode=QAutomationModule::createCommonNode(m_roiEditorGraphView,commonnodeObject["type"].toString());
+        if(commonnode){
+            commonnode->DeSerialize(commonnodeObject);
+        }
         m_CommonNodes.append(commonnode);
 
 

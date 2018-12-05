@@ -16,7 +16,7 @@ FlowNodeManager* QAutomationModule::flownodemanager=nullptr;
 
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 {
-//    QAutomationModule::flownodemanager;
+    //    QAutomationModule::flownodemanager;
     m_commonNodeTypes.append(FlowNode::getCommonTypes());
 
 }
@@ -28,6 +28,28 @@ FlowNode *QAutomationModule::addCommonNode(QPoint loc, QVariantMap nodeinfo, qan
         m_FlowNodes.append(commonnode);
     }
     return commonnode;
+}
+
+void QAutomationModule::addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview)
+{
+
+    qDebug()<<"Adding common node:"<<nodeinfo<<" @ "<<loc;
+
+    QString nodeType;
+    QMapIterator<QString, QVariant> i(nodeinfo);
+    while (i.hasNext()) {
+        i.next();
+        nodeType=i.key();
+
+    }
+
+    FlowNode* node=createModuleNode(graphview,nodeType);
+
+    if(node){
+        node->initializeNode();
+        m_FlowNodes.append(node);
+    }
+
 }
 
 void QAutomationModule::loadModuleSettings(QString pathstr){
@@ -147,10 +169,7 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
 {
     qan::Node* newnode=nullptr;
 
-    if(nodeobject["type"]=="BarcodeReaderNode"){
-        newnode=graphView->getGraph()->insertNode<BarcodeReaderNode>(nullptr);
-    }
-    else if(nodeobject["type"]=="ModulePropertyBind"){
+    if(nodeobject["type"]=="ModulePropertyBind"){
         newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
         ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
         /* ??? */ if(modulePropertyBindNode){
@@ -158,39 +177,37 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
         }
     }
     if(!newnode){
-        newnode=QAutomationModule::readCommonNode(graphView,nodeobject);
+        newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString());
+    }
+
+    if(!newnode){
+        newnode=createModuleNode(graphView,nodeobject["type"].toString());
     }
 
 
-    return dynamic_cast<FlowNode*>(newnode);
+    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
+    if(flownode){
 
-}
+        flownode->DeSerialize(nodeobject);
 
-FlowNode *QAutomationModule::readCommonNode(qan::GraphView *graphView, QJsonObject nodeobject)
-{
-    qan::Node* newnode=nullptr;
-
-    newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString());
-
-
-    FlowNode* node=dynamic_cast<FlowNode*>(newnode);
-    if(node){
-        node->DeSerialize(nodeobject);
 
     }
 
-
-    return node;
+    return flownode;
 
 }
+
 
 FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString nodetype)
 {
     qan::Node* newnode=nullptr;
 
-    FlowNode* newflownode=nullptr;
 
-    if(nodetype=="WebServiceNode"){
+
+    if(nodetype=="BarcodeReaderNode"){
+        newnode=graphView->getGraph()->insertNode<BarcodeReaderNode>(nullptr);
+    }
+    else if(nodetype=="WebServiceNode"){
         newnode=graphView->getGraph()->insertNode<WebServiceNode>(nullptr);
     }
     else if(nodetype=="StringNode"){
@@ -205,10 +222,11 @@ FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString
     else if(nodetype=="MultiplexedInputNode"){
         newnode=graphView->getGraph()->insertNode<MultiplexedInputNode>(nullptr);
     }
-    newflownode= dynamic_cast<FlowNode*>(newnode);
+    FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
 
     return newflownode;
 }
+
 
 void QAutomationModule::save()
 {
@@ -227,13 +245,10 @@ void QAutomationModule::save()
 
         QJsonObject nodeoject;
 
-        //        for (int nodeObjectIndex = 0; nodeObjectIndex < nodesArrayList.count(); ++nodeObjectIndex) {
-        //            QJsonObject nodeobject=nodesArrayList[nodeObjectIndex].toObject();
-        //            if(nodeobject["id"]==node->id()){
+
         node->Serialize(nodeoject);
         nodesArrayList.append(nodeoject);
-        //                break;
-        //            }
+
 
 
     }

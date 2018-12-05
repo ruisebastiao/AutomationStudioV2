@@ -9,7 +9,7 @@
 QVisionModule::QVisionModule(QQuickItem *parent)
 {
     m_type=ModuleType::VisionModule;
-
+    m_moduleName="Vision";
 }
 
 void QVisionModule::loadModuleSettings(QString path)
@@ -23,41 +23,31 @@ void QVisionModule::save()
     QAutomationModule::save();
 }
 
-FlowNode *QVisionModule::readNode(qan::GraphView *graphView, QJsonObject nodeobject)
+FlowNode *QVisionModule::createModuleNode(qan::GraphView *graphView, QString nodetype)
 {
-    FlowNode* node=nullptr;
 
-    node=QAutomationModule::readNode(graphView,nodeobject);
+    qan::Node* newnode=nullptr;
 
-    if(node==nullptr){
-        qan::Node* newnode=nullptr;
-
-        if(nodeobject["type"]=="IDSCaptureNode"){
-            newnode=graphView->getGraph()->insertNode<IDSCaptureNode>(nullptr);
-        }
-        else if(nodeobject["type"]=="FileCaptureNode"){
-            newnode=graphView->getGraph()->insertNode<FileCaptureNode>(nullptr);
-        }
-        else if(nodeobject["type"]=="VisionSystemNode"){
-            newnode=graphView->getGraph()->insertNode<VisionSystemNode>(nullptr);
-        }
-        else if(nodeobject["type"]=="FrameBufferNode"){
-            newnode=graphView->getGraph()->insertNode<FrameBufferNode>(nullptr);
-        }
-        else{
-            LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
-        }
-
-
-
-        FlowNode* modulenode=dynamic_cast<FlowNode*>(newnode);
-        if(modulenode){
-            modulenode->DeSerialize(nodeobject);
-
-        }
-        node=modulenode;
+    if(nodetype=="IDSCaptureNode"){
+        newnode=graphView->getGraph()->insertNode<IDSCaptureNode>(nullptr);
+    }
+    else if(nodetype=="FileCaptureNode"){
+        newnode=graphView->getGraph()->insertNode<FileCaptureNode>(nullptr);
+    }
+    else if(nodetype=="VisionSystemNode"){
+        newnode=graphView->getGraph()->insertNode<VisionSystemNode>(nullptr);
+    }
+    else if(nodetype=="FrameBufferNode"){
+        newnode=graphView->getGraph()->insertNode<FrameBufferNode>(nullptr);
+    }
+    else{
+        LOG_WARNING(QString("Unknown module node type:%1").arg(nodetype));
     }
 
 
-    return  node;
+
+    return  dynamic_cast<FlowNode*>(newnode);
+
+
+
 }

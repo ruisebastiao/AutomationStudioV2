@@ -139,6 +139,8 @@ void ProcessingContoursNode::doProcess()
 
     emit filteredContoursChanged(QVariant::fromValue<std::vector<std::vector<cv::Point>>>(fileredcontours));
 
+    m_output=QVariant::fromValue(m_drawSource);
+
     ProcessingNode::doProcess();
 }
 

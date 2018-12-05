@@ -95,5 +95,6 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
 
         }
     }
+    m_deserialized=true;
 }
 

@@ -198,6 +198,7 @@ void AutomationStudio::loadInternalPlugins(){
     qmlRegisterUncreatableType<SystemSettings >("base", 1, 0, "SystemSettings","SystemSettings is available through the \'automationstudio.systemsettings\' property.");
     qmlRegisterUncreatableType<SocketIO>("base", 1, 0, "SocketIO","SocketIO");
     qmlRegisterUncreatableType<AppUpdater>("base", 1, 0, "AppUpdater","AppUpdater");
+    qmlRegisterUncreatableType<Module>("base", 1, 0, "Module","Module");
 
 
     m_engine->rootContext()->setContextProperty("appDir", m_currentDir);

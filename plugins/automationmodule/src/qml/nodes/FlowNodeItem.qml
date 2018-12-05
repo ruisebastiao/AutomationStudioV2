@@ -99,59 +99,6 @@ Qan.NodeItem {
             }
         }
 
-        //        //on
-        //        onBindSourceProperty:{
-
-
-        //            if(!sourceNode){
-        //                return;
-        //            }
-
-        //            // console.log("Node: "+root.node+" | Binding target:"+targetProperty+"("+root.node[targetProperty]+") to source:"+sourceProperty)
-
-
-
-
-        //            //            if( root.node[targetProperty]==undefined ){
-        //            //                console.log("Undefined target property:"+targetProperty+"| Node:"+root.node+" id:"+root.node.id);
-        //            //            }
-        //            //            else{
-        //            root.node[targetProperty]=Qt.binding(function() {
-        //                //                    if(sourceNode[sourceProperty]==undefined ){
-        //                //                        console.log("Undefined source property:"+sourceProperty+"| Node:"+root.node+" id:"+root.node.id);
-        //                //                        return null
-        //                //                    }
-
-
-
-        //                return sourceNode[sourceProperty];
-        //            })
-        //            //            }
-        //        }
-        //        onBindPropertyToTarget:{
-
-        //            target[targetproperty]=Qt.binding(function() {
-        //                return root.node[sourceproperty];
-        //            });
-        //        }
-
-        //        onUnbindSourceProperty:{
-
-        //            root.node[targetProperty]=null;
-
-        //        }
-
-        //        onBindPortLabelToProperty:{
-
-        //            var portItemLabel=portItem.label;
-        //            portItem.label=Qt.binding(function() {
-
-        //                return portItemLabel+" ("+root.node[nodeProperty]+")";
-
-        //            })
-
-        //        }
-
 
         onConfigsLoadedChanged:{
             nodeConfigsLoaded=true;

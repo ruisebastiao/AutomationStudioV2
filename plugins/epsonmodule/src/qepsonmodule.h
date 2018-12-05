@@ -15,7 +15,11 @@ public:
 protected:
     void loadModuleSettings(QString path) override;
     void save() override;
-    FlowNode *readNode(qan::GraphView *graphView, QJsonObject nodeobject) override;
+
+
+    // QAutomationModule interface
+public:
+    FlowNode *createModuleNode(qan::GraphView *graphView, QString nodetype) override;
 };
 
 #endif // QEPSONMODULE_H

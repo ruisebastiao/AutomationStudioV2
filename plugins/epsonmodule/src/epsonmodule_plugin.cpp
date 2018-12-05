@@ -23,10 +23,13 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 
+#include <nodes/epsonnode.h>
+
 
 void EpsonModulePlugin::registerTypes(const char *uri){
     // @uri modules.visionmodule
     qmlRegisterType<QEpsonModule>(uri, 1, 0, "EpsonModule");
+    qmlRegisterUncreatableType<EpsonNode>(uri, 1, 0, "EpsonNode","Cannot be created");
 
 
 }
@@ -34,3 +37,5 @@ void EpsonModulePlugin::registerTypes(const char *uri){
 void EpsonModulePlugin::initializeEngine(QQmlEngine *engine, const char *){
     engine->addImportPath("qrc:///");
 }
+
+//Q_DECLARE_METATYPE(EpsonNode);

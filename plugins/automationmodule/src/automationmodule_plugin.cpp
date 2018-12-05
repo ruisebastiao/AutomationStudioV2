@@ -23,6 +23,7 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <qautomationmodule.h>
+#include <tcpclient.h>
 
 #include "automationstudiocore/user.h"
 
@@ -41,7 +42,7 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterUncreatableType<User>(uri, 1, 0, "User","Cannot be created");
     qmlRegisterUncreatableType<Project>(uri, 1, 0, "Project","Cannot be created");
 
-    qmlRegisterType<QAutomationModule>(uri, 1, 0, "AutomationModule");
+    qmlRegisterUncreatableType<QAutomationModule>(uri, 1, 0, "AutomationModule","Cannot be created");
 
 //    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
 
@@ -54,6 +55,10 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
 
     qmlRegisterType<USBNotifier>(uri, 1, 0, "USBNotifier");
+
+    qmlRegisterType<TCPClient>(uri, 1, 0, "TCPClient");
+    qmlRegisterUncreatableType<QAbstractSocket>(uri, 1, 0, "QAbstractSocket","Cannot be created");
+
 
 }
 

@@ -122,6 +122,8 @@ void ProxyInputNode::initializePorts(QJsonObject &json)
 
 void ProxyInputNode::initializeNode()
 {
+    FlowNode::initializeNode();
+
     initProxyNode();
     QJsonObject jo;
     initializePorts(jo);
@@ -134,6 +136,8 @@ void ProxyInputNode::initializeNode()
 
         }
     }
+
+
 
 }
 

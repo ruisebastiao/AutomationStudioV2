@@ -77,7 +77,8 @@ public:
         ModulePropertyBind,
         EpsonNode,
         MultiplexedInputNode,
-        NumericNode
+        NumericNode,
+        CommandSender
 
     };
     Q_ENUM(Type)

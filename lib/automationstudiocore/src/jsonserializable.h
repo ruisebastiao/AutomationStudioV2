@@ -23,9 +23,9 @@ public:
       virtual void Serialize(QJsonObject &json)=0;
       virtual void DeSerialize(QJsonObject &json)=0;
 
+protected:
 
-
-
+    bool m_deserialized=false;
 };
 Q_DECLARE_METATYPE(QVariant*);
 Q_DECLARE_INTERFACE(JsonSerializable, "JsonSerializable")

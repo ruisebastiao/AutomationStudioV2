@@ -254,8 +254,11 @@ void IDSCaptureNode::setCamera(bool open)
                 nAllocSizeY = aoi_rect.s32Height;
 
 
+
+//                framesink->
                 // calculate single buffer size
                 m_dwSingleBufferSize = nAllocSizeX * nAllocSizeY * m_nBitsPerPixel / 8;
+
 
 
                 // alloc seq buffers in a loop
@@ -304,11 +307,13 @@ void IDSCaptureNode::setCamera(bool open)
 
 
 
-                //cv::Mat* frameMat=new cv::Mat(m_nSizeY,m_nSizeX, CV_8UC1);
-               // setFrameSink(new QMat(frameMat));
-
                 cv::Mat* frameMat=new cv::Mat(sizeY(),sizeX(), CV_8UC1);
 
+               // setFrameSink(new QMat(frameMat));
+
+
+
+                m_frameSink=QVariant::fromValue(new QMat(frameMat));
 
                 //setFrameSink(new IDSFrame(m_pcImageMemory,m_nSizeX,m_nSizeY));
 
