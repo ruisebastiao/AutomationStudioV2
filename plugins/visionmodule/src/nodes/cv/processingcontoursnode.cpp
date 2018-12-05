@@ -54,10 +54,10 @@ void ProcessingContoursNode::doProcess()
     m_filteredContours.clear();
 
 
-
+    QMat* v_output=m_output.value<QMat*>();
 
     // TODO during real time processing this should be removed, only needed if in config mode
-//    m_originalFrame->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
+    m_originalInput->cvMat()->copyTo(*v_output->cvMat());
 
 
 
@@ -133,13 +133,16 @@ void ProcessingContoursNode::doProcess()
 
     drawContours(*m_drawSource->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
 
+    drawContours(*v_output->cvMat(), fileredcontours, -1, cv::Scalar(0,255,0), 1);
+
+    m_output=QVariant::fromValue(v_output);
 
     LOG_INFO()<<"Total contours:"<<m_totalContours;
     LOG_INFO()<<"Fildtered contours:"<<fileredcontours.size();
 
     emit filteredContoursChanged(QVariant::fromValue<std::vector<std::vector<cv::Point>>>(fileredcontours));
 
-    m_output=QVariant::fromValue(m_drawSource);
+//    m_output=QVariant::fromValue(m_drawSource);
 
     ProcessingNode::doProcess();
 }

@@ -276,6 +276,9 @@ public slots:
 
 
         m_drawSource = drawSource;
+        if(m_drawSource && m_drawSource->cvMat()->empty()==false){
+            m_drawSource->cvMat()->copyTo(*m_originalInput->cvMat());
+        }
         emit drawSourceChanged(m_drawSource);
     }
 

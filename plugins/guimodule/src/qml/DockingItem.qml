@@ -121,13 +121,33 @@ Pane{
                 id: dragArea
                 anchors.fill: parent
 
+//                drag.onActiveChanged: {
+//                    root.z=0
+//                }
+
                 drag.target: root
+
+
+
+                onDoubleClicked: {
+
+                    root.Layout.fillWidth=!root.Layout.fillWidth
+                    if(root.Layout.fillWidth==false){
+                        root.Layout.preferredWidth=root.parent.width
+                    }
+                    else{
+                        root.Layout.preferredWidth=-1
+                    }
+
+                    //                    root.z=99999
+                }
 
                 //                onPressAndHold: rect2.state="docking"
                 onPressed: {
                     //rect2.beginDrag = Qt.point(rect2.x, rect2.y);
                 }
                 onReleased: {
+
                     //                    if(!rect.caught) {
                     //                        backAnimX.from = rect.x;
                     //                        backAnimX.to = beginDrag.x;
@@ -190,10 +210,14 @@ Pane{
         State {
             when: dragArea.drag.active
             name: "docking"
-            ParentChange { target: root; parent: dockContainer;}
+            ParentChange {
+                target: root;
+                parent: dockContainer;
+            }
             PropertyChanges {
                 target: root
                 scale:0.98
+
 
             }
 
