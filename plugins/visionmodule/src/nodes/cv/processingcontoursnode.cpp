@@ -23,9 +23,9 @@ QQmlComponent *ProcessingContoursNode::delegate(QQmlEngine &engine) noexcept
 
 void ProcessingContoursNode::setInput(QVariant input)
 {
-//    if(m_input){
-//        m_input->cvMat()->copyTo(*m_originalInput->cvMat());
-//    }
+    //    if(m_input){
+    //        m_input->cvMat()->copyTo(*m_originalInput->cvMat());
+    //    }
 
     ProcessingNode::setInput(input);
 }
@@ -142,7 +142,7 @@ void ProcessingContoursNode::doProcess()
 
     emit filteredContoursChanged(QVariant::fromValue<std::vector<std::vector<cv::Point>>>(fileredcontours));
 
-//    m_output=QVariant::fromValue(m_drawSource);
+    //    m_output=QVariant::fromValue(m_drawSource);
 
     ProcessingNode::doProcess();
 }
@@ -156,6 +156,10 @@ void ProcessingContoursNode::DeSerialize(QJsonObject &json)
     FlowNodePort* port=getPortFromKey("output");
     if(port){
         port->setHidden(true);
+    }
+    port=getPortFromKey("input");
+    if(port){
+        port->setHidden(false);
     }
 }
 

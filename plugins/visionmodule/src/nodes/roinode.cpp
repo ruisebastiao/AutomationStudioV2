@@ -165,6 +165,7 @@ void ROINode::initializeProcessingNode(ProcessingNode* procnode){
 
 
         procnode->setDrawSource(this->processedFrame());
+
         if(procnode->processingType()==ProcessingNode::ProcessingType::ProcessingBaseNode){
             m_basenode=qobject_cast<ProcessingBaseNode*>(procnode);
         }
