@@ -48,6 +48,12 @@ QVariantList FlowNode::getCommonTypes()
             break;
 
 
+        case Type::StringBuilderNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"String Builder");
+
+            break;
+
+
         default:
             //                static_assert(true, "");
             break;

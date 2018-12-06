@@ -451,6 +451,7 @@ public:
 };
 
 Q_DECLARE_METATYPE(cv::Rect);
+Q_DECLARE_METATYPE(cv::Point);
 Q_DECLARE_METATYPE(std::vector<cv::Rect>);
 Q_DECLARE_METATYPE(std::vector<std::vector<cv::Point>>)
 

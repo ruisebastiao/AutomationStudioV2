@@ -1,17 +1,17 @@
-#include "commandsender.h"
+#include "commandsendernode.h"
 
-void CommandSender::doSendCommand()
+void CommandSenderNode::doSendCommand()
 {
     setSend(true);
 }
 
-CommandSender::CommandSender()
+CommandSenderNode::CommandSenderNode()
 {
-    m_type=Type::CommandSender;
+    m_type=Type::CommandSenderNode;
 }
 
 
-QQmlComponent *CommandSender::delegate(QQmlEngine &engine) noexcept
+QQmlComponent *CommandSenderNode::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )

@@ -3,5 +3,6 @@
         <file alias="AutomationModules/EpsonModuleItem.qml">qml/EpsonModuleItem.qml</file>
         <file alias="Nodes/EpsonNodeItem.qml">qml/nodes/EpsonNodeItem.qml</file>
         <file alias="Nodes/CommandSenderNodeItem.qml">qml/nodes/CommandSenderNodeItem.qml</file>
+        <file alias="Nodes/CommandParserNodeItem.qml">qml/nodes/CommandParserItem.qml</file>
     </qresource>
 </RCC>

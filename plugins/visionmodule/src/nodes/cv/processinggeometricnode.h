@@ -19,6 +19,8 @@ class ProcessingGeometricNode : public ProcessingNode
 
 
     Q_PROPERTY(QVariant output1 READ output1 WRITE setOutput1 NOTIFY output1Changed REVISION 31)
+    Q_PROPERTY(QVariant output2 READ output2 WRITE setOutput2 NOTIFY output2Changed REVISION 31)
+    Q_PROPERTY(QVariant output3 READ output3 WRITE setOutput3 NOTIFY output3Changed REVISION 31)
 
 
 
@@ -26,7 +28,9 @@ class ProcessingGeometricNode : public ProcessingNode
 
 public:
     enum GeometricType {
-        Geometric2PointLine=0,
+        GeometricNotSet=0,
+        Geometric2PointLine,
+        GeometricLinePointLine,
         GeometricPointAngleLengthLine,
         Geometric3PointCircle
     };
@@ -88,13 +92,117 @@ public slots:
             return;
 
         m_geometricType = geometricType;
+
+        FlowNodePort* port;
+        switch (m_geometricType) {
+        case Geometric2PointLine:
+
+            port=getPortFromKey("input1");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Start Point");
+            }
+            port=getPortFromKey("input2");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("End Point");
+            }
+
+            port=getPortFromKey("input3");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+            port=getPortFromKey("output1");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Line Segment");
+            }
+
+            port=getPortFromKey("output2");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Line Angle");
+            }
+            port=getPortFromKey("output3");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+
+
+            break;
+        case GeometricPointAngleLengthLine:
+            port=getPortFromKey("input1");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Center Point");
+            }
+            port=getPortFromKey("input2");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Angle");
+            }
+
+            port=getPortFromKey("input3");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Length");
+            }
+
+
+
+            break;
+        case GeometricLinePointLine:
+            port=getPortFromKey("input1");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Start Point");
+            }
+            port=getPortFromKey("input2");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Line Segment");
+            }
+
+            port=getPortFromKey("input3");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+            port=getPortFromKey("output1");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Line Segment");
+            }
+
+            port=getPortFromKey("output2");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Line Angle");
+            }
+            port=getPortFromKey("output3");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+            break;
+        case Geometric3PointCircle:
+            break;
+        }
+
+
+
         emit geometricTypeChanged(m_geometricType);
     }
 
     void setOutput1(QVariant output1)
     {
-        if (m_output1 == output1)
-            return;
+
 
         m_output1 = output1;
         emit output1Changed(m_output1);
@@ -102,13 +210,28 @@ public slots:
 
     void setInput3(QVariant input3)
     {
-        if (m_input3 == input3)
-            return;
+
 
         m_input3 = input3;
         emit input3Changed(m_input3);
     }
 
+
+    void setOutput2(QVariant output2)
+    {
+
+
+        m_output2 = output2;
+        emit output2Changed(m_output2);
+    }
+
+    void setOutput3(QVariant output3)
+    {
+
+
+        m_output3 = output3;
+        emit output3Changed(m_output3);
+    }
 
 protected:
     void doProcess() override;
@@ -154,11 +277,15 @@ signals:
 
 
 
+    void output2Changed(QVariant output2);
+
+    void output3Changed(QVariant output3);
+
 private:
 
-    GeometricType m_geometricType=Geometric2PointLine;
+    GeometricType m_geometricType=GeometricNotSet;
 
-    QVariant m_output1=QVariant::fromValue(new QMat());
+    QVariant m_output1=QVariant::fromValue(nullptr);
     QVariant m_input1=QVariant::fromValue(new QMat());
     QVariant m_input2=QVariant::fromValue(new QMat());
     QVariant m_input3=QVariant::fromValue(new QMat());
@@ -169,8 +296,20 @@ private:
 
 
     // FlowNode interface
+    QVariant m_output2=QVariant::fromValue(nullptr);
+
+    QVariant m_output3=QVariant::fromValue(nullptr);
+
 public:
-    
+
+    QVariant output2() const
+    {
+        return m_output2;
+    }
+    QVariant output3() const
+    {
+        return m_output3;
+    }
 };
 
 #endif // PROCESSINGGEOMETRICNODE_H

@@ -1,7 +1,8 @@
 #include "qepsonmodule.h"
 #include "flownode.h"
 
-#include <nodes/commandsender.h>
+#include <nodes/commandparsernode.h>
+#include <nodes/commandsendernode.h>
 #include <nodes/epsonnode.h>
 
 
@@ -23,11 +24,13 @@ QVariantList QEpsonModule::getModuleNodeTypes() const
     ret.append(map);
     map.clear();
 
-    map.insert(QVariant::fromValue(FlowNode::Type::CommandSender).value<QString>(),"Command Sender");
+    map.insert(QVariant::fromValue(FlowNode::Type::CommandSenderNode).value<QString>(),"Command Sender");
     ret.append(map);
     map.clear();
 
-
+    map.insert(QVariant::fromValue(FlowNode::Type::CommandParserNode).value<QString>(),"Command Parser");
+    ret.append(map);
+    map.clear();
 
     return ret;
 }
@@ -55,8 +58,13 @@ FlowNode *QEpsonModule::createModuleNode(qan::GraphView *graphView, QString node
     if(nodetype=="EpsonNode"){
         node=graphView->getGraph()->insertNode<EpsonNode>(nullptr);
     }
-    else if(nodetype=="CommandSender"){
-        node=graphView->getGraph()->insertNode<CommandSender>(nullptr);
+    else if(nodetype=="CommandSenderNode"){
+        node=graphView->getGraph()->insertNode<CommandSenderNode>(nullptr);
+
+
+    }
+    else if(nodetype=="CommandParserNode"){
+        node=graphView->getGraph()->insertNode<CommandParserNode>(nullptr);
 
 
     }

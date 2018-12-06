@@ -32,6 +32,7 @@
 #include <cv/qmatview.h>
 
 #include <nodes/cv/processingenclosingnode.h>
+#include <nodes/cv/processinggeometricnode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
 #include <graphs/processingscenegraph.h>
@@ -56,6 +57,7 @@ void VisionModulePlugin::registerTypes(const char *uri){
 
     qmlRegisterUncreatableType<ProcessingThresholdNode>(uri, 1, 0, "ProcessingThresholdNode","Uncreatable");
     qmlRegisterUncreatableType<ProcessingEnclosingNode>(uri, 1, 0, "ProcessingEnclosingNode","Uncreatable");
+    qmlRegisterUncreatableType<ProcessingGeometricNode>(uri, 1, 0, "ProcessingGeometricNode","Uncreatable");
 
 //
 

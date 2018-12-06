@@ -28,14 +28,6 @@ FlowNodeItem{
                     root.node.commandToSend=text
                 }
 
-//                onAccepted: {
-//                    root.node.tcpClient.port=text*1
-//                }
-//                onFocusChanged: {
-//                    if(focus==false){
-//                        root.node.tcpClient.port=text*1
-//                    }
-//                }
 
                 selectByMouse:true
                 GUI.MaterialPlaceHolder{

@@ -78,7 +78,9 @@ public:
         EpsonNode,
         MultiplexedInputNode,
         NumericNode,
-        CommandSender
+        CommandSenderNode,
+        StringBuilderNode,
+        CommandParserNode
 
     };
     Q_ENUM(Type)

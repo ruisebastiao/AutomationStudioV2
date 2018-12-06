@@ -118,15 +118,25 @@ FlowNodeItem{
                 }
 
             }
-            Item{
+            RowLayout{
                 Layout.preferredHeight:50;
                 Layout.fillWidth: true;
                 CheckBox{
                     id:continuouscapture_check
+                      Layout.fillWidth: true;
                     text: "Continuous Capture"
                     enabled:  node.cameraOpened && root.node.updatingCamera==false;
                     onCheckedChanged: {
                         node.continuousCapture=checked
+                    }
+                }
+                CheckBox{
+
+                    Layout.fillWidth: true;
+                    text: "Start On init"
+                   checked: node.connectOnInit
+                    onCheckedChanged: {
+                        node.connectOnInit=checked
                     }
                 }
 

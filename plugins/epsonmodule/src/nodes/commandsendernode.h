@@ -1,4 +1,4 @@
-#ifndef COMMANDSENDER_H
+#ifndef COMMANDSENDERNODE_H
 #define COMMANDSENDER_H
 
 #include "epsonnode.h"
@@ -7,7 +7,7 @@
 
 
 
-class CommandSender : public FlowNode
+class CommandSenderNode : public FlowNode
 {
     Q_OBJECT
 
@@ -22,7 +22,7 @@ class CommandSender : public FlowNode
 
 
 public:
-    CommandSender();
+    CommandSenderNode();
     static QQmlComponent *delegate(QQmlEngine &engine) noexcept;
 
     Q_INVOKABLE void doSendCommand();

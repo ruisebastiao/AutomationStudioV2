@@ -15,6 +15,8 @@ class EpsonNode : public FlowNode
 
     Q_PROPERTY(bool connected READ connected WRITE setConnected NOTIFY connectedChanged REVISION 31)
 
+    Q_PROPERTY(QVariant dataReceived READ dataReceived WRITE setDataReceived NOTIFY dataReceivedChanged REVISION 31)
+
     Q_PROPERTY(QVariant epsonNode READ epsonNode WRITE setEpsonNode NOTIFY epsonNodeChanged REVISION 31)
 
 
@@ -84,8 +86,20 @@ public slots:
 
 
     // JsonSerializable interface
+    void setDataReceived(QVariant dataReceived)
+    {
+
+        m_dataReceived = dataReceived;
+        emit dataReceivedChanged(m_dataReceived);
+    }
+
 public:
     void DeSerialize(QJsonObject &json) override;
+
+    QVariant dataReceived() const
+    {
+        return m_dataReceived;
+    }
 
 signals:
     void tcpClientChanged(TCPClient* tcpClient);
@@ -95,6 +109,8 @@ signals:
     void connectedChanged(bool connected);
 
     void epsonNodeChanged(QVariant epsonNode);
+
+    void dataReceivedChanged(QVariant dataReceived);
 
 private:
     void setEpsonNode(QVariant epsonNode)
@@ -108,6 +124,7 @@ private:
     ConnectionType m_connection=ConnectionType::TCPCLIENT;
     bool m_connected=false;
     QVariant m_epsonNode;
+    QVariant m_dataReceived=QVariant::fromValue(QString(""));
 };
 
 

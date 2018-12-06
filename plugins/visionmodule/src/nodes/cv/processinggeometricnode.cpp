@@ -28,7 +28,7 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
     QLineF result;
 
-    cv::Point pt1,pt2;
+
 
     double angle,length;
 
@@ -40,57 +40,78 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
 
     switch (m_geometricType) {
+    case GeometricLinePointLine:
+    {
+        cv::Point2f startpt;
+        cv::Point2f endpoint;
+
+        if(strcmp(m_input1.typeName(),"cv::Point")==0) {
+            startpt = m_input1.value<cv::Point>();
+        }
+        else if(strcmp(m_input1.typeName(),"std::vector<cv::Rect>")==0) {
+            std::vector<cv::Rect> rect_obj = m_input1.value<std::vector<cv::Rect>>();
+
+            // TODO check empty vectors
+
+            if(rect_obj.size()>0){
+
+
+                // if vector take index 0 Rect
+
+                cv::Rect input1_rect=rect_obj.at(0);
+                startpt=cv::Point2f(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
+            }
+
+        }
+
+        if(strcmp(m_input2.typeName(),"QLineF")==0) {
+            QLineF segment=m_input2.value<QLineF>();
+            endpoint= cv::Point2f(segment.center().x(),segment.center().y());
+        }
+
+        result=QLineF(QPointF(endpoint.x,endpoint.y),QPointF(startpt.x,startpt.y));
+
+        QMat* drawsource=m_drawSource.value<QMat*>();
+
+        if(drawsource && drawsource->cvMat()->empty()==false){
+
+            line(*drawsource->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
+            putText(*drawsource->cvMat(),
+                    qPrintable(QString::number(result.angle(), 'f', 2)),
+                    startpt, // Coordinates
+                    cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
+                    2.0, // Scale. 2.0 = 2x bigger
+                    cv::Scalar(255,0,0), // BGR Color
+                    1, // Line Thickness (Optional)
+                    CV_AA); // Anti-alias (Optional)
+            if(output){
+                line(*output->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
+                putText(*output->cvMat(),
+                        qPrintable(QString::number(result.angle(), 'f', 2)),
+                        startpt, // Coordinates
+                        cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
+                        2.0, // Scale. 2.0 = 2x bigger
+                        cv::Scalar(255,0,0), // BGR Color
+                        1, // Line Thickness (Optional)
+                        CV_AA); // Anti-alias (Optional)
+            }
+
+        }
+
+
+
+
+
+    }
+
+        break;
     case GeometricPointAngleLengthLine:
-
-        //        if(strcmp(m_input1.typeName(),"std::vector<cv::Rect>")==0) {
-        //            std::vector<cv::Rect> rect_obj = m_input1.value<std::vector<cv::Rect>>();
-
-        //            // TODO check empty vectors
-
-        //            if(rect_obj.size()>0){
-
-
-        //                // if vector take index 0 Rect
-
-        //                cv::Rect input1_rect=rect_obj.at(0);
-        //                pt1=cv::Point(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
-        //            }
-
-        //        }
-        //        else if(strcmp(m_input1.typeName(),"std::vector<cv::RotatedRect>")==0) {
-        //            std::vector<cv::RotatedRect> rect_obj = m_input1.value<std::vector<cv::RotatedRect>>();
-
-        //            // TODO process empty vectors
-
-        //            if(rect_obj.size()>0){
-
-
-        //                // if vector take index 0 Rect
-
-        //                cv::RotatedRect input1_rect=rect_obj.at(0);
-        //                pt1=input1_rect.center;
-        //            }
-
-        //        }
-
-
-        //        if(strcmp(m_input2.typeName(),"double")==0) {
-        //            double angle = m_input2.value<double>();
-
-
-        //        }
-
-
-
-
-        //        line(*m_output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
-
-        //        result=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
 
 
         break;
     case Geometric2PointLine:
-
+    {
+        cv::Point pt1,pt2;
         if(strcmp(m_input1.typeName(),"std::vector<cv::Rect>")==0) {
             std::vector<cv::Rect> rect_obj = m_input1.value<std::vector<cv::Rect>>();
 
@@ -154,20 +175,40 @@ QLineF ProcessingGeometricNode::lineSegment(){
 
         }
 
+        result=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
+
         QMat* drawsource=m_drawSource.value<QMat*>();
 
         if(drawsource && drawsource->cvMat()->empty()==false){
 
             line(*drawsource->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+            putText(*drawsource->cvMat(),
+                    qPrintable(QString::number(result.angle(), 'f', 2)),
+                    pt1, // Coordinates
+                    cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
+                    2.0, // Scale. 2.0 = 2x bigger
+                    cv::Scalar(255,0,0), // BGR Color
+                    1, // Line Thickness (Optional)
+                    CV_AA); // Anti-alias (Optional)
             if(output){
                 line(*output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+                putText(*output->cvMat(),
+                        qPrintable(QString::number(result.angle(), 'f', 2)),
+                        pt1, // Coordinates
+                        cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
+                        2.0, // Scale. 2.0 = 2x bigger
+                        cv::Scalar(255,0,0), // BGR Color
+                        1, // Line Thickness (Optional)
+                        CV_AA); // Anti-alias (Optional)
             }
 
         }
-        result=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
+    }
 
-        qDebug()<<"Result:"<<result;
+        //qDebug()<<"Result:"<<result.angle();
         break;
+
+
     }
 
 
@@ -191,14 +232,33 @@ void ProcessingGeometricNode::doProcess()
     case Geometric2PointLine:
 
         if(m_input1.isValid() && m_input2.isValid()){
-            m_output1=QVariant::fromValue(lineSegment());
+            QLineF result=lineSegment();
+            m_output1=QVariant::fromValue(result);
+
+            emit output1Changed(m_output1);
+
+            m_output2=QVariant::fromValue(QString::number(result.angle(), 'f', 2));
+            emit output2Changed(m_output2);
+
+        }
+        break;
+    case GeometricLinePointLine:
+        if(m_input1.isValid() && m_input2.isValid()){
+            QLineF result=lineSegment();
+            m_output1=QVariant::fromValue(result);
+
+            emit output1Changed(m_output1);
+
+            m_output2=QVariant::fromValue(QString::number(result.angle(), 'f', 2));
+            emit output2Changed(m_output2);
+
         }
         break;
     case Geometric3PointCircle:
         break;
     }
 
-    emit output1Changed(m_output1);
+
 
     ProcessingNode::doProcess();
 
@@ -220,56 +280,4 @@ void ProcessingGeometricNode::DeSerialize(QJsonObject &json)
         port->setHidden(true);
     }
 
-    switch (m_geometricType) {
-    case Geometric2PointLine:
-
-        port=getPortFromKey("input1");
-        if(port){
-            port->setHidden(false);
-            port->setPortLabel("Start Point");
-        }
-        port=getPortFromKey("input2");
-        if(port){
-            port->setHidden(false);
-            port->setPortLabel("End Point");
-        }
-
-        port=getPortFromKey("input3");
-        if(port){
-            port->setHidden(true);
-
-        }
-
-
-        break;
-    case GeometricPointAngleLengthLine:
-        port=getPortFromKey("input1");
-        if(port){
-            port->setHidden(false);
-            port->setPortLabel("Center Point");
-        }
-        port=getPortFromKey("input2");
-        if(port){
-            port->setHidden(false);
-            port->setPortLabel("Angle");
-        }
-
-        port=getPortFromKey("input3");
-        if(port){
-            port->setHidden(false);
-            port->setPortLabel("Length");
-        }
-
-
-
-        break;
-    case Geometric3PointCircle:
-        break;
-    }
-
-    port=getPortFromKey("output1");
-    if(port){
-        port->setHidden(false);
-        port->setPortLabel("Line Segment");
-    }
 }

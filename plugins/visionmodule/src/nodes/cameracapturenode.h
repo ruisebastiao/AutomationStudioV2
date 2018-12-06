@@ -12,7 +12,7 @@ class CameraCaptureNode : public CaptureNode
     Q_PROPERTY(bool cameraOpened READ cameraOpened WRITE setCameraOpened NOTIFY cameraOpenedChanged)
 
 
-    Q_PROPERTY(bool continuousCapture READ continuousCapture WRITE setContinuousCapture NOTIFY continuousCaptureChanged)
+    Q_PROPERTY(bool continuousCapture READ continuousCapture WRITE setContinuousCapture NOTIFY continuousCaptureChanged USER("serialize"))
 
 
     Q_PROPERTY(bool updatingCamera READ updatingCamera WRITE setUpdatingCamera NOTIFY updatingCameraChanged)

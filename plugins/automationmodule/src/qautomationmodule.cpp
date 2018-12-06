@@ -7,6 +7,7 @@
 #include <nodes/proxyinputnode.h>
 #include <nodes/multiplexedinputnode.h>
 #include <nodes/numericnode.h>
+#include <nodes/stringbuildernode.h>
 #include <QtConcurrent>
 
 
@@ -222,10 +223,14 @@ FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString
     else if(nodetype=="MultiplexedInputNode"){
         newnode=graphView->getGraph()->insertNode<MultiplexedInputNode>(nullptr);
     }
+    else if(nodetype=="StringBuilderNode"){
+        newnode=graphView->getGraph()->insertNode<StringBuilderNode>(nullptr);
+    }
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
 
     return newflownode;
 }
+
 
 
 void QAutomationModule::save()

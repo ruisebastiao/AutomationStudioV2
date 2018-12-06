@@ -441,15 +441,18 @@ void IDSCaptureNode::setContinuousCapture(bool continuousCapture)
     if (m_continuousCapture == continuousCapture)
         return;
 
-
-
-    this->setUpdatingCamera(true);
-
+    if(configsLoaded()){
+        this->setUpdatingCamera(true);
+    }
     m_continuousCapture = continuousCapture;
 
+    if(configsLoaded()){
     updateContinuousCapture(continuousCapture);
 
-    this->setUpdatingCamera(false);
+        this->setUpdatingCamera(false);
+    }
+
+    emit continuousCaptureChanged(m_continuousCapture);
 
 }
 

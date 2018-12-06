@@ -5,6 +5,10 @@ EpsonNode::EpsonNode()
     m_type=Type::EpsonNode;
     m_tcpClient=new TCPClient(this);
 
+    connect(m_tcpClient,&TCPClient::serverMessage,[this](const QString &message){
+        this->setDataReceived(QVariant::fromValue(message));
+    });
+
 }
 
 
