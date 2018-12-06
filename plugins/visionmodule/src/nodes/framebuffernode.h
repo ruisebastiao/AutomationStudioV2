@@ -134,7 +134,7 @@ class FrameBufferNode : public FlowNode
 
     Q_PROPERTY(QVariant readNextFrame READ readNextFrame WRITE setReadNextFrame NOTIFY readNextFrameChanged REVISION 30)
 
-
+    Q_PROPERTY(QVariant resetIndexes READ resetIndexes WRITE setResetIndexes NOTIFY resetIndexesChanged REVISION 30)
 
     Q_PROPERTY(QVariant numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged USER("serialize") REVISION 30)
 
@@ -185,6 +185,8 @@ private:
 
     QVariant m_bufferFull=QVariant::fromValue(false);
 
+
+    QVariant m_resetIndexes=QVariant::fromValue(false);
 
 public:
     FrameBufferNode();
@@ -361,6 +363,18 @@ public slots:
     }
 
 
+    void setResetIndexes(QVariant resetIndexes)
+    {
+
+        m_resetIndexes = resetIndexes;
+        emit resetIndexesChanged(m_resetIndexes);
+        if(m_resetIndexes.value<bool>()){
+            setWriteIndex(0);
+            setReadIndex(0);
+            m_resetIndexes=QVariant::fromValue(false);
+        }
+    }
+
 signals:
     void numBuffersChanged(QVariant numBuffers);
 
@@ -378,8 +392,14 @@ signals:
     void bufferFullChanged(QVariant bufferFull);
 
     // FlowNode interface
+    void resetIndexesChanged(QVariant resetIndexes);
+
 public:
-    
+
+QVariant resetIndexes() const
+{
+    return m_resetIndexes;
+}
 };
 
 #endif // FRAMEBUFFERNODE_H

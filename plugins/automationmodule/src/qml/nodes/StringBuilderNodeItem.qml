@@ -76,6 +76,46 @@ FlowNodeItem{
                 }
             }
 
+
+            RowLayout{
+                Layout.fillWidth: true
+
+                TextField{
+
+                    Layout.fillWidth: true
+
+                    text: root.node.stringsAdded
+
+                    readOnly: true
+
+
+                    selectByMouse:true
+                    GUI.MaterialPlaceHolder{
+
+                        placeHolderText:"Added"
+                    }
+                }
+                TextField{
+
+                    Layout.fillWidth: true
+
+                    text: root.node.stringsToComplete
+                    onTextChanged: {
+                        root.node.stringsToComplete=text
+                    }
+
+
+                    inputMethodHints:Qt.ImhDigitsOnly
+
+                    selectByMouse:true
+                    GUI.MaterialPlaceHolder{
+
+                        placeHolderText:"Count to complete"
+                    }
+                }
+            }
+
+
             ScrollView {
                 Layout.fillWidth: true
                 Layout.minimumHeight: 150

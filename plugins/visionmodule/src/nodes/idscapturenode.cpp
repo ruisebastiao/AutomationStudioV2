@@ -45,7 +45,7 @@ IDSCaptureNode::~IDSCaptureNode()
     closeCamera();
     frame_processed.wakeAll();
     m_checkCamerasTimer->stop();
-    watcher.waitForFinished();
+
 }
 
 
@@ -169,7 +169,7 @@ void IDSCaptureNode::GetFrames(){
                     memcpy(framesink->cvMat()->ptr(), pcMemLast,sizeX() * sizeY());
                     is_UnlockSeqBuf( m_camHandler, m_nSeqNumId[i], m_pcSeqImgMem[i] );
 
-                    emit frameSinkChanged(frameSink());
+                    emit frameSinkChanged(m_frameSink);
                     setFrameCaptured(true);
 
                    // frame_processed.wait(&mutex);
@@ -209,6 +209,11 @@ void IDSCaptureNode::setCamera(bool open)
     if(this->selectedCamera()==nullptr){
         return;
     }
+
+    if(open == m_cameraOpened){
+        return;
+    }
+
     QtConcurrent::run([this,open](){
 
         setUpdatingCamera(true);
@@ -358,6 +363,10 @@ void IDSCaptureNode::setCamera(bool open)
 void IDSCaptureNode::updateContinuousCapture(bool value){
 
 
+    if(cameraOpened()==false){
+        return;
+    }
+
     setUpdatingCamera(true);
     if(value){
 #ifdef __linux__
@@ -387,11 +396,11 @@ void IDSCaptureNode::updateContinuousCapture(bool value){
         {
             LOG_INFO()<<"live capture started OK";
 
-
+            m_isContinuousCapture=true;
 
         }
 
-        emit continuousCaptureChanged(m_continuousCapture);
+
     }
     else{
 
@@ -427,8 +436,10 @@ void IDSCaptureNode::updateContinuousCapture(bool value){
 
             // Stop live video
             is_StopLiveVideo( m_camHandler, IS_WAIT );
+
+            m_isContinuousCapture=false;
             setUpdatingCamera(false);
-            emit continuousCaptureChanged(m_continuousCapture);
+
         });
 
     }
@@ -438,22 +449,7 @@ void IDSCaptureNode::updateContinuousCapture(bool value){
 
 void IDSCaptureNode::setContinuousCapture(bool continuousCapture)
 {
-    if (m_continuousCapture == continuousCapture)
-        return;
-
-    if(configsLoaded()){
-        this->setUpdatingCamera(true);
-    }
-    m_continuousCapture = continuousCapture;
-
-    if(configsLoaded()){
-    updateContinuousCapture(continuousCapture);
-
-        this->setUpdatingCamera(false);
-    }
-
-    emit continuousCaptureChanged(m_continuousCapture);
-
+    CameraCaptureNode::setContinuousCapture(continuousCapture);
 }
 
 
@@ -464,10 +460,10 @@ void IDSCaptureNode::closeCamera(){
         return;
     }
 
-    setContinuousCapture(false);
+    updateContinuousCapture(false);
 
     as::Utilities::NonBlockingExec([&](){
-        while(continuousCapture()==true){
+        while(m_isContinuousCapture){
             QThread::msleep(10);
         }
     });
@@ -506,10 +502,10 @@ void IDSCaptureNode::updateExternalTrigger(bool value){
 
         INT nRet = 0;
 
-        bool wasLive=continuousCapture();
+        bool wasLive=m_isContinuousCapture;
 
         if(wasLive){
-            setContinuousCapture(false);
+            updateContinuousCapture(false);
         }
         if(value){
             nRet=is_SetTimeout(m_camHandler, IS_TRIGGER_TIMEOUT, 12000);
@@ -533,7 +529,7 @@ void IDSCaptureNode::updateExternalTrigger(bool value){
             }
         }
         if(wasLive){
-            setContinuousCapture(true);
+            updateContinuousCapture(true);
         }
     }
 
@@ -624,8 +620,10 @@ void IDSCaptureNode::DeSerialize(QJsonObject &json)
 
     setSelectedCamera(m_availableCameras->findByID(m_cameraID));
 
-    // checkDirect3D();
-
-//    setConfigsLoaded(true);
+    if(m_connectOnInit){
+        if(selectedCamera()){
+            setCamera(true);
+        }
+    }
 }
 

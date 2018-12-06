@@ -1,0 +1,548 @@
+{
+    "graphview": {
+        "x": -408.6161773683832,
+        "y": 572.3801102964803,
+        "zoom": 0.5499999999999996
+    },
+    "moduleID": "epson_1",
+    "name": "Epson",
+    "nodes": [
+        {
+            "connection": "TCPCLIENT",
+            "editHeight": 320,
+            "editWidth": 538,
+            "id": 5,
+            "inPorts": {
+            },
+            "locked": false,
+            "name": "Epson C4",
+            "nodeX": 197.14285714285728,
+            "nodeY": 35.71428571428572,
+            "normalHeight": 285,
+            "normalWidth": 424,
+            "outPorts": {
+                "connected": {
+                    "connectedTo": [
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": -48
+                    },
+                    "portLabel": "connected",
+                    "showinlabel": false,
+                    "type": "Out"
+                },
+                "dataReceived": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 20,
+                            "portID": "dataReceived"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "dataReceived",
+                    "showinlabel": false,
+                    "type": "Out"
+                },
+                "epsonNode": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 6,
+                            "portID": "epsonNode"
+                        },
+                        {
+                            "hidden": false,
+                            "nodeID": 9,
+                            "portID": "epsonNode"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 72
+                    },
+                    "portLabel": "epsonNode",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "tcpClient": {
+                "connectOnInit": true,
+                "host": "192.168.0.2",
+                "port": 9602,
+                "reconnectOnClose": true
+            },
+            "type": "EpsonNode"
+        },
+        {
+            "appendFromInput": false,
+            "commandToSend": "INSPECT|NEW",
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 6,
+            "inPorts": {
+                "commandInput": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "commandInput",
+                    "showinlabel": false,
+                    "type": "In"
+                },
+                "epsonNode": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": -48
+                    },
+                    "portLabel": "epsonNode",
+                    "showinlabel": false,
+                    "type": "In"
+                },
+                "send": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 24
+                    },
+                    "portLabel": "send",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "",
+            "nodeX": 830.0000000000001,
+            "nodeY": 418.5714285714288,
+            "normalHeight": 250,
+            "normalWidth": 250,
+            "outPorts": {
+            },
+            "type": "CommandSenderNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 8,
+            "inPorts": {
+                "input": {
+                    "hidden": true,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "input",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "",
+            "nodeX": 387.28571428571456,
+            "nodeY": 407.99999999999994,
+            "normalHeight": 250,
+            "normalWidth": 250,
+            "outPorts": {
+                "output": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 6,
+                            "portID": "send"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "output",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "proxyType": "Output",
+            "type": "ProxyInputNode"
+        },
+        {
+            "appendFromInput": false,
+            "commandToSend": "DEBUG|START",
+            "editHeight": 250,
+            "editWidth": 324,
+            "id": 9,
+            "inPorts": {
+                "commandInput": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "commandInput",
+                    "showinlabel": false,
+                    "type": "In"
+                },
+                "epsonNode": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 24
+                    },
+                    "portLabel": "epsonNode",
+                    "showinlabel": false,
+                    "type": "In"
+                },
+                "send": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": -48
+                    },
+                    "portLabel": "send",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "Send Start",
+            "nodeX": 835.7142857142854,
+            "nodeY": 145.714285714286,
+            "normalHeight": 250,
+            "normalWidth": 250,
+            "outPorts": {
+            },
+            "type": "CommandSenderNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 18,
+            "inPorts": {
+                "input": {
+                    "hidden": true,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "input",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "Body Angle",
+            "nodeX": 772.8571428571423,
+            "nodeY": -581.0000000000002,
+            "normalHeight": 250,
+            "normalWidth": 250,
+            "outPorts": {
+                "output": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 19,
+                            "portID": "in"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "output",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "proxyType": "Output",
+            "type": "ProxyInputNode"
+        },
+        {
+            "editHeight": 367,
+            "editWidth": 265,
+            "extractProperty": "",
+            "id": 19,
+            "inPorts": {
+                "clear": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 96
+                    },
+                    "portLabel": "clear",
+                    "showinlabel": false,
+                    "type": "In"
+                },
+                "in": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "in",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "String Builder",
+            "nodeX": 1238.428571428571,
+            "nodeY": -565,
+            "normalHeight": 276,
+            "normalWidth": 328,
+            "outPorts": {
+                "completed": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 23,
+                            "portID": "send"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 48
+                    },
+                    "portLabel": "completed",
+                    "showinlabel": false,
+                    "type": "Out"
+                },
+                "out": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 23,
+                            "portID": "commandInput"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": -72
+                    },
+                    "portLabel": "out",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "separator": "#",
+            "stringsToComplete": 16,
+            "type": "StringBuilderNode"
+        },
+        {
+            "commandToParse": "INSPECT|STARTED",
+            "editHeight": 250,
+            "editWidth": 328,
+            "id": 20,
+            "inPorts": {
+                "dataReceived": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "dataReceived",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "Wait Inspection",
+            "nodeX": 791.4285714285709,
+            "nodeY": -254.2857142857144,
+            "normalHeight": 250,
+            "normalWidth": 250,
+            "outPorts": {
+                "commandReceived": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 19,
+                            "portID": "clear"
+                        },
+                        {
+                            "hidden": false,
+                            "nodeID": 24,
+                            "portID": "input"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "commandReceived",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "type": "CommandParserNode"
+        },
+        {
+            "connection": "TCPCLIENT",
+            "editHeight": 328,
+            "editWidth": 546,
+            "id": 22,
+            "inPorts": {
+            },
+            "locked": false,
+            "name": "RS4",
+            "nodeX": 1041.8461538461556,
+            "nodeY": -1022.6153846153851,
+            "normalHeight": 268,
+            "normalWidth": 404,
+            "outPorts": {
+                "connected": {
+                    "connectedTo": [
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "connected",
+                    "showinlabel": false,
+                    "type": "Out"
+                },
+                "dataReceived": {
+                    "connectedTo": [
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "dataReceived",
+                    "showinlabel": false,
+                    "type": "Out"
+                },
+                "epsonNode": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 23,
+                            "portID": "epsonNode"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 72
+                    },
+                    "portLabel": "epsonNode",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "tcpClient": {
+                "connectOnInit": true,
+                "host": "192.168.0.1",
+                "port": 9602,
+                "reconnectOnClose": true
+            },
+            "type": "EpsonNode"
+        },
+        {
+            "appendFromInput": false,
+            "commandToSend": "ANGLES|",
+            "editHeight": 250,
+            "editWidth": 487,
+            "id": 23,
+            "inPorts": {
+                "commandInput": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "commandInput",
+                    "showinlabel": false,
+                    "type": "In"
+                },
+                "epsonNode": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": -48
+                    },
+                    "portLabel": "epsonNode",
+                    "showinlabel": false,
+                    "type": "In"
+                },
+                "send": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 72
+                    },
+                    "portLabel": "send",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "Send Angles",
+            "nodeX": 1801.5384615384642,
+            "nodeY": -713.076923076924,
+            "normalHeight": 241,
+            "normalWidth": 394,
+            "outPorts": {
+            },
+            "type": "CommandSenderNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 250,
+            "id": 24,
+            "inPorts": {
+                "input": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "input",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "Inspection Started Proxy",
+            "nodeX": 1321.09090909091,
+            "nodeY": -91.72727272727343,
+            "normalHeight": 250,
+            "normalWidth": 250,
+            "outPorts": {
+                "output": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 4,
+                            "portID": "input"
+                        }
+                    ],
+                    "hidden": true,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "output",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "proxyType": "Input",
+            "type": "ProxyInputNode"
+        }
+    ],
+    "type": "AutomationModule"
+}

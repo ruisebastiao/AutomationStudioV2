@@ -12,7 +12,6 @@ class CaptureNode : public FlowNode
     Q_OBJECT
 
 
-    Q_PROPERTY(bool connectOnInit READ connectOnInit WRITE setConnectOnInit NOTIFY connectOnInitChanged USER("serialize"))
 
 
     Q_PROPERTY(QVariant newFrame READ newFrame WRITE setNewFrame NOTIFY newFrameChanged REVISION 30)
@@ -88,14 +87,7 @@ public slots:
         emit sizeYChanged(m_sizeY);
     }
 
-    void setConnectOnInit(bool connectOnInit)
-    {
-        if (m_connectOnInit == connectOnInit)
-            return;
 
-        m_connectOnInit = connectOnInit;
-        emit connectOnInitChanged(m_connectOnInit);
-    }
 
 signals:
 
@@ -111,7 +103,7 @@ signals:
 
     void sizeYChanged(int sizeY);
 
-    void connectOnInitChanged(bool connectOnInit);
+
 
 private:
     QVariant m_newFrame=QVariant::fromValue(false);
@@ -123,19 +115,14 @@ private:
 
     int m_sizeY=0;
 
-    bool m_connectOnInit=false;
+
 
 protected:
     QVariant m_frameSink=QVariant::fromValue(new QMat());
     virtual void DeSerialize(QJsonObject &json) override;
 
-    // FlowNode interface
-public:
-    
-    bool connectOnInit() const
-    {
-        return m_connectOnInit;
-    }
+
+
 };
 
 #endif // CAPTURENODE_H

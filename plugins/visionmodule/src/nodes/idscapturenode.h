@@ -40,6 +40,7 @@ public:
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
 
+    //Q_INVOKABLE void updateContinuousCapture(bool continuous);
 
     bool cameraAvailable() const
     {
@@ -63,7 +64,7 @@ public:
     void DeSerialize(QJsonObject &json) override;
 
     void updateExternalTrigger(bool value);
-    void updateContinuousCapture(bool value);
+    Q_INVOKABLE void updateContinuousCapture(bool value);
     int numBuffers() const
     {
         return m_numBuffers;
@@ -211,6 +212,8 @@ private:
     int m_frameBufferCount=0;
     // CaptureNode interface
     int m_numBuffers=1;
+
+    int m_isContinuousCapture=false;
 
 public slots:
     void setNewFrame(QVariant newFrame) override;

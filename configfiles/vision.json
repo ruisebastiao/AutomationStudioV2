@@ -1,16 +1,18 @@
 {
     "graphview": {
-        "x": 318.2890113811411,
-        "y": -179.23039295050734,
-        "zoom": 0.476601628376427
+        "x": 357.44041285432684,
+        "y": -290.68204194083256,
+        "zoom": 0.47734334759520874
     },
     "moduleID": "vision_1",
-    "name": "Vision System 1",
+    "name": "Vision System",
     "nodes": [
         {
             "cameraID": 1,
-            "editHeight": 250,
-            "editWidth": 323,
+            "connectOnInit": true,
+            "continuousCapture": true,
+            "editHeight": 319,
+            "editWidth": 449,
             "externalTrigger": true,
             "id": 0,
             "inPorts": {
@@ -47,6 +49,11 @@
                 },
                 "frameSink": {
                     "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 13,
+                            "portID": "frameSource"
+                        }
                     ],
                     "hidden": false,
                     "portItem": {
@@ -63,7 +70,7 @@
         {
             "editHeight": 308,
             "editWidth": 616,
-            "filePath": "/home/rui/projects/automationstudio/capture/img_%.jpg",
+            "filePath": "C:\\Users\\LM36\\Documents\\Novares\\Automacao\\automationstudio\\capture\\img_%.jpg",
             "id": 1,
             "inPorts": {
                 "newFrame": {
@@ -98,11 +105,6 @@
                 },
                 "frameSink": {
                     "connectedTo": [
-                        {
-                            "hidden": false,
-                            "nodeID": 13,
-                            "portID": "frameSource"
-                        }
                     ],
                     "hidden": false,
                     "portItem": {
@@ -119,8 +121,8 @@
             "useSequence": true
         },
         {
-            "editHeight": 1553,
-            "editWidth": 3157,
+            "editHeight": 2636,
+            "editWidth": 4205,
             "id": 2,
             "inPorts": {
                 "frameBufferSource": {
@@ -156,8 +158,8 @@
             },
             "locked": false,
             "name": "Vision System Node",
-            "nodeX": 1082.461025109233,
-            "nodeY": 549.6739823805791,
+            "nodeX": 1024.61610173002,
+            "nodeY": 817.2067530094398,
             "normalHeight": 1003,
             "normalWidth": 1367,
             "outPorts": {
@@ -289,8 +291,8 @@
                             },
                             "locked": false,
                             "name": "Mask Reference Output",
-                            "nodeX": 2275.7406049188903,
-                            "nodeY": 264.9073490319199,
+                            "nodeX": 2105.4105527536194,
+                            "nodeY": -380.84944214410586,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -455,10 +457,10 @@
                             },
                             "locked": false,
                             "name": "Numeric 2",
-                            "nodeX": 2112.0633594976434,
-                            "nodeY": -310.7000439560438,
-                            "normalHeight": 181,
-                            "normalWidth": 262,
+                            "nodeX": 2062.617730801315,
+                            "nodeY": -583.5478862180397,
+                            "normalHeight": 171,
+                            "normalWidth": 364,
                             "numericValue": 160,
                             "outPorts": {
                                 "numericValue": {
@@ -489,11 +491,11 @@
                             },
                             "locked": false,
                             "name": "Numeric 1",
-                            "nodeX": 2006.7538252223972,
-                            "nodeY": -565.5862271062272,
+                            "nodeX": 2052.533926239345,
+                            "nodeY": -789.144420573145,
                             "normalHeight": 185,
                             "normalWidth": 367,
-                            "numericValue": 420,
+                            "numericValue": 430,
                             "outPorts": {
                                 "numericValue": {
                                     "connectedTo": [
@@ -533,8 +535,8 @@
                             },
                             "locked": false,
                             "name": "Proxy Draw Out",
-                            "nodeX": 974.4902386185242,
-                            "nodeY": 1120.5849251700681,
+                            "nodeX": 842.038598697676,
+                            "nodeY": 1326.123350947385,
                             "normalHeight": 213,
                             "normalWidth": 365,
                             "outPorts": {
@@ -553,6 +555,16 @@
                                         {
                                             "hidden": false,
                                             "nodeID": 533,
+                                            "portID": "drawSource"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 504,
+                                            "portID": "input"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 21,
                                             "portID": "drawSource"
                                         }
                                     ],
@@ -636,8 +648,8 @@
                             },
                             "locked": false,
                             "name": "Proxy Drawing Input",
-                            "nodeX": 571.0485054945063,
-                            "nodeY": -309.7626666666663,
+                            "nodeX": 573.7484187008977,
+                            "nodeY": -377.99224058379866,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -651,6 +663,50 @@
                                         {
                                             "hidden": false,
                                             "nodeID": 516,
+                                            "portID": "input"
+                                        }
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "proxyType": "Input",
+                            "type": "ProxyInputNode"
+                        },
+                        {
+                            "editHeight": 250,
+                            "editWidth": 250,
+                            "id": 10,
+                            "inPorts": {
+                                "input": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "input",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "name": "Line Angle Proxy",
+                            "nodeX": 3755.5962445130913,
+                            "nodeY": 421.43411050014214,
+                            "normalHeight": 140,
+                            "normalWidth": 241,
+                            "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 18,
                                             "portID": "input"
                                         }
                                     ],
@@ -690,6 +746,16 @@
                             "enabled": true,
                             "id": 500,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": true,
                                     "portItem": {
@@ -739,6 +805,11 @@
                                             "hidden": false,
                                             "nodeID": 519,
                                             "portID": "input"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 14,
+                                            "portID": "input"
                                         }
                                     ],
                                     "hidden": false,
@@ -772,7 +843,7 @@
                             "type": "ProcessingNode"
                         },
                         {
-                            "adaptativeBlockSize": 41,
+                            "adaptativeBlockSize": 67,
                             "adaptativeC": 2,
                             "applyMask": false,
                             "drawOnSource": false,
@@ -781,6 +852,16 @@
                             "enabled": true,
                             "id": 501,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": false,
                                     "portItem": {
@@ -855,9 +936,9 @@
                                 }
                             },
                             "processingType": "ProcessingThresholdNode",
-                            "thresholdType": "AdaptativeMean",
+                            "thresholdType": "Simple",
                             "type": "ProcessingNode",
-                            "value": 255
+                            "value": 35
                         },
                         {
                             "applyMask": false,
@@ -867,11 +948,21 @@
                             "enabled": true,
                             "id": 502,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 120
+                                        "y": -48
                                     },
                                     "portLabel": "Reference Image",
                                     "showinlabel": false,
@@ -881,7 +972,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": 120
                                     },
                                     "portLabel": "Center Point",
                                     "showinlabel": false,
@@ -931,7 +1022,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 48
+                                        "y": 24
                                     },
                                     "portLabel": "process",
                                     "showinlabel": false,
@@ -1004,6 +1095,16 @@
                             "enabled": true,
                             "id": 503,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": false,
                                     "portItem": {
@@ -1093,16 +1194,26 @@
                         {
                             "applyMask": false,
                             "drawOnSource": false,
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "editHeight": 500,
+                            "editWidth": 425,
                             "enabled": true,
                             "id": 504,
                             "inPorts": {
-                                "input": {
+                                "drawSource": {
                                     "hidden": true,
                                     "portItem": {
                                         "x": 0,
                                         "y": 0
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "input": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 120
                                     },
                                     "portLabel": "input",
                                     "showinlabel": false,
@@ -1131,10 +1242,10 @@
                             },
                             "locked": false,
                             "name": "End",
-                            "nodeX": 3139.944878653436,
-                            "nodeY": 501.68673305531524,
-                            "normalHeight": 161,
-                            "normalWidth": 399,
+                            "nodeX": 3637.7292480565798,
+                            "nodeY": 795.4570662368418,
+                            "normalHeight": 424,
+                            "normalWidth": 298,
                             "outPorts": {
                                 "output": {
                                     "connectedTo": [
@@ -1172,6 +1283,16 @@
                             "enabled": true,
                             "id": 506,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 48
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": false,
                                     "portItem": {
@@ -1276,6 +1397,16 @@
                             "enabled": true,
                             "id": 507,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 144
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": false,
                                     "portItem": {
@@ -1308,11 +1439,11 @@
                                 }
                             },
                             "locked": false,
-                            "maxCountourArea": 13500,
+                            "maxCountourArea": 15000,
                             "maxCountourHeight": 200,
-                            "maxCountourLength": 1000,
+                            "maxCountourLength": 1500,
                             "maxCountourWidth": 200,
-                            "minCountourArea": 8500,
+                            "minCountourArea": 7000,
                             "minCountourHeight": 50,
                             "minCountourLength": 200,
                             "minCountourWidth": 50,
@@ -1373,7 +1504,7 @@
                             "type": "ProcessingNode"
                         },
                         {
-                            "adaptativeBlockSize": 47,
+                            "adaptativeBlockSize": 61,
                             "adaptativeC": 2,
                             "applyMask": true,
                             "drawOnSource": false,
@@ -1382,6 +1513,16 @@
                             "enabled": true,
                             "id": 511,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": false,
                                     "portItem": {
@@ -1456,7 +1597,7 @@
                                 }
                             },
                             "processingType": "ProcessingThresholdNode",
-                            "thresholdType": "AdaptativeGaussian",
+                            "thresholdType": "AdaptativeMean",
                             "type": "ProcessingNode",
                             "value": 255
                         },
@@ -1476,6 +1617,16 @@
                                         "y": 0
                                     },
                                     "portLabel": "contours",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "drawSource": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 120
+                                    },
+                                    "portLabel": "drawSource",
                                     "showinlabel": false,
                                     "type": "In"
                                 },
@@ -1591,6 +1742,16 @@
                                     "showinlabel": false,
                                     "type": "In"
                                 },
+                                "drawSource": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 96
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": true,
                                     "portItem": {
@@ -1635,12 +1796,17 @@
                                             "hidden": false,
                                             "nodeID": 502,
                                             "portID": "input1"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 21,
+                                            "portID": "input1"
                                         }
                                     ],
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": 96
                                     },
                                     "portLabel": "enclosingShapes",
                                     "showinlabel": false,
@@ -1669,7 +1835,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 48
+                                        "y": -24
                                     },
                                     "portLabel": "processingDone",
                                     "showinlabel": false,
@@ -1688,6 +1854,16 @@
                             "geometricType": "Geometric2PointLine",
                             "id": 533,
                             "inPorts": {
+                                "drawSource": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 96
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
                                 "input": {
                                     "hidden": true,
                                     "portItem": {
@@ -1751,8 +1927,8 @@
                             },
                             "locked": false,
                             "name": "Geometric Operations",
-                            "nodeX": 2665.759683157907,
-                            "nodeY": 697.2461806093064,
+                            "nodeX": 2608.0672803185107,
+                            "nodeY": 712.1345426323765,
                             "normalHeight": 344,
                             "normalWidth": 348,
                             "outPorts": {
@@ -1770,13 +1946,292 @@
                                 },
                                 "output1": {
                                     "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 21,
+                                            "portID": "input2"
+                                        }
                                     ],
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 24
+                                        "y": -120
                                     },
                                     "portLabel": "Line Segment",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "output2": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "Line Angle",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "output3": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 96
+                                    },
+                                    "portLabel": "output3",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "processingDone": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 21,
+                                            "portID": "process"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -72
+                                    },
+                                    "portLabel": "processingDone",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "processingType": "ProcessingGeometricNode",
+                            "type": "ProcessingNode"
+                        },
+                        {
+                            "applyMask": false,
+                            "drawOnSource": false,
+                            "editHeight": 580,
+                            "editWidth": 585,
+                            "enabled": true,
+                            "id": 14,
+                            "inPorts": {
+                                "drawSource": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "input": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "input",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "maskInput": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "maskInput",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "process": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 72
+                                    },
+                                    "portLabel": "process",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "name": "Drawing",
+                            "nodeX": 173.08995889637265,
+                            "nodeY": -302.9747951791272,
+                            "normalHeight": 236,
+                            "normalWidth": 269,
+                            "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 518,
+                                            "portID": "input"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -24
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "processingDone": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -72
+                                    },
+                                    "portLabel": "processingDone",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "processingType": "ProcessingDrawingNode",
+                            "type": "ProcessingNode"
+                        },
+                        {
+                            "applyMask": false,
+                            "drawOnSource": true,
+                            "editHeight": 361,
+                            "editWidth": 325,
+                            "enabled": true,
+                            "geometricType": "GeometricLinePointLine",
+                            "id": 21,
+                            "inPorts": {
+                                "drawSource": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 120
+                                    },
+                                    "portLabel": "drawSource",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "input": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 24
+                                    },
+                                    "portLabel": "input",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "input1": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -72
+                                    },
+                                    "portLabel": "Start Point",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "input2": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "Line Segment",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "input3": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -72
+                                    },
+                                    "portLabel": "input3",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "maskInput": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "maskInput",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "process": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 48
+                                    },
+                                    "portLabel": "process",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "name": "Geometric Operations",
+                            "nodeX": 3222.3880855084535,
+                            "nodeY": 726.346418399327,
+                            "normalHeight": 373,
+                            "normalWidth": 287,
+                            "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "output1": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "Line Segment",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "output2": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 10,
+                                            "portID": "input"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -48
+                                    },
+                                    "portLabel": "Line Angle",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "output3": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 48
+                                    },
+                                    "portLabel": "output3",
                                     "showinlabel": false,
                                     "type": "Out"
                                 },
@@ -1791,7 +2246,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": -48
+                                        "y": 72
                                     },
                                     "portLabel": "processingDone",
                                     "showinlabel": false,
@@ -1869,8 +2324,8 @@
             },
             "locked": false,
             "name": "Buffer Full - Input",
-            "nodeX": 1124.6293957169562,
-            "nodeY": 1743.9748216340179,
+            "nodeX": 976.4017795577229,
+            "nodeY": 2141.6586698661076,
             "normalHeight": 224,
             "normalWidth": 276,
             "outPorts": {
@@ -1898,8 +2353,8 @@
         {
             "autoIncrementReadIndex": true,
             "autoIncrementWriteIndex": true,
-            "editHeight": 1438,
-            "editWidth": 429,
+            "editHeight": 2214,
+            "editWidth": 459,
             "id": 13,
             "inPorts": {
                 "frameSource": {
@@ -1931,14 +2386,24 @@
                     "portLabel": "readNextFrame",
                     "showinlabel": false,
                     "type": "In"
+                },
+                "resetIndexes": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 672
+                    },
+                    "portLabel": "resetIndexes",
+                    "showinlabel": false,
+                    "type": "In"
                 }
             },
             "locked": false,
             "name": "Frame Buffer",
-            "nodeX": 205.27981604194792,
-            "nodeY": 488.46521696414914,
-            "normalHeight": 1263,
-            "normalWidth": 570,
+            "nodeX": 226.34016494089747,
+            "nodeY": 509.52556586309834,
+            "normalHeight": 1845,
+            "normalWidth": 606,
             "numBuffers": 16,
             "outPorts": {
                 "bufferFull": {
@@ -1952,7 +2417,7 @@
                     "hidden": false,
                     "portItem": {
                         "x": 0,
-                        "y": 96
+                        "y": 672
                     },
                     "portLabel": "bufferFull",
                     "showinlabel": false,
@@ -1964,7 +2429,7 @@
                     "hidden": false,
                     "portItem": {
                         "x": 0,
-                        "y": -72
+                        "y": 360
                     },
                     "portLabel": "frameBuffers",
                     "showinlabel": false,
@@ -1981,7 +2446,7 @@
                     "hidden": false,
                     "portItem": {
                         "x": 0,
-                        "y": -240
+                        "y": 96
                     },
                     "portLabel": "frameSink",
                     "showinlabel": false,
@@ -1989,11 +2454,16 @@
                 },
                 "frameStored": {
                     "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 7,
+                            "portID": "input"
+                        }
                     ],
                     "hidden": false,
                     "portItem": {
                         "x": 0,
-                        "y": 48
+                        "y": -504
                     },
                     "portLabel": "frameStored",
                     "showinlabel": false,
@@ -2142,6 +2612,99 @@
                 }
             },
             "type": "MultiplexedInputNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 303,
+            "id": 4,
+            "inPorts": {
+                "input": {
+                    "hidden": true,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "input",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "Inspction Started",
+            "nodeX": -435.62161330084393,
+            "nodeY": 2156.88370612329,
+            "normalHeight": 250,
+            "normalWidth": 250,
+            "outPorts": {
+                "output": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 13,
+                            "portID": "resetIndexes"
+                        }
+                    ],
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "output",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "proxyType": "Output",
+            "type": "ProxyInputNode"
+        },
+        {
+            "editHeight": 250,
+            "editWidth": 371,
+            "id": 7,
+            "inPorts": {
+                "input": {
+                    "hidden": false,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "input",
+                    "showinlabel": false,
+                    "type": "In"
+                }
+            },
+            "locked": false,
+            "name": "Proxy Frame Stored",
+            "nodeX": 1148.186575550731,
+            "nodeY": 448.6762523487678,
+            "normalHeight": 215,
+            "normalWidth": 323,
+            "outPorts": {
+                "output": {
+                    "connectedTo": [
+                        {
+                            "hidden": false,
+                            "nodeID": 5,
+                            "portID": "input"
+                        },
+                        {
+                            "hidden": false,
+                            "nodeID": 8,
+                            "portID": "input"
+                        }
+                    ],
+                    "hidden": true,
+                    "portItem": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "portLabel": "output",
+                    "showinlabel": false,
+                    "type": "Out"
+                }
+            },
+            "proxyType": "Input",
+            "type": "ProxyInputNode"
         }
     ],
     "type": "VisionModule"

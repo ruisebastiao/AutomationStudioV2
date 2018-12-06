@@ -64,7 +64,9 @@ TCPClient::TCPClient(QObject *parent) : QObject(parent)
 
 TCPClient::~TCPClient()
 {
-
+    m_reconnectOnClose=false;
+    m_connectTimer.stop();
+    m_socket->abort();
     m_socket->disconnectFromHost();
     m_socket->deleteLater();
 }

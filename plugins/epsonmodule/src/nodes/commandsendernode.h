@@ -15,6 +15,8 @@ class CommandSenderNode : public FlowNode
 
     Q_PROPERTY(QString commandToSend READ commandToSend WRITE setCommandToSend NOTIFY commandToSendChanged USER("serialized"))
 
+    Q_PROPERTY(bool appendFromInput READ appendFromInput WRITE setAppendFromInput NOTIFY appendFromInputChanged USER("serialized"))
+    Q_PROPERTY(QVariant commandInput READ commandInput WRITE setCommandInput NOTIFY commandInputChanged REVISION 30)
 
     Q_PROPERTY(QVariant epsonNode READ epsonNode WRITE setEpsonNode NOTIFY epsonNodeChanged REVISION 30)
     Q_PROPERTY(QVariant send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
@@ -48,6 +50,16 @@ public:
         return m_send;
     }
 
+    bool appendFromInput() const
+    {
+        return m_appendFromInput;
+    }
+
+    QVariant commandInput() const
+    {
+        return m_commandInput;
+    }
+
 public slots:
     void setCommandsAvailable(QStringList commandsAvailable)
     {
@@ -70,8 +82,6 @@ public slots:
 
     void setEpsonNode(QVariant epsonNode)
     {
-        if (m_epsonNode == epsonNode)
-            return;
 
         m_epsonNode = epsonNode;
         emit epsonNodeChanged(m_epsonNode);
@@ -81,18 +91,35 @@ public slots:
 
     void setSend(QVariant send)
     {
-        if (m_send == send)
-            return;
+
 
         m_send = send;
         if(m_send.value<bool>()){
             EpsonNode* node=m_epsonNode.value<EpsonNode*>();
             if(node){
-                node->sendCommand(commandToSend());
+                QString command_frominput = m_commandInput.value<QString>();
+                QString finalcommand=commandToSend()+command_frominput;
+                node->sendCommand(finalcommand);
             }
         }
         emit sendChanged(m_send);
         m_send=false;
+    }
+
+    void setAppendFromInput(bool appendFromInput)
+    {
+        if (m_appendFromInput == appendFromInput)
+            return;
+
+        m_appendFromInput = appendFromInput;
+        emit appendFromInputChanged(m_appendFromInput);
+    }
+
+    void setCommandInput(QVariant commandInput)
+    {
+
+        m_commandInput = commandInput;
+        emit commandInputChanged(m_commandInput);
     }
 
 signals:
@@ -108,6 +135,10 @@ signals:
 
     void sendChanged(QVariant send);
 
+    void appendFromInputChanged(bool appendFromInput);
+
+    void commandInputChanged(QVariant commandInput);
+
 private:
     QStringList m_commandsAvailable;
     QString m_commandToSend="";
@@ -116,6 +147,9 @@ private:
 
 
     QVariant m_send=QVariant::fromValue(false);
+    bool m_appendFromInput=false;
+    QVariant m_commandInput=QVariant::fromValue(QString(""));
+
 };
 
 #endif // COMMANDSENDER_H

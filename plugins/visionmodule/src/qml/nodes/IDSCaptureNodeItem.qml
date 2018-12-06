@@ -125,9 +125,12 @@ FlowNodeItem{
                     id:continuouscapture_check
                       Layout.fillWidth: true;
                     text: "Continuous Capture"
-                    enabled:  node.cameraOpened && root.node.updatingCamera==false;
+                    checked: root.node.continuousCapture
                     onCheckedChanged: {
-                        node.continuousCapture=checked
+                        root.node.continuousCapture=checked
+                        if(root.node.configsLoaded){
+                            root.node.updateContinuousCapture(checked);
+                        }
                     }
                 }
                 CheckBox{

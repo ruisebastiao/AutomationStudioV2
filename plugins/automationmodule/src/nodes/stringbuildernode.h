@@ -16,7 +16,11 @@ class StringBuilderNode : public FlowNode
     Q_PROPERTY(QString extractProperty READ extractProperty WRITE setExtractProperty NOTIFY extractPropertyChanged USER("serializable"))
     Q_PROPERTY(QString separator READ separator WRITE setSeparator NOTIFY separatorChanged USER("serializable"))
 
+    Q_PROPERTY(int stringsAdded READ stringsAdded WRITE setStringsAdded NOTIFY stringsAddedChanged)
+    Q_PROPERTY(int stringsToComplete READ stringsToComplete WRITE setStringsToComplete NOTIFY stringsToCompleteChanged USER("serializable"))
 
+
+    Q_PROPERTY(QVariant completed READ completed WRITE setCompleted NOTIFY completedChanged REVISION 31)
 
 public:
     StringBuilderNode();
@@ -45,6 +49,21 @@ public:
     QVariant clear() const
     {
         return m_clear;
+    }
+
+    int stringsAdded() const
+    {
+        return m_stringsAdded;
+    }
+
+    int stringsToComplete() const
+    {
+        return m_stringsToComplete;
+    }
+
+    QVariant completed() const
+    {
+        return m_completed;
     }
 
 public slots:
@@ -84,9 +103,11 @@ public slots:
             QString outstr=out.value<QString>();
             QString joinedstr=m_out.value<QString>();
             if(outstr.isEmpty()==false){
-                joinedstr=joinedstr+separator()+outstr;
+
+                joinedstr=joinedstr+outstr+separator();
                 m_out = QVariant::fromValue(joinedstr);
                 emit outChanged(m_out);
+                setStringsAdded(m_stringsAdded+1);
             }
         }
     }
@@ -119,7 +140,27 @@ public slots:
             emit outChanged(m_out);
             m_clear=false;
         }
+        setStringsAdded(0);
         emit clearChanged(m_clear);
+    }
+
+
+
+    void setStringsToComplete(int stringsToComplete)
+    {
+        if (m_stringsToComplete == stringsToComplete)
+            return;
+
+        m_stringsToComplete = stringsToComplete;
+        emit stringsToCompleteChanged(m_stringsToComplete);
+    }
+
+    void setCompleted(QVariant completed)
+    {
+
+
+        m_completed = completed;
+        emit completedChanged(m_completed);
     }
 
 signals:
@@ -133,6 +174,12 @@ signals:
 
     void clearChanged(QVariant clear);
 
+    void stringsAddedChanged(int stringsAdded);
+
+    void stringsToCompleteChanged(int stringsToComplete);
+
+    void completedChanged(QVariant completed);
+
 private:
 
 
@@ -141,6 +188,23 @@ private:
     QString m_extractProperty="";
     QString m_separator="|";
     QVariant m_clear=QVariant::fromValue(false);
+    int m_stringsAdded=0;
+    int m_stringsToComplete=1;
+    QVariant m_completed=QVariant::fromValue(false);
+
+    void setStringsAdded(int stringsAdded)
+    {
+        if (m_stringsAdded == stringsAdded)
+            return;
+
+        m_stringsAdded = stringsAdded;
+        emit stringsAddedChanged(m_stringsAdded);
+
+        if(m_stringsAdded==m_stringsToComplete){
+            setCompleted(true);
+        }
+    }
+
 };
 
 #endif // STRINGBUILDERNODE_H
