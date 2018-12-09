@@ -23,20 +23,6 @@ QAutomationModule *ModulePropertyBind::module() const
 void ModulePropertyBind::setModule(QAutomationModule *module)
 {
     m_module = module;
-
-}
-
-
-void ModulePropertyBind::Serialize(QJsonObject &json)
-{
-    FlowNode::Serialize(json);
-}
-
-void ModulePropertyBind::DeSerialize(QJsonObject &json)
-{
-
-    FlowNode::DeSerialize(json);
-
     if(m_module){
 
         m_moduleProperties.clear();
@@ -62,4 +48,19 @@ void ModulePropertyBind::DeSerialize(QJsonObject &json)
         //connect(this,)
 
     }
+
+}
+
+
+void ModulePropertyBind::Serialize(QJsonObject &json)
+{
+    FlowNode::Serialize(json);
+}
+
+void ModulePropertyBind::DeSerialize(QJsonObject &json)
+{
+
+    FlowNode::DeSerialize(json);
+
+
 }

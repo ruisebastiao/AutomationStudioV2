@@ -6,7 +6,29 @@
 QBSValidationModule::QBSValidationModule(QQuickItem* parent)
 {
     m_type=ModuleType::BSValidationModule;
+    m_moduleName="BSValidation";
+    m_moduleNodeTypes.append(getModuleNodeTypes());
+
 }
+
+
+QVariantList QBSValidationModule::getModuleNodeTypes() const
+{
+    QVariantList ret;
+
+    QVariantMap map;
+
+    map.insert(QVariant::fromValue(FlowNode::Type::BSValidationNode).value<QString>(),"BS Validation");
+    ret.append(map);
+    map.clear();
+
+
+
+    return ret;
+}
+
+
+
 
 void QBSValidationModule::loadModuleSettings(QString path)
 {
@@ -14,36 +36,27 @@ void QBSValidationModule::loadModuleSettings(QString path)
     QAutomationModule::loadModuleSettings(path);
 }
 
-FlowNode *QBSValidationModule::readNode(qan::GraphView *graphView, QJsonObject nodeobject)
-{
-    FlowNode* node=nullptr;
-
-    node=QAutomationModule::readNode(graphView,nodeobject);
-
-    if(node==nullptr){
-        qan::Node* newnode=nullptr;
-
-        if(nodeobject["type"]=="BSValidationNode"){
-            newnode=graphView->getGraph()->insertNode<BSValidationNode>(nullptr);
-        }
-        else{
-            LOG_WARNING(QString("Unknown nodeobject type:%1").arg(nodeobject["type"].toString()));
-        }
-
-
-        FlowNode* modulenode=dynamic_cast<FlowNode*>(newnode);
-        if(modulenode){
-            modulenode->DeSerialize(nodeobject);
-
-        }
-        node=modulenode;
-    }
-
-
-    return  node;
-}
 
 void QBSValidationModule::save()
 {
-      QAutomationModule::save();
+    QAutomationModule::save();
+}
+
+FlowNode *QBSValidationModule::createModuleNode(qan::GraphView *graphView, QString nodetype)
+{
+
+
+    qan::Node* newnode=nullptr;
+
+    if(nodetype=="BSValidationNode"){
+        newnode=graphView->getGraph()->insertNode<BSValidationNode>(nullptr);
+    }
+    else{
+        LOG_WARNING(QString("Unknown module node type:%1").arg(nodetype));
+    }
+
+
+
+    return  dynamic_cast<FlowNode*>(newnode);
+
 }

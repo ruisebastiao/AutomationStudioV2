@@ -37,13 +37,13 @@ BSValidationInfo *BSValidationNode::getBSBySerialnumber(QString serialnumber)
     return nullptr;
 }
 
-void BSValidationNode::setDatain(QString datain)
+void BSValidationNode::setDatain(QVariant datain)
 {
 
-
     m_datain = datain;
+    QString v_datain=datain.value<QString>();
 
-    if(m_datain==""){
+    if(v_datain==""){
         qDebug()<<"Empty data";
         return;
     }
@@ -54,7 +54,7 @@ void BSValidationNode::setDatain(QString datain)
     QString lefts="";
 
 
-    QList<QString> stringParsed=m_datain.split('\n');
+    QList<QString> stringParsed=v_datain.split('\n');
 
     for (int i = 0; i < stringParsed.length(); ++i) {
         QString data=stringParsed[i];
@@ -137,16 +137,6 @@ void BSValidationNode::Serialize(QJsonObject &json)
 
 void BSValidationNode::DeSerialize(QJsonObject &json)
 {
-    m_datainPort=new FlowNodePort(this,qan::PortItem::Type::In,"datain");
-    m_inPorts.append(m_datainPort);
-
-    m_bsOKPort=new FlowNodePort(this,qan::PortItem::Type::Out,"bsOK");
-    m_bsNOKPort=new FlowNodePort(this,qan::PortItem::Type::Out,"bsNOK");
-    m_leftsPort=new FlowNodePort(this,qan::PortItem::Type::Out,"lefts");
-
-    m_outPorts.append(m_bsOKPort);
-    m_outPorts.append(m_bsNOKPort);
-    m_outPorts.append(m_leftsPort);
 
 
     FlowNode::DeSerialize(json);

@@ -33,62 +33,50 @@ class BSValidationNode : public FlowNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool bsOK READ bsOK WRITE setBsOK NOTIFY bsOKChanged)
-    Q_PROPERTY(FlowNodePort* bsOKPort READ bsOKPort WRITE setBsOKPort NOTIFY bsOKPortChanged USER("serialize"))
+    Q_PROPERTY(QVariant bsOK READ bsOK WRITE setBsOK NOTIFY bsOKChanged REVISION 31)
 
-    Q_PROPERTY(bool bsNOK READ bsNOK WRITE setBsNOK NOTIFY bsNOKChanged )
-    Q_PROPERTY(FlowNodePort* bsNOKPort READ bsNOKPort WRITE setBsNOKPort NOTIFY bsNOKPortChanged USER("serialize"))
+    Q_PROPERTY(QVariant bsNOK READ bsNOK WRITE setBsNOK NOTIFY bsNOKChanged REVISION 31)
 
+    Q_PROPERTY(QVariant datain READ datain WRITE setDatain NOTIFY datainChanged REVISION 30)
 
-    Q_PROPERTY(QString datain READ datain WRITE setDatain NOTIFY datainChanged)
-    Q_PROPERTY(FlowNodePort* datainPort READ datainPort WRITE setDatainPort NOTIFY datainPortChanged USER("serialize"))
-
-    Q_PROPERTY(QString lefts READ lefts WRITE setLefts NOTIFY leftsChanged)
-    Q_PROPERTY(FlowNodePort* leftsPort READ leftsPort WRITE setLeftsPort NOTIFY leftsPortChanged USER("serialize"))
+    Q_PROPERTY(QVariant lefts READ lefts WRITE setLefts NOTIFY leftsChanged REVISION 31)
 
 
 public:
     BSValidationNode(QObject* parent=nullptr);
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
-    bool bsOK() const
+    QVariant  bsOK() const
     {
         return m_bsOK;
     }
-    bool bsNOK() const
+    QVariant bsNOK() const
     {
         return m_bsNOK;
     }
 
 private:
-    bool m_bsOK=false;
-    bool m_bsNOK=false;
+    QVariant m_bsOK=QVariant::fromValue(false);
+    QVariant m_bsNOK=QVariant::fromValue(false);
 
-    QString m_datain;
+    QVariant m_datain=QVariant::fromValue(QString(""));
 
-    QString m_lefts;
+    QVariant m_lefts=QVariant::fromValue(QString(""));
 
     void addBSToList(BSValidationInfo* newbs);
     BSValidationInfo* getBSBySerialnumber(QString serialnumber);
 
     QList<BSValidationInfo*> m_ReadedBSList;
 
-    FlowNodePort* m_datainPort=nullptr;
-
-    FlowNodePort* m_bsOKPort=nullptr;
-
-    FlowNodePort* m_bsNOKPort=nullptr;
-
-    FlowNodePort* m_leftsPort=nullptr;
 
 public slots:
-    void setBsOK(bool bsOK)
+    void setBsOK(QVariant bsOK)
     {
 
 
         m_bsOK = bsOK;
         emit bsOKChanged(m_bsOK);
     }
-    void setBsNOK(bool bsNOK)
+    void setBsNOK(QVariant bsNOK)
     {
 
 
@@ -96,10 +84,10 @@ public slots:
         emit bsNOKChanged(m_bsNOK);
     }
 
-    void setDatain(QString datain);
+    void setDatain(QVariant datain);
 
 
-    void setLefts(QString lefts)
+    void setLefts(QVariant lefts)
     {
 
 
@@ -107,92 +95,39 @@ public slots:
         emit leftsChanged(m_lefts);
     }
 
-    void setDatainPort(FlowNodePort* datainPort)
-    {
-        if (m_datainPort == datainPort)
-            return;
 
-        m_datainPort = datainPort;
-        emit datainPortChanged(m_datainPort);
-    }
 
-    void setBsOKPort(FlowNodePort* bsOKPort)
-    {
-        if (m_bsOKPort == bsOKPort)
-            return;
-
-        m_bsOKPort = bsOKPort;
-        emit bsOKPortChanged(m_bsOKPort);
-    }
-
-    void setBsNOKPort(FlowNodePort* bsNOKPort)
-{
-    if (m_bsNOKPort == bsNOKPort)
-    return;
-
-m_bsNOKPort = bsNOKPort;
-emit bsNOKPortChanged(m_bsNOKPort);
-}
-
-    void setLeftsPort(FlowNodePort* leftsPort)
-    {
-        if (m_leftsPort == leftsPort)
-            return;
-
-        m_leftsPort = leftsPort;
-        emit leftsPortChanged(m_leftsPort);
-    }
 
 signals:
-    void bsOKChanged(bool bsOK);
-    void bsNOKChanged(bool bsNOK);
+    void bsOKChanged(QVariant bsOK);
+    void bsNOKChanged(QVariant bsNOK);
 
     // FlowNode interface
-    void datainChanged(QString datain);
+    void datainChanged(QVariant datain);
 
-    void leftsChanged(QString lefts);
+    void leftsChanged(QVariant lefts);
 
-    void datainPortChanged(FlowNodePort* datainPort);
 
-    void bsOKPortChanged(FlowNodePort* bsOKPort);
-
-    void bsNOKPortChanged(FlowNodePort* bsNOKPort);
-
-    void leftsPortChanged(FlowNodePort* leftsPort);
 
 public:
 //    void write(QJsonObject &json) const override;
 //    void read(QJsonObject &json) override;
-QString datain() const
+QVariant datain() const
 {
     return m_datain;
 }
-QString lefts() const
+QVariant lefts() const
 {
     return m_lefts;
 }
-FlowNodePort* datainPort() const
-{
-    return m_datainPort;
-}
+
 
 
 // JsonSerializable interface
 public:
 void Serialize(QJsonObject &json) override;
 void DeSerialize(QJsonObject &json) override;
-FlowNodePort* bsOKPort() const
-{
-    return m_bsOKPort;
-}
-FlowNodePort* bsNOKPort() const
-{
-    return m_bsNOKPort;
-}
-FlowNodePort* leftsPort() const
-{
-    return m_leftsPort;
-}
+
 };
 
 #endif // BSVALIDATIONNODE_H

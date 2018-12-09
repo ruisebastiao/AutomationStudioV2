@@ -8,6 +8,7 @@
 
 #include <flownodeport.h>
 #include <qanGraphView.h>
+//#include <qautomationmodule.h>
 #include <random>
 
 
@@ -126,7 +127,7 @@ public:
 
     Q_INVOKABLE virtual FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
 
-     static FlowNode *addFlowNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
+     static FlowNode *addFlowNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview, QAutomationModule *module=nullptr);
 
 
 //    static void loadNodeConnections(QList<FlowNode *> nodeList);

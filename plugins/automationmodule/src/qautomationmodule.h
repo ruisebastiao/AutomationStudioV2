@@ -216,7 +216,7 @@ public:
     void DeSerialize(QJsonObject &json) override;
 
 
-    static FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype);
+    static FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype, QAutomationModule *module=nullptr);
 
     virtual FlowNode *createModuleNode(qan::GraphView* graphView , QString nodetype)=0;
 

@@ -47,6 +47,9 @@ QVariantList FlowNode::getCommonTypes()
 
             break;
 
+        case Type::ModulePropertyBind:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Module Property Bind");
+            break;
 
         case Type::StringBuilderNode:
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"String Builder");

@@ -67,6 +67,7 @@ private:
 
     bool m_bsNOK=false;
 
+    QVariantList getModuleNodeTypes() const;
 signals:
 
 void bsOKChanged(bool bsOK);
@@ -140,11 +141,11 @@ protected:
 
     // QAutomationModule interface
 protected:
-    FlowNode *readNode(qan::GraphView *graphView, QJsonObject nodeobject) override;
+    void save() override;
 
     // QAutomationModule interface
-protected:
-    void save() override;
+public:
+    virtual FlowNode *createModuleNode(qan::GraphView *graphView, QString nodetype) override;
 };
 
 #endif // QBSVALIDATIONMODULE_H

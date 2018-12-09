@@ -170,16 +170,8 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
 {
     qan::Node* newnode=nullptr;
 
-    if(nodeobject["type"]=="ModulePropertyBind"){
-        newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
-        ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
-        /* ??? */ if(modulePropertyBindNode){
-            modulePropertyBindNode->setModule(this);
-        }
-    }
-    if(!newnode){
-        newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString());
-    }
+
+    newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString(),this);
 
     if(!newnode){
         newnode=createModuleNode(graphView,nodeobject["type"].toString());
@@ -199,7 +191,7 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
 }
 
 
-FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString nodetype)
+FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString nodetype,QAutomationModule* module)
 {
     qan::Node* newnode=nullptr;
 
@@ -207,6 +199,13 @@ FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString
 
     if(nodetype=="BarcodeReaderNode"){
         newnode=graphView->getGraph()->insertNode<BarcodeReaderNode>(nullptr);
+    }
+    if(nodetype=="ModulePropertyBind"){
+        newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
+        ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
+        /* ??? */ if(modulePropertyBindNode){
+            modulePropertyBindNode->setModule(module);
+        }
     }
     else if(nodetype=="WebServiceNode"){
         newnode=graphView->getGraph()->insertNode<WebServiceNode>(nullptr);
