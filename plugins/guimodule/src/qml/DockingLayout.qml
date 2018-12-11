@@ -46,12 +46,12 @@ Item {
                 Component.onCompleted: {
                     console.log("New module:"+module)
                 }
-                Rectangle{
-                    width: 10
-                    height: parent.height
-                    color: "red"
-                    anchors.left: parent.right
-                }
+//                Rectangle{
+//                    width: 10
+//                    height: parent.height
+//                    color: "red"
+//                    anchors.left: parent.right
+//                }
             }
 
         }
