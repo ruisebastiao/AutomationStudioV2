@@ -31,6 +31,7 @@ Qan.NodeItem {
         }
     }
 
+
     leftDock: Item{
         id: leftdock
         width: 24

@@ -44,7 +44,7 @@ public:
     QAutomationModule(const QAutomationModule& other){ }
 
 
-    Q_INVOKABLE virtual FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
+    Q_INVOKABLE FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
     Q_INVOKABLE virtual void addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
 
     static FlowNodeManager* flownodemanager;
@@ -216,7 +216,7 @@ public:
     void DeSerialize(QJsonObject &json) override;
 
 
-    static FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype, QAutomationModule *module=nullptr);
+    FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype);
 
     virtual FlowNode *createModuleNode(qan::GraphView* graphView , QString nodetype)=0;
 

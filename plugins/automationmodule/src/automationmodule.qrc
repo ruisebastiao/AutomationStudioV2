@@ -12,5 +12,6 @@
         <file alias="Nodes/ModulePropertyBindNodeItem.qml">qml/nodes/ModulePropertyBindNodeItem.qml</file>
         <file alias="Nodes/MultiplexedInputNodeItem.qml">qml/nodes/MultiplexedInputNodeItem.qml</file>
         <file alias="Nodes/StringBuilderNodeItem.qml">qml/nodes/StringBuilderNodeItem.qml</file>
+        <file alias="Ports/FlowNodePortItem.qml">qml/ports/FlowNodePortItem.qml</file>
     </qresource>
 </RCC>

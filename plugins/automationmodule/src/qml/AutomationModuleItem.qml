@@ -134,6 +134,12 @@ Item {
                             CommonSceneGraph {
                                 id: dataflowGraph
 
+                                portDelegate: Component {
+
+                                    FlowNodePortItem{
+
+                                    }
+                                }
 
 
                                 selectionPolicy :Qan.Graph.SelectOnClick

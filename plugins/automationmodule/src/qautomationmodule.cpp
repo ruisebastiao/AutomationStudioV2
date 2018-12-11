@@ -22,14 +22,6 @@ QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 
 }
 
-FlowNode *QAutomationModule::addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview)
-{
-    FlowNode* commonnode=FlowNode::addFlowNode(loc,nodeinfo,graphview);
-    if(commonnode){
-        m_FlowNodes.append(commonnode);
-    }
-    return commonnode;
-}
 
 void QAutomationModule::addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview)
 {
@@ -166,12 +158,13 @@ void QAutomationModule::loadConnections(){
 
 }
 
+
 FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nodeobject)
 {
     qan::Node* newnode=nullptr;
 
 
-    newnode=QAutomationModule::createCommonNode(graphView,nodeobject["type"].toString(),this);
+    newnode=createCommonNode(graphView,nodeobject["type"].toString());
 
     if(!newnode){
         newnode=createModuleNode(graphView,nodeobject["type"].toString());
@@ -191,7 +184,40 @@ FlowNode *QAutomationModule::readNode(qan::GraphView *graphView, QJsonObject nod
 }
 
 
-FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString nodetype,QAutomationModule* module)
+FlowNode *QAutomationModule::addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview)
+{
+    qDebug()<<"Adding common node:"<<nodeinfo<<" @ "<<loc;
+
+    QString nodeType;
+    QMapIterator<QString, QVariant> i(nodeinfo);
+    while (i.hasNext()) {
+        i.next();
+        nodeType=i.key();
+
+    }
+
+    FlowNode *commonnode=createCommonNode(graphview,nodeType);
+
+    if(commonnode){
+        commonnode->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
+        commonnode->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
+
+
+
+
+        commonnode->initializeNode();
+
+        m_FlowNodes.append(commonnode);
+
+        return commonnode;
+
+
+    }
+
+}
+
+
+FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString nodetype)
 {
     qan::Node* newnode=nullptr;
 
@@ -204,7 +230,7 @@ FlowNode *QAutomationModule::createCommonNode(qan::GraphView *graphView, QString
         newnode=graphView->getGraph()->insertNode<ModulePropertyBind>(nullptr);
         ModulePropertyBind* modulePropertyBindNode=dynamic_cast<ModulePropertyBind*>(newnode);
         /* ??? */ if(modulePropertyBindNode){
-            modulePropertyBindNode->setModule(module);
+            modulePropertyBindNode->setModule(this);
         }
     }
     else if(nodetype=="WebServiceNode"){
