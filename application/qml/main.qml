@@ -199,6 +199,7 @@ ApplicationWindow {
 
 
 
+
     
     Flickable{
         id:mainflickable
@@ -1109,14 +1110,27 @@ ApplicationWindow {
                     console.log("pogress:"+progress);
                 }
 
+
+
                 sourceComponent: layoutcomponent
 
                 anchors.fill: parent
             }
 
 
-            BusyIndicator {
+            Image{
+                anchors.fill: parent
+                source: "qrc:/images/novares02_1.png"
+                visible: opacity!=0
 
+                opacity: loadingindicator.running?1:0
+                Behavior on opacity {
+                    NumberAnimation { duration: 300 }
+                }
+            }
+
+            BusyIndicator {
+                id:loadingindicator
                 running: layoutloader.item.modulesloaded!==true
                 anchors.centerIn: parent
                 width: parent.width/3

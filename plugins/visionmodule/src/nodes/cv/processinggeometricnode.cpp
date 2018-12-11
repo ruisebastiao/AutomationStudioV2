@@ -233,12 +233,20 @@ void ProcessingGeometricNode::doProcess()
 
         if(m_input1.isValid() && m_input2.isValid()){
             QLineF result=lineSegment();
+
             m_output1=QVariant::fromValue(result);
 
             emit output1Changed(m_output1);
 
-            m_output2=QVariant::fromValue(QString::number(result.angle(), 'f', 2));
-            emit output2Changed(m_output2);
+            if(result.length()==0){
+                m_output2=QVariant::fromValue(QString("NAN"));
+                emit output2Changed(m_output2);
+            }
+            else{
+                m_output2=QVariant::fromValue(QString::number(result.angle(), 'f', 2));
+                emit output2Changed(m_output2);
+            }
+
 
         }
         break;
