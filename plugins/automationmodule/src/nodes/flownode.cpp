@@ -27,6 +27,10 @@ QVariantList FlowNode::getCommonTypes()
 
             break;
 
+        case Type::BarcodeReaderNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Barcode Reader");
+
+            break;
         case Type::ProxyInputNode:
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"In/Out Proxy");
 

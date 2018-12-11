@@ -26,6 +26,13 @@ FlowNodeItem{
     Connections{
         target:root.node
 
+
+        onConfigsLoadedChanged:{
+            console.log("root.node.moduleProperty:"+root.node.moduleProperty)
+            var index=root.node.moduleProperties.indexOf(root.node.moduleProperty)
+            selectedProperty.currentIndex=index
+        }
+
         onBindModuleProperty:{
 
             if(moduleProperty!=""){
@@ -45,18 +52,19 @@ FlowNodeItem{
         ColumnLayout{
            anchors.fill: parent
             ComboBox{
-                id:selectedPort
+                id:selectedProperty
                 Layout.fillWidth: true
                 model: root.node.moduleProperties
                 onModelChanged: {
+
 
                     var index=root.node.moduleProperties.indexOf(root.node.moduleProperty)
                     currentIndex=index
                 }
 
                 popup.onClosed: {
-                    if(currentIndex!=-1 && currentIndex!=node.moduleProperties.indexOf(node.moduleProperty)){
-                        node.moduleProperty=node.moduleProperties[currentIndex];
+                    if(currentIndex!=-1 && currentIndex!=node.moduleProperties.indexOf(root.node.moduleProperty)){
+                        root.node.moduleProperty=root.node.moduleProperties[currentIndex];
                     }
                 }
 

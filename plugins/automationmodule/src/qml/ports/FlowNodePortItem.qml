@@ -88,7 +88,7 @@ Qan.PortItem {
     ]
 
     onXChanged:{
-//        console.log("x:"+x)
+        //        console.log("x:"+x)
         x=0
     }
 
@@ -130,23 +130,101 @@ Qan.PortItem {
 
     Pane {
         id: labelPane
+        property bool editing: false
+        onEditingChanged: {
+            if(editing){
+                //port_label_editor.focus=true
+
+            }
+            else{
+                //port_label_editor.focus=false
+            }
+        }
+
         opacity: 0.80
         padding: 0
         z: 2
-        width: label.implicitWidth
-        height: label.implicitHeight
+        width: labelPane.editing?port_label_editor.implicitWidth:label.implicitWidth
+        height: labelPane.editing?port_label_editor.implicitHeight:label.implicitHeight
 
         Label {
             id: label
             z: 3
+            opacity: labelPane.editing?0:1
             text: portItem.label
-            visible: true
+            visible: opacity!=0
         }
+
+        TextField{
+            id:port_label_editor
+            property string originalText: ""
+            anchors.topMargin: 5
+            visible: opacity!=0
+            opacity: labelPane.editing?1:0
+            selectByMouse:true
+            Behavior on opacity {
+                NumberAnimation{
+                    duration: 250
+                }
+            }
+
+            onVisibleChanged: {
+                if(visible){
+                    forceActiveFocus()
+                    selectAll()
+                    originalText=text;
+                }
+            }
+
+
+            Keys.onEscapePressed: {
+
+                text=originalText
+
+                focus = false
+            }
+
+            onEditingFinished: {
+                labelPane.editing=false
+            }
+
+
+
+            onAccepted: {
+                labelPane.editing=false
+            }
+
+            text:portItem.label
+            onTextChanged: {
+                portItem.label=text
+//                if(text===""){
+//                    implicitWidth=placeholder.label.paintedWidth
+//                }
+            }
+
+
+            //            anchors.horizontalCenter: parent.horizontalCenter
+            //            anchors.top: parent.top
+            //            anchors.bottom: parent.bottom
+            width: contentWidth
+
+            GUI.MaterialPlaceHolder{
+                id:placeholder
+                placeHolderText:"Label Name:"
+            }
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+
+
+
+        }
+
         MouseArea{
             anchors.fill: label
             onDoubleClicked: {
-//                label.color="red"
-//                portItem.label="teste"
+                labelPane.editing=!labelPane.editing
+
             }
         }
     }

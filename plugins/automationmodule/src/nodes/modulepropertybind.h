@@ -54,7 +54,10 @@ public slots:
             return;
 
         m_moduleProperty = moduleProperty;
+
         emit modulePropertyChanged(m_moduleProperty);
+
+        emit bindModuleProperty(m_module,m_moduleProperty);
     }
 
 signals:
@@ -88,7 +91,7 @@ public:
     {
         return m_moduleProperties;
     }
-    QString moduleProperty() const
+    QString moduleProperty()
     {
         return m_moduleProperty;
     }

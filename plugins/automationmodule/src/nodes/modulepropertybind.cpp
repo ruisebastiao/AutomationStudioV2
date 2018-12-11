@@ -44,7 +44,7 @@ void ModulePropertyBind::setModule(QAutomationModule *module)
         }
         emit modulePropertiesChanged(m_moduleProperties);
 
-        emit bindModuleProperty(m_module,m_moduleProperty);
+        //emit bindModuleProperty(m_module,m_moduleProperty);
         //connect(this,)
 
     }

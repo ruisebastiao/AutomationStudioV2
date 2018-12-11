@@ -40,6 +40,10 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
     m_port->setDraggable(true);
     m_scenegraph= qobject_cast<SceneGraph*>(m_port->getNode()->getGraph());
 
+    QObject::connect(m_port, &qan::PortItem::labelChanged, this, [this](){
+        this->setPortLabel(m_port->getLabel());
+    });
+
 
     QObject::connect(m_port, &qan::PortItem::inEdgeAdded, this, [this](qan::EdgeItem& inEdgeItem){
 

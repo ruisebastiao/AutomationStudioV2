@@ -241,8 +241,8 @@ public slots:
         if (m_editWidth == editWidth)
             return;
 
-        if(editWidth<250)
-            editWidth=250;
+//        if(editWidth<250)
+//            editWidth=250;
 
         m_editWidth = editWidth;
         emit editWidthChanged(m_editWidth);
@@ -253,8 +253,8 @@ public slots:
         if (m_editHeight == editHeight)
             return;
 
-        if(editHeight<250)
-            editHeight=250;
+//        if(editHeight<250)
+//            editHeight=250;
 
 
         m_editHeight = editHeight;

@@ -6,6 +6,7 @@ Item{
    id:root
    property color textColor:Material.foreground
     property alias placeHolderText: placeholder_label.text
+   property alias label: placeholder_label
     Label{
         id:placeholder_label
         z:1
@@ -16,6 +17,7 @@ Item{
         color: (root.parent.focus===false || root.parent.text.length===0)?Material.foreground:Material.accent
         opacity:  (root.parent.focus===false || root.parent.text.length===0)?0.5:1
         Behavior on y{
+
             NumberAnimation { duration: 100}
         }
 
