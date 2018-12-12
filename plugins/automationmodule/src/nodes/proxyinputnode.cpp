@@ -7,10 +7,9 @@ ProxyInputNode::ProxyInputNode()
 
 
 
+    m_flowNodes= new FlowNodeManager(this);
 
 
-
-    m_proxyNodes= new ProxyInputNodeListModel();
 }
 
 QQmlComponent *ProxyInputNode::delegate(QQmlEngine &engine)
@@ -76,7 +75,7 @@ void ProxyInputNode::initProxyNode()
         auto proxynode=qobject_cast<ProxyInputNode*>(outEdgeItem.getEdge()->getDestination());
         if(proxynode){
 
-            proxynode->setSelectedBindedNode(this);
+//            proxynode->setSelectedBindedNode(this);
         }
 
     });
@@ -89,15 +88,15 @@ void ProxyInputNode::DeSerialize(QJsonObject &json)
     FlowNode::DeSerialize(json);
 
 
-    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
-        if(node->getType()==FlowNode::Type::ProxyInputNode){
+//    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
+//        if(node->getType()==FlowNode::Type::ProxyInputNode){
 
-            if(node->id()!=this->id()){
-                m_proxyNodes->addNode(node);
-            }
+//            if(node->id()!=this->id()){
+//                m_proxyNodes->addNode(node);
+//            }
 
-        }
-    }
+//        }
+//    }
 
 
 
@@ -120,31 +119,31 @@ void ProxyInputNode::initializePorts(QJsonObject &json)
     updateProxyType();
 }
 
-void ProxyInputNode::initializeNode()
+void ProxyInputNode::initializeNode(int id)
 {
-    FlowNode::initializeNode();
+    FlowNode::initializeNode(id);
 
     initProxyNode();
     QJsonObject jo;
     initializePorts(jo);
-    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
-        if(node->getType()==FlowNode::Type::ProxyInputNode){
+//    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
+//        if(node->getType()==FlowNode::Type::ProxyInputNode){
 
-            if(node->id()!=this->id()){
-                m_proxyNodes->addNode(node);
-            }
+//            if(node->id()!=this->id()){
+//                m_proxyNodes->addNode(node);
+//            }
 
-        }
-    }
+//        }
+//    }
 
 
 
 }
 
-void ProxyInputNodeListModel::onNodeAdded(FlowNode *nodeloaded)
-{
-    if(m_filterType==nodeloaded->getType()){
-        addNode(nodeloaded);
+//void ProxyInputNodeListModel::onNodeAdded(FlowNode *nodeloaded)
+//{
+//    if(m_filterType==nodeloaded->getType()){
+//        addNode(nodeloaded);
 
-    }
-}
+//    }
+//}

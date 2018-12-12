@@ -7,6 +7,7 @@ SOURCES += \
 HEADERS += \
         $$PWD/guimodule_plugin.h
 
+include($$PWD/SortFilterProxyModel/SortFilterProxyModel.pri)
 #DISTFILES = \
 #    $$PWD/qml/plugins.qmltypes \
 #    $$PWD/qml/TextScroller.qml \

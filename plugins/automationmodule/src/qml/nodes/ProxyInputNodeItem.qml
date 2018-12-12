@@ -6,7 +6,9 @@ import QtQuick.Layouts 1.3
 
 import guimodule 1.0
 
-import automationmodule 1.0 as Module
+import SortFilterProxyModel 0.2
+
+import automationmodule 1.0
 
 FlowNodeItem{
     //    normalWidth: 200
@@ -49,23 +51,45 @@ FlowNodeItem{
 
 
         }
-        Connections{
-            target:root.node
-            onSelectedBindedNodeChanged:{
-                if(selectedBindedNode){
-                    proxynode.currentIndex=proxynode.model.indexOf(selectedBindedNode)
-                }
+        //        Connections{
+        //            target:root.node
+        //            onSelectedBindedNodeChanged:{
+        //                if(selectedBindedNode){
+        //                    proxynode.currentIndex=proxynode.model.indexOf(selectedBindedNode)
+        //                }
 
-            }
+        //            }
 
-        }
-        Connections{
-            target:proxynode.model
-            onLengthChanged:{
-                if(length>0 && root.node.selectedBindedNode){
-                    proxynode.currentIndex=proxynode.model.indexOf(root.node.selectedBindedNode)
+        //        }
+        //        Connections{
+        //            target:proxynode.model
+        //            onLengthChanged:{
+        //                if(length>0 && root.node.selectedBindedNode){
+        //                    proxynode.currentIndex=proxynode.model.indexOf(root.node.selectedBindedNode)
+        //                }
+        //            }
+
+        //        }
+
+
+        SortFilterProxyModel {
+            id: proxyInputModel
+
+
+            sourceModel: root.node.flowNodes
+            filters: [
+                ValueFilter {
+                    enabled: true
+                    roleName: "nodeTypeRole"
+                    value: FlowNode.ProxyInputNode
+                },
+                ExpressionFilter {
+                    enabled: true
+                    expression: {
+                        return node.id !=root.node.id
+                    }
                 }
-            }
+            ]
 
         }
 
@@ -76,56 +100,59 @@ FlowNodeItem{
             id:proxynode
             enabled: root.node.proxyType=="Output"
 
-            Connections{
-                target:root.node.selectedBindedNode
-                onProxyTypeChanged:{
-                    if(root.node.selectedBindedNode.proxyType===root.node.proxyType){
-                        proxynode.currentIndex=-1
-                    }
+//            Connections{
+//                target:root.node.selectedBindedNode
+//                onProxyTypeChanged:{
+//                    if(root.node.selectedBindedNode.proxyType===root.node.proxyType){
+//                        proxynode.currentIndex=-1
+//                    }
 
-                }
+//                }
 
-            }
+//            }
 
 
             onCurrentIndexChanged: {
-                if(currentIndex==-1){
-                    root.node.selectedBindedNode=null;
-                }
+//                if(currentIndex==-1){
+//                    root.node.selectedBindedNode=null;
+//                }
             }
 
             Layout.fillWidth: true
             Layout.preferredHeight: 60
 
-            model: root.node.proxyNodes
-
-            //            on: {
-            //                if(root.node.selectedBindedNode){
-            //                    proxynode.currentIndex=proxynode.model.indexOf(root.node.selectedBindedNode)
-            //                }
-            //            }
+            model: proxyInputModel
 
             delegate:ItemDelegate{
                 width: parent.width
-                text: nodeName
-                visible: node.proxyType!==proxytype.currentText && node.id!==root.node.id
-                height: visible ? 60 : 0
+                text: node.name
+                //                visible: node.proxyType!==proxytype.currentText && node.id!==root.node.id
+                //                height: visible ? 60 : 0
                 property bool isCurrentItem: proxynode.currentIndex==index
                 onIsCurrentItemChanged: {
-                    if(isCurrentItem){
+                    if(root.node.configsLoaded){
 
-                        root.node.selectedBindedNode=node;
+
+                        if(isCurrentItem){
+
+                            //root.node.selectedBindedNode=node;
+                        }
                     }
                 }
-                //                Component.onCompleted: {
-                //                    if(root.node.selectedBindedNode){
-                //                        proxynode.currentIndex=proxynode.model.indexOf(root.node.selectedBindedNode)
-                //                    }
+            }
 
 
-                //                }
+
+
+            Component.onCompleted: {
+//                if(root.node.selectedBindedNode){
+//                    proxynode.currentIndex=proxynode.model.indexOf(root.node.selectedBindedNode)
+//                }
+
 
             }
+
+            //            }
 
 
             textRole: "nodeName"

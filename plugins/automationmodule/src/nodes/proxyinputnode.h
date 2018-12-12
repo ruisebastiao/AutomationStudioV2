@@ -2,33 +2,7 @@
 #define PROXYINPUTNODE_H
 
 #include "flownode.h"
-#include "flownodemanager.h"
 #include "qautomationmodule.h"
-
-
-class ProxyInputNodeListModel: public FlowNodeManager
-{
-    Q_OBJECT
-
-public:
-
-    ProxyInputNodeListModel(){
-
-        setFilterType(FlowNode::Type::ProxyInputNode);
-
-        QObject::connect(QAutomationModule::flownodemanager,SIGNAL(onFlowNodeLoaded(FlowNode*)),this,SLOT(onNodeAdded(FlowNode*)));
-
-    }
-
-
-
-
-    // FlowNodeManager interface
-public slots:
-    void onNodeAdded(FlowNode *nodeloaded) override;
-};
-
-
 
 
 class ProxyInputNode : public FlowNode
@@ -40,10 +14,12 @@ class ProxyInputNode : public FlowNode
 
     Q_PROPERTY(QString proxyType READ proxyType WRITE setProxyType NOTIFY proxyTypeChanged USER("serialize"))
 
-    Q_PROPERTY(FlowNode* selectedBindedNode READ selectedBindedNode WRITE setSelectedBindedNode NOTIFY selectedBindedNodeChanged)
+//    Q_PROPERTY(FlowNode* selectedBindedNode READ selectedBindedNode WRITE setSelectedBindedNode NOTIFY selectedBindedNodeChanged)
 
 
-    Q_PROPERTY(ProxyInputNodeListModel* proxyNodes READ proxyNodes WRITE setProxyNodes NOTIFY proxyNodesChanged)
+//   Q_PROPERTY(FlowNodeManager* proxyNodes READ proxyNodes WRITE setProxyNodes NOTIFY proxyNodesChanged)
+
+    Q_PROPERTY(FlowNodeManager* flowNodes READ flowNodes WRITE setFlowNodes NOTIFY flowNodesChanged)
 
 
 public:
@@ -53,9 +29,9 @@ public:
 
 
 
-    ProxyInputNodeListModel* proxyNodes() const
+    FlowNodeManager* flowNodes() const
     {
-        return m_proxyNodes;
+        return m_flowNodes;
     }
 
     QString proxyType() const
@@ -63,10 +39,10 @@ public:
         return m_proxyType;
     }
 
-    FlowNode* selectedBindedNode() const
-    {
-        return m_selectedBindedNode;
-    }
+//    FlowNode* selectedBindedNode() const
+//    {
+//        return m_selectedBindedNode;
+//    }
 
     QVariant input() const
     {
@@ -86,13 +62,16 @@ public slots:
 
     void initProxyNode();
 
-    void setProxyNodes(ProxyInputNodeListModel* proxyNodes)
+    void setFlowNodes(FlowNodeManager* flowNodes)
     {
-        if (m_proxyNodes == proxyNodes)
+        if (m_flowNodes == flowNodes)
             return;
 
-        m_proxyNodes = proxyNodes;
-        emit proxyNodesChanged(m_proxyNodes);
+        m_flowNodes = flowNodes;
+
+
+
+        emit flowNodesChanged(m_flowNodes);
     }
 
     void setProxyType(QString proxyType)
@@ -108,64 +87,64 @@ public slots:
 
     }
 
-    void setSelectedBindedNode(FlowNode* selectedBindedNode)
-    {
+//    void setSelectedBindedNode(FlowNode* selectedBindedNode)
+//    {
 
-        if (m_selectedBindedNode == selectedBindedNode)
-            return;
-
-
-
-
-        m_selectedBindedNode = selectedBindedNode;
-
-
-        if(configsLoaded()==false){
-            return;
-        }
-
-        FlowNodePort* outputport=getPortFromKey("output");
-        FlowNodePort* inputport=getPortFromKey("input");
-
-        if(!outputport || !inputport){
-            return;
-        }
-
-        SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
-
-        if(inputport->getPortItem()->getInEdgeItems().size()>0){
-
-            qan::EdgeItem* edgeitem=inputport->getPortItem()->getInEdgeItems().at(0);
-            graph->deleteEdge(edgeitem->getEdge());
-
-            QObject::connect(edgeitem, &qan::EdgeItem::destroyed,[this,graph,inputport](QObject* edgeObject){
-                if(m_selectedBindedNode){
-                    qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
-                    FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
-
-                    if(outPort){
-                        graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
-                    }
-                }
-            });
-        }
-        else{
-            if(m_selectedBindedNode){
-                qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
-                FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
-
-                if(outPort){
-                    graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
-                }
-            }
-        }
+//        if (m_selectedBindedNode == selectedBindedNode)
+//            return;
 
 
 
 
+//        m_selectedBindedNode = selectedBindedNode;
 
-        emit selectedBindedNodeChanged(m_selectedBindedNode);
-    }
+
+//        if(configsLoaded()==false){
+//            return;
+//        }
+
+//        FlowNodePort* outputport=getPortFromKey("output");
+//        FlowNodePort* inputport=getPortFromKey("input");
+
+//        if(!outputport || !inputport){
+//            return;
+//        }
+
+//        SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+
+//        if(inputport->getPortItem()->getInEdgeItems().size()>0){
+
+//            qan::EdgeItem* edgeitem=inputport->getPortItem()->getInEdgeItems().at(0);
+//            graph->deleteEdge(edgeitem->getEdge());
+
+//            QObject::connect(edgeitem, &qan::EdgeItem::destroyed,[this,graph,inputport](QObject* edgeObject){
+//                if(m_selectedBindedNode){
+//                    qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
+//                    FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
+
+//                    if(outPort){
+//                        graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
+//                    }
+//                }
+//            });
+//        }
+//        else{
+//            if(m_selectedBindedNode){
+//                qan::Edge* newedge=graph->insertNewEdge(true,m_selectedBindedNode,this);
+//                FlowNodePort* outPort=m_selectedBindedNode->getPortByID("output");
+
+//                if(outPort){
+//                    graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
+//                }
+//            }
+//        }
+
+
+
+
+
+//        emit selectedBindedNodeChanged(m_selectedBindedNode);
+//    }
 
     void setInput(QVariant input)
     {
@@ -190,11 +169,11 @@ signals:
 
 
 
-    void proxyNodesChanged(ProxyInputNodeListModel* proxyNodes);
+    void flowNodesChanged(FlowNodeManager* flowNodes);
 
     void proxyTypeChanged(QString proxyType);
 
-    void selectedBindedNodeChanged(FlowNode* selectedBindedNode);
+//    void selectedBindedNodeChanged(FlowNode* selectedBindedNode);
 
     void inputChanged(QVariant input);
 
@@ -205,11 +184,11 @@ private:
 
 
     // JsonSerializable interface
-    ProxyInputNodeListModel* m_proxyNodes= nullptr;
+    FlowNodeManager* m_flowNodes= nullptr;
 
     QString m_proxyType="";
 
-    FlowNode* m_selectedBindedNode=nullptr;
+//    FlowNode* m_selectedBindedNode=nullptr;
 
     QVariant m_input;
 
@@ -228,7 +207,7 @@ public:
 
     // FlowNode interface
 public:
-    void initializeNode() override;
+    void initializeNode(int id) override;
 };
 
 #endif // PROXYINPUTNODE_H

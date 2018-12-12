@@ -20,16 +20,14 @@ public:
     enum FlowNodeManagerRoles {
         NameRole = Qt::UserRole + 1,
         IDRole,
-        NodeRole
-
+        NodeRole,
+        NodeTypeRole
     };
 
     FlowNodeManager(QObject *parent = nullptr);
 
 
 signals:
-    void onFlowNodeLoaded(FlowNode* node);
-
 
     void lengthChanged(int length);
 
@@ -38,9 +36,9 @@ private:
     QMap<int,FlowNode*> m_flownodesTable;
 
 
+    QList<FlowNode*> m_proxynodes;
 
-protected:
-    FlowNode::Type m_filterType;
+
 
 public slots:
     FlowNode* getByID(int id);
@@ -52,12 +50,9 @@ public slots:
         return  idx;
     }
 
-    int length(){
+    int length() const{
         return  this->m_flownodes.length();
     }
-    virtual void onNodeAdded(FlowNode* nodeloaded);
-
-    // QAbstractItemModel interface
 
 
 public:
@@ -74,10 +69,13 @@ public:
 public:
     virtual QHash<int, QByteArray> roleNames() const override;
 
+    int getAvailableID();
+
     FlowNode::Type getFilterType() const;
     void setFilterType(const FlowNode::Type &filterType);
     QMap<int, FlowNode *> getFlownodesTable() const;
     void removeNode(FlowNode *node);
+    FlowNode *at(int index);
 };
 
 

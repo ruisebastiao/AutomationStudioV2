@@ -9,7 +9,6 @@ HEADERS += \
     $$PWD/nodes/flownode.h \
     $$PWD/ports/flownodeport.h \
     $$PWD/connectioninfo.h \
-    $$PWD/nodes/flownodemanager.h \
     $$PWD/nodes/barcodereadernode.h \
     $$PWD/usbnotifier.h \
     $$PWD/nodes/webservicenode.h \
@@ -19,7 +18,10 @@ HEADERS += \
     $$PWD/nodes/multiplexedinputnode.h \
     $$PWD/graphs/commonscenegraph.h \
     $$PWD/nodes/numericnode.h \
-    $$PWD/nodes/stringbuildernode.h
+    $$PWD/nodes/stringbuildernode.h \
+    $$PWD/flownodemanager.h \
+    $$PWD/nodes/moduleproxyinputnode.h \
+    $$PWD/moduleproxynodesmanager.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -29,7 +31,6 @@ SOURCES += \
     $$PWD/nodes/flownode.cpp \
     $$PWD/ports/flownodeport.cpp \
     $$PWD/connectioninfo.cpp \
-    $$PWD/nodes/flownodemanager.cpp \
     $$PWD/nodes/barcodereadernode.cpp \
     $$PWD/usbnotifier.cpp \
     $$PWD/nodes/webservicenode.cpp \
@@ -39,5 +40,9 @@ SOURCES += \
     $$PWD/nodes/multiplexedinputnode.cpp \
     $$PWD/graphs/commonscenegraph.cpp \
     $$PWD/nodes/numericnode.cpp \
-    $$PWD/nodes/stringbuildernode.cpp
+    $$PWD/nodes/stringbuildernode.cpp \
+    $$PWD/flownodemanager.cpp \
+    $$PWD/proxynodeinfo.cpp \
+    $$PWD/nodes/moduleproxyinputnode.cpp \
+    $$PWD/moduleproxynodesmanager.cpp
 

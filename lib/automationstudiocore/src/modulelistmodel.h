@@ -15,9 +15,10 @@ class AUTOMATIONSTUDIO_CORE_EXPORT ModuleListModel : public QAbstractListModel
 public:
     enum ListRoles {
         TypeRole = Qt::UserRole + 1,
-        ModuleInstanceRole = Qt::UserRole + 2,
-        ModuleSettingsRole = Qt::UserRole + 3,
-        ModuleRole = Qt::UserRole + 4
+        ModuleInstanceRole,
+        ModuleSettingsRole,
+        ModuleRole,
+        ModuleIDRole
     };
 
     ModuleListModel();

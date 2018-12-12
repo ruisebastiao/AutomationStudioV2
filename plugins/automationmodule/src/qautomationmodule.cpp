@@ -13,11 +13,10 @@
 
 #include <cutelogger/Logger.h>
 
-FlowNodeManager* QAutomationModule::flownodemanager=nullptr;
 
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 {
-    //    QAutomationModule::flownodemanager;
+
     m_commonNodeTypes.append(FlowNode::getCommonTypes());
 
 }
@@ -26,7 +25,7 @@ QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 void QAutomationModule::addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview)
 {
 
-    qDebug()<<"Adding common node:"<<nodeinfo<<" @ "<<loc;
+    qDebug()<<"Adding module node:"<<nodeinfo<<" @ "<<loc;
 
     QString nodeType;
     QMapIterator<QString, QVariant> i(nodeinfo);
@@ -39,8 +38,15 @@ void QAutomationModule::addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::Gra
     FlowNode* node=createModuleNode(graphview,nodeType);
 
     if(node){
-        node->initializeNode();
-        m_FlowNodes.append(node);
+
+        int nodeid=m_flownodemanager->getAvailableID();
+        if(nodeid==-1){
+            LOG_ERROR("Invalid node ID");
+        }
+
+        node->initializeNode(nodeid);
+
+        m_flownodemanager->addNode(node);
     }
 
 }
@@ -111,7 +117,8 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 
     QJsonArray nodesArray = m_configurationsObject["nodes"].toArray();
 
-    for (int i = 0; i < nodesArray.count(); ++i) {
+    int count=nodesArray.count();
+    for (int i = 0; i < count; ++i) {
         QJsonObject nodeObject=nodesArray[i].toObject();
         FlowNode* node=nullptr;
 
@@ -119,20 +126,16 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 
         if(node){
 
-            m_FlowNodes.append(node);
+            m_flownodemanager->addNode(node);
 
-            connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
-                int nodepos=m_FlowNodes.indexOf(nodetoremove);
-                if(nodepos>0){
-                    FlowNode* noderemoved=m_FlowNodes.at(nodepos);
-                    if(noderemoved){
-                        m_FlowNodes.removeAll(noderemoved);
-                        //noderemoved->deleteLater();
-                        this->m_graphView->getGraph()->removeNode(noderemoved);
-                        //this->m_graphView->getGraph()->remove
-                    }
+            connect(node,&FlowNode::destroyed,[&](QObject* node){
+                FlowNode* nodetoremove=dynamic_cast<FlowNode*>(node);
 
+                if(nodetoremove){
+                    this->m_graphView->getGraph()->removeNode(nodetoremove);
+                    m_flownodemanager->removeNode(nodetoremove);
                 }
+
             });
         }
 
@@ -150,10 +153,54 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 void QAutomationModule::loadConnections(){
     qDebug()<<"Setting node connections";
 
-    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
-        node->loadNodeConnections();
-    }
 
+    for (int var = 0; var < m_flownodemanager->length(); ++var) {
+        FlowNode* node=m_flownodemanager->at(var);
+
+        QMapIterator<string, FlowNodePort*> i(node->getOutPorts());
+        while (i.hasNext()) {
+            i.next();
+
+            FlowNodePort* nodeoutport =i.value();
+
+            if(nodeoutport){
+                foreach (ConnectionInfo* connection, nodeoutport->getConnections()) {
+
+
+                    FlowNode* targetnode=m_flownodemanager->getFlownodesTable()[connection->nodeID()];
+
+                    if(targetnode){
+                        string portkey=QString::number(connection->nodeID()).toStdString();
+                        portkey.append("|");
+                        portkey.append(connection->portID().toStdString());
+                        QMap<string,FlowNodePort *>  map=targetnode->getInPorts();
+                        FlowNodePort* targetport= map.value(portkey,nullptr);
+                        if(targetport){
+
+                            qan::PortItem* inport=targetport->getPortItem();
+                            if(inport->getInEdgeItems().size()>0){
+                                LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*node<<"| target node:"<< *targetnode<<")";
+                                continue;
+                            }
+                            qan::Edge* newedge= node->getScenegraph()->insertNewEdge(false,node,targetnode);
+                            if(newedge){
+                                node->getScenegraph()->bindEdge(newedge,nodeoutport->getPortItem(),targetport->getPortItem());
+
+                            }
+
+
+                        }
+                    }
+                    //std::get
+                }
+            }
+            else{
+                LOG_ERROR()<<*node<<"| null value from key:"<<QString::fromStdString(i.key());
+            }
+
+        }
+
+    }
 
 
 }
@@ -205,9 +252,14 @@ FlowNode *QAutomationModule::addCommonNode(QPoint loc, QVariantMap nodeinfo, qan
 
 
 
-        commonnode->initializeNode();
+        int nodeid=m_flownodemanager->getAvailableID();
+        if(nodeid==-1){
+            LOG_ERROR("Invalid node ID");
+        }
 
-        m_FlowNodes.append(commonnode);
+        commonnode->initializeNode(nodeid);
+
+        m_flownodemanager->addNode(commonnode);
 
         return commonnode;
 
@@ -270,8 +322,8 @@ void QAutomationModule::save()
     QJsonArray nodesArrayList;// = m_configurationsObject["nodes"].toArray();
 
 
-    for (int nodeIndex = 0; nodeIndex < m_FlowNodes.count(); ++nodeIndex) {
-        FlowNode* node=m_FlowNodes.at(nodeIndex);
+    for (int nodeIndex = 0; nodeIndex < m_flownodemanager->length(); ++nodeIndex) {
+        FlowNode* node=m_flownodemanager->at(nodeIndex);
 
         QJsonObject nodeoject;
 
@@ -385,3 +437,22 @@ void QAutomationModule::DeSerialize(QJsonObject &json)
 
 
 }
+
+
+
+//FlowNode *FlowNode::getFlowNodeById(int id, QList<FlowNode *> nodeList)
+//{
+//    for (int var = 0; var < nodeList.length(); ++var) {
+//        if(nodeList.at(var)->id()==id){
+//            return  nodeList.at(var);
+//        }
+//    }
+
+//    return nullptr;
+//}
+
+//int FlowNode::getAvailableID(QList<FlowNode *> list)
+//{
+//}
+
+

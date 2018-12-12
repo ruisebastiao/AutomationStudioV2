@@ -28,4 +28,7 @@ public:
     void registerTypes(const char *uri) Q_DECL_OVERRIDE;
     void initializeEngine(QQmlEngine *engine, const char *uri) Q_DECL_OVERRIDE;
 };
+
+//Q_DECLARE_METATYPE(ProxyNodeInfo)
+
 #endif // AUTOMATIONMODULE_PLUGIN_H

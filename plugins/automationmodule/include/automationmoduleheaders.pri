@@ -9,7 +9,6 @@ HEADERS += \
     $$PWD/automationmodule/flownodeport.h \
     $$PWD/automationmodule/connectioninfo.h \
     $$PWD/automationmodule/scenegraph.h \
-    $$PWD/automationmodule/flownodemanager.h \
     $$PWD/automationmodule/tcpclient.h
 
 

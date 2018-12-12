@@ -1,6 +1,5 @@
 #include "flownodeport.h"
 
-#include "../nodes/flownodemanager.h"
 #include "../qautomationmodule.h"
 
 #include "src/nodes/flownode.h"

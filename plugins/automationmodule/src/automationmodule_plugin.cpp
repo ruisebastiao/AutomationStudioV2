@@ -64,5 +64,5 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
 void AutomationModulePlugin::initializeEngine(QQmlEngine *engine, const char *){
     engine->addImportPath("qrc:///");
-     QAutomationModule::flownodemanager=new FlowNodeManager();
+//     QAutomationModule::proxyFlowNodes;
 }

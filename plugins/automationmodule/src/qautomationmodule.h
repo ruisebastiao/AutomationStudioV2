@@ -4,17 +4,17 @@
 #include <QQuickItem>
 #include <automationstudiocore/jsonserializable.h>
 #include "flownode.h"
-#include <flownodemanager.h>
 #include "automationmoduleglobal.h"
 #include "qanGraphView.h"
 #include "scenegraph.h"
+#include "flownodemanager.h"
 
 
 class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString moduleID READ moduleID WRITE setModuleID NOTIFY moduleIDChanged USER("serialize"))
+    Q_PROPERTY(int moduleID READ moduleID WRITE setModuleID NOTIFY moduleIDChanged)
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged USER("serialize"))
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
@@ -47,8 +47,6 @@ public:
     Q_INVOKABLE FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
     Q_INVOKABLE virtual void addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
 
-    static FlowNodeManager* flownodemanager;
-    //static QList<ConnectionInfo*> FlowNodeConnections;
 
     template<typename QEnum>
     static std::string QtEnumToString (const QEnum value)
@@ -124,18 +122,19 @@ private:
     qan::GraphView* m_graphView;
 
 
-    QString m_moduleID="";
+    int m_moduleID=-1;
 
 
     QVariantList m_commonNodeTypes;
 
 
+    FlowNodeManager* m_flownodemanager= new FlowNodeManager(this);
 
 
 
 protected:
-      QList<FlowNode *> m_FlowNodes;
-        QString m_moduleName="";
+//      QList<FlowNode *> m_FlowNodes;
+      QString m_moduleName="";
       QVariantList m_moduleNodeTypes;
 
 signals:
@@ -152,7 +151,7 @@ signals:
 
     void typeChanged(ModuleType type);
 
-    void moduleIDChanged(QString moduleID);
+    void moduleIDChanged(int moduleID);
     void configSourceChanged(QString configSource);
 
     void commonNodeTypesChanged(QVariantList commonNodeTypes);
@@ -193,7 +192,7 @@ public slots:
 
 
     // JsonSerializable interface
-    void setModuleID(QString moduleID)
+    void setModuleID(int moduleID)
     {
         if (m_moduleID == moduleID)
             return;
@@ -205,7 +204,7 @@ public slots:
 public:
 //    void Serialize(QJsonObject &json, QObject *target) override;
 //    void DeSerialize(QJsonObject &json, QObject *target) override;
-    QString moduleID() const
+    int moduleID() const
     {
         return m_moduleID;
     }
@@ -220,7 +219,7 @@ public:
 
     virtual FlowNode *createModuleNode(qan::GraphView* graphView , QString nodetype)=0;
 
-
+    static QList<FlowNode*> proxyFlowNodes;
 
 
     Q_INVOKABLE void loadConnections();
@@ -238,6 +237,10 @@ public:
     {
         return m_moduleName;
     }
+
+
+    //    static FlowNode* getFlowNodeById(int id,QList<FlowNode *> nodeList);
+
 
 
 protected:

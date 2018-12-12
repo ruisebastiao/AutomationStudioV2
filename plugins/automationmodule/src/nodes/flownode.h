@@ -79,6 +79,7 @@ public:
         EpsonNode,
         MultiplexedInputNode,
         NumericNode,
+        ModuleProxyInputNode,
         CommandSenderNode,
         StringBuilderNode,
         CommandParserNode
@@ -124,17 +125,6 @@ public:
     virtual ~FlowNode() override;
 
 
-
-
-
-
-//    static void loadNodeConnections(QList<FlowNode *> nodeList);
-    void loadNodeConnections();
-
-    static FlowNode* getFlowNodeById(int id,QList<FlowNode *> nodeList);
-
-    static int getAvailableID(QList<FlowNode*> list);
-
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
     //    virtual void write(QJsonObject &json) const;
     //    virtual void read(QJsonObject &json);
@@ -155,11 +145,11 @@ public:
     }
 
 
-    virtual void initializeNode();
+    virtual void initializeNode(int id);
 
     virtual void initializePorts(QJsonObject &json);
 
-    Q_INVOKABLE void remove();
+    //Q_INVOKABLE void remove();
 private:
 
 protected:
@@ -348,7 +338,7 @@ public slots:
 signals:
     void nameChanged(QString name);
 
-    void removeNode(FlowNode*);
+//    void removeNode(FlowNode*);
 
 //    void bindPortLabelToProperty(qan::PortItem* portItem,QString nodeProperty);
 
