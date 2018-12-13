@@ -6,7 +6,7 @@
 #include <QObject>
 #include "serializedlistmodel.h"
 
-class AUTOMATIONMODULE_EXPORT ModuleListModel : public SerializedListModel<QAutomationModule>
+class AUTOMATIONMODULE_EXPORT ModuleListModel : public TypedListModel<QAutomationModule>
 {
     Q_OBJECT
     Q_ENUMS(ListRoles)
@@ -27,22 +27,15 @@ public:
     // QAbstractItemModel interface
 public:
 
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &index, int role) const override;
 
 
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
 public slots:
 
 
 private:
 
 
-
-
-
-    // JsonSerializable interface
-public:
-    virtual void Serialize(QJsonObject &json) override;
-    virtual void DeSerialize(QJsonObject &json) override;
 };
 #endif // MODULELISTMODEL_H

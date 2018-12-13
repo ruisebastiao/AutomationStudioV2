@@ -13,7 +13,8 @@ class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize"))
     Q_PROPERTY(bool isDefault READ isDefault WRITE setIsDefault NOTIFY isDefaultChanged  USER("serialize"))
-    Q_PROPERTY(ModuleListModel* modules READ modules WRITE setModules NOTIFY modulesChanged)
+    Q_PROPERTY(ModuleListModel* modules READ modules NOTIFY modulesChanged)
+    Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged   USER("serialize"))
 
 
 
@@ -63,12 +64,23 @@ public slots:
         emit modulesChanged(m_modules);
     }
 
+    void setId(int id)
+    {
+        if (m_id == id)
+            return;
+
+        m_id = id;
+        emit idChanged(m_id);
+    }
+
 signals:
     void nameChanged(QString name);
 
     void isDefaultChanged(bool isDefault);
 
     void modulesChanged(ModuleListModel* modules);
+
+    void idChanged(int id);
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -79,11 +91,17 @@ public:
         return m_modules;
     }
 
+    int id() const
+    {
+        return m_id;
+    }
+
 private:
 
-    QString m_name="";
+    QString m_name="New Project";
     bool m_isDefault=false;
-    ModuleListModel* m_modules=nullptr;
+    ModuleListModel* m_modules=new ModuleListModel();
+    int m_id=-1;
 };
 
 

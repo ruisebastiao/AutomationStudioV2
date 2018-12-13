@@ -18,6 +18,8 @@ class AUTOMATIONSTUDIO_CORE_EXPORT AppUpdater: public QObject,public JsonSeriali
 {
     Q_OBJECT
 
+    Q_INTERFACES(JsonSerializable)
+
     Q_PROPERTY(QString downloadPath READ downloadPath WRITE setDownloadPath NOTIFY downloadPathChanged USER("serialize"))
 
     Q_PROPERTY(QString uploadPath READ uploadPath WRITE setUploadPath NOTIFY uploadPathChanged USER("serialize"))

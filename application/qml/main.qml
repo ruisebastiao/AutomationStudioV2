@@ -95,11 +95,11 @@ ApplicationWindow {
     property int selectionAnimationTime: 400
     property int mainStateAnimationTime: 350
     
-//    Binding{
-//        target: rootwindow
-//        property: "basesettings"
-//        value:automationstudio.settings
-//    }
+    //    Binding{
+    //        target: rootwindow
+    //        property: "basesettings"
+    //        value:automationstudio.settings
+    //    }
 
 
 
@@ -109,16 +109,18 @@ ApplicationWindow {
 
     property User loggedUser:settings&&settings.currentUser
 
-//    Binding{
-//        target: rootwindow
-//        property: "loggedUser"
-//        value:settings?settings.currentUser:null
+    //    Binding{
+    //        target: rootwindow
+    //        property: "loggedUser"
+    //        value:settings?settings.currentUser:null
 
-//    }
+    //    }
 
 
     onLoggedUserChanged: {
-        console.log("User role:"+loggedUser.role);
+        if(loggedUser){
+            console.log("User role:"+loggedUser.role);
+        }
     }
     
     onSettingsChanged:  {
@@ -131,23 +133,23 @@ ApplicationWindow {
     
     
     
-//    Connections{
-//        target: automationstudio.settings
-//        onLoadedChanged: {
-//            if(loaded){
+    //    Connections{
+    //        target: automationstudio.settings
+    //        onLoadedChanged: {
+    //            if(loaded){
 
-////                usersList.model=basesettings.users
-////                usersList.currentIndex= -1
-                
-//                // automationstudio.settings.currentUser=basesettings.users.getItemAt(0);
-                
-                
-//            }
-//        }
-//        onSourceChanged:{
-//            settings.load()
-//        }
-//    }
+    ////                usersList.model=basesettings.users
+    ////                usersList.currentIndex= -1
+
+    //                // automationstudio.settings.currentUser=basesettings.users.getItemAt(0);
+
+
+    //            }
+    //        }
+    //        onSourceChanged:{
+    //            settings.load()
+    //        }
+    //    }
 
     Component.onCompleted: {
         settings=automationstudio.settings;
@@ -337,7 +339,7 @@ ApplicationWindow {
 
                         ToolBar {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: 35
+                            Layout.preferredHeight: 48
                             Material.foreground: "white"
                             Label{
                                 anchors.fill: parent
@@ -347,11 +349,21 @@ ApplicationWindow {
 
                                 text: "Projects List"
                             }
+                            RoundButton{
+                                width: 48
+                                height: width
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.right: parent.right
+                                onClicked: {
+
+                                    settings.projects.createNewProject()
+                                }
+                            }
                         }
 
                         ListView {
                             id: projectslist
-
+                            model:settings && settings.projects
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             focus: true
@@ -1098,13 +1110,36 @@ ApplicationWindow {
 
 
             Image{
-                anchors.fill: parent
+                id:backLogo
+                anchors.centerIn: parent
+                //                Behavior on width {
+                //                    NumberAnimation {
+                //                        duration: 200
+                //                    }
+                //                }
+                height: width
+                width: rootwindow.width/1.75
                 source: "qrc:/images/novares02_1.png"
                 visible: opacity!=0
-                opacity: 0
-                //                opacity: loadingindicator.running?1:0
+                opacity: 1
+                fillMode:Image.PreserveAspectFit
+
                 Behavior on opacity {
-                    NumberAnimation { duration: 300 }
+                    NumberAnimation { duration: 400 }
+                }
+
+                Timer{
+                    interval: 1000
+                    repeat: false
+                    onTriggered: {
+                        //                        backLogo.width= Qt.binding( function(){ return rootwindow.width/1.75 } )
+                        backLogo.opacity=0
+
+                    }
+
+                    Component.onCompleted: {
+                        start()
+                    }
                 }
             }
 
@@ -1121,20 +1156,45 @@ ApplicationWindow {
 
             Component{
                 id:layoutcomponent
-                QProjectContainer{
+                //                QProjectContainer{
 
 
-//                    projectsFile: automationstudio.settings.projectsFile
+                //                    //                    projectsFile: automationstudio.settings.projectsFile
 
-//                    GUI.DockingLayout{
-//                        id:modulescontainer
+                GUI.DockingLayout{
+                    id:modulescontainer
+                    visible:settings&&settings.selectedProject
+                    anchors.fill: parent
+                    loggedUser:settings?settings.currentUser:null
 
-//                        anchors.fill: parent
-//                        loggedUser:basesettings?basesettings.currentUser:null
-//                        model: selectedproject?selectedproject.modules:null
-//                    }
+                    contentItem:Item{
+                        Layout.fillWidth: true
+                        Layout.fillHeight:true
+                        Repeater {
+                            id:repeater
+                            visible: count>0
+                            anchors.fill: parent
+                            model:settings&&settings.selectedProject
+                            GUI.DockingItem {
+                                id:dockingitem
+                                loggedUser: settings?settings.currentUser:null
+                                dockContainer: modulescontainer
 
+
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+
+                            }
+                        }
+                        Rectangle{
+                            anchors.fill: parent
+                            color: "red"
+                        }
+                    }
                 }
+
+                //                }
+
 
 
             }

@@ -14,7 +14,9 @@ class AUTOMATIONMODULE_EXPORT ProjectsListModel : public SerializedListModel<Pro
 {
     Q_OBJECT
     Q_ENUMS(MyRoles)
+    Q_INTERFACES(JsonSerializable)
 
+    int getAvailableID();
 public:
     enum MyRoles {
         NameRole = Qt::UserRole + 1,
@@ -24,15 +26,15 @@ public:
     ProjectsListModel(QObject *parent = nullptr);
     ~ProjectsListModel();
 
+    Q_INVOKABLE void createNewProject();
     // QAbstractItemModel interface
 public:
 
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &index, int role) const override;
 
 
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
 public slots:
-
 
 
 };

@@ -38,7 +38,7 @@ QVariant ModuleListModel::data(const QModelIndex &index, int role) const
     }
 
     if(role==ModuleIDRole){
-        return QVariant::fromValue(module->moduleID());
+        return QVariant::fromValue(module->id());
 
     }
 
@@ -56,15 +56,5 @@ QHash<int, QByteArray> ModuleListModel::roleNames() const
         { ModuleRole, "module" },
         { ModuleIDRole, "moduleID" }
     };
-}
-
-void ModuleListModel::Serialize(QJsonObject &json)
-{
-
-}
-
-void ModuleListModel::DeSerialize(QJsonObject &json)
-{
-
 }
 

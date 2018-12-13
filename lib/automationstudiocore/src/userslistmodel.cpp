@@ -22,36 +22,26 @@ QHash<int, QByteArray> UsersListModel::roleNames() const
 
 void UsersListModel::Serialize(QJsonObject &json)
 {
-    QJsonArray itemsArray;
-    for (int itemIndex = 0; itemIndex < m_internalList.length(); ++itemIndex) {
-        QJsonObject itemObject;
 
-        User *user= m_internalList.at(itemIndex);
-        user->Serialize(itemObject);
-
-        itemsArray.append(itemObject);
-
-    }
-
-//    auto teste=json["list"];
-
-    json["list"]=itemsArray;
 
 }
 
 void UsersListModel::DeSerialize(QJsonObject &json)
 {
-        QJsonArray listArray = json["list"].toArray();
-        for (int listIndex = 0; listIndex < listArray.size(); ++listIndex) {
-            QJsonObject projectObject = listArray[listIndex].toObject();
 
-            User *item= new User();
-            item->DeSerialize(projectObject);
-
-            AddItem(item);
-
-        }
 }
+
+//void UsersListModel::Serialize(QJsonArray &jsonarray)
+//{
+//    SerializedListModel::Serialize(jsonarray);
+
+
+//}
+
+//void UsersListModel::DeSerialize(QJsonArray &jsonarray)
+//{
+//    SerializedListModel::DeSerialize(jsonarray);
+//}
 
 
 

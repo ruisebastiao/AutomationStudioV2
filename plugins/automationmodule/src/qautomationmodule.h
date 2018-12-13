@@ -14,7 +14,8 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
 {
     Q_OBJECT
 
-    Q_PROPERTY(int moduleID READ moduleID WRITE setModuleID NOTIFY moduleIDChanged)
+
+    Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged)
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged USER("serialize"))
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
@@ -122,7 +123,7 @@ private:
     qan::GraphView* m_graphView;
 
 
-    int m_moduleID=-1;
+
 
 
     QVariantList m_commonNodeTypes;
@@ -131,6 +132,8 @@ private:
     FlowNodeManager* m_flownodemanager= new FlowNodeManager(this);
 
 
+
+    int m_id=-1;
 
 protected:
 //      QList<FlowNode *> m_FlowNodes;
@@ -151,7 +154,7 @@ signals:
 
     void typeChanged(ModuleType type);
 
-    void moduleIDChanged(int moduleID);
+
     void configSourceChanged(QString configSource);
 
     void commonNodeTypesChanged(QVariantList commonNodeTypes);
@@ -159,6 +162,8 @@ signals:
     void moduleNodeTypesChanged(QVariantList moduleNodeTypes);
 
     void moduleNameChanged(QString moduleName);
+
+    void idChanged(int id);
 
 public slots:
     void setName(QString name)
@@ -192,22 +197,20 @@ public slots:
 
 
     // JsonSerializable interface
-    void setModuleID(int moduleID)
+
+
+    void setId(int id)
     {
-        if (m_moduleID == moduleID)
+        if (m_id == id)
             return;
 
-        m_moduleID = moduleID;
-        emit moduleIDChanged(m_moduleID);
+        m_id = id;
+        emit idChanged(m_id);
     }
 
 public:
 //    void Serialize(QJsonObject &json, QObject *target) override;
 //    void DeSerialize(QJsonObject &json, QObject *target) override;
-    int moduleID() const
-    {
-        return m_moduleID;
-    }
 
     // JsonSerializable interface
 public:
@@ -242,6 +245,11 @@ public:
     //    static FlowNode* getFlowNodeById(int id,QList<FlowNode *> nodeList);
 
 
+
+    int id() const
+    {
+        return m_id;
+    }
 
 protected:
    Q_INVOKABLE virtual void loadModuleSettings(QString path);

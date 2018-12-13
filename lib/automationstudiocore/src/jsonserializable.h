@@ -11,20 +11,20 @@
 
 class AUTOMATIONSTUDIO_CORE_EXPORT JsonSerializable
 {
-//    Q_OBJECT
+    //    Q_OBJECT
 
 public:
 
 
 
-     virtual void Serialize(QJsonObject &json,QObject* target);
-     virtual void DeSerialize(QJsonObject &json,QObject* target);
+    virtual void Serialize(QJsonObject &json,QObject* target);
+    virtual void DeSerialize(QJsonObject &json,QObject* target);
 
-    virtual void Serialize(QJsonValue &jsonvalue);
-    virtual void DeSerialize(QJsonValue &jsonvalue);
+    virtual void Serialize(QJsonArray &jsonarray);
+    virtual void DeSerialize(QJsonArray &jsonarray);
 
-      virtual void Serialize(QJsonObject &json)=0;
-      virtual void DeSerialize(QJsonObject &json)=0;
+    virtual void Serialize(QJsonObject &json)=0;
+    virtual void DeSerialize(QJsonObject &json)=0;
 
 protected:
 

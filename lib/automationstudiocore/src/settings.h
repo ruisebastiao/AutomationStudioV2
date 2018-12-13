@@ -56,13 +56,15 @@ class AUTOMATIONSTUDIO_CORE_EXPORT Settings : public QObject , public JsonSerial
     Q_PROPERTY(SocketIO* socketIO READ socketIO WRITE setSocketIO NOTIFY socketIOChanged)
     Q_PROPERTY(bool appRegistred READ appRegistred NOTIFY appRegistredChanged)
 
-    Q_PROPERTY(AppUpdater*  appUpdater READ appUpdater NOTIFY appUpdaterChanged USER("serialize"))
+    Q_PROPERTY(AppUpdater*  appUpdater READ appUpdater WRITE setAppUpdater NOTIFY appUpdaterChanged USER("serialize"))
 
     Q_PROPERTY(QString appID READ appID NOTIFY appIDChanged)
 
 
 
-    Q_PROPERTY(ProjectsListModel* projects READ projects WRITE setProjects NOTIFY projectsChanged)
+    Q_PROPERTY(Project* selectedProject READ selectedProject WRITE setSelectedProject NOTIFY selectedProjectChanged)
+
+    Q_PROPERTY(ProjectsListModel* projects READ projects WRITE setProjects NOTIFY projectsChanged USER("serialize"))
 
 
 
@@ -261,6 +263,24 @@ public slots:
         emit usersChanged(m_users);
     }
 
+    void setAppUpdater(AppUpdater* appUpdater)
+    {
+        if (m_appUpdater == appUpdater)
+            return;
+
+        m_appUpdater = appUpdater;
+        emit appUpdaterChanged(m_appUpdater);
+    }
+
+    void setSelectedProject(Project* selectedProject)
+    {
+        if (m_selectedProject == selectedProject)
+            return;
+
+        m_selectedProject = selectedProject;
+        emit selectedProjectChanged(m_selectedProject);
+    }
+
 signals:
     void sourceChanged(QString source);
 
@@ -300,6 +320,8 @@ signals:
 
     void basefileErrorChanged(bool basefileError);
 
+    void selectedProjectChanged(Project* selectedProject);
+
 private:
 
 private:
@@ -323,14 +345,16 @@ private:
 
 
     bool m_appRegistred=false;
-    AppUpdater* m_appUpdater;
+    AppUpdater* m_appUpdater=nullptr;
     QString m_appID="";
     QString m_projectsFile;
 
     // JsonSerializable interface
-    ProjectsListModel* m_projects;
+    ProjectsListModel* m_projects=new ProjectsListModel(this);
 
     bool m_basefileError=false;
+
+    Project* m_selectedProject=nullptr;
 
 public:
     virtual void Serialize(QJsonObject &json) override;
@@ -342,6 +366,10 @@ public:
     bool basefileError() const
     {
         return m_basefileError;
+    }
+    Project* selectedProject() const
+    {
+        return m_selectedProject;
     }
 };
 

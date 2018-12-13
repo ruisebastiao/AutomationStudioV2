@@ -400,6 +400,15 @@ void Settings::DeSerialize(QJsonObject &json)
     }
 
 
+    for (int var = 0; var < m_users->length(); ++var) {
+        if(m_users->at(var)->isDefault()){
+            setCurrentUser(m_users->at(var));
+            break;
+        }
+    }
+
+
+
     //    QJsonArray projectArray = json["projects"].toArray();
     //    for (int projectIndex = 0; projectIndex < projectArray.size(); ++projectIndex) {
     //        QJsonObject projectObject = projectArray[projectIndex].toObject();

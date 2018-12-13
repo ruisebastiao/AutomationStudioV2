@@ -33,16 +33,17 @@ void JsonSerializable::Serialize(QJsonObject &json, QObject *target)
 
 
                         if(serializable){
-                            QJsonObject propJson;
+
 
                             auto isabstractlist=value.canConvert<QAbstractListModel*>();
                             if(isabstractlist){
-                                QJsonArray itemsArray;
-                                propJson["list"]=itemsArray;
-                                serializable->Serialize(propJson);
-                                json[propName]=propJson["list"];
+
+                                QJsonArray propArray=json[propName].toArray();
+                                serializable->Serialize(propArray);
+                                json[propName]=propArray;
                             }
-                            else if(json[propName].isObject()) {
+                            else {
+                                QJsonObject propJson;
                                 propJson=json[propName].toObject();
                                 serializable->Serialize(propJson);
                                 json[propName]=propJson;
@@ -81,8 +82,11 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
             if(property.isReadable() && property.isWritable() && property.isUser()){
 
 
-                QVariant value = target->property(property.name());
+                QVariant value = target->property(propName);
 
+                if(value.isNull()==true || value.isValid()==false){
+                    continue;
+                }
                 auto isobject=value.canConvert<QObject*>();
                 if(isobject){
 
@@ -93,13 +97,14 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
                     if(serializable){
 
 
-                        QJsonValue val=json[propName];
+
                         if(json[propName].isArray()){
 
-                            //val.to
-                            serializable->DeSerialize(val);
+                            QJsonArray propJson=json[propName].toArray();
+                            serializable->DeSerialize(propJson);
                         }
                         else if(json[propName].isObject()) {
+                          QJsonObject propJson=json[propName].toObject();
                            serializable->DeSerialize(propJson);
                         }
 
@@ -119,6 +124,17 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
         }
     }
     m_deserialized=true;
+}
+
+void JsonSerializable::Serialize(QJsonArray &jsonarray)
+{
+
+}
+
+void JsonSerializable::DeSerialize(QJsonArray &jsonarray)
+{
+
+
 }
 
 

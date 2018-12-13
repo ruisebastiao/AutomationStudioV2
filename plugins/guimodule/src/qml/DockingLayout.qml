@@ -10,31 +10,24 @@ import automationmodule 1.0
 Item {
     id:root
 
-    property alias model:repeater.model
+//    property alias model:repeater.model
 
     property User loggedUser
 
+
+    property Item contentItem
+    onContentItemChanged: {
+        if(contentItem){
+            contentItem.parent=rootlayout
+        }
+    }
 
     GridLayout{
         id:rootlayout
         anchors.margins: 5
         anchors.fill: parent
 
-        Repeater {
-            id:repeater
 
-            DockingItem {
-                id:dockingitem
-                loggedUser: root.loggedUser
-                dockContainer: root
-
-
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-
-            }
-
-        }
 
     }
 

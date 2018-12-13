@@ -23,16 +23,16 @@ void Project::Serialize(QJsonObject &json)
 void Project::DeSerialize(QJsonObject &json)
 {
     JsonSerializable::DeSerialize(json,this);
-    QJsonArray modulesArray = json["modules"].toArray();
-    for (int projectIndex = 0; projectIndex < modulesArray.size(); ++projectIndex) {
-        QJsonObject moduleObject = modulesArray[projectIndex].toObject();
+//    QJsonArray modulesArray = json["modules"].toArray();
+//    for (int projectIndex = 0; projectIndex < modulesArray.size(); ++projectIndex) {
+//        QJsonObject moduleObject = modulesArray[projectIndex].toObject();
 
-//        QAutomationModule *module= new QAutomationModule();
-//        module->DeSerialize(moduleObject);
+////        QAutomationModule *module= new QAutomationModule();
+////        module->DeSerialize(moduleObject);
 
-//        m_modules->AddModule(module);
+////        m_modules->AddModule(module);
 
-    }
+//    }
 
 }
 

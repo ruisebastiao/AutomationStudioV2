@@ -20,7 +20,8 @@ HEADERS += \
     $$PWD/socketio.h \
     $$PWD/appupdater.h \
     $$PWD/tcpclient.h \
-    $$PWD/serializedlistmodel.h
+    $$PWD/serializedlistmodel.h \
+    $$PWD/typedlistmodel.h
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
@@ -39,7 +40,8 @@ SOURCES += \
     $$PWD/socketio.cpp \
     $$PWD/appupdater.cpp \
     $$PWD/tcpclient.cpp \
-    $$PWD/serializedlistmodel.cpp
+    $$PWD/serializedlistmodel.cpp \
+    $$PWD/typedlistmodel.cpp
 
 win32{
     SOURCES +=

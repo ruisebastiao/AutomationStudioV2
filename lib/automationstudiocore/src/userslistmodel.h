@@ -39,6 +39,11 @@ public:
 public:
     virtual void Serialize(QJsonObject &json) override;
     virtual void DeSerialize(QJsonObject &json) override;
+
+    // JsonSerializable interface
+public:
+//    virtual void Serialize(QJsonArray &jsonvalue) override;
+//    virtual void DeSerialize(QJsonArray &jsonvalue) override;
 };
 
 }
