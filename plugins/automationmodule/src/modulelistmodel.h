@@ -1,13 +1,12 @@
 #ifndef MODULELISTMODEL_H
 #define MODULELISTMODEL_H
 
-#include "automationstudiocoreglobal.h"
-#include "module.h"
-
-#include <QAbstractListModel>
+#include "automationmoduleglobal.h"
+#include "qautomationmodule.h"
 #include <QObject>
+#include "serializedlistmodel.h"
 
-class AUTOMATIONSTUDIO_CORE_EXPORT ModuleListModel : public QAbstractListModel
+class AUTOMATIONMODULE_EXPORT ModuleListModel : public SerializedListModel<QAutomationModule>
 {
     Q_OBJECT
     Q_ENUMS(ListRoles)
@@ -27,21 +26,23 @@ public:
 
     // QAbstractItemModel interface
 public:
-    int rowCount(const QModelIndex &parent) const;
+
     QVariant data(const QModelIndex &index, int role) const;
 
-    void AddModule(Module *module);
-    void clear();
+
     QHash<int, QByteArray> roleNames() const;
 public slots:
-    Module *getItemAt(int index);
-    Q_INVOKABLE int count();
+
 
 private:
 
-    QList<Module*> m_modules;
 
 
 
+
+    // JsonSerializable interface
+public:
+    virtual void Serialize(QJsonObject &json) override;
+    virtual void DeSerialize(QJsonObject &json) override;
 };
 #endif // MODULELISTMODEL_H

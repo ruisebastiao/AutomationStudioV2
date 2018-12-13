@@ -3,16 +3,14 @@
 
 
 
-#include <QAbstractListModel>
+
 #include <QObject>
-#include "automationstudiocoreglobal.h"
+#include "automationmoduleglobal.h"
 #include <project.h>
-
-namespace as {
-
+#include "serializedlistmodel.h"
 
 
-class AUTOMATIONSTUDIO_CORE_EXPORT ProjectsListModel : public QAbstractListModel
+class AUTOMATIONMODULE_EXPORT ProjectsListModel : public SerializedListModel<Project>
 {
     Q_OBJECT
     Q_ENUMS(MyRoles)
@@ -28,23 +26,16 @@ public:
 
     // QAbstractItemModel interface
 public:
-    int rowCount(const QModelIndex &parent) const;
+
     QVariant data(const QModelIndex &index, int role) const;
 
-    void AddProject(Project *module);
-    void clear();
+
     QHash<int, QByteArray> roleNames() const;
 public slots:
-    Project *getItemAt(int index);
-    int count();
-
-private:
-
-    QList<Project*> m_projects;
 
 
 
 };
 
-}
+
 #endif // PROJECTSLISTMODEL_

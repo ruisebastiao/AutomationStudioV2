@@ -3,8 +3,8 @@ INCLUDEPATH += $$PWD/automationstudiocore
 
 HEADERS += \    
     $$PWD/automationstudiocore/user.h \
-    $$PWD/automationstudiocore/jsonserializable.h \
-    $$PWD/automationstudiocore/project.h \
+    $$PWD/automationstudiocore/jsonserializable.h \    
+    $$PWD/automationstudiocore/serializedlistmodel.h \
     $$PWD/automationstudiocore/systemsettings.h \
     $$PWD/automationstudiocore/plugincontext.h \
     $$PWD/automationstudiocore/utilities.h \
@@ -15,3 +15,4 @@ HEADERS += \
 
 include($$PWD/../../socket.io-client-cpp/socket.io-client-cpp-headers.pri)
 
+include($$PWD/../../../plugins/automationmodule/include/automationmoduleheaders.pri)

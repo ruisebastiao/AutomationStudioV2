@@ -2,6 +2,7 @@
 #define USER_H
 
 #include "automationstudiocoreglobal.h"
+#include "jsonserializable.h"
 
 #include "QMetaEnum"
 #include <QObject>
@@ -9,7 +10,7 @@
 
 
 
-class AUTOMATIONSTUDIO_CORE_EXPORT User : public QObject
+class AUTOMATIONSTUDIO_CORE_EXPORT User : public QObject,public JsonSerializable
 {
     Q_OBJECT
 
@@ -25,10 +26,10 @@ public:
     explicit User(QObject *parent = nullptr);
     User(const User& other){ }
 
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(UserRole role READ role WRITE setRole NOTIFY roleChanged)
-    Q_PROPERTY(QString pin READ pin WRITE setPin NOTIFY pinChanged)
-    Q_PROPERTY(bool isDefault READ isDefault WRITE setIsDefault NOTIFY isDefaultChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged USER("serialize"))
+    Q_PROPERTY(UserRole role READ role WRITE setRole NOTIFY roleChanged USER("serialize"))
+    Q_PROPERTY(QString pin READ pin WRITE setPin NOTIFY pinChanged USER("serialize"))
+    Q_PROPERTY(bool isDefault READ isDefault WRITE setIsDefault NOTIFY isDefaultChanged USER("serialize"))
 
     QString name() const
     {
@@ -45,9 +46,6 @@ public:
         return m_isDefault;
     }
 
-
-    void write(QJsonObject &json) const;
-    void read(QJsonObject &json);
 
 
     QString pin() const
@@ -124,6 +122,11 @@ private:
 
 
     QString m_pin="0000";
+
+    // JsonSerializable interface
+public:
+    virtual void Serialize(QJsonObject &json) override;
+    virtual void DeSerialize(QJsonObject &json) override;
 };
 
 

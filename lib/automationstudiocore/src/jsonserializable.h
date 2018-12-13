@@ -20,6 +20,9 @@ public:
      virtual void Serialize(QJsonObject &json,QObject* target);
      virtual void DeSerialize(QJsonObject &json,QObject* target);
 
+    virtual void Serialize(QJsonValue &jsonvalue);
+    virtual void DeSerialize(QJsonValue &jsonvalue);
+
       virtual void Serialize(QJsonObject &json)=0;
       virtual void DeSerialize(QJsonObject &json)=0;
 

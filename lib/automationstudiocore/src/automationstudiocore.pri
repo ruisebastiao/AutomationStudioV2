@@ -1,7 +1,6 @@
 INCLUDEPATH += $$PWD
 
 
-
 HEADERS += \
     $$PWD/libraryloadpath.h \
     $$PWD/settings.h \
@@ -17,14 +16,11 @@ HEADERS += \
     $$PWD/user.h \
     $$PWD/userslistmodel.h \
     $$PWD/jsonserializable.h \
-    $$PWD/project.h \
-    $$PWD/projectslistmodel.h \
-    $$PWD/modulelistmodel.h \
-    $$PWD/module.h \
     $$PWD/utilities.h \
     $$PWD/socketio.h \
     $$PWD/appupdater.h \
-    $$PWD/tcpclient.h
+    $$PWD/tcpclient.h \
+    $$PWD/serializedlistmodel.h
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
@@ -39,14 +35,11 @@ SOURCES += \
     $$PWD/user.cpp \
     $$PWD/userslistmodel.cpp \
     $$PWD/jsonserializable.cpp \
-    $$PWD/project.cpp \
-    $$PWD/projectslistmodel.cpp \
-    $$PWD/modulelistmodel.cpp \
-    $$PWD/module.cpp \
     $$PWD/utilities.cpp \
     $$PWD/socketio.cpp \
     $$PWD/appupdater.cpp \
-    $$PWD/tcpclient.cpp
+    $$PWD/tcpclient.cpp \
+    $$PWD/serializedlistmodel.cpp
 
 win32{
     SOURCES +=

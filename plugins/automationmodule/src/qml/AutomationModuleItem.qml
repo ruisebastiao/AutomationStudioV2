@@ -54,13 +54,6 @@ Item {
         Item{
             id: mainpagecontainer
 
-            //            Pane{
-            //                anchors.fill: parent
-            //                anchors.margins: 5
-            //                Material.elevation:6
-            //                id:mainpagecontainer
-
-            //            }
         }
 
         Item {

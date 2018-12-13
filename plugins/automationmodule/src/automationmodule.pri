@@ -21,7 +21,11 @@ HEADERS += \
     $$PWD/nodes/stringbuildernode.h \
     $$PWD/flownodemanager.h \
     $$PWD/nodes/moduleproxyinputnode.h \
-    $$PWD/moduleproxynodesmanager.h
+    $$PWD/moduleproxynodesmanager.h \
+    $$PWD/modulelistmodel.h \
+    $$PWD/project.h \
+    $$PWD/projectslistmodel.h \
+    $$PWD/qprojectcontainer.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -42,7 +46,11 @@ SOURCES += \
     $$PWD/nodes/numericnode.cpp \
     $$PWD/nodes/stringbuildernode.cpp \
     $$PWD/flownodemanager.cpp \
-    $$PWD/proxynodeinfo.cpp \
     $$PWD/nodes/moduleproxyinputnode.cpp \
-    $$PWD/moduleproxynodesmanager.cpp
+    $$PWD/moduleproxynodesmanager.cpp \
+    $$PWD/modulelistmodel.cpp \
+    $$PWD/project.cpp \
+    $$PWD/projectslistmodel.cpp \
+    $$PWD/qprojectcontainer.cpp
+
 

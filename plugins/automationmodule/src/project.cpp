@@ -27,10 +27,10 @@ void Project::DeSerialize(QJsonObject &json)
     for (int projectIndex = 0; projectIndex < modulesArray.size(); ++projectIndex) {
         QJsonObject moduleObject = modulesArray[projectIndex].toObject();
 
-        Module *module= new Module(this);
-        module->DeSerialize(moduleObject);
+//        QAutomationModule *module= new QAutomationModule();
+//        module->DeSerialize(moduleObject);
 
-        m_modules->AddModule(module);
+//        m_modules->AddModule(module);
 
     }
 

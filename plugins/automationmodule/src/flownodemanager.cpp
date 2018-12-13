@@ -2,7 +2,8 @@
 
 #include <nodes/proxyinputnode.h>
 
-FlowNodeManager::FlowNodeManager(QObject *parent):QAbstractListModel(parent){
+
+FlowNodeManager::FlowNodeManager(QObject *parent):SerializedListModel<FlowNode>(parent){
 
 
 }
@@ -12,11 +13,78 @@ QMap<int, FlowNode *> FlowNodeManager::getFlownodesTable() const
     return m_flownodesTable;
 }
 
+void FlowNodeManager::Serialize(QJsonObject &json)
+{
+
+}
+
+void FlowNodeManager::DeSerialize(QJsonObject &json)
+{
+
+}
+
+void FlowNodeManager::AddItem(FlowNode *item)
+{
+    if(!item){
+        return;
+    }
+
+    SerializedListModel::AddItem(item);
+
+
+    m_flownodesTable[item->id()]=item;
+
+
+    ProxyInputNode* proxynode=dynamic_cast<ProxyInputNode*>(item);
+
+    if(proxynode){
+        m_proxynodes.append(proxynode);
+        proxynode->setFlowNodes(this);
+
+    }
+
+
+    QModelIndex topLeft = createIndex(0,0);
+    emit dataChanged(topLeft, topLeft);
+
+    connect(item,&FlowNode::nameChanged,[this](){
+
+        layoutAboutToBeChanged();
+        layoutChanged();
+    });
+
+
+}
+
+
+
+void FlowNodeManager::RemoveItem(FlowNode *item)
+{
+
+    int itemIndex=m_internalList.indexOf(item);
+
+    if(itemIndex>=0){
+
+        ProxyInputNode* proxynode=dynamic_cast<ProxyInputNode*>(item);
+
+        if(proxynode){
+            m_proxynodes.removeAll(proxynode);
+        }
+
+
+        m_flownodesTable.take(itemIndex);
+
+
+    }
+
+    SerializedListModel::RemoveItem(item);
+}
+
 FlowNode *FlowNodeManager::getByID(int id)
 {
 
     FlowNode* nodefromid=nullptr;
-    std::all_of(m_flownodes.begin(), m_flownodes.end(), [&,id](FlowNode* node) {
+    std::all_of(m_internalList.begin(), m_internalList.end(), [&,id](FlowNode* node) {
         // return false if you want to break, true otherwise
         if(node->id()==id){
             nodefromid=node;
@@ -28,88 +96,15 @@ FlowNode *FlowNodeManager::getByID(int id)
 
 }
 
-FlowNode* FlowNodeManager::at(int index){
-    return m_flownodes.at(index);
-}
 
-void FlowNodeManager::addNode(FlowNode *node)
-{
-    if(!node){
-        return;
-    }
-
-
-    beginInsertRows(QModelIndex(), m_flownodes.length(), m_flownodes.length());   // kindly provided by superclass
-
-    m_flownodes.append(node);
-    m_flownodesTable[node->id()]=node;
-
-
-    ProxyInputNode* proxynode=dynamic_cast<ProxyInputNode*>(node);
-
-
-    endInsertRows();
-
-    if(proxynode){
-        m_proxynodes.append(proxynode);
-        proxynode->setFlowNodes(this);
-
-    }
-
-
-    //    emit dataChanged(index(0), index(0));
-
-    QModelIndex topLeft = createIndex(0,0);
-    emit dataChanged(topLeft, topLeft);
-
-    connect(node,&FlowNode::nameChanged,[this](){
-        //        emit dataChanged(index(0), index(0));
-        layoutAboutToBeChanged();
-        layoutChanged();
-    });
-
-    emit lengthChanged(length());
-}
-
-
-void FlowNodeManager::removeNode(FlowNode *node)
-
-{
-    int itemIndex=m_flownodes.indexOf(node);
-
-    if(itemIndex>=0){
-        beginRemoveRows(QModelIndex(), static_cast<int>(itemIndex), static_cast<int>(itemIndex));   // kindly provided by superclass
-
-        m_flownodes.removeAt(itemIndex);
-
-        ProxyInputNode* proxynode=dynamic_cast<ProxyInputNode*>(node);
-
-        if(proxynode){
-            m_proxynodes.removeAll(proxynode);
-        }
-
-
-        m_flownodesTable.take(itemIndex);
-
-        endRemoveRows();
-
-        emit lengthChanged(length());
-    }
-}
-
-
-int FlowNodeManager::rowCount(const QModelIndex &parent) const
-{
-    return length();
-}
 
 QVariant FlowNodeManager::data(const QModelIndex &index, int role) const
 {
-    if (index.row()<0 || index.row()>=m_flownodes.size()){
+    if (index.row()<0 || index.row()>=m_internalList.size()){
         return QVariant();
     }
 
-    FlowNode* node= m_flownodes.at(index.row());
+    FlowNode* node= m_internalList.at(index.row());
     if(node==nullptr){
         return QVariant();
     }
@@ -164,25 +159,25 @@ QHash<int, QByteArray> FlowNodeManager::roleNames() const
 int FlowNodeManager::getAvailableID()
 {
 
-    std::sort(std::begin(m_flownodes), std::end(m_flownodes), [](FlowNode* a, FlowNode *b) {return a->id() < b->id(); });
+    std::sort(std::begin(m_internalList), std::end(m_internalList), [](FlowNode* a, FlowNode *b) {return a->id() < b->id(); });
 
-    for (int var = 0; var < m_flownodes.length()-1; ++var) {
-        if(m_flownodes.at(var+1)->id()-m_flownodes.at(var)->id()>1){
+    for (int var = 0; var < m_internalList.length()-1; ++var) {
+        if(m_internalList.at(var+1)->id()-m_internalList.at(var)->id()>1){
             // check for available ids
-            FlowNode *node= m_flownodes.at(var);
+            FlowNode *node= m_internalList.at(var);
             return node->id()+1;
 
         }
     }
 
-    return m_flownodes.length();
+    return m_internalList.length();
 }
 
 
 
 QList<FlowNode *> FlowNodeManager::flownodes()
 {
-    return m_flownodes;
+    return m_internalList;
 }
 
 

@@ -72,7 +72,7 @@ Settings::Settings(QObject *parent, QString appdir)
 
     //    QList<QString> teste=Utilities::QtEnumsToStrings<User::UserRole>(false);
 
-    m_projects= new ProjectsListModel();
+
     m_users= new UsersListModel();
 
     m_socketIO= new SocketIO(this,appid);
@@ -195,7 +195,7 @@ void Settings::registerApp(){
 }
 
 Settings::~Settings(){
-    m_projects->deleteLater();
+
 }
 
 bool Settings::load()
@@ -246,21 +246,18 @@ bool Settings::load()
       }
 
 
-    m_settingsobject=settings.object();
+    QJsonObject settingsobject=settings.object();
 
     settingsFile.close();
 
 
-    if (m_settingsobject.isEmpty()) {
+    if (settingsobject.isEmpty()) {
             LOG_ERROR()<< "JSON object is empty.";
 
             return false;
-        }
+     }
 
-    read(m_settingsobject);
-
-    m_appUpdater->DeSerialize(m_settingsobject);
-    m_socketIO->DeSerialize(m_settingsobject);
+    DeSerialize(settingsobject);
 
 
 
@@ -271,32 +268,34 @@ bool Settings::load()
 
 bool Settings::save()
 {
+
     LOG_INFO()<<"saving settings to:"<<m_source;
+
+    QJsonObject json;
+
+    Serialize(json);
+
+    QJsonDocument saveDoc(json);
+
+
+
+    //QString settings_str(saveDoc.toJson(QJsonDocument::Compact));
+
+    QByteArray jsondoc = saveDoc.toJson();
+
+
     QFile saveFile(m_source);
 
-    if (!saveFile.open(QIODevice::ReadWrite)) {
+    if (!saveFile.open(QIODevice::WriteOnly)) {
         qWarning("Couldn't open save file.");
         saveFile.close();
         return false;
     }
 
-    write(m_settingsobject);
-
-    QJsonDocument saveDoc(m_settingsobject);
-
-
-
-    QString settings_str(saveDoc.toJson(QJsonDocument::Compact));
-
-    QByteArray jsondoc = saveDoc.toJson(QJsonDocument::Indented);
-
-
-    LOG_INFO()<<"Saved settings:"<<settings_str;
 
     saveFile.write(jsondoc);
 
-    saveFile.close();
-    //    emit settingsSaved();
+
     return true;
 
 }
@@ -356,6 +355,8 @@ void Settings::loadBaseSettings()
 
     setBasefileLoaded(true);
 
+    load();
+
     return;
 }
 
@@ -380,55 +381,50 @@ void Settings::setBasefileLoaded(bool basefileLoaded)
 
 }
 
-void Settings::read(QJsonObject &json)
+void Settings::Serialize(QJsonObject &json)
 {
-    setSelectedanguage(json["language"].toString());
-
-
-
-
-    m_projects->clear();
-
-
-    QJsonArray projectArray = json["projects"].toArray();
-    for (int projectIndex = 0; projectIndex < projectArray.size(); ++projectIndex) {
-        QJsonObject projectObject = projectArray[projectIndex].toObject();
-
-        Project *project= new Project();
-        project->DeSerialize(projectObject);
-
-        m_projects->AddProject(project);
-
-    }
-
-    m_users->clear();
-
-    QJsonArray usersArray = json["users"].toArray();
-    for (int userIndex = 0; userIndex < usersArray.size(); ++userIndex) {
-        QJsonObject userObject = usersArray[userIndex].toObject();
-
-        User *user= new User();
-        user->read(userObject);
-        if(user->isDefault()){
-            setCurrentUser(user);
-        }
-        m_users->AddUser(user);
-
-    }
-
+    JsonSerializable::Serialize(json,this);
 
 
 }
 
-void Settings::write(QJsonObject &json) const
+void Settings::DeSerialize(QJsonObject &json)
 {
-    // TODO SERIALIZE
+    JsonSerializable::DeSerialize(json,this);
 
-    m_appUpdater->Serialize(json);
-    m_socketIO->Serialize(json);
+    for (int var = 0; var < m_users->length(); ++var) {
+        if(m_users->at(var)->isDefault()){
+            setCurrentUser(m_users->at(var));
+            break;
+        }
+    }
 
 
+    //    QJsonArray projectArray = json["projects"].toArray();
+    //    for (int projectIndex = 0; projectIndex < projectArray.size(); ++projectIndex) {
+    //        QJsonObject projectObject = projectArray[projectIndex].toObject();
 
+    //        Project *project= new Project();
+    //        project->DeSerialize(projectObject);
+
+    //        m_projects->AddProject(project);
+
+    //    }
+
+//        m_users->clear();
+
+//        QJsonArray usersArray = json["users"].toArray();
+//        for (int userIndex = 0; userIndex < usersArray.size(); ++userIndex) {
+//            QJsonObject userObject = usersArray[userIndex].toObject();
+
+//            User *user= new User();
+//            user->DeSerialize(userObject);
+//            if(user->isDefault()){
+//                setCurrentUser(user);
+//            }
+//            m_users->AddItem(user);
+
+//        }
 }
 
 

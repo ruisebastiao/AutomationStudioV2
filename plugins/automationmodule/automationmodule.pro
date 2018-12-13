@@ -19,7 +19,7 @@ include($$PWD/src/automationmodule.pri)
 
 include($$PWD/include/automationmoduleheaders.pri)
 linkLocalPlugin(QuickQanava)
-include($$PWD/../QuickQanava/include/quickqanavaheaders.pri)
+
 
 
 OTHER_FILES += \

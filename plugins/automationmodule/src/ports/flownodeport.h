@@ -7,8 +7,8 @@
 #include "../graphs/scenegraph.h"
 
 #include <QObject>
-#include <automationstudiocore/jsonserializable.h>
-#include <automationstudiocore/utilities.h>
+#include <jsonserializable.h>
+#include <utilities.h>
 
 class FlowNode;
 

@@ -4,12 +4,13 @@
 #include "flownode.h"
 
 #include <QAbstractListModel>
+#include <serializedlistmodel.h>
 
 #include "automationmoduleglobal.h"
 
 
 
-class AUTOMATIONMODULE_EXPORT FlowNodeManager : public QAbstractListModel
+class AUTOMATIONMODULE_EXPORT FlowNodeManager : public SerializedListModel<FlowNode>
 {
     Q_OBJECT
     Q_ENUMS(FlowNodeManagerRoles)
@@ -32,7 +33,7 @@ signals:
     void lengthChanged(int length);
 
 private:
-    QList<FlowNode*> m_flownodes;
+
     QMap<int,FlowNode*> m_flownodesTable;
 
 
@@ -46,20 +47,15 @@ public slots:
     QList<FlowNode *> flownodes();
 
     int indexOf(FlowNode* node){
-        int idx=this->m_flownodes.indexOf(node);
+        int idx=this->m_internalList.indexOf(node);
         return  idx;
     }
 
-    int length() const{
-        return  this->m_flownodes.length();
-    }
 
 
 public:
 
-    void addNode(FlowNode* node);
 
-    virtual int rowCount(const QModelIndex &parent) const override;
 
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
@@ -74,8 +70,33 @@ public:
     FlowNode::Type getFilterType() const;
     void setFilterType(const FlowNode::Type &filterType);
     QMap<int, FlowNode *> getFlownodesTable() const;
-    void removeNode(FlowNode *node);
-    FlowNode *at(int index);
+    //void removeNode(FlowNode *node);
+
+
+    // JsonSerializable interface
+public:
+    virtual void Serialize(QJsonObject &json) override;
+    virtual void DeSerialize(QJsonObject &json) override;
+
+    // SerializedListModel interface
+public:
+
+
+    // QAbstractItemModel interface
+public:
+
+
+    // SerializedListModel interface
+public:
+    virtual void AddItem(FlowNode *item) override;
+
+    // QAbstractItemModel interface
+public:
+
+
+    // SerializedListModel interface
+public:
+    virtual void RemoveItem(FlowNode *item) override;
 };
 
 

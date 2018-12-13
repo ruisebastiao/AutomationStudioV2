@@ -15,6 +15,7 @@
 ****************************************************************************/
 
 #include "automationmodule_plugin.h"
+#include "qprojectcontainer.h"
 #include "usbnotifier.h"
 
 #include <qqml.h>
@@ -27,7 +28,7 @@
 
 #include "automationstudiocore/user.h"
 
-#include <automationstudiocore/project.h>
+#include <project.h>
 
 #include <nodes/barcodereadernode.h>
 #include <nodes/proxyinputnode.h>
@@ -43,6 +44,8 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterUncreatableType<Project>(uri, 1, 0, "Project","Cannot be created");
 
     qmlRegisterUncreatableType<QAutomationModule>(uri, 1, 0, "AutomationModule","Cannot be created");
+    qmlRegisterType<QProjectContainer>(uri, 1, 0, "QProjectContainer");
+
 
 //    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
 

@@ -14,7 +14,7 @@ Item {
 
     property User loggedUser
 
-    property bool modulesloaded: false
+
     GridLayout{
         id:rootlayout
         anchors.margins: 5
@@ -27,31 +27,11 @@ Item {
                 id:dockingitem
                 loggedUser: root.loggedUser
                 dockContainer: root
-                loadedModuleInstance: moduleinstance
 
-                loadedModuleConfig: modulesettings
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                onLoadedmoduleChanged: {
-                    if(loadedmodule){
-                        root.modulesloaded=true
-                    }
-                }
 
-                Component.onDestruction: {
-                    console.log("Module removed:"+module)
-                }
-
-                Component.onCompleted: {
-                    console.log("New module:"+module)
-                }
-//                Rectangle{
-//                    width: 10
-//                    height: parent.height
-//                    color: "red"
-//                    anchors.left: parent.right
-//                }
             }
 
         }

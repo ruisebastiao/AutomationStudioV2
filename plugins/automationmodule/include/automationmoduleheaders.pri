@@ -3,6 +3,8 @@ INCLUDEPATH += $$PWD/automationmodule
 
 HEADERS += \
     $$PWD/automationmodule/qautomationmodule.h \
+    $$PWD/automationmodule/projectslistmodel.h \
+    $$PWD/automationmodule/project.h \
     $$PWD/automationmodule/automationmoduleglobal.h \
     $$PWD/automationmodule/selectableedge.h \
     $$PWD/automationmodule/flownode.h \
@@ -12,3 +14,4 @@ HEADERS += \
     $$PWD/automationmodule/tcpclient.h
 
 
+include($$PWD/../../QuickQanava/include/quickqanavaheaders.pri)

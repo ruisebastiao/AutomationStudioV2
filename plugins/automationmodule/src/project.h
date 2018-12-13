@@ -2,12 +2,12 @@
 #define PROJECT_H
 
 #include <QObject>
-#include "automationstudiocoreglobal.h"
+#include "automationmoduleglobal.h"
 #include "jsonserializable.h"
 #include "modulelistmodel.h"
 
 
-class AUTOMATIONSTUDIO_CORE_EXPORT Project : public QObject, public JsonSerializable
+class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
 {
     Q_OBJECT
 

@@ -6,22 +6,14 @@ User::User(QObject *parent) : QObject(parent)
 
 }
 
-
-void User::write(QJsonObject &json) const
+void User::Serialize(QJsonObject &json)
 {
+ JsonSerializable::Serialize(json,this);
 }
 
-void User::read(QJsonObject &json)
+void User::DeSerialize(QJsonObject &json)
 {
-    if(json.contains("name")){
-        setName(json["name"].toString());
-    }
-
-    if(json.contains("role")){
-        setRole(json["role"].toString());
-    }
-
-    m_pin=json["pin"].toString();
-    m_isDefault=json["default"].toBool();
+    JsonSerializable::DeSerialize(json,this);
 }
+
 

@@ -13,23 +13,7 @@ Pane{
     id:root
     Material.elevation:8
 
-    property AutomationModule loadedmodule
 
-
-    onLoadedmoduleChanged: {
-        loadedmodule.loadModuleSettings(loadedModuleConfig)
-    }
-
-    property string loadedModuleInstance
-
-    property string loadedModuleConfig
-
-    onLoadedModuleInstanceChanged:  {
-        if(loadedModuleInstance){
-            moduleloader.source="qrc:///AutomationModules/"+loadedModuleInstance
-        }
-
-    }
 
     property User loggedUser
 
@@ -51,7 +35,7 @@ Pane{
     padding: 1
     ColumnLayout{
         anchors.fill: parent
-        visible: loadedmodule
+
         spacing: 0
         ToolBar {
             id:header
@@ -64,7 +48,7 @@ Pane{
                 anchors.fill: parent
                 z: 999
                 RoundButton{
-                    visible: loadedmodule && loggedUser && loggedUser.role==User.AdminRole
+                    visible: loggedUser && loggedUser.role==User.AdminRole
                     highlighted: true
                     Material.background: Material.primary
                     Layout.preferredHeight: 48
@@ -186,16 +170,6 @@ Pane{
                     root.loadedmodule=moduleloader.item
                 }
             }
-
-
-
-//            BSValidationModuleItem{
-//                anchors.fill: parent
-//                Component.onCompleted: {
-//                    console.log("")
-//                }
-//            }
-
 
 
 

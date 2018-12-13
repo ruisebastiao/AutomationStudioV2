@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QtDebug>
 
-#include <automationstudiocore/jsonserializable.h>
+#include <jsonserializable.h>
 
 
 

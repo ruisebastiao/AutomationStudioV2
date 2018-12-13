@@ -46,7 +46,7 @@ void QAutomationModule::addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::Gra
 
         node->initializeNode(nodeid);
 
-        m_flownodemanager->addNode(node);
+        m_flownodemanager->AddItem(node);
     }
 
 }
@@ -126,14 +126,14 @@ void QAutomationModule::loadModuleSettings(QString pathstr){
 
         if(node){
 
-            m_flownodemanager->addNode(node);
+            m_flownodemanager->AddItem(node);
 
             connect(node,&FlowNode::destroyed,[&](QObject* node){
                 FlowNode* nodetoremove=dynamic_cast<FlowNode*>(node);
 
                 if(nodetoremove){
                     this->m_graphView->getGraph()->removeNode(nodetoremove);
-                    m_flownodemanager->removeNode(nodetoremove);
+                    m_flownodemanager->RemoveItem(nodetoremove);
                 }
 
             });
@@ -259,7 +259,7 @@ FlowNode *QAutomationModule::addCommonNode(QPoint loc, QVariantMap nodeinfo, qan
 
         commonnode->initializeNode(nodeid);
 
-        m_flownodemanager->addNode(commonnode);
+        m_flownodemanager->AddItem(commonnode);
 
         return commonnode;
 

@@ -95,67 +95,62 @@ ApplicationWindow {
     property int selectionAnimationTime: 400
     property int mainStateAnimationTime: 350
     
-    Binding{
-        target: rootwindow
-        property: "basesettings"
-        value:automationstudio.settings
-    }
-
-    Binding{
-        target: rootwindow
-        property: "selectedproject"
-        value:automationstudio.settings.selectedProject
-    }
+//    Binding{
+//        target: rootwindow
+//        property: "basesettings"
+//        value:automationstudio.settings
+//    }
 
 
 
-    property Settings basesettings
+
+
     property Utilities utilities
-    property Project selectedproject
-    property User loggedUser
 
-    Binding{
-        target: rootwindow
-        property: "loggedUser"
-        value:basesettings?basesettings.currentUser:null
+    property User loggedUser:settings&&settings.currentUser
 
-    }
+//    Binding{
+//        target: rootwindow
+//        property: "loggedUser"
+//        value:settings?settings.currentUser:null
+
+//    }
 
 
     onLoggedUserChanged: {
         console.log("User role:"+loggedUser.role);
     }
     
-    onBasesettingsChanged:  {
-        if(basesettings){
-            basesettings.loadBaseSettings()
+    onSettingsChanged:  {
+        if(settings){
+            settings.loadBaseSettings()
             stacked_view.push(maincontentview)
-            basesettings.initSocketIO();
+            settings.initSocketIO();
         }
     }
     
     
     
-    Connections{
-        target: automationstudio.settings
-        onLoadedChanged: {
-            if(loaded){
+//    Connections{
+//        target: automationstudio.settings
+//        onLoadedChanged: {
+//            if(loaded){
 
-                usersList.model=basesettings.users
-                usersList.currentIndex= -1
+////                usersList.model=basesettings.users
+////                usersList.currentIndex= -1
                 
-                // automationstudio.settings.currentUser=basesettings.users.getItemAt(0);
+//                // automationstudio.settings.currentUser=basesettings.users.getItemAt(0);
                 
                 
-            }
-        }
-        onSourceChanged:{
-            basesettings.load()
-        }
-    }
+//            }
+//        }
+//        onSourceChanged:{
+//            settings.load()
+//        }
+//    }
 
     Component.onCompleted: {
-        basesettings=automationstudio.settings;
+        settings=automationstudio.settings;
         //var teste=automationstudio.utilites.resourceExists("");
         utilities=automationstudio.utilities;
         console.log("Checking settings")
@@ -249,18 +244,9 @@ ApplicationWindow {
 
                                 login_container.opened=!login_container.opened
                             }
-                            onPressAndHold: {
-                                //                                automationstudio.settings.currentUser=basesettings.users.getItemAt(0);
-                            }
 
-                            //                            MouseArea{
-                            //                                anchors.fill: parent
-                            //                                propagateComposedEvents: true
-                            //                                pressAndHold: {
-                            //                                    automationstudio.settings.currentUser=basesettings.users.getItemAt(0);
-                            //                                    mouse.accepted=false
-                            //                                }
-                            //                            }
+
+
 
                         }
                         Item {
@@ -306,6 +292,11 @@ ApplicationWindow {
                             ListView{
                                 Material.foreground: "white"
                                 id:usersList
+                                model:settings&&settings.users
+                                onModelChanged: {
+                                    console.log("Users model changed");
+                                }
+
                                 anchors.topMargin: 8
                                 anchors.fill: parent
                                 focus: true
@@ -378,7 +369,7 @@ ApplicationWindow {
                                 onClicked: {
                                     if (projectslist.currentIndex != index) {
                                         projectslist.currentIndex = index
-                                        basesettings.selectedProject=model.project
+                                        settings.selectedProject=model.project
                                     }
                                     drawer.close()
                                 }
@@ -439,7 +430,7 @@ ApplicationWindow {
                             //                            anchors.leftMargin: mainState=="wizard"?10:0
                             spacing: 3
                             Item{
-                                visible:basesettings&& basesettings.currentUser
+                                visible:settings&& settings.currentUser
                                 id:drawer_container_layout
                                 Layout.preferredHeight: 48
                                 Layout.preferredWidth: 48
@@ -789,7 +780,7 @@ ApplicationWindow {
                                     Layout.preferredHeight: 48
                                     Layout.preferredWidth: 48
                                     
-                                    enabled: basesettings&&basesettings.loaded
+                                    enabled: settings&&settings.loaded
                                     //                    highlighted: true
                                     //    anchors.verticalCenter: parent.verticalCenter
                                     
@@ -838,7 +829,7 @@ ApplicationWindow {
                                         
                                         //                                        if(currentUser.isLogged) {
                                         
-                                        basesettings.save();
+                                        settings.save();
                                         
                                         //                                        }
                                     }
@@ -1040,14 +1031,14 @@ ApplicationWindow {
                             Layout.margins: 10
                             id:pass_input
                             Layout.fillWidth: true;
-//                            placeholderText: "PIN"
+                            //                            placeholderText: "PIN"
                             passwordCharacter: "*"
                             maximumLength:4
                             echoMode: TextInput.Password
                             inputMethodHints: Qt.ImhDigitsOnly
                             onTextChanged: {
                                 if(loginpopup.selectedUser.pin==text){
-                                    basesettings.currentUser=loginpopup.selectedUser;
+                                    settings.currentUser=loginpopup.selectedUser;
                                     loginpopup.close()
                                     pass_input.text=""
                                     login_container.opened=false
@@ -1084,22 +1075,10 @@ ApplicationWindow {
 
             id:basemodule
             //            //            anchors.fill: parent
-            visible:basesettings&&basesettings.basefileLoaded && basesettings.loaded
+            visible:settings&&settings.loaded
 
             Component.onCompleted: {
-                if(basesettings.basefileLoaded){
-                    projectslist.model=basesettings.projects
-                    var projects_count=basesettings.projects.count();
-                    console.log("Count:"+projects_count);
-                    for (var i = 0; i <projects_count; i++) {
-                        var project=basesettings.projects.getItemAt(i);
-                        if(project && project.isDefault){
-                            projectslist.currentIndex=i;
-                            basesettings.selectedProject=project
-                            break;
-                        }
-                    }
-                }
+
             }
 
 
@@ -1122,49 +1101,44 @@ ApplicationWindow {
                 anchors.fill: parent
                 source: "qrc:/images/novares02_1.png"
                 visible: opacity!=0
-
-                opacity: loadingindicator.running?1:0
+                opacity: 0
+                //                opacity: loadingindicator.running?1:0
                 Behavior on opacity {
                     NumberAnimation { duration: 300 }
                 }
             }
 
-            BusyIndicator {
-                id:loadingindicator
-                running: layoutloader.item.modulesloaded!==true
-                anchors.centerIn: parent
-                width: parent.width/3
-                height: parent.height/3
-            }
+            //            BusyIndicator {
+            //                id:loadingindicator
+            //                running: layoutloader.item.modulesloaded!==true
+            //                anchors.centerIn: parent
+            //                width: parent.width/3
+            //                height: parent.height/3
+            //            }
 
 
 
 
             Component{
                 id:layoutcomponent
-                GUI.DockingLayout{
-                    id:modulescontainer
+                QProjectContainer{
 
-                    anchors.fill: parent
-                    loggedUser:basesettings?basesettings.currentUser:null
-                    model: selectedproject?selectedproject.modules:null
+
+//                    projectsFile: automationstudio.settings.projectsFile
+
+//                    GUI.DockingLayout{
+//                        id:modulescontainer
+
+//                        anchors.fill: parent
+//                        loggedUser:basesettings?basesettings.currentUser:null
+//                        model: selectedproject?selectedproject.modules:null
+//                    }
+
                 }
+
 
             }
 
-
-
-
-            //            Connections {
-            //                target: basesettings
-            //                onSelectedProjectChanged: {
-            //                    if(selectedProject){
-            //                        //    maindocking.model=selectedProject.modules
-            //                    }
-            //                }
-
-
-            //            }
 
 
             Rectangle{
@@ -1172,13 +1146,13 @@ ApplicationWindow {
                 property bool sourcefileOK:false;
 
                 anchors.fill: parent
-                visible:basesettings&&basesettings.basefileLoaded && basesettings.loaded==false
+                visible:settings&&settings.basefileError
                 TextField{
                     id:source_path_id
                     anchors.centerIn: parent
                     width: 450;
 
-                    text: basesettings?basesettings.source:""
+                    text: settings?settings.source:""
                     onTextChanged: {
                         //                        if(utilities.fileExists(text)){
                         //                            console.log("file exists")
@@ -1208,7 +1182,7 @@ ApplicationWindow {
                         anchors.left: parent.right
                         onPressed:{
                             if(sourcefilenokId.sourcefileOK){
-                                basesettings.updateBaseSettings();
+                                settings.updateBaseSettings();
                             }else{
                                 fileDialog.open()
                             }
@@ -1229,9 +1203,9 @@ ApplicationWindow {
                             onAccepted: {
                                 //console.log("You chose: " + fileDialog.currentFile)
 
-                                basesettings.setSource(fileDialog.currentFile)
+                                settings.setSource(fileDialog.currentFile)
                                 source_path_id.text=Qt.binding(function(){
-                                    return basesettings.source;
+                                    return settings.source;
                                 }
                                 );
                             }
@@ -1346,7 +1320,7 @@ ApplicationWindow {
         target: automationstudio.settings
 
         onDoUpdate:{
-           updater.visible=true
+            updater.visible=true
         }
     }
 

@@ -2,7 +2,7 @@
 #define QAUTOMATIONMODULE_H
 
 #include <QQuickItem>
-#include <automationstudiocore/jsonserializable.h>
+#include <jsonserializable.h>
 #include "flownode.h"
 #include "automationmoduleglobal.h"
 #include "qanGraphView.h"

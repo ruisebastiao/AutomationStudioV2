@@ -4,7 +4,7 @@
 #include <qanNode.h>
 #include "automationmoduleglobal.h"
 
-#include <automationstudiocore/jsonserializable.h>
+#include <jsonserializable.h>
 
 #include <flownodeport.h>
 #include <qanGraphView.h>

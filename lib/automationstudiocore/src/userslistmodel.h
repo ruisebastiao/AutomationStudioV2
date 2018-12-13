@@ -3,17 +3,20 @@
 
 #include"automationstudiocoreglobal.h"
 
-#include <QAbstractListModel>
 #include <QObject>
 
+#include "serializedlistmodel.h"
 #include "user.h"
 
 namespace as{
 
-class AUTOMATIONSTUDIO_CORE_EXPORT UsersListModel : public QAbstractListModel
+class AUTOMATIONSTUDIO_CORE_EXPORT UsersListModel : public SerializedListModel<User>
 {
     Q_OBJECT
     Q_ENUMS(MyRoles)
+
+    Q_INTERFACES(JsonSerializable)
+
 public:
 
     enum MyRoles {
@@ -25,17 +28,17 @@ public:
     UsersListModel();
 
 public:
-    int rowCount(const QModelIndex &parent) const;
-    QVariant data(const QModelIndex &index, int role) const;
+
+    QVariant data(const QModelIndex &index, int role) const override;
 
 
-    Q_INVOKABLE User* getItemAt(int index);
+    QHash<int, QByteArray> roleNames() const override;
 
-    void AddUser(User *user);
-    void clear();
-    QHash<int, QByteArray> roleNames() const;
-private:
-    QList<User*> m_users;
+
+    // JsonSerializable interface
+public:
+    virtual void Serialize(QJsonObject &json) override;
+    virtual void DeSerialize(QJsonObject &json) override;
 };
 
 }

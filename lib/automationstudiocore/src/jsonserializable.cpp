@@ -1,6 +1,7 @@
 #include "jsonserializable.h"
 #include <QMetaProperty>
 #include <QVariant>
+#include <qabstractitemmodel.h>
 #include <qdebug.h>
 
 
@@ -10,25 +11,21 @@ void JsonSerializable::Serialize(QJsonObject &json, QObject *target)
         for (int i = 0; i < target->metaObject()->propertyCount(); i++)
         {
             QMetaProperty property = target->metaObject()->property(i);
+            const char* propName=property.name();
 
             QString classname=target->metaObject()->className();
             QString superclassname=target->metaObject()->superClass()->className();
 
             if(property.isReadable() && property.isUser()){
 
-                QVariant value = target->property(property.name());
+                QVariant value = target->property(propName);
                 if(property.isEnumType()){
 
                     QMetaEnum en = property.enumerator();
-                    json[property.name()]= en.key(target->property(property.name()).toInt());
+                    json[propName]= en.key(target->property(propName).toInt());
                 }
                 else{
 
-//                    auto teste=qvariant_cast<QVariant>(value);
-
-////                    if(){
-//                       qDebug()<<"prop:"<<property.name()<<"|Val:"<<teste;
-////                    }
                     auto isobject=value.canConvert<QObject*>();
                     if(isobject){
                         QObject* propvalue=value.value<QObject*>();
@@ -36,9 +33,23 @@ void JsonSerializable::Serialize(QJsonObject &json, QObject *target)
 
 
                         if(serializable){
-                            QJsonObject propjson;
-                            serializable->Serialize(propjson);
-                            json[property.name()]=propjson;
+                            QJsonObject propJson;
+
+                            auto isabstractlist=value.canConvert<QAbstractListModel*>();
+                            if(isabstractlist){
+                                QJsonArray itemsArray;
+                                propJson["list"]=itemsArray;
+                                serializable->Serialize(propJson);
+                                json[propName]=propJson["list"];
+                            }
+                            else if(json[propName].isObject()) {
+                                propJson=json[propName].toObject();
+                                serializable->Serialize(propJson);
+                                json[propName]=propJson;
+                            }
+
+
+
                         }
                     }
                     else{
@@ -80,8 +91,20 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
 
 
                     if(serializable){
-                        QJsonObject propJson=json[propName].toObject();
-                        serializable->DeSerialize(propJson);
+
+
+                        QJsonValue val=json[propName];
+                        if(json[propName].isArray()){
+
+                            //val.to
+                            serializable->DeSerialize(val);
+                        }
+                        else if(json[propName].isObject()) {
+                           serializable->DeSerialize(propJson);
+                        }
+
+
+                        target->setProperty(propName,value);
                     }
 
                 }
@@ -97,4 +120,5 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
     }
     m_deserialized=true;
 }
+
 
