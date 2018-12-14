@@ -27,6 +27,9 @@ class AutomationModulePlugin : public QQmlExtensionPlugin{
 public:
     void registerTypes(const char *uri) Q_DECL_OVERRIDE;
     void initializeEngine(QQmlEngine *engine, const char *uri) Q_DECL_OVERRIDE;
+
+    static QQmlEngine *engine;
+
 };
 
 //Q_DECLARE_METATYPE(ProxyNodeInfo)

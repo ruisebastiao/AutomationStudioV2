@@ -34,6 +34,7 @@
         <file>images/if_refresh_926645.png</file>
         <file>images/baseline_delete_white_48dp.png</file>
         <file>images/novares02_1.png</file>
+        <file>images/baseline_add_white_48dp.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="UbuntuMono-Bold.ttf">fonts/UbuntuMono-Bold.ttf</file>

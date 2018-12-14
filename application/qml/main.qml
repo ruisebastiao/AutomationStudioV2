@@ -1,13 +1,13 @@
 import QtQuick 2.10
 //import QtQuick.Window 2.10
 import QtQuick.VirtualKeyboard 2.3
-
+import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.3
-
+import QtQuick.Controls 2.4
 
 import QtQuick.Controls.Material 2.1
-import Qt.labs.platform 1.0
+//import Qt.labs.platform 1.0
 
 import QtGraphicalEffects 1.0
 
@@ -46,6 +46,22 @@ ApplicationWindow {
         target: settings
         onDoUpdate:{
             console.log("Updating to release:"+releasename);
+        }
+    }
+    property bool projectEditMode: false
+
+    property Utilities utilities
+
+    property User loggedUser:settings&&settings.currentUser
+
+    property Project selectedProject:settings&&settings.selectedProject
+
+    onSelectedProjectChanged: {
+        if(selectedProject){
+
+            if(selectedProject.modules.rowCount(null)<1){
+                projectEditMode=true
+            }
         }
     }
 
@@ -95,26 +111,11 @@ ApplicationWindow {
     property int selectionAnimationTime: 400
     property int mainStateAnimationTime: 350
     
-    //    Binding{
-    //        target: rootwindow
-    //        property: "basesettings"
-    //        value:automationstudio.settings
-    //    }
 
 
 
 
 
-    property Utilities utilities
-
-    property User loggedUser:settings&&settings.currentUser
-
-    //    Binding{
-    //        target: rootwindow
-    //        property: "loggedUser"
-    //        value:settings?settings.currentUser:null
-
-    //    }
 
 
     onLoggedUserChanged: {
@@ -131,25 +132,6 @@ ApplicationWindow {
         }
     }
     
-    
-    
-    //    Connections{
-    //        target: automationstudio.settings
-    //        onLoadedChanged: {
-    //            if(loaded){
-
-    ////                usersList.model=basesettings.users
-    ////                usersList.currentIndex= -1
-
-    //                // automationstudio.settings.currentUser=basesettings.users.getItemAt(0);
-
-
-    //            }
-    //        }
-    //        onSourceChanged:{
-    //            settings.load()
-    //        }
-    //    }
 
     Component.onCompleted: {
         settings=automationstudio.settings;
@@ -659,9 +641,69 @@ ApplicationWindow {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
                             }
-                            
+
+
+
+
+
+                            RoundButton{
+                                id:project_edit
+
+
+
+                                Material.elevation:0
+
+                                //opacity:networkManager_component.Ready?1:0
+
+                                Behavior on opacity {
+                                    NumberAnimation { duration: mainStateAnimationTime }
+                                }
+
+
+                                Behavior on Layout.preferredWidth {
+                                    NumberAnimation { duration: mainStateAnimationTime }
+                                }
+
+
+                                highlighted: rootwindow.projectEditMode
+
+                                onClicked: {
+                                    rootwindow.projectEditMode=!rootwindow.projectEditMode
+                                }
+
+
+                                states: [
+                                    State {
+                                        name: "invisible"
+                                        when: mainState!="home" || (loggedUser&&loggedUser.role!==User.AdminRole) || !settings.selectedProject
+                                        PropertyChanges { target: project_edit; Layout.preferredWidth: 0 }
+                                        PropertyChanges { target: project_edit; opacity: 0 }
+
+                                    },
+                                    State {
+                                        name: "visible"
+                                        when: mainState=="home" &&  (loggedUser&&loggedUser.role===User.AdminRole)
+                                        PropertyChanges { target: project_edit; Layout.preferredWidth: 48 }
+                                        PropertyChanges { target: project_edit; opacity: 1 }
+
+                                    }
+                                ]
+
+
+                                Image {
+
+                                    anchors.fill: parent
+                                    anchors.margins: 10
+                                    fillMode: Image.PreserveAspectFit
+                                    source: "qrc:/images/pencil.png"
+
+
+
+                                }
+                            }
+
                             ToolSeparator {
-                                rightPadding: 1
+                                //rightPadding: 1
                                 visible: loggedUser&&loggedUser.role===User.AdminRole
                                 
                             }
@@ -1156,41 +1198,84 @@ ApplicationWindow {
 
             Component{
                 id:layoutcomponent
-                //                QProjectContainer{
 
-
-                //                    //                    projectsFile: automationstudio.settings.projectsFile
 
                 GUI.DockingLayout{
                     id:modulescontainer
+
+
+
                     visible:settings&&settings.selectedProject
                     anchors.fill: parent
-                    loggedUser:settings?settings.currentUser:null
-
-                    contentItem:Item{
-                        Layout.fillWidth: true
-                        Layout.fillHeight:true
-                        Repeater {
-                            id:repeater
-                            visible: count>0
-                            anchors.fill: parent
-                            model:settings&&settings.selectedProject
-                            GUI.DockingItem {
-                                id:dockingitem
-                                loggedUser: settings?settings.currentUser:null
-                                dockContainer: modulescontainer
 
 
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
+                    Repeater{
+                        model: settings&&settings.selectedProject&&settings.selectedProject.modules
+                        GUI.DockingItem{
+                            id:moduledock
 
+
+                            property AutomationModule loadedmodule:module
+
+                            onLoadedmoduleChanged: {
+                                if(loadedmodule){
+                                    loadedmodule.parent=moduledock
+                                }
                             }
                         }
-                        Rectangle{
-                            anchors.fill: parent
-                            color: "red"
-                        }
                     }
+
+                    GUI.DockingItem{
+
+                        id:module_manager
+
+                        isHidden:rootwindow.projectEditMode==false || (settings && settings.currentUser.role!=User.AdminRole)
+
+
+                        RoundButton{
+                            anchors.centerIn: parent
+                            radius: 72
+                            highlighted: true
+                            Image {
+                                anchors.margins: 12
+                                anchors.fill: parent
+                                source: "qrc:/images/baseline_add_white_48dp.png"
+                            }
+                            onClicked: {
+                                context.popup()
+                            }
+
+                            Menu {
+                                id: context
+                                //                                    title: ""
+                                Action{
+                                    enabled: false
+                                    text: "Add module"
+                                }
+                                MenuSeparator { }
+
+                                Repeater{
+                                    model: availableModules
+                                    MenuItem {
+                                        text: modelData
+                                        onClicked: {
+                                            settings.selectedProject.createModule(text)
+
+                                        }
+                                    }
+
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+
+
+
+
                 }
 
                 //                }
@@ -1254,27 +1339,27 @@ ApplicationWindow {
 
                         }
                         highlighted: true;
-                        FileDialog {
-                            id: fileDialog
-                            title: "Please choose a file"
-                            //folder: shortcuts.home
-                            defaultSuffix:"json"
-                            nameFilters: ["Configutarion files (*.json)"]
-                            onAccepted: {
-                                //console.log("You chose: " + fileDialog.currentFile)
+                        //                        FileDialog {
+                        //                            id: fileDialog
+                        //                            title: "Please choose a file"
+                        //                            //folder: shortcuts.home
+                        //                            defaultSuffix:"json"
+                        //                            nameFilters: ["Configutarion files (*.json)"]
+                        //                            onAccepted: {
+                        //                                //console.log("You chose: " + fileDialog.currentFile)
 
-                                settings.setSource(fileDialog.currentFile)
-                                source_path_id.text=Qt.binding(function(){
-                                    return settings.source;
-                                }
-                                );
-                            }
-                            onRejected: {
-                                console.log("Canceled")
+                        //                                settings.setSource(fileDialog.currentFile)
+                        //                                source_path_id.text=Qt.binding(function(){
+                        //                                    return settings.source;
+                        //                                }
+                        //                                );
+                        //                            }
+                        //                            onRejected: {
+                        //                                console.log("Canceled")
 
-                            }
+                        //                            }
 
-                        }
+                        //                        }
                     }
                 }
 

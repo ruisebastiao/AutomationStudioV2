@@ -203,7 +203,7 @@ public:
 
     // FlowNode interface
 public:
-    virtual void initializePorts(QJsonObject &json) override;
+
 
     // FlowNode interface
 public:

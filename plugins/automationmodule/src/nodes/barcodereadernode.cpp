@@ -160,3 +160,11 @@ void BarcodeReaderNode::DeSerialize(QJsonObject &json)
     checkPorts();
 
 }
+
+void BarcodeReaderNode::initializeNode(int id)
+{
+    FlowNode::initializeNode(id);
+    checkPorts();
+
+
+}

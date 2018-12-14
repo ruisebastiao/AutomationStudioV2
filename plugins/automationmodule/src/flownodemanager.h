@@ -14,6 +14,7 @@ class AUTOMATIONMODULE_EXPORT FlowNodeManager : public SerializedListModel<FlowN
 {
     Q_OBJECT
     Q_ENUMS(FlowNodeManagerRoles)
+    Q_INTERFACES(JsonSerializable)
 
     Q_PROPERTY(int length READ length NOTIFY lengthChanged)
 
@@ -74,29 +75,24 @@ public:
 
 
     // JsonSerializable interface
-public:
-    virtual void Serialize(QJsonObject &json) override;
-    virtual void DeSerialize(QJsonObject &json) override;
+//public:
+//    virtual void Serialize(QJsonObject &json) override;
+//    virtual void DeSerialize(QJsonObject &json) override;
 
-    // SerializedListModel interface
-public:
-
-
-    // QAbstractItemModel interface
-public:
 
 
     // SerializedListModel interface
 public:
     virtual void AddItem(FlowNode *item) override;
 
-    // QAbstractItemModel interface
-public:
 
-
-    // SerializedListModel interface
 public:
     virtual void RemoveItem(FlowNode *item) override;
+
+    // JsonSerializable interface
+public:
+//    virtual void Serialize(QJsonArray &jsonarray) override;
+    virtual void DeSerialize(QJsonArray &jsonarray) override;
 };
 
 

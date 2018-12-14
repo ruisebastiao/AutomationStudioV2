@@ -202,7 +202,7 @@ Item{
 
                 ColumnLayout{
 
-                    visible: loggedUser.role==User.AdminRole
+                    visible: loggedUser&&loggedUser.role==User.AdminRole
                     Layout.fillWidth: true
                     Layout.preferredHeight: 200
                     PaneHeader{
@@ -432,7 +432,7 @@ Item{
                                                 Layout.margins: 5
                                                 Layout.minimumWidth: 150
                                                 Material.accent: selectedprimary
-                                                text:root.system.localIP
+                                                text:root.system?root.system.localIP:""
                                                 MaterialPlaceHolder{
 
                                                     placeHolderText:qsTr("IP")

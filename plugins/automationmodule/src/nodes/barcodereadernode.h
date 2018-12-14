@@ -279,6 +279,10 @@ public:
     {
         return m_rawdata;
     }
+
+    // FlowNode interface
+public:
+    virtual void initializeNode(int id) override;
 };
 
 

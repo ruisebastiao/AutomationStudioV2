@@ -30,26 +30,26 @@ QVariantList QBSValidationModule::getModuleNodeTypes() const
 
 
 
-void QBSValidationModule::loadModuleSettings(QString path)
-{
-    qDebug()<<"Loading BSValidation module";
-    QAutomationModule::loadModuleSettings(path);
-}
+//void QBSValidationModule::loadModuleSettings(QString path)
+//{
+//    qDebug()<<"Loading BSValidation module";
+//    QAutomationModule::loadModuleSettings(path);
+//}
 
 
-void QBSValidationModule::save()
-{
-    QAutomationModule::save();
-}
+//void QBSValidationModule::save()
+//{
+//    QAutomationModule::save();
+//}
 
-FlowNode *QBSValidationModule::createModuleNode(qan::GraphView *graphView, QString nodetype)
+FlowNode *QBSValidationModule::createModuleNode(QString nodetype)
 {
 
 
     qan::Node* newnode=nullptr;
 
     if(nodetype=="BSValidationNode"){
-        newnode=graphView->getGraph()->insertNode<BSValidationNode>(nullptr);
+        newnode=m_graphView->getGraph()->insertNode<BSValidationNode>(nullptr);
     }
     else{
         LOG_WARNING(QString("Unknown module node type:%1").arg(nodetype));

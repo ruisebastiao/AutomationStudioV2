@@ -1,5 +1,6 @@
 #include "modulelistmodel.h"
 
+
 ModuleListModel::ModuleListModel()
 {
 
@@ -10,8 +11,6 @@ ModuleListModel::~ModuleListModel()
 
     clear();
 }
-
-
 
 QVariant ModuleListModel::data(const QModelIndex &index, int role) const
 {

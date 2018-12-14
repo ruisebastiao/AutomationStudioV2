@@ -96,6 +96,7 @@ public:
         return m_id;
     }
 
+    Q_INVOKABLE QAutomationModule *createModule(QString moduleName);
 private:
 
     QString m_name="New Project";

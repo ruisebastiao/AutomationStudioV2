@@ -17,6 +17,9 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
 
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged)
 
+    //Q_PROPERTY(User loggedUser READ loggedUser WRITE setLoggedUser NOTIFY loggedUserChanged)
+
+
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged USER("serialize"))
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(bool moduleLoaded READ moduleLoaded WRITE setModuleLoaded NOTIFY moduleLoadedChanged)
@@ -28,6 +31,8 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
     Q_PROPERTY(QVariantList moduleNodeTypes READ moduleNodeTypes NOTIFY moduleNodeTypesChanged)
 
     Q_PROPERTY(QString moduleName READ moduleName NOTIFY moduleNameChanged)
+
+    Q_PROPERTY(FlowNodeManager* flowNodes READ flowNodes WRITE setFlowNodes NOTIFY flowNodesChanged USER("serialize"))
 
 public:
     enum ModuleType {
@@ -45,8 +50,9 @@ public:
     QAutomationModule(const QAutomationModule& other){ }
 
 
-    Q_INVOKABLE FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
-    Q_INVOKABLE virtual void addModuleNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview);
+    Q_INVOKABLE FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo);
+    Q_INVOKABLE virtual void addModuleNode(QPoint loc, QVariantMap nodeinfo);
+
 
 
     template<typename QEnum>
@@ -102,10 +108,11 @@ public:
 
 
 
+    FlowNode* readNode(QJsonObject nodeobject);
 
 private:
 
-    FlowNode* readNode(qan::GraphView* graphView ,QJsonObject nodeobject);
+
 
     QString m_name;
 
@@ -120,7 +127,7 @@ private:
 
 
 
-    qan::GraphView* m_graphView;
+
 
 
 
@@ -129,14 +136,16 @@ private:
     QVariantList m_commonNodeTypes;
 
 
-    FlowNodeManager* m_flownodemanager= new FlowNodeManager(this);
+
 
 
 
     int m_id=-1;
 
+    FlowNodeManager* m_flowNodes= new FlowNodeManager(this);
+
 protected:
-//      QList<FlowNode *> m_FlowNodes;
+        qan::GraphView* m_graphView=nullptr;
       QString m_moduleName="";
       QVariantList m_moduleNodeTypes;
 
@@ -164,6 +173,10 @@ signals:
     void moduleNameChanged(QString moduleName);
 
     void idChanged(int id);
+
+    void flowNodesChanged(FlowNodeManager* flowNodes);
+
+    void componentCompleted();
 
 public slots:
     void setName(QString name)
@@ -208,6 +221,7 @@ public slots:
         emit idChanged(m_id);
     }
 
+
 public:
 //    void Serialize(QJsonObject &json, QObject *target) override;
 //    void DeSerialize(QJsonObject &json, QObject *target) override;
@@ -218,11 +232,11 @@ public:
     void DeSerialize(QJsonObject &json) override;
 
 
-    FlowNode* createCommonNode(qan::GraphView* graphView , QString nodetype);
+    FlowNode* createCommonNode(QString nodetype);
 
-    virtual FlowNode *createModuleNode(qan::GraphView* graphView , QString nodetype)=0;
+    virtual FlowNode *createModuleNode(QString nodetype)=0;
 
-    static QList<FlowNode*> proxyFlowNodes;
+
 
 
     Q_INVOKABLE void loadConnections();
@@ -251,13 +265,27 @@ public:
         return m_id;
     }
 
+    FlowNodeManager* flowNodes() const
+    {
+        return m_flowNodes;
+    }
+
 protected:
-   Q_INVOKABLE virtual void loadModuleSettings(QString path);
-   Q_INVOKABLE virtual void save();
+//   Q_INVOKABLE virtual void loadModuleSettings(QString path);
+//   Q_INVOKABLE virtual void save();
 
     ModuleType m_type=ModuleType::AutomationModule;
 
 
+private:
+    void setFlowNodes(FlowNodeManager* flowNodes)
+    {
+        if (m_flowNodes == flowNodes)
+            return;
+
+        m_flowNodes = flowNodes;
+        emit flowNodesChanged(m_flowNodes);
+    }
 
 
 

@@ -49,7 +49,7 @@ public:
 public:
     virtual int rowCount(const QModelIndex &parent) const override
     {
-        return TypedListModel<T>::length();
+        return TypedListModel<T>::m_internalList.length();
     }
     virtual QVariant data(const QModelIndex &index, int role) const override
     {

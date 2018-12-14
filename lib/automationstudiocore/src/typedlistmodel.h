@@ -19,6 +19,7 @@ public:
 
         endInsertRows();
     }
+
     virtual void RemoveItem(T* item){
         int itemIndex=m_internalList.indexOf(item);
 
@@ -57,7 +58,7 @@ public:
         return nullptr;
     }
 
-    int length() const{
+    Q_INVOKABLE int length(){
         return m_internalList.length();
     }
 
@@ -69,7 +70,7 @@ protected:
     // QAbstractItemModel interface
 public:
     virtual int rowCount(const QModelIndex &parent) const override{
-        return this->length();
+        return m_internalList.length();
     }
 
 

@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="AutomationModules/AutomationModuleItem.qml">qml/AutomationModuleItem.qml</file>
+        <file alias="BaseModule/AutomationModuleItem.qml">qml/AutomationModuleItem.qml</file>
         <file alias="Nodes/BarcodeReaderNodeItem.qml">qml/nodes/BarcodeReaderNodeItem.qml</file>
         <file alias="Nodes/FlowNodeItem.qml">qml/nodes/FlowNodeItem.qml</file>
         <file alias="Nodes/ObjectPropertyNodeItem.qml">qml/nodes/ObjectPropertyNodeItem.qml</file>

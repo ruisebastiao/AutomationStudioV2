@@ -80,6 +80,8 @@ void ProxyInputNode::initProxyNode()
 
     });
 
+    updateProxyType();
+
 }
 
 void ProxyInputNode::DeSerialize(QJsonObject &json)
@@ -111,30 +113,13 @@ void ProxyInputNode::DeSerialize(QJsonObject &json)
 
 }
 
-void ProxyInputNode::initializePorts(QJsonObject &json)
-{
-    FlowNode::initializePorts(json);
-
-
-    updateProxyType();
-}
 
 void ProxyInputNode::initializeNode(int id)
 {
     FlowNode::initializeNode(id);
 
     initProxyNode();
-    QJsonObject jo;
-    initializePorts(jo);
-//    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
-//        if(node->getType()==FlowNode::Type::ProxyInputNode){
 
-//            if(node->id()!=this->id()){
-//                m_proxyNodes->addNode(node);
-//            }
-
-//        }
-//    }
 
 
 

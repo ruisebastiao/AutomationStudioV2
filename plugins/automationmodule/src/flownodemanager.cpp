@@ -13,15 +13,15 @@ QMap<int, FlowNode *> FlowNodeManager::getFlownodesTable() const
     return m_flownodesTable;
 }
 
-void FlowNodeManager::Serialize(QJsonObject &json)
-{
+//void FlowNodeManager::Serialize(QJsonObject &json)
+//{
 
-}
+//}
 
-void FlowNodeManager::DeSerialize(QJsonObject &json)
-{
+//void FlowNodeManager::DeSerialize(QJsonObject &json)
+//{
 
-}
+//}
 
 void FlowNodeManager::AddItem(FlowNode *item)
 {
@@ -78,6 +78,16 @@ void FlowNodeManager::RemoveItem(FlowNode *item)
     }
 
     SerializedListModel::RemoveItem(item);
+}
+
+//void FlowNodeManager::Serialize(QJsonArray &jsonarray)
+//{
+
+//}
+
+void FlowNodeManager::DeSerialize(QJsonArray &jsonarray)
+{
+
 }
 
 FlowNode *FlowNodeManager::getByID(int id)

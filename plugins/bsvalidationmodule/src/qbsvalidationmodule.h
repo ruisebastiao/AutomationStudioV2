@@ -20,6 +20,7 @@ class QBSValidationModule : public QAutomationModule
 public:
     QBSValidationModule(QQuickItem *parent=nullptr);
 
+
     bool bsOK() const
     {
         return m_bsOK;
@@ -136,16 +137,16 @@ void setBsNOK(bool bsNOK)
     emit bsNOKChanged(m_bsNOK);
 }
 
-protected:
-    void loadModuleSettings(QString path) override;
+//protected:
+//    void loadModuleSettings(QString path) override;
 
-    // QAutomationModule interface
-protected:
-    void save() override;
+//    // QAutomationModule interface
+//protected:
+//    void save() override;
 
     // QAutomationModule interface
 public:
-    virtual FlowNode *createModuleNode(qan::GraphView *graphView, QString nodetype) override;
+    virtual FlowNode *createModuleNode(QString nodetype) override;
 };
 
 #endif // QBSVALIDATIONMODULE_H

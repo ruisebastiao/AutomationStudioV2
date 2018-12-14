@@ -31,6 +31,7 @@ public:
 
 
     QHash<int, QByteArray> roleNames() const override;
+
 public slots:
 
 

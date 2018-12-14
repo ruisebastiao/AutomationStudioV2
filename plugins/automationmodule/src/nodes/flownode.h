@@ -147,7 +147,7 @@ public:
 
     virtual void initializeNode(int id);
 
-    virtual void initializePorts(QJsonObject &json);
+    void initializePorts(QJsonObject &json);
 
     //Q_INVOKABLE void remove();
 private:

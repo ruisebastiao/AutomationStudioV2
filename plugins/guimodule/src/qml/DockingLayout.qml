@@ -8,29 +8,20 @@ import QtQuick.Controls.Material 2.2
 import automationmodule 1.0
 
 Item {
-    id:root
+    id: root
+    anchors.fill: parent
+    default property alias contents: placeholder.children
 
-//    property alias model:repeater.model
-
-    property User loggedUser
-
-
-    property Item contentItem
-    onContentItemChanged: {
-        if(contentItem){
-            contentItem.parent=rootlayout
-        }
-    }
 
     GridLayout{
-        id:rootlayout
-        anchors.margins: 5
+        id:placeholder
         anchors.fill: parent
-
+        rowSpacing: 5
+        columnSpacing: 5
 
 
     }
-
-    //    Component.on
-
 }
+
+
+

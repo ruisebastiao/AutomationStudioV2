@@ -283,12 +283,12 @@ void FlowNode::Serialize(QJsonObject &json)
 void FlowNode::DeSerialize(QJsonObject &json)
 {
 
-    this->m_scenegraph=qobject_cast<SceneGraph*>(this->getGraph());
+
 
 
     JsonSerializable::DeSerialize(json,this);
 
-
+    this->m_scenegraph=qobject_cast<SceneGraph*>(this->getGraph());
 
     getItem()->setProperty("x",QVariant::fromValue(json["nodeX"].toDouble()));
     getItem()->setProperty("y",QVariant::fromValue(json["nodeY"].toDouble()));
@@ -301,7 +301,6 @@ void FlowNode::DeSerialize(QJsonObject &json)
     setEditHeight(json["editHeight"].toInt());
 
     initializePorts(json);
-
 
 //    emit QAutomationModule::flownodemanager->onFlowNodeLoaded(this);
 

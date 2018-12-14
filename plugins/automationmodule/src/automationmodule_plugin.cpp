@@ -36,6 +36,7 @@
 
 #include <graphs/commonscenegraph.h>
 
+QQmlEngine* AutomationModulePlugin::engine=nullptr;
 
 void AutomationModulePlugin::registerTypes(const char *uri){
     // @uri modules.automationmodule
@@ -67,5 +68,24 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
 void AutomationModulePlugin::initializeEngine(QQmlEngine *engine, const char *){
     engine->addImportPath("qrc:///");
+    AutomationModulePlugin::engine=engine;
+
+
+    // Create a QDir that points out to your path in the resources folder
+    QDir directory(":/AutomationModules/");
+
+    // Load all files with the *.PNG extension
+    // (you can modify this to suit your needs.
+    QStringList availableModules = directory.entryList();
+
+    for (int var = 0; var < availableModules.length(); ++var) {
+        QString modulename=availableModules.at(var);
+        modulename.replace("Item.qml","");
+        availableModules.replace(var,modulename);
+    }
+    engine->rootContext()->setContextProperty("availableModules", availableModules);
+
+
+
 //     QAutomationModule::proxyFlowNodes;
 }

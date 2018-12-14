@@ -12,192 +12,88 @@ import automationmodule 1.0
 Pane{
     id:root
     Material.elevation:8
+    clip: true
+    Layout.fillHeight: true
+    Layout.fillWidth: true
+
+    Layout.margins: 5
+    property bool isLoaded:false
+
+    property Item oldparent
+
+    Component.onCompleted: {
+        oldparent=parent
+        //        console.log("Completed")
+        isLoaded=true
+        setHidden()
+    }
 
 
+    function setHidden(){
+        if(isHidden){
+            //                console.log("isHidden:true")
+            root.Layout.fillWidth=false
 
-    property User loggedUser
+            root.Layout.preferredWidth=0
+
+            //            parent=null
+        }
+        else{
+            root.Layout.fillWidth=true
+            root.Layout.preferredWidth=-1
+            //            root.Layout.preferredWidth=500
+            //                console.log("isHidden:false")
+            //            parent=oldparent
+        }
+    }
+
+    property bool isHidden: false
+    onIsHiddenChanged: {
+        if(isLoaded){
+            setHidden()
+        }
+    }
 
 
-    property var dockContainer
+//    Behavior on implicitWidth{
+//        NumberAnimation { duration: 250 }
+//    }
+
+//    Behavior on width{
+//        NumberAnimation { duration: 250 }
+//    }
+
+//    Behavior on Layout.preferredWidth {
+//        NumberAnimation { duration: 250 }
+//    }
 
     opacity: 1
 
 
+    default property alias contents: placeholder.children
 
+    //    states: State {
+    //        name: "reparented"
+    //        ParentChange { target: root; parent: root.parent; x: 10; y: 10 }
+    //    }
 
+    //    transitions: Transition {
+    //        ParentAnimation {
+    //            NumberAnimation { properties: "x,y"; duration: 1000 }
+    //        }
+    //    }
 
-    Drag.active: dragArea.drag.active
-
-    Drag.hotSpot.x: dragArea.mouseX
-    Drag.hotSpot.y: dragArea.mouseY
-
-
-    padding: 1
-    ColumnLayout{
+    Item{
+        id:placeholder
         anchors.fill: parent
-
-        spacing: 0
-        ToolBar {
-            id:header
-            Layout.fillWidth: true
-            Layout.preferredHeight: 45
-            Layout.margins: 3
-            Material.foreground: "white"
-
-            RowLayout{
-                anchors.fill: parent
-                z: 999
-                RoundButton{
-                    visible: loggedUser && loggedUser.role==User.AdminRole
-                    highlighted: true
-                    Material.background: Material.primary
-                    Layout.preferredHeight: 48
-                    Layout.preferredWidth: 48
-                    Image{
-                        anchors.centerIn: parent
-                        fillMode: Image.PreserveAspectFit
-                        width: 30
-                        height: 30
-                        source:loadedmodule&&loadedmodule.editMode===false?"qrc:/images/pencil.png":"qrc:/images/arrow-left.png"
-                    }
-
-
-                    onClicked: {
-                        loadedmodule.editMode=!loadedmodule.editMode
-                    }
-
-                }
-
-                Label{
-                    Layout.fillWidth: true
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 18
-                    text:loadedmodule?loadedmodule.name:""
-                }
-                RoundButton{
-                    visible: loadedmodule&&loadedmodule.editMode
-                    highlighted: true
-                    Material.background: Material.primary
-                    Layout.preferredHeight: 48
-                    Layout.preferredWidth: 48
-                    Image{
-                        anchors.centerIn: parent
-                        fillMode: Image.PreserveAspectFit
-                        width: 24
-                        height: 24
-                        source:"qrc:/images/content-save.png"
-                    }
-
-
-                    onClicked: {
-
-                        loadedmodule.save();
-                    }
-
-                }
-
-            }
-
-
-
-            MouseArea {
-                id: dragArea
-                anchors.fill: parent
-
-//                drag.onActiveChanged: {
-//                    root.z=0
-//                }
-
-                drag.target: root
-
-
-
-                onDoubleClicked: {
-
-                    root.Layout.fillWidth=!root.Layout.fillWidth
-                    if(root.Layout.fillWidth==false){
-                        root.Layout.preferredWidth=root.parent.width
-                    }
-                    else{
-                        root.Layout.preferredWidth=-1
-                    }
-
-                    //                    root.z=99999
-                }
-
-                //                onPressAndHold: rect2.state="docking"
-                onPressed: {
-                    //rect2.beginDrag = Qt.point(rect2.x, rect2.y);
-                }
-                onReleased: {
-
-                    //                    if(!rect.caught) {
-                    //                        backAnimX.from = rect.x;
-                    //                        backAnimX.to = beginDrag.x;
-                    //                        backAnimY.from = rect.y;
-                    //                        backAnimY.to = beginDrag.y;
-                    //                        backAnim.start()
-                    //                    }
-                }
-            }
-
-
-
-        }
-
-        RectangularGlow{
-            Layout.fillWidth: true
-            color: "gray"
-            glowRadius: 1
-            spread: 0
-            Layout.preferredHeight: 2
-        }
-
-        Item{
-            id:modulecontainer
-
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Loader{
-                anchors.fill: parent
-
-
-                asynchronous:true
-                id:moduleloader
-                onLoaded: {
-                    root.loadedmodule=moduleloader.item
-                }
-            }
-
-
-
-        }
-
 
     }
 
+    //    MouseArea {
+    //        id: dragArea
+    //        anchors.fill: parent
 
-
-    states: [
-        State {
-            when: dragArea.drag.active
-            name: "docking"
-            ParentChange {
-                target: root;
-                parent: dockContainer;
-            }
-            PropertyChanges {
-                target: root
-                scale:0.98
-
-
-            }
-
-        }
-
-    ]
-
+    //        drag.target: parent.parent
+    //    }
 
 }

@@ -400,9 +400,9 @@ void Settings::DeSerialize(QJsonObject &json)
     }
 
 
-    for (int var = 0; var < m_users->length(); ++var) {
-        if(m_users->at(var)->isDefault()){
-            setCurrentUser(m_users->at(var));
+    for (int var = 0; var < m_projects->length(); ++var) {
+        if(m_projects->at(var)->isDefault()){
+            setSelectedProject(m_projects->at(var));
             break;
         }
     }
