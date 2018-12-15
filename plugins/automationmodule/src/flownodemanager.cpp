@@ -8,6 +8,23 @@ FlowNodeManager::FlowNodeManager(QObject *parent):SerializedListModel<FlowNode>(
 
 }
 
+int FlowNodeManager::indexOfID(int nodeID)
+{
+    int index=-1;
+    std::all_of(m_internalList.begin(), m_internalList.end(), [&,nodeID](FlowNode* node) {
+        // return false if you want to break, true otherwise
+        if(node->id()==nodeID){
+            index=node->id();
+            return false;
+        }
+
+        return true;
+
+    });
+    return  index;
+
+}
+
 QMap<int, FlowNode *> FlowNodeManager::getFlownodesTable() const
 {
     return m_flownodesTable;

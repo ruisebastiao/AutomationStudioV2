@@ -184,6 +184,7 @@ void FlowNode::initializePorts(QJsonObject &json)
         }
     }
 
+
 }
 
 FlowNodePort *FlowNode::getPortFromKey(QString key)

@@ -51,30 +51,24 @@ FlowNodeItem{
 
 
         }
-        //        Connections{
-        //            target:root.node
-        //            onSelectedBindedNodeChanged:{
-        //                if(selectedBindedNode){
-        //                    proxynode.currentIndex=proxynode.model.indexOf(selectedBindedNode)
-        //                }
-
-        //            }
-
-        //        }
-        //        Connections{
-        //            target:proxynode.model
-        //            onLengthChanged:{
-        //                if(length>0 && root.node.selectedBindedNode){
-        //                    proxynode.currentIndex=proxynode.model.indexOf(root.node.selectedBindedNode)
-        //                }
-        //            }
-
-        //        }
-
 
         SortFilterProxyModel {
             id: proxyInputModel
 
+            onCountChanged: {
+                for(var i=0;i<count;i++){
+                    var nodeModel=proxyInputModel.get(i);
+
+                    if(nodeModel){
+                        if(nodeModel.node.id==root.node.selectedBindedNodeID){
+                            proxynode.currentIndex=i;
+                            break;
+                        }
+                    }
+                }
+
+
+            }
 
             sourceModel: root.node.flowNodes
             filters: [
@@ -98,36 +92,26 @@ FlowNodeItem{
 
         ComboBox{
             id:proxynode
-            enabled: root.node.proxyType=="Output"
-
-//            Connections{
-//                target:root.node.selectedBindedNode
-//                onProxyTypeChanged:{
-//                    if(root.node.selectedBindedNode.proxyType===root.node.proxyType){
-//                        proxynode.currentIndex=-1
-//                    }
-
-//                }
-
-//            }
+            visible: root.node.proxyType=="Output"
 
 
-            onCurrentIndexChanged: {
-//                if(currentIndex==-1){
-//                    root.node.selectedBindedNode=null;
-//                }
-            }
 
             Layout.fillWidth: true
             Layout.preferredHeight: 60
 
             model: proxyInputModel
 
+
             delegate:ItemDelegate{
                 width: parent.width
                 text: node.name
-                //                visible: node.proxyType!==proxytype.currentText && node.id!==root.node.id
-                //                height: visible ? 60 : 0
+
+                Component.onCompleted:  {
+                    //                    if(node.id==root.node.selectedBindedNodeID){
+                    //                        proxynode.currentIndex=index
+                    //                    }
+                }
+
                 property bool isCurrentItem: proxynode.currentIndex==index
                 onIsCurrentItemChanged: {
                     if(root.node.configsLoaded){
@@ -135,24 +119,13 @@ FlowNodeItem{
 
                         if(isCurrentItem){
 
-                            //root.node.selectedBindedNode=node;
+                            root.node.setBindedFlowNode(node);
                         }
                     }
                 }
             }
 
 
-
-
-            Component.onCompleted: {
-//                if(root.node.selectedBindedNode){
-//                    proxynode.currentIndex=proxynode.model.indexOf(root.node.selectedBindedNode)
-//                }
-
-
-            }
-
-            //            }
 
 
             textRole: "nodeName"

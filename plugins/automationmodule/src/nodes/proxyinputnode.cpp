@@ -1,5 +1,53 @@
 #include "proxyinputnode.h"
 
+void ProxyInputNode::setBindedFlowNode(FlowNode *node)
+{
+    if(node->id()!=selectedBindedNodeID()){
+        setSelectedBindedNodeID(node->id());
+
+
+                if(configsLoaded()==false){
+                    return;
+                }
+
+                FlowNodePort* outputport=getPortFromKey("output");
+                FlowNodePort* inputport=getPortFromKey("input");
+
+                if(!outputport || !inputport){
+                    return;
+                }
+
+                SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+
+                if(inputport->getPortItem()->getInEdgeItems().size()>0){
+
+                    qan::EdgeItem* edgeitem=inputport->getPortItem()->getInEdgeItems().at(0);
+                    graph->deleteEdge(edgeitem->getEdge());
+
+                    QObject::connect(edgeitem, &qan::EdgeItem::destroyed,[&](QObject* edgeObject){
+                        if(node){
+                            qan::Edge* newedge=graph->insertNewEdge(true,node,this);
+                            FlowNodePort* outPort=node->getPortByID("output");
+
+                            if(outPort){
+                                graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
+                            }
+                        }
+                    });
+                }
+                else{
+                    if(node){
+                        qan::Edge* newedge=graph->insertNewEdge(true,node,this);
+                        FlowNodePort* outPort=node->getPortByID("output");
+
+                        if(outPort){
+                            graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
+                        }
+                    }
+                }
+    }
+}
+
 ProxyInputNode::ProxyInputNode()
 {
 
@@ -70,15 +118,15 @@ void ProxyInputNode::initProxyNode()
     }
 
 
-    QObject::connect(outputport->getPortItem(), &qan::PortItem::outEdgeAdded, this, [this](qan::EdgeItem& outEdgeItem){
+//    QObject::connect(outputport->getPortItem(), &qan::PortItem::outEdgeAdded, this, [this](qan::EdgeItem& outEdgeItem){
 
-        auto proxynode=qobject_cast<ProxyInputNode*>(outEdgeItem.getEdge()->getDestination());
-        if(proxynode){
+//        auto proxynode=qobject_cast<ProxyInputNode*>(outEdgeItem.getEdge()->getDestination());
+//        if(proxynode){
 
 //            proxynode->setSelectedBindedNode(this);
-        }
+//        }
 
-    });
+//    });
 
     updateProxyType();
 
@@ -90,26 +138,8 @@ void ProxyInputNode::DeSerialize(QJsonObject &json)
     FlowNode::DeSerialize(json);
 
 
-//    foreach (FlowNode* node, QAutomationModule::flownodemanager->flownodes()) {
-//        if(node->getType()==FlowNode::Type::ProxyInputNode){
-
-//            if(node->id()!=this->id()){
-//                m_proxyNodes->addNode(node);
-//            }
-
-//        }
-//    }
-
-
-
 
     initProxyNode();
-
-
-
-    //    setConfigsLoaded(true);
-    // updatePorts();
-
 
 }
 
@@ -125,10 +155,3 @@ void ProxyInputNode::initializeNode(int id)
 
 }
 
-//void ProxyInputNodeListModel::onNodeAdded(FlowNode *nodeloaded)
-//{
-//    if(m_filterType==nodeloaded->getType()){
-//        addNode(nodeloaded);
-
-//    }
-//}

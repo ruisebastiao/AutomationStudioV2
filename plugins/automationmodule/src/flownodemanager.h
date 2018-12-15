@@ -28,7 +28,7 @@ public:
 
     FlowNodeManager(QObject *parent = nullptr);
 
-
+    Q_INVOKABLE int indexOfID(int nodeID);
 signals:
 
     void lengthChanged(int length);

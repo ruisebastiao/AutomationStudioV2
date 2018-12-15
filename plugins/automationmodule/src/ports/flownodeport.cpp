@@ -4,8 +4,10 @@
 
 #include "src/nodes/flownode.h"
 
+#include <nodes/proxyinputnode.h>
 
-FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString portID)
+
+FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString portID, bool initialize)
 {
 
     m_node=node;
@@ -59,9 +61,9 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
     QObject::connect(m_port, &qan::PortItem::outEdgeAdded, this, [this](qan::EdgeItem& outEdgeItem){
 
-        if(!m_deserialized){
-            return;
-        }
+//        if(!m_deserialized){
+//            return;
+//        }
 
         QObject::connect(&outEdgeItem, &qan::EdgeItem::destroyed, this, [this](QObject* edgeObject){
 //            LOG_INFO("Out edge destroyed");
@@ -126,6 +128,22 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
         if(targetNode!=nullptr){
 
+            bool targetIsProxy=false;
+            bool sourceIsProxy=false;
+
+            if(dynamic_cast<ProxyInputNode*>(targetNode)){
+                targetIsProxy=true;
+            }
+
+            if(dynamic_cast<ProxyInputNode*>(m_node)){
+                sourceIsProxy=true;
+            }
+
+            if(targetIsProxy&& sourceIsProxy){
+               SelectableEdge* selectededge= dynamic_cast<SelectableEdge*>(outEdgeItem.getEdge());
+                selectededge->setIsHidden(true);
+            }
+
             //            targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
 
             QString signalname=m_port->getId()+"Changed(QVariant)";
@@ -184,6 +202,12 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
             ConnectionInfo* connectioninfo= new ConnectionInfo();
 
+
+
+
+            if(sourceIsProxy && targetIsProxy){
+                connectioninfo->setHidden(true);
+            }
 
             connectioninfo->setNodeID(targetNode->id());
             connectioninfo->setPortID(targetPortItem->getId());

@@ -20,7 +20,7 @@ class AUTOMATIONMODULE_EXPORT FlowNodePort:public QObject,public JsonSerializabl
 
 public:
 
-    FlowNodePort(FlowNode* node, qan::PortItem::Type type,QString portID);
+    FlowNodePort(FlowNode* node, qan::PortItem::Type type,QString portID,bool initialize=false);
 
     Q_PROPERTY(QString portLabel READ portLabel WRITE setPortLabel NOTIFY portLabelChanged USER("serialize"))
 
@@ -28,6 +28,7 @@ public:
     Q_PROPERTY(bool hidden READ hidden WRITE setHidden NOTIFY hiddenChanged USER("serialize"))
 
     Q_PROPERTY(qan::PortItem::Type type READ getType CONSTANT FINAL USER("serialize"))
+
 
 private:
 
@@ -86,8 +87,6 @@ private:
     bool m_showinlabel=false;
 
     bool m_hidden=false;
-
-    bool m_deserialized=false;
 
     FlowNode *getNodeFromEdge(qan::EdgeItem *edgeitem);
 

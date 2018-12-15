@@ -96,6 +96,7 @@ void Project::DeSerialize(QJsonObject &json)
 
 
             }
+            module->loadConnections();
 
         }
 
