@@ -9,6 +9,7 @@
 QEpsonModule::QEpsonModule(QQuickItem *parent)
 {
 
+    m_type=EpsonModule;
     m_moduleNodeTypes.append(getModuleNodeTypes());
     m_moduleName="Epson";
 }
@@ -36,46 +37,3 @@ QVariantList QEpsonModule::getModuleNodeTypes() const
 }
 
 
-
-void QEpsonModule::loadModuleSettings(QString path)
-{
-    qDebug()<<"Loading Epson module";
-    QAutomationModule::loadModuleSettings(path);
-}
-
-void QEpsonModule::save()
-{
-    QAutomationModule::save();
-}
-
-
-FlowNode *QEpsonModule::createModuleNode(qan::GraphView *graphView, QString nodetype)
-{
-
-    qan::Node* node=nullptr;
-
-
-    if(nodetype=="EpsonNode"){
-        node=graphView->getGraph()->insertNode<EpsonNode>(nullptr);
-    }
-    else if(nodetype=="CommandSenderNode"){
-        node=graphView->getGraph()->insertNode<CommandSenderNode>(nullptr);
-
-
-    }
-    else if(nodetype=="CommandParserNode"){
-        node=graphView->getGraph()->insertNode<CommandParserNode>(nullptr);
-
-
-    }
-
-    FlowNode* modulenode=dynamic_cast<FlowNode*>(node);
-    if(modulenode==nullptr){
-
-        LOG_WARNING(QString("Unknown EpsonModule node type:%1").arg(nodetype));
-
-    }
-
-
-    return  modulenode;
-}

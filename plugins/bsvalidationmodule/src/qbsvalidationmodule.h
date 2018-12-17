@@ -137,16 +137,6 @@ void setBsNOK(bool bsNOK)
     emit bsNOKChanged(m_bsNOK);
 }
 
-//protected:
-//    void loadModuleSettings(QString path) override;
-
-//    // QAutomationModule interface
-//protected:
-//    void save() override;
-
-    // QAutomationModule interface
-public:
-    virtual FlowNode *createModuleNode(QString nodetype) override;
 };
 
 #endif // QBSVALIDATIONMODULE_H

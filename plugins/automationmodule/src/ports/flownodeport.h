@@ -4,13 +4,16 @@
 #include <cutelogger/Logger.h>
 
 #include <connectioninfo.h>
-#include "../graphs/scenegraph.h"
-
 #include <QObject>
+#include <flownode.h>
 #include <jsonserializable.h>
 #include <utilities.h>
 
+#include <qanGraph.h>
+
 class FlowNode;
+
+class SceneGraph;
 
 class AUTOMATIONMODULE_EXPORT FlowNodePort:public QObject,public JsonSerializable
 {

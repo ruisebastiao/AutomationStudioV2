@@ -11,15 +11,7 @@ Q_OBJECT
 public:
     QEpsonModule(QQuickItem *parent=nullptr);
 
-    // QAutomationModule interface
-protected:
-    void loadModuleSettings(QString path) override;
-    void save() override;
 
-
-    // QAutomationModule interface
-public:
-    FlowNode *createModuleNode(qan::GraphView *graphView, QString nodetype) override;
 };
 
 #endif // QEPSONMODULE_H

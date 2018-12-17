@@ -6,14 +6,12 @@ import QtQuick.Controls.Material 2.2
 import automationmodule 1.0
 import epsonmodule 1.0
 
+import QuickQanava 2.0 as Qan
 import guimodule 1.0
 
 EpsonModule {
     id:root
     anchors.fill: parent
-
-
-
 
 
 
@@ -31,6 +29,44 @@ EpsonModule {
         id:moduleitem
         anchors.fill: parent
         loadedmodule: parent
+
+
+        graph:EpsonGraph {
+            id: dataflowGraph
+
+            portDelegate: Component {
+
+                FlowNodePortItem{
+
+                }
+            }
+
+
+            selectionPolicy :Qan.Graph.SelectOnClick
+            connectorCreateDefaultEdge: false
+            objectName: "graph"
+            anchors.fill: parent
+            clip: true
+            connectorEnabled: true
+            selectionColor: Material.accent
+            connectorColor: Material.accent
+            connectorEdgeColor: Material.accent
+
+
+            Component.onCompleted: {
+
+                defaultEdgeStyle.lineType = Qan.EdgeStyle.Curved
+
+
+
+
+            }
+
+
+
+
+        }
+
 
 
     }

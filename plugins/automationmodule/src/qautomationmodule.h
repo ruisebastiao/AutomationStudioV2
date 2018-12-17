@@ -15,7 +15,7 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
     Q_OBJECT
 
 
-    Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged USER("serialize"))
 
     //Q_PROPERTY(User loggedUser READ loggedUser WRITE setLoggedUser NOTIFY loggedUserChanged)
 
@@ -49,10 +49,7 @@ public:
     QAutomationModule(QQuickItem *parent=nullptr);
     QAutomationModule(const QAutomationModule& other){ }
 
-
-    Q_INVOKABLE FlowNode *addCommonNode(QPoint loc, QVariantMap nodeinfo);
-    Q_INVOKABLE virtual void addModuleNode(QPoint loc, QVariantMap nodeinfo);
-
+    ~QAutomationModule() override;
 
 
     template<typename QEnum>
@@ -145,7 +142,7 @@ private:
     FlowNodeManager* m_flowNodes= new FlowNodeManager(this);
 
 protected:
-        qan::GraphView* m_graphView=nullptr;
+      qan::GraphView* m_graphView=nullptr;
       QString m_moduleName="";
       QVariantList m_moduleNodeTypes;
 
@@ -232,9 +229,8 @@ public:
     void DeSerialize(QJsonObject &json) override;
 
 
-    FlowNode* createCommonNode(QString nodetype);
 
-    virtual FlowNode *createModuleNode(QString nodetype)=0;
+//    virtual FlowNode *createModuleNode(QString nodetype)=0;
 
 
 

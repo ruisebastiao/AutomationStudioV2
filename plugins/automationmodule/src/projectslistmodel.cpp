@@ -36,7 +36,7 @@ void ProjectsListModel::createNewProject()
 {
     Project* newproject=new Project(this);
     newproject->setId(getAvailableID());
-    AddItem(newproject);
+    addItem(newproject);
 }
 
 

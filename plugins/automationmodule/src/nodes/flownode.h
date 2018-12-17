@@ -3,15 +3,14 @@
 
 #include <qanNode.h>
 #include "automationmoduleglobal.h"
-
+#include "scenegraph.h"
 #include <jsonserializable.h>
 
 #include <flownodeport.h>
-#include <qanGraphView.h>
-//#include <qautomationmodule.h>
 #include <random>
 
 
+class FlowNodePort;
 
 using namespace std;
 
@@ -149,7 +148,7 @@ public:
 
     void initializePorts(QJsonObject &json);
 
-    //Q_INVOKABLE void remove();
+    Q_INVOKABLE void remove();
 private:
 
 protected:
@@ -338,7 +337,7 @@ public slots:
 signals:
     void nameChanged(QString name);
 
-//    void removeNode(FlowNode*);
+    void removeNode(FlowNode*);
 
 //    void bindPortLabelToProperty(qan::PortItem* portItem,QString nodeProperty);
 

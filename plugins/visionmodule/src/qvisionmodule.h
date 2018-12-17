@@ -9,16 +9,6 @@ Q_OBJECT
 
 public:
     QVisionModule(QQuickItem *parent=nullptr);
-
-    // QAutomationModule interface
-protected:
-    void loadModuleSettings(QString path) override;
-    void save() override;
-
-
-    // QAutomationModule interface
-public:
-    FlowNode *createModuleNode(qan::GraphView *graphView, QString nodetype) override;
 };
 
 #endif // QVISIONMODULE_H

@@ -34,7 +34,6 @@
 #include <nodes/proxyinputnode.h>
 #include <nodes/webservicenode.h>
 
-#include <graphs/commonscenegraph.h>
 
 QQmlEngine* AutomationModulePlugin::engine=nullptr;
 
@@ -50,7 +49,7 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
 //    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
 
-    qmlRegisterType<CommonSceneGraph>(uri, 1, 0, "CommonSceneGraph");
+    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
 
     qmlRegisterType<FlowNode>(uri, 1, 0, "FlowNode");
     qmlRegisterType<BarcodeReaderNode>(uri, 1, 0, "BarcodeReaderNode");
@@ -62,6 +61,8 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
     qmlRegisterType<TCPClient>(uri, 1, 0, "TCPClient");
     qmlRegisterUncreatableType<QAbstractSocket>(uri, 1, 0, "QAbstractSocket","Cannot be created");
+    qmlRegisterUncreatableType<ModuleListModel>(uri, 1, 0, "ModuleListModel","Cannot be created");
+
 
 
 }

@@ -83,11 +83,11 @@ public:
 
     // SerializedListModel interface
 public:
-    virtual void AddItem(FlowNode *item) override;
+    virtual void addItem(FlowNode *item) override;
 
 
 public:
-    virtual void RemoveItem(FlowNode *item) override;
+    virtual void removeItem(FlowNode *item) override;
 
     // JsonSerializable interface
 public:

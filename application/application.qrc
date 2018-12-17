@@ -35,6 +35,9 @@
         <file>images/baseline_delete_white_48dp.png</file>
         <file>images/novares02_1.png</file>
         <file>images/baseline_add_white_48dp.png</file>
+        <file>images/icons8-menu-48.png</file>
+        <file>images/resize_horizontal.png</file>
+        <file>images/icons8-menu-24_white.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="UbuntuMono-Bold.ttf">fonts/UbuntuMono-Bold.ttf</file>

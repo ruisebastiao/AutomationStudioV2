@@ -1,9 +1,77 @@
 #include "scenegraph.h"
 
 
-#include <src/nodes/flownode.h>
+#include <nodes/flownode.h>
+
+#include <nodes/barcodereadernode.h>
+#include <nodes/modulepropertybind.h>
+#include <nodes/multiplexedinputnode.h>
+#include <nodes/numericnode.h>
+#include <nodes/proxyinputnode.h>
+#include <nodes/stringbuildernode.h>
+#include <nodes/stringnode.h>
+#include <nodes/webservicenode.h>
 
 
+
+FlowNode *SceneGraph::createNode(QString nodetype)
+{
+    qan::Node* newnode=nullptr;
+
+
+
+    if(nodetype=="BarcodeReaderNode"){
+        newnode=insertNode<BarcodeReaderNode>(nullptr);
+    }
+    if(nodetype=="ModulePropertyBind"){
+        newnode=insertNode<ModulePropertyBind>(nullptr);
+    }
+    else if(nodetype=="WebServiceNode"){
+        newnode=insertNode<WebServiceNode>(nullptr);
+    }
+    else if(nodetype=="StringNode"){
+        newnode=insertNode<StringNode>(nullptr);
+    }
+    else if(nodetype=="ProxyInputNode"){
+        newnode=insertNode<ProxyInputNode>(nullptr);
+    }
+    else if(nodetype=="NumericNode"){
+        newnode=insertNode<NumericNode>(nullptr);
+    }
+    else if(nodetype=="MultiplexedInputNode"){
+        newnode=insertNode<MultiplexedInputNode>(nullptr);
+    }
+    else if(nodetype=="StringBuilderNode"){
+        newnode=insertNode<StringBuilderNode>(nullptr);
+    }
+    FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
+
+    return newflownode;
+}
+
+void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo)
+{
+
+    LOG_INFO()<<"Adding node:"<<nodeinfo<<" @ "<<loc;
+
+    QString nodeType;
+    QMapIterator<QString, QVariant> i(nodeinfo);
+    while (i.hasNext()) {
+        i.next();
+        nodeType=i.key();
+
+    }
+
+    FlowNode* node=createNode(nodeType);
+
+    if(node){
+        node->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
+        node->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
+
+    }
+    emit flowNodeAdded(node);
+
+}
 
 void SceneGraph::deleteEdge(qan::Edge *edge)
 {
@@ -13,16 +81,16 @@ void SceneGraph::deleteEdge(qan::Edge *edge)
         return;
     }
 
-   auto edgeitem= edge->getItem();
+    auto edgeitem= edge->getItem();
 
-       edgeitem->deleteLater();
+    edgeitem->deleteLater();
     // TODO
 
     qan::Graph::removeEdge(edge);
 
 
-//    edge->deleteLater();//->setItem(nullptr);
-//    edge=nullptr;
+    //    edge->deleteLater();//->setItem(nullptr);
+    //    edge=nullptr;
 
 
 }

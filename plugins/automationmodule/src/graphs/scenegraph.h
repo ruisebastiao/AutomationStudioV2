@@ -6,6 +6,7 @@
 
 // Qt headers
 #include <QQuickPaintedItem>
+#include <flownode.h>
 #include <qanGraph.h>
 
 #include "automationmoduleglobal.h"
@@ -13,9 +14,12 @@
 #include "selectableedge.h"
 
 
+class FlowNode;
+
 class AUTOMATIONMODULE_EXPORT SceneGraph : public qan::Graph
 {
     Q_OBJECT
+
 public:
     explicit SceneGraph( QQuickItem* parent = nullptr ) noexcept : qan::Graph(parent) {
 
@@ -30,6 +34,10 @@ public:
         });
 
     }
+
+    virtual FlowNode* createNode(QString nodetype);
+
+    Q_INVOKABLE virtual void addNode(QPoint loc, QVariantMap nodeinfo);
 
 public:
     //    Q_INVOKABLE  void insertBarcodeReaderNode(BarcodeReaderNode *node);
@@ -58,6 +66,9 @@ public:
     // Graph interface
 public:
     void bindEdge(qan::Edge *edge, qan::PortItem *outPort, qan::PortItem *inPort) noexcept override;
+
+signals:
+    void flowNodeAdded(FlowNode* flownode);
 };
 
 

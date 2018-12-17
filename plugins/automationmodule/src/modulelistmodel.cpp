@@ -57,3 +57,8 @@ QHash<int, QByteArray> ModuleListModel::roleNames() const
     };
 }
 
+void ModuleListModel::removeItem(QAutomationModule *item)
+{
+    TypedListModel<QAutomationModule>::removeItem(item);
+}
+

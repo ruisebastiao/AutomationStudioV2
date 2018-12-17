@@ -16,7 +16,6 @@ HEADERS += \
     $$PWD/nodes/modulepropertybind.h \
     $$PWD/nodes/proxyinputnode.h \
     $$PWD/nodes/multiplexedinputnode.h \
-    $$PWD/graphs/commonscenegraph.h \
     $$PWD/nodes/numericnode.h \
     $$PWD/nodes/stringbuildernode.h \
     $$PWD/flownodemanager.h \
@@ -42,7 +41,6 @@ SOURCES += \
     $$PWD/nodes/modulepropertybind.cpp \
     $$PWD/nodes/proxyinputnode.cpp \
     $$PWD/nodes/multiplexedinputnode.cpp \
-    $$PWD/graphs/commonscenegraph.cpp \
     $$PWD/nodes/numericnode.cpp \
     $$PWD/nodes/stringbuildernode.cpp \
     $$PWD/flownodemanager.cpp \

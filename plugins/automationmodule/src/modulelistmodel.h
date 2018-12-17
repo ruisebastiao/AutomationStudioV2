@@ -21,6 +21,7 @@ public:
     };
 
     ModuleListModel();
+    ModuleListModel(const ModuleListModel& other){ }
 
     ~ModuleListModel();
 
@@ -38,5 +39,10 @@ public slots:
 private:
 
 
+
+    // TypedListModel interface
+public:
+    Q_INVOKABLE virtual void removeItem(QAutomationModule *item) override;
 };
+Q_DECLARE_METATYPE(ModuleListModel)
 #endif // MODULELISTMODEL_H

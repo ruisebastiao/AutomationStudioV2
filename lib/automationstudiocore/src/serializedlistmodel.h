@@ -40,7 +40,7 @@ public:
             T *item= new T();
             item->DeSerialize(projectObject);
 
-            TypedListModel<T>::AddItem(item);
+            TypedListModel<T>::addItem(item);
 
         }
     }

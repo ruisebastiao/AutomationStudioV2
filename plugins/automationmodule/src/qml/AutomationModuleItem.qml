@@ -19,6 +19,7 @@ Item {
 
     property alias mainpagecontainer: mainpagecontainer
 
+    property alias graph: graphView.graph
 
     property User loggedUser: automationstudio.settings.currentUser
     property AutomationModule loadedmodule;
@@ -160,12 +161,52 @@ Item {
                                     }
                                 }
 
+
+
+
                                 Qan.GraphView {
                                     id: graphView
                                     anchors.fill: parent
-                                    graph: dataflowGraph
+//                                    graph: dataflowGraph
                                     navigable: true
                                     clip: true
+
+
+
+                                    Timer{
+                                        id:docenterItem
+                                        interval:250
+                                        onTriggered: {
+                                            var selectednode=graphView.graph.selectedNode;
+                                            graphView.lastCenterX=graphView.containerItem.x;
+                                            graphView.lastCenterY=graphView.containerItem.y;
+                                            graphView.lastZoom=graphView.zoom;
+                                            graphView.fitInItem(selectednode.item,150)
+
+                                        }
+                                    }
+
+
+//                                    Connections{
+
+//                                        target:graphView.graph.selectedNode
+
+//                                        onEditModeChanged:{
+
+//                                            if(graphView.graph.selectedNode.centerOnEdit && graphView.graph.selectedNode.editMode){
+
+//                                                docenterItem.start()
+//                                            }
+
+//                                            if(graphView.graph.selectedNode.editMode==false && graphView.graph.selectedNode.centerOnEdit){
+//                                                graphView.containerItem.x=graphView.lastCenterX;
+//                                                graphView.containerItem.y=graphView.lastCenterY;
+
+//                                                graphView.zoomOn(Qt.point(graphView.lastCenterX, graphView.lastCenterY),graphView.lastZoom)
+//                                            }
+//                                        }
+//                                    }
+
 
                                     lockGridUpdate:true
                                     grid: null
@@ -182,80 +223,6 @@ Item {
 
                                     resizeHandlerColor: Material.accent
                                     gridThickColor: Material.theme === Material.Dark ? "#4e4e4e" : "#c1c1c1"
-                                    CommonSceneGraph {
-                                        id: dataflowGraph
-
-                                        portDelegate: Component {
-
-                                            FlowNodePortItem{
-
-                                            }
-                                        }
-
-
-                                        selectionPolicy :Qan.Graph.SelectOnClick
-                                        connectorCreateDefaultEdge: false
-                                        objectName: "graph"
-                                        anchors.fill: parent
-                                        clip: true
-                                        connectorEnabled: true
-                                        selectionColor: Material.accent
-                                        connectorColor: Material.accent
-                                        connectorEdgeColor: Material.accent
-
-
-                                        Component.onCompleted: {
-
-                                            defaultEdgeStyle.lineType = Qan.EdgeStyle.Curved
-
-
-
-
-                                        }
-
-
-                                        Timer{
-                                            id:docenterItem
-                                            interval:250
-                                            onTriggered: {
-                                                var selectednode=dataflowGraph.selectedNode;
-                                                graphView.lastCenterX=graphView.containerItem.x;
-                                                graphView.lastCenterY=graphView.containerItem.y;
-                                                graphView.lastZoom=graphView.zoom;
-                                                graphView.fitInItem(selectednode.item,150)
-
-                                            }
-                                        }
-
-
-                                        Connections{
-
-                                            target:dataflowGraph.selectedNode
-
-                                            onEditModeChanged:{
-
-                                                if(dataflowGraph.selectedNode.centerOnEdit && dataflowGraph.selectedNode.editMode){
-
-                                                    docenterItem.start()
-                                                }
-
-                                                if(dataflowGraph.selectedNode.editMode==false && dataflowGraph.selectedNode.centerOnEdit){
-                                                    graphView.containerItem.x=graphView.lastCenterX;
-                                                    graphView.containerItem.y=graphView.lastCenterY;
-
-                                                    graphView.zoomOn(Qt.point(graphView.lastCenterX, graphView.lastCenterY),graphView.lastZoom)
-                                                }
-                                            }
-                                        }
-
-
-                                        //                                onConnectorRequestEdgeCreation:{
-
-                                        //                                }
-
-
-                                    }
-
 
                                     Behavior on containerItem.scale{
                                         NumberAnimation{
@@ -364,7 +331,7 @@ Item {
                                                                     onClicked: {
 
 
-                                                                        root.loadedmodule.addCommonNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                                                        graphView.graph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
                                                                         contextMenu.dismiss()
                                                                     }
                                                                 }
@@ -426,7 +393,7 @@ Item {
                                                                     onClicked: {
 
 
-                                                                        root.loadedmodule.addModuleNode(Qt.point(contextMenu.x,contextMenu.y),modelData,graphView)
+                                                                        graphView.graph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
                                                                         contextMenu.dismiss()
                                                                     }
                                                                 }

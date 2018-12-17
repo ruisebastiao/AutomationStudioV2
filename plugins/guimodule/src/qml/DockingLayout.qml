@@ -12,15 +12,35 @@ Item {
     anchors.fill: parent
     default property alias contents: placeholder.children
 
+    property Item fullscreenItem: null
+
+//    onFullscreenItemChanged: {
+//        if(fullscreenItem){
+//            fullscreenItem.parent=fullscreencontainer
+//            fullscreenItem.width=parent.width
+
+//        }
+//        else{
+
+//        }
+//    }
 
     GridLayout{
         id:placeholder
         anchors.fill: parent
-        rowSpacing: 5
-        columnSpacing: 5
+        rowSpacing: 2
+        columnSpacing: 2
 
 
     }
+
+
+//    Item{
+//        id:fullscreencontainer
+//        anchors.fill: parent
+//        visible: fullscreenItem
+
+//    }
 }
 
 

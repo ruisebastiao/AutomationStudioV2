@@ -1203,6 +1203,7 @@ ApplicationWindow {
                 GUI.DockingLayout{
                     id:modulescontainer
 
+                    property var fullscreenModule: null
 
 
                     visible:settings&&settings.selectedProject
@@ -1211,18 +1212,147 @@ ApplicationWindow {
 
                     Repeater{
                         model: settings&&settings.selectedProject&&settings.selectedProject.modules
+
+
+
+
                         GUI.DockingItem{
-                            id:moduledock
+                            id:moduledockitem
+
+                            isHidden:fullscreenModule && fullscreenModule!=module
 
 
-                            property AutomationModule loadedmodule:module
+                            MouseArea{
+//                                anchors.centerIn: parent
+                                anchors.verticalCenter: parent.verticalCenter
+                                height: parent.height/0.95
+                                width: 40
 
-                            onLoadedmoduleChanged: {
-                                if(loadedmodule){
-                                    loadedmodule.parent=moduledock
+                                onClicked: {
+                                    moduledockitem.z=999999
+                                    resizer.width=40
+                                }
+
+                                onEntered: {
+//                                    moduledock.z=999999
+//                                    resizer.width=40
+                                }
+
+
+                                hoverEnabled: true
+                                onExited: {
+                                    moduledockitem.z=0
+                                    resizer.width=0
+                                }
+
+//                                clip: true
+                                Button{
+
+                                    id:resizer
+                                    clip: true
+                                    anchors.margins: 5
+//                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.centerIn: parent
+                                    height: parent.height
+
+                                    width: 0
+                                    Behavior on width {
+
+                                        NumberAnimation {
+                                            duration: 200
+                                            easing.type: Easing.InOutQuad
+                                        }
+                                    }
+
+                                    highlighted: true
+                                    Material.background: Material.primary
+
+                                    onDoubleClicked: {
+                                        if(!modulescontainer.fullscreenModule){
+                                            modulescontainer.fullscreenModule=module
+                                        }
+                                        else{
+                                            modulescontainer.fullscreenModule=null
+
+                                        }
+                                    }
+
+                                    Image {
+                                        anchors.centerIn: parent
+                                        fillMode: Image.PreserveAspectFit
+                                        width: parent.width<24?parent.width:24
+                                        height: parent.height<24?parent.height:24
+                                        source: "qrc:/images/icons8-menu-24_white.png"
+                                    }
+
+                                }
+
+//                                color: "red"
+                                anchors.left: parent.right
+                            }
+
+                            Item{
+                                id:container
+                                enabled: rootwindow.projectEditMode?false:true
+                                anchors.fill: parent
+                                property AutomationModule loadedmodule:module
+                                onLoadedmoduleChanged: {
+                                    if(loadedmodule){
+                                        loadedmodule.parent=container
+                                    }
+                                }
+
+
+                            }
+
+
+                            Item{
+
+
+                                Rectangle{
+                                  color: "grey"
+                                  anchors.fill: parent
+
+                                  opacity: 0.5
+                                }
+
+                                opacity: rootwindow.projectEditMode?1:0
+                                visible: opacity!=0
+                                Behavior on opacity {
+
+                                    NumberAnimation {
+                                        duration: 200
+                                        easing.type: Easing.Linear
+                                    }
+                                }
+
+                                anchors.fill: parent
+
+
+
+                                RoundButton{
+                                    anchors.centerIn: parent
+                                    radius: 72
+                                    highlighted: true
+                                    Image {
+                                        anchors.margins: 12
+                                        anchors.fill: parent
+                                        source: "qrc:/images/baseline_delete_white_48dp.png"
+                                    }
+                                    onClicked: {
+                                        selectedProject.modules.removeItem(module)
+                                    }
                                 }
                             }
+
+
+
                         }
+
+
+
+
+
                     }
 
                     GUI.DockingItem{
@@ -1230,6 +1360,8 @@ ApplicationWindow {
                         id:module_manager
 
                         isHidden:rootwindow.projectEditMode==false || (settings && settings.currentUser.role!=User.AdminRole)
+
+                        clip:true
 
 
                         RoundButton{

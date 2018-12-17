@@ -39,7 +39,7 @@ QAutomationModule* Project::createModule(QString moduleName)
 
     QAutomationModule *module= qobject_cast<QAutomationModule*>(component_object);
     if(module){
-        m_modules->AddItem(module);
+        m_modules->addItem(module);
     }
 
 
@@ -90,7 +90,7 @@ void Project::DeSerialize(QJsonObject &json)
 
                         if(node){
 
-                            module->flowNodes()->AddItem(node);
+                            module->flowNodes()->addItem(node);
 
                         }
 

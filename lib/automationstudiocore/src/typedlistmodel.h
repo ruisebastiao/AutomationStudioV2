@@ -12,7 +12,7 @@ public:
 
     }
 
-    virtual void AddItem(T* item){
+    virtual void addItem(T* item){
         beginInsertRows(QModelIndex(), rowCount(QModelIndex()), rowCount(QModelIndex()));   // kindly provided by superclass
 
         m_internalList.append(item);
@@ -20,7 +20,8 @@ public:
         endInsertRows();
     }
 
-    virtual void RemoveItem(T* item){
+    Q_INVOKABLE virtual void removeItem(T* item)
+    {
         int itemIndex=m_internalList.indexOf(item);
 
         if(itemIndex>=0){
@@ -28,6 +29,7 @@ public:
 
             m_internalList.removeAt(itemIndex);
 
+            //item->deleteLater();
 
 
             endRemoveRows();
@@ -35,6 +37,8 @@ public:
 
         }
     }
+
+
     virtual void clear(){
         if(m_internalList.length()>0){
 

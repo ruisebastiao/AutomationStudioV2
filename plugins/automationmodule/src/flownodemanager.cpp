@@ -40,13 +40,13 @@ QMap<int, FlowNode *> FlowNodeManager::getFlownodesTable() const
 
 //}
 
-void FlowNodeManager::AddItem(FlowNode *item)
+void FlowNodeManager::addItem(FlowNode *item)
 {
     if(!item){
         return;
     }
 
-    SerializedListModel::AddItem(item);
+    SerializedListModel::addItem(item);
 
 
     m_flownodesTable[item->id()]=item;
@@ -70,12 +70,21 @@ void FlowNodeManager::AddItem(FlowNode *item)
         layoutChanged();
     });
 
+    connect(item,&FlowNode::destroyed,[this](QObject* object){
+
+        if(object){
+//            FlowNode* node=qobject_cast<FlowNode*>(object);
+            this->removeItem((FlowNode*)object);
+        }
+
+    });
+
 
 }
 
 
 
-void FlowNodeManager::RemoveItem(FlowNode *item)
+void FlowNodeManager::removeItem(FlowNode *item)
 {
 
     int itemIndex=m_internalList.indexOf(item);
@@ -94,7 +103,7 @@ void FlowNodeManager::RemoveItem(FlowNode *item)
 
     }
 
-    SerializedListModel::RemoveItem(item);
+    SerializedListModel::removeItem(item);
 }
 
 //void FlowNodeManager::Serialize(QJsonArray &jsonarray)

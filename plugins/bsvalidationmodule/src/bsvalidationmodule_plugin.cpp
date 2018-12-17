@@ -23,10 +23,15 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 
+#include <graphs/bsvalidationgraph.h>
+
 void BSValidationModulePlugin::registerTypes(const char *uri){
     // @uri modules.bsvalidationmodule
 
     qmlRegisterType<QBSValidationModule>(uri, 1, 0, "BSValidationModule");
+    qmlRegisterType<BSValidationGraph>(uri, 1, 0, "BSValidationGraph");
+
+
 
 }
 

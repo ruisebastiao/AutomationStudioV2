@@ -11,7 +11,7 @@
 #include <qanGraphView.h>
 
 #include <nodes/cv/processingbasenode.h>
-
+#include "flownodemanager.h"
 
 
 class ROINode : public FlowNode
@@ -35,11 +35,6 @@ public:
     Q_PROPERTY(qan::GraphView* roiEditorGraphView READ roiEditorGraphView WRITE setRoiEditorGraphView NOTIFY roiEditorGraphViewChanged)
 
     Q_PROPERTY(bool roiProcessingDone READ roiProcessingDone WRITE setRoiProcessingDone NOTIFY roiProcessingDoneChanged)
-
-
-    Q_PROPERTY(QVariantList processingNodeTypes READ processingNodeTypes NOTIFY processingNodeTypesChanged)
-
-    Q_PROPERTY(QVariantList commonNodeTypes READ commonNodeTypes NOTIFY commonNodeTypesChanged)
 
 
 public:
@@ -67,6 +62,31 @@ public slots:
             return;
 
         m_roiEditorGraphView = roiEditorGraphView;
+
+        if(m_roiEditorGraphView){
+            SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(m_roiEditorGraphView);
+
+            scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
+                if(node && configsLoaded()){
+
+                    ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(node);
+                    int nodeid=m_ProcessingNodes->getAvailableID();
+                    if(nodeid==-1){
+                        LOG_ERROR("Invalid node ID");
+                    }
+
+                    if(procnode){
+                        this->initializeProcessingNode(procnode);
+
+                    }
+                    m_ProcessingNodes->addItem(node);
+
+                    procnode->initializeNode(nodeid);
+
+
+                }
+            });
+        }
         emit roiEditorGraphViewChanged(m_roiEditorGraphView);
     }
 
@@ -109,19 +129,7 @@ private:
 
     qan::GraphView* m_roiEditorGraphView=nullptr;
 
-    QList<FlowNode *> m_ProcessingNodes;
-
-    QList<FlowNode *> m_CommonNodes;
-
-
-
-
-    // QMat* processingFrame=nullptr;
-
-    //    template<class Node_t>
-    //    FlowNode* readProcessingNode(QJsonObject roiobject);
-
-    //QQuickItem* m_processingContainer=nullptr;
+    FlowNodeManager* m_ProcessingNodes=new FlowNodeManager(this);
 
     QMat* m_sourceFrame=new QMat();
 
@@ -129,10 +137,6 @@ private:
 
     QMat* m_processedFrame=new QMat();
     ProcessingBaseNode* m_basenode=nullptr;
-
-    QVariantList m_processingNodeTypes;
-
-    QVariantList m_commonNodeTypes;
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -162,23 +166,11 @@ public:
     {
         return m_processedFrame;
     }
-    ProcessingNode *readProcessingNode(qan::GraphView *graphView, QJsonObject nodeobject);
-    QVariantList  processingNodeTypes()
-    {
-        return m_processingNodeTypes;
-    }
 
-    Q_INVOKABLE void addProcNode(QPoint loc, QVariantMap nodeinfo);
-    ProcessingNode *createProcessingNode(qan::GraphView *graphView, QString nodetype);
+
+
     void initializeProcessingNode(ProcessingNode *procnode);
 
-    // FlowNode interface
-public:
-    virtual FlowNode* addCommonNode(QPoint loc, QVariantMap nodeinfo, qan::GraphView *graphview) override;
-    QVariantList commonNodeTypes() const
-    {
-        return m_commonNodeTypes;
-    }
 };
 
 #endif // ROINODE_H

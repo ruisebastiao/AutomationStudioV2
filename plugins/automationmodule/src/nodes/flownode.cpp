@@ -93,7 +93,7 @@ FlowNode::~FlowNode()
 {
     //
     LOG_INFO()<<"Deleting node:"<<this->id()<<"|"<<this->name();
-//    QAutomationModule::flownodemanager->removeNode(this);
+
 
 }
 
@@ -120,10 +120,11 @@ void FlowNode::initializeNode(int id)
 
 }
 
-//void FlowNode::remove()
-//{
+void FlowNode::remove()
+{
 //    emit removeNode(this);
-//}
+    this->getGraph()->removeNode(this);
+}
 
 void FlowNode::initializePorts(QJsonObject &json)
 {

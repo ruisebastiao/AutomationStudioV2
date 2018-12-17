@@ -36,6 +36,7 @@
 #include <nodes/cv/processingthresholdnode.h>
 
 #include <graphs/processingscenegraph.h>
+#include <graphs/visiongraph.h>
 
 
 void VisionModulePlugin::registerTypes(const char *uri){
@@ -73,6 +74,9 @@ void VisionModulePlugin::registerTypes(const char *uri){
     qRegisterMetaType<QMat*>("QMat*");
 
     qRegisterMetaType<std::vector<cv::Point>>("std::vector<cv::Point>");
+
+    qmlRegisterType<VisionGraph>(uri, 1, 0, "VisionGraph");
+
 
 
 
