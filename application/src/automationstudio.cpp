@@ -213,7 +213,7 @@ void AutomationStudio::loadInternalPlugins(){
 void AutomationStudio::reboot()
 {
 
-    this->utilities()->executeCommand("reboot",false);
+    this->utilities()->executeCommand("reboot",true);
 
     //QtConcurrent::run(executeProcess, QString("wpa_supplicant -D"+wpaDriver()+" -B -i wlan0 -c /etc/wpa_supplicant.conf"));
 }

@@ -1609,8 +1609,8 @@ ApplicationWindow {
 
     InputPanel {
         id: inputPanel
-        enabled: false
-        visible: false
+        enabled: true
+        //visible: false
 
         parent: Overlay.overlay
 
@@ -1621,7 +1621,8 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
 
 
-        width:parent.width*0.75
+//        width:parent.width*0.75
+        width:parent.width
         states: State {
             name: "visible"
             /*  The visibility of the InputPanel can be bound to the Qt.inputMethod.visible property,
