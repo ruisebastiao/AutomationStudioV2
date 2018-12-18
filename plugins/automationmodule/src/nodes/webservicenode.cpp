@@ -45,7 +45,7 @@ QQmlComponent *WebServiceNode::delegate(QQmlEngine &engine)
 
 void WebServiceNode::makeRequest()
 {
-    QUrl url(m_serviceUrl+m_formattedUrl);
+    QUrl url(m_formattedUrl);
     setError("");
     setResponse("");
 

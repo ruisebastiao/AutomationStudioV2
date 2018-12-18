@@ -1,17 +1,12 @@
 #include "qautomationmodule.h"
 
-#include <nodes/barcodereadernode.h>
-#include <nodes/webservicenode.h>
-#include <nodes/stringnode.h>
-#include <nodes/modulepropertybind.h>
-#include <nodes/proxyinputnode.h>
-#include <nodes/multiplexedinputnode.h>
-#include <nodes/numericnode.h>
-#include <nodes/stringbuildernode.h>
+
 #include <QtConcurrent>
 
 
 #include <cutelogger/Logger.h>
+
+#include <nodes/modulepropertybind.h>
 
 
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
@@ -97,7 +92,10 @@ FlowNode *QAutomationModule::readNode(QJsonObject nodeobject)
     SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(scene);
 
     newnode=scenegraph->createNode(nodeobject["type"].toString());
-
+    ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(newnode);
+    if(modulenode){
+        modulenode->setModule(this);
+    }
 
 
     FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);

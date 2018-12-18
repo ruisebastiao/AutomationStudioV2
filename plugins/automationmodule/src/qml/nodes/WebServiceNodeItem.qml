@@ -44,32 +44,26 @@ FlowNodeItem{
 
                 RowLayout{
                     anchors.fill: parent
-                    Item {
 
-                        Layout.preferredHeight: label_query.paintedHeight
-                        Layout.preferredWidth: label_query.paintedWidth
+                    TextArea{
 
-                        Label{
-                            id:label_query
-                            text:"Query:"
+                        Layout.fillWidth: true
+                        text:node.formattedUrl
+
+                        readOnly: true
+
+
+                       id:label_query_str
+
+                        wrapMode: TextEdit.WordWrap
+
+
+                        selectByMouse:true
+                        MaterialPlaceHolder{
+                            placeHolderText:"Query"
                         }
                     }
-                    Item{
-                        Layout.preferredHeight: label_query_str.paintedHeight
-                        Layout.fillWidth: true;
 
-
-                        Label{
-                            id:label_query_str
-                            anchors.centerIn: parent
-                            horizontalAlignment: Text.AlignHCenter
-                            width: parent.width-10
-                            minimumPixelSize: 10;
-                            font.pixelSize: 14
-                            fontSizeMode:Text.HorizontalFit
-                            text:node.formattedUrl
-                        }
-                    }
                 }
             }
         }

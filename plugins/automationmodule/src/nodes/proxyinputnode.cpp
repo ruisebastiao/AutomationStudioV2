@@ -118,15 +118,6 @@ void ProxyInputNode::initProxyNode()
     }
 
 
-//    QObject::connect(outputport->getPortItem(), &qan::PortItem::outEdgeAdded, this, [this](qan::EdgeItem& outEdgeItem){
-
-//        auto proxynode=qobject_cast<ProxyInputNode*>(outEdgeItem.getEdge()->getDestination());
-//        if(proxynode){
-
-//            proxynode->setSelectedBindedNode(this);
-//        }
-
-//    });
 
     updateProxyType();
 

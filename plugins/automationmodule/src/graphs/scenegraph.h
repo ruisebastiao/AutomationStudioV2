@@ -14,7 +14,9 @@
 #include "selectableedge.h"
 
 
+
 class FlowNode;
+class QAutomationModule;
 
 class AUTOMATIONMODULE_EXPORT SceneGraph : public qan::Graph
 {
@@ -37,7 +39,7 @@ public:
 
     virtual FlowNode* createNode(QString nodetype);
 
-    Q_INVOKABLE virtual void addNode(QPoint loc, QVariantMap nodeinfo);
+    Q_INVOKABLE virtual void addNode(QPoint loc, QVariantMap nodeinfo, QAutomationModule *module=nullptr);
 
 public:
     //    Q_INVOKABLE  void insertBarcodeReaderNode(BarcodeReaderNode *node);

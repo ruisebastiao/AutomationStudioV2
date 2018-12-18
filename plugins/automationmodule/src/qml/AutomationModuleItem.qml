@@ -331,7 +331,7 @@ Item {
                                                                     onClicked: {
 
 
-                                                                        graphView.graph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                                                        graphView.graph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData,loadedmodule)
                                                                         contextMenu.dismiss()
                                                                     }
                                                                 }

@@ -1,6 +1,8 @@
 #include "project.h"
 #include "automationmodule_plugin.h"
 
+#include <nodes/modulepropertybind.h>
+
 
 
 Project::Project(QObject *parent):QObject(parent)
@@ -91,6 +93,7 @@ void Project::DeSerialize(QJsonObject &json)
                         if(node){
 
                             module->flowNodes()->addItem(node);
+
 
                         }
 

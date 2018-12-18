@@ -146,10 +146,11 @@ public:
 
     virtual void initializeNode(int id);
 
-    void initializePorts(QJsonObject &json);
+    void initializePorts();
 
     Q_INVOKABLE void remove();
 private:
+
 
 protected:
     Type            m_type{Type::NodeNone};
@@ -453,6 +454,8 @@ public:
 //    {
 //        return m_connectionsLoaded;
 //    }
+
+    FlowNodePort* createPort(QString portID,qan::PortItem::Type port_type);
 
 };
 #endif // FLOWNODE_H

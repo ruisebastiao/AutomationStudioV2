@@ -27,6 +27,8 @@ void StringNode::DeSerialize(QJsonObject &json)
 
 
     FlowNode::DeSerialize(json);
+
+    updateinput();
 }
 
 

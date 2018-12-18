@@ -8,7 +8,6 @@ BarcodeReaderNode::BarcodeReaderNode(QObject *parent): FlowNode(parent) {
 
 
 
-
     m_serialPort= new QSerialPort(this);
     m_serialPort->setBaudRate(9600);
     m_serialPort->setStopBits(QSerialPort::OneStop);

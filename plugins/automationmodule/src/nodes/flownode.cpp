@@ -7,6 +7,7 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 
 
 
+
 }
 
 QVariantList FlowNode::getCommonTypes()
@@ -112,22 +113,54 @@ QQmlComponent*  FlowNode::delegate(QQmlEngine& engine) noexcept
 void FlowNode::initializeNode(int id)
 {
     setId(id);
-
-    QJsonObject jo;
-    initializePorts(jo);
-
+    initializePorts();
     setConfigsLoaded(true);
 
 }
 
 void FlowNode::remove()
 {
-//    emit removeNode(this);
+    //    emit removeNode(this);
     this->getGraph()->removeNode(this);
 }
 
-void FlowNode::initializePorts(QJsonObject &json)
+
+
+FlowNodePort* FlowNode::createPort(QString portID,qan::PortItem::Type port_type){
+
+    FlowNodePort* newport=nullptr;
+    if(port_type==qan::PortItem::Type::In){
+
+
+        newport= new FlowNodePort(this,port_type,portID);
+        if(newport){
+            //                newport->setHidden(true);
+            string portkey=QString::number(id()).toStdString()+"|"+portID.toStdString();
+            m_inPorts[portkey]=newport;
+        }
+
+    }
+
+    // OUTPUT PORTS => Revision 31
+    if(port_type==qan::PortItem::Type::Out){
+        newport= new FlowNodePort(this,qan::PortItem::Type::Out,portID);
+        if(newport){
+            //                newport->setHidden(true);
+            string portkey=QString::number(id()).toStdString()+"|"+portID.toStdString();
+            m_outPorts[portkey]=newport;
+        }
+
+    }
+
+    return newport;
+}
+
+
+
+
+void FlowNode::initializePorts()
 {
+
     for (int i = 0; i < this->metaObject()->propertyCount(); i++)
     {
 
@@ -138,52 +171,20 @@ void FlowNode::initializePorts(QJsonObject &json)
         // INPUT PORTS => Revision 30
         if(property.revision()==30){
 
+            createPort(propName,qan::PortItem::Type::In);
 
-            FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::In,propName);
-            if(newport){
-                //                newport->setHidden(true);
-                string portkey=QString::number(id()).toStdString()+"|"+propName;
-                m_inPorts[portkey]=newport;
-            }
             continue;
         }
 
         // OUTPUT PORTS => Revision 31
         if(property.revision()==31){
-            FlowNodePort* newport= new FlowNodePort(this,qan::PortItem::Type::Out,propName);
-            if(newport){
-                //                newport->setHidden(true);
-                string portkey=QString::number(id()).toStdString()+"|"+propName;
-                m_outPorts[portkey]=newport;
-            }
+            createPort(propName,qan::PortItem::Type::Out);
 
             continue;
         }
     }
 
 
-
-    QJsonObject inPorts = json["inPorts"].toObject();
-    foreach(const QString& key, inPorts.keys()) {
-        string portkey=QString::number(id()).toStdString()+"|"+key.toStdString();
-        FlowNodePort* port= m_inPorts.value(portkey);
-        if(port){
-            QJsonObject portobject=inPorts.value(key).toObject();
-            port->DeSerialize(portobject);
-        }
-    }
-
-
-
-    QJsonObject outPorts = json["outPorts"].toObject();
-    foreach(const QString& key, outPorts.keys()) {
-        string portkey=QString::number(id()).toStdString()+"|"+key.toStdString();
-        FlowNodePort* port= m_outPorts.value(portkey);
-        if(port){
-            QJsonObject portobject=outPorts.value(key).toObject();
-            port->DeSerialize(portobject);
-        }
-    }
 
 
 }
@@ -302,9 +303,33 @@ void FlowNode::DeSerialize(QJsonObject &json)
 
     setEditHeight(json["editHeight"].toInt());
 
-    initializePorts(json);
 
-//    emit QAutomationModule::flownodemanager->onFlowNodeLoaded(this);
+    initializePorts();
+
+    QJsonObject inPorts = json["inPorts"].toObject();
+    foreach(const QString& key, inPorts.keys()) {
+        string portkey=QString::number(id()).toStdString()+"|"+key.toStdString();
+        FlowNodePort* port= m_inPorts.value(portkey);
+        if(port){
+            QJsonObject portobject=inPorts.value(key).toObject();
+            port->DeSerialize(portobject);
+        } // create dynamic property
+        else{
+            //            this->metaObject()-
+        }
+    }
+
+
+
+    QJsonObject outPorts = json["outPorts"].toObject();
+    foreach(const QString& key, outPorts.keys()) {
+        string portkey=QString::number(id()).toStdString()+"|"+key.toStdString();
+        FlowNodePort* port= m_outPorts.value(portkey);
+        if(port){
+            QJsonObject portobject=outPorts.value(key).toObject();
+            port->DeSerialize(portobject);
+        }
+    }
 
     setConfigsLoaded(true);
 }
