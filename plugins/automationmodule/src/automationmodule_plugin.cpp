@@ -29,10 +29,30 @@
 #include "automationstudiocore/user.h"
 
 #include <project.h>
+#include <qqmlsortfilterproxymodel.h>
 
 #include <nodes/barcodereadernode.h>
 #include <nodes/proxyinputnode.h>
 #include <nodes/webservicenode.h>
+
+#include <filters/alloffilter.h>
+#include <filters/anyoffilter.h>
+#include <filters/expressionfilter.h>
+#include <filters/indexfilter.h>
+#include <filters/rangefilter.h>
+#include <filters/regexpfilter.h>
+#include <filters/valuefilter.h>
+
+#include <proxyroles/expressionrole.h>
+#include <proxyroles/filterrole.h>
+#include <proxyroles/joinrole.h>
+#include <proxyroles/regexprole.h>
+#include <proxyroles/switchrole.h>
+
+#include <sorters/expressionsorter.h>
+#include <sorters/filtersorter.h>
+#include <sorters/rolesorter.h>
+#include <sorters/stringsorter.h>
 
 
 QQmlEngine* AutomationModulePlugin::engine=nullptr;
@@ -45,6 +65,7 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
     qmlRegisterUncreatableType<QAutomationModule>(uri, 1, 0, "AutomationModule","Cannot be created");
     qmlRegisterType<QProjectContainer>(uri, 1, 0, "QProjectContainer");
+
 
 
 //    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
@@ -64,8 +85,43 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterUncreatableType<ModuleListModel>(uri, 1, 0, "ModuleListModel","Cannot be created");
 
 
+    qmlRegisterType<QQmlSortFilterProxyModel>("SortFilterProxyModel", 1, 0, "SortFilterProxyModel");
+    registerSorterTypes();
+    registerFiltersTypes();
+    registerProxyRoleTypes();
 
 }
+
+
+void AutomationModulePlugin::registerSorterTypes() {
+    qmlRegisterUncreatableType<Sorter>("SortFilterProxyModel", 1,0, "Sorter", "Sorter is an abstract class");
+    qmlRegisterType<RoleSorter>("SortFilterProxyModel", 1, 0, "RoleSorter");
+    qmlRegisterType<StringSorter>("SortFilterProxyModel", 1, 0, "StringSorter");
+    qmlRegisterType<FilterSorter>("SortFilterProxyModel", 1, 0, "FilterSorter");
+    qmlRegisterType<ExpressionSorter>("SortFilterProxyModel", 1, 0, "ExpressionSorter");
+}
+
+void AutomationModulePlugin::registerFiltersTypes() {
+    qmlRegisterUncreatableType<Filter>("SortFilterProxyModel", 1, 0, "Filter", "Filter is an abstract class");
+    qmlRegisterType<ValueFilter>("SortFilterProxyModel", 1, 0, "ValueFilter");
+    qmlRegisterType<IndexFilter>("SortFilterProxyModel", 1, 0, "IndexFilter");
+    qmlRegisterType<RegExpFilter>("SortFilterProxyModel", 1, 0, "RegExpFilter");
+    qmlRegisterType<RangeFilter>("SortFilterProxyModel", 1, 0, "RangeFilter");
+    qmlRegisterType<ExpressionFilter>("SortFilterProxyModel", 1, 0, "ExpressionFilter");
+    qmlRegisterType<AnyOfFilter>("SortFilterProxyModel", 1, 0, "AnyOf");
+    qmlRegisterType<AllOfFilter>("SortFilterProxyModel", 1, 0, "AllOf");
+}
+
+void AutomationModulePlugin::registerProxyRoleTypes() {
+    qmlRegisterUncreatableType<ProxyRole>("SortFilterProxyModel", 1, 0, "ProxyRole", "ProxyRole is an abstract class");
+    qmlRegisterType<JoinRole>("SortFilterProxyModel", 1, 0, "JoinRole");
+    qmlRegisterType<SwitchRole>("SortFilterProxyModel", 1, 0, "SwitchRole");
+    qmlRegisterType<ExpressionRole>("SortFilterProxyModel", 1, 0, "ExpressionRole");
+    qmlRegisterType<RegExpRole>("SortFilterProxyModel", 1, 0, "RegExpRole");
+    qmlRegisterType<FilterRole>("SortFilterProxyModel", 1, 0, "FilterRole");
+}
+
+
 
 void AutomationModulePlugin::initializeEngine(QQmlEngine *engine, const char *){
     engine->addImportPath("qrc:///");

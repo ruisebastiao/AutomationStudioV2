@@ -16,23 +16,22 @@
 
 #include "plugincontext.h"
 
-#include "settings.h"
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QCoreApplication>
 #include <QDir>
 
-namespace as{
+
 
 QString       PluginContext::m_applicationFilePath = "";
 QQmlEngine*   PluginContext::m_engine   = nullptr;
-as::Settings* PluginContext::m_settings = nullptr;
+
 
 void PluginContext::initFromEngine(QQmlEngine *engine){
     QObject* automationstudio = engine->rootContext()->contextProperty("automationstudio").value<QObject*>();
 
     m_engine   = qobject_cast<QQmlEngine*>(automationstudio->property("engine").value<QObject*>());
-    m_settings = qobject_cast<as::Settings*>(automationstudio->property("settings").value<QObject*>());
+
 
 }
 
@@ -100,4 +99,4 @@ QString PluginContext::configPath(){
 }
 
 
-}// namespace
+

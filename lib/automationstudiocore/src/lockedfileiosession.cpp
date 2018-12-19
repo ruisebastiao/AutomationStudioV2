@@ -20,7 +20,7 @@
 #include <QMutex>
 #include <QReadWriteLock>
 
-namespace as{
+
 
 class FileLock{
 public:
@@ -104,4 +104,4 @@ bool LockedFileIOSession::writeToFile(const QString &path, const QString &data){
     return true;
 }
 
-}// namespace
+

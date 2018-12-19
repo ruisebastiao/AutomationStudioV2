@@ -19,7 +19,7 @@
 #include <QFile>
 #include <QDir>
 
-namespace as{
+
 
 /*
 Modifier keys 	cmd ctrl alt shift meta
@@ -237,4 +237,4 @@ QString KeyMap::getKeyCodeDescription(KeyMap::KeyCode kc){
     return "";
 }
 
-}// namespace
+

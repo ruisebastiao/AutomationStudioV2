@@ -21,7 +21,7 @@
 #include <QMap>
 #include "automationstudiocoreglobal.h"
 
-namespace as{
+
 
 class AUTOMATIONSTUDIO_CORE_EXPORT KeyMap : public QObject{
 
@@ -86,6 +86,6 @@ private:
     QString m_path;
 };
 
-}// namespace
+
 
 #endif // LVKEYMAP_H

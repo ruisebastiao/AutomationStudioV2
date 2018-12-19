@@ -8,11 +8,13 @@ HEADERS += \
     $$PWD/automationstudiocore/systemsettings.h \
     $$PWD/automationstudiocore/plugincontext.h \
     $$PWD/automationstudiocore/utilities.h \
-    $$PWD/automationstudiocore/settings.h \
     $$PWD/automationstudiocore/keymap.h \
     $$PWD/automationstudiocore/socketio.h \
+    $$PWD/automationstudiocore/appupdater.h \
+    $$PWD/automationstudiocore/userslistmodel.h \
+    $$PWD/automationstudiocore/userslistmodel.h
+    $$PWD/automationstudiocore/tcpclient.h
 
 
 include($$PWD/../../socket.io-client-cpp/socket.io-client-cpp-headers.pri)
 
-include($$PWD/../../../plugins/automationmodule/include/automationmoduleheaders.pri)

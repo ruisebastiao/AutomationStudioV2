@@ -23,7 +23,7 @@
 #include <limits.h>
 #include "mach-o/dyld.h"
 
-namespace as{
+
 
 QString PluginContext::applicationFilePathImpl(){
     uint32_t pathNameSize = 0;
@@ -39,5 +39,5 @@ QString PluginContext::applicationFilePathImpl(){
         return QString();
 }
 
-}// namespace
+
 

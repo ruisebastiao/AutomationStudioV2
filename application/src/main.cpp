@@ -31,7 +31,6 @@
 
 //#include "qt_breakpad.h"
 
-using namespace as;
 
 constexpr bool isequal(char const *one, char const *two) {
     return (*one && *two) ? (*one == *two && isequal(one + 1, two + 1))
@@ -55,7 +54,7 @@ int main(int argc, char *argv[]){
 
 
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-    QGuiApplication::addLibraryPath(as::PluginContext::librariesPath());
+    QGuiApplication::addLibraryPath(PluginContext::librariesPath());
     QQuickStyle::setStyle("Material");
     QGuiApplication app(argc, argv);
 

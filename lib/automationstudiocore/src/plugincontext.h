@@ -21,7 +21,7 @@
 
 class QQmlEngine;
 
-namespace as{
+
 
 class Settings;
 
@@ -31,7 +31,6 @@ public:
     static void initFromEngine(QQmlEngine* engine);
 
     static QQmlEngine*   engine();
-    static as::Settings* settings();
 
     static QString executableDirPath();
     static QString applicationPath();
@@ -49,7 +48,7 @@ private:
     PluginContext(){}
 
     static QQmlEngine*   m_engine;
-    static as::Settings* m_settings;
+    static Settings* m_settings;
 
     static QString m_applicationFilePath;
 };
@@ -58,10 +57,7 @@ inline QQmlEngine *PluginContext::engine(){
     return m_engine;
 }
 
-inline Settings *PluginContext::settings(){
-    return m_settings;
-}
 
-}// namespace
+
 
 #endif // LVPLUGINCONTEXT_H

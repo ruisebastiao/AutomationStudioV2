@@ -19,8 +19,9 @@
 
 #include "automationstudiocore/keymap.h"
 
-#include "automationstudiocore/settings.h"
+
 #include "plugincontext.h"
+#include "settings.h"
 
 
 #include <QUrl>
@@ -36,7 +37,7 @@
 #include <automationstudiocore/utilities.h>
 
 
-namespace as{
+
 
 AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *parent)
     : QObject(parent)
@@ -177,7 +178,7 @@ void AutomationStudio::loadQml(const QUrl &url){
 
 void AutomationStudio::loadInternalPlugins(){
 
-    qmlRegisterUncreatableType<as::AutomationStudio>(
+    qmlRegisterUncreatableType<AutomationStudio>(
                 "base", 1, 0, "AutomationStudio", "AutomationStudio is available through the \'automationstudio\' property."
                 );
 
@@ -186,11 +187,11 @@ void AutomationStudio::loadInternalPlugins(){
                 );
 
 
-    qmlRegisterUncreatableType<as::Settings>(
+    qmlRegisterUncreatableType<Settings>(
                 "base", 1, 0, "Settings", "Settings is available through the \'automationstudio.settings\' property."
                 );
 
-    qmlRegisterUncreatableType<as::Utilities>(
+    qmlRegisterUncreatableType<Utilities>(
                 "base", 1, 0, "Utilities", "Settings is available through the \'automationstudio.utilities\' property."
                 );
 
@@ -232,7 +233,3 @@ void AutomationStudio::halt()
 
 #endif
 
-
-
-
-}// namespace

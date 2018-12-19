@@ -24,6 +24,9 @@ class AutomationModulePlugin : public QQmlExtensionPlugin{
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
+    void registerFiltersTypes();
+    void registerProxyRoleTypes();
+    void registerSorterTypes();
 public:
     void registerTypes(const char *uri) Q_DECL_OVERRIDE;
     void initializeEngine(QQmlEngine *engine, const char *uri) Q_DECL_OVERRIDE;

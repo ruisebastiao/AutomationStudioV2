@@ -11,8 +11,7 @@ HEADERS += \
     $$PWD/automationmodule/flownode.h \
     $$PWD/automationmodule/flownodeport.h \
     $$PWD/automationmodule/connectioninfo.h \
-    $$PWD/automationmodule/scenegraph.h \
-    $$PWD/automationmodule/tcpclient.h
+    $$PWD/automationmodule/scenegraph.h
 
 
 include($$PWD/../../QuickQanava/include/quickqanavaheaders.pri)

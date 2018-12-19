@@ -18,7 +18,7 @@
 #include "filter.h"
 #include <QReadWriteLock>
 
-namespace as{
+
 
 SharedData::SharedData()
     : m_lock(0)
@@ -77,4 +77,4 @@ void SharedData::releaseObservers(){
     }
 }
 
-}// namespace
+

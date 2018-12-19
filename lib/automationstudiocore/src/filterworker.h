@@ -23,7 +23,7 @@
 #include <QEvent>
 #include <functional>
 
-namespace as{
+
 
 class FilterWorkerPrivate;
 
@@ -72,6 +72,6 @@ private:
     FilterWorkerPrivate* m_d;
 };
 
-}// namespace
+
 
 #endif // LVFILTERWORKER_H

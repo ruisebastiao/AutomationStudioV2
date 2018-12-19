@@ -4,7 +4,7 @@
 #include <QtConcurrent>
 
 
-namespace as{
+
 
 Utilities::Utilities(QObject *parent) : QObject(parent)
 {
@@ -153,4 +153,4 @@ void Utilities::NonBlockingWait(int ms){
 
 }
 
-}
+

@@ -22,9 +22,6 @@
 #include <QFile>
 #include <QDebug>
 
-namespace as{
-
-namespace{
 
 bool assertLinkPathExists(const QString& linkPath){
     if ( !QDir(linkPath).exists() )
@@ -32,7 +29,7 @@ bool assertLinkPathExists(const QString& linkPath){
     return true;
 }
 
-}// namespace
+
 
 void LibraryLoadPath::addImpl(const QString& path, const QString& linkPath, bool recursive){
 //    if ( !assertLinkPathExists(linkPath) ){
@@ -62,4 +59,4 @@ void LibraryLoadPath::addImpl(const QString& path, const QString& linkPath, bool
 //    }
 }
 
-}// namespace
+

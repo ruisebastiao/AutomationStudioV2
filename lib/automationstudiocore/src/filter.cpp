@@ -17,7 +17,7 @@
 #include "filter.h"
 #include "filterworker.h"
 
-namespace as{
+
 
 Filter::Filter(){
 
@@ -41,4 +41,4 @@ void Filter::use(
     delete locker;
 }
 
-}// namespace
+

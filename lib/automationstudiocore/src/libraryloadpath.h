@@ -20,7 +20,7 @@
 #include <QString>
 #include "automationstudiocoreglobal.h"
 
-namespace as{
+
 
 class AUTOMATIONSTUDIO_CORE_EXPORT LibraryLoadPath{
 
@@ -33,6 +33,6 @@ private:
 
 };
 
-}// namespace
+
 
 #endif // LVLIBRARYLOADPATH_H

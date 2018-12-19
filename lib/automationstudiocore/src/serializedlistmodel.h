@@ -9,12 +9,12 @@
 
 
 template<class T>
-class AUTOMATIONSTUDIO_CORE_EXPORT SerializedListModel : public TypedListModel<T>, public JsonSerializable
+class  SerializedListModel : public TypedListModel<T>, public JsonSerializable
 {
     Q_INTERFACES(JsonSerializable)
 
 public:
-    SerializedListModel(QObject *parent = nullptr){
+    inline SerializedListModel(QObject* parent=nullptr){
 
     }
 
@@ -53,7 +53,7 @@ public:
     }
     virtual QVariant data(const QModelIndex &index, int role) const override
     {
-
+        return QVariant();
     }
 
     // JsonSerializable interface

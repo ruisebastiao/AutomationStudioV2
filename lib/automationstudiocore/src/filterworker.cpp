@@ -19,7 +19,7 @@
 #include <QThread>
 #include <QCoreApplication>
 
-namespace as{
+
 
 FilterWorker::FilterWorker(QObject *)
     : QObject(0)
@@ -121,4 +121,4 @@ FilterWorker::CallEvent *FilterWorker::CallEvent::callbackEvent(){
     return new FilterWorker::CallEvent(m_callback);
 }
 
-}// namespace
+

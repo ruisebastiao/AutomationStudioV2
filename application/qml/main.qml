@@ -1609,8 +1609,8 @@ ApplicationWindow {
 
     InputPanel {
         id: inputPanel
-        enabled: true
-        //visible: false
+        enabled: settings&&settings.useKeyboard
+        visible: enabled
 
         parent: Overlay.overlay
 

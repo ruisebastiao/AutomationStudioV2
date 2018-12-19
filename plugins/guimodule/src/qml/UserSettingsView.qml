@@ -79,6 +79,7 @@ Item{
 
                         Layout.fillWidth: true
 
+
                         RowLayout{
                             anchors.fill: parent
 
@@ -187,6 +188,16 @@ Item{
                                 ]
 
                             }
+
+                            CheckBox{
+                                text: "Use built-in kewyboard"
+                                checked: settings&&settings.useKeyboard
+                                onCheckedChanged: {
+                                    settings.useKeyboard=checked
+                                }
+
+                            }
+
                             Item{
                                 Layout.fillWidth: true;
                             }

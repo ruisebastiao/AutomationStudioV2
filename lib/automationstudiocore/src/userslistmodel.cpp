@@ -1,7 +1,5 @@
 #include "userslistmodel.h"
 
-namespace as {
-
 
 UsersListModel::UsersListModel()
 {
@@ -66,4 +64,4 @@ QVariant UsersListModel::data(const QModelIndex &index, int role) const
     return {};
 
 }
-}
+

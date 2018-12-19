@@ -5,10 +5,6 @@ CONFIG  += qt c++14
 
 include(../../functions.pri)
 
-include(../../plugins/automationmodule/include/automationmoduleheaders.pri)
-
-#include($$PWD/3rdparty/3rdparty.pri)
-
 include(../../lib.pri)
 
 
@@ -29,10 +25,6 @@ include($$PWD/src/automationstudiocore.pri)
 
 linkLocalLib(sioclient)
 linkLocalLib(quazip)
-
-linkLocalPlugin(automationmodule)
-
-
 
 
 include($$PWD/../../lib/CuteLogger/include/cuteloggerheaders.pri)

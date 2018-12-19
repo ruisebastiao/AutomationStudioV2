@@ -76,7 +76,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
                     qan::PortItem* targetPortItem=qobject_cast<qan::PortItem*>(edgeItem->getDestinationItem());
 
                     ////TODO
-                    //                    ConnectionInfo* connectioninfo=as::Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
+                    //                    ConnectionInfo* connectioninfo=Utilities::find<ConnectionInfo>(m_connections,"nodeID",QVariant::fromValue(targetNode->id()));
 
                     ConnectionInfo ci(targetNode->id(),targetPortItem->getId());
                     auto connection_finded=std::find_if(m_connections.begin(), m_connections.end(),

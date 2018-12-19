@@ -24,7 +24,7 @@
 class QObject;
 class QReadWriteLock;
 
-namespace as{
+
 
 class Filter;
 
@@ -53,6 +53,6 @@ private:
     QSet<Filter*> m_observers;
 };
 
-}// namespace
+
 
 #endif // LVSHAREDDATA_H

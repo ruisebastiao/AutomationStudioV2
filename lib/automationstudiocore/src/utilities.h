@@ -10,7 +10,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
 
-namespace as{
+
 
 
 class AUTOMATIONSTUDIO_CORE_EXPORT Utilities : public QObject
@@ -103,5 +103,5 @@ public:
 private slots:
 
 };
-}
+
 #endif // UTILITIES_H

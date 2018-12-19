@@ -5,7 +5,7 @@
 #include "automationstudiocoreglobal.h"
 
 template<class T>
-class AUTOMATIONSTUDIO_CORE_EXPORT TypedListModel : public QAbstractListModel
+class TypedListModel : public QAbstractListModel
 {
 public:
     TypedListModel(QObject *parent = nullptr){
@@ -20,7 +20,7 @@ public:
         endInsertRows();
     }
 
-    Q_INVOKABLE virtual void removeItem(T* item)
+    inline Q_INVOKABLE virtual void removeItem(T* item)
     {
         int itemIndex=m_internalList.indexOf(item);
 
@@ -62,7 +62,7 @@ public:
         return nullptr;
     }
 
-    Q_INVOKABLE int length(){
+    virtual int length(){
         return m_internalList.length();
     }
 
@@ -83,7 +83,7 @@ public:
 public:
     virtual QVariant data(const QModelIndex &index, int role) const override
     {
-
+        return QVariant();
     }
 
 

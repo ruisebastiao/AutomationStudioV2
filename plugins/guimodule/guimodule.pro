@@ -1,6 +1,8 @@
 TARGET = guimodule
 uri = guimodule
 
+DEFINES += GUIMODULE_LIBRARY
+
 include(../../module.pri)
 
 

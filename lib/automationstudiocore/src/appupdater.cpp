@@ -17,7 +17,7 @@ AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 
 
 
-    m_utilities=new as::Utilities(this);
+    m_utilities=new Utilities(this);
 
     updatedir=QDir(QCoreApplication::applicationDirPath());
 
@@ -69,9 +69,9 @@ void AppUpdater::doUpdate(QString release)
 
     ////    QDir::setCurrent(targetdir.absolutePath());
 
-    ////    as::Utilities::NonBlockingExec([&](){
+    ////    Utilities::NonBlockingExec([&](){
     ////        QString currVersion(RELEASEVERS);
-    ////        as::Utilities utils;
+    ////        Utilities utils;
     ////        QString cmd("zip -r "+updatedir.absolutePath()+"/release-"+currVersion+".zip ./*");
 
     ////        utils.executeCommand(cmd,true,targetdir.absolutePath(),true,false);
@@ -169,7 +169,7 @@ void AppUpdater::downloadFinished()
 
         QDir::setCurrent(updatedir.path());
 
-        //        as::Utilities::NonBlockingExec([&](){
+        //        Utilities::NonBlockingExec([&](){
         //            JlCompress backup;
 
         //            connect(&backup,&JlCompress::fileCompressed,[&](QString file){
@@ -182,7 +182,7 @@ void AppUpdater::downloadFinished()
         updatedir.cdUp();
         updatedir.cd("releases");
 
-        as::Utilities::NonBlockingExec([&](){
+        Utilities::NonBlockingExec([&](){
             JlCompress newrelease;
 
             //            connect(&backup,&JlCompress::fileCompressed,[&](QString file){

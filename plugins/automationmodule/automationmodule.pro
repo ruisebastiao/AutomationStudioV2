@@ -18,8 +18,8 @@ include($$PWD/src/automationmodule.pri)
 
 
 include($$PWD/include/automationmoduleheaders.pri)
-linkLocalPlugin(QuickQanava)
 
+include($$PWD/src/SortFilterProxyModel/SortFilterProxyModel.pri)
 
 
 OTHER_FILES += \

@@ -9,6 +9,7 @@
 #include <project.h>
 #include "serializedlistmodel.h"
 
+//template< class AUTOMATIONMODULE_EXPORT SerializedListModel<Project>;
 
 class AUTOMATIONMODULE_EXPORT ProjectsListModel : public SerializedListModel<Project>
 {

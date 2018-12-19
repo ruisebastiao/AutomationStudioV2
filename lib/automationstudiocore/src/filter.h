@@ -21,7 +21,7 @@
 #include "shareddata.h"
 #include <functional>
 
-namespace as{
+
 
 class FilterWorker;
 
@@ -144,6 +144,6 @@ public:
 
 };
 
-}// namespace
+
 
 #endif // LVFILTER_H

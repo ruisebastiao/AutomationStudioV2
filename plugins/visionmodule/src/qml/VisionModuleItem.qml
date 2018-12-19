@@ -35,7 +35,7 @@ VisionModule {
         loadedmodule: parent
 
 
-        graph:VisionGraph {
+        graph:VisionModuleGraph {
             id: dataflowGraph
 
             portDelegate: Component {

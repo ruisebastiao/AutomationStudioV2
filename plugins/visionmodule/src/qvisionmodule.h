@@ -7,6 +7,7 @@ class QVisionModule: public QAutomationModule
 {
 Q_OBJECT
 
+    QVariantList getModuleNodeTypes() const;
 public:
     QVisionModule(QQuickItem *parent=nullptr);
 };

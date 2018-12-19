@@ -21,7 +21,7 @@
 #include <QCoreApplication>
 #include "filterworker.h"
 
-namespace as{
+
 
 class FilterWorkerPrivate : public QObject{
 
@@ -50,6 +50,6 @@ public:
 
 };
 
-}// namespace
+
 
 #endif // LVFILTERWORKER_P_H

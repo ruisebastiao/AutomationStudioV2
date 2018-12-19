@@ -5,9 +5,7 @@ import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.3
 
 import guimodule 1.0
-
-import SortFilterProxyModel 0.2
-
+import SortFilterProxyModel 1.0
 import automationmodule 1.0
 
 FlowNodeItem{

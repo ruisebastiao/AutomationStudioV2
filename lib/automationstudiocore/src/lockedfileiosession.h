@@ -26,7 +26,7 @@
 class QReadWriteLock;
 class QMutex;
 
-namespace as{
+
 
 class FileLock;
 
@@ -55,6 +55,6 @@ private:
     QMutex* m_locksMutex;
 };
 
-}// namespace
+
 
 #endif // LVLOCKEDFILEIOSESSION_H

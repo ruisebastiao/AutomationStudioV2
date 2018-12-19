@@ -20,7 +20,7 @@
 #include <QDirIterator>
 #include <QFile>
 
-namespace as{
+
 
 void LibraryLoadPath::add(const QString &path, const QString &linkPath){
     addImpl(path, linkPath);
@@ -30,4 +30,4 @@ void LibraryLoadPath::addRecursive(const QString &path, const QString &linkPath)
     addImpl(path, linkPath, true);
 }
 
-}// namespace
+

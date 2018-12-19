@@ -20,7 +20,7 @@
 #include <windows.h>
 #include <tchar.h>
 
-namespace as{
+
 
 QString PluginContext::applicationFilePathImpl(){
     char* buffer    = 0;
@@ -45,5 +45,3 @@ QString PluginContext::applicationFilePathImpl(){
     }
     return QString();
 }
-
-} // namespace

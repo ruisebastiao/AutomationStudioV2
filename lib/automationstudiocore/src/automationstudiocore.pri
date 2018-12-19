@@ -3,7 +3,6 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/libraryloadpath.h \
-    $$PWD/settings.h \
     $$PWD/lockedfileiosession.h \
     $$PWD/plugincontext.h \
     $$PWD/filter.h \
@@ -25,7 +24,6 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/libraryloadpath.cpp \
-    $$PWD/settings.cpp \
     $$PWD/lockedfileiosession.cpp \
     $$PWD/plugincontext.cpp \
     $$PWD/filter.cpp \

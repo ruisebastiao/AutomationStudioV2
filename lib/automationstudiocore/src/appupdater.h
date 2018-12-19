@@ -46,7 +46,7 @@ private:
     QFile m_output;
     QNetworkAccessManager manager;
 
-    as::Utilities* m_utilities=nullptr;
+    Utilities* m_utilities=nullptr;
 
     void doInstall();
 

@@ -11,7 +11,7 @@
 
 #include <qanGraph.h>
 
-class FlowNode;
+class AUTOMATIONMODULE_EXPORT FlowNode;
 
 class SceneGraph;
 

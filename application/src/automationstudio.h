@@ -35,7 +35,7 @@ class QGuiApplication;
 class QQmlApplicationEngine;
 class QUrl;
 
-namespace as{
+
 
 class Engine;
 class Settings;
@@ -50,9 +50,9 @@ class AutomationStudio : public QObject{
 
     Q_PROPERTY(QCoreApplication* coreApplication READ coreApplication WRITE setCoreApplication NOTIFY coreApplicationChanged)
 
-    Q_PROPERTY(as::Settings*       settings READ settings CONSTANT)
+    Q_PROPERTY(Settings*       settings READ settings CONSTANT)
 
-    Q_PROPERTY(as::Utilities*       utilities READ utilities CONSTANT)
+    Q_PROPERTY(Utilities*       utilities READ utilities CONSTANT)
 
     Q_PROPERTY(QString releaseVersion READ releaseVersion WRITE setReleaseVersion NOTIFY releaseVersionChanged)
     Q_PROPERTY(QString buildInfo READ buildInfo WRITE setBuildInfo NOTIFY buildInfoChanged)
@@ -106,7 +106,7 @@ public:
     }
 
     void loadPlugins();
-    as::Utilities* utilities() const
+    Utilities* utilities() const
     {
         return m_utilities;
     }
@@ -171,7 +171,7 @@ private:
 
     QString  m_dir;
     QPluginLoader* m_pluginLoader;
-    as::Settings*          m_settings;
+    Settings*          m_settings;
     QString m_currentDir="";
 
     SystemSettings* m_systemSettings=nullptr;
@@ -179,7 +179,7 @@ private:
     QCoreApplication* m_coreApplication=nullptr;
 
 
-    as::Utilities* m_utilities=nullptr;
+    Utilities* m_utilities=nullptr;
 
 
 
@@ -202,6 +202,6 @@ inline QQmlApplicationEngine *AutomationStudio::engine(){
 }
 
 
-}// namespace
+
 
 #endif // AUTOMATIONSTUDIO_H

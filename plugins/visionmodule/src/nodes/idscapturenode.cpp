@@ -462,7 +462,7 @@ void IDSCaptureNode::closeCamera(){
 
     updateContinuousCapture(false);
 
-    as::Utilities::NonBlockingExec([&](){
+    Utilities::NonBlockingExec([&](){
         while(m_isContinuousCapture){
             QThread::msleep(10);
         }

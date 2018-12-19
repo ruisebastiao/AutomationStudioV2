@@ -37,6 +37,8 @@ include($$PWD/src/main.pri)
 include($$PWD/../lib/automationstudiocore/include/automationstudiocoreheaders.pri)
 include($$PWD/../lib/CuteLogger/include/cuteloggerheaders.pri)
 
+include($$PWD/../plugins/automationmodule/include/automationmoduleheaders.pri)
+
 RESOURCES += $$PWD/application.qrc
 
 OTHER_FILES += \
@@ -106,6 +108,9 @@ WITH-CONFIGS{
 
 linkLocalLib(CuteLogger)
 linkLocalLib(automationstudiocore)
+
+linkLocalPlugin(automationmodule)
+
 
 
 message(Build id: $$BUILD_ID)

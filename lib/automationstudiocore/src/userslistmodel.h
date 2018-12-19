@@ -8,7 +8,7 @@
 #include "serializedlistmodel.h"
 #include "user.h"
 
-namespace as{
+
 
 class AUTOMATIONSTUDIO_CORE_EXPORT UsersListModel : public SerializedListModel<User>
 {
@@ -45,7 +45,5 @@ public:
 //    virtual void Serialize(QJsonArray &jsonvalue) override;
 //    virtual void DeSerialize(QJsonArray &jsonvalue) override;
 };
-
-}
 
 #endif // USERSLISTMODEL_H

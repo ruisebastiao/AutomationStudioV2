@@ -24,7 +24,7 @@
 #include <QFile>
 
 
-namespace as{
+
 
 // SetDefaultDllDirectories(
 //   LOAD_LIBRARY_SEARCH_APPLICATION_DIR |
@@ -34,11 +34,11 @@ namespace as{
 // and AddDllDirectory() have weird behaviors when loading QtQuick.Controls, it's why we prefer to
 // manipulate the 'PATH' environment variable instead.
 
-namespace{
+
 
 QByteArray pathContents;
 
-}// namespace
+
 
 void LibraryLoadPath::addImpl(const QString& path, const QString& , bool recursive){
     bool firstRun = false;
@@ -71,4 +71,4 @@ void LibraryLoadPath::addImpl(const QString& path, const QString& , bool recursi
     }
 }
 
-}// namespace
+
