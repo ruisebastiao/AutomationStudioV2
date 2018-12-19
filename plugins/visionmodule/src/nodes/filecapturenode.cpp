@@ -43,9 +43,9 @@ void FileCaptureNode::DeSerialize(QJsonObject &json)
 
     CaptureNode::DeSerialize(json);
 
-    FlowNodePort* port=getPortFromKey("frameCaptured");
-    if(port){
-        port->setHidden(true);
-    }
+//    FlowNodePort* port=getPortFromKey("frameCaptured");
+//    if(port){
+//        port->setHidden(true);
+//    }
 }
 

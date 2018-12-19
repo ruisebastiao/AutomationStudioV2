@@ -9,6 +9,8 @@
 
 #include <QtConcurrent>
 
+#include <graphs/visiongraph.h>
+
 
 class VisionSystemNode : public FlowNode
 {
@@ -31,6 +33,7 @@ class VisionSystemNode : public FlowNode
     Q_PROPERTY(qan::GraphView* visionGraphView READ visionGraphView WRITE setVisionGraphView NOTIFY visionGraphViewChanged)
 
 
+    Q_PROPERTY(FlowNodeManager* rois READ rois WRITE setRois NOTIFY roisChanged USER("serialize"))
 
 
 public:
@@ -91,11 +94,11 @@ public slots:
 
                 QMat* framesource=m_frameSource.value<QMat*>();
 
-                foreach (FlowNode* node, m_ROINodes) {
-                    ROINode* roi=static_cast<ROINode*>(node);
-                    roi->processFrameObject(framesource);
+//                foreach (FlowNode* node, m_ROINodes) {
+//                    ROINode* roi=static_cast<ROINode*>(node);
+//                    roi->processFrameObject(framesource);
 
-                }
+//                }
 
                 //qDebug()<<"Frame processed";
                 //setFrameProcessed(true);
@@ -127,7 +130,22 @@ public slots:
             return;
 
         m_visionGraphView = visionGraphView;
+
+
         emit visionGraphViewChanged(m_visionGraphView);
+
+
+        if(m_visionGraphView){
+            VisionGraph* graph=dynamic_cast<VisionGraph*>(m_visionGraphView->getGraph());
+            m_rois->setScenegraph(graph);
+//            graph->connect(graph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
+//                if(node && this->configsLoaded()){
+
+//                    m_rois->addItem(node);
+//                }
+//            });
+
+        }
     }
 
 
@@ -144,9 +162,18 @@ public slots:
     void setFrameBufferSource(QVariant frameBufferSource);
 
 
+    void setRois(FlowNodeManager* rois)
+    {
+        if (m_rois == rois)
+            return;
+
+        m_rois = rois;
+        emit roisChanged(m_rois);
+    }
+
 public:
-    void Serialize(QJsonObject &json);
-    void DeSerialize(QJsonObject &json);
+    void Serialize(QJsonObject &json) override;
+    void DeSerialize(QJsonObject &json) override;
 
     qan::GraphView* visionGraphView() const
     {
@@ -181,15 +208,17 @@ signals:
 
     void frameBufferSourceChanged(QVariant frameBufferSource);
 
+    void roisChanged(FlowNodeManager* rois);
+
 private:
 
     QVariant m_frameSource=QVariant::fromValue(new QMat());
     QVariant m_processFrame=QVariant::fromValue(false);
     QVariant m_frameProcessed=QVariant::fromValue(false);
 
-    void readROINode(QJsonObject roiobject);
+//    void readROINode(QJsonObject roiobject);
 
-    QList<ROINode *> m_ROINodes;
+//    QList<ROINode *> m_ROINodes;
 
     QFuture<void> m_processingFuture;
     QFutureWatcher<void> m_processingFutureWatcher;
@@ -201,11 +230,17 @@ private:
     // FlowNode interface
     QVariant m_frameBufferSource=QVariant::fromValue(new FrameBufferListModel());
 
+    FlowNodeManager* m_rois= new FlowNodeManager(this);
+
 public:
 
     QVariant frameBufferSource() const
     {
         return m_frameBufferSource;
+    }
+    FlowNodeManager* rois() const
+    {
+        return m_rois;
     }
 };
 

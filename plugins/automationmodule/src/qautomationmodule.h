@@ -26,9 +26,9 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
     Q_PROPERTY(ModuleType type READ type NOTIFY typeChanged USER("serialize"))
     Q_PROPERTY(qan::GraphView* graphView READ graphView WRITE setGraphView NOTIFY graphViewChanged)
 
-    Q_PROPERTY(QVariantList commonNodeTypes READ commonNodeTypes NOTIFY commonNodeTypesChanged)
 
-    Q_PROPERTY(QVariantList moduleNodeTypes READ moduleNodeTypes NOTIFY moduleNodeTypesChanged)
+
+
 
     Q_PROPERTY(QString moduleName READ moduleName NOTIFY moduleNameChanged)
 
@@ -105,7 +105,7 @@ public:
 
 
 
-    FlowNode* readNode(QJsonObject nodeobject);
+//    FlowNode* readNode(QJsonObject nodeobject);
 
 private:
 
@@ -128,15 +128,6 @@ private:
 
 
 
-
-
-    QVariantList m_commonNodeTypes;
-
-
-
-
-
-
     int m_id=-1;
 
     FlowNodeManager* m_flowNodes= new FlowNodeManager(this);
@@ -144,7 +135,7 @@ private:
 protected:
       qan::GraphView* m_graphView=nullptr;
       QString m_moduleName="";
-      QVariantList m_moduleNodeTypes;
+
 
 signals:
     void nameChanged(QString name);
@@ -163,9 +154,7 @@ signals:
 
     void configSourceChanged(QString configSource);
 
-    void commonNodeTypesChanged(QVariantList commonNodeTypes);
 
-    void moduleNodeTypesChanged(QVariantList moduleNodeTypes);
 
     void moduleNameChanged(QString moduleName);
 
@@ -219,9 +208,6 @@ public slots:
     }
 
 
-public:
-//    void Serialize(QJsonObject &json, QObject *target) override;
-//    void DeSerialize(QJsonObject &json, QObject *target) override;
 
     // JsonSerializable interface
 public:
@@ -230,21 +216,10 @@ public:
 
 
 
-//    virtual FlowNode *createModuleNode(QString nodetype)=0;
-
-
-
 
     Q_INVOKABLE void loadConnections();
-    QVariantList commonNodeTypes() const
-    {
-        return m_commonNodeTypes;
-    }
 
-    QVariantList moduleNodeTypes() const
-    {
-        return m_moduleNodeTypes;
-    }
+
 
     QString moduleName() const
     {

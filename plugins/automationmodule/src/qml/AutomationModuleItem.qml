@@ -296,7 +296,7 @@ Item {
                                                             id: listView_common
                                                             clip: true
                                                             anchors.fill: parent
-                                                            model: root.loadedmodule.commonNodeTypes
+                                                            model: graphView.graph.commonNodeTypes
                                                             delegate:Item {
                                                                 id:common_delegate
                                                                 width: parent.width
@@ -358,7 +358,7 @@ Item {
                                                             id: listView_module
                                                             clip: true
                                                             anchors.fill: parent
-                                                            model: root.loadedmodule.moduleNodeTypes
+                                                            model: graphView.graph.moduleNodeTypes
                                                             delegate:Item {
                                                                 id:module_delegate
                                                                 width: parent.width

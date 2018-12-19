@@ -91,11 +91,6 @@ public:
 
 
 
-    static QVariantList getCommonTypes();
-
-
-
-
 
     operator QString() const {
         QString  ret(metaObject()->className());
@@ -151,7 +146,7 @@ public:
     Q_INVOKABLE void remove();
 private:
 
-
+    bool m_portsInitialized=false;
 protected:
     Type            m_type{Type::NodeNone};
 

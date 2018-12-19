@@ -10,72 +10,6 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 
 }
 
-QVariantList FlowNode::getCommonTypes()
-{
-    QVariantList ret;
-
-    int enumscount=QMetaEnum::fromType<Type>().keyCount();
-    for (int i = 0; i < enumscount; ++i) {
-        Type nodetype= static_cast<Type>(QMetaEnum::fromType<Type>().value(i));
-
-        QVariantMap map;
-
-
-        switch (nodetype) {
-
-        case Type::ObjectPropertyNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Object Property");
-
-            break;
-
-        case Type::BarcodeReaderNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Barcode Reader");
-
-            break;
-        case Type::ProxyInputNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"In/Out Proxy");
-
-            break;
-
-        case Type::StringNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"String");
-
-            break;
-
-        case Type::WebServiceNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"WebService");
-
-            break;
-
-        case Type::NumericNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Numeric");
-
-            break;
-
-        case Type::ModulePropertyBind:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Module Property Bind");
-            break;
-
-        case Type::StringBuilderNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"String Builder");
-
-            break;
-
-
-        default:
-            //                static_assert(true, "");
-            break;
-        }
-
-        if(map.empty()==false)
-            ret.append(map);
-
-    }
-
-
-    return ret;
-}
-
 std::ostream& operator <<(std::ostream &out, const FlowNode &c)
 {
     out <<c;
@@ -161,30 +95,33 @@ FlowNodePort* FlowNode::createPort(QString portID,qan::PortItem::Type port_type)
 void FlowNode::initializePorts()
 {
 
-    for (int i = 0; i < this->metaObject()->propertyCount(); i++)
-    {
+    if(!m_portsInitialized){
 
-        QMetaProperty property = this->metaObject()->property(i);
-        const char* propName=property.name();
+        for (int i = 0; i < this->metaObject()->propertyCount(); i++)
+        {
+
+            QMetaProperty property = this->metaObject()->property(i);
+            const char* propName=property.name();
 
 
-        // INPUT PORTS => Revision 30
-        if(property.revision()==30){
+            // INPUT PORTS => Revision 30
+            if(property.revision()==30){
 
-            createPort(propName,qan::PortItem::Type::In);
+                createPort(propName,qan::PortItem::Type::In);
 
-            continue;
+                continue;
+            }
+
+            // OUTPUT PORTS => Revision 31
+            if(property.revision()==31){
+                createPort(propName,qan::PortItem::Type::Out);
+
+                continue;
+            }
         }
+        m_portsInitialized=true;
 
-        // OUTPUT PORTS => Revision 31
-        if(property.revision()==31){
-            createPort(propName,qan::PortItem::Type::Out);
-
-            continue;
-        }
     }
-
-
 
 
 }
@@ -287,11 +224,11 @@ void FlowNode::DeSerialize(QJsonObject &json)
 {
 
 
-
+    this->m_scenegraph=qobject_cast<SceneGraph*>(this->getGraph());
 
     JsonSerializable::DeSerialize(json,this);
 
-    this->m_scenegraph=qobject_cast<SceneGraph*>(this->getGraph());
+
 
     getItem()->setProperty("x",QVariant::fromValue(json["nodeX"].toDouble()));
     getItem()->setProperty("y",QVariant::fromValue(json["nodeY"].toDouble()));

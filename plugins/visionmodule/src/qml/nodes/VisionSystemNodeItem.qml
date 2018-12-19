@@ -218,6 +218,10 @@ FlowNodeItem{
 
                         graph:visionGraph
 
+                        onRightClicked:{
+                            //console.log("Right")
+                            contextMenu.popup();
+                        }
                         Rectangle {
                             anchors.right: visionGraphView.right
                             anchors.bottom: visionGraphView.bottom
@@ -304,6 +308,97 @@ FlowNodeItem{
                         selectionColor: Material.accent
                         connectorColor: Material.accent
                         connectorEdgeColor: Material.accent
+
+
+
+
+                        Menu {
+                            id: contextMenu
+                            width: 300
+                            height: 300
+                            contentItem:ColumnLayout{
+                                anchors.fill: parent
+                                TabBar {
+                                    id: bar
+                                    width: parent.width
+
+                                    TabButton {
+                                        width: implicitWidth
+                                        text: qsTr("Vision")
+                                    }
+
+                                }
+                                StackLayout {
+                                    width: parent.width
+
+                                    currentIndex: bar.currentIndex
+                                    Item {
+                                        id: visionTab
+
+                                        Layout.fillWidth:true
+                                        Layout.fillHeight:true
+                                        Rectangle{
+                                            anchors.fill: parent
+                                            anchors.margins: 5
+                                            ListView {
+                                                id: listView_visiom
+                                                clip: true
+                                                anchors.fill: parent
+                                                model: visionGraph.visionNodeTypes
+                                                delegate:Item {
+                                                    id:vision_delegate
+                                                    width: parent.width
+                                                    height: 40
+                                                    property var modelDataObject: modelData
+                                                    property var key;
+                                                    property string value
+                                                    onModelDataObjectChanged: {
+                                                        for (var prop in modelDataObject) {
+                                                            key=prop
+                                                            value= modelDataObject[prop]
+                                                        }
+                                                    }
+
+                                                    Label{
+
+                                                        text: value
+                                                        anchors.fill: parent
+                                                        font.pixelSize: 16
+                                                        horizontalAlignment:Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        //                     fontSizeMode:Text.Fit
+                                                    }
+                                                    MouseArea{
+                                                        anchors.fill: parent
+                                                        hoverEnabled: true
+                                                        onEntered:{
+                                                            vision_delegate.ListView.view.currentIndex = index;
+
+                                                        }
+
+                                                        onClicked: {
+
+
+                                                            visionGraph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                                            contextMenu.dismiss()
+                                                        }
+                                                    }
+                                                }
+                                                highlight: Rectangle {
+                                                    color: "lightsteelblue";
+                                                    radius: 5
+                                                }
+                                                focus: true
+                                            }
+
+                                        }
+                                    }
+
+                                }
+
+
+                            }
+                        }
 
 
 

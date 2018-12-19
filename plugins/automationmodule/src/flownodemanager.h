@@ -40,8 +40,10 @@ private:
 
     QList<FlowNode*> m_proxynodes;
 
+    SceneGraph* m_scenegraph=nullptr;
 
 
+    FlowNode *readNode(QJsonObject nodeobject);
 public slots:
     FlowNode* getByID(int id);
 
@@ -93,6 +95,8 @@ public:
 public:
 //    virtual void Serialize(QJsonArray &jsonarray) override;
     virtual void DeSerialize(QJsonArray &jsonarray) override;
+    SceneGraph *getScenegraph() const;
+    void setScenegraph(SceneGraph *scenegraph);
 };
 
 

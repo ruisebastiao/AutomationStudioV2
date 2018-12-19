@@ -25,6 +25,27 @@ int FlowNodeManager::indexOfID(int nodeID)
 
 }
 
+SceneGraph *FlowNodeManager::getScenegraph() const
+{
+    return m_scenegraph;
+}
+
+void FlowNodeManager::setScenegraph(SceneGraph *scenegraph)
+{
+    if(m_scenegraph==scenegraph){
+        return;
+    }
+    m_scenegraph = scenegraph;
+
+    scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
+//        if(node && this->moduleLoaded()){
+            addItem(node);
+//        }
+    });
+
+
+}
+
 QMap<int, FlowNode *> FlowNodeManager::getFlownodesTable() const
 {
     return m_flownodesTable;
@@ -45,6 +66,14 @@ void FlowNodeManager::addItem(FlowNode *item)
     if(!item){
         return;
     }
+
+    int nodeid=getAvailableID();
+    if(nodeid==-1){
+        LOG_ERROR("Invalid node ID");
+        return;
+    }
+
+    item->initializeNode(nodeid);
 
     SerializedListModel::addItem(item);
 
@@ -73,7 +102,7 @@ void FlowNodeManager::addItem(FlowNode *item)
     connect(item,&FlowNode::destroyed,[this](QObject* object){
 
         if(object){
-//            FlowNode* node=qobject_cast<FlowNode*>(object);
+            //            FlowNode* node=qobject_cast<FlowNode*>(object);
             this->removeItem((FlowNode*)object);
         }
 
@@ -106,14 +135,40 @@ void FlowNodeManager::removeItem(FlowNode *item)
     SerializedListModel::removeItem(item);
 }
 
-//void FlowNodeManager::Serialize(QJsonArray &jsonarray)
-//{
 
-//}
+
+FlowNode *FlowNodeManager::readNode(QJsonObject nodeobject)
+{
+    qan::Node* newnode=nullptr;
+
+
+
+    newnode=m_scenegraph->createNode(nodeobject["type"].toString());
+//    ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(newnode);
+//    if(modulenode){
+//        modulenode->setModule(this);
+//    }
+
+
+    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
+    if(flownode){
+
+        flownode->DeSerialize(nodeobject);
+
+
+    }
+
+    return flownode;
+
+}
 
 void FlowNodeManager::DeSerialize(QJsonArray &jsonarray)
 {
 
+    for (int nodeIndex = 0; nodeIndex < jsonarray.size(); ++nodeIndex) {
+        QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
+         addItem(readNode(nodeObject));
+    }
 }
 
 FlowNode *FlowNodeManager::getByID(int id)

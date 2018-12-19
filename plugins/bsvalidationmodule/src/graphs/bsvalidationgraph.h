@@ -11,6 +11,8 @@ public:
     // SceneGraph interface
 public:
     virtual FlowNode *createNode(QString nodetype) override;
+private:
+    void getModuleNodeTypes();
 };
 
 #endif // BSVALIDATIONGRAPH_H

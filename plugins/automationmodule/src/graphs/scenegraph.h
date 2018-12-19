@@ -22,20 +22,12 @@ class AUTOMATIONMODULE_EXPORT SceneGraph : public qan::Graph
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVariantList commonNodeTypes READ commonNodeTypes NOTIFY commonNodeTypesChanged)
+    Q_PROPERTY(QVariantList moduleNodeTypes READ moduleNodeTypes NOTIFY moduleNodeTypesChanged)
+
+
 public:
-    explicit SceneGraph( QQuickItem* parent = nullptr ) noexcept : qan::Graph(parent) {
-
-
-        QObject::connect(this, &qan::Graph::connectorRequestPortEdgeCreation, this, [this](qan::PortItem* src,qan::PortItem* dst){
-
-            if(isEdgeDestinationBindable(*dst)){
-                qan::Edge* newedge= this->insertNewEdge(false,src->getNode(),dst->getNode());
-
-                this->bindEdge(newedge,src,dst);
-            }
-        });
-
-    }
+    explicit SceneGraph( QQuickItem* parent = nullptr ) noexcept;
 
     virtual FlowNode* createNode(QString nodetype);
 
@@ -49,8 +41,6 @@ public:
 
     QPointer<QQuickItem> createDock(qan::NodeItem::Dock dock, qan::Node& node) noexcept;
 
-    //    Q_INVOKABLE qan::Node*  insertFlowNode(int type) { return insertFlowNode(static_cast<FlowNode::Type>(type)); }       // FlowNode::Type could not be used from QML, Qt 5.10 bug???
-    //    qan::Node*              insertFlowNode(FlowNode::Type type);
 
 public slots:
 
@@ -69,9 +59,32 @@ public:
 public:
     void bindEdge(qan::Edge *edge, qan::PortItem *outPort, qan::PortItem *inPort) noexcept override;
 
+    QVariantList commonNodeTypes() const
+    {
+        return m_commonNodeTypes;
+    }
+
+    QVariantList moduleNodeTypes() const
+    {
+        return m_moduleNodeTypes;
+    }
+
 signals:
     void flowNodeAdded(FlowNode* flownode);
+
+    void commonNodeTypesChanged(QVariantList commonNodeTypes);
+
+    void moduleNodeTypesChanged(QVariantList moduleNodeTypes);
+
+private:
+    void getCommonTypes();
+
+    QVariantList m_commonNodeTypes;
+
+protected:
+    QVariantList m_moduleNodeTypes;
 };
+
 
 
 QML_DECLARE_TYPE(SceneGraph)

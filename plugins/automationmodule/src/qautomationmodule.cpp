@@ -10,9 +10,7 @@
 
 
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
-{
-
-    m_commonNodeTypes.append(FlowNode::getCommonTypes());
+{    
 
 }
 
@@ -80,35 +78,35 @@ void QAutomationModule::loadConnections(){
 
 
 
-FlowNode *QAutomationModule::readNode(QJsonObject nodeobject)
-{
-    qan::Node* newnode=nullptr;
+//FlowNode *QAutomationModule::readNode(QJsonObject nodeobject)
+//{
+//    qan::Node* newnode=nullptr;
 
 
-    qan::Graph* scene=m_graphView->getGraph();
-    if (scene==nullptr)
-        return nullptr;
+//    qan::Graph* scene=m_graphView->getGraph();
+//    if (scene==nullptr)
+//        return nullptr;
 
-    SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(scene);
+//    SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(scene);
 
-    newnode=scenegraph->createNode(nodeobject["type"].toString());
-    ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(newnode);
-    if(modulenode){
-        modulenode->setModule(this);
-    }
-
-
-    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
-    if(flownode){
-
-        flownode->DeSerialize(nodeobject);
+//    newnode=scenegraph->createNode(nodeobject["type"].toString());
+//    ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(newnode);
+//    if(modulenode){
+//        modulenode->setModule(this);
+//    }
 
 
-    }
+//    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
+//    if(flownode){
 
-    return flownode;
+//        flownode->DeSerialize(nodeobject);
 
-}
+
+//    }
+
+//    return flownode;
+
+//}
 
 
 
@@ -127,19 +125,8 @@ void QAutomationModule::setGraphView(qan::GraphView* graphView)
 
     SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(scene);
 
-    scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
-        if(node && this->moduleLoaded()){
+    m_flowNodes->setScenegraph(scenegraph);
 
-            int nodeid=m_flowNodes->getAvailableID();
-            if(nodeid==-1){
-                LOG_ERROR("Invalid node ID");
-            }
-
-            node->initializeNode(nodeid);
-
-            m_flowNodes->addItem(node);
-        }
-    });
 
     emit graphViewChanged(m_graphView);
 }
@@ -180,11 +167,12 @@ void QAutomationModule::DeSerialize(QJsonObject &json)
 {
     JsonSerializable::DeSerialize(json,this);
 
+    QJsonObject graphview=json["graphview"].toObject();
 
-    m_graphView->setZoom(json["zoom"].toDouble());
+    m_graphView->setZoom(graphview["zoom"].toDouble());
 
-    m_graphView->getContainerItem()->setX(json["x"].toDouble());
-    m_graphView->getContainerItem()->setY(json["y"].toDouble());
+    m_graphView->getContainerItem()->setX(graphview["x"].toDouble());
+    m_graphView->getContainerItem()->setY(graphview["y"].toDouble());
 
 
 

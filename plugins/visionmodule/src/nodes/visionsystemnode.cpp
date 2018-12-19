@@ -36,41 +36,41 @@ void VisionSystemNode::setFrameBufferSource(QVariant frameBufferSource)
 }
 
 
-void VisionSystemNode::readROINode(QJsonObject roiobject){
+//void VisionSystemNode::readROINode(QJsonObject roiobject){
 
-    if(!m_visionGraphView){
-        return;
-    }
-    auto newnode=m_visionGraphView->getGraph()->insertNode<ROINode>(nullptr);
+//    if(!m_visionGraphView){
+//        return;
+//    }
+//    auto newnode=m_visionGraphView->getGraph()->insertNode<ROINode>(nullptr);
 
-    ROINode* node=dynamic_cast<ROINode*>(newnode);
-    if(node){
-        //node->setParent(this);
-        node->DeSerialize(roiobject);
-        m_ROINodes.append(node);
+//    ROINode* node=dynamic_cast<ROINode*>(newnode);
+//    if(node){
+//        //node->setParent(this);
+//        node->DeSerialize(roiobject);
+//        m_ROINodes.append(node);
 
-        QObject::connect(node,&ROINode::roiProcessingDoneChanged,this,[this](){
-            this->setFrameProcessed(true);
-        }
-        );
+//        QObject::connect(node,&ROINode::roiProcessingDoneChanged,this,[this](){
+//            this->setFrameProcessed(true);
+//        }
+//        );
 
-        connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
-            int nodepos=m_ROINodes.indexOf( static_cast<ROINode*>(nodetoremove));
-            if(nodepos>0){
-                ROINode* noderemoved=m_ROINodes.at(nodepos);
-                if(noderemoved){
-                    m_ROINodes.removeAll(noderemoved);
-                    this->m_visionGraphView->getGraph()->removeNode(noderemoved);
+////        connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
+////            int nodepos=m_ROINodes.indexOf( static_cast<ROINode*>(nodetoremove));
+////            if(nodepos>0){
+////                ROINode* noderemoved=m_ROINodes.at(nodepos);
+////                if(noderemoved){
+////                    m_ROINodes.removeAll(noderemoved);
+////                    this->m_visionGraphView->getGraph()->removeNode(noderemoved);
 
-                }
+////                }
 
-            }
-        });
+////            }
+////        });
 
 
-    }
+//    }
 
-}
+//}
 
 
 void VisionSystemNode::Serialize(QJsonObject &json)
@@ -78,17 +78,17 @@ void VisionSystemNode::Serialize(QJsonObject &json)
     FlowNode::Serialize(json);
 
 
-    QJsonArray nodesArrayList;
+//    QJsonArray nodesArrayList;
 
-    foreach (FlowNode* node, m_ROINodes) {
-        QJsonObject nodeobject;
-        node->Serialize(nodeobject);
-        nodesArrayList.append(nodeobject);
+//    foreach (FlowNode* node, m_ROINodes) {
+//        QJsonObject nodeobject;
+//        node->Serialize(nodeobject);
+//        nodesArrayList.append(nodeobject);
 
 
-    }
+//    }
 
-    json["rois"]=nodesArrayList;
+//    json["rois"]=nodesArrayList;
 
 }
 
@@ -98,14 +98,14 @@ void VisionSystemNode::DeSerialize(QJsonObject &json)
 
     FlowNode::DeSerialize(json);
 
-    QJsonArray roisArray = json["rois"].toArray();
+//    QJsonArray roisArray = json["rois"].toArray();
 
-    for (int i = 0; i < roisArray.count(); ++i) {
-        QJsonObject roiObject=roisArray[i].toObject();
-        if(roiObject["type"]=="ROINode"){
-            readROINode(roiObject);
-        }
-    }
+//    for (int i = 0; i < roisArray.count(); ++i) {
+//        QJsonObject roiObject=roisArray[i].toObject();
+//        if(roiObject["type"]=="ROINode"){
+//            readROINode(roiObject);
+//        }
+//    }
 
 
 

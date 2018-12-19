@@ -65,27 +65,23 @@ public slots:
 
         if(m_roiEditorGraphView){
             SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(m_roiEditorGraphView);
+            m_ProcessingNodes->setScenegraph(scenegraph);
+//            scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
+//                if(node && configsLoaded()){
 
-            scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
-                if(node && configsLoaded()){
+//                    m_ProcessingNodes->addItem(node);
 
-                    ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(node);
-                    int nodeid=m_ProcessingNodes->getAvailableID();
-                    if(nodeid==-1){
-                        LOG_ERROR("Invalid node ID");
-                    }
+//                    ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(node);
+//                    if(procnode){
+//                        this->initializeProcessingNode(procnode);
 
-                    if(procnode){
-                        this->initializeProcessingNode(procnode);
-
-                    }
-                    m_ProcessingNodes->addItem(node);
-
-                    procnode->initializeNode(nodeid);
+//                    }
 
 
-                }
-            });
+
+
+//                }
+//            });
         }
         emit roiEditorGraphViewChanged(m_roiEditorGraphView);
     }

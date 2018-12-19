@@ -14,6 +14,93 @@
 
 
 
+
+SceneGraph::SceneGraph(QQuickItem *parent) noexcept : qan::Graph(parent) {
+
+
+    QObject::connect(this, &qan::Graph::connectorRequestPortEdgeCreation, this, [this](qan::PortItem* src,qan::PortItem* dst){
+
+        if(isEdgeDestinationBindable(*dst)){
+            qan::Edge* newedge= this->insertNewEdge(false,src->getNode(),dst->getNode());
+
+            this->bindEdge(newedge,src,dst);
+        }
+    });
+
+    getCommonTypes();
+
+}
+
+
+void SceneGraph::getCommonTypes()
+{
+    QVariantList ret;
+
+    int enumscount=QMetaEnum::fromType<FlowNode::Type>().keyCount();
+    for (int i = 0; i < enumscount; ++i) {
+        FlowNode::Type nodetype= static_cast<FlowNode::Type>(QMetaEnum::fromType<FlowNode::Type>().value(i));
+
+        QVariantMap map;
+
+
+        switch (nodetype) {
+
+        case FlowNode::Type::ObjectPropertyNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Object Property");
+
+            break;
+
+        case FlowNode::Type::BarcodeReaderNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Barcode Reader");
+
+            break;
+        case FlowNode::Type::ProxyInputNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"In/Out Proxy");
+
+            break;
+
+        case FlowNode::Type::StringNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"String");
+
+            break;
+
+        case FlowNode::Type::WebServiceNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"WebService");
+
+            break;
+
+        case FlowNode::Type::NumericNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Numeric");
+
+            break;
+
+        case FlowNode::Type::ModulePropertyBind:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Module Property Bind");
+            break;
+
+        case FlowNode::Type::StringBuilderNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"String Builder");
+
+            break;
+
+
+        default:
+            //                static_assert(true, "");
+            break;
+        }
+
+        if(map.empty()==false)
+            ret.append(map);
+
+    }
+
+
+    m_commonNodeTypes.append(ret);
+
+    emit commonNodeTypesChanged(m_commonNodeTypes);
+}
+
+
 FlowNode *SceneGraph::createNode(QString nodetype)
 {
     qan::Node* newnode=nullptr;

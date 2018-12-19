@@ -4,7 +4,24 @@
 
 VisionGraph::VisionGraph()
 {
+    getVisionNodeTypes();
+}
 
+
+void VisionGraph::getVisionNodeTypes()
+{
+    QVariantList ret;
+
+    QVariantMap map;
+
+    map.insert(QVariant::fromValue(FlowNode::Type::ROINode).value<QString>(),"ROI");
+    ret.append(map);
+    map.clear();
+
+
+    m_visionNodeTypes.append(ret);
+
+    emit visionNodeTypesChanged(m_visionNodeTypes);
 }
 
 FlowNode *VisionGraph::createNode(QString nodetype)

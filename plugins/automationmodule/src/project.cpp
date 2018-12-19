@@ -82,23 +82,23 @@ void Project::DeSerialize(QJsonObject &json)
             module->DeSerialize(moduleObject);
 
 
-            QJsonArray nodesArray = moduleObject["flowNodes"].toArray();
-            for (int nodeIndex = 0; nodeIndex < nodesArray.size(); ++nodeIndex) {
-                QJsonObject nodeObject = nodesArray[nodeIndex].toObject();
+//            QJsonArray nodesArray = moduleObject["flowNodes"].toArray();
+//            for (int nodeIndex = 0; nodeIndex < nodesArray.size(); ++nodeIndex) {
+//                QJsonObject nodeObject = nodesArray[nodeIndex].toObject();
 
-                        FlowNode* node=nullptr;
+//                        FlowNode* node=nullptr;
 
-                        node=module->readNode(nodeObject);
+//                        node=module->readNode(nodeObject);
 
-                        if(node){
+//                        if(node){
 
-                            module->flowNodes()->addItem(node);
-
-
-                        }
+//                            module->flowNodes()->addItem(node);
 
 
-            }
+//                        }
+
+
+//            }
             module->loadConnections();
 
         }

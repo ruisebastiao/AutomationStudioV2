@@ -9,6 +9,30 @@ EpsonGraph::EpsonGraph()
 
 }
 
+void EpsonGraph::getModuleNodeTypes()
+{
+    QVariantList ret;
+
+    QVariantMap map;
+
+    map.insert(QVariant::fromValue(FlowNode::Type::EpsonNode).value<QString>(),"Epson");
+    ret.append(map);
+    map.clear();
+
+    map.insert(QVariant::fromValue(FlowNode::Type::CommandSenderNode).value<QString>(),"Command Sender");
+    ret.append(map);
+    map.clear();
+
+    map.insert(QVariant::fromValue(FlowNode::Type::CommandParserNode).value<QString>(),"Command Parser");
+    ret.append(map);
+    map.clear();
+
+    m_moduleNodeTypes.append(ret);
+
+    emit moduleNodeTypesChanged(m_moduleNodeTypes);
+}
+
+
 FlowNode *EpsonGraph::createNode(QString nodetype)
 {
 
