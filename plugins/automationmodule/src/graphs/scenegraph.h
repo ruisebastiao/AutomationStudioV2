@@ -31,7 +31,7 @@ public:
 
     virtual FlowNode* createNode(QString nodetype);
 
-    Q_INVOKABLE virtual void addNode(QPoint loc, QVariantMap nodeinfo, QAutomationModule *module=nullptr);
+    Q_INVOKABLE virtual void addNode(QPoint loc, QVariantMap nodeinfo);
 
 public:
     //    Q_INVOKABLE  void insertBarcodeReaderNode(BarcodeReaderNode *node);

@@ -42,6 +42,7 @@ private:
 
     SceneGraph* m_scenegraph=nullptr;
 
+    bool m_deserializing=false;
 
     FlowNode *readNode(QJsonObject nodeobject);
 public slots:

@@ -38,9 +38,9 @@ void FlowNodeManager::setScenegraph(SceneGraph *scenegraph)
     m_scenegraph = scenegraph;
 
     scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
-//        if(node && this->moduleLoaded()){
+        if(m_deserializing==false){
             addItem(node);
-//        }
+        }
     });
 
 
@@ -50,16 +50,6 @@ QMap<int, FlowNode *> FlowNodeManager::getFlownodesTable() const
 {
     return m_flownodesTable;
 }
-
-//void FlowNodeManager::Serialize(QJsonObject &json)
-//{
-
-//}
-
-//void FlowNodeManager::DeSerialize(QJsonObject &json)
-//{
-
-//}
 
 void FlowNodeManager::addItem(FlowNode *item)
 {
@@ -101,8 +91,7 @@ void FlowNodeManager::addItem(FlowNode *item)
 
     connect(item,&FlowNode::destroyed,[this](QObject* object){
 
-        if(object){
-            //            FlowNode* node=qobject_cast<FlowNode*>(object);
+        if(object){           
             this->removeItem((FlowNode*)object);
         }
 
@@ -144,10 +133,6 @@ FlowNode *FlowNodeManager::readNode(QJsonObject nodeobject)
 
 
     newnode=m_scenegraph->createNode(nodeobject["type"].toString());
-//    ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(newnode);
-//    if(modulenode){
-//        modulenode->setModule(this);
-//    }
 
 
     FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
@@ -164,11 +149,14 @@ FlowNode *FlowNodeManager::readNode(QJsonObject nodeobject)
 
 void FlowNodeManager::DeSerialize(QJsonArray &jsonarray)
 {
+    m_deserializing=true;
 
     for (int nodeIndex = 0; nodeIndex < jsonarray.size(); ++nodeIndex) {
         QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
          addItem(readNode(nodeObject));
     }
+
+    m_deserializing=false;
 }
 
 FlowNode *FlowNodeManager::getByID(int id)

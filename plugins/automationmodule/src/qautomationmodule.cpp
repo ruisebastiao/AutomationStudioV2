@@ -16,7 +16,7 @@ QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 
 QAutomationModule::~QAutomationModule()
 {
- LOG_INFO()<<"Deleting module"<<this->moduleName()<<"|ID:"<<this->id();
+    LOG_INFO()<<"Deleting module"<<this->moduleName()<<"|ID:"<<this->id();
 }
 
 
@@ -125,6 +125,14 @@ void QAutomationModule::setGraphView(qan::GraphView* graphView)
 
     SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(scene);
 
+    if(scenegraph){
+        scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[this](FlowNode* node){
+            ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(node);
+            if(modulenode){
+                modulenode->setModule(this);
+            }
+        });
+    }
     m_flowNodes->setScenegraph(scenegraph);
 
 

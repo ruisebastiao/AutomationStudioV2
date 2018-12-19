@@ -133,10 +133,12 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     }
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
 
+    emit flowNodeAdded(newflownode);
+
     return newflownode;
 }
 
-void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo,QAutomationModule* module)
+void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo)
 {
 
     LOG_INFO()<<"Adding node:"<<nodeinfo<<" @ "<<loc;
@@ -151,17 +153,13 @@ void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo,QAutomationModule* mod
 
     FlowNode* node=createNode(nodeType);
 
-    ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(node);
-    if(modulenode){
-        modulenode->setModule(module);
-    }
 
     if(node){
         node->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
         node->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
 
     }
-    emit flowNodeAdded(node);
+
 
 }
 

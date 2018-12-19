@@ -24,8 +24,6 @@
 #include <cstring>
 #include <linux/limits.h>
 
-
-
 QString PluginContext::applicationFilePathImpl(){
     char link[PATH_MAX];
     ssize_t linkSize;
@@ -37,4 +35,3 @@ QString PluginContext::applicationFilePathImpl(){
     }
 }
 
-} // namespace
