@@ -36,6 +36,7 @@ public:
 
     Q_PROPERTY(bool roiProcessingDone READ roiProcessingDone WRITE setRoiProcessingDone NOTIFY roiProcessingDoneChanged)
 
+    Q_PROPERTY(FlowNodeManager* processingNodes READ processingNodes WRITE setProcessingNodes NOTIFY processingNodesChanged USER("serialize"))
 
 public:
     void processFrameObject(QMat* frame);
@@ -64,24 +65,16 @@ public slots:
         m_roiEditorGraphView = roiEditorGraphView;
 
         if(m_roiEditorGraphView){
-            SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(m_roiEditorGraphView);
-            m_ProcessingNodes->setScenegraph(scenegraph);
-//            scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
-//                if(node && configsLoaded()){
-
-//                    m_ProcessingNodes->addItem(node);
-
-//                    ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(node);
-//                    if(procnode){
-//                        this->initializeProcessingNode(procnode);
-
-//                    }
-
-
-
-
-//                }
-//            });
+            SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(m_roiEditorGraphView->getGraph());
+            m_processingNodes->setScenegraph(scenegraph);
+            scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
+                if(node){
+                    ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(node);
+                    if(procnode){
+                        this->initializeProcessingNode(procnode);
+                    }
+                }
+            });
         }
         emit roiEditorGraphViewChanged(m_roiEditorGraphView);
     }
@@ -93,6 +86,15 @@ public slots:
     void setRoiProcessingDone(bool roiProcessingDone);
 
 
+
+    void setProcessingNodes(FlowNodeManager* processingNodes)
+    {
+        if (m_processingNodes == processingNodes)
+            return;
+
+        m_processingNodes = processingNodes;
+        emit processingNodesChanged(m_processingNodes);
+    }
 
 signals:
 
@@ -117,6 +119,8 @@ signals:
 
     void commonNodeTypesChanged(QVariantList commonNodeTypes);
 
+    void processingNodesChanged(FlowNodeManager* processingNodes);
+
 private:
 
 
@@ -125,7 +129,6 @@ private:
 
     qan::GraphView* m_roiEditorGraphView=nullptr;
 
-    FlowNodeManager* m_ProcessingNodes=new FlowNodeManager(this);
 
     QMat* m_sourceFrame=new QMat();
 
@@ -133,6 +136,8 @@ private:
 
     QMat* m_processedFrame=new QMat();
     ProcessingBaseNode* m_basenode=nullptr;
+
+    FlowNodeManager* m_processingNodes=new FlowNodeManager(this);
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -146,10 +151,7 @@ public:
     {
         return m_roiEditorGraphView;
     }
-    //    QQuickItem* processingContainer() const
-    //    {
-    //        return m_processingContainer;
-    //    }
+
     QMat* sourceFrame() const
     {
         return m_sourceFrame;
@@ -167,6 +169,10 @@ public:
 
     void initializeProcessingNode(ProcessingNode *procnode);
 
+    FlowNodeManager* processingNodes() const
+    {
+        return m_processingNodes;
+    }
 };
 
 #endif // ROINODE_H

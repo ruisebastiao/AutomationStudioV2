@@ -62,6 +62,15 @@ FlowNode *EpsonGraph::createNode(QString nodetype)
 
         }
     }
-    return  dynamic_cast<FlowNode*>(node);
+
+
+    FlowNode* flownode=dynamic_cast<FlowNode*>(node);
+
+    if(flownode){
+        emit flowNodeAdded(flownode);
+
+    }
+
+    return  flownode;
 
 }

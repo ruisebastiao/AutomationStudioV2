@@ -7,6 +7,10 @@
 
 class ProcessingSceneGraph : public SceneGraph
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QVariantList processingNodeTypes READ processingNodeTypes NOTIFY processingNodeTypesChanged)
+
 public:
     ProcessingSceneGraph();
 
@@ -20,6 +24,17 @@ public:
     // SceneGraph interface
 public:
     virtual FlowNode *createNode(QString nodetype) override;
+    QVariantList processingNodeTypes() const
+    {
+        return m_processingNodeTypes;
+    }
+signals:
+    void processingNodeTypesChanged(QVariantList processingNodeTypes);
+
+private:
+    QVariantList m_processingNodeTypes;
+
+    void getProcessingNodeTypes();
 };
 
 #endif // PROCESSINGSCENEGRAPH_H

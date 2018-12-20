@@ -4,6 +4,7 @@
 #include <nodes/flownode.h>
 
 #include <nodes/barcodereadernode.h>
+#include <nodes/logicnode.h>
 #include <nodes/modulepropertybind.h>
 #include <nodes/multiplexedinputnode.h>
 #include <nodes/numericnode.h>
@@ -84,6 +85,11 @@ void SceneGraph::getCommonTypes()
             break;
 
 
+        case FlowNode::Type::LogicNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Logic");
+
+            break;
+
         default:
             //                static_assert(true, "");
             break;
@@ -131,9 +137,16 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     else if(nodetype=="StringBuilderNode"){
         newnode=insertNode<StringBuilderNode>(nullptr);
     }
+    else if(nodetype=="LogicNode"){
+        newnode=insertNode<LogicNode>(nullptr);
+    }
+
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
 
-    emit flowNodeAdded(newflownode);
+    if(newnode){
+        emit flowNodeAdded(newflownode);
+
+    }
 
     return newflownode;
 }

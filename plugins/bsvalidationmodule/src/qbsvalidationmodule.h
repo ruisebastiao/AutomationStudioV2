@@ -7,6 +7,7 @@
 class QBSValidationModule : public QAutomationModule
 {
     Q_OBJECT
+
     Q_PROPERTY(bool bsOK READ bsOK WRITE setBsOK NOTIFY bsOKChanged REVISION 2)
     Q_PROPERTY(bool bsNOK READ bsNOK WRITE setBsNOK NOTIFY bsNOKChanged REVISION 2)
     Q_PROPERTY(bool waitingResponse READ waitingResponse WRITE setWaitingResponse NOTIFY waitingResponseChanged REVISION 2)

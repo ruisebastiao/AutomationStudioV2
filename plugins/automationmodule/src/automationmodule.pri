@@ -24,7 +24,8 @@ HEADERS += \
     $$PWD/modulelistmodel.h \
     $$PWD/project.h \
     $$PWD/projectslistmodel.h \
-    $$PWD/qprojectcontainer.h
+    $$PWD/qprojectcontainer.h \
+    $$PWD/nodes/logicnode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -49,6 +50,7 @@ SOURCES += \
     $$PWD/modulelistmodel.cpp \
     $$PWD/project.cpp \
     $$PWD/projectslistmodel.cpp \
-    $$PWD/qprojectcontainer.cpp
+    $$PWD/qprojectcontainer.cpp \
+    $$PWD/nodes/logicnode.cpp
 
 

@@ -9,7 +9,6 @@
 #include <nodes/cv/processingendnode.h>
 #include <nodes/cv/processingfilternode.h>
 #include <nodes/cv/processinggeometricnode.h>
-#include <nodes/cv/processinglogicalnode.h>
 #include <nodes/cv/processingmasknode.h>
 #include <nodes/cv/processingthresholdnode.h>
 
@@ -44,20 +43,20 @@ void ROINode::Serialize(QJsonObject &json)
 {
     FlowNode::Serialize(json);
     
-    QJsonArray processingnodesArray;
+//    QJsonArray processingnodesArray;
     
-    for (int i = 0; i < m_ProcessingNodes->length(); ++i) {
+//    for (int i = 0; i < m_ProcessingNodes->length(); ++i) {
         
-        QJsonObject processingnodeObject;
+//        QJsonObject processingnodeObject;
         
-        FlowNode* processing=static_cast<FlowNode*>(m_ProcessingNodes->at(i));
+//        FlowNode* processing=static_cast<FlowNode*>(m_ProcessingNodes->at(i));
         
-        processing->Serialize(processingnodeObject);
+//        processing->Serialize(processingnodeObject);
         
-        processingnodesArray.append(processingnodeObject);
-    }
+//        processingnodesArray.append(processingnodeObject);
+//    }
     
-    json["processingnodes"]=processingnodesArray;
+//    json["processingnodes"]=processingnodesArray;
     
 
     
@@ -69,20 +68,6 @@ void ROINode::Serialize(QJsonObject &json)
 void ROINode::initializeProcessingNode(ProcessingNode* procnode){
     
     if(procnode){
-//        connect(procnode,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
-//            int nodepos=m_ProcessingNodes.indexOf( nodetoremove);
-//            if(nodepos>0){
-//                FlowNode* noderemoved=m_ProcessingNodes.at(nodepos);
-//                if(noderemoved){
-//                    m_ProcessingNodes.removeAll(noderemoved);
-//                    this->m_roiEditorGraphView->getGraph()->removeNode(noderemoved);
-                    
-//                }
-                
-//            }
-//        });
-        
-        
         
         
         //        procnode->setDrawSource(this->processedFrame());
@@ -114,6 +99,8 @@ void ROINode::DeSerialize(QJsonObject &json)
 {
     FlowNode::DeSerialize(json);
     
+
+
     
     
 //    QJsonArray processingArray = json["processingnodes"].toArray();

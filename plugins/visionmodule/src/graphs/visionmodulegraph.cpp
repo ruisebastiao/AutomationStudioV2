@@ -65,8 +65,14 @@ FlowNode *VisionModuleGraph::createNode(QString nodetype)
 
     }
 
-    FlowNode* flownode= dynamic_cast<FlowNode*>(newnode);
-    emit flowNodeAdded(flownode);
+
+
+    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
+
+    if(flownode){
+        emit flowNodeAdded(flownode);
+
+    }
     return flownode;
 
 

@@ -114,19 +114,20 @@ Item{
                 width: parent.width
                 TabButton {
                     width: implicitWidth
-                    text: qsTr("Processing")
+                    text: qsTr("Common")
                 }
                 TabButton {
                     width: implicitWidth
-                    text: qsTr("Common")
+                    text: qsTr("Processing")
                 }
+
             }
             StackLayout {
                 width: parent.width
 
                 currentIndex: bar.currentIndex
                 Item {
-                    id: procTab
+                    id: commonTab
 
                     Layout.fillWidth:true
                     Layout.fillHeight:true
@@ -135,12 +136,12 @@ Item{
                         anchors.fill: parent
                         anchors.margins: 5
                         ListView {
-                            id: listView_proc
+                            id: listView_common
                             clip: true
                             anchors.fill: parent
-                            model: root.roinode.processingNodeTypes
+                            model:  roieditorGraph.commonNodeTypes
                             delegate:Item {
-                                id:proc_delegate
+                                id:delegate_common
                                 width: parent.width
                                 height: 40
                                 property var modelDataObject: modelData
@@ -166,14 +167,14 @@ Item{
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     onEntered:{
-                                        proc_delegate.ListView.view.currentIndex = index;
+                                        delegate_common.ListView.view.currentIndex = index;
 
                                     }
 
                                     onClicked: {
 
 
-                                        root.roinode.addProcNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                        roieditorGraph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
                                         contextMenu.dismiss()
                                     }
                                 }
@@ -188,7 +189,7 @@ Item{
                     }
                 }
                 Item {
-                    id: commonTab
+                    id: procTab
 
                     Layout.fillWidth:true
                     Layout.fillHeight:true
@@ -196,12 +197,12 @@ Item{
                         anchors.fill: parent
                         anchors.margins: 5
                         ListView {
-                            id: listView_common
+                            id: listView_proc
                             clip: true
                             anchors.fill: parent
-                            model: root.roinode.commonNodeTypes
+                            model: roieditorGraph.processingNodeTypes
                             delegate:Item {
-                                id:common_delegate
+                                id:delegate_proc
                                 width: parent.width
                                 height: 40
                                 property var modelDataObject: modelData
@@ -227,14 +228,14 @@ Item{
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     onEntered:{
-                                        common_delegate.ListView.view.currentIndex = index;
+                                        delegate_proc.ListView.view.currentIndex = index;
 
                                     }
 
                                     onClicked: {
 
 
-                                        root.roinode.addCommonNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                        roieditorGraph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
                                         contextMenu.dismiss()
                                     }
                                 }

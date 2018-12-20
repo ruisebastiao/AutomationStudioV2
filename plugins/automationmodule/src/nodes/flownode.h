@@ -81,7 +81,8 @@ public:
         ModuleProxyInputNode,
         CommandSenderNode,
         StringBuilderNode,
-        CommandParserNode
+        CommandParserNode,
+        LogicNode
 
     };
     Q_ENUM(Type)

@@ -42,7 +42,13 @@ FlowNode *BSValidationGraph::createNode(QString nodetype)
     }
 
 
+    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
 
-    return  dynamic_cast<FlowNode*>(newnode);
+    if(flownode){
+        emit flowNodeAdded(flownode);
+
+    }
+
+    return flownode;
 
 }
