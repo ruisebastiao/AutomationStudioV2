@@ -448,6 +448,10 @@ public:
 //    {
 //        return m_originalFrame;
 //    }
+
+    // FlowNode interface
+public:
+    virtual void initializeNode(int id) override;
 };
 
 Q_DECLARE_METATYPE(cv::Rect);

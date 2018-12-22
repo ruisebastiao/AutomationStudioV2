@@ -75,6 +75,21 @@ QString ProcessingNode::name() const
     //    return FlowNode::name();
 }
 
+void ProcessingNode::initializeNode(int id)
+{
+    FlowNode::initializeNode(id);
+
+    FlowNodePort* port=getPortFromKey("maskInput");
+    if(port){
+        port->setHidden(true);
+    }
+
+    port=getPortFromKey("drawSource");
+    if(port){
+        port->setHidden(true);
+    }
+}
+
 
 void ProcessingNode::doProcess()
 {
@@ -108,15 +123,6 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
 
 
-    FlowNodePort* port=getPortFromKey("maskInput");
-    if(port){
-        port->setHidden(true);
-    }
-
-    port=getPortFromKey("drawOnSource");
-    if(port){
-        port->setHidden(true);
-    }
 
 
     setApplyMask(m_applyMask);
