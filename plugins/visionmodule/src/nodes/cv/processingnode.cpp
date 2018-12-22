@@ -108,6 +108,16 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
 
 
+    FlowNodePort* port=getPortFromKey("maskInput");
+    if(port){
+        port->setHidden(true);
+    }
+
+    port=getPortFromKey("drawOnSource");
+    if(port){
+        port->setHidden(true);
+    }
+
 
     setApplyMask(m_applyMask);
     setDrawOnSource(m_drawOnSource);

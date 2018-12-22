@@ -143,12 +143,14 @@ public slots:
         if(m_visionGraphView){
             VisionGraph* graph=dynamic_cast<VisionGraph*>(m_visionGraphView->getGraph());
             m_rois->setScenegraph(graph);
-            //            graph->connect(graph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
-            //                if(node && this->configsLoaded()){
-
-            //                    m_rois->addItem(node);
-            //                }
-            //            });
+            graph->connect(graph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
+                ROINode* roinode=dynamic_cast<ROINode*>(node);
+                if(roinode){
+                    QObject::connect(roinode,&ROINode::roiProcessingDoneChanged,this,[this](){
+                        this->setFrameProcessed(true);
+                    });
+                }
+            });
 
         }
     }

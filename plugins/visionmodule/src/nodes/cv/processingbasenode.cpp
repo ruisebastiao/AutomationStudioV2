@@ -35,11 +35,9 @@ void ProcessingBaseNode::DeSerialize(QJsonObject &json)
         port->setHidden(true);
     }
 
-    port=getPortFromKey("input");
+    port=getPortFromKey("process");
     if(port){
-        if(port->portLabel()==""){
-            port->setPortLabel("Process");
-        }
+        port->setHidden(true);
     }
 
 

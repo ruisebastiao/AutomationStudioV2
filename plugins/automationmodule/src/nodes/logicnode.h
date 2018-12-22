@@ -119,7 +119,12 @@ public slots:
 
         if(m_process.value<bool>()){
             if(configsLoaded() ){
-                setLogicalOutput(m_logicalInput1==true && m_logicalInput2==true);
+                if(logicalType()==LogicalType::AND){
+                    setLogicalOutput(m_logicalInput1==true && m_logicalInput2==true);
+                }
+                else if(logicalType()==LogicalType::OR){
+                    setLogicalOutput(m_logicalInput1==true  || m_logicalInput2==true);
+                }
             }
 
         }
