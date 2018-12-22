@@ -4,7 +4,7 @@
 
 #include "src/nodes/flownode.h"
 
-#include <nodes/proxyinputnode.h>
+#include <nodes/proxynode.h>
 
 
 FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString portID, bool initialize)
@@ -131,11 +131,11 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
             bool targetIsProxy=false;
             bool sourceIsProxy=false;
 
-            if(dynamic_cast<ProxyInputNode*>(targetNode)){
+            if(dynamic_cast<ProxyNode*>(targetNode)){
                 targetIsProxy=true;
             }
 
-            if(dynamic_cast<ProxyInputNode*>(m_node)){
+            if(dynamic_cast<ProxyNode*>(m_node)){
                 sourceIsProxy=true;
             }
 

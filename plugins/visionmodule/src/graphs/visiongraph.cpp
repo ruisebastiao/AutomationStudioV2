@@ -26,12 +26,12 @@ void VisionGraph::getVisionNodeTypes()
 
 FlowNode *VisionGraph::createNode(QString nodetype)
 {
-    qan::Node* newnode=nullptr;
 
-    newnode=SceneGraph::createNode(nodetype);
+    FlowNode* flownode=SceneGraph::createNode(nodetype);
 
-    if(!newnode){
+    if(!flownode){
 
+        qan::Node* newnode=nullptr;
 
         if(nodetype=="ROINode"){
             newnode=insertNode<ROINode>(nullptr);
@@ -41,18 +41,19 @@ FlowNode *VisionGraph::createNode(QString nodetype)
             LOG_WARNING(QString("Unknown module node type:%1").arg(nodetype));
         }
 
+        flownode =dynamic_cast<FlowNode*>(newnode);
+
+        if(flownode){
+            emit flowNodeAdded(flownode);
+
+        }
+
+        return flownode;
+
     }
 
 
-    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
-
-    if(flownode){
-        emit flowNodeAdded(flownode);
-
-    }
-
-    return  flownode;
-
+    return flownode;
 
 
 }

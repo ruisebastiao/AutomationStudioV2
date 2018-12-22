@@ -58,6 +58,7 @@ public:
     // Graph interface
 public:
     void bindEdge(qan::Edge *edge, qan::PortItem *outPort, qan::PortItem *inPort) noexcept override;
+    virtual FlowNode *readNode(QJsonObject nodeobject);
 
     QVariantList commonNodeTypes() const
     {
@@ -83,6 +84,7 @@ private:
 
 protected:
     QVariantList m_moduleNodeTypes;
+
 };
 
 

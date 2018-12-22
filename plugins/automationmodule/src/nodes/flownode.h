@@ -66,7 +66,7 @@ public:
         IDSCaptureNode,
         FrameViewerNode,
         SetResetNode,
-        ProxyInputNode,
+        ProxyNode,
         VisionSystemNode,
         FileCaptureNode,
         ROINode,
@@ -162,7 +162,7 @@ private:
 
     bool m_configsLoaded=false;
 
-    int m_id=0;
+    int m_id=-1;
 
 
     int m_editWidth=250;

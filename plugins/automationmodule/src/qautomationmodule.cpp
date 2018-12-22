@@ -20,93 +20,61 @@ QAutomationModule::~QAutomationModule()
 }
 
 
-void QAutomationModule::loadConnections(){
-    qDebug()<<"Setting node connections";
+//void QAutomationModule::loadConnections(){
+//    qDebug()<<"Setting node connections";
 
 
-    for (int var = 0; var < m_flowNodes->length(); ++var) {
-        FlowNode* node=m_flowNodes->at(var);
+//    for (int var = 0; var < m_flowNodes->length(); ++var) {
+//        FlowNode* node=m_flowNodes->at(var);
 
-        QMapIterator<string, FlowNodePort*> i(node->getOutPorts());
-        while (i.hasNext()) {
-            i.next();
+//        QMapIterator<string, FlowNodePort*> i(node->getOutPorts());
+//        while (i.hasNext()) {
+//            i.next();
 
-            FlowNodePort* nodeoutport =i.value();
+//            FlowNodePort* nodeoutport =i.value();
 
-            if(nodeoutport){
-                foreach (ConnectionInfo* connection, nodeoutport->getConnections()) {
-
-
-                    FlowNode* targetnode=m_flowNodes->getFlownodesTable()[connection->nodeID()];
-
-                    if(targetnode){
-                        string portkey=QString::number(connection->nodeID()).toStdString();
-                        portkey.append("|");
-                        portkey.append(connection->portID().toStdString());
-                        QMap<string,FlowNodePort *>  map=targetnode->getInPorts();
-                        FlowNodePort* targetport= map.value(portkey,nullptr);
-                        if(targetport){
-
-                            qan::PortItem* inport=targetport->getPortItem();
-                            if(inport->getInEdgeItems().size()>0){
-                                LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*node<<"| target node:"<< *targetnode<<")";
-                                continue;
-                            }
-                            qan::Edge* newedge= node->getScenegraph()->insertNewEdge(false,node,targetnode);
-                            if(newedge){
-                                node->getScenegraph()->bindEdge(newedge,nodeoutport->getPortItem(),targetport->getPortItem());
-
-                            }
+//            if(nodeoutport){
+//                foreach (ConnectionInfo* connection, nodeoutport->getConnections()) {
 
 
-                        }
-                    }
-                    //std::get
-                }
-            }
-            else{
-                LOG_ERROR()<<*node<<"| null value from key:"<<QString::fromStdString(i.key());
-            }
+//                    FlowNode* targetnode=m_flowNodes->getFlownodesTable()[connection->nodeID()];
 
-        }
+//                    if(targetnode){
+//                        string portkey=QString::number(connection->nodeID()).toStdString();
+//                        portkey.append("|");
+//                        portkey.append(connection->portID().toStdString());
+//                        QMap<string,FlowNodePort *>  map=targetnode->getInPorts();
+//                        FlowNodePort* targetport= map.value(portkey,nullptr);
+//                        if(targetport){
 
-    }
+//                            qan::PortItem* inport=targetport->getPortItem();
+//                            if(inport->getInEdgeItems().size()>0){
+//                                LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*node<<"| target node:"<< *targetnode<<")";
+//                                continue;
+//                            }
+//                            qan::Edge* newedge= node->getScenegraph()->insertNewEdge(false,node,targetnode);
+//                            if(newedge){
+//                                node->getScenegraph()->bindEdge(newedge,nodeoutport->getPortItem(),targetport->getPortItem());
 
-
-}
-
-
-
-
-//FlowNode *QAutomationModule::readNode(QJsonObject nodeobject)
-//{
-//    qan::Node* newnode=nullptr;
+//                            }
 
 
-//    qan::Graph* scene=m_graphView->getGraph();
-//    if (scene==nullptr)
-//        return nullptr;
+//                        }
+//                    }
+//                    //std::get
+//                }
+//            }
+//            else{
+//                LOG_ERROR()<<*node<<"| null value from key:"<<QString::fromStdString(i.key());
+//            }
 
-//    SceneGraph* scenegraph=dynamic_cast<SceneGraph*>(scene);
-
-//    newnode=scenegraph->createNode(nodeobject["type"].toString());
-//    ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(newnode);
-//    if(modulenode){
-//        modulenode->setModule(this);
-//    }
-
-
-//    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
-//    if(flownode){
-
-//        flownode->DeSerialize(nodeobject);
-
+//        }
 
 //    }
 
-//    return flownode;
 
 //}
+
 
 
 
@@ -183,7 +151,7 @@ void QAutomationModule::DeSerialize(QJsonObject &json)
     m_graphView->getContainerItem()->setY(graphview["y"].toDouble());
 
 
-
+//    m_flowNodes->loadConnections();
     setModuleLoaded(true);
 
 }

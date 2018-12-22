@@ -1,6 +1,6 @@
 #include "flownodemanager.h"
 
-#include <nodes/proxyinputnode.h>
+#include <nodes/proxynode.h>
 
 
 FlowNodeManager::FlowNodeManager(QObject *parent):SerializedListModel<FlowNode>(parent){
@@ -39,7 +39,21 @@ void FlowNodeManager::setScenegraph(SceneGraph *scenegraph)
 
     scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
         if(m_deserializing==false){
-            addItem(node);
+
+            if(node){
+                int nodeid=getAvailableID();
+                if(nodeid==-1){
+                    LOG_ERROR("Invalid node ID");
+                    return;
+                }
+
+                node->initializeNode(nodeid);
+                addItem(node);
+
+            }
+
+
+
         }
     });
 
@@ -57,26 +71,24 @@ void FlowNodeManager::addItem(FlowNode *item)
         return;
     }
 
-    int nodeid=getAvailableID();
-    if(nodeid==-1){
-        LOG_ERROR("Invalid node ID");
-        return;
-    }
-
-    item->initializeNode(nodeid);
-
     SerializedListModel::addItem(item);
 
 
     m_flownodesTable[item->id()]=item;
 
 
-    ProxyInputNode* proxynode=dynamic_cast<ProxyInputNode*>(item);
+    ProxyNode* proxynode=dynamic_cast<ProxyNode*>(item);
 
     if(proxynode){
         m_proxynodes.append(proxynode);
         proxynode->setFlowNodes(this);
 
+
+        connect(proxynode,&ProxyNode::proxyTypeChanged,[this](QString proxyType){
+
+            layoutAboutToBeChanged();
+            layoutChanged();
+        });
     }
 
 
@@ -89,9 +101,11 @@ void FlowNodeManager::addItem(FlowNode *item)
         layoutChanged();
     });
 
+
+
     connect(item,&FlowNode::destroyed,[this](QObject* object){
 
-        if(object){           
+        if(object){
             this->removeItem((FlowNode*)object);
         }
 
@@ -101,6 +115,61 @@ void FlowNodeManager::addItem(FlowNode *item)
 }
 
 
+void FlowNodeManager::loadConnections(){
+    qDebug()<<"Setting node connections";
+
+
+    for (int var = 0; var < m_internalList.length(); ++var) {
+        FlowNode* node=m_internalList.at(var);
+
+        QMapIterator<string, FlowNodePort*> i(node->getOutPorts());
+        while (i.hasNext()) {
+            i.next();
+
+            FlowNodePort* nodeoutport =i.value();
+
+            if(nodeoutport){
+                foreach(ConnectionInfo* connection, nodeoutport->getConnections()) {
+
+
+                    FlowNode* targetnode=getFlownodesTable()[connection->nodeID()];
+
+                    if(targetnode){
+                        string portkey=QString::number(connection->nodeID()).toStdString();
+                        portkey.append("|");
+                        portkey.append(connection->portID().toStdString());
+                        QMap<string,FlowNodePort *>  map=targetnode->getInPorts();
+                        FlowNodePort* targetport= map.value(portkey,nullptr);
+                        if(targetport){
+
+                            qan::PortItem* inport=targetport->getPortItem();
+                            if(inport->getInEdgeItems().size()>0){
+                                LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*node<<"| target node:"<< *targetnode<<")";
+                                continue;
+                            }
+                            qan::Edge* newedge= node->getScenegraph()->insertNewEdge(false,node,targetnode);
+                            if(newedge){
+                                node->getScenegraph()->bindEdge(newedge,nodeoutport->getPortItem(),targetport->getPortItem());
+
+                            }
+
+
+                        }
+                    }
+                    //std::get
+                }
+            }
+            else{
+                LOG_ERROR()<<*node<<"| null value from key:"<<QString::fromStdString(i.key());
+            }
+
+        }
+
+    }
+
+
+}
+
 
 void FlowNodeManager::removeItem(FlowNode *item)
 {
@@ -109,7 +178,7 @@ void FlowNodeManager::removeItem(FlowNode *item)
 
     if(itemIndex>=0){
 
-        ProxyInputNode* proxynode=dynamic_cast<ProxyInputNode*>(item);
+        ProxyNode* proxynode=dynamic_cast<ProxyNode*>(item);
 
         if(proxynode){
             m_proxynodes.removeAll(proxynode);
@@ -126,36 +195,19 @@ void FlowNodeManager::removeItem(FlowNode *item)
 
 
 
-FlowNode *FlowNodeManager::readNode(QJsonObject nodeobject)
-{
-    qan::Node* newnode=nullptr;
-
-
-
-    newnode=m_scenegraph->createNode(nodeobject["type"].toString());
-
-
-    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
-    if(flownode){
-
-        flownode->DeSerialize(nodeobject);
-
-
-    }
-
-    return flownode;
-
-}
-
 void FlowNodeManager::DeSerialize(QJsonArray &jsonarray)
 {
     m_deserializing=true;
 
     for (int nodeIndex = 0; nodeIndex < jsonarray.size(); ++nodeIndex) {
         QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
-         addItem(readNode(nodeObject));
+        FlowNode* node= m_scenegraph->readNode(nodeObject);
+        if(node){
+            addItem(node);
+        }
     }
 
+    loadConnections();
     m_deserializing=false;
 }
 

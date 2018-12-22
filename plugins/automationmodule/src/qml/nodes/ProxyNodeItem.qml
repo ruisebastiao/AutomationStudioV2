@@ -51,34 +51,59 @@ FlowNodeItem{
         }
 
         SortFilterProxyModel {
-            id: proxyInputModel
+            id: proxyModel
 
-            onCountChanged: {
-                for(var i=0;i<count;i++){
-                    var nodeModel=proxyInputModel.get(i);
+            property int bindedNodeId: root.node.selectedBindedNodeID
+            onBindedNodeIdChanged: {
+                for(var i=0;i<proxyModel.count;i++){
+                    var nodeModel=proxyModel.get(i);
 
                     if(nodeModel){
-                        if(nodeModel.node.id==root.node.selectedBindedNodeID){
+                        if(nodeModel.node.id==proxyModel.bindedNodeId){
                             proxynode.currentIndex=i;
                             break;
                         }
                     }
                 }
 
-
             }
 
+            //            onCountChanged: {
+
+
+            //            }
+
             sourceModel: root.node.flowNodes
+
+            onCountChanged: {
+                for(var i=0;i<proxyModel.count;i++){
+                    var nodeModel=proxyModel.get(i);
+
+                    if(nodeModel){
+                        if(nodeModel.node.id==proxyModel.bindedNodeId){
+                            proxynode.currentIndex=i;
+                            break;
+                        }
+                    }
+                }
+            }
+
             filters: [
                 ValueFilter {
                     enabled: true
                     roleName: "nodeTypeRole"
-                    value: FlowNode.ProxyInputNode
+                    value: FlowNode.ProxyNode
                 },
                 ExpressionFilter {
                     enabled: true
                     expression: {
                         return node.id !=root.node.id
+                    }
+                },
+                ExpressionFilter {
+                    enabled: true
+                    expression: {
+                        return node.proxyType==="Input"
                     }
                 }
             ]
@@ -97,8 +122,20 @@ FlowNodeItem{
             Layout.fillWidth: true
             Layout.preferredHeight: 60
 
-            model: proxyInputModel
+            model: proxyModel
 
+
+            onCurrentIndexChanged:{
+                var item=model.get(currentIndex);
+                if(item){
+                    root.node.setBindedFlowNode(item.node)
+                }
+            }
+
+
+            Component.onCompleted: {
+                currentIndex:-1
+            }
 
             delegate:ItemDelegate{
                 width: parent.width
@@ -110,16 +147,21 @@ FlowNodeItem{
                     //                    }
                 }
 
-                property bool isCurrentItem: proxynode.currentIndex==index
+                property bool isCurrentItem: node.id==root.node.selectedBindedNodeID
                 onIsCurrentItemChanged: {
-                    if(root.node.configsLoaded){
-
-
-                        if(isCurrentItem){
-
-                            root.node.setBindedFlowNode(node);
-                        }
+                    if(isCurrentItem){
+                        proxynode.currentIndex=index
                     }
+
+
+                    //                    if(root.node.configsLoaded){
+
+
+                    //                        if(isCurrentItem){
+
+                    //                            root.node.setBindedFlowNode(node);
+                    //                        }
+                    //                    }
                 }
             }
 

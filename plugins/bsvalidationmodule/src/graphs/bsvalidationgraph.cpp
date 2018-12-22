@@ -28,26 +28,28 @@ void BSValidationGraph::getModuleNodeTypes()
 
 FlowNode *BSValidationGraph::createNode(QString nodetype)
 {
-    qan::Node* newnode=nullptr;
 
-    newnode=SceneGraph::createNode(nodetype);
+    FlowNode* flownode=SceneGraph::createNode(nodetype);
 
-    if(!newnode){
+    if(!flownode){
+        qan::Node* newnode=nullptr;
+
         if(nodetype=="BSValidationNode"){
             newnode=insertNode<BSValidationNode>(nullptr);
         }
         else{
             LOG_WARNING(QString("Unknown node type:%1").arg(nodetype));
         }
+        flownode=dynamic_cast<FlowNode*>(newnode);
+
+        if(flownode){
+            emit flowNodeAdded(flownode);
+
+        }
+
     }
 
 
-    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
-
-    if(flownode){
-        emit flowNodeAdded(flownode);
-
-    }
 
     return flownode;
 

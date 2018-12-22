@@ -217,7 +217,7 @@ public:
 
 
 
-    Q_INVOKABLE void loadConnections();
+//    Q_INVOKABLE void loadConnections();
 
 
 

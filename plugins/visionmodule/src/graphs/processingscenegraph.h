@@ -35,6 +35,10 @@ private:
     QVariantList m_processingNodeTypes;
 
     void getProcessingNodeTypes();
+
+    // SceneGraph interface
+public:
+    virtual FlowNode *readNode(QJsonObject nodeobject) override;
 };
 
 #endif // PROCESSINGSCENEGRAPH_H

@@ -14,18 +14,17 @@ HEADERS += \
     $$PWD/nodes/webservicenode.h \
     $$PWD/nodes/stringnode.h \
     $$PWD/nodes/modulepropertybind.h \
-    $$PWD/nodes/proxyinputnode.h \
     $$PWD/nodes/multiplexedinputnode.h \
     $$PWD/nodes/numericnode.h \
     $$PWD/nodes/stringbuildernode.h \
     $$PWD/flownodemanager.h \
     $$PWD/nodes/moduleproxyinputnode.h \
-    $$PWD/moduleproxynodesmanager.h \
     $$PWD/modulelistmodel.h \
     $$PWD/project.h \
     $$PWD/projectslistmodel.h \
     $$PWD/qprojectcontainer.h \
-    $$PWD/nodes/logicnode.h
+    $$PWD/nodes/logicnode.h \
+    $$PWD/nodes/proxynode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -40,17 +39,16 @@ SOURCES += \
     $$PWD/nodes/webservicenode.cpp \
     $$PWD/nodes/stringnode.cpp \
     $$PWD/nodes/modulepropertybind.cpp \
-    $$PWD/nodes/proxyinputnode.cpp \
     $$PWD/nodes/multiplexedinputnode.cpp \
     $$PWD/nodes/numericnode.cpp \
     $$PWD/nodes/stringbuildernode.cpp \
     $$PWD/flownodemanager.cpp \
     $$PWD/nodes/moduleproxyinputnode.cpp \
-    $$PWD/moduleproxynodesmanager.cpp \
     $$PWD/modulelistmodel.cpp \
     $$PWD/project.cpp \
-    $$PWD/projectslistmodel.cpp \
     $$PWD/qprojectcontainer.cpp \
-    $$PWD/nodes/logicnode.cpp
+    $$PWD/nodes/logicnode.cpp \
+    $$PWD/projectslistmodel.cpp \
+    $$PWD/nodes/proxynode.cpp
 
 

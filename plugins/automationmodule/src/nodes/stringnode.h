@@ -39,6 +39,17 @@ public slots:
         m_stringValue = stringValue;
 
         emit stringValueChanged(m_stringValue);
+
+        if(m_suffixFromInput){
+            setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
+        }
+        else if(m_prefixFromInput){
+            setStringOutput(m_stringInput.value<QString>()+stringValue.value<QString>());
+        }
+        else{
+            setStringOutput(stringValue.value<QString>());
+        }
+
     }
 
 
@@ -162,6 +173,10 @@ public:
     {
         return m_stringOutput;
     }
+
+    // FlowNode interface
+public:
+    virtual void initializeNode(int id) override;
 };
 
 #endif // STRINGNODE_H

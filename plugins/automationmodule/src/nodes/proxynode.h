@@ -1,11 +1,11 @@
-#ifndef PROXYINPUTNODE_H
-#define PROXYINPUTNODE_H
+#ifndef PROXYNODE_H
+#define PROXYNODE_H
 
 #include "flownode.h"
 #include "qautomationmodule.h"
 
 
-class ProxyInputNode : public FlowNode
+class ProxyNode : public FlowNode
 {
     Q_OBJECT
 
@@ -22,7 +22,7 @@ class ProxyInputNode : public FlowNode
 
 
 public:
-    ProxyInputNode();
+    ProxyNode();
     static  QQmlComponent*      delegate(QQmlEngine& engine);
 
     Q_INVOKABLE void setBindedFlowNode(FlowNode* node);
@@ -86,26 +86,6 @@ public slots:
         updateProxyType();
 
     }
-
-//    void setSelectedBindedNode(FlowNode* selectedBindedNode)
-//    {
-
-//        if (m_selectedBindedNode == selectedBindedNode)
-//            return;
-
-
-
-
-//        m_selectedBindedNode = selectedBindedNode;
-
-
-
-
-
-
-
-//        emit selectedBindedNodeChanged(m_selectedBindedNode);
-//    }
 
     void setInput(QVariant input)
     {
@@ -179,4 +159,4 @@ int selectedBindedNodeID() const
 }
 };
 
-#endif // PROXYINPUTNODE_H
+#endif // PROXYNODE_H

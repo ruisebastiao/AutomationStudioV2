@@ -1,11 +1,11 @@
 #ifndef MODULEPROXYINPUTNODE_H
 #define MODULEPROXYINPUTNODE_H
 
-#include "proxyinputnode.h"
+#include "proxynode.h"
 
 
 
-class ModuleProxyInputNode : public ProxyInputNode
+class ModuleProxyInputNode : public ProxyNode
 {
 public:
     ModuleProxyInputNode();

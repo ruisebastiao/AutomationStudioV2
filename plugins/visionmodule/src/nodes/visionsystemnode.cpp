@@ -78,18 +78,6 @@ void VisionSystemNode::Serialize(QJsonObject &json)
     FlowNode::Serialize(json);
 
 
-//    QJsonArray nodesArrayList;
-
-//    foreach (FlowNode* node, m_ROINodes) {
-//        QJsonObject nodeobject;
-//        node->Serialize(nodeobject);
-//        nodesArrayList.append(nodeobject);
-
-
-//    }
-
-//    json["rois"]=nodesArrayList;
-
 }
 
 void VisionSystemNode::DeSerialize(QJsonObject &json)
@@ -97,16 +85,5 @@ void VisionSystemNode::DeSerialize(QJsonObject &json)
 
 
     FlowNode::DeSerialize(json);
-
-//    QJsonArray roisArray = json["rois"].toArray();
-
-//    for (int i = 0; i < roisArray.count(); ++i) {
-//        QJsonObject roiObject=roisArray[i].toObject();
-//        if(roiObject["type"]=="ROINode"){
-//            readROINode(roiObject);
-//        }
-//    }
-
-
 
 }

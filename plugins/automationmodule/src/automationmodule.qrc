@@ -4,7 +4,6 @@
         <file alias="Nodes/BarcodeReaderNodeItem.qml">qml/nodes/BarcodeReaderNodeItem.qml</file>
         <file alias="Nodes/FlowNodeItem.qml">qml/nodes/FlowNodeItem.qml</file>
         <file alias="Nodes/ObjectPropertyNodeItem.qml">qml/nodes/ObjectPropertyNodeItem.qml</file>
-        <file alias="Nodes/ProxyInputNodeItem.qml">qml/nodes/ProxyInputNodeItem.qml</file>
         <file alias="Nodes/SetResetNodeItem.qml">qml/nodes/SetResetNodeItem.qml</file>
         <file alias="Nodes/StringNodeItem.qml">qml/nodes/StringNodeItem.qml</file>
         <file alias="Nodes/WebServiceNodeItem.qml">qml/nodes/WebServiceNodeItem.qml</file>
@@ -13,5 +12,6 @@
         <file alias="Nodes/MultiplexedInputNodeItem.qml">qml/nodes/MultiplexedInputNodeItem.qml</file>
         <file alias="Nodes/StringBuilderNodeItem.qml">qml/nodes/StringBuilderNodeItem.qml</file>
         <file alias="Ports/FlowNodePortItem.qml">qml/ports/FlowNodePortItem.qml</file>
+        <file alias="Nodes/ProxyNodeItem.qml">qml/nodes/ProxyNodeItem.qml</file>
     </qresource>
 </RCC>

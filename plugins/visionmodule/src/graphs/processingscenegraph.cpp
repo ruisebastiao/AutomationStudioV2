@@ -16,6 +16,8 @@ ProcessingSceneGraph::ProcessingSceneGraph()
     getProcessingNodeTypes();
 
 
+
+
 }
 
 
@@ -80,6 +82,37 @@ void ProcessingSceneGraph::getProcessingNodeTypes()
     emit processingNodeTypesChanged(m_processingNodeTypes);
 }
 
+FlowNode *ProcessingSceneGraph::readNode(QJsonObject nodeobject)
+{
+
+
+    FlowNode* flownode=createNode(nodeobject["processingType"].toString());
+
+
+     if(flownode){
+
+        flownode->DeSerialize(nodeobject);
+
+
+    }
+    else {
+         qan::Node* newnode=createNode(nodeobject["type"].toString());
+
+
+        flownode=dynamic_cast<FlowNode*>(newnode);
+        if(flownode){
+
+            flownode->DeSerialize(nodeobject);
+
+
+        }
+
+    }
+
+    return flownode;
+
+}
+
 
 
 qan::Edge *ProcessingSceneGraph::insertNewEdge(bool hidden, qan::Node *source, qan::Node *destination)
@@ -89,13 +122,13 @@ qan::Edge *ProcessingSceneGraph::insertNewEdge(bool hidden, qan::Node *source, q
 
 FlowNode *ProcessingSceneGraph::createNode(QString nodetype)
 {
-    qan::Node* newnode=nullptr;
 
-    newnode=SceneGraph::createNode(nodetype);
+    FlowNode* flownode=SceneGraph::createNode(nodetype);
 
 
-    if(!newnode){
+    if(!flownode){
 
+        qan::Node* newnode=nullptr;
 
         if(nodetype=="ProcessingBaseNode"){
             newnode=insertNode<ProcessingBaseNode>(nullptr);
@@ -128,16 +161,18 @@ FlowNode *ProcessingSceneGraph::createNode(QString nodetype)
             LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodetype));
         }
 
+        flownode=dynamic_cast<FlowNode*>(newnode);
+
+        if(flownode){
+            emit flowNodeAdded(flownode);
+
+        }
+
+
+
     }
 
 
-
-    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
-
-    if(flownode){
-        emit flowNodeAdded(flownode);
-
-    }
 
     return flownode;
 

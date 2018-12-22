@@ -8,7 +8,7 @@
 #include <nodes/modulepropertybind.h>
 #include <nodes/multiplexedinputnode.h>
 #include <nodes/numericnode.h>
-#include <nodes/proxyinputnode.h>
+#include <nodes/proxynode.h>
 #include <nodes/stringbuildernode.h>
 #include <nodes/stringnode.h>
 #include <nodes/webservicenode.h>
@@ -55,7 +55,7 @@ void SceneGraph::getCommonTypes()
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"Barcode Reader");
 
             break;
-        case FlowNode::Type::ProxyInputNode:
+        case FlowNode::Type::ProxyNode:
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"In/Out Proxy");
 
             break;
@@ -125,8 +125,8 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     else if(nodetype=="StringNode"){
         newnode=insertNode<StringNode>(nullptr);
     }
-    else if(nodetype=="ProxyInputNode"){
-        newnode=insertNode<ProxyInputNode>(nullptr);
+    else if(nodetype=="ProxyNode"){
+        newnode=insertNode<ProxyNode>(nullptr);
     }
     else if(nodetype=="NumericNode"){
         newnode=insertNode<NumericNode>(nullptr);
@@ -151,6 +151,29 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     return newflownode;
 }
 
+
+
+FlowNode *SceneGraph::readNode(QJsonObject nodeobject)
+{
+    qan::Node* newnode=nullptr;
+
+
+    newnode=createNode(nodeobject["type"].toString());
+
+
+    FlowNode* flownode=dynamic_cast<FlowNode*>(newnode);
+    if(flownode){
+
+        flownode->DeSerialize(nodeobject);
+
+
+    }
+
+    return flownode;
+
+}
+
+
 void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo)
 {
 
@@ -172,6 +195,18 @@ void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo)
         node->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
 
     }
+
+
+    ////    if(node)
+    //    int nodeid=getAvailableID();
+    //    if(nodeid==-1){
+    //        LOG_ERROR("Invalid node ID");
+    //        return;
+    //    }
+
+    //    item->initializeNode(nodeid);
+
+
 
 
 }

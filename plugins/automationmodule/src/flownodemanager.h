@@ -44,7 +44,7 @@ private:
 
     bool m_deserializing=false;
 
-    FlowNode *readNode(QJsonObject nodeobject);
+
 public slots:
     FlowNode* getByID(int id);
 
@@ -59,7 +59,7 @@ public slots:
 
 public:
 
-
+    void loadConnections();
 
     virtual QVariant data(const QModelIndex &index, int role) const override;
 

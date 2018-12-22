@@ -94,11 +94,16 @@ public slots:
 
                 QMat* framesource=m_frameSource.value<QMat*>();
 
-//                foreach (FlowNode* node, m_ROINodes) {
-//                    ROINode* roi=static_cast<ROINode*>(node);
-//                    roi->processFrameObject(framesource);
+                for (int var = 0; var < m_rois->length(); ++var) {
+                    ROINode* roi=static_cast<ROINode*>(m_rois->at(var));
+                    roi->processFrameObject(framesource);
 
-//                }
+                }
+                //                foreach (FlowNode* node, m_ROINodes) {
+                //                    ROINode* roi=static_cast<ROINode*>(node);
+                //                    roi->processFrameObject(framesource);
+
+                //                }
 
                 //qDebug()<<"Frame processed";
                 //setFrameProcessed(true);
@@ -138,12 +143,12 @@ public slots:
         if(m_visionGraphView){
             VisionGraph* graph=dynamic_cast<VisionGraph*>(m_visionGraphView->getGraph());
             m_rois->setScenegraph(graph);
-//            graph->connect(graph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
-//                if(node && this->configsLoaded()){
+            //            graph->connect(graph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
+            //                if(node && this->configsLoaded()){
 
-//                    m_rois->addItem(node);
-//                }
-//            });
+            //                    m_rois->addItem(node);
+            //                }
+            //            });
 
         }
     }
@@ -216,9 +221,9 @@ private:
     QVariant m_processFrame=QVariant::fromValue(false);
     QVariant m_frameProcessed=QVariant::fromValue(false);
 
-//    void readROINode(QJsonObject roiobject);
+    //    void readROINode(QJsonObject roiobject);
 
-//    QList<ROINode *> m_ROINodes;
+    //    QList<ROINode *> m_ROINodes;
 
     QFuture<void> m_processingFuture;
     QFutureWatcher<void> m_processingFutureWatcher;

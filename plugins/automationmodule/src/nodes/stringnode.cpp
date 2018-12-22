@@ -31,4 +31,10 @@ void StringNode::DeSerialize(QJsonObject &json)
     updateinput();
 }
 
+void StringNode::initializeNode(int id)
+{
+    FlowNode::initializeNode(id);
+    updateinput();
+}
+
 
