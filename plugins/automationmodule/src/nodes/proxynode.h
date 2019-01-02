@@ -25,7 +25,7 @@ public:
     ProxyNode();
     static  QQmlComponent*      delegate(QQmlEngine& engine);
 
-    Q_INVOKABLE void setBindedFlowNode(FlowNode* node);
+    Q_INVOKABLE virtual void setBindedFlowNode(FlowNode* node);
 
 
 
@@ -90,6 +90,9 @@ public slots:
     void setInput(QVariant input)
     {
 
+        if(input.isValid()==false){
+            return;
+        }
 
 
         m_input = input;

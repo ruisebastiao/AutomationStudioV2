@@ -33,6 +33,8 @@ signals:
 
     void lengthChanged(int length);
 
+//    void flowNodeAdded(FlowNode* node);
+
 private:
 
     QMap<int,FlowNode*> m_flownodesTable;

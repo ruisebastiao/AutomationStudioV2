@@ -26,7 +26,8 @@ public:
     ProcessingMaskNode();
 
     enum MaskType {
-        MaskCircleRadius=0
+        MaskNone=0,
+        MaskCircleRadius
     };
     Q_ENUM(MaskType)
 
@@ -89,6 +90,63 @@ public slots:
             return;
 
         m_maskType = maskType;
+
+        FlowNodePort* port;
+        switch (m_maskType) {
+        case MaskNone:
+            port=getPortFromKey("input1");
+            if(port){
+                port->setHidden(true);
+
+            }
+            port=getPortFromKey("input2");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+            port=getPortFromKey("input3");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+            port=getPortFromKey("input4");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+
+            break;
+        case MaskCircleRadius:
+            port=getPortFromKey("input1");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Center Point");
+            }
+            port=getPortFromKey("input2");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Radius");
+            }
+
+            port=getPortFromKey("input3");
+            if(port){
+                port->setHidden(false);
+                port->setPortLabel("Inner Radius");
+            }
+
+            port=getPortFromKey("input4");
+            if(port){
+                port->setHidden(true);
+
+            }
+
+
+            break;
+        }
+
         emit maskTypeChanged(m_maskType);
     }
 

@@ -5,7 +5,7 @@
 #include "automationmoduleglobal.h"
 #include "jsonserializable.h"
 #include "modulelistmodel.h"
-
+#include <moduleproxynode.h>
 
 class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
 {
@@ -103,6 +103,7 @@ private:
     bool m_isDefault=false;
     ModuleListModel* m_modules=new ModuleListModel();
     int m_id=-1;
+    QList<ModuleProxyNode*> moduleproxynodes;
 };
 
 

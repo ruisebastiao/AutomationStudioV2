@@ -152,6 +152,13 @@ void QAutomationModule::DeSerialize(QJsonObject &json)
 
 
 //    m_flowNodes->loadConnections();
+
+
+    for (int var = 0; var < m_flowNodes->length(); ++var) {
+        FlowNode* node=m_flowNodes->at(var);
+        node->setParentModule(this);
+    }
+
     setModuleLoaded(true);
 
 }

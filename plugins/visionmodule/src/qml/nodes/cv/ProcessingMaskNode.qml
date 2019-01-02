@@ -21,35 +21,21 @@ ProcessingNodeItem{
     processingConfigItem: ColumnLayout{
         anchors.fill: parent
         GroupBox{
-            title: "Threshold Type:"
+            title: "Mask Type:"
             Layout.fillWidth: true
             spacing: 5
             Flow{
                 anchors.fill: parent
                 RadioButton{
-                    checked:root.node.configsLoaded && root.node.thresholdType==ProcessingThresholdNode.Simple
-                    text: "Simple"
+                    checked:root.node.configsLoaded && root.node.maskType==ProcessingMaskNode.MaskCircleRadius
+                    text: "From Circle & Radius"
                     onCheckedChanged: {
-                        adaptative_settings.visible=false;
-                        root.node.thresholdType=ProcessingThresholdNode.Simple
+                        if(checked){
+                            root.node.maskType==ProcessingMaskNode.MaskCircleRadius
+                        }
                     }
                 }
-                RadioButton{
-                    checked:root.node.configsLoaded && root.node.thresholdType==ProcessingThresholdNode.AdaptativeGaussian
-                    text: "Adaptative Gaussian"
-                    onCheckedChanged: {
-                        adaptative_settings.visible=true
-                        root.node.thresholdType=ProcessingThresholdNode.AdaptativeGaussian
-                    }
-                }
-                RadioButton{
-                    checked:root.node.configsLoaded && root.node.thresholdType==ProcessingThresholdNode.AdaptativeMean
-                    text: "Adaptative Mean"
-                    onCheckedChanged: {
-                        adaptative_settings.visible=true
-                        root.node.thresholdType=ProcessingThresholdNode.AdaptativeMean
-                    }
-                }
+
 
             }
         }

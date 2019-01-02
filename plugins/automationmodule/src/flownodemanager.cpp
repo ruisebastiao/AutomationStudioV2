@@ -2,6 +2,8 @@
 
 #include <nodes/proxynode.h>
 
+#include <moduleproxynode.h>
+
 
 FlowNodeManager::FlowNodeManager(QObject *parent):SerializedListModel<FlowNode>(parent){
 
@@ -77,6 +79,7 @@ void FlowNodeManager::addItem(FlowNode *item)
     m_flownodesTable[item->id()]=item;
 
 
+
     ProxyNode* proxynode=dynamic_cast<ProxyNode*>(item);
 
     if(proxynode){
@@ -110,6 +113,11 @@ void FlowNodeManager::addItem(FlowNode *item)
         }
 
     });
+
+//    ModuleProxyNode* moduleproxynode=dynamic_cast<ModuleProxyNode*>(item);
+
+
+//     emit flowNodeAdded(item);
 
 
 }

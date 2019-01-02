@@ -12,6 +12,9 @@
 
 class FlowNodePort;
 
+class QAutomationModule;
+
+
 using namespace std;
 
 class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializable
@@ -78,7 +81,7 @@ public:
         EpsonNode,
         MultiplexedInputNode,
         NumericNode,
-        ModuleProxyInputNode,
+        ModuleProxyNode,
         CommandSenderNode,
         StringBuilderNode,
         CommandParserNode,
@@ -188,7 +191,7 @@ private:
 
     bool m_centerOnEdit=false;
 
-
+    QAutomationModule* parentModule=nullptr;
 
 //    bool m_connectionsLoaded=false;
 
@@ -453,5 +456,7 @@ public:
 
     FlowNodePort* createPort(QString portID,qan::PortItem::Type port_type);
 
+    QAutomationModule *getParentModule() const;
+    virtual void setParentModule(QAutomationModule *value);
 };
 #endif // FLOWNODE_H

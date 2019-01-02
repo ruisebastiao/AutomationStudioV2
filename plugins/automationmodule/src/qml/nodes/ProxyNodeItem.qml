@@ -22,6 +22,7 @@ FlowNodeItem{
     }
 
 
+
     expandOnEdit: true
 
 
@@ -68,10 +69,6 @@ FlowNodeItem{
 
             }
 
-            //            onCountChanged: {
-
-
-            //            }
 
             sourceModel: root.node.flowNodes
 
@@ -92,7 +89,7 @@ FlowNodeItem{
                 ValueFilter {
                     enabled: true
                     roleName: "nodeTypeRole"
-                    value: FlowNode.ProxyNode
+                    value: root.node.type==FlowNode.ModuleProxyNode?FlowNode.ModuleProxyNode:FlowNode.ProxyNode
                 },
                 ExpressionFilter {
                     enabled: true
@@ -141,11 +138,7 @@ FlowNodeItem{
                 width: parent.width
                 text: node.name
 
-                Component.onCompleted:  {
-                    //                    if(node.id==root.node.selectedBindedNodeID){
-                    //                        proxynode.currentIndex=index
-                    //                    }
-                }
+
 
                 property bool isCurrentItem: node.id==root.node.selectedBindedNodeID
                 onIsCurrentItemChanged: {
@@ -154,14 +147,7 @@ FlowNodeItem{
                     }
 
 
-                    //                    if(root.node.configsLoaded){
 
-
-                    //                        if(isCurrentItem){
-
-                    //                            root.node.setBindedFlowNode(node);
-                    //                        }
-                    //                    }
                 }
             }
 
@@ -176,6 +162,5 @@ FlowNodeItem{
 
 
     }
-
 
 }

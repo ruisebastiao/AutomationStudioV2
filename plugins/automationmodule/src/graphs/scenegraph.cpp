@@ -9,6 +9,7 @@
 #include <nodes/multiplexedinputnode.h>
 #include <nodes/numericnode.h>
 #include <nodes/proxynode.h>
+#include <nodes/moduleproxynode.h>
 #include <nodes/stringbuildernode.h>
 #include <nodes/stringnode.h>
 #include <nodes/webservicenode.h>
@@ -56,7 +57,12 @@ void SceneGraph::getCommonTypes()
 
             break;
         case FlowNode::Type::ProxyNode:
-            map.insert(QVariant::fromValue(nodetype).value<QString>(),"In/Out Proxy");
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Node Proxy");
+
+            break;
+
+        case FlowNode::Type::ModuleProxyNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Module Node Proxy");
 
             break;
 
@@ -127,6 +133,9 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     }
     else if(nodetype=="ProxyNode"){
         newnode=insertNode<ProxyNode>(nullptr);
+    }
+    else if(nodetype=="ModuleProxyNode"){
+        newnode=insertNode<ModuleProxyNode>(nullptr);
     }
     else if(nodetype=="NumericNode"){
         newnode=insertNode<NumericNode>(nullptr);
