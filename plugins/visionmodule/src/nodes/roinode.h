@@ -38,6 +38,11 @@ public:
 
     Q_PROPERTY(FlowNodeManager* processingNodes READ processingNodes WRITE setProcessingNodes NOTIFY processingNodesChanged USER("serialize"))
 
+
+private:
+
+    QVariant m_roiResults=QVariant::fromValue(QString(""));
+
 public:
     void processFrameObject(QMat* frame);
 
@@ -175,6 +180,7 @@ public:
     {
         return m_processingNodes;
     }
+    QVariant roiResults() const;
 };
 
 #endif // ROINODE_H

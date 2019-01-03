@@ -9,7 +9,6 @@
         <file alias="Nodes/Cv/ProcessingNodeItem.qml">qml/nodes/cv/ProcessingNodeItem.qml</file>
         <file alias="Utils/ROIEditor.qml">qml/utils/ROIEditor.qml</file>
         <file alias="Utils/ROIProcessingViewer.qml">qml/utils/ROIProcessingViewer.qml</file>
-        <file alias="Utils/ROISideContainer.qml">qml/utils/ROISideContainer.qml</file>
         <file alias="Images/UnLock">images/lock-open-outline.png</file>
         <file alias="Images/Lock">images/lock-outline.png</file>
         <file alias="Nodes/FrameBufferNodeItem.qml">qml/nodes/FrameBufferNodeItem.qml</file>

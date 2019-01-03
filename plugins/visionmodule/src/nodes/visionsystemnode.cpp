@@ -36,41 +36,6 @@ void VisionSystemNode::setFrameBufferSource(QVariant frameBufferSource)
 }
 
 
-//void VisionSystemNode::readROINode(QJsonObject roiobject){
-
-//    if(!m_visionGraphView){
-//        return;
-//    }
-//    auto newnode=m_visionGraphView->getGraph()->insertNode<ROINode>(nullptr);
-
-//    ROINode* node=dynamic_cast<ROINode*>(newnode);
-//    if(node){
-//        //node->setParent(this);
-//        node->DeSerialize(roiobject);
-//        m_ROINodes.append(node);
-
-//        QObject::connect(node,&ROINode::roiProcessingDoneChanged,this,[this](){
-//            this->setFrameProcessed(true);
-//        }
-//        );
-
-////        connect(node,&FlowNode::removeNode,[&](FlowNode* nodetoremove){
-////            int nodepos=m_ROINodes.indexOf( static_cast<ROINode*>(nodetoremove));
-////            if(nodepos>0){
-////                ROINode* noderemoved=m_ROINodes.at(nodepos);
-////                if(noderemoved){
-////                    m_ROINodes.removeAll(noderemoved);
-////                    this->m_visionGraphView->getGraph()->removeNode(noderemoved);
-
-////                }
-
-////            }
-////        });
-
-
-//    }
-
-//}
 
 
 void VisionSystemNode::Serialize(QJsonObject &json)

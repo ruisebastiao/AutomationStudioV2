@@ -92,7 +92,6 @@ DISTFILES += \
     $$PWD/qml/nodes/VisionSystemNodeItem.qml \
     $$PWD/qml/nodes/cv/ProcessingNodeItem.qml \
     $$PWD/qml/utils/ROIEditor.qml \
-    $$PWD/qml/utils/ROIProcessingViewer.qml \
-    $$PWD/qml/utils/ROISideContainer.qml \
+    $$PWD/qml/utils/ROIProcessingViewer.qml \    
     $$PWD/qml/cv/processing/postprocessing/PreProcessingContoursItem.qml
 

@@ -28,7 +28,7 @@ FlowNodeItem{
 
                 Layout.fillWidth: true
 
-                text: root.node.in.toString()
+                text: root.node.in?root.node.in.toString():""
 
 
                 readOnly: true
@@ -141,9 +141,9 @@ FlowNodeItem{
     }
 
 
-    ROISideContainerItem{
+    GUI.SideContainerItem{
 
-        roiPressed: root.isPressed
+//        nodePressed: root.isPressed
         show: root.selected && editMode
 
         side: "left"

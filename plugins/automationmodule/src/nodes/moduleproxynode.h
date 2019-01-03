@@ -27,12 +27,20 @@ signals:
     void selectedBindedModuleIDChanged(int selectedBindedModuleID);
 
 private:
-
-    int m_selectedBindedModuleID=1;
+    void setNodesFromModule(FlowNodeManager* modulenodes);
+    int m_selectedBindedModuleID=-1;
 
     // ProxyNode interface
 public:
     virtual void setBindedFlowNode(FlowNode *node) override;
+
+    // ProxyNode interface
+public slots:
+    virtual void initProxyNode() override;
+
+    // ProxyNode interface
+public slots:
+    virtual void setFlowNodes(FlowNodeManager *flowNodes) override;
 };
 
 #endif // MODULEPROXYNODE_H

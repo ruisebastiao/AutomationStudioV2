@@ -109,6 +109,8 @@ void ProxyNode::updateProxyType()
     if(outputport->getPortItem()->getOutEdgeItems().size()>0){
         graph->deleteEdge(outputport->getPortItem()->getOutEdgeItems().at(0)->getEdge());
     }
+
+
 }
 
 void ProxyNode::initProxyNode()
@@ -126,6 +128,7 @@ void ProxyNode::initProxyNode()
     updateProxyType();
 
 }
+
 
 void ProxyNode::DeSerialize(QJsonObject &json)
 {

@@ -19,7 +19,7 @@ Project::~Project()
 
 
 
-QAutomationModule* Project::createModule(QString moduleName)
+QAutomationModule* Project::createModule(QString moduleName,bool setID)
 {
 
 
@@ -45,9 +45,14 @@ QAutomationModule* Project::createModule(QString moduleName)
         m_modules->addItem(module);
     }
 
+    if(setID){
+        module->setId(m_modules->getAvailableID());
+    }
 
     return module;
 }
+
+
 
 
 void Project::Serialize(QJsonObject &json)
@@ -76,7 +81,7 @@ void Project::DeSerialize(QJsonObject &json)
         QJsonObject moduleObject = modulesArray[projectIndex].toObject();
 
         QString moduleType=moduleObject["type"].toString();
-        QAutomationModule *module=createModule(moduleType);
+        QAutomationModule *module=createModule(moduleType,false);
 
         if(module){
 

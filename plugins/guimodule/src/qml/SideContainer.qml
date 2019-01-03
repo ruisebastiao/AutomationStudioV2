@@ -7,7 +7,7 @@ import QtQuick.Controls.Material 2.2
 Item{
     id:root
 
-    property bool roiPressed: false
+    property bool nodePressed: false
     property bool show: false
 
     onShowChanged: {
@@ -70,7 +70,7 @@ Item{
 
         //
         Behavior on x{
-            enabled: roiPressed==false
+            enabled: nodePressed==false
             NumberAnimation {
                 duration: 250
                 onRunningChanged:{

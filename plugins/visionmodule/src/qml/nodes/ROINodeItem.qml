@@ -7,6 +7,7 @@ import QtQuick.Controls.Material 2.2
 import QuickQanava 2.0 as Qan
 
 import visionmodule 1.0
+import guimodule 1.0
 
 Qan.NodeItem {
     id:root
@@ -126,9 +127,9 @@ Qan.NodeItem {
 
     }
 
-    ROISideContainerItem{
+    SideContainerItem{
 
-        roiPressed: root.isPressed
+        nodePressed: root.isPressed
         show: root.selected && editMode
 
         contentItem: ColumnLayout{
@@ -180,9 +181,9 @@ Qan.NodeItem {
 
     }
 
-    ROISideContainerItem{
+    SideContainerItem{
 
-        roiPressed: root.isPressed
+        nodePressed: root.isPressed
         show: root.selected && editMode
 
         side: "left"

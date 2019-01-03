@@ -22,6 +22,23 @@ FlowNodeItem{
     }
 
 
+    Connections{
+        target: root.node
+
+        onSelectedBindedModuleIDChanged:{
+            for(var i=0;i<modulefilter.count;i++){
+                var moduleModel=modulefilter.get(i);
+
+                if(moduleModel){
+                    if(moduleModel.module.id==selectedBindedModuleID){
+                        modules.currentIndex=i;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 
     expandOnEdit: true
 
@@ -72,6 +89,7 @@ FlowNodeItem{
 
             sourceModel: root.node.flowNodes
 
+
             onCountChanged: {
                 for(var i=0;i<proxyModel.count;i++){
                     var nodeModel=proxyModel.get(i);
@@ -98,7 +116,7 @@ FlowNodeItem{
                     value: root.node.type==FlowNode.ModuleProxyNode?FlowNode.ModuleProxyNode:FlowNode.ProxyNode
                 },
                 ExpressionFilter {
-                    enabled: true
+                    enabled: root.node.type==FlowNode.ProxyNode
                     expression: {
                         return node.id !=root.node.id
                     }
@@ -124,7 +142,21 @@ FlowNodeItem{
                 }
             ]
 
-            sourceModel: root.node.parentModule.parentProject.modules
+            sourceModel: root.node.parentModule && root.node.parentModule.parentProject.modules
+
+            onCountChanged: {
+                for(var i=0;i<modulefilter.count;i++){
+                    var moduleModel=modulefilter.get(i);
+
+                    if(moduleModel){
+                        if(moduleModel.module.id==root.node.selectedBindedModuleID){
+                            modules.currentIndex=i;
+                            break;
+                        }
+                    }
+                }
+            }
+
         }
 
 
@@ -156,7 +188,15 @@ FlowNodeItem{
                 width: parent.width
                 text: module.name
 
+//                property bool isCurrentItem: module.id==root.node.selectedBindedModuleID
+//                onIsCurrentItemChanged: {
+//                    if(isCurrentItem){
+//                        modules.currentIndex=index
+//                    }
 
+
+
+//                }
 
             }
 

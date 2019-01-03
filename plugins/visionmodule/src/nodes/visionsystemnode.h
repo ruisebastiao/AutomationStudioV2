@@ -26,6 +26,8 @@ class VisionSystemNode : public FlowNode
 
     Q_PROPERTY(QVariant frameProcessed READ frameProcessed WRITE setFrameProcessed NOTIFY frameProcessedChanged REVISION 31)
 
+    Q_PROPERTY(QVariant results READ results WRITE setResults NOTIFY resultsChanged REVISION 31)
+
 
     Q_PROPERTY(bool processOnNewFrame READ processOnNewFrame WRITE setProcessOnNewFrame NOTIFY processOnNewFrameChanged USER("serialize"))
 
@@ -94,16 +96,16 @@ public slots:
 
                 QMat* framesource=m_frameSource.value<QMat*>();
 
+                setResults("");
+                m_finishedROIS=0;
+
                 for (int var = 0; var < m_rois->length(); ++var) {
                     ROINode* roi=static_cast<ROINode*>(m_rois->at(var));
                     roi->processFrameObject(framesource);
-
                 }
-                //                foreach (FlowNode* node, m_ROINodes) {
-                //                    ROINode* roi=static_cast<ROINode*>(node);
-                //                    roi->processFrameObject(framesource);
 
-                //                }
+
+
 
                 //qDebug()<<"Frame processed";
                 //setFrameProcessed(true);
@@ -117,12 +119,28 @@ public slots:
     void setFrameProcessed(QVariant frameProcessed)
     {
 
-
+//roinode->roiResults();
         m_frameProcessed = frameProcessed;
 
-        //        if(frameProcessed){
-        //            LOG_INFO("Node ID|"+QString::number(this->id())+"|Processing finished");
-        //        }
+        if(frameProcessed.value<bool>()){
+            LOG_INFO("Node ID|"+QString::number(this->id())+"|Frame Processing finished");
+
+            for (int var = 0; var < m_rois->length(); ++var) {
+                ROINode* roi=dynamic_cast<ROINode*>(m_rois->at(var));
+                QString roiresult=roi->roiResults().value<QString>();
+
+                QString frameResults=m_results.value<QString>();
+                frameResults+=roiresult;
+
+                if(var<m_rois->length()-1){
+                    frameResults+="|";
+                }
+                setResults(frameResults);
+
+
+            }
+
+        }
         emit frameProcessedChanged(m_frameProcessed);
     }
 
@@ -146,8 +164,12 @@ public slots:
             graph->connect(graph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
                 ROINode* roinode=dynamic_cast<ROINode*>(node);
                 if(roinode){
-                    QObject::connect(roinode,&ROINode::roiProcessingDoneChanged,this,[this](){
-                        this->setFrameProcessed(true);
+                    QObject::connect(roinode,&ROINode::roiProcessingDoneChanged,this,[&](){
+
+                        m_finishedROIS++;
+                        if(m_finishedROIS==m_rois->length()){
+                            this->setFrameProcessed(true);
+                        }
                     });
                 }
                 node->setParentModule(this->parentModule());
@@ -177,6 +199,15 @@ public slots:
 
         m_rois = rois;
         emit roisChanged(m_rois);
+    }
+
+    void setResults(QVariant results)
+    {
+        if (m_results == results)
+            return;
+
+        m_results = results;
+        emit resultsChanged(m_results);
     }
 
 public:
@@ -218,6 +249,8 @@ signals:
 
     void roisChanged(FlowNodeManager* rois);
 
+    void resultsChanged(QVariant results);
+
 private:
 
     QVariant m_frameSource=QVariant::fromValue(new QMat());
@@ -240,6 +273,10 @@ private:
 
     FlowNodeManager* m_rois= new FlowNodeManager(this);
 
+    int m_finishedROIS=0;
+
+    QVariant m_results=QVariant::fromValue(QString(""));
+
 public:
 
     QVariant frameBufferSource() const
@@ -249,6 +286,10 @@ public:
     FlowNodeManager* rois() const
     {
         return m_rois;
+    }
+    QVariant results() const
+    {
+        return m_results;
     }
 };
 

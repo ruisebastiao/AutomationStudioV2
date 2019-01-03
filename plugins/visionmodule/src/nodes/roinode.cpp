@@ -38,6 +38,11 @@ QQmlComponent *ROINode::delegate(QQmlEngine &engine) noexcept
     
 }
 
+QVariant ROINode::roiResults() const
+{
+    return m_roiResults;
+}
+
 
 void ROINode::Serialize(QJsonObject &json)
 {
@@ -62,11 +67,18 @@ void ROINode::initializeProcessingNode(ProcessingNode* procnode){
         
         
         
-        QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* endnode){
-            QMat* processed= endnode->output().value<QMat*>();
-            m_processedFrame=processed;
-            emit processedFrameChanged(processed);
-            setRoiProcessingDone(true);
+        QObject::connect(procnode,&ProcessingNode::processingCompleted,this, [this](ProcessingNode* node){
+
+            ProcessingEndNode* endnode=dynamic_cast<ProcessingEndNode*>(node);
+
+            if(endnode){
+                QMat* processed= endnode->output().value<QMat*>();
+                this->m_roiResults=endnode->processingResults();
+                m_processedFrame=processed;
+                emit processedFrameChanged(processed);
+                setRoiProcessingDone(true);
+            }
+
         });
         
 
@@ -102,7 +114,7 @@ void ROINode::setSourceFrame(QMat *sourceFrame)
         
         cvtColor(*m_sourceFrame->cvMat(),*m_processedFrame->cvMat(),CV_GRAY2BGR);
         
-        
+        m_roiResults.clear();
         
         //        emit sourceFrameChanged(m_sourceFrame);
         

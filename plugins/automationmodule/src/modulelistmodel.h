@@ -44,6 +44,7 @@ private:
     // TypedListModel interface
 public:
     Q_INVOKABLE virtual void removeItem(QAutomationModule *item) override;
+    int getAvailableID();
 };
 Q_DECLARE_METATYPE(ModuleListModel)
 #endif // MODULELISTMODEL_H

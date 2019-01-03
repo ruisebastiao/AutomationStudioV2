@@ -11,7 +11,7 @@ import base 1.0
 
 import QuickQanava 2.0 as Qan
 
-//import guimodule 1.0 as GUI
+import guimodule 1.0 as GUI
 
 Item {
     id:root
@@ -54,12 +54,72 @@ Item {
                 anchors.fill: parent
                 z: 999
 
-                Label{
+
+                Item{
                     Layout.fillWidth: true
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 18
-                    text:loadedmodule?loadedmodule.name:""
+                }
+
+                Item{
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+
+                    Label{
+                        anchors.centerIn: parent
+                        width: paintedWidth
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: 18
+                        visible: !module_name_editor.visible
+                        opacity: 1-module_name_editor.opacity
+                        text:loadedmodule?loadedmodule.name:""
+                        Behavior on opacity {
+                            NumberAnimation{
+                                duration: 250
+                            }
+                        }
+                    }
+
+                    TextField{
+                        id:module_name_editor
+                        width: text.length>0?contentWidth:placeholder.label.paintedWidth
+                        anchors.centerIn: parent
+                        visible: opacity!=0
+                        opacity: loadedmodule.editMode?1:0
+                        selectByMouse:true
+
+                        onTextChanged: {
+
+                            loadedmodule.name=text
+
+                        }
+
+                        Behavior on opacity {
+                            NumberAnimation{
+                                duration: 250
+                            }
+                        }
+                        onAccepted: {
+                            focus=false
+                        }
+
+                        text:loadedmodule.name
+
+
+                        GUI.MaterialPlaceHolder{
+                            id:placeholder
+                            //                        label.font.pixelSize:10
+                            position:"left"
+                            placeHolderText:"Module Name"
+                        }
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+
+
+                    }
+                }
+                Item{
+                    Layout.fillWidth: true
                 }
                 RoundButton{
                     visible: loggedUser && loggedUser.role==User.AdminRole
@@ -167,7 +227,7 @@ Item {
                                 Qan.GraphView {
                                     id: graphView
                                     anchors.fill: parent
-//                                    graph: dataflowGraph
+                                    //                                    graph: dataflowGraph
                                     navigable: true
                                     clip: true
 
@@ -187,25 +247,25 @@ Item {
                                     }
 
 
-//                                    Connections{
+                                    //                                    Connections{
 
-//                                        target:graphView.graph.selectedNode
+                                    //                                        target:graphView.graph.selectedNode
 
-//                                        onEditModeChanged:{
+                                    //                                        onEditModeChanged:{
 
-//                                            if(graphView.graph.selectedNode.centerOnEdit && graphView.graph.selectedNode.editMode){
+                                    //                                            if(graphView.graph.selectedNode.centerOnEdit && graphView.graph.selectedNode.editMode){
 
-//                                                docenterItem.start()
-//                                            }
+                                    //                                                docenterItem.start()
+                                    //                                            }
 
-//                                            if(graphView.graph.selectedNode.editMode==false && graphView.graph.selectedNode.centerOnEdit){
-//                                                graphView.containerItem.x=graphView.lastCenterX;
-//                                                graphView.containerItem.y=graphView.lastCenterY;
+                                    //                                            if(graphView.graph.selectedNode.editMode==false && graphView.graph.selectedNode.centerOnEdit){
+                                    //                                                graphView.containerItem.x=graphView.lastCenterX;
+                                    //                                                graphView.containerItem.y=graphView.lastCenterY;
 
-//                                                graphView.zoomOn(Qt.point(graphView.lastCenterX, graphView.lastCenterY),graphView.lastZoom)
-//                                            }
-//                                        }
-//                                    }
+                                    //                                                graphView.zoomOn(Qt.point(graphView.lastCenterX, graphView.lastCenterY),graphView.lastZoom)
+                                    //                                            }
+                                    //                                        }
+                                    //                                    }
 
 
                                     lockGridUpdate:true

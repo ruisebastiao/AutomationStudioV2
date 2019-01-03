@@ -6,6 +6,7 @@ import QtQuick.Controls.Material 2.2
 
 import automationmodule 1.0
 import visionmodule 1.0
+import guimodule 1.0
 
 FlowNodeItem {
     id: root
@@ -36,12 +37,12 @@ FlowNodeItem {
 
 
 
-    ROISideContainerItem{
+    SideContainerItem{
         id:left_container
         z:999999
         containerSize:450
         side:"left"
-        roiPressed: root.isPressed
+        nodePressed: root.isPressed
         show: root.processingConfigItem && root.selected==true && root.editMode==true
         visible: root.processingConfigItem
         contentItem: ColumnLayout{
@@ -104,12 +105,12 @@ FlowNodeItem {
     }
 
 
-    ROISideContainerItem{
+    SideContainerItem{
         id:right_container
         z:999999
         containerSize:450
         side:"right"
-        roiPressed: root.isPressed
+        nodePressed: root.isPressed
         show: root.processingConfigItem && root.selected==true && root.editMode==true
         visible: root.processingConfigItem
         contentItem: ColumnLayout{

@@ -15,5 +15,6 @@
         <file>qml/AutoScroller.qml</file>
         <file>qml/PopUp.qml</file>
         <file>qml/AppUpdaterItem.qml</file>
+        <file>qml/SideContainer.qml</file>
     </qresource>
 </RCC>

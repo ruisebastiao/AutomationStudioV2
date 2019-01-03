@@ -60,9 +60,9 @@ public slots:
 
     void updateProxyType();
 
-    void initProxyNode();
+    virtual void initProxyNode();
 
-    void setFlowNodes(FlowNodeManager* flowNodes)
+    virtual void setFlowNodes(FlowNodeManager* flowNodes)
     {
         if (m_flowNodes == flowNodes)
             return;
@@ -137,8 +137,9 @@ private:
 
 
 
+
     // JsonSerializable interface
-    FlowNodeManager* m_flowNodes= nullptr;
+
 
     QString m_proxyType="";
 
@@ -151,7 +152,7 @@ private:
 protected:
     virtual void DeSerialize(QJsonObject &json) override;
 
-
+    FlowNodeManager* m_flowNodes= nullptr;
 
     // FlowNode interface
 public:

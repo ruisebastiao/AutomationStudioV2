@@ -12,6 +12,24 @@ ModuleListModel::~ModuleListModel()
     clear();
 }
 
+
+int ModuleListModel::getAvailableID()
+{
+
+    std::sort(std::begin(m_internalList), std::end(m_internalList), [](QAutomationModule* a, QAutomationModule *b) {return a->id() < b->id(); });
+
+    for (int var = 0; var < m_internalList.length()-1; ++var) {
+        if(m_internalList.at(var+1)->id()-m_internalList.at(var)->id()>1){
+            // check for available ids
+            QAutomationModule *module= m_internalList.at(var);
+            return module->id()+1;
+
+        }
+    }
+
+    return m_internalList.length();
+}
+
 QVariant ModuleListModel::data(const QModelIndex &index, int role) const
 {
     //    qDebug()<<" Data asked for "<<index.row()<<" and role "<<role;
