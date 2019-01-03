@@ -8,7 +8,9 @@
 #include "qanGraphView.h"
 #include "scenegraph.h"
 #include "flownodemanager.h"
+//#include "project.h"
 
+class Project;
 
 class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonSerializable
 {
@@ -26,13 +28,15 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
     Q_PROPERTY(ModuleType type READ type NOTIFY typeChanged USER("serialize"))
     Q_PROPERTY(qan::GraphView* graphView READ graphView WRITE setGraphView NOTIFY graphViewChanged)
 
-
-
+    Q_PROPERTY(Project* parentProject READ parentProject WRITE setParentProject NOTIFY parentProjectChanged)
 
 
     Q_PROPERTY(QString moduleName READ moduleName NOTIFY moduleNameChanged)
 
     Q_PROPERTY(FlowNodeManager* flowNodes READ flowNodes WRITE setFlowNodes NOTIFY flowNodesChanged USER("serialize"))
+
+
+
 
 public:
     enum ModuleType {
@@ -164,6 +168,10 @@ signals:
 
     void componentCompleted();
 
+    void parentProjectChanged(Project* parentProject);
+
+
+
 public slots:
     void setName(QString name)
     {
@@ -210,6 +218,16 @@ public slots:
 
 
     // JsonSerializable interface
+    void setParentProject(Project* parentProject)
+    {
+        if (m_parentProject == parentProject)
+            return;
+
+        m_parentProject = parentProject;
+        emit parentProjectChanged(m_parentProject);
+    }
+
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -241,9 +259,16 @@ public:
         return m_flowNodes;
     }
 
+
+    Project* parentProject() const
+    {
+        return m_parentProject;
+    }
+
+
 protected:
-//   Q_INVOKABLE virtual void loadModuleSettings(QString path);
-//   Q_INVOKABLE virtual void save();
+    //   Q_INVOKABLE virtual void loadModuleSettings(QString path);
+    //   Q_INVOKABLE virtual void save();
 
     ModuleType m_type=ModuleType::AutomationModule;
 
@@ -258,6 +283,7 @@ private:
         emit flowNodesChanged(m_flowNodes);
     }
 
+    Project* m_parentProject=nullptr;
 
 
 };

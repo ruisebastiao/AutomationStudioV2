@@ -1,8 +1,7 @@
 #include "project.h"
 #include "automationmodule_plugin.h"
 
-//#include <nodes/modulepropertybind.h>
-
+#include <nodes/modulepropertybind.h>
 
 
 
@@ -41,41 +40,8 @@ QAutomationModule* Project::createModule(QString moduleName)
     QQuickItem *item = qobject_cast<QQuickItem*>(component_object);
 
     QAutomationModule *module= qobject_cast<QAutomationModule*>(component_object);
-
-
-
     if(module){
-
-//        this->connect(module->flowNodes(),&FlowNodeManager::flowNodeAdded,this,[&](FlowNode* node){
-
-//            ModuleProxyNode* moduleproxynodeadded=dynamic_cast<ModuleProxyNode*>(node);
-//            if(moduleproxynodeadded){
-
-
-//                for (int moduleIndex = 0; moduleIndex < m_modules->length(); ++moduleIndex) {
-//                    QAutomationModule* currentmodule=m_modules->at(moduleIndex);
-//                    if(currentmodule){
-
-//                        for (int nodeIndex = 0; nodeIndex < currentmodule->flowNodes()->length(); ++nodeIndex) {
-//                            ModuleProxyNode* currentproxynode=dynamic_cast<ModuleProxyNode*>(currentmodule->flowNodes()->at(nodeIndex));
-
-//                            if(currentproxynode && currentproxynode!=moduleproxynodeadded){
-
-//                                 currentproxynode->flowNodes()->addItem(moduleproxynodeadded);
-
-
-//                            }
-//                        }
-
-
-
-
-//                    }
-//                }
-
-//            }
-//        });
-
+        module->setParentProject(this);
         m_modules->addItem(module);
     }
 
@@ -110,38 +76,17 @@ void Project::DeSerialize(QJsonObject &json)
         QJsonObject moduleObject = modulesArray[projectIndex].toObject();
 
         QString moduleType=moduleObject["type"].toString();
-         QAutomationModule* module=createModule(moduleType);
-         if(module){
-             int moduleID=moduleObject["id"].toInt();
-             module->setId(moduleID);
-         }
+        QAutomationModule *module=createModule(moduleType);
 
+        if(module){
 
-    }
+            module->DeSerialize(moduleObject);
 
-    for (int projectIndex = 0; projectIndex < modulesArray.size(); ++projectIndex) {
-        QJsonObject moduleObject = modulesArray[projectIndex].toObject();
+//            module->loadConnections();
 
-        int moduleID=moduleObject["id"].toInt();
-//        QAutomationModule *module=createModule(moduleType);
-
-        for (int var = 0; var < m_modules->length(); ++var) {
-            QAutomationModule* module=m_modules->at(var);
-            if(module && module->id()==moduleID){
-
-                module->DeSerialize(moduleObject);
-
-                break;
-
-
-            }
         }
 
-
-
     }
-
-
 }
 
 

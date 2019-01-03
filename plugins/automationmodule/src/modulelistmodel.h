@@ -17,7 +17,8 @@ public:
         ModuleInstanceRole,
         ModuleSettingsRole,
         ModuleRole,
-        ModuleIDRole
+        ModuleIDRole,
+        ModuleNameRole
     };
 
     ModuleListModel();

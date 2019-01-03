@@ -56,7 +56,7 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     Q_PROPERTY(bool centerOnEdit READ centerOnEdit WRITE setCenterOnEdit NOTIFY centerOnEditChanged)
 
 
-
+    Q_PROPERTY(QAutomationModule* parentModule READ parentModule WRITE setParentModule NOTIFY parentModuleChanged)
 
 
 public:
@@ -191,20 +191,13 @@ private:
 
     bool m_centerOnEdit=false;
 
-    QAutomationModule* parentModule=nullptr;
 
-//    bool m_connectionsLoaded=false;
-
-
-
-
+    QAutomationModule* m_parentModule=nullptr;
 
 public slots:
     virtual void    inNodeOutputChanged();
 
-    //    void fitItem(int margins=0);
-
-    //    void lastCenter();
+    virtual void setParentModule(QAutomationModule* parentModule);
 
 
     void setName(QString name)
@@ -334,6 +327,8 @@ public slots:
 //        emit connectionsLoadedChanged(m_connectionsLoaded);
 //    }
 
+
+
 signals:
     void nameChanged(QString name);
 
@@ -371,6 +366,8 @@ signals:
     void centerOnEditChanged(bool centerOnEdit);
 
     void connectionsLoadedChanged(bool connectionsLoaded);
+
+    void parentModuleChanged(QAutomationModule* parentModule);
 
 protected:
 
@@ -456,7 +453,10 @@ public:
 
     FlowNodePort* createPort(QString portID,qan::PortItem::Type port_type);
 
-    QAutomationModule *getParentModule() const;
-    virtual void setParentModule(QAutomationModule *value);
+
+    QAutomationModule* parentModule() const
+    {
+        return m_parentModule;
+    }
 };
 #endif // FLOWNODE_H

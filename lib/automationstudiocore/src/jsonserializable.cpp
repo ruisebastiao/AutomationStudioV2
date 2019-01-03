@@ -84,11 +84,12 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
 
                 QVariant value = target->property(propName);
 
-                if(value.isNull()==true || value.isValid()==false){
-                    continue;
-                }
                 auto isobject=value.canConvert<QObject*>();
                 if(isobject){
+
+                    if(value.isNull()==true || value.isValid()==false){
+                        continue;
+                    }
 
                     QObject* propvalue=value.value<QObject*>();
                     JsonSerializable *serializable = qobject_cast<JsonSerializable*>(propvalue);

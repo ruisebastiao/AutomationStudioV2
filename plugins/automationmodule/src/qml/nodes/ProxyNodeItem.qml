@@ -88,7 +88,13 @@ FlowNodeItem{
             filters: [
                 ValueFilter {
                     enabled: true
+
+//                    value: FlowNode.ProxyNode
+
                     roleName: "nodeTypeRole"
+
+
+
                     value: root.node.type==FlowNode.ModuleProxyNode?FlowNode.ModuleProxyNode:FlowNode.ProxyNode
                 },
                 ExpressionFilter {
@@ -107,7 +113,61 @@ FlowNodeItem{
 
         }
 
+        SortFilterProxyModel {
+            id: modulefilter
+            filters: [
+                ExpressionFilter {
+                    enabled: true
+                    expression: {
+                        return module.id !=root.node.parentModule.id
+                    }
+                }
+            ]
 
+            sourceModel: root.node.parentModule.parentProject.modules
+        }
+
+
+        ComboBox{
+            id:modules
+            visible: root.node.proxyType=="Output" && root.node.type==FlowNode.ModuleProxyNode
+
+
+
+            Layout.fillWidth: true
+            Layout.preferredHeight: 60
+
+            model: modulefilter
+
+
+            onCurrentIndexChanged:{
+                var item=model.get(currentIndex);
+                if(item){
+                    root.node.selectedBindedModuleID=item.module.id
+                }
+            }
+
+
+            Component.onCompleted: {
+                currentIndex:-1
+            }
+
+            delegate:ItemDelegate{
+                width: parent.width
+                text: module.name
+
+
+
+            }
+
+
+
+
+            textRole: "moduleName"
+
+
+
+        }
 
 
         ComboBox{

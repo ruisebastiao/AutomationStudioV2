@@ -139,4 +139,41 @@ FlowNodeItem{
             }
         }
     }
+
+
+    ROISideContainerItem{
+
+        roiPressed: root.isPressed
+        show: root.selected && editMode
+
+        side: "left"
+
+        containerSize: 400
+
+        contentItem: GroupBox{
+            anchors.fill: parent
+            title: "Settings"
+            anchors.margins: 10
+            MouseArea{
+                anchors.fill: parent
+
+
+                onPressed: {
+                    mouse.accepted=true
+
+                }
+            }
+
+            ColumnLayout{
+                anchors.fill: parent
+                Item{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
+
+        }
+    }
+
+
 }

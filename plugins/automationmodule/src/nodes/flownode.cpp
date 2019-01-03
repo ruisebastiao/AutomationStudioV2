@@ -138,16 +138,6 @@ FlowNodePort *FlowNode::getPortFromKey(QString key)
     return m_outPorts.value(keystr);
 }
 
-QAutomationModule *FlowNode::getParentModule() const
-{
-    return parentModule;
-}
-
-void FlowNode::setParentModule(QAutomationModule *value)
-{
-    parentModule = value;
-}
-
 
 SceneGraph *FlowNode::getScenegraph() const
 {
@@ -158,6 +148,17 @@ void FlowNode::inNodeOutputChanged()
 {
 
 }
+
+void FlowNode::setParentModule(QAutomationModule *parentModule)
+{
+    if (m_parentModule == parentModule)
+        return;
+
+    m_parentModule = parentModule;
+    emit parentModuleChanged(m_parentModule);
+}
+
+
 
 QMap<string,FlowNodePort *> FlowNode::getOutPorts() const
 {

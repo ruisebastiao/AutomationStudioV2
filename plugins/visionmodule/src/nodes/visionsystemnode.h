@@ -150,6 +150,7 @@ public slots:
                         this->setFrameProcessed(true);
                     });
                 }
+                node->setParentModule(this->parentModule());
             });
 
         }

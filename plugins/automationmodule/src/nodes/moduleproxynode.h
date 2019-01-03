@@ -20,14 +20,8 @@ public:
     }
 
 public slots:
-    void setSelectedBindedModuleID(int selectedBindedModuleID)
-    {
-        if (m_selectedBindedModuleID == selectedBindedModuleID)
-            return;
+    void setSelectedBindedModuleID(int selectedBindedModuleID);
 
-        m_selectedBindedModuleID = selectedBindedModuleID;
-        emit selectedBindedModuleIDChanged(m_selectedBindedModuleID);
-    }
 
 signals:
     void selectedBindedModuleIDChanged(int selectedBindedModuleID);

@@ -73,6 +73,8 @@ public slots:
                     if(procnode){
                         this->initializeProcessingNode(procnode);
                     }
+
+                    node->setParentModule(this->parentModule());
                 }
             });
         }

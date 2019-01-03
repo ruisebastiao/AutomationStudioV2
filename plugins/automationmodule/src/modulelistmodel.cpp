@@ -41,6 +41,12 @@ QVariant ModuleListModel::data(const QModelIndex &index, int role) const
 
     }
 
+    if(role==ModuleNameRole){
+        return QVariant::fromValue(module->name());
+
+    }
+
+
     return QVariant();
 
 }
@@ -53,6 +59,7 @@ QHash<int, QByteArray> ModuleListModel::roleNames() const
         { ModuleInstanceRole, "moduleinstance" },
         { ModuleSettingsRole, "modulesettings" },
         { ModuleRole, "module" },
+        { ModuleNameRole, "moduleName" },
         { ModuleIDRole, "moduleID" }
     };
 }
