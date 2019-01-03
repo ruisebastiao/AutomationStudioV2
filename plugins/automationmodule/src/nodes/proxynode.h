@@ -20,9 +20,13 @@ class ProxyNode : public FlowNode
     Q_PROPERTY(FlowNodeManager* flowNodes READ flowNodes WRITE setFlowNodes NOTIFY flowNodesChanged)
 
 
+private:
+
+    FlowNode* m_bindedFlowNode=nullptr;
 
 public:
     ProxyNode();
+    ~ProxyNode() override;
     static  QQmlComponent*      delegate(QQmlEngine& engine);
 
     Q_INVOKABLE virtual void setBindedFlowNode(FlowNode* node);
@@ -39,10 +43,6 @@ public:
         return m_proxyType;
     }
 
-//    FlowNode* selectedBindedNode() const
-//    {
-//        return m_selectedBindedNode;
-//    }
 
     QVariant input() const
     {

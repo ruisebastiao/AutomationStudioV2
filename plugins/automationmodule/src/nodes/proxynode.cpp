@@ -2,6 +2,13 @@
 
 void ProxyNode::setBindedFlowNode(FlowNode *node)
 {
+
+    if(node==m_bindedFlowNode){
+        return;
+    }
+
+    m_bindedFlowNode=node;
+
     if(!node){
         return;
     }
@@ -30,7 +37,7 @@ void ProxyNode::setBindedFlowNode(FlowNode *node)
 
         QObject::connect(edgeitem, &qan::EdgeItem::destroyed,[&](QObject* edgeObject){
             if(node){
-                qan::Edge* newedge=graph->insertNewEdge(true,node,this);
+                qan::Edge* newedge=graph->insertNewEdge(false,node,this);
                 FlowNodePort* outPort=node->getPortByID("output");
 
                 if(outPort){
@@ -41,7 +48,7 @@ void ProxyNode::setBindedFlowNode(FlowNode *node)
     }
     else{
         if(node){
-            qan::Edge* newedge=graph->insertNewEdge(true,node,this);
+            qan::Edge* newedge=graph->insertNewEdge(false,node,this);
             FlowNodePort* outPort=node->getPortByID("output");
 
             if(outPort){
@@ -49,8 +56,8 @@ void ProxyNode::setBindedFlowNode(FlowNode *node)
             }
         }
     }
-    //    }
 }
+
 
 ProxyNode::ProxyNode()
 {
@@ -64,12 +71,21 @@ ProxyNode::ProxyNode()
 
 }
 
+ProxyNode::~ProxyNode()
+{
+    qDebug()<<"Deleting proxy node";
+//    setProxyType("Output");
+//    setFlowNodes(nullptr);
+//    setParentModule(nullptr);
+}
+
 QQmlComponent *ProxyNode::delegate(QQmlEngine &engine)
 {
-    static std::unique_ptr<QQmlComponent>   delegate;
+    static UniqueQQmlComponentPtr  delegate;
     if ( !delegate )
-        delegate = std::make_unique<QQmlComponent>(&engine, "qrc:///Nodes/ProxyNodeItem.qml");
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/ProxyNodeItem.qml"));
     return delegate.get();
+
 }
 
 

@@ -44,7 +44,8 @@ public:
         W3CXmlSchema11 = QRegExp::W3CXmlSchema11 };
     Q_ENUMS(PatternSyntax)
 
-    QQmlSortFilterProxyModel(QObject* parent = 0);
+    QQmlSortFilterProxyModel(QObject* parent = nullptr);
+    ~QQmlSortFilterProxyModel() override;
 
     int count() const;
 

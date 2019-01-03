@@ -138,8 +138,8 @@ int main(int argc, char *argv[]){
     QGuiApplication::setApplicationName("Automation Studio");
     QGuiApplication::setApplicationVersion(release);
 
-    QQmlApplicationEngine engine;
     try{
+        QQmlApplicationEngine engine;
 
         AutomationStudio::Ptr automationstudio = AutomationStudio::create(argc, argv,&engine);
         automationstudio->loadInternalPlugins();

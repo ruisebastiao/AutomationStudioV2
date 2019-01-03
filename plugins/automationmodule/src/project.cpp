@@ -14,7 +14,8 @@ Project::Project(QObject *parent):QObject(parent)
 
 Project::~Project()
 {
-    m_modules->deleteLater();
+    qDebug()<<"Deleting project";
+    delete m_modules;
 }
 
 

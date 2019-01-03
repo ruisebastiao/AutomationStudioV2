@@ -5,10 +5,6 @@ HEADERS += \
     $$PWD/libraryloadpath.h \
     $$PWD/lockedfileiosession.h \
     $$PWD/plugincontext.h \
-    $$PWD/filter.h \
-    $$PWD/shareddata.h \
-    $$PWD/filterworker.h \
-    $$PWD/filterworker_p.h \
     $$PWD/keymap.h \
     $$PWD/automationstudiocoreglobal.h \
     $$PWD/systemsettings.h \
@@ -26,9 +22,6 @@ SOURCES += \
     $$PWD/libraryloadpath.cpp \
     $$PWD/lockedfileiosession.cpp \
     $$PWD/plugincontext.cpp \
-    $$PWD/filter.cpp \
-    $$PWD/shareddata.cpp \
-    $$PWD/filterworker.cpp \
     $$PWD/keymap.cpp \
     $$PWD/systemsettings.cpp \
     $$PWD/user.cpp \

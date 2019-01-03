@@ -45,7 +45,8 @@ public:
             beginRemoveRows(QModelIndex(), 0,m_internalList.length()-1);   // kindly provided by superclass
 
             foreach (T* item, m_internalList) {
-                item->deleteLater();
+
+                delete item;
             }
 
             m_internalList.clear();

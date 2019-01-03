@@ -41,6 +41,10 @@ public slots:
     // ProxyNode interface
 public slots:
     virtual void setFlowNodes(FlowNodeManager *flowNodes) override;
+
+    // JsonSerializable interface
+public:
+    virtual void DeSerialize(QJsonObject &json) override;
 };
 
 #endif // MODULEPROXYNODE_H

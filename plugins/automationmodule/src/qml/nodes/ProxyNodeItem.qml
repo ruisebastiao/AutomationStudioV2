@@ -24,7 +24,7 @@ FlowNodeItem{
 
     Connections{
         target: root.node
-
+        ignoreUnknownSignals:true
         onSelectedBindedModuleIDChanged:{
             for(var i=0;i<modulefilter.count;i++){
                 var moduleModel=modulefilter.get(i);
@@ -56,6 +56,10 @@ FlowNodeItem{
             model: ["Input", "Output"]
 
 
+            onActivated: {
+                root.node.setBindedFlowNode(null)
+                proxynode.currentIndex=-1
+            }
 
             onCurrentIndexChanged: {
                 if(currentIndex>-1){
@@ -107,7 +111,6 @@ FlowNodeItem{
                 ValueFilter {
                     enabled: true
 
-//                    value: FlowNode.ProxyNode
 
                     roleName: "nodeTypeRole"
 
@@ -172,11 +175,15 @@ FlowNodeItem{
             model: modulefilter
 
 
-            onCurrentIndexChanged:{
+            onActivated: {
                 var item=model.get(currentIndex);
                 if(item){
                     root.node.selectedBindedModuleID=item.module.id
                 }
+            }
+
+            onCurrentIndexChanged:{
+
             }
 
 
@@ -188,15 +195,6 @@ FlowNodeItem{
                 width: parent.width
                 text: module.name
 
-//                property bool isCurrentItem: module.id==root.node.selectedBindedModuleID
-//                onIsCurrentItemChanged: {
-//                    if(isCurrentItem){
-//                        modules.currentIndex=index
-//                    }
-
-
-
-//                }
 
             }
 
@@ -221,12 +219,15 @@ FlowNodeItem{
 
             model: proxyModel
 
-
-            onCurrentIndexChanged:{
+            onActivated: {
                 var item=model.get(currentIndex);
                 if(item){
                     root.node.setBindedFlowNode(item.node)
                 }
+            }
+
+            onCurrentIndexChanged:{
+
             }
 
 

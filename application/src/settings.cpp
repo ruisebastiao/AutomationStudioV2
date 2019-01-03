@@ -193,7 +193,10 @@ void Settings::registerApp(){
 }
 
 Settings::~Settings(){
-
+    qDebug()<<"~Settings()";
+    if(m_selectedProject){
+        delete m_selectedProject;
+    }
 }
 
 bool Settings::load()

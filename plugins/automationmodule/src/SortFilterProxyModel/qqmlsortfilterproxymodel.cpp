@@ -3,7 +3,7 @@
 #include "filters/filter.h"
 #include "sorters/sorter.h"
 #include "proxyroles/proxyrole.h"
-
+#include "qdebug.h"
 
 
 /*!
@@ -35,6 +35,17 @@ QQmlSortFilterProxyModel::QQmlSortFilterProxyModel(QObject *parent) :
     connect(this, &QAbstractItemModel::layoutChanged, this, &QQmlSortFilterProxyModel::countChanged);
     connect(this, &QAbstractItemModel::dataChanged, this, &QQmlSortFilterProxyModel::onDataChanged);
     setDynamicSortFilter(true);
+}
+
+QQmlSortFilterProxyModel::~QQmlSortFilterProxyModel()
+{
+    qDebug()<<"~QQmlSortFilterProxyModel";
+
+//    for (int var = 0; var < filters().length(); ++var) {
+//        auto filter=filters().at(var);
+//        delete filter;
+//    }
+//    filters().clear();
 }
 
 /*!

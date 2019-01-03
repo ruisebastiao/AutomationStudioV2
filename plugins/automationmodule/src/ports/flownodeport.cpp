@@ -49,7 +49,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
     QObject::connect(m_port, &qan::PortItem::inEdgeAdded, this, [this](qan::EdgeItem& inEdgeItem){
 
         QObject::connect(&inEdgeItem, &qan::EdgeItem::destroyed, this, [this](QObject* edgeObject){
-//            LOG_INFO("In edge destroyed");
+            LOG_INFO("In edge destroyed");
             qan::EdgeItem* edgeItem=qobject_cast<qan::EdgeItem*>(edgeObject);
             if(edgeItem!=nullptr){
 

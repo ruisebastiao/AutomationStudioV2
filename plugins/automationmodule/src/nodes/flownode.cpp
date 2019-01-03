@@ -29,6 +29,26 @@ FlowNode::~FlowNode()
     //
     LOG_INFO()<<"Deleting node:"<<this->id()<<"|"<<this->name();
 
+    QMapIterator<string, FlowNodePort*> o(this->m_inPorts);
+    while (o.hasNext()) {
+        o.next();
+
+
+        FlowNodePort* inport =o.value();
+
+        if(inport){
+              if(inport->getPortItem()->getInEdgeItems().size()>0){
+                  auto edgitem=inport->getPortItem()->getInEdgeItems().at(0);
+                  if(edgitem){
+                    delete edgitem;
+                  }
+
+              }
+
+        }
+
+
+    }
 
 }
 

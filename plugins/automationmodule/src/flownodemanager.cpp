@@ -141,8 +141,8 @@ void FlowNodeManager::loadConnections(){
 
 
                     FlowNode* targetnode=getFlownodesTable()[connection->nodeID()];
-
-                    if(targetnode){
+                    ProxyNode* proxynode=dynamic_cast<ProxyNode*>(targetnode);
+                    if(targetnode || (proxynode && proxynode->proxyType()=="Input")){
                         string portkey=QString::number(connection->nodeID()).toStdString();
                         portkey.append("|");
                         portkey.append(connection->portID().toStdString());
