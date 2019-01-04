@@ -35,6 +35,23 @@ FlowNodeItem{
                     placeHolderText:"Command"
                 }
             }
+            TextArea{
+                id:final_lbl
+                visible: root.node.appendFromInput
+                Layout.fillWidth: true
+
+                text: root.node.finalCommand
+
+                readOnly: true
+
+                 wrapMode: TextEdit.WordWrap
+
+                selectByMouse:true
+                GUI.MaterialPlaceHolder{
+
+                    placeHolderText:"Final command"
+                }
+            }
             Button{
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
@@ -46,5 +63,49 @@ FlowNodeItem{
             }
         }
     }
+
+
+    GUI.SideContainerItem{
+
+//        nodePressed: root.isPressed
+        show: root.selected && editMode
+
+        side: "left"
+
+        containerSize: 400
+
+        contentItem: GroupBox{
+            anchors.fill: parent
+            title: "Settings"
+            anchors.margins: 10
+            MouseArea{
+                anchors.fill: parent
+
+
+                onPressed: {
+                    mouse.accepted=true
+
+                }
+            }
+
+            ColumnLayout{
+                anchors.fill: parent
+                CheckBox{
+                    checked: root.node.appendFromInput
+                    text: "Append to command"
+                    onCheckedChanged: {
+                        root.node.appendFromInput=checked
+                    }
+                }
+
+                Item{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
+
+        }
+    }
+
 
 }

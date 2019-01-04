@@ -21,6 +21,7 @@ class CommandSenderNode : public FlowNode
     Q_PROPERTY(QVariant epsonNode READ epsonNode WRITE setEpsonNode NOTIFY epsonNodeChanged REVISION 30)
     Q_PROPERTY(QVariant send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
 
+    Q_PROPERTY(QString finalCommand READ finalCommand WRITE setFinalCommand NOTIFY finalCommandChanged)
 
 
 public:
@@ -60,6 +61,11 @@ public:
         return m_commandInput;
     }
 
+    QString finalCommand() const
+    {
+        return m_finalCommand;
+    }
+
 public slots:
     void setCommandsAvailable(QStringList commandsAvailable)
     {
@@ -75,6 +81,11 @@ public slots:
             return;
 
         m_commandToSend = commandToSend;
+
+        QString command_frominput = m_commandInput.value<QString>();
+        setFinalCommand(commandToSend+command_frominput);
+
+
         emit commandToSendChanged(m_commandToSend);
     }
 
@@ -97,9 +108,12 @@ public slots:
         if(m_send.value<bool>()){
             EpsonNode* node=m_epsonNode.value<EpsonNode*>();
             if(node){
-                QString command_frominput = m_commandInput.value<QString>();
-                QString finalcommand=commandToSend()+command_frominput;
-                node->sendCommand(finalcommand);
+                if(appendFromInput()){
+                    node->sendCommand(finalCommand());
+                }
+                else {
+                    node->sendCommand(commandToSend());
+                }
             }
         }
         emit sendChanged(m_send);
@@ -119,8 +133,13 @@ public slots:
     {
 
         m_commandInput = commandInput;
+        QString command_frominput = m_commandInput.value<QString>();
+        setFinalCommand(commandToSend()+command_frominput);
+
+
         emit commandInputChanged(m_commandInput);
     }
+
 
 signals:
     void commandsAvailableChanged(QStringList commandsAvailable);
@@ -139,7 +158,17 @@ signals:
 
     void commandInputChanged(QVariant commandInput);
 
+    void finalCommandChanged(QString finalCommand);
+
 private:
+
+    void setFinalCommand(QString finalCommand)
+    {
+
+        m_finalCommand = finalCommand;
+        emit finalCommandChanged(m_finalCommand);
+    }
+
     QStringList m_commandsAvailable;
     QString m_commandToSend="";
 
@@ -150,6 +179,7 @@ private:
     bool m_appendFromInput=false;
     QVariant m_commandInput=QVariant::fromValue(QString(""));
 
+    QString m_finalCommand;
 };
 
 #endif // COMMANDSENDER_H

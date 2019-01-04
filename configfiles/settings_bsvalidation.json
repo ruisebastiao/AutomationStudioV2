@@ -433,13 +433,13 @@
         {
             "isDefault": true,
             "name": "Administrator",
-            "pin": "4321",
+            "pin": "NDMyMQ==",
             "role": "AdminRole"
         },
         {
             "isDefault": false,
             "name": "Production User",
-            "pin": "0000",
+            "pin": "MDAwMA==",
             "role": "ProductionRole"
         }
     ]
