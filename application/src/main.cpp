@@ -18,6 +18,9 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QFileInfo>
+#include <QLocalSocket>
+#include <QLocalServer>
+#include <QQuickView>
 //#include <automationstudiocore/libraryloadpath.h>
 #include "automationstudiocore/plugincontext.h"
 #include <ConsoleAppender.h>
@@ -42,6 +45,25 @@ int buggyFunc() {
     return 0;
 }
 
+bool isSingleInstanceRunning(QString appName) {
+    QLocalSocket socket;
+    int  error= socket.error();
+    QString errorstr= socket.errorString();
+    socket.connectToServer(appName);
+    error= socket.error();
+    errorstr= socket.errorString();
+
+    bool isOpen = socket.isOpen();
+    socket.close();
+    return isOpen;
+}
+
+QLocalServer* startSingleInstanceServer(QString appName) {
+    QLocalServer* server = new QLocalServer;
+    server->setSocketOptions(QLocalServer::WorldAccessOption);
+    server->listen(appName);
+    return server;
+}
 
 
 int main(int argc, char *argv[]){
@@ -55,8 +77,24 @@ int main(int argc, char *argv[]){
 
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     QGuiApplication::addLibraryPath(PluginContext::librariesPath());
+
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     QQuickStyle::setStyle("Material");
+
     QGuiApplication app(argc, argv);
+
+    QGuiApplication::addLibraryPath(QCoreApplication::applicationDirPath());
+
+    if(isSingleInstanceRunning(QGuiApplication::applicationName())){
+         QQmlApplicationEngine engine;
+
+         engine.load(QUrl(QStringLiteral("qrc:/errorMessage.qml")));
+
+          return app.exec();
+    }
+
+    QLocalServer* singleinstaceserver=startSingleInstanceServer(QCoreApplication::applicationName());
 
 
 
@@ -151,8 +189,13 @@ int main(int argc, char *argv[]){
         automationstudio->setCoreApplication(&app);
 
 
+        int code=app.exec();
+        if(singleinstaceserver){
+            singleinstaceserver->close();
+            delete singleinstaceserver;
+        }
 
-        return app.exec();
+        return code;
 
 
     } catch (...){

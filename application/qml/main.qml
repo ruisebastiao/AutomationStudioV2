@@ -19,6 +19,8 @@ import automationmodule 1.0
 
 import QuickQanava 2.0 as Qan
 
+
+
 ApplicationWindow {
     id: rootwindow
     visible: true
@@ -59,7 +61,7 @@ ApplicationWindow {
     onSelectedProjectChanged: {
         if(selectedProject){
 
-            if(selectedProject.modules.rowCount(null)<1){
+            if(selectedProject.modules.rowCount(null)<1 && loggedUser&&loggedUser.role===User.AdminRole){
                 projectEditMode=true
             }
         }
@@ -120,7 +122,7 @@ ApplicationWindow {
 
     onLoggedUserChanged: {
         if(loggedUser){
-            console.log("User role:"+loggedUser.role);
+            console.log("User role:"+loggedUser.role+" pass:"+Qt.btoa(loggedUser.pin));
         }
     }
     
@@ -649,7 +651,7 @@ ApplicationWindow {
                             RoundButton{
                                 id:project_edit
 
-
+                                visible: loggedUser&&loggedUser.role===User.AdminRole
 
                                 Material.elevation:0
 
@@ -1091,7 +1093,7 @@ ApplicationWindow {
                             echoMode: TextInput.Password
                             inputMethodHints: Qt.ImhDigitsOnly
                             onTextChanged: {
-                                if(loginpopup.selectedUser.pin==text){
+                                if(Qt.atob(loginpopup.selectedUser.pin)==text){
                                     settings.currentUser=loginpopup.selectedUser;
                                     loginpopup.close()
                                     pass_input.text=""

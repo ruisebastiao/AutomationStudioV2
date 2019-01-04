@@ -123,7 +123,7 @@ void AutomationStudio::loadPlugins(){
     QDir pluginsDirFiles(PluginContext::executableDirPath());
 
 
-    qDebug()<<"Loading plugin modules";
+    LOG_INFO()<<"Loading plugin modules";
 
 
 
@@ -156,13 +156,13 @@ void AutomationStudio::loadPlugins(){
 
         QObject *plugin = pluginLoader.instance();
         if (plugin) {
-            qDebug()<<"Plugin loaded:"<<plugin;
+            LOG_INFO()<<"Plugin loaded:"<<plugin;
 
         }
         else{
             auto metadata=pluginLoader.metaData();
             if(metadata.size()>0){
-                qDebug()<<"Error loading plugin:"<<pluginLoader.errorString();
+                LOG_INFO()<<"Error loading plugin:"<<pluginLoader.errorString();
             }
         }
 

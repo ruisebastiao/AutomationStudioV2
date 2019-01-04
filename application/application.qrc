@@ -38,6 +38,7 @@
         <file>images/icons8-menu-48.png</file>
         <file>images/resize_horizontal.png</file>
         <file>images/icons8-menu-24_white.png</file>
+        <file alias="errorMessage.qml">qml/errorMessage.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="UbuntuMono-Bold.ttf">fonts/UbuntuMono-Bold.ttf</file>

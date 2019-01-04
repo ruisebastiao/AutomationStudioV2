@@ -152,6 +152,9 @@ unix{
 
 }
 
+DISTFILES += \
+    qml/errorMessage.qml
+
 
 
 
