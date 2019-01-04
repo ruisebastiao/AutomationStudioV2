@@ -10,9 +10,6 @@ ModuleProxyNode::ModuleProxyNode()
 void ModuleProxyNode::setSelectedBindedModuleID(int selectedBindedModuleID)
 {
 
-//    if (m_selectedBindedModuleID == selectedBindedModuleID)
-//        return;
-
     setNodesFromModule(nullptr);
 
     m_selectedBindedModuleID = selectedBindedModuleID;
