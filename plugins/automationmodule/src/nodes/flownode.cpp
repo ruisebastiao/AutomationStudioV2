@@ -40,7 +40,7 @@ FlowNode::~FlowNode()
               if(inport->getPortItem()->getInEdgeItems().size()>0){
                   auto edgitem=inport->getPortItem()->getInEdgeItems().at(0);
                   if(edgitem){
-                    delete edgitem;
+                    edgitem->deleteLater();
                   }
 
               }
