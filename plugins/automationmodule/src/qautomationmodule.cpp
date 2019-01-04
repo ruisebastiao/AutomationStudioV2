@@ -21,7 +21,18 @@ QAutomationModule::~QAutomationModule()
 }
 
 
+void QAutomationModule::initializeModuleProxyNodes(){
 
+    for (int nodeIndex = 0; nodeIndex < m_flowNodes->length(); ++nodeIndex) {
+        ModuleProxyNode* moduleproxy=dynamic_cast<ModuleProxyNode*>(m_flowNodes->at(nodeIndex));
+        if(moduleproxy){
+            if(!moduleproxy->flowNodes()){
+                moduleproxy->setSelectedBindedModuleID(moduleproxy->selectedBindedModuleID());
+            }
+        }
+    }
+
+}
 
 void QAutomationModule::setGraphView(qan::GraphView* graphView)
 {

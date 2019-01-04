@@ -266,6 +266,7 @@ public:
     }
 
 
+    void initializeModuleProxyNodes();
 protected:
     //   Q_INVOKABLE virtual void loadModuleSettings(QString path);
     //   Q_INVOKABLE virtual void save();

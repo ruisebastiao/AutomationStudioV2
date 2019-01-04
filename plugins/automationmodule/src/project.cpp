@@ -85,12 +85,16 @@ void Project::DeSerialize(QJsonObject &json)
         QAutomationModule *module=createModule(moduleType,false);
 
         if(module){
-
             module->DeSerialize(moduleObject);
-
-//            module->loadConnections();
-
         }
+
+    }
+
+    for (int moduleIndex = 0; moduleIndex < m_modules->length(); ++moduleIndex) {
+        QAutomationModule *module=m_modules->at(moduleIndex);
+
+
+            module->initializeModuleProxyNodes();
 
     }
 }

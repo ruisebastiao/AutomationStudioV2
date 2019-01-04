@@ -10,15 +10,16 @@ ModuleProxyNode::ModuleProxyNode()
 void ModuleProxyNode::setSelectedBindedModuleID(int selectedBindedModuleID)
 {
 
-
-
-    if (m_selectedBindedModuleID == selectedBindedModuleID)
-        return;
+//    if (m_selectedBindedModuleID == selectedBindedModuleID)
+//        return;
 
     setNodesFromModule(nullptr);
 
     m_selectedBindedModuleID = selectedBindedModuleID;
 
+    if(m_selectedBindedModuleID==-1){
+        return;
+    }
     if(parentModule()){
         QAutomationModule* parentmodule=parentModule();
         if(parentmodule->parentProject()){
