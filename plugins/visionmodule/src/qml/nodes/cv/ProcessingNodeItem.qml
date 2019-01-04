@@ -57,7 +57,7 @@ FlowNodeItem {
                     CheckBox{
                         Layout.fillWidth: true
                         text: "Apply mask"
-                        checked: root.node && root.node.applyMask
+                        checked: root.node ?root.node.applyMask:false
                         onCheckedChanged: {
                             if(root.node.configsLoaded){
                                 root.node.applyMask=checked

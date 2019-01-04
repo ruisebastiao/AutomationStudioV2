@@ -6,7 +6,7 @@
 
 EpsonGraph::EpsonGraph()
 {
-
+    getModuleNodeTypes();
 }
 
 void EpsonGraph::getModuleNodeTypes()
@@ -36,12 +36,13 @@ void EpsonGraph::getModuleNodeTypes()
 FlowNode *EpsonGraph::createNode(QString nodetype)
 {
 
-    qan::Node* node=nullptr;
+    FlowNode* flownode=SceneGraph::createNode(nodetype);
 
 
-    node=SceneGraph::createNode(nodetype);
 
-    if(!node){
+    if(!flownode){
+        qan::Node* node=nullptr;
+
         if(nodetype=="EpsonNode"){
             node=insertNode<EpsonNode>(nullptr);
         }
@@ -55,19 +56,17 @@ FlowNode *EpsonGraph::createNode(QString nodetype)
 
 
         }
-
-        if(node==nullptr){
-
+        else{
             LOG_WARNING(QString("Unknown node type:%1").arg(nodetype));
+        }
+        flownode=dynamic_cast<FlowNode*>(node);
+
+        if(flownode){
+            emit flowNodeAdded(flownode);
 
         }
-    }
 
 
-    FlowNode* flownode=dynamic_cast<FlowNode*>(node);
-
-    if(flownode){
-        emit flowNodeAdded(flownode);
 
     }
 

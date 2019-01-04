@@ -39,6 +39,10 @@ FlowNodeItem{
                 moduleObject[moduleProperty]=Qt.binding(function() {
                     return root.node.input;
                 })
+
+                root.node.output=Qt.binding(function() {
+                    return moduleObject[moduleProperty];
+                })
             }
 
 

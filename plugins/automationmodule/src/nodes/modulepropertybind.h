@@ -11,6 +11,7 @@ class ModulePropertyBind : public FlowNode
     Q_OBJECT
 
     Q_PROPERTY(QVariant input READ input WRITE setInput NOTIFY inputChanged REVISION 30)
+    Q_PROPERTY(QVariant output READ output WRITE setOutput NOTIFY outputChanged REVISION 31)
 
 
     Q_PROPERTY(QStringList moduleProperties READ moduleProperties WRITE setModuleProperties NOTIFY modulePropertiesChanged)
@@ -60,6 +61,13 @@ public slots:
         emit bindModuleProperty(m_module,m_moduleProperty);
     }
 
+    void setOutput(QVariant output)
+    {
+
+        m_output = output;
+        emit outputChanged(m_output);
+    }
+
 signals:
     void inputChanged(QVariant input);
 
@@ -71,6 +79,8 @@ signals:
 
     void bindModuleProperty(QAutomationModule* moduleObject,QString moduleProperty);
 
+    void outputChanged(QVariant output);
+
 private:
 
     QVariant m_input=QVariant::fromValue(false);
@@ -81,6 +91,8 @@ private:
     QStringList m_moduleProperties;
 
     QString m_moduleProperty="";
+
+    QVariant m_output;
 
 public:
     virtual void Serialize(QJsonObject &json) override;
@@ -99,6 +111,10 @@ public:
     // FlowNode interface
 public:
     
+    QVariant output() const
+    {
+        return m_output;
+    }
 };
 
 #endif // MODULEPROPERTYBIND_H
