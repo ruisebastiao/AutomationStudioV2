@@ -316,10 +316,7 @@ ApplicationWindow {
 
                     ColumnLayout{
                         anchors.fill: parent
-                        //                    Label{
-                        //                        Layout.fillWidth: true
-                        //                        text:"Project list:"
-                        //                    }
+
 
                         ToolBar {
                             Layout.fillWidth: true
@@ -348,6 +345,14 @@ ApplicationWindow {
                         ListView {
                             id: projectslist
                             model:settings && settings.projects
+                            onModelChanged: {
+                                if(settings){
+                                    currentIndex=settings.projects.indexOf(settings.selectedProject);
+                                }
+
+
+                            }
+
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             focus: true
@@ -357,18 +362,146 @@ ApplicationWindow {
 
                             }
 
-                            delegate: ItemDelegate {
-                                width: parent.width
-                                text: model.name
-                                highlighted: ListView.isCurrentItem
+                            highlight: Rectangle{
+                                color: Material.accent
+                                opacity: 0
+                            }
 
-                                onClicked: {
-                                    if (projectslist.currentIndex != index) {
-                                        projectslist.currentIndex = index
-                                        settings.selectedProject=model.project
+
+
+                            delegate: ItemDelegate {
+                                id:projectdelegate
+                                property Project itemProject: model.project
+
+//                                onItemProjectChanged: {
+//                                    currentIndex=itemProject.indexOf(settings.selectedProject);
+//                                }
+
+                                property bool isExpanded:false
+
+                                property bool isCurrentItem: ListView.isCurrentItem
+                                onIsCurrentItemChanged: {
+                                    if(isCurrentItem){
+                                        isExpanded=true
                                     }
-                                    drawer.close()
+                                    else{
+                                        isExpanded=false
+                                    }
                                 }
+
+                                width: projectslist.width
+                                height: delegateContent.childrenRect.height+10
+
+                                anchors.margins: 0
+                                padding: 0
+
+
+                                highlighted: ListView.isCurrentItem && model.project.subProjects.length()==0
+
+                                Menu {
+                                    id: subproject_context
+                                    x:0
+                                    //                                    width: parent.width
+                                    y:parent.height
+
+                                    MenuItem{
+                                        enabled: true
+                                        text: "Add sub project"
+                                        onClicked: {
+                                            model.project.addSubProject()
+                                        }
+                                    }
+
+
+                                }
+
+
+
+                                contentItem: Column {
+                                    id:delegateContent
+                                    width: parent.width
+
+
+
+
+                                    Label{
+                                        width: parent.width
+                                        height: 20
+                                        horizontalAlignment:Text.AlignHCenter
+                                        verticalAlignment:Text.AlignVCenter
+                                        text: model.name
+
+                                        MouseArea{
+                                            anchors.fill: parent
+                                            propagateComposedEvents: true
+                                            acceptedButtons: Qt.LeftButton | Qt.RightButton
+                                            onClicked: {
+                                                if (mouse.button == Qt.RightButton){
+                                                    subproject_context.open()
+                                                }
+                                                else{
+                                                    projectdelegate.isExpanded=!projectdelegate.isExpanded
+                                                    if (projectslist.currentIndex != index) {
+                                                        projectslist.currentIndex = index
+                                                        console.log("length:"+model.project.subProjects.length())
+                                                        //                                        settings.selectedProject=model.project
+                                                    }
+                                                    //                                            drawer.close()
+                                                }
+
+
+                                            }
+
+                                        }
+                                    }
+                                    ListView{
+                                        id:subprojectslist
+                                        clip: true
+//                                        currentIndex: -1
+                                        height: projectdelegate.isExpanded?childrenRect.height:0
+                                        Behavior on height {
+                                            NumberAnimation {
+                                                duration: mainStateAnimationTime/2
+                                                easing.type: Easing.InOutQuad
+
+                                            }
+                                        }
+
+
+                                        opacity: height/childrenRect.height
+                                        width: projectslist.width
+                                        model: itemProject?itemProject.subProjects:null
+
+                                        currentIndex:itemProject?itemProject.subProjects.indexOf(itemProject.selectedSubproject):-1
+
+                                        delegate: ItemDelegate{
+                                            width:parent.width;
+                                            height: 40
+                                            text: model.subProjectName
+
+
+
+                                            highlighted: ListView.isCurrentItem
+                                            MouseArea{
+                                                anchors.fill: parent
+                                                propagateComposedEvents: false
+                                                onClicked: {
+                                                    console.log("itemProject")
+                                                }
+                                            }
+
+                                        }
+
+
+                                    }
+
+
+                                }
+
+
+
+
+
                             }
 
                             //                     model:basesettings.modules
@@ -608,22 +741,51 @@ ApplicationWindow {
                         Layout.margins:0
                         id:central_label_container
                         
-                        
-                        GUI.TextScroller {
-                            id: centralLabel
+                        RowLayout{
+
                             anchors.fill: parent
-                            text: ""
-                            
-                            duration: mainStateAnimationTime
-                            font.pixelSize: 15
-                            horizontalAlignment:Text.AlignHCenter
-                            
-                            
-                            
-                            
+
+                            Item {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                            }
+
+
+                            GUI.TextScroller {
+                                id: centralLabel
+                                Layout.fillHeight: true
+                                Layout.preferredWidth: textWidth
+                                horizontalAlignment:Text.AlignRight
+                                text: settings&&settings.selectedProject?settings.selectedProject.name:"No project selected"
+
+                                duration: mainStateAnimationTime
+                                font.pixelSize: 15
+                                //                                horizontalAlignment:Text.AlignHCenter
+
+
+
+
+                            }
+
+                            GUI.TextScroller {
+                                property Project selectedproject: settings&&settings.selectedProject
+                                Layout.fillHeight: true
+                                Layout.preferredWidth: textWidth
+                                visible:selectedproject&&selectedproject.selectedSubproject
+                                text:selectedproject&&selectedproject.selectedSubproject?"- "+selectedproject.selectedSubproject.name:""
+                                horizontalAlignment:Text.AlignLeft
+                                duration: mainStateAnimationTime
+                                font.pixelSize: 15
+
+
+
+                            }
+                            Item {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                            }
+
                         }
-                        
-                        
                         
                     }
                     
@@ -1225,7 +1387,7 @@ ApplicationWindow {
 
 
                             MouseArea{
-//                                anchors.centerIn: parent
+                                //                                anchors.centerIn: parent
                                 anchors.verticalCenter: parent.verticalCenter
                                 height: parent.height/0.95
                                 width: 40
@@ -1236,8 +1398,8 @@ ApplicationWindow {
                                 }
 
                                 onEntered: {
-//                                    moduledock.z=999999
-//                                    resizer.width=40
+                                    //                                    moduledock.z=999999
+                                    //                                    resizer.width=40
                                 }
 
 
@@ -1247,13 +1409,13 @@ ApplicationWindow {
                                     resizer.width=0
                                 }
 
-//                                clip: true
+                                //                                clip: true
                                 Button{
 
                                     id:resizer
                                     clip: true
                                     anchors.margins: 5
-//                                    anchors.verticalCenter: parent.verticalCenter
+                                    //                                    anchors.verticalCenter: parent.verticalCenter
                                     anchors.centerIn: parent
                                     height: parent.height
 
@@ -1289,7 +1451,7 @@ ApplicationWindow {
 
                                 }
 
-//                                color: "red"
+                                //                                color: "red"
                                 anchors.left: parent.right
                             }
 
@@ -1312,10 +1474,10 @@ ApplicationWindow {
 
 
                                 Rectangle{
-                                  color: "grey"
-                                  anchors.fill: parent
+                                    color: "grey"
+                                    anchors.fill: parent
 
-                                  opacity: 0.5
+                                    opacity: 0.5
                                 }
 
                                 opacity: rootwindow.projectEditMode?1:0
@@ -1623,7 +1785,7 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
 
 
-//        width:parent.width*0.75
+        //        width:parent.width*0.75
         width:parent.width
         states: State {
             name: "visible"

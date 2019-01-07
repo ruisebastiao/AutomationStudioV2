@@ -20,6 +20,7 @@ public:
         endInsertRows();
     }
 
+
     inline Q_INVOKABLE virtual void removeItem(T* item)
     {
         int itemIndex=m_internalList.indexOf(item);

@@ -24,7 +24,10 @@ HEADERS += \
     $$PWD/qprojectcontainer.h \
     $$PWD/nodes/logicnode.h \
     $$PWD/nodes/proxynode.h \
-    $$PWD/nodes/moduleproxynode.h
+    $$PWD/nodes/moduleproxynode.h \
+    $$PWD/subproject.h \
+    $$PWD/subprojectslistmodel.h \
+    $$PWD/nodes/projectnode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -49,6 +52,9 @@ SOURCES += \
     $$PWD/nodes/logicnode.cpp \
     $$PWD/projectslistmodel.cpp \
     $$PWD/nodes/proxynode.cpp \
-    $$PWD/nodes/moduleproxynode.cpp
+    $$PWD/nodes/moduleproxynode.cpp \
+    $$PWD/subproject.cpp \
+    $$PWD/subprojectslistmodel.cpp \
+    $$PWD/nodes/projectnode.cpp
 
 

@@ -13,6 +13,7 @@
 #include <nodes/stringbuildernode.h>
 #include <nodes/stringnode.h>
 #include <nodes/webservicenode.h>
+#include <nodes/projectnode.h>
 
 
 
@@ -96,6 +97,10 @@ void SceneGraph::getCommonTypes()
 
             break;
 
+        case FlowNode::Type::ProjectNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Project");
+
+            break;
         default:
             //                static_assert(true, "");
             break;
@@ -148,6 +153,9 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     }
     else if(nodetype=="LogicNode"){
         newnode=insertNode<LogicNode>(nullptr);
+    }
+    else if(nodetype=="ProjectNode"){
+        newnode=insertNode<ProjectNode>(nullptr);
     }
 
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);

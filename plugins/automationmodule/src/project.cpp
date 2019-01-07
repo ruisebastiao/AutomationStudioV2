@@ -95,7 +95,17 @@ void Project::DeSerialize(QJsonObject &json)
 
 
             module->initializeModuleProxyNodes();
+            module->initializeProjectNodes();
 
+    }
+
+
+    for (int var = 0; var < subProjects()->length(); ++var) {
+        SubProject* subproject=subProjects()->at(var);
+        if(subproject->isDefault()){
+            setSelectedSubproject(subproject);
+            break;
+        }
     }
 }
 

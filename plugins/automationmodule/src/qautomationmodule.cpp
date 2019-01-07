@@ -8,6 +8,7 @@
 #include <cutelogger/Logger.h>
 
 #include <nodes/modulepropertybind.h>
+#include <nodes/projectnode.h>
 
 
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
@@ -33,6 +34,19 @@ void QAutomationModule::initializeModuleProxyNodes(){
     }
 
 }
+
+
+void QAutomationModule::initializeProjectNodes(){
+
+    for (int nodeIndex = 0; nodeIndex < m_flowNodes->length(); ++nodeIndex) {
+        ProjectNode* projectnode=dynamic_cast<ProjectNode*>(m_flowNodes->at(nodeIndex));
+        if(projectnode){
+            projectnode->setProject(this->parentProject());
+        }
+    }
+
+}
+
 
 void QAutomationModule::setGraphView(qan::GraphView* graphView)
 {
@@ -115,7 +129,9 @@ void QAutomationModule::DeSerialize(QJsonObject &json)
     for (int var = 0; var < m_flowNodes->length(); ++var) {
         FlowNode* node=m_flowNodes->at(var);
         node->setParentModule(this);
+
     }
+
 
     setModuleLoaded(true);
 

@@ -62,13 +62,14 @@ void AutomationModulePlugin::registerTypes(const char *uri){
 
     qmlRegisterUncreatableType<User>(uri, 1, 0, "User","Cannot be created");
     qmlRegisterUncreatableType<Project>(uri, 1, 0, "Project","Cannot be created");
+    qmlRegisterUncreatableType<SubProject>(uri, 1, 0, "SubProject","Cannot be created");
 
     qmlRegisterUncreatableType<QAutomationModule>(uri, 1, 0, "AutomationModule","Cannot be created");
     qmlRegisterType<QProjectContainer>(uri, 1, 0, "QProjectContainer");
 
 
 
-//    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
+    //    qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
 
     qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
 
@@ -144,5 +145,5 @@ void AutomationModulePlugin::initializeEngine(QQmlEngine *engine, const char *){
 
 
 
-//     QAutomationModule::proxyFlowNodes;
+    //     QAutomationModule::proxyFlowNodes;
 }

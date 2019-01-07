@@ -13,5 +13,6 @@
         <file alias="Nodes/StringBuilderNodeItem.qml">qml/nodes/StringBuilderNodeItem.qml</file>
         <file alias="Ports/FlowNodePortItem.qml">qml/ports/FlowNodePortItem.qml</file>
         <file alias="Nodes/ProxyNodeItem.qml">qml/nodes/ProxyNodeItem.qml</file>
+        <file alias="Nodes/ProjectNodeItem.qml">Nodes/ProjectNodeItem.qml</file>
     </qresource>
 </RCC>

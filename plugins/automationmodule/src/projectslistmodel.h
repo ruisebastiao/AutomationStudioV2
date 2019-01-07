@@ -27,6 +27,10 @@ public:
     ProjectsListModel(QObject *parent = nullptr);
     ~ProjectsListModel();
 
+    inline Q_INVOKABLE int indexOf(Project* item){
+        return m_internalList.indexOf(item);
+    }
+
     Q_INVOKABLE void createNewProject();
     // QAbstractItemModel interface
 public:

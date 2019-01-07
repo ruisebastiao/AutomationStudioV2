@@ -13,6 +13,7 @@ Item {
     property alias horizontalAlignment: current_label.horizontalAlignment
     property alias verticalAlignment: current_label.verticalAlignment
     property int textHeight: current_label.contentHeight;
+    property int textWidth: current_label.contentWidth;
     property string text
 
     //    property string textColor: Material.foreground
