@@ -26,7 +26,7 @@ void ProcessingGeometricNode::setInput(QVariant input)
 
 QVariant ProcessingGeometricNode::lineSegment(){
 
-    QVariant result;
+
     QLineF result_line;
 
 
@@ -71,25 +71,15 @@ QVariant ProcessingGeometricNode::lineSegment(){
 
             result_line=QLineF(QPointF(endpoint.x,endpoint.y),QPointF(startpt.x,startpt.y));
 
-            if(result_line.length()==0){
-                return QVariant();
-            }
-            QMat* drawsource=m_drawSource.value<QMat*>();
+            if(result_line.length()!=0){
 
-            if(drawsource && drawsource->cvMat()->empty()==false){
 
-                line(*drawsource->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
-                putText(*drawsource->cvMat(),
-                        qPrintable(QString::number(result_line.angle(), 'f', 2)),
-                        startpt, // Coordinates
-                        cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
-                        2.0, // Scale. 2.0 = 2x bigger
-                        cv::Scalar(255,0,0), // BGR Color
-                        1, // Line Thickness (Optional)
-                        CV_AA); // Anti-alias (Optional)
-                if(output){
-                    line(*output->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
-                    putText(*output->cvMat(),
+                QMat* drawsource=m_drawSource.value<QMat*>();
+
+                if(drawsource && drawsource->cvMat()->empty()==false){
+
+                    line(*drawsource->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
+                    putText(*drawsource->cvMat(),
                             qPrintable(QString::number(result_line.angle(), 'f', 2)),
                             startpt, // Coordinates
                             cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
@@ -97,11 +87,21 @@ QVariant ProcessingGeometricNode::lineSegment(){
                             cv::Scalar(255,0,0), // BGR Color
                             1, // Line Thickness (Optional)
                             CV_AA); // Anti-alias (Optional)
+                    if(output){
+                        line(*output->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
+                        putText(*output->cvMat(),
+                                qPrintable(QString::number(result_line.angle(), 'f', 2)),
+                                startpt, // Coordinates
+                                cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
+                                2.0, // Scale. 2.0 = 2x bigger
+                                cv::Scalar(255,0,0), // BGR Color
+                                1, // Line Thickness (Optional)
+                                CV_AA); // Anti-alias (Optional)
+                    }
+
                 }
 
             }
-
-
 
 
 
@@ -178,28 +178,17 @@ QVariant ProcessingGeometricNode::lineSegment(){
 
             }
 
-            if(pt1.x==0 && pt1.y==0 || pt2.x==0 && pt2.y==0){
-                return QVariant();
-            }
+            if((pt1.x!=0 && pt1.y!=0) && (pt2.x!=0 && pt2.y!=0)){
 
-            result_line=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
 
-            QMat* drawsource=m_drawSource.value<QMat*>();
+                result_line=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
 
-            if(drawsource && drawsource->cvMat()->empty()==false){
+                QMat* drawsource=m_drawSource.value<QMat*>();
 
-                line(*drawsource->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
-                putText(*drawsource->cvMat(),
-                        qPrintable(QString::number(result_line.angle(), 'f', 2)),
-                        pt1, // Coordinates
-                        cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
-                        2.0, // Scale. 2.0 = 2x bigger
-                        cv::Scalar(255,0,0), // BGR Color
-                        1, // Line Thickness (Optional)
-                        CV_AA); // Anti-alias (Optional)
-                if(output){
-                    line(*output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
-                    putText(*output->cvMat(),
+                if(drawsource && drawsource->cvMat()->empty()==false){
+
+                    line(*drawsource->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+                    putText(*drawsource->cvMat(),
                             qPrintable(QString::number(result_line.angle(), 'f', 2)),
                             pt1, // Coordinates
                             cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
@@ -207,12 +196,24 @@ QVariant ProcessingGeometricNode::lineSegment(){
                             cv::Scalar(255,0,0), // BGR Color
                             1, // Line Thickness (Optional)
                             CV_AA); // Anti-alias (Optional)
-                }
+                    if(output){
+                        line(*output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
+                        putText(*output->cvMat(),
+                                qPrintable(QString::number(result_line.angle(), 'f', 2)),
+                                pt1, // Coordinates
+                                cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
+                                2.0, // Scale. 2.0 = 2x bigger
+                                cv::Scalar(255,0,0), // BGR Color
+                                1, // Line Thickness (Optional)
+                                CV_AA); // Anti-alias (Optional)
+                    }
 
+                }
             }
         }
 
-            //qDebug()<<"Result:"<<result.angle();
+
+
             break;
 
 
@@ -229,7 +230,7 @@ QVariant ProcessingGeometricNode::lineSegment(){
         emit output2Changed(m_output2);
     }
     else{
-        m_output1=QVariant::fromValue(result);
+        m_output1=QVariant::fromValue(result_line);
         emit output1Changed(m_output1);
         m_output2=QVariant::fromValue(QString::number(result_line.angle(), 'f', 2));
         emit output2Changed(m_output2);
