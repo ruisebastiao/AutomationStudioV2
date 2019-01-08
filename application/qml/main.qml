@@ -373,9 +373,9 @@ ApplicationWindow {
                                 id:projectdelegate
                                 property Project itemProject: model.project
 
-//                                onItemProjectChanged: {
-//                                    currentIndex=itemProject.indexOf(settings.selectedProject);
-//                                }
+                                //                                onItemProjectChanged: {
+                                //                                    currentIndex=itemProject.indexOf(settings.selectedProject);
+                                //                                }
 
                                 property bool isExpanded:false
 
@@ -457,7 +457,7 @@ ApplicationWindow {
                                     ListView{
                                         id:subprojectslist
                                         clip: true
-//                                        currentIndex: -1
+                                        //                                        currentIndex: -1
                                         height: projectdelegate.isExpanded?childrenRect.height:0
                                         Behavior on height {
                                             NumberAnimation {
@@ -486,7 +486,7 @@ ApplicationWindow {
                                                 anchors.fill: parent
                                                 propagateComposedEvents: false
                                                 onClicked: {
-                                                    console.log("itemProject")
+                                                    itemProject.selectedSubproject=model.subProject
                                                 }
                                             }
 
@@ -745,16 +745,17 @@ ApplicationWindow {
 
                             anchors.fill: parent
 
-                            Item {
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                            }
+//                            Item {
+//                                Layout.fillHeight: true
+//                                Layout.fillWidth: true
+//                            }
 
 
                             GUI.TextScroller {
                                 id: centralLabel
                                 Layout.fillHeight: true
-                                Layout.preferredWidth: textWidth
+//                                Layout.preferredWidth: textWidth
+                                Layout.fillWidth: true
                                 horizontalAlignment:Text.AlignRight
                                 text: settings&&settings.selectedProject?settings.selectedProject.name:"No project selected"
 
@@ -770,7 +771,7 @@ ApplicationWindow {
                             GUI.TextScroller {
                                 property Project selectedproject: settings&&settings.selectedProject
                                 Layout.fillHeight: true
-                                Layout.preferredWidth: textWidth
+                                Layout.fillWidth: true
                                 visible:selectedproject&&selectedproject.selectedSubproject
                                 text:selectedproject&&selectedproject.selectedSubproject?"- "+selectedproject.selectedSubproject.name:""
                                 horizontalAlignment:Text.AlignLeft
@@ -780,10 +781,10 @@ ApplicationWindow {
 
 
                             }
-                            Item {
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                            }
+//                            Item {
+//                                Layout.fillHeight: true
+//                                Layout.fillWidth: true
+//                            }
 
                         }
                         

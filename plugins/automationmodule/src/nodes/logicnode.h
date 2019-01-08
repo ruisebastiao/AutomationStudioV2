@@ -22,7 +22,6 @@ class LogicNode : public FlowNode
     Q_PROPERTY(QVariant logicalInput2 READ logicalInput2 WRITE setLogicalInput2 NOTIFY logicalInput2Changed REVISION 30)
 
 
-
     Q_PROPERTY(QVariant logicalOutput READ logicalOutput WRITE setLogicalOutput NOTIFY logicalOutputChanged REVISION 31)
 
 

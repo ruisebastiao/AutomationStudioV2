@@ -14,6 +14,7 @@
 #include <nodes/stringnode.h>
 #include <nodes/webservicenode.h>
 #include <nodes/projectnode.h>
+#include <nodes/serialionode.h>
 
 
 
@@ -101,6 +102,11 @@ void SceneGraph::getCommonTypes()
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"Project");
 
             break;
+        case FlowNode::Type::SerialIONode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Serial IO");
+
+            break;
+
         default:
             //                static_assert(true, "");
             break;
@@ -156,6 +162,9 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     }
     else if(nodetype=="ProjectNode"){
         newnode=insertNode<ProjectNode>(nullptr);
+    }
+    else if(nodetype=="SerialIONode"){
+        newnode=insertNode<SerialIONode>(nullptr);
     }
 
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);

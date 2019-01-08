@@ -12,12 +12,15 @@ class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize") REVISION 2)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize"))
     Q_PROPERTY(bool isDefault READ isDefault WRITE setIsDefault NOTIFY isDefaultChanged  USER("serialize"))
     Q_PROPERTY(ModuleListModel* modules READ modules NOTIFY modulesChanged)
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged   USER("serialize"))
     Q_PROPERTY(subProjectsListModel* subProjects READ subProjects WRITE setSubProjects NOTIFY subProjectsChanged  USER("serialize"))
-    Q_PROPERTY(SubProject* selectedSubproject READ selectedSubproject WRITE setSelectedSubproject NOTIFY selectedSubprojectChanged REVISION 2)
+    Q_PROPERTY(SubProject* selectedSubproject READ selectedSubproject WRITE setSelectedSubproject NOTIFY selectedSubprojectChanged)
+
+    Q_PROPERTY(QString extendedProjectName READ extendedProjectName WRITE setExtendedProjectName NOTIFY extendedProjectNameChange REVISION 2)
+
 
 
 
@@ -54,6 +57,10 @@ public slots:
 
         m_name = name;
         emit nameChanged(m_name);
+        if(!m_selectedSubproject){
+            setExtendedProjectName(m_name);
+        }
+
     }
 
     void setIsDefault(bool isDefault)
@@ -98,8 +105,19 @@ public slots:
             return;
 
         m_selectedSubproject = selectedSubproject;
+
+
         emit selectedSubprojectChanged(m_selectedSubproject);
+        if(m_selectedSubproject){
+                setExtendedProjectName(m_selectedSubproject->name());
+        }
+        else{
+            setExtendedProjectName(name());
+        }
     }
+
+
+
 
 signals:
     void nameChanged(QString name);
@@ -115,6 +133,8 @@ signals:
     void selectedSubprojectChanged(SubProject* selectedSubproject);
 
     void deserialized();
+
+    void extendedProjectNameChange(QString extendedProjectName);
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -141,7 +161,24 @@ public:
         return m_selectedSubproject;
     }
 
+    QString extendedProjectName() const
+    {
+        return m_extendedProjectName;
+    }
+
 private:
+
+
+    void setExtendedProjectName(QString extendedProjectName)
+    {
+        if (m_extendedProjectName == extendedProjectName)
+            return;
+
+        m_extendedProjectName = extendedProjectName;
+
+
+        emit extendedProjectNameChange(m_extendedProjectName);
+    }
 
     QString m_name="New Project";
     bool m_isDefault=false;
@@ -150,6 +187,7 @@ private:
     QList<ModuleProxyNode*> moduleproxynodes;
     subProjectsListModel* m_subProjects = new subProjectsListModel();
     SubProject* m_selectedSubproject=nullptr;
+    QString m_extendedProjectName;
 };
 
 

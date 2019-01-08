@@ -62,20 +62,14 @@ FlowNodeItem{
                         model:root.cameras
                         currentIndex: -1
                         textRole: 'name'
-                        onCurrentIndexChanged: {
-                            console.log(currentIndex)
+                        onActivated: {
 
-                            //                            node.cameraSerialNumber=selectedCamera.model.at(currentIndex)
-                        }
-
-                        onCurrentTextChanged: {
-                            //node.cameraSerialNumber=selectedCamera.currentText
+                            root.node.selectedCamera=root.cameras.getItemAt(selectedCameraCombo.currentIndex);
                         }
 
 
-                        Component.onCompleted: {
 
-                        }
+
                     }
 
 

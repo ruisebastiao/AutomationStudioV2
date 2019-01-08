@@ -14,5 +14,6 @@
         <file alias="Ports/FlowNodePortItem.qml">qml/ports/FlowNodePortItem.qml</file>
         <file alias="Nodes/ProxyNodeItem.qml">qml/nodes/ProxyNodeItem.qml</file>
         <file alias="Nodes/ProjectNodeItem.qml">Nodes/ProjectNodeItem.qml</file>
+        <file alias="Nodes/SerialIONodeItem.qml">Nodes/SerialIONodeItem.qml</file>
     </qresource>
 </RCC>

@@ -15,7 +15,8 @@ class IDSCameraListModel : public QAbstractListModel
 public:
 
     enum CameraRoles {
-        NameRole = Qt::UserRole + 1
+        NameRole = Qt::UserRole + 1,
+        CameraRole
 
     };
 

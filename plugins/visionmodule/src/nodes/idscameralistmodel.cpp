@@ -69,6 +69,12 @@ QVariant IDSCameraListModel::data(const QModelIndex &index, int role) const
         return QVariant::fromValue(idscamera);
     }
 
+    if (role == CameraRole){
+
+
+        return QVariant::fromValue(idscamera);
+    }
+
     return QVariant();
 }
 
@@ -182,7 +188,9 @@ QHash<int, QByteArray> IDSCameraListModel::roleNames() const
 {
     return {
 
-        { NameRole, "name" }
+        { NameRole, "name" },
+        { CameraRole, "camera" }
+
 
     };
 }

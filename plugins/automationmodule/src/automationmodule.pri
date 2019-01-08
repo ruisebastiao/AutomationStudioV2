@@ -27,7 +27,9 @@ HEADERS += \
     $$PWD/nodes/moduleproxynode.h \
     $$PWD/subproject.h \
     $$PWD/subprojectslistmodel.h \
-    $$PWD/nodes/projectnode.h
+    $$PWD/nodes/projectnode.h \
+    $$PWD/nodes/ionode.h \
+    $$PWD/nodes/serialionode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -55,6 +57,8 @@ SOURCES += \
     $$PWD/nodes/moduleproxynode.cpp \
     $$PWD/subproject.cpp \
     $$PWD/subprojectslistmodel.cpp \
-    $$PWD/nodes/projectnode.cpp
+    $$PWD/nodes/projectnode.cpp \
+    $$PWD/nodes/ionode.cpp \
+    $$PWD/nodes/serialionode.cpp
 
 

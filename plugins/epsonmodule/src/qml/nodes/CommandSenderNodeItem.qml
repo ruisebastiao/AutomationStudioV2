@@ -97,6 +97,13 @@ FlowNodeItem{
                         root.node.appendFromInput=checked
                     }
                 }
+                CheckBox{
+                    checked: root.node.sendOnData
+                    text: "Send on Data"
+                    onCheckedChanged: {
+                        root.node.sendOnData=checked
+                    }
+                }
 
                 Item{
                     Layout.fillHeight: true

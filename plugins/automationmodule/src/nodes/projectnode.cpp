@@ -2,7 +2,7 @@
 
 ProjectNode::ProjectNode()
 {
-
+    m_type=Type::ProjectNode;
 }
 
 

@@ -44,17 +44,6 @@ FlowNodeItem{
 
 
 
-
-
-
-    //    Connections{
-    //        target:node
-
-    //        onTriggerEnabledChanged:{
-    //            node.inPortState('trigger',triggerEnabled);
-    //        }
-    //    }
-
     contentItem:  Rectangle{
 
         anchors.fill: parent
@@ -68,49 +57,56 @@ FlowNodeItem{
                 RowLayout{
                     Layout.fillWidth: true
                     Switch{
-                        id:trigger_switch
+                        id:connect_switch
 
 
                         //                    anchors.centerIn: parent
-                        text:"External Trigger"
-                        checked: node.triggerEnabled
+                        text:"Connect"
+                        checked: node.connected
                         onCheckedChanged: {
-                            node.triggerEnabled=checked;
+                            if(checked){
+                                node.doConnect();
+                            }
+                            else{
+                                node.doDisconnect();
+                            }
+
+
                         }
 
 
                         contentItem: Label{
                             id:switch_label
-                            height: trigger_switch.indicator.height
+                            height: connect_switch.indicator.height
                             verticalAlignment: Text.AlignVCenter
                             minimumPixelSize: 8;
                             font.pixelSize: 12
                             fontSizeMode:Text.HorizontalFit
-                            text:trigger_switch.text
-                            leftPadding: trigger_switch.indicator.width + trigger_switch.spacing
+                            text:connect_switch.text
+                            leftPadding: connect_switch.indicator.width + connect_switch.spacing
                         }
                     }
                     Switch{
-                        id:connectonopen
+                        id:autoconnect
 
 
                         //                    anchors.centerIn: parent
                         text:"Open On Connect"
-                        checked: node.openOnConnect
+                        checked: node.autoConnect
                         onCheckedChanged: {
-                            node.openOnConnect=checked;
+                            node.autoConnect=checked;
                         }
 
 
                         contentItem: Label{
                             id:connectonopen_label
-                            height: connectonopen.indicator.height
+                            height: autoconnect.indicator.height
                             verticalAlignment: Text.AlignVCenter
                             minimumPixelSize: 8;
                             font.pixelSize: 12
                             fontSizeMode:Text.HorizontalFit
-                            text:connectonopen.text
-                            leftPadding: connectonopen.indicator.width + connectonopen.spacing
+                            text:autoconnect.text
+                            leftPadding: autoconnect.indicator.width + autoconnect.spacing
                         }
                     }
                 }
@@ -202,22 +198,32 @@ FlowNodeItem{
 
 
             }
-
-            TextScroller {
-                id: rawLabel
-
+            Item{
                 Layout.fillHeight: true;
                 Layout.fillWidth: true;
-
-                text:root.node.rawdata
-                duration: mainStateAnimationTime
-                font.pixelSize: 20
-                horizontalAlignment:Text.AlignLeft
-
-
-
-
+                Button{
+                    text: "Send data from input"
+                    onClicked: {
+                        root.node.doSend();
+                    }
+                }
             }
+
+//            TextScroller {
+//                id: rawLabel
+
+//                Layout.fillHeight: true;
+//                Layout.fillWidth: true;
+
+//                text:root.node.rawdata
+//                duration: 250
+//                font.pixelSize: 20
+//                horizontalAlignment:Text.AlignLeft
+
+
+
+
+//            }
 
         }
 
@@ -229,7 +235,6 @@ FlowNodeItem{
             var ports=selectedPort.model
             var selectedport=node.port
 
-            //var index=ports.indexOf("/dev/"+selectedport)
 
 
             var index=ports.indexOf(selectedport);

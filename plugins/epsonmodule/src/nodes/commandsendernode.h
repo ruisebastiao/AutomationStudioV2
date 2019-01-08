@@ -16,6 +16,8 @@ class CommandSenderNode : public FlowNode
     Q_PROPERTY(QString commandToSend READ commandToSend WRITE setCommandToSend NOTIFY commandToSendChanged USER("serialized"))
 
     Q_PROPERTY(bool appendFromInput READ appendFromInput WRITE setAppendFromInput NOTIFY appendFromInputChanged USER("serialized"))
+    Q_PROPERTY(bool sendOnData READ sendOnData WRITE setSendOnData NOTIFY sendOnDataChanged USER("serialized"))
+
     Q_PROPERTY(QVariant commandInput READ commandInput WRITE setCommandInput NOTIFY commandInputChanged REVISION 30)
 
     Q_PROPERTY(QVariant epsonNode READ epsonNode WRITE setEpsonNode NOTIFY epsonNodeChanged REVISION 30)
@@ -64,6 +66,11 @@ public:
     QString finalCommand() const
     {
         return m_finalCommand;
+    }
+
+    bool sendOnData() const
+    {
+        return m_sendOnData;
     }
 
 public slots:
@@ -141,6 +148,15 @@ public slots:
     }
 
 
+    void setSendOnData(bool sendOnData)
+    {
+        if (m_sendOnData == sendOnData)
+            return;
+
+        m_sendOnData = sendOnData;
+        emit sendOnDataChanged(m_sendOnData);
+    }
+
 signals:
     void commandsAvailableChanged(QStringList commandsAvailable);
 
@@ -160,6 +176,8 @@ signals:
 
     void finalCommandChanged(QString finalCommand);
 
+    void sendOnDataChanged(bool sendOnData);
+
 private:
 
     void setFinalCommand(QString finalCommand)
@@ -167,6 +185,9 @@ private:
 
         m_finalCommand = finalCommand;
         emit finalCommandChanged(m_finalCommand);
+        if(sendOnData()){
+            setSend(true);
+        }
     }
 
     QStringList m_commandsAvailable;
@@ -180,6 +201,7 @@ private:
     QVariant m_commandInput=QVariant::fromValue(QString(""));
 
     QString m_finalCommand;
+    bool m_sendOnData=false;
 };
 
 #endif // COMMANDSENDER_H

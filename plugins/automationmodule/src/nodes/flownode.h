@@ -86,7 +86,8 @@ public:
         StringBuilderNode,
         CommandParserNode,
         LogicNode,
-        ProjectNode
+        ProjectNode,
+        SerialIONode
 
     };
     Q_ENUM(Type)

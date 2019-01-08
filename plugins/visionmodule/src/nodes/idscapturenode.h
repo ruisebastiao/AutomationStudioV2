@@ -87,7 +87,10 @@ public slots:
         setCameraAvailable(m_selectedCamera!=nullptr);
 
         if(m_selectedCamera){
-
+            setCameraID(m_selectedCamera->camID());
+        }
+        else{
+            setCameraID(-1);
         }
 
         emit selectedCameraChanged(m_selectedCamera);
@@ -203,7 +206,7 @@ private:
 
     //   QImage m_lastframe;
     IDSCameraListModel* m_availableCameras = new IDSCameraListModel();
-    int m_cameraID;
+    int m_cameraID=-1;
 
     void GetMaxImageSize(INT *pnSizeX, INT *pnSizeY);
     void GetFrames();

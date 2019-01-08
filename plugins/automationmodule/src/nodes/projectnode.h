@@ -8,7 +8,11 @@
 
 class ProjectNode : public FlowNode
 {
-      Q_OBJECT
+     Q_OBJECT
+
+    Q_PROPERTY(QVariant input READ input WRITE setInput NOTIFY inputChanged REVISION 30)
+    Q_PROPERTY(QVariant output READ output WRITE setOutput NOTIFY outputChanged REVISION 31)
+
 
     Q_PROPERTY(QString projectProperty READ projectProperty WRITE setProjectProperty NOTIFY projectPropertyChanged USER("serialize"))
     Q_PROPERTY(Project* project READ project WRITE setProject NOTIFY projectChanged)
@@ -36,6 +40,16 @@ public:
         return m_projectProperty;
     }
 
+    QVariant input() const
+    {
+        return m_input;
+    }
+
+    QVariant output() const
+    {
+        return m_output;
+    }
+
 public slots:
     void setProject(Project* project)
     {
@@ -43,6 +57,7 @@ public slots:
             return;
 
         m_project = project;
+
 
         if(m_project){
 
@@ -70,6 +85,10 @@ public slots:
         }
 
         emit projectChanged(m_project);
+
+        if(m_project){
+            emit bindProjectProperty(m_project,m_projectProperty);
+        }
     }
 
     void setProjectProperties(QStringList projectProperties)
@@ -89,7 +108,25 @@ public slots:
         m_projectProperty = projectProperty;
         emit projectPropertyChanged(m_projectProperty);
 
-        emit bindProjectProperty(m_project,m_projectProperty);
+        if(m_project){
+            emit bindProjectProperty(m_project,m_projectProperty);
+        }
+
+    }
+
+    void setInput(QVariant input)
+    {
+
+        m_input = input;
+        emit inputChanged(m_input);
+    }
+
+    void setOutput(QVariant output)
+    {
+
+
+        m_output = output;
+        emit outputChanged(m_output);
     }
 
 signals:
@@ -99,13 +136,19 @@ signals:
 
     void projectPropertyChanged(QString projectProperty);
 
-    void bindProjectProperty(Project* moduleObject,QString projectProperty);
+    void bindProjectProperty(Project* projectObject,QString projectProperty);
+
+    void inputChanged(QVariant input);
+
+    void outputChanged(QVariant output);
 
 private:
 
     Project* m_project=nullptr;
     QStringList m_projectProperties;
     QString m_projectProperty;
+    QVariant m_input;
+    QVariant m_output;
 };
 
 #endif // PROJECTNODE_H
