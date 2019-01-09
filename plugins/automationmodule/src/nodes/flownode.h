@@ -58,6 +58,8 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
 
     Q_PROPERTY(QAutomationModule* parentModule READ parentModule WRITE setParentModule NOTIFY parentModuleChanged)
 
+    Q_PROPERTY(QString typeInfo READ typeInfo NOTIFY typeInfoChanged)
+
 
 public:
     enum class Type {
@@ -196,6 +198,8 @@ private:
 
     QAutomationModule* m_parentModule=nullptr;
 
+    QString m_typeInfo;
+
 public slots:
     virtual void    inNodeOutputChanged();
 
@@ -331,6 +335,9 @@ public slots:
 
 
 
+
+
+
 signals:
     void nameChanged(QString name);
 
@@ -370,6 +377,8 @@ signals:
     void connectionsLoadedChanged(bool connectionsLoaded);
 
     void parentModuleChanged(QAutomationModule* parentModule);
+
+    void typeInfoChanged(QString typeInfo);
 
 protected:
 
@@ -460,5 +469,6 @@ public:
     {
         return m_parentModule;
     }
+    QString typeInfo() const;
 };
 #endif // FLOWNODE_H

@@ -4,6 +4,8 @@ import QtQuick.Layouts      1.3
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
+import SortFilterProxyModel 1.0
+
 import automationmodule 1.0
 import epsonmodule 1.0
 import guimodule 1.0 as GUI
@@ -12,6 +14,43 @@ FlowNodeItem{
 
     id:root
     expandOnEdit: true
+
+
+
+    SortFilterProxyModel {
+        id: ionodeModel
+
+
+
+
+        sourceModel: root.node.flowNodes
+
+
+        onCountChanged: {
+            for(var i=0;i<ionodeModel.count;i++){
+                var nodeModel=ionodeModel.get(i);
+
+                if(nodeModel){
+                    if(nodeModel.node.id==root.node.selectedBindedNodeID){
+                        ionodes.currentIndex=i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        filters: [
+
+            ExpressionFilter {
+
+                expression: {
+                    return node.typeInfo.indexOf("IONode")>=0
+                }
+            }
+        ]
+
+    }
+
 
     resizable: true
     contentItem:  Rectangle{
@@ -52,6 +91,51 @@ FlowNodeItem{
                     placeHolderText:"Final command"
                 }
             }
+
+
+            ComboBox{
+                id:ionodes
+
+                Layout.fillWidth: true
+                Layout.preferredHeight: 60
+
+                model: ionodeModel
+
+                onActivated: {
+                    var item=model.get(currentIndex);
+                    if(item){
+                        root.node.setBindedIONode(item.node)
+                    }
+                }
+
+                onCurrentIndexChanged:{
+
+                }
+
+
+                Component.onCompleted: {
+                    currentIndex:-1
+                }
+
+                delegate:ItemDelegate{
+                    width: parent.width
+                    text: node.name
+
+
+
+                }
+
+
+
+
+                textRole: "nodeName"
+
+
+
+
+
+            }
+
             Button{
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
@@ -61,6 +145,7 @@ FlowNodeItem{
                     root.node.doSendCommand()
                 }
             }
+
         }
     }
 
@@ -72,7 +157,7 @@ FlowNodeItem{
 
         side: "left"
 
-        containerSize: 400
+        containerSize: 250
 
         contentItem: GroupBox{
             anchors.fill: parent

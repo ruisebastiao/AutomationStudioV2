@@ -231,9 +231,9 @@ void FlowNodePort::setShowinlabel(bool showinlabel)
         return;
 
     m_showinlabel = showinlabel;
-    if(m_showinlabel){
-        //        m_node->bindPortLabelToProperty(m_port,m_port->getId());
-    }
+//    if(m_showinlabel){
+//        m_node->bindPortLabelToProperty(m_port,m_port->getId());
+//    }
     emit showinlabelChanged(m_showinlabel);
 
 }

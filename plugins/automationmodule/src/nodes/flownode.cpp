@@ -7,6 +7,8 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 
 
 
+//    return typeinfo;
+
 
 }
 
@@ -109,6 +111,31 @@ FlowNodePort* FlowNode::createPort(QString portID,qan::PortItem::Type port_type)
     return newport;
 }
 
+QString FlowNode::typeInfo() const
+{
+    QString typeinfo="";
+    const QMetaObject* metaobject=metaObject();
+    while(metaobject){
+
+        QString classname=metaobject->className();
+
+        if(classname=="FlowNode"){
+            break;
+        }
+
+        if(typeinfo!=""){
+            typeinfo+="::";
+        }
+        typeinfo+=classname;
+
+        if(metaobject==metaObject()->superClass()){
+            break;
+        }
+        metaobject=metaObject()->superClass();
+    }
+    return typeinfo;
+}
+
 
 
 
@@ -177,7 +204,6 @@ void FlowNode::setParentModule(QAutomationModule *parentModule)
     m_parentModule = parentModule;
     emit parentModuleChanged(m_parentModule);
 }
-
 
 
 QMap<string,FlowNodePort *> FlowNode::getOutPorts() const

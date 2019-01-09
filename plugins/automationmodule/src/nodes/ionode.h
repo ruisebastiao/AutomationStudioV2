@@ -5,7 +5,7 @@
 
 
 
-class IONode: public FlowNode
+class AUTOMATIONMODULE_EXPORT IONode: public FlowNode
 {
     Q_OBJECT
 
@@ -58,6 +58,10 @@ public slots:
     {
 
         m_dataReceived = dataReceived;
+        QString datareceived=m_dataReceived.value<QString>();
+        datareceived=datareceived.replace("\n","");
+        datareceived=datareceived.replace("\r","");
+        m_dataReceived=QVariant::fromValue(datareceived);
         emit dataReceivedChanged(m_dataReceived);
     }
 

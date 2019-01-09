@@ -15,5 +15,7 @@
         <file alias="Nodes/ProxyNodeItem.qml">qml/nodes/ProxyNodeItem.qml</file>
         <file alias="Nodes/ProjectNodeItem.qml">Nodes/ProjectNodeItem.qml</file>
         <file alias="Nodes/SerialIONodeItem.qml">Nodes/SerialIONodeItem.qml</file>
+        <file alias="Nodes/CommandParserNodeItem.qml">qml/nodes/CommandParserNodeItem.qml</file>
+        <file alias="Nodes/CommandSenderNodeItem.qml">qml/nodes/CommandSenderNodeItem.qml</file>
     </qresource>
 </RCC>

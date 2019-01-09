@@ -7,6 +7,7 @@
 //-----------------------------------------------------------------------------
 import QtQuick 2.7
 import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.2
 
 import guimodule 1.0 as GUI
 
@@ -18,6 +19,18 @@ Qan.PortItem {
     id: portItem
     width: 24
     height: 24
+
+
+
+    Component.onCompleted: {
+
+
+    }
+
+    //
+
+
+
     states: [
         State {
             name: "left"
@@ -113,24 +126,116 @@ Qan.PortItem {
 
     }
 
-    Component.onCompleted: {
-
-    }
-
     Rectangle {
         id: contentItem
         anchors.fill: parent
         radius: width / 2
         color: "transparent"
         border {
-            color: "lightblue"
+            color: Material.primary
             width: 3
+        }
+
+
+        Item {
+            clip: true
+            anchors.fill: parent
+
+        }
+
+        MouseArea{
+
+
+            anchors.fill: parent
+
+            propagateComposedEvents: true
+
+            onClicked: {
+                mouse.accepted=false
+            }
+
+            onPressed: {
+                mouse.accepted=false
+            }
+
+            hoverEnabled: true
+
+            onEntered: {
+                nodePropertyLabel.show=true
+            }
+
+            onExited: {
+                nodePropertyLabel.show=false
+            }
+
+        }
+
+
+
+    }
+
+
+    property var nodePropertyValue
+    onNodePropertyValueChanged: {
+        if(nodePropertyValue && dockType === Qan.NodeItem.Right){
+            if(typeof(nodePropertyValue)=="boolean" || typeof(nodePropertyValue)=="string" || typeof(nodePropertyValue)=="number"){
+                nodePropertyLabel.text="("+nodePropertyValue+")"
+            }
+
+
         }
     }
 
+
+    onIdChanged:{
+        if(node){
+
+           var prop=portItem.id;
+
+            if(prop!=""){
+                portItem.nodePropertyValue=Qt.binding(function(){
+                     return node[prop];
+                 });
+            }
+
+
+        }
+    }
+
+
+
     Pane {
         id: labelPane
+
+
+        Component.onCompleted: {
+
+        }
+
+        Label{
+            id:nodePropertyLabel
+
+            property bool show: false
+            anchors.left: label.right
+            anchors.verticalCenter: label.verticalCenter
+            anchors.leftMargin: 2
+
+            opacity: show?1:0
+            visible: opacity!=0
+
+            verticalAlignment: Text.AlignVCenter
+
+            Behavior on opacity{
+                NumberAnimation { duration: 100 }
+            }
+
+            height: paintedHeight
+            font.pixelSize: 10
+//            text: provalue
+        }
+
         property bool editing: false
+
         onEditingChanged: {
             if(editing){
                 //port_label_editor.focus=true
@@ -197,9 +302,9 @@ Qan.PortItem {
             text:portItem.label
             onTextChanged: {
                 portItem.label=text
-//                if(text===""){
-//                    implicitWidth=placeholder.label.paintedWidth
-//                }
+                //                if(text===""){
+                //                    implicitWidth=placeholder.label.paintedWidth
+                //                }
             }
 
 
@@ -220,12 +325,20 @@ Qan.PortItem {
 
         }
 
+        //        ToolTip{
+
+        //        }
+
         MouseArea{
+            id:hovermouseara
             anchors.fill: label
             onDoubleClicked: {
                 labelPane.editing=!labelPane.editing
 
             }
+
+
+
         }
     }
 }

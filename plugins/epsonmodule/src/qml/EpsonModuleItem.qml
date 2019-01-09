@@ -20,6 +20,17 @@ EpsonModule {
         parent:moduleitem.mainpagecontainer
         anchors.fill: parent
         anchors.margins: 5
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            RoundButton{
+                highlighted: true
+                width:100
+                height: width
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+            }
+        }
   }
 
 
@@ -70,5 +81,7 @@ EpsonModule {
 
 
     }
+
+
 
 }

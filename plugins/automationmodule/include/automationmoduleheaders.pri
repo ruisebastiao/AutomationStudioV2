@@ -13,7 +13,8 @@ HEADERS += \
     $$PWD/automationmodule/connectioninfo.h \
     $$PWD/automationmodule/scenegraph.h \
     $$PWD/automationmodule/moduleproxynode.h \
-    $$PWD/automationmodule/typedlistmodel.h
+    $$PWD/automationmodule/typedlistmodel.h \
+    $$PWD/automationmodule/ionode.h
 
 
 include($$PWD/../../QuickQanava/include/quickqanavaheaders.pri)

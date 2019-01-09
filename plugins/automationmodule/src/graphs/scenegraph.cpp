@@ -15,6 +15,8 @@
 #include <nodes/webservicenode.h>
 #include <nodes/projectnode.h>
 #include <nodes/serialionode.h>
+#include <nodes/commandsendernode.h>
+#include <nodes/commandparsernode.h>
 
 
 
@@ -107,6 +109,17 @@ void SceneGraph::getCommonTypes()
 
             break;
 
+        case FlowNode::Type::CommandSenderNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Command Sender");
+
+            break;
+
+        case FlowNode::Type::CommandParserNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Command Parser");
+
+            break;
+
+
         default:
             //                static_assert(true, "");
             break;
@@ -165,6 +178,14 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     }
     else if(nodetype=="SerialIONode"){
         newnode=insertNode<SerialIONode>(nullptr);
+    }
+    else if(nodetype=="CommandSenderNode"){
+        newnode=insertNode<CommandSenderNode>(nullptr);
+    }
+    else if(nodetype=="CommandParserNode"){
+        newnode=insertNode<CommandParserNode>(nullptr);
+
+
     }
 
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);

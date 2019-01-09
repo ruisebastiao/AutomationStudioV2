@@ -1,5 +1,7 @@
 #include "flownodemanager.h"
 
+#include <nodes/commandparsernode.h>
+#include <nodes/commandsendernode.h>
 #include <nodes/proxynode.h>
 
 #include <moduleproxynode.h>
@@ -78,7 +80,18 @@ void FlowNodeManager::addItem(FlowNode *item)
 
     m_flownodesTable[item->id()]=item;
 
+    CommandSenderNode* commandsendernode=dynamic_cast<CommandSenderNode*>(item);
 
+    if(commandsendernode){
+
+        commandsendernode->setFlowNodes(this);
+    }
+
+    CommandParserNode* commandparsernode=dynamic_cast<CommandParserNode*>(item);
+
+    if(commandparsernode){
+        commandparsernode->setFlowNodes(this);
+    }
 
     ProxyNode* proxynode=dynamic_cast<ProxyNode*>(item);
 
@@ -276,7 +289,6 @@ QVariant FlowNodeManager::data(const QModelIndex &index, int role) const
     }
 
 
-
     return QVariant();
 }
 
@@ -289,6 +301,7 @@ QHash<int, QByteArray> FlowNodeManager::roleNames() const
         { NameRole, "nodeName" },
         { IDRole, "nodeID" },
         { NodeRole, "node" },
+
         { NodeTypeRole,"nodeTypeRole"}
 
     };

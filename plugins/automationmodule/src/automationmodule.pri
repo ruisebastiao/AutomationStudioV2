@@ -29,6 +29,8 @@ HEADERS += \
     $$PWD/subprojectslistmodel.h \
     $$PWD/nodes/projectnode.h \
     $$PWD/nodes/ionode.h \
+    $$PWD/nodes/commandparsernode.h \
+    $$PWD/nodes/commandsendernode.h \
     $$PWD/nodes/serialionode.h
 
 SOURCES += \
@@ -59,6 +61,8 @@ SOURCES += \
     $$PWD/subprojectslistmodel.cpp \
     $$PWD/nodes/projectnode.cpp \
     $$PWD/nodes/ionode.cpp \
+    $$PWD/nodes/commandparsernode.cpp \
+    $$PWD/nodes/commandsendernode.cpp \
     $$PWD/nodes/serialionode.cpp
 
 
