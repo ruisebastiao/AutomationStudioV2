@@ -31,7 +31,8 @@ HEADERS += \
     $$PWD/nodes/ionode.h \
     $$PWD/nodes/commandparsernode.h \
     $$PWD/nodes/commandsendernode.h \
-    $$PWD/nodes/serialionode.h
+    $$PWD/nodes/serialionode.h \
+    $$PWD/nodes/setresetnode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -63,6 +64,7 @@ SOURCES += \
     $$PWD/nodes/ionode.cpp \
     $$PWD/nodes/commandparsernode.cpp \
     $$PWD/nodes/commandsendernode.cpp \
-    $$PWD/nodes/serialionode.cpp
+    $$PWD/nodes/serialionode.cpp \
+    $$PWD/nodes/setresetnode.cpp
 
 

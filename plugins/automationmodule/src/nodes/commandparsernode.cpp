@@ -21,8 +21,8 @@ void CommandParserNode::setBindedIONode(IONode* node)
     //    if(node->id()!=selectedBindedNodeID()){
     setSelectedBindedNodeID(node->id());
 
-    disconnect(node,&IONode::dataReceivedChanged,this,&CommandParserNode::setDataReceived);
-    connect(node,&IONode::dataReceivedChanged,this,&CommandParserNode::setDataReceived);
+    disconnect(node,&IONode::commandReceivedChanged,this,&CommandParserNode::setDataReceived);
+    connect(node,&IONode::commandReceivedChanged,this,&CommandParserNode::setDataReceived);
 
     if(configsLoaded()==false){
         return;

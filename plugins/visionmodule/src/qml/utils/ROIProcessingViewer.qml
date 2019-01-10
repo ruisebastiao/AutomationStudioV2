@@ -66,9 +66,12 @@ Item{
         lockGridUpdate:true
 
 
+        zoomMax:0.9
 
+        property point rightClickPos
         onRightClicked:{
-            //console.log("Right")
+            var mapped=mapToItem(graphView.containerItem,pos.x,pos.y);
+            rightClickPos=mapped
             contextMenu.popup();
         }
 
@@ -174,7 +177,7 @@ Item{
                                     onClicked: {
 
 
-                                        roieditorGraph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                        roieditorGraph.addNode(roiEditorGraphView.rightClickPos,modelData)
                                         contextMenu.dismiss()
                                     }
                                 }
@@ -235,7 +238,7 @@ Item{
                                     onClicked: {
 
 
-                                        roieditorGraph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                        roieditorGraph.addNode(roiEditorGraphView.rightClickPos,modelData)
                                         contextMenu.dismiss()
                                     }
                                 }

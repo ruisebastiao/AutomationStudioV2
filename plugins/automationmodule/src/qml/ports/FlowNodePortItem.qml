@@ -177,7 +177,7 @@ Qan.PortItem {
 
     property var nodePropertyValue
     onNodePropertyValueChanged: {
-        if(nodePropertyValue && dockType === Qan.NodeItem.Right){
+        if(dockType === Qan.NodeItem.Right){
             if(typeof(nodePropertyValue)=="boolean" || typeof(nodePropertyValue)=="string" || typeof(nodePropertyValue)=="number"){
                 nodePropertyLabel.text="("+nodePropertyValue+")"
             }

@@ -6,7 +6,8 @@
 #include <flownode.h>
 #include <flownodemanager.h>
 
-
+#include <string>
+#include <regex>
 
 class CommandParserNode : public FlowNode
 {
@@ -17,7 +18,9 @@ class CommandParserNode : public FlowNode
 
     Q_PROPERTY(QVariant dataReceived READ dataReceived WRITE setDataReceived NOTIFY dataReceivedChanged)
 
-    Q_PROPERTY(QVariant commandReceived READ commandReceived WRITE setCommandReceived NOTIFY commandReceivedChanged REVISION 31)
+    Q_PROPERTY(QVariant commandOK READ commandOK WRITE setCommandOK NOTIFY commandOKChanged REVISION 31)
+
+    Q_PROPERTY(QVariant commandValue READ commandValue WRITE setCommandValue NOTIFY commandValueChanged REVISION 31)
 
     Q_PROPERTY(FlowNodeManager* flowNodes READ flowNodes WRITE setFlowNodes NOTIFY flowNodesChanged)
 
@@ -30,6 +33,10 @@ public:
 
     Q_INVOKABLE virtual void setBindedIONode(IONode* node);
 
+    Q_INVOKABLE void validate(){
+        setDataReceived(m_dataReceived);
+    }
+
     static QQmlComponent *delegate(QQmlEngine &engine) noexcept;
 
     QVariant dataReceived() const
@@ -37,9 +44,9 @@ public:
         return m_dataReceived;
     }
 
-    QVariant commandReceived() const
+    QVariant commandOK() const
     {
-        return m_commandReceived;
+        return m_commandOK;
     }
 
     QString commandToParse() const
@@ -64,24 +71,40 @@ public slots:
         m_dataReceived = dataReceived;
 
         QString datareceived=m_dataReceived.value<QString>();
-        datareceived=datareceived.replace("\n","");
-        datareceived=datareceived.replace("\r","");
+
         m_dataReceived=QVariant::fromValue(datareceived);
-        if(datareceived==commandToParse()){
-            setCommandReceived(true);
+
+        QRegularExpression re(m_commandToParse);
+
+        QRegularExpressionMatch match = re.match(datareceived);
+        bool hasMatch = match.hasMatch(); // true
+
+
+        if (hasMatch){
+            setCommandValue(m_dataReceived);
+            setCommandOK(true);
         }
         else{
-            setCommandReceived(false);
+            setCommandOK(false);
         }
+        //            std::cout << "string literal matched\n";
+
+        //        if(datareceived==commandToParse()){
+        //            setCommandValue(m_dataReceived);
+        //            setCommandOK(true);
+        //        }
+        //        else{
+        //            setCommandOK(false);
+        //        }
         emit dataReceivedChanged(m_dataReceived);
     }
 
-    void setCommandReceived(QVariant commandReceived)
+    void setCommandOK(QVariant commandOK)
     {
 
 
-        m_commandReceived = commandReceived;
-        emit commandReceivedChanged(m_commandReceived);
+        m_commandOK = commandOK;
+        emit commandOKChanged(m_commandOK);
     }
 
     void setCommandToParse(QString commandToParse)
@@ -118,10 +141,19 @@ public slots:
         emit selectedBindedNodeIDChanged(m_selectedBindedNodeID);
     }
 
+    void setCommandValue(QVariant commandValue)
+    {
+        if (m_commandValue == commandValue)
+            return;
+
+        m_commandValue = commandValue;
+        emit commandValueChanged(m_commandValue);
+    }
+
 signals:
     void dataReceivedChanged(QVariant dataReceived);
 
-    void commandReceivedChanged(QVariant commandReceived);
+    void commandOKChanged(QVariant commandOK);
 
     void commandToParseChanged(QString commandToParse);
 
@@ -129,18 +161,26 @@ signals:
 
     void selectedBindedNodeIDChanged(int selectedBindedNodeID);
 
+    void commandValueChanged(QVariant commandValue);
+
 private:
 
     QVariant m_dataReceived=QVariant::fromValue(nullptr);
-    QVariant m_commandReceived=QVariant::fromValue(false);
+    QVariant m_commandOK=QVariant::fromValue(false);
     QString m_commandToParse="";
     FlowNodeManager* m_flowNodes=nullptr;
     IONode* m_bindedIONode=nullptr;
     int m_selectedBindedNodeID=-1;
 
     // JsonSerializable interface
+    QVariant m_commandValue=QVariant::fromValue(QString(""));
+
 public:
     void DeSerialize(QJsonObject &json) override;
+    QVariant commandValue() const
+    {
+        return m_commandValue;
+    }
 };
 
 #endif // COMMANDPARSERNODE_H

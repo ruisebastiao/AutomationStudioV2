@@ -14,6 +14,26 @@ import QuickQanava          2.0 as Qan
 Qan.NodeItem {
     id: root
 
+    property bool shiftpressed:false
+    Keys.onPressed: {
+        root.shiftpressed=(event.modifiers & Qt.ShiftModifier)
+    }
+
+    onSelectedChanged: {
+        if(selected==false){
+            shiftpressed=false
+        }
+    }
+
+
+    onNodeDoubleClicked: {
+        if(root.shiftpressed){
+
+            graph.copyNode(root.node)
+        }
+    }
+
+
 
     property alias showBackground: background.visible
 
@@ -30,6 +50,8 @@ Qan.NodeItem {
             customHeader.parent=customHeaderContainer
         }
     }
+
+
 
 
     leftDock: Item{
@@ -225,17 +247,18 @@ Qan.NodeItem {
             anchors.centerIn: parent
             source: root.editMode?"qrc:/images/pencil.png":"qrc:/images/pencil-lock.png"
         }
-        onPressed: {
+        onClicked: {
             root.editMode=!root.editMode
         }
 
     }
 
 
-    RoundButton{
+    GUI.Fab{
         width: 48
         height: 48
-        antialiasing: true
+        //        antialiasing: true
+
         visible: root.node.editMode && selected
         z:99999
         x:5
@@ -243,13 +266,15 @@ Qan.NodeItem {
         y:0
         highlighted: true
         Image {
+
             width: 30
             height: 30
             fillMode: Image.PreserveAspectFit
             anchors.centerIn: parent
             source: "qrc:/images/baseline_delete_white_48dp.png"
         }
-        onPressed: {
+        onClicked: {
+            expanded=!expanded
             root.node.remove()
         }
 
@@ -308,28 +333,13 @@ Qan.NodeItem {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
 
-
-                        MouseArea{
-                            id:ma_editnodename
-                            visible: node_name_editor.visible==false
-                            anchors.fill: parent
-                            enabled: editMode
-
-                            onDoubleClicked:   {
-                                node_name_editor.opacity=1;
-                                node_name_editor.focus=true;
-
-                            }
-                        }
-
-
                     }
 
                     TextField{
                         id:node_name_editor
                         anchors.topMargin: 5
                         visible: opacity!=0
-                        opacity: 0
+                        opacity: selected&&editMode?1:0
                         selectByMouse:true
                         Behavior on opacity {
                             NumberAnimation{
@@ -342,9 +352,7 @@ Qan.NodeItem {
                             }
                         }
 
-                        onAccepted: {
-                            focus=false
-                        }
+
 
                         text:root.node.name
 
@@ -352,7 +360,7 @@ Qan.NodeItem {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        width: contentWidth
+                        width: text.length==0?placeholder.paintedWidth:contentWidth
 
                         GUI.MaterialPlaceHolder{
                             id:placeholder
@@ -360,11 +368,7 @@ Qan.NodeItem {
                         }
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        onFocusChanged: {
-                            if(focus==false){
-                                node_name_editor.opacity=0;
-                            }
-                        }
+
 
                     }
 

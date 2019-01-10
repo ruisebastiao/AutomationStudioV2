@@ -67,23 +67,25 @@ void SerialIONode::handleReadyRead()
 {
 
     if(m_serialPort->isOpen()){
-        m_readData.append(m_serialPort->readAll());
+//        m_readData.append(m_serialPort->readAll());
+        setDataReceived(QVariant::fromValue(m_serialPort->readAll()));
 
 
-        if(m_readData.contains('\n')){
 
-            m_readData=m_readData.replace('\n',"");
-            m_readData=m_readData.replace('\r',"");
+//        if(m_readData.contains('\n')){
 
-            QString temp(m_readData);
-            temp=temp.replace('\n',"");
+//            m_readData=m_readData.replace('\n',"");
+//            m_readData=m_readData.replace('\r',"");
 
-            temp=temp.replace(prefix(),"");
-            temp=temp.replace(suffix(),"");
+//            QString temp(m_readData);
+//            temp=temp.replace('\n',"");
 
-            setDataReceived(QVariant::fromValue(temp));
-            m_readData="";
-        }
+//            temp=temp.replace(prefix(),"");
+//            temp=temp.replace(suffix(),"");
+
+//            setDataReceived(QVariant::fromValue(temp));
+//            m_readData="";
+//        }
 
 
     }
@@ -127,6 +129,7 @@ void SerialIONode::initializeNode(int id)
 {
 
     FlowNode::initializeNode(id);
+    checkPorts();
 
 
 }

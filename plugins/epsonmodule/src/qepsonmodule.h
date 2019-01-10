@@ -9,20 +9,16 @@ Q_OBJECT
 
     QVariantList getModuleNodeTypes() const;
 
-    Q_PROPERTY(bool productionStarted READ productionStarted WRITE setProductionStarted NOTIFY productionStartedChanged REVISION 2)
     Q_PROPERTY(bool startProduction READ startProduction WRITE setStartProduction NOTIFY startProductionChanged REVISION 2)
     Q_PROPERTY(bool stopProduction READ stopProduction WRITE setStopProduction NOTIFY stopProductionChanged REVISION 2)
-
+    Q_PROPERTY(bool productionRunning READ productionRunning WRITE setProductionRunning NOTIFY productionRunningChanged REVISION 2)
 
 
 public:
     QEpsonModule(QQuickItem *parent=nullptr);
 
 
-    bool productionStarted() const
-    {
-        return m_productionStarted;
-    }
+
 
     bool startProduction() const
     {
@@ -34,14 +30,12 @@ public:
         return m_stopProduction;
     }
 
-public slots:
-    void setProductionStarted(bool productionStarted)
+    bool productionRunning() const
     {
-
-        m_productionStarted = productionStarted;
-        emit productionStartedChanged(m_productionStarted);
-
+        return m_productionRunning;
     }
+
+public slots:
 
 
 
@@ -52,6 +46,7 @@ public slots:
 
         m_startProduction = startProduction;
         emit startProductionChanged(m_startProduction);
+        m_startProduction=false;
 
     }
 
@@ -61,22 +56,35 @@ public slots:
 
         m_stopProduction = stopProduction;
         emit stopProductionChanged(m_stopProduction);
+        m_stopProduction=false;
 
     }
 
+    void setProductionRunning(bool productionRunning)
+    {
+        if (m_productionRunning == productionRunning)
+            return;
+
+        m_productionRunning = productionRunning;
+        emit productionRunningChanged(m_productionRunning);
+    }
+
 signals:
-    void productionStartedChanged(bool productionStarted);
+
 
     void startProductionChanged(bool startProduction);
 
     void stopProductionChanged(bool stopProduction);
 
+    void productionRunningChanged(bool productionRunning);
+
 private:
 
 
-    bool m_productionStarted=false;
+
     bool m_startProduction=false;
     bool m_stopProduction=false;
+    bool m_productionRunning=false;
 };
 
 #endif // QEPSONMODULE_H

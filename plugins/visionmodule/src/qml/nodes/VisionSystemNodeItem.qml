@@ -206,7 +206,7 @@ FlowNodeItem{
                         lockGridUpdate:true
 
                         resizeHandlerColor:"transparent"
-
+                        zoomMax:0.9
                         resizeHandlerWidth:0
                         resizeHandlerRadius:resizeHandlerWidth
                         resizeHandlerSize: "0x0"
@@ -218,10 +218,13 @@ FlowNodeItem{
 
                         graph:visionGraph
 
+                        property point rightClickPos
                         onRightClicked:{
-                            //console.log("Right")
+                            var mapped=mapToItem(graphView.containerItem,pos.x,pos.y);
+                            rightClickPos=mapped
                             contextMenu.popup();
                         }
+
                         Rectangle {
                             anchors.right: visionGraphView.right
                             anchors.bottom: visionGraphView.bottom
@@ -379,7 +382,7 @@ FlowNodeItem{
                                                         onClicked: {
 
 
-                                                            visionGraph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                                            visionGraph.addNode(visionGraphView.rightClickPos,modelData)
                                                             contextMenu.dismiss()
                                                         }
                                                     }
@@ -430,20 +433,20 @@ FlowNodeItem{
 
                 }
 
-//                FastBlur {
-//                    anchors.fill: navigable_container
-//                    source: navigable_container
-//                    visible: radius!=0
-//                    radius: maincontainer.state=="editroi"?32:0
-//                    Behavior on radius{
-//                        SequentialAnimation{
+                //                FastBlur {
+                //                    anchors.fill: navigable_container
+                //                    source: navigable_container
+                //                    visible: radius!=0
+                //                    radius: maincontainer.state=="editroi"?32:0
+                //                    Behavior on radius{
+                //                        SequentialAnimation{
 
-//                            NumberAnimation { duration: 250 }
+                //                            NumberAnimation { duration: 250 }
 
-//                        }
-//                    }
+                //                        }
+                //                    }
 
-//                }
+                //                }
 
                 ROIEditorItem{
                     id:roieditor

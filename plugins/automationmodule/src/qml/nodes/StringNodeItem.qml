@@ -44,37 +44,91 @@ FlowNodeItem{
 
             selectByMouse:true
             MaterialPlaceHolder{
-                placeHolderText:"String"
+                placeHolderText:root.node.extractFromInput?"Regex":"String"
             }
         }
 
-        RowLayout{
+        TextArea{
+
             Layout.fillWidth: true
+            text:node.stringOutput
 
-            CheckBox{
-                Layout.fillWidth: true
-                text: "Prefix From Input"
-                checked: root.node.prefixFromInput
+            readOnly: true
 
-                onCheckedChanged: {
-                    root.node.prefixFromInput=checked
 
+            wrapMode: TextEdit.WordWrap
+
+
+            selectByMouse:true
+            MaterialPlaceHolder{
+                placeHolderText:"Output"
+            }
+        }
+
+
+        GroupBox{
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            title: "Input is"
+
+            Flow{
+                anchors.fill: parent
+                RadioButton{
+                    text: "None"
                 }
 
+                RadioButton{
+                    Layout.fillWidth: true
+                    text: "Prefix"
+                    checked: root.node.prefixFromInput
 
-            }
-            CheckBox{
-                Layout.fillWidth: true
-                text: "Suffix From Input"
-                checked: root.node.suffixFromInput
+                    onCheckedChanged: {
+                        root.node.prefixFromInput=checked
+
+                    }
 
 
-                onCheckedChanged: {
-                    root.node.suffixFromInput=checked
                 }
+                RadioButton{
+                    Layout.fillWidth: true
+                    text: "Suffix"
+                    checked: root.node.suffixFromInput
 
 
+                    onCheckedChanged: {
+                        root.node.suffixFromInput=checked
+                    }
+
+                }
+                RadioButton{
+                    Layout.fillWidth: true
+                    text: "Regex Extract"
+                    checked: root.node.extractFromInput
+
+
+                    onCheckedChanged: {
+                        root.node.extractFromInput=checked
+                    }
+
+
+                }
+                RadioButton{
+                    Layout.fillWidth: true
+                    text: "Compare"
+                    checked: root.node.compareFromInput
+
+
+                    onCheckedChanged: {
+                        root.node.compareFromInput=checked
+                    }
+
+
+                }
             }
+
+
+
+
         }
 
 

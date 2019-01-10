@@ -70,6 +70,7 @@ public:
         return m_moduleNodeTypes;
     }
 
+    Q_INVOKABLE void copyNode(FlowNode* node);
 signals:
     void flowNodeAdded(FlowNode* flownode);
 

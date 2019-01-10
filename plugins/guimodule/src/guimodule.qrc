@@ -16,5 +16,6 @@
         <file>qml/PopUp.qml</file>
         <file>qml/AppUpdaterItem.qml</file>
         <file>qml/SideContainer.qml</file>
+        <file>qml/Fab.qml</file>
     </qresource>
 </RCC>

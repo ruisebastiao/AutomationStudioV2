@@ -17,6 +17,7 @@
 #include <nodes/serialionode.h>
 #include <nodes/commandsendernode.h>
 #include <nodes/commandparsernode.h>
+#include <nodes/setresetnode.h>
 
 
 
@@ -32,6 +33,7 @@ SceneGraph::SceneGraph(QQuickItem *parent) noexcept : qan::Graph(parent) {
             this->bindEdge(newedge,src,dst);
         }
     });
+
 
     getCommonTypes();
 
@@ -119,7 +121,10 @@ void SceneGraph::getCommonTypes()
 
             break;
 
+        case FlowNode::Type::SetResetNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Set/Reset");
 
+            break;
         default:
             //                static_assert(true, "");
             break;
@@ -184,8 +189,9 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     }
     else if(nodetype=="CommandParserNode"){
         newnode=insertNode<CommandParserNode>(nullptr);
-
-
+    }
+    else if(nodetype=="SetResetNode"){
+        newnode=insertNode<SetResetNode>(nullptr);
     }
 
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
@@ -220,6 +226,25 @@ FlowNode *SceneGraph::readNode(QJsonObject nodeobject)
 
 }
 
+void SceneGraph::copyNode(FlowNode* node){
+
+    QJsonObject nodeobj;
+    node->Serialize(nodeobj);
+
+
+    QString nodetype=nodeobj["type"].toString();
+    FlowNode* newnode=createNode(nodetype);
+    if(newnode){
+        newnode->getItem()->setProperty("x",QVariant::fromValue(node->getItem()->x()+50));
+        newnode->getItem()->setProperty("y",QVariant::fromValue(node->getItem()->y()+50));
+//        this->clearSelection();
+        this->selectNode(*newnode,Qt::NoModifier);
+
+//        this->setSelectedNode(newnode);
+
+    }
+
+}
 
 void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo)
 {
@@ -237,9 +262,14 @@ void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo)
     FlowNode* node=createNode(nodeType);
 
 
+
+//    auto mappedloc=mapToItem(this->getContainerItem(),loc);
+
+    auto mappedloc=loc;
+
     if(node){
-        node->getItem()->setProperty("x",QVariant::fromValue(loc.x()));
-        node->getItem()->setProperty("y",QVariant::fromValue(loc.y()));
+        node->getItem()->setProperty("x",QVariant::fromValue(mappedloc.x()));
+        node->getItem()->setProperty("y",QVariant::fromValue(mappedloc.y()));
 
     }
 

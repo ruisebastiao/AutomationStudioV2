@@ -39,6 +39,10 @@
         <file>images/resize_horizontal.png</file>
         <file>images/icons8-menu-24_white.png</file>
         <file alias="errorMessage.qml">qml/errorMessage.qml</file>
+        <file>images/outline-play_arrow-24px.svg</file>
+        <file>images/outline_play_arrow_white_48dp.png</file>
+        <file>images/baseline_play_arrow_white_48dp.png</file>
+        <file>images/baseline_stop_white_48dp.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="UbuntuMono-Bold.ttf">fonts/UbuntuMono-Bold.ttf</file>

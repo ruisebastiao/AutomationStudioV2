@@ -14,7 +14,13 @@ EpsonModule {
     anchors.fill: parent
 
 
+    property bool productionStarting:false
+    property bool productionStopping:false
 
+    onProductionRunningChanged: {
+        productionStarting=false
+        productionStopping=false
+    }
 
     RowLayout{
         parent:moduleitem.mainpagecontainer
@@ -23,15 +29,44 @@ EpsonModule {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            RoundButton{
-                highlighted: true
-                width:100
-                height: width
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
+
+        }
+    }
+    RoundButton{
+        highlighted: true
+        width:100
+        height: width
+        enabled: root.productionStarting==false && root.productionStopping==false
+
+
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        Image {
+            anchors.centerIn: parent
+            width: parent.width*0.5
+            height: width
+            source: root.productionRunning?"qrc:/images/baseline_stop_white_48dp.png":"qrc:/images/baseline_play_arrow_white_48dp.png"
+        }
+        BusyIndicator {
+            id:loadingindicator
+            running: root.productionStarting || root.productionStopping
+            anchors.centerIn: parent
+            width: parent.width-5
+            height: parent.height-5
+        }
+
+        onClicked: {
+            if(root.productionRunning){
+                root.stopProduction=true
+                root.productionStopping=true
+            }
+            else{
+                root.startProduction=true
+                root.productionStarting=true
             }
         }
-  }
+    }
 
 
 

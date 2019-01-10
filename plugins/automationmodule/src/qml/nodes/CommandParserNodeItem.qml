@@ -82,10 +82,16 @@ FlowNodeItem{
                 selectByMouse:true
                 GUI.MaterialPlaceHolder{
 
-                    placeHolderText:"Command to receive"
+                    placeHolderText:"Command Regex"
                 }
             }
-
+            Button{
+                Layout.fillWidth: true
+                text: "Validate"
+                onClicked: {
+                    root.node.validate()
+                }
+            }
 
             ComboBox{
                 id:ionodes

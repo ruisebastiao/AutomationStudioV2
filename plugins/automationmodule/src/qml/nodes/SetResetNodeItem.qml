@@ -4,22 +4,20 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts      1.3
 
-import "../gui"
 
-FlowNode{
+FlowNodeItem{
     id:root
 
-    normalWidth: 150
-    normalHeight: 150
-
-    editHeight:150
-
+    resizable: true
 
     contentItem:  Rectangle{
         anchors.fill: parent
         ColumnLayout{
             anchors.fill: parent
-
+            RadioButton{
+                Layout.fillWidth: true
+                checked: root.node.output
+            }
         }
 
     }

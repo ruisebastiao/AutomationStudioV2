@@ -231,7 +231,14 @@ Item {
                                     navigable: true
                                     clip: true
 
+                                    zoomMax:1
 
+
+                                    onNodeDoubleClicked:{
+
+
+
+                                    }
 
                                     Timer{
                                         id:docenterItem
@@ -275,9 +282,10 @@ Item {
                                     property real lastCenterY
 
                                     property real lastZoom
-
+                                    property point rightClickPos
                                     onRightClicked:{
-                                        //console.log("Right")
+                                        var mapped=mapToItem(graphView.containerItem,pos.x,pos.y);
+                                        rightClickPos=mapped
                                         contextMenu.popup();
                                     }
 
@@ -390,8 +398,8 @@ Item {
 
                                                                     onClicked: {
 
-
-                                                                        graphView.graph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData,loadedmodule)
+                                                                        //                                                                        var mapped=mapToItem(graphView.containerItem,contextMenu.x,contextMenu.y);
+                                                                        graphView.graph.addNode(graphView.rightClickPos,modelData,loadedmodule)
                                                                         contextMenu.dismiss()
                                                                     }
                                                                 }
@@ -453,7 +461,7 @@ Item {
                                                                     onClicked: {
 
 
-                                                                        graphView.graph.addNode(Qt.point(contextMenu.x,contextMenu.y),modelData)
+                                                                        graphView.graph.addNode(graphView.rightClickPos,modelData)
                                                                         contextMenu.dismiss()
                                                                     }
                                                                 }

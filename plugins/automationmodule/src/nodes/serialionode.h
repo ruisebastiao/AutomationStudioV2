@@ -41,7 +41,7 @@ private:
     QStringList m_portsAvailable;
 
     QSerialPort *m_serialPort = nullptr;
-    QByteArray m_readData;
+//    QByteArray m_readData;
     QTextStream m_standardOutput;
     QTimer m_timer;
 
