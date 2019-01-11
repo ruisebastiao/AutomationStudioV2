@@ -2,8 +2,6 @@
 #include "flownode.h"
 
 
-#include <nodes/epsonnode.h>
-
 
 QEpsonModule::QEpsonModule(QQuickItem *parent)
 {

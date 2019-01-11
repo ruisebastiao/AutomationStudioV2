@@ -19,12 +19,21 @@ EpsonModule {
 
 
 
-//    property bool toolInDock: false
+    //    property bool toolInDock: false
 
 
     onProductionRunningChanged: {
         productionStarting=false
         productionStopping=false
+
+    }
+
+    onStationReadyChanged:{
+        if(stationReady==false){
+           productionStarting=false
+           productionStopping=false
+           productionRunning=false
+        }
     }
 
     ColumnLayout{
@@ -78,9 +87,15 @@ EpsonModule {
 
         Component.onCompleted: {
             enabled=Qt.binding(function(){
-//              if(root.stationReady && root.productionStarting==false && root.productionStopping==false){
-//                     && (root.productionRunning==false && root.toolInDock==false)
-//              }
+                if(!root.stationReady || root.productionStarting || root.productionStopping){
+                    return false
+                }
+
+                if(!root.productionRunning && root.toolInDock){
+                    return false
+                }
+
+
 
                 return true
             })
