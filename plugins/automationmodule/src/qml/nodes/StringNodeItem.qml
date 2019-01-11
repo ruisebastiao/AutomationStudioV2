@@ -74,7 +74,12 @@ FlowNodeItem{
             Flow{
                 anchors.fill: parent
                 RadioButton{
+                    checked: root.node.noInput
                     text: "None"
+                    onCheckedChanged: {
+                        root.node.noInput=checked
+
+                    }
                 }
 
                 RadioButton{

@@ -114,13 +114,6 @@ public slots:
 
 
 
-    void setEpsonNode(QVariant epsonNode)
-    {
-
-        m_epsonNode = epsonNode;
-        emit epsonNodeChanged(m_epsonNode);
-    }
-
 
 
     void setSend(QVariant send)
@@ -158,8 +151,14 @@ public slots:
     void setCommandInput(QVariant commandInput)
     {
 
+        if(connectionsLoaded()==false){
+            return;
+        }
+
+
         m_commandInput = commandInput;
         QString command_frominput = m_commandInput.value<QString>();
+
         setFinalCommand(commandToSend()+command_frominput);
 
 

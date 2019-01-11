@@ -35,8 +35,7 @@ public:
 
 private:
 
-    QMetaObject::Connection m_edgeConnection;
-    QMetaMethod m_edgeSlot;
+
 
 public slots:
 

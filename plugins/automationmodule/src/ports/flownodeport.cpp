@@ -92,7 +92,7 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
 
                     if(connectioninfo){
-                        m_connections.removeOne(connectioninfo);
+
 
                         FlowNode* destination=qobject_cast<FlowNode*>(edgeItem->getDestinationItem()->getNode());
 
@@ -104,11 +104,12 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
 
                         //  if(val.isValid()){
-                        m_edgeSlot.invoke(targetNode,Qt::DirectConnection,Q_ARG(QVariant,val));
+                        connectioninfo->edgeSlot().invoke(destination,Qt::AutoConnection,Q_ARG(QVariant,val));
 
                         //}
-                        QObject::disconnect(m_edgeConnection);
+                        QObject::disconnect(connectioninfo->edgeConnection());
 
+                        m_connections.removeOne(connectioninfo);
 
                         //                        destination->unbindSourceProperty(connectioninfo->portID());
 
@@ -144,6 +145,37 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
                 selectededge->setIsHidden(true);
             }
 
+
+
+            int targetid=targetNode->id();
+            ConnectionInfo ci(targetid,targetPortItem->getId());
+            auto connection_finded=std::find_if(m_connections.begin(), m_connections.end(),
+                                                [&](ConnectionInfo* e) { return (e->nodeID() == targetid && e->portID()==targetPortItem->getId()); });
+
+            ConnectionInfo* connectioninfo=nullptr;
+
+
+            if(connection_finded != m_connections.end()){
+                // finded
+                connectioninfo=*(connection_finded);
+            }
+            else{
+                connectioninfo= new ConnectionInfo();
+                m_connections.append(connectioninfo);
+            }
+
+
+
+
+
+
+            if(sourceIsProxy && targetIsProxy){
+                connectioninfo->setHidden(true);
+            }
+
+            connectioninfo->setNodeID(targetNode->id());
+            connectioninfo->setPortID(targetPortItem->getId());
+
             //            targetNode->bindSourceProperty(m_node,m_port->getId(),targetPortItem->getId());
 
             QString signalname=m_port->getId()+"Changed(QVariant)";
@@ -171,9 +203,9 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
 
             }
 
-            m_edgeSlot = targetNode->metaObject()->method(index);
+            connectioninfo->setEdgeSlot(targetNode->metaObject()->method(index));
 
-            m_edgeConnection=outEdgeItem.connect(m_node, signal, targetNode, m_edgeSlot);
+            connectioninfo->setEdgeConnection(outEdgeItem.connect(m_node, signal, targetNode, connectioninfo->edgeSlot()));
 
 
 
@@ -183,36 +215,14 @@ FlowNodePort::FlowNodePort(FlowNode *node, qan::PortItem::Type type, QString por
             QVariant val=prop.read(m_node);
 
 
+
             if(val.isValid()){
-                m_edgeSlot.invoke(targetNode,Qt::DirectConnection,Q_ARG(QVariant,val));
+                connectioninfo->edgeSlot().invoke(targetNode,Qt::DirectConnection,Q_ARG(QVariant,val));
 
             }
 
 
-            int targetid=targetNode->id();
-            ConnectionInfo ci(targetid,targetPortItem->getId());
-            auto connection_finded=std::find_if(m_connections.begin(), m_connections.end(),
-                                                [&](ConnectionInfo* e) { return (e->nodeID() == targetid && e->portID()==targetPortItem->getId()); });
 
-
-            if(connection_finded != m_connections.end()){
-                // finded
-                return;
-            }
-
-            ConnectionInfo* connectioninfo= new ConnectionInfo();
-
-
-
-
-            if(sourceIsProxy && targetIsProxy){
-                connectioninfo->setHidden(true);
-            }
-
-            connectioninfo->setNodeID(targetNode->id());
-            connectioninfo->setPortID(targetPortItem->getId());
-
-            m_connections.append(connectioninfo);
 
 
 

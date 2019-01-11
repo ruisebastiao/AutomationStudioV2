@@ -186,6 +186,7 @@ void FlowNodeManager::loadConnections(){
 
         }
 
+        node->setConnectionsLoaded(true);
     }
 
 
@@ -224,11 +225,16 @@ void FlowNodeManager::DeSerialize(QJsonArray &jsonarray)
         QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
         FlowNode* node= m_scenegraph->readNode(nodeObject);
         if(node){
+//            node->blockSignals(true);
             addItem(node);
         }
     }
 
     loadConnections();
+//    for (int var = 0; var < m_internalList.count(); ++var) {
+//        FlowNode* node=m_internalList.at(var);
+//        node->blockSignals(false);
+//    }
     m_deserializing=false;
 }
 

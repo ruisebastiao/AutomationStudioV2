@@ -17,5 +17,6 @@
         <file alias="Nodes/CommandSenderNodeItem.qml">qml/nodes/CommandSenderNodeItem.qml</file>
         <file alias="Nodes/ProjectNodeItem.qml">qml/nodes/ProjectNodeItem.qml</file>
         <file alias="Nodes/SerialIONodeItem.qml">qml/nodes/SerialIONodeItem.qml</file>
+        <file alias="Nodes/LogicalNodeItem.qml">qml/nodes/LogicalNodeItem.qml</file>
     </qresource>
 </RCC>

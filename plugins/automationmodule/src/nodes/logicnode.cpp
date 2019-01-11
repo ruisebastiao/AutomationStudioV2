@@ -12,7 +12,7 @@ QQmlComponent *LogicNode::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/Cv/ProcessingLogicalNodeItem.qml"));
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/LogicalNodeItem.qml"));
     return delegate.get();
 
 }

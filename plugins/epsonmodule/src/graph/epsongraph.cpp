@@ -2,6 +2,7 @@
 
 
 #include <nodes/epsonnode.h>
+#include <nodes/epsonremote.h>
 
 EpsonGraph::EpsonGraph()
 {
@@ -14,7 +15,11 @@ void EpsonGraph::getModuleNodeTypes()
 
     QVariantMap map;
 
-    map.insert(QVariant::fromValue(FlowNode::Type::EpsonNode).value<QString>(),"Epson");
+    map.insert(QVariant::fromValue(FlowNode::Type::EpsonNode).value<QString>(),"Epson Client");
+    ret.append(map);
+    map.clear();
+
+    map.insert(QVariant::fromValue(FlowNode::Type::EpsonRemote).value<QString>(),"Epson Remote");
     ret.append(map);
     map.clear();
 
@@ -37,6 +42,9 @@ FlowNode *EpsonGraph::createNode(QString nodetype)
 
         if(nodetype=="EpsonNode"){
             node=insertNode<EpsonNode>(nullptr);
+        }
+        else if(nodetype=="EpsonRemote"){
+            node=insertNode<EpsonRemote>(nullptr);
         }
 
         else{

@@ -15,6 +15,8 @@ class LogicNode : public FlowNode
 
     Q_PROPERTY(QVariant process READ process WRITE setProcess NOTIFY ProcessChanged REVISION 30)
 
+    Q_PROPERTY(bool processOnInput READ processOnInput WRITE setProcessOnInput NOTIFY processOnInputChanged USER("serialize"))
+
 
     Q_PROPERTY(QVariant logicalInput1 READ logicalInput1 WRITE setLogicalInput1 NOTIFY logicalInput1Changed REVISION 30)
 
@@ -81,7 +83,10 @@ public slots:
 
         m_logicalInput1 = logicalInput1;
         emit logicalInput1Changed(m_logicalInput1);
-        setProcess(true);
+
+        setProcess(m_processOnInput);
+
+
     }
 
 
@@ -91,7 +96,7 @@ public slots:
         m_logicalInput2 = logicalInput2;
         emit logicalInput2Changed(m_logicalInput2);
 
-        setProcess(true);
+        setProcess(m_processOnInput);
     }
 
 
@@ -101,12 +106,8 @@ public slots:
 
 
         m_logicalOutput = logicalOutput;
-        if(m_logicalOutput.value<bool>()){
-            emit logicalOutputChanged(m_logicalOutput);
-            m_logicalOutput=false;
-            m_logicalInput1=false;
-            m_logicalInput2=false;
-        }
+        emit logicalOutputChanged(m_logicalOutput);
+
 
     }
 
@@ -129,6 +130,15 @@ public slots:
         }
     }
 
+    void setProcessOnInput(bool processOnInput)
+    {
+        if (m_processOnInput == processOnInput)
+            return;
+
+        m_processOnInput = processOnInput;
+        emit processOnInputChanged(m_processOnInput);
+    }
+
 signals:
     void logicalTypeChanged(LogicalType logicalType);
 
@@ -141,6 +151,8 @@ signals:
 
     void ProcessChanged(QVariant process);
 
+    void processOnInputChanged(bool processOnInput);
+
 private:
     LogicalType m_logicalType=AND;
 
@@ -150,6 +162,8 @@ private:
 
 
     QVariant m_process=QVariant::fromValue(false);
+
+    bool m_processOnInput=false;
 
 protected:
 
@@ -164,6 +178,10 @@ public:
     QVariant process() const
     {
         return m_process;
+    }
+    bool processOnInput() const
+    {
+        return m_processOnInput;
     }
 };
 

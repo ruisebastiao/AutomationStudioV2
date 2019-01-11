@@ -516,7 +516,7 @@ Item {
             PageIndicator {
                 id: indicator
                 //visible: loggedUser && loggedUser.role==User.AdminRole
-                visible: true
+                visible: false
                 count: moduleview.count
                 currentIndex: moduleview.currentIndex
 

@@ -17,12 +17,17 @@ EpsonModule {
     property bool productionStarting:false
     property bool productionStopping:false
 
+
+
+//    property bool toolInDock: false
+
+
     onProductionRunningChanged: {
         productionStarting=false
         productionStopping=false
     }
 
-    RowLayout{
+    ColumnLayout{
         parent:moduleitem.mainpagecontainer
         anchors.fill: parent
         anchors.margins: 5
@@ -31,13 +36,69 @@ EpsonModule {
             Layout.fillWidth: true
 
         }
+        RowLayout{
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            ToolBar {
+
+                Layout.fillWidth: true
+                Layout.preferredHeight: 45
+                Layout.margins: 3
+                Material.foreground: "white"
+
+                TextScroller {
+                    id: c4stat
+                    anchors.fill: parent
+                    text:"C4 Not Connected"
+                    label.font.capitalization:Font.AllUppercase
+                    horizontalAlignment:Qt.AlignHCenter
+                }
+            }
+            ToolBar {
+
+                Layout.fillWidth: true
+                Layout.preferredHeight: 45
+                Layout.margins: 3
+                Material.foreground: "white"
+
+                TextScroller {
+                    anchors.fill: parent
+                    id: rs4stat
+                    label.font.capitalization:Font.AllUppercase
+                    horizontalAlignment:Qt.AlignHCenter
+                    text:"RS4 Not Connected"
+                }
+            }
+        }
+
+
     }
     RoundButton{
+        id:startbt
+
+        Component.onCompleted: {
+            enabled=Qt.binding(function(){
+//              if(root.stationReady && root.productionStarting==false && root.productionStopping==false){
+//                     && (root.productionRunning==false && root.toolInDock==false)
+//              }
+
+                return true
+            })
+        }
+
         highlighted: true
         width:100
-        height: width
-        enabled: root.productionStarting==false && root.productionStopping==false
 
+        height: width
+
+
+        onEnabledChanged: {
+            if(enabled){
+
+            }
+        }
+
+        z:999999
 
         anchors.right: parent.right
         anchors.bottom: parent.bottom
@@ -50,7 +111,7 @@ EpsonModule {
         }
         BusyIndicator {
             id:loadingindicator
-            running: root.productionStarting || root.productionStopping
+            running: (root.productionStarting || root.productionStopping) && root.stationReady
             anchors.centerIn: parent
             width: parent.width-5
             height: parent.height-5

@@ -45,6 +45,9 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     Q_PROPERTY(qreal nodeX READ nodeX WRITE setNodeX NOTIFY nodeXChanged)
     Q_PROPERTY(qreal nodeY READ nodeY WRITE setNodeY NOTIFY nodeYChanged)
 
+    Q_PROPERTY(bool connectionsLoaded READ connectionsLoaded WRITE setConnectionsLoaded NOTIFY connectionsLoadedChanged)
+
+
 
 //    Q_PROPERTY(bool connectionsLoaded READ connectionsLoaded WRITE setConnectionsLoaded NOTIFY connectionsLoadedChanged)
 
@@ -89,7 +92,8 @@ public:
         CommandParserNode,
         LogicNode,
         ProjectNode,
-        SerialIONode
+        SerialIONode,
+        EpsonRemote
 
     };
     Q_ENUM(Type)
@@ -199,6 +203,8 @@ private:
     QAutomationModule* m_parentModule=nullptr;
 
     QString m_typeInfo;
+
+    bool m_connectionsLoaded=false;
 
 public slots:
     virtual void    inNodeOutputChanged();
@@ -338,6 +344,15 @@ public slots:
 
 
 
+    void setConnectionsLoaded(bool connectionsLoaded)
+    {
+        if (m_connectionsLoaded == connectionsLoaded)
+            return;
+
+        m_connectionsLoaded = connectionsLoaded;
+        emit connectionsLoadedChanged(m_connectionsLoaded);
+    }
+
 signals:
     void nameChanged(QString name);
 
@@ -470,5 +485,9 @@ public:
         return m_parentModule;
     }
     QString typeInfo() const;
+    bool connectionsLoaded() const
+    {
+        return m_connectionsLoaded;
+    }
 };
 #endif // FLOWNODE_H

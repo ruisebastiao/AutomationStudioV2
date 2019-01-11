@@ -9,6 +9,7 @@ Item {
     id:root
     //  anchors.fill: parent
 
+    property alias label:current_label
     property alias font:current_label.font
     property alias horizontalAlignment: current_label.horizontalAlignment
     property alias verticalAlignment: current_label.verticalAlignment
@@ -40,6 +41,7 @@ Item {
         Label{
             id:current_label
             text:""
+
             anchors{
                 left: parent.left
                 right:parent.right

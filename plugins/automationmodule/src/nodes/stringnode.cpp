@@ -28,13 +28,13 @@ void StringNode::DeSerialize(QJsonObject &json)
 
     FlowNode::DeSerialize(json);
 
-    updateinput();
+    updateports();
 }
 
 void StringNode::initializeNode(int id)
 {
     FlowNode::initializeNode(id);
-    updateinput();
+    updateports();
 }
 
 

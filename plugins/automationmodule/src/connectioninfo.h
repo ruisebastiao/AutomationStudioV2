@@ -5,6 +5,7 @@
 
 #include <QObject>
 #include <QtDebug>
+#include <QMetaMethod>
 
 #include <jsonserializable.h>
 
@@ -94,12 +95,22 @@ public:
         return m_hidden;
     }
 
+    QMetaObject::Connection edgeConnection() const;
+    void setEdgeConnection(const QMetaObject::Connection &edgeConnection);
+
+    QMetaMethod edgeSlot() const;
+    void setEdgeSlot(const QMetaMethod &edgeSlot);
+
 private:
     int m_nodeID=-1;
 
     QString m_portID="";
 
     bool m_hidden=false;
+
+    QMetaObject::Connection m_edgeConnection;
+    QMetaMethod m_edgeSlot;
+
 };
 
 

@@ -14,6 +14,10 @@ class StringNode : public FlowNode
 
     Q_PROPERTY(QVariant stringOutput READ stringOutput WRITE setStringOutput NOTIFY stringOutputChanged REVISION 31)
 
+    Q_PROPERTY(QVariant stringEqual READ stringEqual WRITE setStringEqual NOTIFY stringEqualChanged REVISION 31)
+    Q_PROPERTY(QVariant stringNotEqual READ stringNotEqual WRITE setStringNotEqual NOTIFY stringNotEqualChanged REVISION 31)
+
+    Q_PROPERTY(bool noInput READ noInput WRITE setNoInput NOTIFY noInputChanged USER("serialize") )
     Q_PROPERTY(bool prefixFromInput READ prefixFromInput WRITE setPrefixFromInput NOTIFY prefixFromInputChanged USER("serialize") )
     Q_PROPERTY(bool suffixFromInput READ suffixFromInput WRITE setSuffixFromInput NOTIFY suffixFromInputChanged USER("serialize") )
     Q_PROPERTY(bool extractFromInput READ extractFromInput WRITE setExtractFromInput NOTIFY extractFromInputChanged USER("serialize") )
@@ -40,7 +44,7 @@ public slots:
 
         m_stringValue = stringValue;
 
-        emit stringValueChanged(m_stringValue);
+
 
         if(m_suffixFromInput){
             setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
@@ -51,11 +55,16 @@ public slots:
         else if(m_extractFromInput){
             updateExtract();
         }
+        else if(m_compareFromInput){
+            compareStrings();
+        }
         else {
-            setStringOutput(QString(""));
+            setStringOutput(stringValue);
         }
 
+        emit stringValueChanged(m_stringValue);
     }
+
 
 
     void setPrefixFromInput(bool prefixFromInput)
@@ -65,7 +74,7 @@ public slots:
 
         m_prefixFromInput = prefixFromInput;
 
-        updateinput();
+        updateports();
 
 
         emit prefixFromInputChanged(m_prefixFromInput);
@@ -77,7 +86,7 @@ public slots:
             return;
 
         m_suffixFromInput = suffixFromInput;
-        updateinput();
+        updateports();
 
         emit suffixFromInputChanged(m_suffixFromInput);
     }
@@ -94,14 +103,16 @@ public slots:
         }
         else if(m_extractFromInput) {
             updateExtract();
-
+        }
+        else if(m_compareFromInput){
+            compareStrings();
         }
         emit stringInputChanged(m_stringInput);
     }
 
     void setStringOutput(QVariant stringOutput)
     {
-       m_stringOutput = stringOutput;
+        m_stringOutput = stringOutput;
         emit stringOutputChanged(m_stringOutput);
     }
 
@@ -112,15 +123,47 @@ public slots:
 
         m_extractFromInput = extractFromInput;
 
-        updateinput();
+
+        updateports();
 
         emit extractFromInputChanged(m_extractFromInput);
     }
 
     void setCompareFromInput(bool compareFromInput)
     {
+        if (m_compareFromInput == compareFromInput)
+            return;
         m_compareFromInput = compareFromInput;
+
+        updateports();
         emit compareFromInputChanged(m_compareFromInput);
+    }
+
+    void setNoInput(bool noInput)
+    {
+        if (m_noInput == noInput)
+            return;
+
+        m_noInput = noInput;
+        updateports();
+        emit noInputChanged(m_noInput);
+    }
+
+    void setStringEqual(QVariant stringEqual)
+    {
+
+
+        m_stringEqual = stringEqual;
+        emit stringEqualChanged(m_stringEqual);
+        setStringNotEqual(!m_stringEqual.value<bool>());
+    }
+
+    void setStringNotEqual(QVariant stringNotEqual)
+    {
+
+
+        m_stringNotEqual = stringNotEqual;
+        emit stringNotEqualChanged(m_stringNotEqual);
     }
 
 signals:
@@ -140,8 +183,29 @@ signals:
 
     void compareFromInputChanged(bool compareFromInput);
 
+    void noInputChanged(bool noInput);
+
+    void stringEqualChanged(QVariant stringEqual);
+
+    void stringNotEqualChanged(QVariant stringNotEqual);
+
 private:
     QVariant m_stringValue=QVariant::fromValue(QString(""));
+
+
+    void compareStrings(){
+        QString inputstr=m_stringInput.value<QString>();
+        QString stringvalue=m_stringValue.value<QString>();
+
+
+        if(inputstr==stringvalue){
+            setStringEqual(true);
+        }
+        else {
+            setStringEqual(false);
+        }
+
+    }
 
 
     void updateExtract(){
@@ -162,11 +226,11 @@ private:
             setStringOutput(QString(""));
         }
     }
-    void updateinput(){
+    void updateports(){
 
         if(configsLoaded()){
             FlowNodePort* inputstringport=getPortFromKey("stringInput");
-            if(m_prefixFromInput==false && m_suffixFromInput==false && m_extractFromInput==false && m_compareFromInput==false){
+            if(m_noInput){
 
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
@@ -182,6 +246,61 @@ private:
             else{
                 inputstringport->setHidden(false);
             }
+
+            FlowNodePort* stringequal=getPortFromKey("stringEqual");
+            FlowNodePort* stringnotequal=getPortFromKey("stringNotEqual");
+
+            if(m_compareFromInput==false){
+
+                SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+
+                if(stringequal->getPortItem()->getOutEdgeItems().size()>0){
+
+                    for (int var = 0; var < stringequal->getPortItem()->getOutEdgeItems().size(); ++var) {
+                        qan::EdgeItem* edgeitem=stringequal->getPortItem()->getOutEdgeItems().at(var);
+                        graph->deleteEdge(edgeitem->getEdge());
+                    }
+
+                }
+
+                if(stringnotequal->getPortItem()->getOutEdgeItems().size()>0){
+
+                    for (int var = 0; var < stringnotequal->getPortItem()->getOutEdgeItems().size(); ++var) {
+                        qan::EdgeItem* edgeitem=stringnotequal->getPortItem()->getOutEdgeItems().at(var);
+                        graph->deleteEdge(edgeitem->getEdge());
+                    }
+
+                }
+
+                stringequal->setHidden(true);
+                stringnotequal->setHidden(true);
+            }
+            else{
+                stringequal->setHidden(false);
+                stringnotequal->setHidden(false);
+            }
+
+            FlowNodePort* stringoutput=getPortFromKey("stringOutput");
+
+            if(m_compareFromInput){
+
+
+                SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+
+                if(stringoutput->getPortItem()->getOutEdgeItems().size()>0){
+
+                    qan::EdgeItem* edgeitem=stringoutput->getPortItem()->getOutEdgeItems().at(0);
+                    graph->deleteEdge(edgeitem->getEdge());
+                }
+
+                stringoutput->setHidden(true);
+            }
+            else{
+                stringoutput->setHidden(false);
+            }
+
+
+
         }
     }
 
@@ -198,7 +317,13 @@ private:
 
 
 
-    bool m_compareFromInput;
+    bool m_compareFromInput=false;
+
+    bool m_noInput=true;
+
+    QVariant m_stringEqual=QVariant::fromValue(false);
+
+    QVariant m_stringNotEqual=QVariant::fromValue(false);
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -232,6 +357,18 @@ public:
     bool compareFromInput() const
     {
         return m_compareFromInput;
+    }
+    bool noInput() const
+    {
+        return m_noInput;
+    }
+    QVariant stringEqual() const
+    {
+        return m_stringEqual;
+    }
+    QVariant stringNotEqual() const
+    {
+        return m_stringNotEqual;
     }
 };
 
