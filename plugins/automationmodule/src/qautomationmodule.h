@@ -35,7 +35,7 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
 
     Q_PROPERTY(FlowNodeManager* flowNodes READ flowNodes WRITE setFlowNodes NOTIFY flowNodesChanged USER("serialize"))
 
-    Q_PROPERTY(bool locked READ locked WRITE setLocked NOTIFY lockedChanged)
+    Q_PROPERTY(bool locked READ locked WRITE setLocked NOTIFY lockedChanged REVISION 2)
 
 
 

@@ -5,7 +5,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import automationmodule 1.0
 import epsonmodule 1.0
-
+import SortFilterProxyModel 1.0
 import QuickQanava 2.0 as Qan
 import guimodule 1.0
 
@@ -30,11 +30,45 @@ EpsonModule {
 
     onStationReadyChanged:{
         if(stationReady==false){
-           productionStarting=false
-           productionStopping=false
-           productionRunning=false
+            productionStarting=false
+            productionStopping=false
+            productionRunning=false
         }
     }
+
+
+    SortFilterProxyModel {
+        id: epsonNodesProxyModel
+
+
+        sourceModel:root.flowNodes
+
+
+//        Component.onCompleted: {
+//            if(root.flowNodes){
+//                sourceModel=Qt.binding(function(){
+//                 return root.flowNodes
+//                })
+//            }
+//        }
+
+
+        filters: [
+            ValueFilter {
+                enabled: true
+
+
+                roleName: "nodeTypeRole"
+
+
+
+                value: FlowNode.EpsonNode
+
+            }
+        ]
+
+    }
+
 
     ColumnLayout{
         parent:moduleitem.mainpagecontainer
@@ -48,36 +82,57 @@ EpsonModule {
         RowLayout{
             Layout.fillHeight: true
             Layout.fillWidth: true
-            ToolBar {
 
-                Layout.fillWidth: true
-                Layout.preferredHeight: 45
-                Layout.margins: 3
-                Material.foreground: "white"
+            Repeater{
+                id:epsonnodes
+                model: epsonNodesProxyModel
 
-                TextScroller {
-                    id: c4stat
-                    anchors.fill: parent
-                    text:"C4 Not Connected"
-                    label.font.capitalization:Font.AllUppercase
-                    horizontalAlignment:Qt.AlignHCenter
+
+
+
+                ToolBar {
+
+//                    property EpsonNode epsonnode: epsonNodesProxyModel.get(index);
+
+//                    onEpsonnodeChanged: {
+//                         console.log("epsonnode:"+node)
+//                        if(epsonnode){
+
+//                        }
+//                    }
+
+
+                    Connections{
+                        target: node
+                        onCommandReceivedChanged:{
+                            var command=commandReceived
+
+                            var pos=command.indexOf("STATUS|")
+                            if(pos>=0){
+                                stat_text.text=command.split("|")[1]
+                            }
+
+
+
+                        }
+                    }
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 45
+                    Layout.margins: 3
+                    Material.foreground: "white"
+
+                    TextScroller {
+                        id: stat_text
+                        anchors.fill: parent
+                        text:node.name+" Not connected"
+                        label.font.capitalization:Font.AllUppercase
+                        horizontalAlignment:Qt.AlignHCenter
+                    }
                 }
-            }
-            ToolBar {
 
-                Layout.fillWidth: true
-                Layout.preferredHeight: 45
-                Layout.margins: 3
-                Material.foreground: "white"
-
-                TextScroller {
-                    anchors.fill: parent
-                    id: rs4stat
-                    label.font.capitalization:Font.AllUppercase
-                    horizontalAlignment:Qt.AlignHCenter
-                    text:"RS4 Not Connected"
-                }
             }
+
         }
 
 

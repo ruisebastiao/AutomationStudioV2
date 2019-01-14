@@ -344,6 +344,7 @@ ApplicationWindow {
 
                         ListView {
                             id: projectslist
+                            enabled: settings && (!settings.selectedProject || settings.selectedProject.projectLocked==false)
                             model:settings && settings.projects
                             onModelChanged: {
                                 if(settings){
@@ -1465,6 +1466,7 @@ ApplicationWindow {
                                     if(loadedmodule){
                                         loadedmodule.parent=container
                                     }
+
                                 }
 
 

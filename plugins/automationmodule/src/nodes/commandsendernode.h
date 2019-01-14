@@ -20,6 +20,8 @@ class CommandSenderNode : public FlowNode
     Q_PROPERTY(bool appendFromInput READ appendFromInput WRITE setAppendFromInput NOTIFY appendFromInputChanged USER("serialized"))
     Q_PROPERTY(bool sendOnData READ sendOnData WRITE setSendOnData NOTIFY sendOnDataChanged USER("serialized"))
 
+    Q_PROPERTY(bool invertSendInput READ invertSendInput WRITE setInvertSendInput NOTIFY invertSendInputChanged USER("serialized"))
+
     Q_PROPERTY(QVariant commandInput READ commandInput WRITE setCommandInput NOTIFY commandInputChanged REVISION 30)
 
     Q_PROPERTY(QVariant send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
@@ -89,6 +91,11 @@ public:
         return m_selectedBindedNodeID;
     }
 
+    bool invertSendInput() const
+    {
+        return m_invertSendInput;
+    }
+
 public slots:
     void setCommandsAvailable(QStringList commandsAvailable)
     {
@@ -120,22 +127,26 @@ public slots:
     {
 
 
+
         m_send = send;
-        if(m_send.value<bool>()){
-            if(m_bindedIONode){
-                if(appendFromInput()){
-                    m_bindedIONode->setSendData(finalCommand());
+        if(configsLoaded()){
+            if(m_send.value<bool>() || (m_send.value<bool>()==false && invertSendInput())) {
+                if(m_bindedIONode){
+                    if(appendFromInput()){
+                        m_bindedIONode->setSendData(finalCommand());
+                    }
+                    else {
+                        m_bindedIONode->setSendData(commandToSend());
+                    }
+                    m_bindedIONode->setSend(true);
+
                 }
-                else {
-                    m_bindedIONode->setSendData(commandToSend());
-                }
-                m_bindedIONode->setSend(true);
+
 
             }
-
-
+           emit sendChanged(m_send);
         }
-        emit sendChanged(m_send);
+
         m_send=false;
     }
 
@@ -198,6 +209,15 @@ public slots:
         emit selectedBindedNodeIDChanged(m_selectedBindedNodeID);
     }
 
+    void setInvertSendInput(bool invertSendInput)
+    {
+        if (m_invertSendInput == invertSendInput)
+            return;
+
+        m_invertSendInput = invertSendInput;
+        emit invertSendInputChanged(m_invertSendInput);
+    }
+
 signals:
     void commandsAvailableChanged(QStringList commandsAvailable);
 
@@ -222,6 +242,8 @@ signals:
     void flowNodesChanged(FlowNodeManager* flowNodes);
 
     void selectedBindedNodeIDChanged(int selectedBindedNodeID);
+
+    void invertSendInputChanged(bool invertSendInput);
 
 private:
 
@@ -251,6 +273,7 @@ private:
     bool m_sendOnData=false;
     FlowNodeManager* m_flowNodes=nullptr;
     int m_selectedBindedNodeID=-1;
+    bool m_invertSendInput=false;
 };
 
 #endif // COMMANDSENDER_H

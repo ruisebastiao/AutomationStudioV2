@@ -23,6 +23,8 @@ class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
 
 
 
+    Q_PROPERTY(bool projectLocked READ projectLocked WRITE setProjectLocked NOTIFY projectLockedChanged)
+
 
 
 public:
@@ -116,8 +118,18 @@ public slots:
         }
     }
 
+    void moduleLockedChanged(bool locked);
 
 
+
+    void setProjectLocked(bool projectLocked)
+    {
+        if (m_projectLocked == projectLocked)
+            return;
+
+        m_projectLocked = projectLocked;
+        emit projectLockedChanged(m_projectLocked);
+    }
 
 signals:
     void nameChanged(QString name);
@@ -135,6 +147,8 @@ signals:
     void deserialized();
 
     void extendedProjectNameChange(QString extendedProjectName);
+
+    void projectLockedChanged(bool projectLocked);
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -166,6 +180,11 @@ public:
         return m_extendedProjectName;
     }
 
+    bool projectLocked() const
+    {
+        return m_projectLocked;
+    }
+
 private:
 
 
@@ -188,6 +207,7 @@ private:
     subProjectsListModel* m_subProjects = new subProjectsListModel();
     SubProject* m_selectedSubproject=nullptr;
     QString m_extendedProjectName;
+    bool m_projectLocked=false;
 };
 
 

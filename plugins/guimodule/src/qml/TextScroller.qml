@@ -23,9 +23,9 @@ Item {
 
     onTextChanged: {
         //current_label.text=text
-        if(change_anim.running){
+//        if(change_anim.running){
             change_anim.stop();
-        }
+//        }
         next_label.text=text
         change_anim.start()
     }
@@ -84,7 +84,7 @@ Item {
         }
         onStopped: {
             current_label.text=root.text;
-            next_label.text=""
+//            next_label.text=""
         }
     }
 

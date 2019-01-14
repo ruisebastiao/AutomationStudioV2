@@ -32,6 +32,7 @@
 #include <qqmlsortfilterproxymodel.h>
 
 #include <nodes/barcodereadernode.h>
+#include <nodes/logicnode.h>
 #include <nodes/proxynode.h>
 #include <nodes/webservicenode.h>
 
@@ -74,6 +75,8 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterType<SceneGraph>(uri, 1, 0, "SceneGraph");
 
     qmlRegisterType<FlowNode>(uri, 1, 0, "FlowNode");
+    qmlRegisterType<LogicNode>(uri, 1, 0, "LogicNode");
+
     qmlRegisterType<BarcodeReaderNode>(uri, 1, 0, "BarcodeReaderNode");
     qmlRegisterType<WebServiceNode>(uri, 1, 0, "WebServiceNode");
     qmlRegisterType<ProxyNode>(uri, 1, 0, "ProxyInputNode");
@@ -84,6 +87,7 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterType<TCPClient>(uri, 1, 0, "TCPClient");
     qmlRegisterUncreatableType<QAbstractSocket>(uri, 1, 0, "QAbstractSocket","Cannot be created");
     qmlRegisterUncreatableType<ModuleListModel>(uri, 1, 0, "ModuleListModel","Cannot be created");
+    qmlRegisterUncreatableType<FlowNodeManager>(uri, 1, 0, "FlowNodeManager","Cannot be created");
 
 
     qmlRegisterType<QQmlSortFilterProxyModel>("SortFilterProxyModel", 1, 0, "SortFilterProxyModel");

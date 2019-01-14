@@ -26,6 +26,7 @@ public:
 
     bool startProduction() const
     {
+
         return m_startProduction;
     }
 

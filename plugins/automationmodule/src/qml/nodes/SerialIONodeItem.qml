@@ -248,5 +248,49 @@ FlowNodeItem{
     }
 
 
+
+    SideContainerItem{
+
+//        nodePressed: root.isPressed
+        show: root.selected && editMode
+
+        side: "left"
+
+        containerSize: 250
+
+        contentItem: GroupBox{
+            anchors.fill: parent
+            title: "Settings"
+            anchors.margins: 10
+
+
+            ColumnLayout{
+                anchors.fill: parent
+
+                TextField{
+                    id:readycommand_lbl
+                    Layout.fillWidth: true
+
+                    text: root.node.readyCommand
+                    onTextChanged: {
+                        root.node.readyCommand=text
+                    }
+
+
+                    selectByMouse:true
+                    MaterialPlaceHolder{
+
+                        placeHolderText:"Command"
+                    }
+                }
+                Item{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
+
+        }
+    }
+
 }
 

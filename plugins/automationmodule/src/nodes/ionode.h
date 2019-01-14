@@ -11,6 +11,8 @@ class AUTOMATIONMODULE_EXPORT IONode: public FlowNode
 
     Q_PROPERTY(QVariant sendData READ sendData WRITE setSendData NOTIFY sendDataChanged REVISION 30)
     Q_PROPERTY(bool autoConnect READ autoConnect WRITE setAutoConnect NOTIFY autoConnectChanged USER("serialize"))
+    Q_PROPERTY(bool ready READ ready WRITE setReady NOTIFY readyChanged REVISION 31)
+    Q_PROPERTY(QString readyCommand READ readyCommand WRITE setReadyCommand NOTIFY readyCommandChanged  USER("serialize"))
 
     Q_PROPERTY(bool send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
 
@@ -69,6 +71,9 @@ public slots:
             for (int var = 0; var < commands.length(); ++var) {
                 command=commands[var];
                 command=command.remove('\r');
+                if(command==readyCommand() && command.length()>0 && readyCommand().length()>0){
+                    setReady(true);
+                }
                 if(command.length()>0){
                     setCommandReceived(command);
                 }
@@ -104,7 +109,9 @@ public slots:
 
     void setConnected(QVariant connected)
     {
-
+        if(connected.value<bool>()==false){
+            setReady(false);
+        }
         m_connected = connected;
         emit connectedChanged(m_connected);
     }
@@ -126,6 +133,24 @@ public slots:
         emit commandReceivedChanged(m_commandReceived);
     }
 
+    void setReady(bool ready)
+    {
+        if (m_ready == ready)
+            return;
+
+        m_ready = ready;
+        emit readyChanged(m_ready);
+    }
+
+    void setReadyCommand(QString readyCommand)
+    {
+        if (m_readyCommand == readyCommand)
+            return;
+
+        m_readyCommand = readyCommand;
+        emit readyCommandChanged(m_readyCommand);
+    }
+
 signals:
     void sendDataChanged(QVariant sendData);
 
@@ -138,6 +163,10 @@ signals:
     void autoConnectChanged(bool autoConnect);
 
     void commandReceivedChanged(QVariant commandReceived);
+
+    void readyChanged(bool ready);
+
+    void readyCommandChanged(QString readyCommand);
 
 protected:
     QVariant m_sendData=QVariant::fromValue(QString(""));
@@ -157,6 +186,10 @@ private:
 
     QVariant m_commandReceived=QVariant::fromValue(QString(""));
 
+    bool m_ready=false;
+
+    QString m_readyCommand="";
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -175,6 +208,14 @@ public:
     QVariant commandReceived() const
     {
         return m_commandReceived;
+    }
+    bool ready() const
+    {
+        return m_ready;
+    }
+    QString readyCommand() const
+    {
+        return m_readyCommand;
     }
 };
 

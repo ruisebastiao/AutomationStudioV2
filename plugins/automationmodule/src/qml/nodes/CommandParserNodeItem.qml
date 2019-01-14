@@ -82,9 +82,25 @@ FlowNodeItem{
                 selectByMouse:true
                 GUI.MaterialPlaceHolder{
 
-                    placeHolderText:"Command Regex"
+                    placeHolderText:"Command OK Regex"
                 }
             }
+            TextField{
+                Layout.fillWidth: true
+
+                text: root.node.commandToReset
+                onTextChanged: {
+                    root.node.commandToReset=text
+                }
+
+
+                selectByMouse:true
+                GUI.MaterialPlaceHolder{
+
+                    placeHolderText:"Command Reset Regex"
+                }
+            }
+
             Button{
                 Layout.fillWidth: true
                 text: "Validate"
@@ -122,16 +138,6 @@ FlowNodeItem{
                     text: node.name
 
 
-
-                    //                        property bool isCurrentItem: node.id==root.node.selectedBindedNodeID
-                    //                        onIsCurrentItemChanged: {
-                    //                            if(isCurrentItem){
-                    //                                proxynode.currentIndex=index
-                    //                            }
-
-
-
-                    //                        }
                 }
 
 

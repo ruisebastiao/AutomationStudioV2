@@ -15,6 +15,7 @@ class CommandParserNode : public FlowNode
 
 
     Q_PROPERTY(QString commandToParse READ commandToParse WRITE setCommandToParse NOTIFY commandToParseChanged USER("serialized"))
+    Q_PROPERTY(QString commandToReset READ commandToReset WRITE setCommandToReset NOTIFY commandToResetChanged USER("serialized"))
 
     Q_PROPERTY(QVariant dataReceived READ dataReceived WRITE setDataReceived NOTIFY dataReceivedChanged)
 
@@ -74,19 +75,29 @@ public slots:
 
         m_dataReceived=QVariant::fromValue(datareceived);
 
-        QRegularExpression re(m_commandToParse);
+        QRegularExpression regex_set(m_commandToParse);
 
-        QRegularExpressionMatch match = re.match(datareceived);
-        bool hasMatch = match.hasMatch(); // true
+        QRegularExpressionMatch setmatch = regex_set.match(datareceived);
+        bool hasMatch = setmatch.hasMatch(); // true
 
 
         if (hasMatch){
             setCommandValue(m_dataReceived);
             setCommandOK(true);
         }
-        else{
+
+
+        QRegularExpression regex_reset(m_commandToReset);
+
+        QRegularExpressionMatch resetmatch = regex_reset.match(datareceived);
+        hasMatch = resetmatch.hasMatch(); // true
+
+
+        if (hasMatch){
+            setCommandValue(m_dataReceived);
             setCommandOK(false);
         }
+
         //            std::cout << "string literal matched\n";
 
         //        if(datareceived==commandToParse()){
@@ -150,6 +161,15 @@ public slots:
         emit commandValueChanged(m_commandValue);
     }
 
+    void setCommandToReset(QString commandToReset)
+    {
+        if (m_commandToReset == commandToReset)
+            return;
+
+        m_commandToReset = commandToReset;
+        emit commandToResetChanged(m_commandToReset);
+    }
+
 signals:
     void dataReceivedChanged(QVariant dataReceived);
 
@@ -163,6 +183,8 @@ signals:
 
     void commandValueChanged(QVariant commandValue);
 
+    void commandToResetChanged(QString commandToReset);
+
 private:
 
     QVariant m_dataReceived=QVariant::fromValue(nullptr);
@@ -175,11 +197,17 @@ private:
     // JsonSerializable interface
     QVariant m_commandValue=QVariant::fromValue(QString(""));
 
+    QString m_commandToReset="";
+
 public:
     void DeSerialize(QJsonObject &json) override;
     QVariant commandValue() const
     {
         return m_commandValue;
+    }
+    QString commandToReset() const
+    {
+        return m_commandToReset;
     }
 };
 

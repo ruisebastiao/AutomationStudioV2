@@ -18,6 +18,19 @@ Project::~Project()
     delete m_modules;
 }
 
+void Project::moduleLockedChanged(bool locked)
+{
+
+    for (int var = 0; var < this->modules()->length(); ++var) {
+        QAutomationModule* module=modules()->at(var);
+        if(module->locked()){
+            setProjectLocked(true);
+            return;
+        }
+    }
+    setProjectLocked(false);
+}
+
 
 
 QAutomationModule* Project::createModule(QString moduleName,bool setID)
@@ -43,6 +56,9 @@ QAutomationModule* Project::createModule(QString moduleName,bool setID)
     QAutomationModule *module= qobject_cast<QAutomationModule*>(component_object);
     if(module){
         module->setParentProject(this);
+
+        connect(module,&QAutomationModule::lockedChanged,this,&Project::moduleLockedChanged);
+
         m_modules->addItem(module);
     }
 

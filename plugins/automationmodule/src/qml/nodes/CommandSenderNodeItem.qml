@@ -189,7 +189,13 @@ FlowNodeItem{
                         root.node.sendOnData=checked
                     }
                 }
-
+                CheckBox{
+                    checked: root.node.invertSendInput
+                    text: "Invert Send input"
+                    onCheckedChanged: {
+                        root.node.invertSendInput=checked
+                    }
+                }
                 Item{
                     Layout.fillHeight: true
                     Layout.fillWidth: true
