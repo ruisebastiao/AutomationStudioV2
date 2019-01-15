@@ -210,7 +210,7 @@ FlowNodeItem{
                 Layout.fillWidth: true;
 
                 text:root.node.rawdata
-                duration: mainStateAnimationTime
+                duration: 250
                 font.pixelSize: 20
                 horizontalAlignment:Text.AlignLeft
 

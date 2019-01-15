@@ -7,7 +7,7 @@ import QtQuick.Controls.Material 2.1
 
 Item {
     id:root
-    //  anchors.fill: parent
+
 
     property alias label:current_label
     property alias font:current_label.font
@@ -20,6 +20,8 @@ Item {
     //    property string textColor: Material.foreground
     property int duration:250
 
+    width: parent.width
+    implicitHeight: container.implicitHeight
 
     onTextChanged: {
         //current_label.text=text
@@ -31,12 +33,17 @@ Item {
     }
 
 
-    Rectangle{
+    Item{
         id:container
 
-        color: "transparent"
+        width: parent.width
+//        implicitWidth: current_label.contentWidth
+        implicitHeight: current_label.contentHeight
+
+        anchors.centerIn: parent
+
         clip: true
-        anchors.fill: parent
+//        anchors.fill: parent
 
         Label{
             id:current_label
