@@ -83,7 +83,7 @@ FlowNodeItem{
 
                 readOnly: true
 
-                 wrapMode: TextEdit.WordWrap
+                wrapMode: TextEdit.WordWrap
 
                 selectByMouse:true
                 GUI.MaterialPlaceHolder{
@@ -152,7 +152,7 @@ FlowNodeItem{
 
     GUI.SideContainerItem{
 
-//        nodePressed: root.isPressed
+        //        nodePressed: root.isPressed
         show: root.selected && editMode
 
         side: "left"
@@ -194,6 +194,27 @@ FlowNodeItem{
                     text: "Invert Send input"
                     onCheckedChanged: {
                         root.node.invertSendInput=checked
+                    }
+                }
+                RowLayout{
+                    Layout.fillWidth: true
+
+
+                    Label{
+                        text: "Send delay:"
+                        Layout.preferredWidth: contentWidth
+                    }
+
+                    SpinBox{
+                        Layout.fillWidth: true
+                        value: root.node.delaySendTime
+                        onValueChanged: {
+                            root.node.delaySendTime=value
+                        }
+                        from:0
+                        to:5000
+                        stepSize: 100
+                        editable: true
                     }
                 }
                 Item{

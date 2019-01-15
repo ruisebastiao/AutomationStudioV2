@@ -9,24 +9,37 @@ class StringNode : public FlowNode
 {
     Q_OBJECT
 
+
     Q_PROPERTY(QVariant stringValue READ stringValue WRITE setStringValue NOTIFY stringValueChanged USER("serialize"))
     Q_PROPERTY(QVariant stringInput READ stringInput WRITE setStringInput NOTIFY stringInputChanged REVISION 30)
+    Q_PROPERTY(QVariant stringInput2 READ stringInput2 WRITE setStringInput2 NOTIFY stringInput2Changed REVISION 30)
 
     Q_PROPERTY(QVariant stringOutput READ stringOutput WRITE setStringOutput NOTIFY stringOutputChanged REVISION 31)
 
     Q_PROPERTY(QVariant stringEqual READ stringEqual WRITE setStringEqual NOTIFY stringEqualChanged REVISION 31)
     Q_PROPERTY(QVariant stringNotEqual READ stringNotEqual WRITE setStringNotEqual NOTIFY stringNotEqualChanged REVISION 31)
 
-    Q_PROPERTY(bool noInput READ noInput WRITE setNoInput NOTIFY noInputChanged USER("serialize") )
-    Q_PROPERTY(bool prefixFromInput READ prefixFromInput WRITE setPrefixFromInput NOTIFY prefixFromInputChanged USER("serialize") )
-    Q_PROPERTY(bool suffixFromInput READ suffixFromInput WRITE setSuffixFromInput NOTIFY suffixFromInputChanged USER("serialize") )
-    Q_PROPERTY(bool extractFromInput READ extractFromInput WRITE setExtractFromInput NOTIFY extractFromInputChanged USER("serialize") )
-    Q_PROPERTY(bool compareFromInput READ compareFromInput WRITE setCompareFromInput NOTIFY compareFromInputChanged USER("serialize") )
+    Q_PROPERTY(InputType inputType READ inputType WRITE setInputType NOTIFY inputTypeChanged USER("serialize"))
+
 
 
 
 
 public:
+
+    enum class InputType {
+
+        InputNone,
+        InputPrefix,
+        InputSuffix,
+        InputExtract,
+        InputCompare,
+        InputJoin
+
+
+    };
+    Q_ENUM(InputType)
+
     StringNode();
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
@@ -46,16 +59,16 @@ public slots:
 
 
 
-        if(m_suffixFromInput){
+        if(inputType()==InputType::InputPrefix){
             setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
         }
-        else if(m_prefixFromInput){
+        else if(inputType()==InputType::InputSuffix){
             setStringOutput(m_stringInput.value<QString>()+stringValue.value<QString>());
         }
-        else if(m_extractFromInput){
+        else if(inputType()==InputType::InputExtract){
             updateExtract();
         }
-        else if(m_compareFromInput){
+        else if(inputType()==InputType::InputCompare){
             compareStrings();
         }
         else {
@@ -66,49 +79,14 @@ public slots:
     }
 
 
-
-    void setPrefixFromInput(bool prefixFromInput)
-    {
-        if (m_prefixFromInput == prefixFromInput)
-            return;
-
-        m_prefixFromInput = prefixFromInput;
-
-        updateports();
-
-
-        emit prefixFromInputChanged(m_prefixFromInput);
-    }
-
-    void setSuffixFromInput(bool suffixFromInput)
-    {
-        if (m_suffixFromInput == suffixFromInput)
-            return;
-
-        m_suffixFromInput = suffixFromInput;
-        updateports();
-
-        emit suffixFromInputChanged(m_suffixFromInput);
-    }
-
     void setStringInput(QVariant stringInput)
     {
 
         m_stringInput = stringInput;
-
-        if(m_suffixFromInput){
-            setStringOutput(stringValue().value<QString>()+m_stringInput.value<QString>());
-        }else if(m_prefixFromInput){
-            setStringOutput(m_stringInput.value<QString>()+stringValue().value<QString>());
-        }
-        else if(m_extractFromInput) {
-            updateExtract();
-        }
-        else if(m_compareFromInput){
-            compareStrings();
-        }
         emit stringInputChanged(m_stringInput);
+        inputsChanged();
     }
+
 
     void setStringOutput(QVariant stringOutput)
     {
@@ -116,38 +94,6 @@ public slots:
         emit stringOutputChanged(m_stringOutput);
     }
 
-    void setExtractFromInput(bool extractFromInput)
-    {
-        if (m_extractFromInput == extractFromInput)
-            return;
-
-        m_extractFromInput = extractFromInput;
-
-
-        updateports();
-
-        emit extractFromInputChanged(m_extractFromInput);
-    }
-
-    void setCompareFromInput(bool compareFromInput)
-    {
-        if (m_compareFromInput == compareFromInput)
-            return;
-        m_compareFromInput = compareFromInput;
-
-        updateports();
-        emit compareFromInputChanged(m_compareFromInput);
-    }
-
-    void setNoInput(bool noInput)
-    {
-        if (m_noInput == noInput)
-            return;
-
-        m_noInput = noInput;
-        updateports();
-        emit noInputChanged(m_noInput);
-    }
 
     void setStringEqual(QVariant stringEqual)
     {
@@ -164,6 +110,25 @@ public slots:
 
         m_stringNotEqual = stringNotEqual;
         emit stringNotEqualChanged(m_stringNotEqual);
+    }
+
+    void setInputType(InputType inputType)
+    {
+        if (m_inputType == inputType)
+            return;
+
+        m_inputType = inputType;
+        updateports();
+        emit inputTypeChanged(m_inputType);
+    }
+
+    void setStringInput2(QVariant stringInput2)
+    {
+
+
+        m_stringInput2 = stringInput2;
+        emit stringInput2Changed(m_stringInput2);
+        inputsChanged();
     }
 
 signals:
@@ -189,16 +154,46 @@ signals:
 
     void stringNotEqualChanged(QVariant stringNotEqual);
 
+    void inputTypeChanged(InputType inputType);
+
+    void stringInput2Changed(QVariant stringInput2);
+
 private:
     QVariant m_stringValue=QVariant::fromValue(QString(""));
 
+
+    void inputsChanged(){
+        if(inputType()==InputType::InputSuffix){
+            setStringOutput(stringValue().value<QString>()+m_stringInput.value<QString>());
+        }else if(inputType()==InputType::InputPrefix){
+            setStringOutput(m_stringInput.value<QString>()+stringValue().value<QString>());
+        }
+        else if(inputType()==InputType::InputExtract) {
+            updateExtract();
+        }
+        else if(inputType()==InputType::InputCompare){
+            compareStrings();
+        }
+        else if(inputType()==InputType::InputJoin){
+            QString inputstr=m_stringInput.value<QString>();
+            QString inputstr2=m_stringInput2.value<QString>();
+
+            QString joined=m_stringInput.value<QString>().append(m_stringValue.value<QString>()).append(inputstr2);
+            setStringOutput(joined);
+        }
+    }
 
     void compareStrings(){
         QString inputstr=m_stringInput.value<QString>();
         QString stringvalue=m_stringValue.value<QString>();
 
+        QString inputstr2=m_stringInput2.value<QString>();
 
-        if(inputstr==stringvalue){
+        if(stringvalue!=""){
+            inputstr2=stringvalue;
+        }
+
+        if(inputstr==inputstr2){
             setStringEqual(true);
         }
         else {
@@ -222,15 +217,15 @@ private:
             QString matched = match.captured(1);
             setStringOutput(matched);
         }
-        else{
-            setStringOutput(QString(""));
-        }
+        //        else{
+        //            setStringOutput(QString(""));
+        //        }
     }
     void updateports(){
 
         if(configsLoaded()){
             FlowNodePort* inputstringport=getPortFromKey("stringInput");
-            if(m_noInput){
+            if(m_inputType==InputType::InputNone){
 
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
@@ -247,10 +242,28 @@ private:
                 inputstringport->setHidden(false);
             }
 
+            FlowNodePort* inputstring2port=getPortFromKey("stringInput2");
+            if(m_inputType==InputType::InputNone){
+
+
+                SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+
+                if(inputstring2port->getPortItem()->getInEdgeItems().size()>0){
+
+                    qan::EdgeItem* edgeitem=inputstring2port->getPortItem()->getInEdgeItems().at(0);
+                    graph->deleteEdge(edgeitem->getEdge());
+                }
+
+                inputstring2port->setHidden(true);
+            }
+            else{
+                inputstring2port->setHidden(false);
+            }
+
             FlowNodePort* stringequal=getPortFromKey("stringEqual");
             FlowNodePort* stringnotequal=getPortFromKey("stringNotEqual");
 
-            if(m_compareFromInput==false){
+            if(m_inputType!=InputType::InputCompare){
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
 
@@ -282,7 +295,7 @@ private:
 
             FlowNodePort* stringoutput=getPortFromKey("stringOutput");
 
-            if(m_compareFromInput){
+            if(inputType()==InputType::InputCompare){
 
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
@@ -305,39 +318,24 @@ private:
     }
 
 
-    bool m_prefixFromInput=false;
-
-    bool m_suffixFromInput=false;
-
-    bool m_extractFromInput=false;
 
     QVariant m_stringInput=QVariant::fromValue(QString(""));
 
     QVariant m_stringOutput=QVariant::fromValue(QString(""));
 
-
-
-    bool m_compareFromInput=false;
-
-    bool m_noInput=true;
-
     QVariant m_stringEqual=QVariant::fromValue(false);
 
     QVariant m_stringNotEqual=QVariant::fromValue(false);
+
+    InputType m_inputType=InputType::InputNone;
+
+    QVariant m_stringInput2=QString("");
 
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
 
 
-    bool prefixFromInput() const
-    {
-        return m_prefixFromInput;
-    }
-    bool suffixFromInput() const
-    {
-        return m_suffixFromInput;
-    }
     QVariant stringInput() const
     {
         return m_stringInput;
@@ -350,18 +348,7 @@ public:
     // FlowNode interface
 public:
     virtual void initializeNode(int id) override;
-    bool extractFromInput() const
-    {
-        return m_extractFromInput;
-    }
-    bool compareFromInput() const
-    {
-        return m_compareFromInput;
-    }
-    bool noInput() const
-    {
-        return m_noInput;
-    }
+
     QVariant stringEqual() const
     {
         return m_stringEqual;
@@ -369,6 +356,14 @@ public:
     QVariant stringNotEqual() const
     {
         return m_stringNotEqual;
+    }
+    InputType inputType() const
+    {
+        return m_inputType;
+    }
+    QVariant stringInput2() const
+    {
+        return m_stringInput2;
     }
 };
 

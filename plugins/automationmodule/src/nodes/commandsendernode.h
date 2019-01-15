@@ -32,6 +32,8 @@ class CommandSenderNode : public FlowNode
 
     Q_PROPERTY(int selectedBindedNodeID READ selectedBindedNodeID WRITE setSelectedBindedNodeID NOTIFY selectedBindedNodeIDChanged USER("serialize"))
 
+    Q_PROPERTY(int delaySendTime READ delaySendTime WRITE setDelaySendTime NOTIFY delaySendTimeChanged USER("serialize"))
+
 
 public:
     CommandSenderNode();
@@ -96,6 +98,11 @@ public:
         return m_invertSendInput;
     }
 
+    int delaySendTime() const
+    {
+        return m_delaySendTime;
+    }
+
 public slots:
     void setCommandsAvailable(QStringList commandsAvailable)
     {
@@ -138,6 +145,10 @@ public slots:
                     else {
                         m_bindedIONode->setSendData(commandToSend());
                     }
+                    if(delaySendTime()>0){
+                        Utilities::NonBlockingWait(delaySendTime());
+                    }
+
                     m_bindedIONode->setSend(true);
 
                 }
@@ -218,6 +229,15 @@ public slots:
         emit invertSendInputChanged(m_invertSendInput);
     }
 
+    void setDelaySendTime(int delaySendTime)
+    {
+        if (m_delaySendTime == delaySendTime)
+            return;
+
+        m_delaySendTime = delaySendTime;
+        emit delaySendTimeChanged(m_delaySendTime);
+    }
+
 signals:
     void commandsAvailableChanged(QStringList commandsAvailable);
 
@@ -244,6 +264,8 @@ signals:
     void selectedBindedNodeIDChanged(int selectedBindedNodeID);
 
     void invertSendInputChanged(bool invertSendInput);
+
+    void delaySendTimeChanged(int delaySendTime);
 
 private:
 
@@ -274,6 +296,7 @@ private:
     FlowNodeManager* m_flowNodes=nullptr;
     int m_selectedBindedNodeID=-1;
     bool m_invertSendInput=false;
+    int m_delaySendTime=0;
 };
 
 #endif // COMMANDSENDER_H

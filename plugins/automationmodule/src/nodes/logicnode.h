@@ -33,6 +33,7 @@ class LogicNode : public FlowNode
 
 
     Q_PROPERTY(QVariant logicalOutput READ logicalOutput WRITE setLogicalOutput NOTIFY logicalOutputChanged REVISION 31)
+    Q_PROPERTY(QVariant logicalValue READ logicalValue WRITE setLogicalValue NOTIFY logicalValueChanged REVISION 31)
 
 
     Q_PROPERTY(bool in1Enabled READ in1Enabled WRITE setIn1Enabled NOTIFY in1EnabledChanged USER("serialize"))
@@ -40,7 +41,10 @@ class LogicNode : public FlowNode
     Q_PROPERTY(bool in3Enabled READ in3Enabled WRITE setIn3Enabled NOTIFY in3EnabledChanged USER("serialize"))
     Q_PROPERTY(bool in4Enabled READ in4Enabled WRITE setIn4Enabled NOTIFY in4EnabledChanged USER("serialize"))
 
-
+    Q_PROPERTY(bool in1Inverted READ in1Inverted WRITE setIn1Inverted NOTIFY in1InvertedChanged USER("serialize"))
+    Q_PROPERTY(bool in2Inverted READ in2Inverted WRITE setIn2Inverted NOTIFY in2InvertedChanged USER("serialize"))
+    Q_PROPERTY(bool in3Inverted READ in3Inverted WRITE setIn3Inverted NOTIFY in3InvertedChanged USER("serialize"))
+    Q_PROPERTY(bool in4Inverted READ in4Inverted WRITE setIn4Inverted NOTIFY in4InvertedChanged USER("serialize"))
 
 
 
@@ -124,11 +128,26 @@ public slots:
     {
 
 
+        if(logicalOutput.value<bool>()){
+            setLogicalValue(outputValue());
+        }
+        else{
+            setLogicalValue(QString(""));
+        }
+
+
+
         m_logicalOutput = logicalOutput;
+
+
         emit logicalOutputChanged(m_logicalOutput);
 
 
     }
+
+//    void processInputs(){
+
+//    }
 
     void setProcess(QVariant process)
     {
@@ -139,10 +158,23 @@ public slots:
         if(m_process.value<bool>()){
             if(configsLoaded() ){
                 if(logicalType()==LogicalType::AND){
-                    setLogicalOutput(m_logicalInput1==true && m_logicalInput2==true);
+
+                    bool in1state=(!m_in1Enabled || ( (m_in1Inverted==false && m_logicalInput1==true) || ((m_in1Inverted && m_logicalInput1==false)) ));
+                    bool in2state=(!m_in2Enabled || ( (m_in2Inverted==false && m_logicalInput2==true) || ((m_in2Inverted && m_logicalInput2==false)) ));
+                    bool in3state=(!m_in3Enabled || ( (m_in3Inverted==false && m_logicalInput3==true) || ((m_in3Inverted && m_logicalInput3==false)) ));
+                    bool in4state=(!m_in4Enabled || ( (m_in4Inverted==false && m_logicalInput4==true) || ((m_in4Inverted && m_logicalInput4==false)) ));
+
+                    setLogicalOutput(in1state && in2state && in3state && in4state);
                 }
                 else if(logicalType()==LogicalType::OR){
-                    setLogicalOutput(m_logicalInput1==true  || m_logicalInput2==true);
+                    bool in1state=(m_in1Enabled && ( (m_in1Inverted==false && m_logicalInput1==true) || ((m_in1Inverted && m_logicalInput1==false)) ));
+                    bool in2state=(m_in2Enabled && ( (m_in2Inverted==false && m_logicalInput2==true) || ((m_in2Inverted && m_logicalInput2==false)) ));
+                    bool in3state=(m_in3Enabled && ( (m_in3Inverted==false && m_logicalInput3==true) || ((m_in3Inverted && m_logicalInput3==false)) ));
+                    bool in4state=(m_in4Enabled && ( (m_in4Inverted==false && m_logicalInput4==true) || ((m_in4Inverted && m_logicalInput4==false)) ));
+
+
+                    setLogicalOutput(in1state || in2state || in3state || in4state);
+
                 }
             }
 
@@ -234,6 +266,51 @@ public slots:
         updateport("logicalInput4",in4Enabled);
     }
 
+    void setLogicalValue(QVariant logicalValue)
+    {
+        if (m_logicalValue == logicalValue)
+            return;
+
+        m_logicalValue = logicalValue;
+        emit logicalValueChanged(m_logicalValue);
+    }
+
+    void setIn1Inverted(bool in1Inverted)
+    {
+        if (m_in1Inverted == in1Inverted)
+            return;
+
+        m_in1Inverted = in1Inverted;
+        emit in1InvertedChanged(m_in1Inverted);
+    }
+
+    void setIn2Inverted(bool in2Inverted)
+    {
+        if (m_in2Inverted == in2Inverted)
+            return;
+
+        m_in2Inverted = in2Inverted;
+        emit in2InvertedChanged(m_in2Inverted);
+    }
+
+    void setIn3Inverted(bool in3Inverted)
+    {
+        if (m_in3Inverted == in3Inverted)
+            return;
+
+        m_in3Inverted = in3Inverted;
+        emit in3InvertedChanged(m_in3Inverted);
+    }
+
+    void setIn4Inverted(bool in4Inverted)
+    {
+        if (m_in4Inverted == in4Inverted)
+            return;
+
+        m_in4Inverted = in4Inverted;
+        emit in4InvertedChanged(m_in4Inverted);
+    }
+
 signals:
     void logicalTypeChanged(LogicalType logicalType);
 
@@ -263,6 +340,16 @@ signals:
     void in3EnabledChanged(bool in3Enabled);
 
     void in4EnabledChanged(bool in4Enabled);
+
+    void logicalValueChanged(QVariant logicalValue);
+
+    void in1InvertedChanged(bool in1Inverted);
+
+    void in2InvertedChanged(bool in2Inverted);
+
+    void in3InvertedChanged(bool in3Inverted);
+
+    void in4InvertedChanged(bool in4Inverted);
 
 private:
     LogicalType m_logicalType=AND;
@@ -294,6 +381,16 @@ private:
 
     void updateports();
     void updateport(QString portname, bool enabled);
+    QVariant m_logicalValue=QString("");
+
+    bool m_in1Inverted=false;
+
+    bool m_in2Inverted=false;
+
+    bool m_in3Inverted=false;
+
+    bool m_in4Inverted=false;
+
 protected:
 
     // JsonSerializable interface
@@ -343,6 +440,26 @@ public:
     bool in4Enabled() const
     {
         return m_in4Enabled;
+    }
+    QVariant logicalValue() const
+    {
+        return m_logicalValue;
+    }
+    bool in1Inverted() const
+    {
+        return m_in1Inverted;
+    }
+    bool in2Inverted() const
+    {
+        return m_in2Inverted;
+    }
+    bool in3Inverted() const
+    {
+        return m_in3Inverted;
+    }
+    bool in4Inverted() const
+    {
+        return m_in4Inverted;
     }
 };
 

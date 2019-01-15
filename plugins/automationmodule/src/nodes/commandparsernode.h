@@ -112,7 +112,9 @@ public slots:
 
     void setCommandOK(QVariant commandOK)
     {
-
+        if(m_commandOK.value<bool>()==commandOK.value<bool>()){
+            return;
+        }
 
         m_commandOK = commandOK;
         emit commandOKChanged(m_commandOK);
@@ -154,8 +156,6 @@ public slots:
 
     void setCommandValue(QVariant commandValue)
     {
-        if (m_commandValue == commandValue)
-            return;
 
         m_commandValue = commandValue;
         emit commandValueChanged(m_commandValue);
@@ -189,6 +189,7 @@ private:
 
     QVariant m_dataReceived=QVariant::fromValue(nullptr);
     QVariant m_commandOK=QVariant::fromValue(false);
+    bool m_commandOK_lastvalue=false;
     QString m_commandToParse="";
     FlowNodeManager* m_flowNodes=nullptr;
     IONode* m_bindedIONode=nullptr;

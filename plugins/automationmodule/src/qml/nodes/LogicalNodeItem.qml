@@ -28,11 +28,12 @@ FlowNodeItem{
             Layout.fillHeight: true
             Layout.fillWidth: true
 
+
             //        title: root.node.logicalType==LogicNode.OR?"OR":"AND"
             label:RowLayout{
 
 
-                CheckBox {
+                RadioButton {
                     Layout.fillWidth: true
 
                     checked: root.node.logicalType==LogicNode.OR
@@ -44,7 +45,7 @@ FlowNodeItem{
 
                     text: qsTr("OR")
                 }
-                CheckBox {
+                RadioButton {
                     Layout.fillWidth: true
 
                     checked: root.node.logicalType==LogicNode.AND
@@ -62,46 +63,74 @@ FlowNodeItem{
             Flow{
                 clip: true
                 anchors.fill: parent
-                RadioButton{
-                    checked: root.node.logicalInput1
-                    text: "1"
-                    enabled: root.node.in1Enabled
-
+                GUI.ReadOnlyItem{
+                    readOnly:true
+                    RadioButton{
+                        checked: (root.node.in1Inverted==false && root.node.logicalInput1) || (root.node.in1Inverted && root.node.logicalInput1==false)
+                        text: "1"
+                        visible: root.node.in1Enabled
+                        autoExclusive: false
+                    }
                 }
 
-                RadioButton{
-                    checked: root.node.logicalInput2
-                    text: "2"
-                    enabled: root.node.in2Enabled
-
+                GUI.ReadOnlyItem{
+                    readOnly:true
+                    RadioButton{
+                        checked: (root.node.in2Inverted==false && root.node.logicalInput2) || (root.node.in2Inverted && root.node.logicalInput2==false)
+                        text: "2"
+                        visible: root.node.in2Enabled
+                        autoExclusive: false
+                    }
                 }
-                RadioButton{
-                    checked: root.node.logicalInput3
-                    text: "3"
-                    enabled: root.node.in3Enabled
-
+                GUI.ReadOnlyItem{
+                    readOnly:true
+                    RadioButton{
+                        checked: (root.node.in3Inverted==false && root.node.logicalInput3) || (root.node.in3Inverted && root.node.logicalInput3==false)
+                        text: "3"
+                        visible: root.node.in3Enabled
+                        autoExclusive: false
+                    }
                 }
-                RadioButton{
-                    checked: root.node.logicalInput4
-                    enabled: root.node.in4Enabled
-                    text: "4"
+                GUI.ReadOnlyItem{
+                    readOnly:true
 
+                    RadioButton{
+                        checked: (root.node.in4Inverted==false && root.node.logicalInput4) || (root.node.in4Inverted && root.node.logicalInput4==false)
+                        visible: root.node.in4Enabled
+                        text: "4"
+                        autoExclusive: false
+                    }
                 }
             }
         }
         GroupBox{
             Layout.fillWidth: true
-            RadioButton{
-                checked: root.node.logicalOutput
-//                enabled: false
-//                onCheckedChanged: {
-//                    if(checked!=logicalOutput){
-//                        checked=logicalOutput;
-//                    }
-//                }
+            Flow{
+                anchors.fill: parent
+                GUI.ReadOnlyItem{
+                    readOnly:true
+                    RadioButton{
+                        checked: root.node.logicalOutput
+                    }
+                }
 
-                //                text: "4"
-//                checkable: false
+                TextField{
+
+                    //                        Layout.fillHeight: true;
+                    Layout.fillWidth: true;
+
+                    text:root.node.outputValue
+                    GUI.MaterialPlaceHolder{
+
+                        placeHolderText:"Output string"
+
+                    }
+                    onTextChanged: {
+                        root.node.outputValue=text
+                    }
+                }
+
+
             }
         }
     }
@@ -143,32 +172,73 @@ FlowNodeItem{
                                 root.node.processOnInput=checked
                             }
                         }
-                        CheckBox{
-                            checked: root.node.in1Enabled
-                            text: "Input 1 Enabled"
-                            onCheckedChanged: {
-                                root.node.in1Enabled=checked
+                        Layout.margins: 2
+                        GroupBox{
+                            label:CheckBox{
+
+                                checked: root.node.in1Enabled
+                                text: "Input 1 Enabled"
+                                onCheckedChanged: {
+                                    root.node.in1Enabled=checked
+                                }
+
+                            }
+
+                            CheckBox{
+                                checked: root.node.in1Inverted
+                                text: "Invert"
+                                onCheckedChanged: {
+                                    root.node.in1Inverted=checked
+                                }
                             }
                         }
-                        CheckBox{
-                            checked: root.node.in2Enabled
-                            text: "Input 2 Enabled"
-                            onCheckedChanged: {
-                                root.node.in2Enabled=checked
+
+                        GroupBox{
+                            label:CheckBox{
+                                checked: root.node.in2Enabled
+                                text: "Input 2 Enabled"
+                                onCheckedChanged: {
+                                    root.node.in2Enabled=checked
+                                }
+                            }
+                            CheckBox{
+                                checked: root.node.in2Inverted
+                                text: "Invert"
+                                onCheckedChanged: {
+                                    root.node.in2Inverted=checked
+                                }
                             }
                         }
-                        CheckBox{
-                            checked: root.node.in3Enabled
-                            text: "Input 3 Enabled"
-                            onCheckedChanged: {
-                                root.node.in3Enabled=checked
+                        GroupBox{
+                            label:CheckBox{
+                                checked: root.node.in3Enabled
+                                text: "Input 3 Enabled"
+                                onCheckedChanged: {
+                                    root.node.in3Enabled=checked
+                                }
+                            }
+                            CheckBox{
+                                checked: root.node.in3Inverted
+                                text: "Invert"
+                                onCheckedChanged: {
+                                    root.node.in3Inverted=checked
+                                }
                             }
                         }
-                        CheckBox{
-                            checked: root.node.in4Enabled
-                            text: "Input 4 Enabled"
-                            onCheckedChanged: {
-                                root.node.in4Enabled=checked
+                        GroupBox{
+                            label:CheckBox{
+                                checked: root.node.in4Enabled
+                                text: "Input 4 Enabled"
+                                onCheckedChanged: {
+                                    root.node.in4Enabled=checked
+                                }
+                            }
+                            CheckBox{
+                                checked: root.node.in4Inverted
+                                text: "Invert"
+                                onCheckedChanged: {
+                                    root.node.in4Inverted=checked
+                                }
                             }
                         }
                         Item{

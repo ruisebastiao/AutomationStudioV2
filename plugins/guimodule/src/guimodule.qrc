@@ -17,5 +17,6 @@
         <file>qml/AppUpdaterItem.qml</file>
         <file>qml/SideContainer.qml</file>
         <file>qml/Fab.qml</file>
+        <file>qml/ReadOnlyItem.qml</file>
     </qresource>
 </RCC>

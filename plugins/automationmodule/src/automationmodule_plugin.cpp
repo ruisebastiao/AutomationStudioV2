@@ -34,6 +34,7 @@
 #include <nodes/barcodereadernode.h>
 #include <nodes/logicnode.h>
 #include <nodes/proxynode.h>
+#include <nodes/stringnode.h>
 #include <nodes/webservicenode.h>
 
 #include <filters/alloffilter.h>
@@ -88,6 +89,7 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterUncreatableType<QAbstractSocket>(uri, 1, 0, "QAbstractSocket","Cannot be created");
     qmlRegisterUncreatableType<ModuleListModel>(uri, 1, 0, "ModuleListModel","Cannot be created");
     qmlRegisterUncreatableType<FlowNodeManager>(uri, 1, 0, "FlowNodeManager","Cannot be created");
+    qmlRegisterUncreatableType<StringNode>(uri, 1, 0, "StringNode","Cannot be created");
 
 
     qmlRegisterType<QQmlSortFilterProxyModel>("SortFilterProxyModel", 1, 0, "SortFilterProxyModel");

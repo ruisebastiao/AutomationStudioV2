@@ -11,7 +11,7 @@ class AUTOMATIONMODULE_EXPORT IONode: public FlowNode
 
     Q_PROPERTY(QVariant sendData READ sendData WRITE setSendData NOTIFY sendDataChanged REVISION 30)
     Q_PROPERTY(bool autoConnect READ autoConnect WRITE setAutoConnect NOTIFY autoConnectChanged USER("serialize"))
-    Q_PROPERTY(bool ready READ ready WRITE setReady NOTIFY readyChanged REVISION 31)
+    Q_PROPERTY(QVariant ready READ ready WRITE setReady NOTIFY readyChanged REVISION 31)
     Q_PROPERTY(QString readyCommand READ readyCommand WRITE setReadyCommand NOTIFY readyCommandChanged  USER("serialize"))
 
     Q_PROPERTY(bool send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
@@ -101,7 +101,7 @@ public slots:
 
 
         m_send = send;
-        if(m_send){
+        if(m_send && m_ready.value<bool>()){
             doSend();
         }
         emit sendChanged(m_send);
@@ -109,7 +109,12 @@ public slots:
 
     void setConnected(QVariant connected)
     {
-        if(connected.value<bool>()==false){
+        if(connected.value<bool>()){
+            if(m_readyCommand==""){
+                setReady(true);
+            }
+        }
+        else if(m_connected.value<bool>() && connected.value<bool>()==false){
             setReady(false);
         }
         m_connected = connected;
@@ -133,7 +138,7 @@ public slots:
         emit commandReceivedChanged(m_commandReceived);
     }
 
-    void setReady(bool ready)
+    void setReady(QVariant ready)
     {
         if (m_ready == ready)
             return;
@@ -144,6 +149,8 @@ public slots:
 
     void setReadyCommand(QString readyCommand)
     {
+
+
         if (m_readyCommand == readyCommand)
             return;
 
@@ -164,7 +171,7 @@ signals:
 
     void commandReceivedChanged(QVariant commandReceived);
 
-    void readyChanged(bool ready);
+    void readyChanged(QVariant ready);
 
     void readyCommandChanged(QString readyCommand);
 
@@ -186,7 +193,7 @@ private:
 
     QVariant m_commandReceived=QVariant::fromValue(QString(""));
 
-    bool m_ready=false;
+    QVariant m_ready=false;
 
     QString m_readyCommand="";
 
@@ -209,7 +216,7 @@ public:
     {
         return m_commandReceived;
     }
-    bool ready() const
+    QVariant ready() const
     {
         return m_ready;
     }
@@ -217,6 +224,10 @@ public:
     {
         return m_readyCommand;
     }
+
+    // FlowNode interface
+public slots:
+    virtual void setProjectLoaded(bool projectLoaded) override;
 };
 
 #endif // IONODE_H

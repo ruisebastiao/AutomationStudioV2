@@ -32,7 +32,7 @@ EpsonModule {
         if(stationReady==false){
             productionStarting=false
             productionStopping=false
-            productionRunning=false
+            root.productionRunning=false
         }
     }
 

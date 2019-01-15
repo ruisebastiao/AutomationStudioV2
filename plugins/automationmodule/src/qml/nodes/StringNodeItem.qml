@@ -7,7 +7,7 @@ import QtQuick.Controls.Material 2.2
 
 import guimodule 1.0
 
-import automationmodule 1.0 as Module
+import automationmodule 1.0
 
 
 FlowNodeItem{
@@ -36,7 +36,6 @@ FlowNodeItem{
 
             }
 
-
             id:editfield
 
             wrapMode: TextEdit.WordWrap
@@ -44,7 +43,23 @@ FlowNodeItem{
 
             selectByMouse:true
             MaterialPlaceHolder{
-                placeHolderText:root.node.extractFromInput?"Regex":"String"
+                Component.onCompleted: {
+                    placeHolderText=Qt.binding(function(){
+                        if(root.node.inputType==StringNode.InputJoin)
+                            return "Separator"
+                        if(root.node.inputType==StringNode.InputExtract)
+                            return "Extract Regex"
+
+                        if(root.node.inputType==StringNode.InputExtract)
+                            return "Compare"
+
+                        return "String";
+                    })
+
+
+                }
+
+
             }
         }
 
@@ -54,6 +69,7 @@ FlowNodeItem{
             text:node.stringOutput
 
             readOnly: true
+            visible: root.node.inputType!=StringNode.InputCompare
 
 
             wrapMode: TextEdit.WordWrap
@@ -74,10 +90,12 @@ FlowNodeItem{
             Flow{
                 anchors.fill: parent
                 RadioButton{
-                    checked: root.node.noInput
+                    checked: root.node.inputType==StringNode.InputNone
                     text: "None"
                     onCheckedChanged: {
-                        root.node.noInput=checked
+                        if(checked){
+                            root.node.inputType=StringNode.InputNone
+                        }
 
                     }
                 }
@@ -85,11 +103,12 @@ FlowNodeItem{
                 RadioButton{
                     Layout.fillWidth: true
                     text: "Prefix"
-                    checked: root.node.prefixFromInput
+                    checked: root.node.inputType==StringNode.InputPrefix
 
                     onCheckedChanged: {
-                        root.node.prefixFromInput=checked
-
+                        if(checked){
+                            root.node.inputType=StringNode.InputPrefix
+                        }
                     }
 
 
@@ -97,22 +116,26 @@ FlowNodeItem{
                 RadioButton{
                     Layout.fillWidth: true
                     text: "Suffix"
-                    checked: root.node.suffixFromInput
+                    checked: root.node.inputType==StringNode.InputSuffix
 
 
                     onCheckedChanged: {
-                        root.node.suffixFromInput=checked
+                        if(checked){
+                            root.node.inputType=StringNode.InputSuffix
+                        }
                     }
 
                 }
                 RadioButton{
                     Layout.fillWidth: true
                     text: "Regex Extract"
-                    checked: root.node.extractFromInput
+                    checked: root.node.inputType==StringNode.InputExtract
 
 
                     onCheckedChanged: {
-                        root.node.extractFromInput=checked
+                        if(checked){
+                            root.node.inputType=StringNode.InputExtract
+                        }
                     }
 
 
@@ -120,11 +143,27 @@ FlowNodeItem{
                 RadioButton{
                     Layout.fillWidth: true
                     text: "Compare"
-                    checked: root.node.compareFromInput
+                    checked: root.node.inputType==StringNode.InputCompare
 
 
                     onCheckedChanged: {
-                        root.node.compareFromInput=checked
+                        if(checked){
+                            root.node.inputType=StringNode.InputCompare
+                        }
+                    }
+
+
+                }
+                RadioButton{
+                    Layout.fillWidth: true
+                    text: "Join"
+                    checked: root.node.inputType==StringNode.InputJoin
+
+
+                    onCheckedChanged: {
+                        if(checked){
+                            root.node.inputType=StringNode.InputJoin
+                        }
                     }
 
 

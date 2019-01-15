@@ -9,7 +9,7 @@
 
 #include <nodes/modulepropertybind.h>
 #include <nodes/projectnode.h>
-
+#include "project.h"
 
 QAutomationModule::QAutomationModule(QQuickItem *parent) : QQuickItem(parent)
 {    
@@ -68,7 +68,7 @@ void QAutomationModule::setGraphView(qan::GraphView* graphView)
             ModulePropertyBind* modulenode=dynamic_cast<ModulePropertyBind*>(node);
             if(modulenode){
                 modulenode->setModule(this);
-            }           
+            }
 
             node->setParentModule(this);
         });
@@ -83,6 +83,22 @@ void QAutomationModule::setGraphView(qan::GraphView* graphView)
 QAutomationModule::ModuleType QAutomationModule::type() const
 {
     return m_type;
+}
+
+void QAutomationModule::setModuleLoaded(bool moduleLoaded)
+{
+
+    if (m_moduleLoaded == moduleLoaded)
+        return;
+
+    m_moduleLoaded = moduleLoaded;
+
+    for (int var = 0; var < m_flowNodes->length(); ++var) {
+        FlowNode* node=m_flowNodes->at(var);
+        connect(this->parentProject(),&Project::projectLoadedChanged,node,&FlowNode::setProjectLoaded);
+    }
+    emit moduleLoadedChanged(m_moduleLoaded);
+
 }
 
 
@@ -123,7 +139,7 @@ void QAutomationModule::DeSerialize(QJsonObject &json)
     m_graphView->getContainerItem()->setY(graphview["y"].toDouble());
 
 
-//    m_flowNodes->loadConnections();
+    //    m_flowNodes->loadConnections();
 
 
     for (int var = 0; var < m_flowNodes->length(); ++var) {

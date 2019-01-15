@@ -186,14 +186,8 @@ public slots:
         emit nameChanged(m_name);
     }
 
-    void setModuleLoaded(bool moduleLoaded)
-    {
-        if (m_moduleLoaded == moduleLoaded)
-            return;
+    void setModuleLoaded(bool moduleLoaded);
 
-        m_moduleLoaded = moduleLoaded;
-        emit moduleLoadedChanged(m_moduleLoaded);
-    }
     void setEditMode(bool editMode)
     {
         if (m_editMode == editMode)

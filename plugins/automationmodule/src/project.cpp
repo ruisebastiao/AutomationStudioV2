@@ -109,7 +109,6 @@ void Project::DeSerialize(QJsonObject &json)
     for (int moduleIndex = 0; moduleIndex < m_modules->length(); ++moduleIndex) {
         QAutomationModule *module=m_modules->at(moduleIndex);
 
-
             module->initializeModuleProxyNodes();
             module->initializeProjectNodes();
 
@@ -123,6 +122,9 @@ void Project::DeSerialize(QJsonObject &json)
             break;
         }
     }
+
+
+    this->setProjectLoaded(true);
 }
 
 

@@ -297,6 +297,7 @@ Qan.NodeItem {
         clip: true
 
 
+
         //color: "red"
         ColumnLayout{
             anchors.fill: parent
@@ -397,7 +398,7 @@ Qan.NodeItem {
                 Rectangle{
                     id:container
                     radius:  background.visible?5:0
-
+                    enabled: editMode==true
                     color: background.visible?"white":"transparent"
 
 

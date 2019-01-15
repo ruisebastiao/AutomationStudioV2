@@ -63,6 +63,8 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
 
     Q_PROPERTY(QString typeInfo READ typeInfo NOTIFY typeInfoChanged)
 
+    Q_PROPERTY(bool projectLoaded READ projectLoaded WRITE setProjectLoaded NOTIFY projectLoadedChanged)
+
 
 public:
     enum class Type {
@@ -205,6 +207,8 @@ private:
     QString m_typeInfo;
 
     bool m_connectionsLoaded=false;
+
+    bool m_projectLoaded=false;
 
 public slots:
     virtual void    inNodeOutputChanged();
@@ -353,6 +357,15 @@ public slots:
         emit connectionsLoadedChanged(m_connectionsLoaded);
     }
 
+    virtual void setProjectLoaded(bool projectLoaded)
+    {
+        if (m_projectLoaded == projectLoaded)
+            return;
+
+        m_projectLoaded = projectLoaded;
+        emit projectLoadedChanged(m_projectLoaded);
+    }
+
 signals:
     void nameChanged(QString name);
 
@@ -394,6 +407,8 @@ signals:
     void parentModuleChanged(QAutomationModule* parentModule);
 
     void typeInfoChanged(QString typeInfo);
+
+    void projectLoadedChanged(bool projectLoaded);
 
 protected:
 
@@ -488,6 +503,10 @@ public:
     bool connectionsLoaded() const
     {
         return m_connectionsLoaded;
+    }
+    bool projectLoaded() const
+    {
+        return m_projectLoaded;
     }
 };
 #endif // FLOWNODE_H

@@ -2,6 +2,7 @@
 #include "src/graphs/scenegraph.h"
 #include "qautomationmodule.h"
 
+
 FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 {
 
