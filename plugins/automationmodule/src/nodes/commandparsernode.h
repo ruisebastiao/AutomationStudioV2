@@ -15,9 +15,10 @@ class CommandParserNode : public FlowNode
 
 
     Q_PROPERTY(QString commandToParse READ commandToParse WRITE setCommandToParse NOTIFY commandToParseChanged USER("serialized"))
-    Q_PROPERTY(QString commandToReset READ commandToReset WRITE setCommandToReset NOTIFY commandToResetChanged USER("serialized"))
 
-    Q_PROPERTY(QVariant dataReceived READ dataReceived WRITE setDataReceived NOTIFY dataReceivedChanged)
+    Q_PROPERTY(QString commandValidator READ commandValidator WRITE setCommandValidator NOTIFY commandValidatorChanged USER("serialized"))
+
+    Q_PROPERTY(QVariant commandReceived READ commandReceived WRITE setCommandReceived NOTIFY commandReceivedChanged)
 
     Q_PROPERTY(QVariant commandOK READ commandOK WRITE setCommandOK NOTIFY commandOKChanged REVISION 31)
 
@@ -35,14 +36,14 @@ public:
     Q_INVOKABLE virtual void setBindedIONode(IONode* node);
 
     Q_INVOKABLE void validate(){
-        setDataReceived(m_dataReceived);
+        setCommandReceived(m_commandReceived);
     }
 
     static QQmlComponent *delegate(QQmlEngine &engine) noexcept;
 
-    QVariant dataReceived() const
+    QVariant commandReceived() const
     {
-        return m_dataReceived;
+        return m_commandReceived;
     }
 
     QVariant commandOK() const
@@ -66,55 +67,31 @@ public:
     }
 
 public slots:
-    void setDataReceived(QVariant dataReceived)
+    void setCommandReceived(QVariant commandReceived)
     {
 
-        m_dataReceived = dataReceived;
-
-        QString datareceived=m_dataReceived.value<QString>();
-
-        m_dataReceived=QVariant::fromValue(datareceived);
-
-        QRegularExpression regex_set(m_commandToParse);
-
-        QRegularExpressionMatch setmatch = regex_set.match(datareceived);
-        bool hasMatch = setmatch.hasMatch(); // true
 
 
-        if (hasMatch){
-            setCommandValue(m_dataReceived);
-            setCommandOK(true);
+        QString commandreceived=commandReceived.value<QString>();
+
+
+        QStringList commandsplited=commandreceived.split(m_commandToParse);
+        if(commandsplited.length()>1){
+
+            m_commandReceived = commandReceived;
+            emit commandReceivedChanged(m_commandReceived);
+
+            setCommandValue(commandsplited[1]);
+            bool cmdok=commandsplited[1]==commandValidator();
+            setCommandOK(cmdok);
+
         }
 
 
-        QRegularExpression regex_reset(m_commandToReset);
-
-        QRegularExpressionMatch resetmatch = regex_reset.match(datareceived);
-        hasMatch = resetmatch.hasMatch(); // true
-
-
-        if (hasMatch){
-            setCommandValue(m_dataReceived);
-            setCommandOK(false);
-        }
-
-        //            std::cout << "string literal matched\n";
-
-        //        if(datareceived==commandToParse()){
-        //            setCommandValue(m_dataReceived);
-        //            setCommandOK(true);
-        //        }
-        //        else{
-        //            setCommandOK(false);
-        //        }
-        emit dataReceivedChanged(m_dataReceived);
     }
 
     void setCommandOK(QVariant commandOK)
     {
-        if(m_commandOK.value<bool>()==commandOK.value<bool>()){
-            return;
-        }
 
         m_commandOK = commandOK;
         emit commandOKChanged(m_commandOK);
@@ -126,6 +103,7 @@ public slots:
             return;
 
         m_commandToParse = commandToParse;
+        setCommandOK(false);
         emit commandToParseChanged(m_commandToParse);
     }
 
@@ -161,17 +139,19 @@ public slots:
         emit commandValueChanged(m_commandValue);
     }
 
-    void setCommandToReset(QString commandToReset)
+
+
+    void setCommandValidator(QString commandValidator)
     {
-        if (m_commandToReset == commandToReset)
+        if (m_commandValidator == commandValidator)
             return;
 
-        m_commandToReset = commandToReset;
-        emit commandToResetChanged(m_commandToReset);
+        m_commandValidator = commandValidator;
+        emit commandValidatorChanged(m_commandValidator);
     }
 
 signals:
-    void dataReceivedChanged(QVariant dataReceived);
+    void commandReceivedChanged(QVariant commandReceived);
 
     void commandOKChanged(QVariant commandOK);
 
@@ -183,11 +163,13 @@ signals:
 
     void commandValueChanged(QVariant commandValue);
 
-    void commandToResetChanged(QString commandToReset);
+
+
+    void commandValidatorChanged(QString commandValidator);
 
 private:
 
-    QVariant m_dataReceived=QVariant::fromValue(nullptr);
+    QVariant m_commandReceived=QString("");
     QVariant m_commandOK=QVariant::fromValue(false);
     bool m_commandOK_lastvalue=false;
     QString m_commandToParse="";
@@ -196,9 +178,11 @@ private:
     int m_selectedBindedNodeID=-1;
 
     // JsonSerializable interface
-    QVariant m_commandValue=QVariant::fromValue(QString(""));
+    QVariant m_commandValue=QString("");
 
-    QString m_commandToReset="";
+
+
+    QString m_commandValidator="";
 
 public:
     void DeSerialize(QJsonObject &json) override;
@@ -206,9 +190,10 @@ public:
     {
         return m_commandValue;
     }
-    QString commandToReset() const
+
+    QString commandValidator() const
     {
-        return m_commandToReset;
+        return m_commandValidator;
     }
 };
 

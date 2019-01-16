@@ -9,12 +9,14 @@ Q_OBJECT
 
     QVariantList getModuleNodeTypes() const;
 
-    Q_PROPERTY(bool startProduction READ startProduction WRITE setStartProduction NOTIFY startProductionChanged REVISION 2)
-    Q_PROPERTY(bool stationReady READ stationReady WRITE setStationReady NOTIFY stationReadyChanged REVISION 2)
+    Q_PROPERTY(QVariant startProduction READ startProduction WRITE setStartProduction NOTIFY startProductionChanged REVISION 2)
+    Q_PROPERTY(QVariant stationReady READ stationReady WRITE setStationReady NOTIFY stationReadyChanged REVISION 2)
 
-    Q_PROPERTY(bool stopProduction READ stopProduction WRITE setStopProduction NOTIFY stopProductionChanged REVISION 2)
-    Q_PROPERTY(bool productionRunning READ productionRunning WRITE setProductionRunning NOTIFY productionRunningChanged REVISION 2)
-    Q_PROPERTY(bool toolInDock READ toolInDock WRITE setToolInDock NOTIFY toolInDockChanged REVISION 2)
+    Q_PROPERTY(QVariant stopProduction READ stopProduction WRITE setStopProduction NOTIFY stopProductionChanged REVISION 2)
+    Q_PROPERTY(QVariant productionRunning READ productionRunning WRITE setProductionRunning NOTIFY productionRunningChanged REVISION 2)
+    Q_PROPERTY(QVariant productionStarting READ productionStarting WRITE setProductionStarting NOTIFY productionStartingChanged REVISION 2)
+
+    Q_PROPERTY(QVariant toolInDock READ toolInDock WRITE setToolInDock NOTIFY toolInDockChanged REVISION 2)
 
 
 
@@ -24,30 +26,35 @@ public:
 
 
 
-    bool startProduction() const
+    QVariant startProduction() const
     {
 
         return m_startProduction;
     }
 
-    bool stopProduction() const
+    QVariant stopProduction() const
     {
         return m_stopProduction;
     }
 
-    bool productionRunning() const
+    QVariant productionRunning() const
     {
         return m_productionRunning;
     }
 
-    bool toolInDock() const
+    QVariant toolInDock() const
     {
         return m_toolInDock;
     }
 
-    bool stationReady() const
+    QVariant stationReady() const
     {
         return m_stationReady;
+    }
+
+    QVariant productionStarting() const
+    {
+        return m_productionStarting;
     }
 
 public slots:
@@ -55,7 +62,7 @@ public slots:
 
 
 
-    void setStartProduction(bool startProduction)
+    void setStartProduction(QVariant startProduction)
     {
 
 
@@ -65,7 +72,7 @@ public slots:
 
     }
 
-    void setStopProduction(bool stopProduction)
+    void setStopProduction(QVariant stopProduction)
     {
 
 
@@ -75,16 +82,14 @@ public slots:
 
     }
 
-    void setProductionRunning(bool productionRunning)
+    void setProductionRunning(QVariant productionRunning)
     {
-        if (m_productionRunning == productionRunning)
-            return;
 
         m_productionRunning = productionRunning;
         emit productionRunningChanged(m_productionRunning);
     }
 
-    void setToolInDock(bool toolInDock)
+    void setToolInDock(QVariant toolInDock)
     {
         if (m_toolInDock == toolInDock)
             return;
@@ -93,7 +98,7 @@ public slots:
         emit toolInDockChanged(m_toolInDock);
     }
 
-    void setStationReady(bool stationReady)
+    void setStationReady(QVariant stationReady)
     {
         if (m_stationReady == stationReady)
             return;
@@ -102,28 +107,40 @@ public slots:
         emit stationReadyChanged(m_stationReady);
     }
 
+    void setProductionStarting(QVariant productionStarting)
+    {
+        if (m_productionStarting == productionStarting)
+            return;
+
+        m_productionStarting = productionStarting;
+        emit productionStartingChanged(m_productionStarting);
+    }
+
 signals:
 
 
-    void startProductionChanged(bool startProduction);
+    void startProductionChanged(QVariant startProduction);
 
-    void stopProductionChanged(bool stopProduction);
+    void stopProductionChanged(QVariant stopProduction);
 
-    void productionRunningChanged(bool productionRunning);
+    void productionRunningChanged(QVariant productionRunning);
 
-    void toolInDockChanged(bool toolInDock);
+    void toolInDockChanged(QVariant toolInDock);
 
-    void stationReadyChanged(bool stationReady);
+    void stationReadyChanged(QVariant stationReady);
+
+    void productionStartingChanged(QVariant productionStarting);
 
 private:
 
 
 
-    bool m_startProduction=false;
-    bool m_stopProduction=false;
-    bool m_productionRunning=false;
-    bool m_toolInDock=false;
-    bool m_stationReady=false;
+    QVariant m_startProduction=false;
+    QVariant m_stopProduction=false;
+    QVariant m_productionRunning=false;
+    QVariant m_toolInDock=false;
+    QVariant m_stationReady=false;
+    QVariant m_productionStarting=false;
 };
 
 #endif // QEPSONMODULE_H

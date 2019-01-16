@@ -53,7 +53,8 @@ public:
     enum LogicalType {
 
         OR=0,
-        AND
+        AND,
+        NOT
 
     };
     Q_ENUMS(LogicalType)

@@ -61,7 +61,7 @@ FlowNodeItem{
             TextField{
                 Layout.fillWidth: true
                 readOnly: true
-                text: root.node.dataReceived
+                text: root.node.commandReceived
 
                 selectByMouse:true
                 GUI.MaterialPlaceHolder{
@@ -82,22 +82,22 @@ FlowNodeItem{
                 selectByMouse:true
                 GUI.MaterialPlaceHolder{
 
-                    placeHolderText:"Command OK Regex"
+                    placeHolderText:"Command to Parse"
                 }
             }
             TextField{
                 Layout.fillWidth: true
 
-                text: root.node.commandToReset
+                text: root.node.commandValidator
                 onTextChanged: {
-                    root.node.commandToReset=text
+                    root.node.commandValidator=text
                 }
 
 
                 selectByMouse:true
                 GUI.MaterialPlaceHolder{
 
-                    placeHolderText:"Command Reset Regex"
+                    placeHolderText:"Command Validator"
                 }
             }
 

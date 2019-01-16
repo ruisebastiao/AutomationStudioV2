@@ -7,6 +7,13 @@ ModulePropertyBind::ModulePropertyBind()
 
 }
 
+ModulePropertyBind::~ModulePropertyBind()
+{
+    disconnect(out_connection);
+    disconnect(in_connection);
+
+}
+
 QQmlComponent *ModulePropertyBind::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   delegate;

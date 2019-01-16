@@ -14,25 +14,25 @@ EpsonModule {
     anchors.fill: parent
 
 
-    property bool productionStarting:false
+
     property bool productionStopping:false
 
 
 
-    //    property bool toolInDock: false
+
 
 
     onProductionRunningChanged: {
-        productionStarting=false
+
         productionStopping=false
 
     }
 
     onStationReadyChanged:{
         if(stationReady==false){
-            productionStarting=false
+
             productionStopping=false
-            root.productionRunning=false
+
         }
     }
 
@@ -44,13 +44,6 @@ EpsonModule {
         sourceModel:root.flowNodes
 
 
-//        Component.onCompleted: {
-//            if(root.flowNodes){
-//                sourceModel=Qt.binding(function(){
-//                 return root.flowNodes
-//                })
-//            }
-//        }
 
 
         filters: [
@@ -194,7 +187,7 @@ EpsonModule {
             }
             else{
                 root.startProduction=true
-                root.productionStarting=true
+
             }
         }
     }

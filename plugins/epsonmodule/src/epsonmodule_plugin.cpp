@@ -24,6 +24,7 @@
 #include <QQuickWindow>
 
 #include <nodes/epsonnode.h>
+#include <nodes/toolnode.h>
 
 #include <graph/epsongraph.h>
 
@@ -33,6 +34,8 @@ void EpsonModulePlugin::registerTypes(const char *uri){
     qmlRegisterType<QEpsonModule>(uri, 1, 0, "EpsonModule");
     qmlRegisterUncreatableType<EpsonNode>(uri, 1, 0, "EpsonNode","Cannot be created");
     qmlRegisterUncreatableType<IONode>(uri, 1, 0, "IONode","Cannot be created");
+    qmlRegisterUncreatableType<ToolInfo>(uri, 1, 0, "ToolInfod","Cannot be created");
+
     qmlRegisterType<EpsonGraph>(uri, 1, 0, "EpsonGraph");
 
 

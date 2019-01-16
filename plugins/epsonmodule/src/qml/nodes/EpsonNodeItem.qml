@@ -15,7 +15,7 @@ FlowNodeItem{
 
     resizable: true
     contentItem:  Rectangle{
-        enabled:editMode
+
         anchors.fill: parent
         ColumnLayout{
             anchors.fill: parent

@@ -35,7 +35,7 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
 
     Q_PROPERTY(FlowNodeManager* flowNodes READ flowNodes WRITE setFlowNodes NOTIFY flowNodesChanged USER("serialize"))
 
-    Q_PROPERTY(bool locked READ locked WRITE setLocked NOTIFY lockedChanged REVISION 2)
+    Q_PROPERTY(QVariant locked READ locked WRITE setLocked NOTIFY lockedChanged REVISION 2)
 
 
 
@@ -174,7 +174,7 @@ signals:
 
 
 
-    void lockedChanged(bool locked);
+    void lockedChanged(QVariant locked);
 
 public slots:
     void setName(QString name)
@@ -226,7 +226,7 @@ public slots:
     }
 
 
-    void setLocked(bool locked)
+    void setLocked(QVariant locked)
     {
         if (m_locked == locked)
             return;
@@ -275,7 +275,7 @@ public:
 
     void initializeModuleProxyNodes();
     void initializeProjectNodes();
-    bool locked() const
+    QVariant locked() const
     {
         return m_locked;
     }
@@ -300,7 +300,7 @@ private:
     Project* m_parentProject=nullptr;
 
 
-    bool m_locked=false;
+    QVariant m_locked=false;
 };
 
 #endif // QAUTOMATIONMODULE_H

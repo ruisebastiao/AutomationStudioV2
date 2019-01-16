@@ -30,6 +30,7 @@
 class  Settings : public QObject , public JsonSerializable {
 
     Q_OBJECT
+    Q_INTERFACES(JsonSerializable)
 
     Q_PROPERTY(QString source READ source NOTIFY sourceChanged)
     Q_PROPERTY(bool loaded READ loaded WRITE setLoaded NOTIFY loadedChanged)

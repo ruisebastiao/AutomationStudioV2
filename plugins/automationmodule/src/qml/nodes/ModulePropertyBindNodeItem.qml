@@ -33,21 +33,21 @@ FlowNodeItem{
             selectedProperty.currentIndex=index
         }
 
-        onBindModuleProperty:{
+//        onBindModuleProperty:{
 
-            if(moduleProperty!=""){
-                moduleObject[moduleProperty]=Qt.binding(function() {
-                    return root.node.input;
-                })
+//            if(moduleProperty!=""){
+//                moduleObject[moduleProperty]=Qt.binding(function() {
+//                    return root.node.input;
+//                })
 
-                root.node.output=Qt.binding(function() {
-                    return moduleObject[moduleProperty];
-                })
-            }
+//                root.node.output=Qt.binding(function() {
+//                    return moduleObject[moduleProperty];
+//                })
+//            }
 
 
 
-        }
+//        }
     }
 
     contentItem:  Rectangle{

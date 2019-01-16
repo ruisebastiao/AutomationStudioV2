@@ -21,6 +21,7 @@ class ModulePropertyBind : public FlowNode
 
 public:
     ModulePropertyBind();
+    ~ModulePropertyBind() override;
 
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
@@ -58,7 +59,70 @@ public slots:
 
         emit modulePropertyChanged(m_moduleProperty);
 
-        emit bindModuleProperty(m_module,m_moduleProperty);
+        disconnect(out_connection);
+        disconnect(in_connection);
+
+
+        QString signalname=m_moduleProperty+"Changed(QVariant)";
+        int index =m_module->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(qPrintable(signalname)));
+
+
+        if (index == -1) {
+            LOG_WARNING()<<"Wrong signal name:"+signalname + " in node:"<<m_module;
+
+        }
+
+        QMetaMethod signal = m_module->metaObject()->method(index);
+
+
+        QString propname="output";
+        propname.replace(0,1,propname.at(0).toUpper());
+        QString slotname="set"+propname+"(QVariant)";
+
+        index = this->metaObject()->indexOfSlot(QMetaObject::normalizedSignature(qPrintable(slotname)));
+        if (index == -1) {
+            LOG_WARNING()<<"Wrong slot name:"+slotname+ " in node:"<<this;
+
+        }
+
+        QMetaMethod targetmethod=this->metaObject()->method(index);
+        out_connection=connect(m_module, signal, this,targetmethod);
+
+
+
+
+        signalname=QString("input")+QString("Changed(QVariant)");
+
+        index =this->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(qPrintable(signalname)));
+
+
+        if (index == -1) {
+            LOG_WARNING()<<"Wrong signal name:"+signalname + " in node:"<<this;
+
+        }
+
+        signal = this->metaObject()->method(index);
+
+
+        propname=m_moduleProperty;
+        propname.replace(0,1,propname.at(0).toUpper());
+        slotname="set"+propname+"(QVariant)";
+
+        index = m_module->metaObject()->indexOfSlot(QMetaObject::normalizedSignature(qPrintable(slotname)));
+        if (index == -1) {
+            LOG_WARNING()<<"Wrong slot name:"+slotname+ " in node:"<<this;
+
+        }
+
+        targetmethod=m_module->metaObject()->method(index);
+        out_connection=connect(this, signal, m_module,targetmethod);
+
+
+
+
+
+
+        //emit bindModuleProperty(m_module,m_moduleProperty);
     }
 
     void setOutput(QVariant output)
@@ -77,11 +141,13 @@ signals:
 
     void modulePropertyChanged(QString moduleProperty);
 
-    void bindModuleProperty(QAutomationModule* moduleObject,QString moduleProperty);
+//    void bindModuleProperty(QAutomationModule* moduleObject,QString moduleProperty);
 
     void outputChanged(QVariant output);
 
 private:
+
+    QMetaObject::Connection in_connection,out_connection;
 
     QVariant m_input=QVariant::fromValue(false);
 

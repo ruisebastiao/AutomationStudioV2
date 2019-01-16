@@ -120,7 +120,7 @@ public slots:
         }
     }
 
-    void moduleLockedChanged(bool locked);
+    void moduleLockedChanged(QVariant locked);
 
 
 

@@ -18,12 +18,12 @@ Project::~Project()
     delete m_modules;
 }
 
-void Project::moduleLockedChanged(bool locked)
+void Project::moduleLockedChanged(QVariant locked)
 {
 
     for (int var = 0; var < this->modules()->length(); ++var) {
         QAutomationModule* module=modules()->at(var);
-        if(module->locked()){
+        if(module->locked().value<bool>()){
             setProjectLocked(true);
             return;
         }
