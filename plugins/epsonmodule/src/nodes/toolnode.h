@@ -190,16 +190,8 @@ public slots:
     {
         m_checkTool = checkTool;
         if(m_checkTool.value<bool>()){
-            ToolInfo* tool=m_tools->getByToolId(m_currentToolId.value<QString>());
 
-            if(tool){
-                setToolOK(tool->projectName()==m_currentProjectName);
-            }
-            else{
-                setToolOK(false);
-            }
-
-
+            doCheckTool();
         }
         emit checkToolChanged(m_checkTool);
     }
@@ -210,6 +202,10 @@ public slots:
 
         m_currentToolId = currentToolId;
         emit currentToolIdChanged(m_currentToolId);
+
+        if(checkTool().value<bool>()){
+            doCheckTool();
+        }
     }
 
     void setCurrentProjectName(QVariant currentProjectName)
@@ -218,6 +214,9 @@ public slots:
 
         m_currentProjectName = currentProjectName;
         emit currentProjectNameChanged(m_currentProjectName);
+        if(checkTool().value<bool>()){
+            doCheckTool();
+        }
     }
 
     void setToolOK(QVariant toolOK)
@@ -256,6 +255,17 @@ signals:
 
 private:
 
+    void doCheckTool(){
+        ToolInfo* tool=m_tools->getByToolId(m_currentToolId.value<QString>());
+
+        if(tool){
+            setToolOK(tool->projectName()==m_currentProjectName);
+        }
+        else{
+            setToolOK(false);
+        }
+
+    }
     void setCurrentTool(ToolInfo* currentTool)
     {
         if (m_currentTool == currentTool)

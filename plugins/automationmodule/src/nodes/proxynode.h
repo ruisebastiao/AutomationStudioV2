@@ -149,6 +149,7 @@ private:
 
     int m_selectedBindedNodeID=-1;
 
+    void doBindNode();
 protected:
     virtual void DeSerialize(QJsonObject &json) override;
 

@@ -15,16 +15,37 @@ EpsonModule {
 
 
 
+    property string stationStatusMessage:"Not connected"
+
+
     property bool productionStopping:false
 
+    property bool toolError: !root.productionRunning && root.toolInDock
+    onToolErrorChanged: {
+        if(toolError){
 
+            root.stationStatusMessage="Remove tool from dock"
 
+        }
+        else{
+            // Check this
+            root.stationStatusMessage="Ready"
 
-
+        }
+    }
 
     onProductionRunningChanged: {
 
         productionStopping=false
+        if(productionRunning==false ){
+            if(toolError==false)
+                stationStatusMessage="Production stopped"
+        }
+        else{
+            stationStatusMessage="Production running"
+        }
+
+
 
     }
 
@@ -32,9 +53,11 @@ EpsonModule {
         if(stationReady==false){
 
             productionStopping=false
+            stationStatusMessage="Station not ready"
 
         }
     }
+
 
 
     SortFilterProxyModel {
@@ -72,6 +95,24 @@ EpsonModule {
             Layout.fillWidth: true
 
         }
+        ToolBar {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 45
+            Layout.margins: 3
+            Material.foreground: "white"
+
+            TextScroller {
+                id:stationStat
+                anchors.fill:parent
+                text:stationStatusMessage
+                label.font.capitalization:Font.AllUppercase
+                horizontalAlignment:Qt.AlignHCenter
+                verticalAlignment:Qt.AlignVCenter
+
+            }
+
+        }
+
         RowLayout{
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -85,14 +126,6 @@ EpsonModule {
 
                 ToolBar {
 
-//                    property EpsonNode epsonnode: epsonNodesProxyModel.get(index);
-
-//                    onEpsonnodeChanged: {
-//                         console.log("epsonnode:"+node)
-//                        if(epsonnode){
-
-//                        }
-//                    }
 
 
                     Connections{
@@ -115,13 +148,26 @@ EpsonModule {
                     Layout.margins: 3
                     Material.foreground: "white"
 
-                    TextScroller {
-                        id: stat_text
+                    RowLayout{
                         anchors.fill: parent
-                        text:node.name+" Not connected"
-                        label.font.capitalization:Font.AllUppercase
-                        horizontalAlignment:Qt.AlignHCenter
+                        TextScroller {
+
+                            Layout.fillWidth: true
+                            text:node.name+" - "
+                            label.font.capitalization:Font.AllUppercase
+                            horizontalAlignment:Qt.AlignRight
+                        }
+                        TextScroller {
+                            id: stat_text
+                            Layout.fillWidth: true
+
+                            text:"Not connected"
+                            label.font.capitalization:Font.AllUppercase
+                            horizontalAlignment:Qt.AlignLeft
+                        }
                     }
+
+
                 }
 
             }

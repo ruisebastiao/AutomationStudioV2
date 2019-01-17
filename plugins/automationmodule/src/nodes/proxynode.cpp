@@ -36,24 +36,30 @@ void ProxyNode::setBindedFlowNode(FlowNode *node)
         graph->deleteEdge(edgeitem->getEdge());
 
         QObject::connect(edgeitem, &qan::EdgeItem::destroyed,[&](QObject* edgeObject){
-            if(node){
-                qan::Edge* newedge=graph->insertNewEdge(false,node,this);
-                FlowNodePort* outPort=node->getPortByID("output");
-
-                if(outPort){
-                    graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
-                }
-            }
+           this->doBindNode();
         });
     }
     else{
-        if(node){
-            qan::Edge* newedge=graph->insertNewEdge(false,node,this);
-            FlowNodePort* outPort=node->getPortByID("output");
+       this->doBindNode();
+    }
+}
 
-            if(outPort){
-                graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
-            }
+void ProxyNode::doBindNode(){
+    FlowNodePort* outputport=getPortFromKey("output");
+    FlowNodePort* inputport=getPortFromKey("input");
+
+    if(!outputport || !inputport){
+        return;
+    }
+
+    FlowNode* node=m_bindedFlowNode;
+    if(node){
+        SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+        qan::Edge* newedge=graph->insertNewEdge(false,node,this);
+        FlowNodePort* outPort=node->getPortByID("output");
+
+        if(outPort){
+            graph->bindEdge(newedge,outPort->getPortItem(),inputport->getPortItem());
         }
     }
 }
