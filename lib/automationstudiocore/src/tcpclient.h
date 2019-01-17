@@ -7,6 +7,7 @@
 #include "automationstudiocoreglobal.h"
 #include "jsonserializable.h"
 #include "QAbstractSocket"
+#include "Logger.h"
 
 class AUTOMATIONSTUDIO_CORE_EXPORT TCPClient : public QObject, public JsonSerializable
 {

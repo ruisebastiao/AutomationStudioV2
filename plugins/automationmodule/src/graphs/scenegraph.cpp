@@ -27,6 +27,21 @@ SceneGraph::SceneGraph(QQuickItem *parent) noexcept : qan::Graph(parent) {
 
     QObject::connect(this, &qan::Graph::connectorRequestPortEdgeCreation, this, [this](qan::PortItem* src,qan::PortItem* dst){
 
+        bool targetIsProxy=false;
+        if(dynamic_cast<ProxyNode*>(dst->getNode())){
+            targetIsProxy=true;
+        }
+
+        bool sourceIsProxy=false;
+        if(dynamic_cast<ProxyNode*>(src->getNode())){
+            sourceIsProxy=true;
+        }
+
+        if(targetIsProxy && sourceIsProxy){
+            return ;
+        }
+
+
         if(isEdgeDestinationBindable(*dst)){
             qan::Edge* newedge= this->insertNewEdge(false,src->getNode(),dst->getNode());
 
@@ -315,17 +330,17 @@ QPointer<QQuickItem> SceneGraph::createDock(qan::NodeItem::Dock dock, qan::Node 
     return createDockFromDelegate(dock,node);
 }
 
-void SceneGraph::onConnectorRequestEdgeCreation(qan::Node *src, QObject *dst)
-{
-    if(src!=nullptr){
+//void SceneGraph::onConnectorRequestEdgeCreation(qan::Node *src, QObject *dst)
+//{
+//    if(src!=nullptr){
 
-        qan::Node* destnode=static_cast<qan::Node*>(dst);
-        if(dst!=nullptr){
+//        qan::Node* destnode=static_cast<qan::Node*>(dst);
+//        if(dst!=nullptr){
 
-            insertNewEdge(false,src,destnode);
-        }
-    }
-}
+//            insertNewEdge(false,src,destnode);
+//        }
+//    }
+//}
 
 qan::Edge *SceneGraph::insertNewEdge(bool hidden, qan::Node *source, qan::Node *destination)
 {

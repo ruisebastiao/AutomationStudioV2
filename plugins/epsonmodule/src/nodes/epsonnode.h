@@ -24,6 +24,7 @@ public:
     Q_ENUM(ConnectionType)
 
     EpsonNode();
+    ~EpsonNode() override;
     static  QQmlComponent*      delegate(QQmlEngine& engine) noexcept;
 
     TCPClient* tcpClient() const

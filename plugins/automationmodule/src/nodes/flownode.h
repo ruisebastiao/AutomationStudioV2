@@ -109,7 +109,8 @@ public:
 
     operator QString() const {
         QString  ret(metaObject()->className());
-        ret.append("::ID::"+QString::number(id()));
+        ret.append(":Name:"+name());
+        ret.append(":ID:"+QString::number(id()));
         return ret;
     }
 

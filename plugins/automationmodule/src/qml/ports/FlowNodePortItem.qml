@@ -132,7 +132,7 @@ Qan.PortItem {
         radius: width / 2
         color: "transparent"
         border {
-            color: Material.primary
+            color: portColor
             width: 3
         }
 
@@ -174,6 +174,12 @@ Qan.PortItem {
 
     }
 
+
+    property bool propIsBoolean: typeof(nodePropertyValue)=="boolean"
+    property color portColor:propIsBoolean && dockType === Qan.NodeItem.Right?(nodePropertyValue?Material.color(Material.Green):Material.color(Material.Red)):Material.primary
+
+
+    ColorAnimation on portColor {duration: 250}
 
     property var nodePropertyValue
     onNodePropertyValueChanged: {

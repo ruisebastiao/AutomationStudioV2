@@ -1,5 +1,6 @@
 #include "tcpclient.h"
 
+
 TCPClient::TCPClient(QObject *parent) : QObject(parent)
 {
     m_socket= new QTcpSocket();
@@ -34,26 +35,26 @@ TCPClient::TCPClient(QObject *parent) : QObject(parent)
 
     QObject::connect(m_socket, &QAbstractSocket::connected,
                      [=]() {
-        qWarning() <<"Socket connected";
+        LOG_INFO()<<this->host()+"|"+QString::number(this->port())+"|"<<"Socket connected";
          m_connectTimer.stop();
     });
 
     QObject::connect(m_socket, &QAbstractSocket::disconnected,
                      [=]() {
-        qWarning() <<"Socket disconnected";
+        LOG_INFO()<<this->host()+"|"+QString::number(this->port())+"|"<<"Socket disconnected";
 
     });
 
 
     QObject::connect(m_socket, static_cast<void(QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error),
                      [=](QAbstractSocket::SocketError socketError){
-        qWarning() <<"Socket error:"<<socketError;
+        LOG_INFO()<<this->host()+"|"+QString::number(this->port())+"|"<<"Socket error:"<<socketError;
 
         m_socket->close();
         if(reconnectOnClose()){
 
             m_connectTimer.stop();
-            m_connectTimer.start(1000);
+            m_connectTimer.start(500);
         }
 
 

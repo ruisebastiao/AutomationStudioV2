@@ -7,17 +7,20 @@ void ProxyNode::setBindedFlowNode(FlowNode *node)
         return;
     }
 
-    m_bindedFlowNode=node;
 
-    if(!node){
-        return;
-    }
 
     //    if(node->id()!=selectedBindedNodeID()){
     setSelectedBindedNodeID(node->id());
 
 
     if(configsLoaded()==false){
+
+        return;
+    }
+
+    m_bindedFlowNode=node;
+
+    if(!node){
         return;
     }
 

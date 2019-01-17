@@ -166,6 +166,8 @@ void FlowNodeManager::loadConnections(){
                             qan::PortItem* inport=targetport->getPortItem();
                             if(inport->getInEdgeItems().size()>0){
                                 LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*node<<"| target node:"<< *targetnode<<")";
+
+                                exit(-4);
                                 continue;
                             }
                             qan::Edge* newedge= node->getScenegraph()->insertNewEdge(false,node,targetnode);

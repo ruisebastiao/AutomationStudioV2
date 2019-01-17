@@ -14,9 +14,15 @@ void ModuleProxyNode::setSelectedBindedModuleID(int selectedBindedModuleID)
 
     m_selectedBindedModuleID = selectedBindedModuleID;
 
+
+
     if(m_selectedBindedModuleID==-1){
         return;
     }
+    if(configsLoaded()==false){
+        return;
+    }
+
     if(parentModule()){
         QAutomationModule* parentmodule=parentModule();
         if(parentmodule->parentProject()){
@@ -42,6 +48,11 @@ void ModuleProxyNode::setNodesFromModule(FlowNodeManager *modulenodes)
 {
     m_flowNodes = modulenodes;
     emit flowNodesChanged(modulenodes);
+
+    if(m_flowNodes){
+        setBindedFlowNode(m_flowNodes->getByID(selectedBindedNodeID()));
+    }
+
 }
 
 void ModuleProxyNode::setBindedFlowNode(FlowNode *node)
@@ -71,8 +82,8 @@ void ModuleProxyNode::DeSerialize(QJsonObject &json)
 {
     ProxyNode::DeSerialize(json);
 
-    if(m_flowNodes){
-        setBindedFlowNode(m_flowNodes->getByID(selectedBindedNodeID()));
-    }
+//    if(m_flowNodes){
+//        setBindedFlowNode(m_flowNodes->getByID(selectedBindedNodeID()));
+//    }
 
 }

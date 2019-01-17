@@ -23,6 +23,11 @@ EpsonNode::EpsonNode()
 
 }
 
+EpsonNode::~EpsonNode()
+{
+ m_tcpClient->disconnect();
+}
+
 
 QQmlComponent *EpsonNode::delegate(QQmlEngine &engine) noexcept
 {

@@ -44,7 +44,7 @@ public:
 
 public slots:
 
-    void  onConnectorRequestEdgeCreation(qan::Node* src, QObject* dst);
+//    void  onConnectorRequestEdgeCreation(qan::Node* src, QObject* dst);
 
     // Graph interface
 public:
