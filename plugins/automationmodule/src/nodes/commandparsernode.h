@@ -82,7 +82,7 @@ public slots:
             emit commandReceivedChanged(m_commandReceived);
 
             setCommandValue(commandsplited[1]);
-            bool cmdok=commandsplited[1]==commandValidator();
+            bool cmdok=(commandsplited[1]==commandValidator()) ||commandValidator()=="*" ;
             setCommandOK(cmdok);
 
         }

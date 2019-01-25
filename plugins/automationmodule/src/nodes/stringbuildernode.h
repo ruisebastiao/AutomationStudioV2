@@ -161,6 +161,11 @@ public slots:
 
         m_completed = completed;
         emit completedChanged(m_completed);
+
+        Utilities::NonBlockingWait(500);
+
+        m_completed = false;
+        emit completedChanged(m_completed);
     }
 
 signals:

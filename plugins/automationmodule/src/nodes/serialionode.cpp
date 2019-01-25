@@ -7,7 +7,7 @@ SerialIONode::SerialIONode()
     m_type=FlowNode::Type::SerialIONode;
 
     m_serialPort= new QSerialPort(this);
-    m_serialPort->setBaudRate(250000);
+
     m_serialPort->setStopBits(QSerialPort::OneStop);
     m_serialPort->setParity(QSerialPort::NoParity);
 
@@ -177,7 +177,7 @@ void SerialIONode::DeSerialize(QJsonObject &json)
 {
     IONode::DeSerialize(json);
     checkPorts();
-
+    m_serialPort->setBaudRate(m_baudrate);
     if(autoConnect()){
         if(m_portsAvailable.contains(port())){
             setPort(m_port);

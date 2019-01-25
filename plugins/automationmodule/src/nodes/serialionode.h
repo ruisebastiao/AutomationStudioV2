@@ -11,6 +11,7 @@ class SerialIONode:public IONode
 {
     Q_OBJECT
     Q_PROPERTY(QString port READ port WRITE setPort NOTIFY portChanged USER("serialize"))
+    Q_PROPERTY(int baudrate READ baudrate WRITE setBaudrate NOTIFY baudrateChanged USER("serialize"))
 
     Q_PROPERTY(QString prefix READ prefix WRITE setPrefix NOTIFY prefixChanged USER("serialize"))
     Q_PROPERTY(QString suffix READ suffix WRITE setSuffix NOTIFY suffixChanged USER("serialize"))
@@ -44,6 +45,8 @@ private:
 //    QByteArray m_readData;
     QTextStream m_standardOutput;
     QTimer m_timer;
+
+    int m_baudrate=250000;
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -128,10 +131,17 @@ signals:
     void portsAvailableChanged(QStringList portsAvailable);
 
     // FlowNode interface
+    void baudrateChanged(int baudrate);
+
 public:
     void initializeNode(int id) override;
 
     // IONode interface
+    int baudrate() const
+    {
+        return m_baudrate;
+    }
+
 public slots:
     void doConnect() override;
 
@@ -139,6 +149,17 @@ public slots:
 public slots:
     void doSend() override;
     void doDisconnect() override;
+    void setBaudrate(int baudrate)
+    {
+        if (m_baudrate == baudrate)
+            return;
+
+        m_baudrate = baudrate;
+        if(m_serialPort->isOpen()==false){
+            m_serialPort->setBaudRate(m_baudrate);
+        }
+        emit baudrateChanged(m_baudrate);
+    }
 };
 
 #endif // SERIALIONODE_H

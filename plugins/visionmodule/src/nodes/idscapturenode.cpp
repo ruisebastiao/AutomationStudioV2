@@ -404,7 +404,11 @@ void IDSCaptureNode::updateContinuousCapture(bool value){
     }
     else{
 
+
+
         QtConcurrent::run([this](){
+
+            terminateCapture=true;
 
 #ifdef __linux__
             //linux code goes here
@@ -414,7 +418,7 @@ void IDSCaptureNode::updateContinuousCapture(bool value){
 
             if(m_hEvent){
                 //       frame_processed.wakeAll();
-                terminateCapture=true;
+
 
 
                 watcher.waitForFinished();

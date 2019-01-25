@@ -116,10 +116,6 @@ FlowNodeItem{
                     Layout.preferredHeight: 42
                     Layout.fillWidth: true
 
-                    Label{
-                        text:"Port: "
-                    }
-
                     Connections{
                         target: root.node
                          onPortsAvailableChanged:{
@@ -129,6 +125,10 @@ FlowNodeItem{
                                  root.node.port=root.node.port
                              }
                         }
+                    }
+
+                    Label{
+                        text:"Port: "
                     }
 
                     ComboBox{
@@ -153,6 +153,51 @@ FlowNodeItem{
 
                         }
                     }
+
+                    Label{
+                        text:"Baudrate: "
+                    }
+
+
+
+
+                    ComboBox{
+                        id:selectedBaudrate
+                        Layout.fillWidth: true
+
+
+                        model:ListModel {
+                            id: cbItems
+                            ListElement { textValue: "9600"; value: 9600 }
+                            ListElement { textValue: "19200"; value: 19200 }
+                            ListElement { textValue: "38400"; vale: 38400 }
+                            ListElement { textValue: "57600"; vale: 57600 }
+                            ListElement { textValue: "115200"; vale: 115200 }
+                            ListElement { textValue: "250000"; vale: 250000 }
+                        }
+
+                        popup.onClosed: {
+                            if(currentIndex!=-1){
+                                root.node.baudrate=cbItems.get(currentIndex).value
+                            }
+                        }
+
+                        delegate:ItemDelegate{
+                            width: parent.width
+                            text: textValue
+                        }
+
+
+                        textRole: "textValue"
+
+                        currentIndex: -1
+
+                        Component.onCompleted: {
+                            var teste=root.node.baudrate
+                            selectedBaudrate.currentIndex = selectedBaudrate.find(teste);
+                        }
+                    }
+
 
                 }
             }

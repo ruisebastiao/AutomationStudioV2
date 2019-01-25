@@ -83,7 +83,7 @@ FlowNodeItem{
 
 
         GroupBox{
-            Layout.fillHeight: true
+//            Layout.fillHeight: true
             Layout.fillWidth: true
             title: "Input is"
 
