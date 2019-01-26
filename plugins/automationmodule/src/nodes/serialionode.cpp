@@ -138,6 +138,9 @@ void SerialIONode::doConnect()
 {
     if(connected()==false){
         setPort(m_port);
+        if(m_baudrate>9600){
+            m_serialPort->setBaudRate(m_baudrate);
+        }
         if (!m_serialPort->open(QIODevice::ReadWrite)) {
             auto error=m_serialPort->error();
             LOG_INFO(QMetaEnum::fromType<QSerialPort::SerialPortError>().valueToKey(error));
@@ -177,7 +180,6 @@ void SerialIONode::DeSerialize(QJsonObject &json)
 {
     IONode::DeSerialize(json);
     checkPorts();
-    m_serialPort->setBaudRate(m_baudrate);
     if(autoConnect()){
         if(m_portsAvailable.contains(port())){
             setPort(m_port);

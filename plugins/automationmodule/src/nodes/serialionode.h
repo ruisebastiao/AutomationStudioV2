@@ -151,9 +151,13 @@ public slots:
     void doDisconnect() override;
     void setBaudrate(int baudrate)
     {
-        if (m_baudrate == baudrate)
+
+        if (m_baudrate == baudrate && baudrate>9600)
             return;
 
+        if(baudrate<9600){
+            baudrate=9600;
+        }
         m_baudrate = baudrate;
         if(m_serialPort->isOpen()==false){
             m_serialPort->setBaudRate(m_baudrate);

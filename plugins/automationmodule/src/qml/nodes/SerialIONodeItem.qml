@@ -170,16 +170,21 @@ FlowNodeItem{
                             id: cbItems
                             ListElement { textValue: "9600"; value: 9600 }
                             ListElement { textValue: "19200"; value: 19200 }
-                            ListElement { textValue: "38400"; vale: 38400 }
-                            ListElement { textValue: "57600"; vale: 57600 }
-                            ListElement { textValue: "115200"; vale: 115200 }
-                            ListElement { textValue: "250000"; vale: 250000 }
+                            ListElement { textValue: "38400"; value: 38400 }
+                            ListElement { textValue: "57600"; value: 57600 }
+                            ListElement { textValue: "115200"; value: 115200 }
+                            ListElement { textValue: "250000"; value: 250000 }
                         }
 
-                        popup.onClosed: {
-                            if(currentIndex!=-1){
-                                root.node.baudrate=cbItems.get(currentIndex).value
+                        onActivated: {
+                            if(index!=-1){
+                                var bauditem=cbItems.get(index)
+
+                                root.node.baudrate=bauditem.value
                             }
+
+
+
                         }
 
                         delegate:ItemDelegate{
