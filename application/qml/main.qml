@@ -344,7 +344,7 @@ ApplicationWindow {
 
                         ListView {
                             id: projectslist
-                            enabled: currentProject && (!currentProject || currentProject.projectLocked==false)
+                            enabled: !currentProject || currentProject && currentProject.projectLocked==false
                             model:settings && settings.projects
                             onModelChanged: {
                                 if(settings){
@@ -444,6 +444,14 @@ ApplicationWindow {
                                         }
 
                                         RowLayout {
+                                            Timer{
+                                                id:loadprojectTimer
+                                                repeat: false
+                                                interval: 250
+                                                triggered: {
+                                                    settings.selectedProject.load()
+                                                }
+                                            }
 
                                             Layout.margins: 10
                                             Button{
@@ -452,10 +460,17 @@ ApplicationWindow {
                                                 text: "OK"
                                                 onClicked: {
                                                     projectslist.currentIndex = index
-                                                    settings.selectedProject.unload()
+                                                    if(settings.selectedProject){
+                                                        settings.selectedProject.unload()
+                                                    }
+
+
+                                                    settings.selectedProject=null
+
                                                     settings.selectedProject=model.project
                                                     confirmProjectLoad.close();
-                                                    settings.selectedProject.load()
+                                                    loadprojectTimer.start()
+
 
                                                 }
                                             }
@@ -832,7 +847,7 @@ ApplicationWindow {
                                 //                                Layout.preferredWidth: textWidth
                                 Layout.fillWidth: true
                                 horizontalAlignment:Text.AlignRight
-                                text:":"+selectedProject&&selectedProject?selectedProject.name:"No project selected"
+                                text:":"+currentProject&&currentProject?currentProject.name:"No project selected"
 
                                 duration: mainStateAnimationTime
                                 font.pixelSize: 15
