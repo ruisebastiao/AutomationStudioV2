@@ -277,16 +277,16 @@ public slots:
     {
         if (m_selectedProject == selectedProject)
             return;
-        if(m_selectedProject){
-            m_selectedProject->unload();
-        }
+//        if(m_selectedProject){
+//            m_selectedProject->unload();
+//        }
 
         m_selectedProject = selectedProject;
         emit selectedProjectChanged(m_selectedProject);
 
-        if(m_selectedProject){
-            m_selectedProject->load();
-        }
+//        if(m_selectedProject){
+//            m_selectedProject->load();
+//        }
 
     }
 

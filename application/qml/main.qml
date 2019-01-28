@@ -56,12 +56,12 @@ ApplicationWindow {
 
     property User loggedUser:settings&&settings.currentUser
 
-    property Project selectedProject:settings&&settings.selectedProject
+    property Project currentProject:settings&&settings.selectedProject
 
-    onSelectedProjectChanged: {
-        if(selectedProject){
+    onCurrentProjectChanged: {
+        if(currentProject){
 
-            if(selectedProject.modules.rowCount(null)<1 && loggedUser&&loggedUser.role===User.AdminRole){
+            if(currentProject.modules.rowCount(null)<1 && loggedUser&&loggedUser.role===User.AdminRole){
                 projectEditMode=true
             }
         }
@@ -344,11 +344,11 @@ ApplicationWindow {
 
                         ListView {
                             id: projectslist
-                            enabled: settings && (!settings.selectedProject || settings.selectedProject.projectLocked==false)
+                            enabled: currentProject && (!currentProject || currentProject.projectLocked==false)
                             model:settings && settings.projects
                             onModelChanged: {
                                 if(settings){
-                                    currentIndex=settings.projects.indexOf(settings.selectedProject);
+                                    currentIndex=settings.projects.indexOf(currentProject);
                                 }
 
 
@@ -452,9 +452,10 @@ ApplicationWindow {
                                                 text: "OK"
                                                 onClicked: {
                                                     projectslist.currentIndex = index
+                                                    settings.selectedProject.unload()
                                                     settings.selectedProject=model.project
-
                                                     confirmProjectLoad.close();
+                                                    settings.selectedProject.load()
 
                                                 }
                                             }
@@ -831,7 +832,7 @@ ApplicationWindow {
                                 //                                Layout.preferredWidth: textWidth
                                 Layout.fillWidth: true
                                 horizontalAlignment:Text.AlignRight
-                                text: selectedProject&&selectedProject?selectedProject.name:"No project selected"
+                                text:":"+selectedProject&&selectedProject?selectedProject.name:"No project selected"
 
                                 duration: mainStateAnimationTime
                                 font.pixelSize: 15
@@ -843,11 +844,11 @@ ApplicationWindow {
                             }
 
                             GUI.TextScroller {
-                                property Project selectedproject: settings&&settings.selectedProject
+
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                visible:selectedproject&&selectedproject.selectedSubproject
-                                text:selectedproject&&selectedproject.selectedSubproject?"- "+selectedproject.selectedSubproject.name:""
+                                visible:rootwindow.currentProject&&currentProject.selectedSubproject
+                                text:currentProject&&currentProject.selectedSubproject?"- "+currentProject.selectedSubproject.name:""
                                 horizontalAlignment:Text.AlignLeft
                                 duration: mainStateAnimationTime
                                 font.pixelSize: 15
@@ -855,10 +856,7 @@ ApplicationWindow {
 
 
                             }
-                            //                            Item {
-                            //                                Layout.fillHeight: true
-                            //                                Layout.fillWidth: true
-                            //                            }
+
 
                         }
                         
@@ -914,7 +912,7 @@ ApplicationWindow {
                                 states: [
                                     State {
                                         name: "invisible"
-                                        when: mainState!="home" || (loggedUser&&loggedUser.role!==User.AdminRole) || !settings.selectedProject
+                                        when: mainState!="home" || (loggedUser&&loggedUser.role!==User.AdminRole) || !currentProject
                                         PropertyChanges { target: project_edit; Layout.preferredWidth: 0 }
                                         PropertyChanges { target: project_edit; opacity: 0 }
 
@@ -1445,12 +1443,12 @@ ApplicationWindow {
                     property var fullscreenModule: null
 
 
-                    visible:settings&&settings.selectedProject
+                    visible:currentProject
                     anchors.fill: parent
 
 
                     Repeater{
-                        model: settings&&settings.selectedProject&&settings.selectedProject.modules
+                        model: currentProject&&currentProject.modules
 
 
 
@@ -1631,7 +1629,7 @@ ApplicationWindow {
                                     MenuItem {
                                         text: modelData
                                         onClicked: {
-                                            settings.selectedProject.createModule(text)
+                                            currentProject.createModule(text)
 
                                         }
                                     }

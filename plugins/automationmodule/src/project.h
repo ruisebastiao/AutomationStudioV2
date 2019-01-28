@@ -205,8 +205,8 @@ public:
         return m_projectLoaded;
     }
 
-    void load();
-    void unload();
+    Q_INVOKABLE void load();
+    Q_INVOKABLE void unload();
 private:
 
 
