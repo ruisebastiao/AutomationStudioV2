@@ -3,7 +3,7 @@
 
 #include <nodes/epsonnode.h>
 #include <nodes/epsonremote.h>
-#include <nodes/toolnode.h>
+
 
 EpsonGraph::EpsonGraph()
 {
@@ -24,9 +24,7 @@ void EpsonGraph::getModuleNodeTypes()
     ret.append(map);
     map.clear();
 
-    map.insert(QVariant::fromValue(FlowNode::Type::ToolNode).value<QString>(),"Tool");
-    ret.append(map);
-    map.clear();
+
 
     m_moduleNodeTypes.append(ret);
 
@@ -50,9 +48,7 @@ FlowNode *EpsonGraph::createNode(QString nodetype)
         else if(nodetype=="EpsonRemote"){
             node=insertNode<EpsonRemote>(nullptr);
         }
-        else if(nodetype=="ToolNode"){
-            node=insertNode<ToolNode>(nullptr);
-        }
+
         else{
             LOG_WARNING(QString("Unknown node type:%1").arg(nodetype));
         }

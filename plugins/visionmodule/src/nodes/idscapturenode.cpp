@@ -226,12 +226,24 @@ void IDSCaptureNode::setCamera(bool open)
             if(nRet==IS_SUCCESS){
                 LOG_INFO("Camera Inited ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
-                nRet = is_ParameterSet(m_camHandler, IS_PARAMETERSET_CMD_LOAD_EEPROM, NULL, NULL);
-                if(nRet==IS_SUCCESS){
-                    LOG_INFO("Camera parameters loaded ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
+                if(useCameraParameters()){
+                    nRet = is_ParameterSet(m_camHandler, IS_PARAMETERSET_CMD_LOAD_EEPROM, NULL, NULL);
+                    if(nRet==IS_SUCCESS){
+                        LOG_INFO("Camera parameters loaded ok ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
+                    }
                 }
+                else{
+                    if(QFile::exists(cameraParametersPath())){
+                        QDir basedir=QCoreApplication::applicationDirPath();
+                        string relativepath=basedir.relativeFilePath(m_cameraParametersPath).toStdString();
+                        nRet = is_ParameterSet(m_camHandler,  IS_PARAMETERSET_CMD_LOAD_FILE, (void*)relativepath.c_str(), NULL);
+                        if(nRet==IS_SUCCESS){
+                            LOG_INFO("Camera parameters loaded from file :"+QString::fromStdString(relativepath)+" ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
+                        }
+                    }
+                }
 
                 SENSORINFO SensorInfo;
                 is_GetSensorInfo(m_camHandler, &SensorInfo );

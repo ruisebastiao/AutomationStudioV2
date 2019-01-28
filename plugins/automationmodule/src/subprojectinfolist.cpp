@@ -1,38 +1,5 @@
-#include "subprojectinfonode.h"
+#include "subprojectinfolist.h"
 
-SubProjectInfoNode::SubProjectInfoNode()
-{
-    m_type=Type::SubProjectInfoNode;
-}
-
-QQmlComponent *SubProjectInfoNode::delegate(QQmlEngine &engine)  noexcept
-{
-    static UniqueQQmlComponentPtr   delegate;
-    if ( !delegate )
-        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/SubProjectInfoNodeItem.qml"));
-    return delegate.get();
-}
-
-SubProjectInfo::SubProjectInfo()
-{
-
-}
-
-SubProjectInfo::SubProjectInfo(QString id, QString projectname)
-{
-    setId(id);
-    setProjectName(projectname);
-}
-
-void SubProjectInfo::Serialize(QJsonObject &json)
-{
-    JsonSerializable::Serialize(json,this);
-}
-
-void SubProjectInfo::DeSerialize(QJsonObject &json)
-{
-    JsonSerializable::DeSerialize(json,this);
-}
 
 SubProjectInfoList::SubProjectInfoList()
 {
@@ -86,3 +53,4 @@ void SubProjectInfoList::removeItem(SubProjectInfo *item)
 {
     SerializedListModel<SubProjectInfo>::removeItem(item);
 }
+

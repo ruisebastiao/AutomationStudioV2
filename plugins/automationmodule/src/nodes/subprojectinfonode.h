@@ -2,108 +2,7 @@
 #define SUBPROJECTINFONODE_H
 
 #include <flownode.h>
-#include <serializedlistmodel.h>
-
-
-class SubProjectInfo:public QObject, public JsonSerializable
-{
-    Q_OBJECT
-    Q_INTERFACES(JsonSerializable)
-
-
-    Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged USER("serialize"))
-    Q_PROPERTY(QString projectName READ projectName WRITE setProjectName NOTIFY projectNameChanged USER("serialize"))
-
-public:
-    SubProjectInfo();
-    SubProjectInfo(QString id,QString projectname);
-
-    QString id() const
-    {
-        return m_id;
-    }
-
-    QString projectName() const
-    {
-        return m_projectName;
-    }
-
-public slots:
-    void setId(QString id)
-    {
-        if (m_id == id)
-            return;
-
-        m_id = id;
-        emit idChanged(m_id);
-    }
-
-    void setProjectName(QString projectName)
-    {
-        if (m_projectName == projectName)
-            return;
-
-        m_projectName = projectName;
-        emit projectNameChanged(m_projectName);
-    }
-
-signals:
-    void idChanged(QString id);
-
-    void projectNameChanged(QString projectName);
-
-private:
-
-    QString m_id="";
-    QString m_projectName="";
-
-    // JsonSerializable interface
-public:
-    void Serialize(QJsonObject &json) override;
-    void DeSerialize(QJsonObject &json) override;
-};
-
-class SubProjectInfoList:public SerializedListModel<SubProjectInfo>
-{
-    Q_OBJECT
-    Q_INTERFACES(JsonSerializable)
-
-public:
-    enum InfoRoles {
-        ProjectNameRole = Qt::UserRole + 1,
-        IDRole,
-        InfoRole,
-        TextRole
-    };
-    SubProjectInfoList();
-    SubProjectInfoList(const SubProjectInfoList& other){ }
-
-
-
-    Q_INVOKABLE SubProjectInfo* getById(QString id){
-
-        for (int var = 0; var < m_internalList.length(); ++var) {
-            SubProjectInfo* info=m_internalList.at(var);
-            if(info->id()==id){
-                return info;
-            }
-        }
-
-        return nullptr;
-    }
-    // QAbstractItemModel interface
-public:
-    QHash<int, QByteArray> roleNames() const override;
-
-    // QAbstractItemModel interface
-public:
-    QVariant data(const QModelIndex &index, int role) const override;
-
-    // TypedListModel interface
-public:
-    Q_INVOKABLE void removeItem(SubProjectInfo *item) override;
-};
-
+#include <subprojectinfolist.h>
 
 class SubProjectInfoNode:public FlowNode
 {
@@ -112,6 +11,7 @@ class SubProjectInfoNode:public FlowNode
 
     Q_PROPERTY(SubProjectInfoList* infos READ infos WRITE setInfos NOTIFY infosChanged USER("serialize"))
     Q_PROPERTY(QString infoTitle READ infoTitle WRITE setInfoTitle NOTIFY infoTitleChanged USER("serialize"))
+    Q_PROPERTY(bool checkOnInput READ checkOnInput WRITE setCheckOnInput NOTIFY checkOnInputChanged USER("serialize"))
 
 
     Q_PROPERTY(SubProjectInfo* currentInfo READ currentInfo WRITE setCurrentInfo NOTIFY currentInfoChanged)
@@ -131,6 +31,7 @@ public:
 
 
     SubProjectInfoNode();
+
 
     static  QQmlComponent*  delegate(QQmlEngine& engine) noexcept;
 
@@ -183,6 +84,11 @@ public:
         return m_infoTitle;
     }
 
+    bool checkOnInput() const
+    {
+        return m_checkOnInput;
+    }
+
 public slots:
     void setInfos(SubProjectInfoList* infos)
     {
@@ -210,7 +116,7 @@ public slots:
         m_currentInfoId = currentInfoId;
         emit currentInfoIdChanged(m_currentInfoId);
 
-        if(checkInfo().value<bool>()){
+        if(checkInfo().value<bool>() || m_checkOnInput ){
             doCheckInfo();
         }
     }
@@ -221,7 +127,7 @@ public slots:
 
         m_currentProjectName = currentProjectName;
         emit currentProjectNameChanged(m_currentProjectName);
-        if(checkInfo().value<bool>()){
+        if(checkInfo().value<bool>() || m_checkOnInput){
             doCheckInfo();
         }
     }
@@ -254,6 +160,15 @@ public slots:
         emit infoTitleChanged(m_infoTitle);
     }
 
+    void setCheckOnInput(bool checkOnInput)
+    {
+        if (m_checkOnInput == checkOnInput)
+            return;
+
+        m_checkOnInput = checkOnInput;
+        emit checkOnInputChanged(m_checkOnInput);
+    }
+
 signals:
     void infosChanged(SubProjectInfoList* infos);
 
@@ -270,6 +185,8 @@ signals:
     void currentInfoChanged(SubProjectInfo* currentInfo);
 
     void infoTitleChanged(QString infoTitle);
+
+    void checkOnInputChanged(bool checkOnInput);
 
 private:
 
@@ -301,6 +218,7 @@ private:
     QVariant m_infoNOK=false;
     SubProjectInfo* m_currentInfo;
     QString m_infoTitle="Info Title";
+    bool m_checkOnInput=false;
 };
 
 #endif // SUBPROJECTINFONODE_H

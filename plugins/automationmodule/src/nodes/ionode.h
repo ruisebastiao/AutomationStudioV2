@@ -109,16 +109,18 @@ public slots:
 
     void setConnected(QVariant connected)
     {
-        if(connected.value<bool>()){
-            if(m_readyCommand==""){
-                setReady(true);
+        if(m_connected.isValid()){
+            if(connected.value<bool>()){
+                if(m_readyCommand==""){
+                    setReady(true);
+                }
             }
+            else if(m_connected.value<bool>() && connected.value<bool>()==false){
+                setReady(false);
+            }
+            m_connected = connected;
+            emit connectedChanged(m_connected);
         }
-        else if(m_connected.value<bool>() && connected.value<bool>()==false){
-            setReady(false);
-        }
-        m_connected = connected;
-        emit connectedChanged(m_connected);
     }
 
     void setAutoConnect(bool autoConnect)

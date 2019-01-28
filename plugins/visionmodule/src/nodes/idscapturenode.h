@@ -21,6 +21,12 @@ class IDSCaptureNode : public CameraCaptureNode
 
     Q_PROPERTY(int cameraID READ cameraID WRITE setCameraID NOTIFY cameraIDChanged USER("serialize"))
 
+    Q_PROPERTY(QString cameraParametersPath READ cameraParametersPath WRITE setCameraParametersPath NOTIFY cameraParametersPathChanged  USER("serialize"))
+
+    Q_PROPERTY(bool useCameraParameters READ useCameraParameters WRITE setUseCameraParameters NOTIFY useCameraParametersChanged  USER("serialize"))
+
+
+
     Q_PROPERTY(IDSCamera* selectedCamera READ selectedCamera WRITE setSelectedCamera NOTIFY selectedCameraChanged)
 
     Q_PROPERTY(bool cameraAvailable READ cameraAvailable NOTIFY cameraAvailableChanged)
@@ -68,6 +74,16 @@ public:
     int numBuffers() const
     {
         return m_numBuffers;
+    }
+
+    bool useCameraParameters() const
+    {
+        return m_useCameraParameters;
+    }
+
+    QString cameraParametersPath() const
+    {
+        return m_cameraParametersPath;
     }
 
 public slots:
@@ -152,6 +168,10 @@ signals:
 
     void numBuffersChanged(int numBuffers);
 
+    void useCameraParametersChanged(bool useCameraParameters);
+
+    void cameraParametersPathChanged(QString cameraParametersPath);
+
 private:
 
     void setCameraAvailable(bool cameraAvailable)
@@ -218,6 +238,10 @@ private:
 
     int m_isContinuousCapture=false;
 
+    bool m_useCameraParameters=true;
+
+    QString m_cameraParametersPath="";
+
 public slots:
     void setNewFrame(QVariant newFrame) override;
 protected:
@@ -236,6 +260,22 @@ public slots:
 
         m_numBuffers = numBuffers;
         emit numBuffersChanged(m_numBuffers);
+    }
+    void setUseCameraParameters(bool useCameraParameters)
+    {
+        if (m_useCameraParameters == useCameraParameters)
+            return;
+
+        m_useCameraParameters = useCameraParameters;
+        emit useCameraParametersChanged(m_useCameraParameters);
+    }
+    void setCameraParametersPath(QString cameraParametersPath)
+    {
+        if (m_cameraParametersPath == cameraParametersPath)
+            return;
+
+        m_cameraParametersPath = cameraParametersPath;
+        emit cameraParametersPathChanged(m_cameraParametersPath);
     }
 };
 

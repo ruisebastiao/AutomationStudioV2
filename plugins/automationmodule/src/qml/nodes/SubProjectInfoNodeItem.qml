@@ -21,7 +21,7 @@ FlowNodeItem{
         GroupBox {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            title: "Tools"
+            title: root.node.infoTitle
             ColumnLayout{
 
                 anchors.fill: parent
@@ -30,13 +30,13 @@ FlowNodeItem{
                     id:infolist
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    model: root.node.tools
+                    model: root.node.infos
                     clip: true
 
 
                     onCurrentIndexChanged:{
                        if(currentIndex==-1) {
-                           container.toolInfo=null;
+                           container.info=null;
                        }
                     }
 
@@ -47,14 +47,14 @@ FlowNodeItem{
 
                         onHighlightedChanged: {
                             if(highlighted){
-                                container.toolInfo=tool
+                                container.info=info
                             }
                         }
                         swipe.transition: Transition {
                             SmoothedAnimation { velocity: 3; easing.type: Easing.InOutCubic }
                         }
                         swipe.onOpened:{
-                            infolist.model.removeItem(tool)
+                            infolist.model.removeItem(info)
                             textID.text=""
                         }
 
@@ -67,7 +67,7 @@ FlowNodeItem{
                             height: parent.height
                             anchors.right: parent.right
 
-                            //                            SwipeDelegate.onClicked: toolslist.model.removeItem(tool)
+
 
                             background: Rectangle {
                                 color: deleteLabel.SwipeDelegate.pressed ? Qt.darker("tomato", 1.1) : "tomato"
@@ -81,7 +81,7 @@ FlowNodeItem{
                         }
                         Label{
 
-                            text: tool.id+" ("+tool.projectName+")"
+                            text: info.id+" ("+info.projectName+")"
                             anchors.fill: parent
                             font.pixelSize: 16
                             horizontalAlignment:Text.AlignHCenter
@@ -96,11 +96,7 @@ FlowNodeItem{
                     id:container
                     Layout.fillWidth: true
 
-                    property var toolInfo
-                    onToolInfoChanged: {
-
-                    }
-
+                    property var info
 
 
                     RowLayout{
@@ -108,15 +104,15 @@ FlowNodeItem{
                         Button{
 
                             Layout.fillWidth: true
-                            text: container.toolInfo?"Save":"Add"
+                            text: container.info?"Save":"Add"
                             highlighted: true
                             enabled: textID.length>0 && textProjectName.length>0
                             onClicked: {
-                                if(!container.toolInfo){
-                                    root.node.addTool(textID.text,textProjectName.text);
+                                if(!container.info){
+                                    root.node.addInfo(textID.text,textProjectName.text);
                                 }
                                 else{
-                                    root.node.updateTool(container.toolInfo,textID.text,textProjectName.text);
+                                    root.node.updateInfo(container.info,textID.text,textProjectName.text);
                                 }
                             }
                         }
@@ -137,7 +133,7 @@ FlowNodeItem{
                                 property bool idvalid: false
                                 property string currenttext: ""
                                 id:textID
-                                text: container.toolInfo?container.toolInfo.id:currenttext
+                                text: container.info?container.info.id:currenttext
 
 
                                 onTextChanged: {
@@ -145,17 +141,17 @@ FlowNodeItem{
                                         currenttext=text
                                     }
 
-                                    container.toolInfo=root.node.tools.getByToolId(text)
+                                    container.info=root.node.infos.getById(text)
 
                                 }
 
                                 MaterialPlaceHolder{
-                                    placeHolderText:"Tool ID"
+                                    placeHolderText:"ID"
                                 }
                             }
                             TextField{
                                 id:textProjectName
-                                text: container.toolInfo?container.toolInfo.projectName:""
+                                text: container.info?container.info.projectName:""
 
                                 MaterialPlaceHolder{
                                     placeHolderText:"Project Name"
@@ -172,7 +168,15 @@ FlowNodeItem{
                         highlighted: true
 
                         onClicked: {
-                            root.node.checkTool=true
+                            root.node.checkInfo=true
+                        }
+                    }
+                    CheckBox{
+                        Layout.fillWidth: true
+                        text: "Check on input"
+                        checked: root.node.checkOnInput
+                        onCheckedChanged: {
+                            root.node.checkOnInput=checked
                         }
                     }
                 }

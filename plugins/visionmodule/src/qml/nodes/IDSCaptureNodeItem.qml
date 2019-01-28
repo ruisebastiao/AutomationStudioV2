@@ -1,7 +1,7 @@
 import QtQuick              2.8
 import QtQuick.Layouts      1.3
 import QtGraphicalEffects   1.0
-
+import QtQuick.Dialogs 1.3
 
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
@@ -117,7 +117,7 @@ FlowNodeItem{
                 Layout.fillWidth: true;
                 CheckBox{
                     id:continuouscapture_check
-                      Layout.fillWidth: true;
+                    Layout.fillWidth: true;
                     text: "Continuous Capture"
                     checked: root.node.continuousCapture
                     onCheckedChanged: {
@@ -131,7 +131,7 @@ FlowNodeItem{
 
                     Layout.fillWidth: true;
                     text: "Start On init"
-                   checked: node.connectOnInit
+                    checked: node.connectOnInit
                     onCheckedChanged: {
                         node.connectOnInit=checked
                     }
@@ -177,18 +177,63 @@ FlowNodeItem{
                     }
 
 
+
                 }
 
 
-
-
-
-
-
-
             }
+            RowLayout{
+                CheckBox{
+                    Layout.fillWidth: true;
+                    text: "Use parameters"
+                    checked: root.node.useCameraParameters
+                    onCheckedChanged: {
+                        root.node.useCameraParameters=checked
+                    }
+                }
+                TextArea{
+                    enabled: root.node.useCameraParameters==false
+                    Layout.fillWidth: true
+                    text:root.node.cameraParametersPath
+                    onTextChanged: {
+                        root.node.cameraParametersPath=text
+                    }
 
 
+                    wrapMode: TextEdit.WordWrap
+
+
+                    selectByMouse:true
+                    MaterialPlaceHolder{
+                        placeHolderText:"Parameters path"
+                    }
+                }
+                Button{
+                     Layout.fillWidth: true;
+                     highlighted: true
+                     enabled: root.node.useCameraParameters==false
+                     text: "Select file"
+
+                     FileDialog {
+                         id: fileDialog
+                         title: "Please choose a parameter file"
+                         nameFilters: ["ini files (*.ini)"]
+                         onAccepted: {
+                             console.log("You chose: " + fileDialog.fileUrl)
+                             root.node.cameraParametersPath=fileDialog.fileUrl
+                         }
+                         onRejected: {
+
+
+                         }
+
+                     }
+
+                     onClicked: {
+                         fileDialog.open()
+                     }
+                }
+            }
             Item{
                 Layout.fillHeight:true;
 
