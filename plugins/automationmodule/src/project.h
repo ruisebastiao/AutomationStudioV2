@@ -111,13 +111,15 @@ public slots:
         m_selectedSubproject = selectedSubproject;
 
 
-        emit selectedSubprojectChanged(m_selectedSubproject);
+
         if(m_selectedSubproject){
                 setExtendedProjectName(m_selectedSubproject->name());
         }
         else{
             setExtendedProjectName(name());
         }
+
+        emit selectedSubprojectChanged(m_selectedSubproject);
     }
 
     void moduleLockedChanged(QVariant locked);
@@ -203,6 +205,8 @@ public:
         return m_projectLoaded;
     }
 
+    void load();
+    void unload();
 private:
 
 
@@ -227,6 +231,8 @@ private:
     QString m_extendedProjectName;
     bool m_projectLocked=false;
     bool m_projectLoaded=false;
+
+    QJsonArray m_modulesArray;
 };
 
 

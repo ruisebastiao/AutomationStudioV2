@@ -15,7 +15,7 @@ Project::Project(QObject *parent):QObject(parent)
 Project::~Project()
 {
     qDebug()<<"Deleting project";
-    delete m_modules;
+    unload();
 }
 
 void Project::moduleLockedChanged(QVariant locked)
@@ -90,12 +90,11 @@ void Project::Serialize(QJsonObject &json)
 
 }
 
-void Project::DeSerialize(QJsonObject &json)
-{
-    JsonSerializable::DeSerialize(json,this);
-    QJsonArray modulesArray = json["modules"].toArray();
-    for (int projectIndex = 0; projectIndex < modulesArray.size(); ++projectIndex) {
-        QJsonObject moduleObject = modulesArray[projectIndex].toObject();
+void Project::load(){
+
+
+    for (int projectIndex = 0; projectIndex < m_modulesArray.size(); ++projectIndex) {
+        QJsonObject moduleObject = m_modulesArray[projectIndex].toObject();
 
         QString moduleType=moduleObject["type"].toString();
         QAutomationModule *module=createModule(moduleType,false);
@@ -109,15 +108,20 @@ void Project::DeSerialize(QJsonObject &json)
     for (int moduleIndex = 0; moduleIndex < m_modules->length(); ++moduleIndex) {
         QAutomationModule *module=m_modules->at(moduleIndex);
 
-            module->initializeModuleProxyNodes();
-            module->initializeProjectNodes();
+        module->initializeModuleProxyNodes();
+        module->initializeProjectNodes();
 
     }
 
 
     for (int var = 0; var < subProjects()->length(); ++var) {
         SubProject* subproject=subProjects()->at(var);
-        if(subproject->isDefault()){
+
+        if(m_selectedSubproject && m_selectedSubproject->id()==subproject->id()){
+            setSelectedSubproject(subproject);
+            break;
+        }
+        else if(subproject->isDefault()){
             setSelectedSubproject(subproject);
             break;
         }
@@ -125,6 +129,20 @@ void Project::DeSerialize(QJsonObject &json)
 
 
     this->setProjectLoaded(true);
+}
+
+void Project::unload()
+{
+
+    qDebug()<<"Deleting project";
+    delete  modules();
+}
+
+void Project::DeSerialize(QJsonObject &json)
+{
+    JsonSerializable::DeSerialize(json,this);
+    m_modulesArray= json["modules"].toArray();
+
 }
 
 

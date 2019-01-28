@@ -374,9 +374,6 @@ ApplicationWindow {
                                 id:projectdelegate
                                 property Project itemProject: model.project
 
-                                //                                onItemProjectChanged: {
-                                //                                    currentIndex=itemProject.indexOf(settings.selectedProject);
-                                //                                }
 
                                 property bool isExpanded:false
 
@@ -416,7 +413,65 @@ ApplicationWindow {
 
                                 }
 
+                                GUI.PopUp{
+                                    id:confirmProjectLoad
 
+                                    x: (rootwindow.width - width) / 2
+                                    y: (rootwindow.height - height) / 2
+                                    //                                            contentWidth: 200
+                                    //                                            contentHeight: 200
+                                    Material.foreground: "white"
+                                    modal: false
+                                    dim:true
+                                    focus: true
+                                    closePolicy:Popup.CloseOnEscape
+                                    padding:0
+                                    ColumnLayout{
+
+                                        ToolBar{
+                                             Layout.fillWidth: true
+                                             Layout.preferredHeight: 30
+
+                                             Material.foreground: "white"
+                                             Label{
+                                                 anchors.fill: parent
+                                                 height: 20
+                                                 horizontalAlignment:Text.AlignHCenter
+                                                 verticalAlignment:Text.AlignVCenter
+                                                 text: "Confirm?"
+                                             }
+
+                                        }
+
+                                        RowLayout {
+
+                                            Layout.margins: 10
+                                            Button{
+                                                Layout.fillWidth: true
+                                                highlighted: true
+                                                text: "OK"
+                                                onClicked: {
+                                                    projectslist.currentIndex = index
+                                                    settings.selectedProject=model.project
+
+                                                    confirmProjectLoad.close();
+
+                                                }
+                                            }
+                                            Button{
+                                                Layout.fillWidth: true
+                                                highlighted: true
+                                                text: "Cancel"
+                                                onClicked: {
+                                                    itemProject.selectedSubproject=null
+                                                    confirmProjectLoad.close();
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                }
 
                                 contentItem: Column {
                                     id:delegateContent
@@ -443,9 +498,20 @@ ApplicationWindow {
                                                 else{
                                                     projectdelegate.isExpanded=!projectdelegate.isExpanded
                                                     if (projectslist.currentIndex != index) {
-                                                        projectslist.currentIndex = index
-                                                        console.log("length:"+model.project.subProjects.length())
-                                                        //                                        settings.selectedProject=model.project
+
+
+
+                                                        if(model.project.subProjects.length()>0){
+
+                                                        }
+                                                        else{
+                                                            itemProject.selectedSubproject=null
+                                                            confirmProjectLoad.open()
+                                                        }
+
+
+
+                                                        //
                                                     }
                                                     //                                            drawer.close()
                                                 }
@@ -487,7 +553,14 @@ ApplicationWindow {
                                                 anchors.fill: parent
                                                 propagateComposedEvents: false
                                                 onClicked: {
-                                                    itemProject.selectedSubproject=model.subProject
+
+                                                       itemProject.selectedSubproject=model.subProject
+                                                       confirmProjectLoad.open()
+
+
+
+
+
                                                 }
                                             }
 
@@ -746,19 +819,19 @@ ApplicationWindow {
 
                             anchors.fill: parent
 
-//                            Item {
-//                                Layout.fillHeight: true
-//                                Layout.fillWidth: true
-//                            }
+                            //                            Item {
+                            //                                Layout.fillHeight: true
+                            //                                Layout.fillWidth: true
+                            //                            }
 
 
                             GUI.TextScroller {
                                 id: centralLabel
                                 Layout.fillHeight: true
-//                                Layout.preferredWidth: textWidth
+                                //                                Layout.preferredWidth: textWidth
                                 Layout.fillWidth: true
                                 horizontalAlignment:Text.AlignRight
-                                text: settings&&settings.selectedProject?settings.selectedProject.name:"No project selected"
+                                text: selectedProject&&selectedProject?selectedProject.name:"No project selected"
 
                                 duration: mainStateAnimationTime
                                 font.pixelSize: 15
@@ -782,10 +855,10 @@ ApplicationWindow {
 
 
                             }
-//                            Item {
-//                                Layout.fillHeight: true
-//                                Layout.fillWidth: true
-//                            }
+                            //                            Item {
+                            //                                Layout.fillHeight: true
+                            //                                Layout.fillWidth: true
+                            //                            }
 
                         }
                         

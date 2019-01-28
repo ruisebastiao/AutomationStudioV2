@@ -13,6 +13,7 @@ class AUTOMATIONSTUDIO_CORE_EXPORT JsonSerializable
 {
     //    Q_OBJECT
 
+    // REVISION 5 properties will not be deserialized
 public:
 
 
