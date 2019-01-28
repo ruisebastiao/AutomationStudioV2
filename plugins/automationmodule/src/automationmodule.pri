@@ -32,7 +32,8 @@ HEADERS += \
     $$PWD/nodes/commandparsernode.h \
     $$PWD/nodes/commandsendernode.h \
     $$PWD/nodes/serialionode.h \
-    $$PWD/nodes/setresetnode.h
+    $$PWD/nodes/setresetnode.h \
+    $$PWD/nodes/subprojectinfonode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -65,6 +66,7 @@ SOURCES += \
     $$PWD/nodes/commandparsernode.cpp \
     $$PWD/nodes/commandsendernode.cpp \
     $$PWD/nodes/serialionode.cpp \
-    $$PWD/nodes/setresetnode.cpp
+    $$PWD/nodes/setresetnode.cpp \
+    $$PWD/nodes/subprojectinfo.cpp
 
 

@@ -27,7 +27,7 @@ FlowNodeItem{
                 anchors.fill: parent
 
                 ListView{
-                    id:toolslist
+                    id:infolist
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     model: root.node.tools
@@ -41,7 +41,7 @@ FlowNodeItem{
                     }
 
                     delegate: SwipeDelegate {
-                        width: toolslist.width
+                        width: infolist.width
                         height: 40
                         highlighted: ListView.isCurrentItem
 
@@ -54,7 +54,7 @@ FlowNodeItem{
                             SmoothedAnimation { velocity: 3; easing.type: Easing.InOutCubic }
                         }
                         swipe.onOpened:{
-                            toolslist.model.removeItem(tool)
+                            infolist.model.removeItem(tool)
                             textID.text=""
                         }
 
@@ -76,7 +76,7 @@ FlowNodeItem{
 
 
                         onClicked: {
-                            toolslist.currentIndex = index
+                            infolist.currentIndex = index
 
                         }
                         Label{

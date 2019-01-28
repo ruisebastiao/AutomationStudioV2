@@ -18,5 +18,6 @@
         <file alias="Nodes/ProjectNodeItem.qml">qml/nodes/ProjectNodeItem.qml</file>
         <file alias="Nodes/SerialIONodeItem.qml">qml/nodes/SerialIONodeItem.qml</file>
         <file alias="Nodes/LogicalNodeItem.qml">qml/nodes/LogicalNodeItem.qml</file>
+        <file alias="Nodes/SubProjectInfoNodeItem.qml">qml/nodes/SubProjectInfoNodeItem.qml</file>
     </qresource>
 </RCC>

@@ -96,7 +96,7 @@ public:
         ProjectNode,
         SerialIONode,
         EpsonRemote,
-        ToolNode
+        SubProjectInfoNode
 
     };
     Q_ENUM(Type)
