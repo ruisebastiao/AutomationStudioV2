@@ -71,6 +71,9 @@ public:
 
     void updateExternalTrigger(bool value);
     Q_INVOKABLE void updateContinuousCapture(bool value);
+
+    Q_INVOKABLE void snapShot();
+
     int numBuffers() const
     {
         return m_numBuffers;
@@ -266,6 +269,7 @@ public slots:
         if (m_useCameraParameters == useCameraParameters)
             return;
 
+
         m_useCameraParameters = useCameraParameters;
         emit useCameraParametersChanged(m_useCameraParameters);
     }
@@ -274,7 +278,22 @@ public slots:
         if (m_cameraParametersPath == cameraParametersPath)
             return;
 
-        m_cameraParametersPath = cameraParametersPath;
+
+
+        QUrl fileurl(cameraParametersPath);
+
+        QString fileloc=cameraParametersPath;
+        if(fileurl.isLocalFile()){
+            fileloc=fileurl.toLocalFile();
+        }
+
+      //     m_cameraParametersPath=cameraParametersPath;
+
+
+        QDir basedir=QCoreApplication::applicationDirPath();
+
+
+        m_cameraParametersPath=basedir.relativeFilePath(fileloc);
         emit cameraParametersPathChanged(m_cameraParametersPath);
     }
 };

@@ -172,7 +172,7 @@ void IDSCaptureNode::GetFrames(){
                     emit frameSinkChanged(m_frameSink);
                     setFrameCaptured(true);
 
-                   // frame_processed.wait(&mutex);
+                    // frame_processed.wait(&mutex);
                     setFrameCaptured(false);
                     mutex.unlock();
 
@@ -235,11 +235,12 @@ void IDSCaptureNode::setCamera(bool open)
                 }
                 else{
                     if(QFile::exists(cameraParametersPath())){
-                        QDir basedir=QCoreApplication::applicationDirPath();
-                        string relativepath=basedir.relativeFilePath(m_cameraParametersPath).toStdString();
-                        nRet = is_ParameterSet(m_camHandler,  IS_PARAMETERSET_CMD_LOAD_FILE, (void*)relativepath.c_str(), NULL);
+
+
+
+                        nRet = is_ParameterSet(m_camHandler,  IS_PARAMETERSET_CMD_LOAD_FILE,(void*)m_cameraParametersPath.unicode(), 0);
                         if(nRet==IS_SUCCESS){
-                            LOG_INFO("Camera parameters loaded from file :"+QString::fromStdString(relativepath)+" ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
+                            LOG_INFO("Camera parameters loaded from file :"+m_cameraParametersPath+" ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
                         }
                     }
@@ -272,7 +273,7 @@ void IDSCaptureNode::setCamera(bool open)
 
 
 
-//                framesink->
+                //                framesink->
                 // calculate single buffer size
                 m_dwSingleBufferSize = nAllocSizeX * nAllocSizeY * m_nBitsPerPixel / 8;
 
@@ -312,27 +313,14 @@ void IDSCaptureNode::setCamera(bool open)
                 nRet=is_SetDisplayMode (m_camHandler, IS_SET_DM_DIB);
 
 
-                QQmlContext *currentContext = QQmlEngine::contextForObject(this->getItem());
-                if(currentContext){
-                    QQmlEngine *engine = currentContext->engine();
-                    //                FrameProvider *imageProvider = (FrameProvider*)engine->imageProvider(QLatin1String("FrameProvider"));
-                    //                if(imageProvider){
-                    //                    imageProvider->setFrameAddress(m_pcImageMemory);
-                    //                    imageProvider->setFrameSize(QSize(m_nSizeX,m_nSizeY));
-                    //                }
-                }
 
 
 
                 cv::Mat* frameMat=new cv::Mat(sizeY(),sizeX(), CV_8UC1);
 
-               // setFrameSink(new QMat(frameMat));
-
-
 
                 m_frameSink=QVariant::fromValue(new QMat(frameMat));
 
-                //setFrameSink(new IDSFrame(m_pcImageMemory,m_nSizeX,m_nSizeY));
 
                 if(nRet==IS_SUCCESS){
 
@@ -417,50 +405,93 @@ void IDSCaptureNode::updateContinuousCapture(bool value){
     else{
 
 
+        if(m_hEvent){
 
-        QtConcurrent::run([this](){
+            QtConcurrent::run([this](){
 
-            terminateCapture=true;
+                terminateCapture=true;
 
 #ifdef __linux__
-            //linux code goes here
+                //linux code goes here
 #elif _WIN32
-            // windows code goes here
-            LOG_INFO()<<"stopping live capture";
+                // windows code goes here
+                LOG_INFO()<<"stopping live capture";
 
-            if(m_hEvent){
-                //       frame_processed.wakeAll();
+                if(m_hEvent){
+                    //       frame_processed.wakeAll();
 
 
 
-                watcher.waitForFinished();
+                    watcher.waitForFinished();
 
-                LOG_INFO()<<"Frame thread finished";
+                    LOG_INFO()<<"Frame thread finished";
 
-                is_DisableEvent(m_camHandler, IS_SET_EVENT_FRAME);
+                    is_DisableEvent(m_camHandler, IS_SET_EVENT_FRAME);
 
-                is_ExitEvent(m_camHandler, IS_SET_EVENT_FRAME);
+                    is_ExitEvent(m_camHandler, IS_SET_EVENT_FRAME);
 
-                CloseHandle(m_hEvent);
+                    CloseHandle(m_hEvent);
+                    m_hEvent=nullptr;
 
-            }
+                }
 #else
 
 #endif
 
 
 
-            // Stop live video
-            is_StopLiveVideo( m_camHandler, IS_WAIT );
+                // Stop live video
+                is_StopLiveVideo( m_camHandler, IS_WAIT );
 
-            m_isContinuousCapture=false;
-            setUpdatingCamera(false);
+                m_isContinuousCapture=false;
+                setUpdatingCamera(false);
 
-        });
+            });
 
+        }
     }
 
+}
 
+void IDSCaptureNode::snapShot()
+{
+    if(m_cameraOpened){
+        INT nRet = is_FreezeVideo(m_camHandler, IS_WAIT);
+
+        if (nRet == IS_SUCCESS)
+        {
+
+
+            QMat* framesink= m_frameSink.value<QMat*>();
+            is_LockSeqBuf(m_camHandler,m_nSeqNumId[m_frameBufferCount], m_pcSeqImgMem[m_frameBufferCount]);
+
+
+            // find the latest image buffer
+            INT nNum;
+            char *pcMem, *pcMemLast;
+            is_GetActSeqBuf(m_camHandler, &nNum, &pcMem, &pcMemLast);
+
+            pcMemLast = m_pcSeqImgMem[m_numBuffers-1];
+            //frame
+            mutex.lock();
+
+
+
+            memcpy(framesink->cvMat()->ptr(), pcMemLast,sizeX() * sizeY());
+            is_UnlockSeqBuf( m_camHandler, m_nSeqNumId[m_numBuffers-1], m_pcSeqImgMem[m_numBuffers-1] );
+
+            emit frameSinkChanged(m_frameSink);
+            setFrameCaptured(true);
+
+            // frame_processed.wait(&mutex);
+            setFrameCaptured(false);
+            mutex.unlock();
+
+
+            LOG_INFO()<<"capture image OK";
+
+        }
+    }
 }
 
 void IDSCaptureNode::setContinuousCapture(bool continuousCapture)

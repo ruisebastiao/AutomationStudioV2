@@ -47,7 +47,10 @@ public:
 
             foreach (T* item, m_internalList) {
 
-                delete item;
+//                delete item;
+                if(item){
+                    item->deleteLater();
+                }
             }
 
             m_internalList.clear();

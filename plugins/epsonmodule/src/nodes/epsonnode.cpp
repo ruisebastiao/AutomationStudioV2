@@ -3,13 +3,13 @@
 EpsonNode::EpsonNode()
 {
     m_type=Type::EpsonNode;
-    m_tcpClient=new TCPClient();
+    m_tcpClient=new TCPClient(this);
 
-    connect(m_tcpClient,&TCPClient::serverMessage,[this](const QString &message){
+    connect(m_tcpClient,&TCPClient::serverMessage,[&](const QString &message){
         this->setDataReceived(QVariant::fromValue(message));
     });
 
-    connect(m_tcpClient,&TCPClient::stateChanged,[this](QAbstractSocket::SocketState state){
+    connect(m_tcpClient,&TCPClient::stateChanged,[&](QAbstractSocket::SocketState state){
         switch (state) {
         case QAbstractSocket::SocketState::ConnectedState:
             this->setConnected(true);
@@ -24,8 +24,9 @@ EpsonNode::EpsonNode()
 }
 
 EpsonNode::~EpsonNode()
-{
- m_tcpClient->disconnect();
+{    
+    m_tcpClient->disconnect();
+    m_tcpClient->deleteLater();
 }
 
 
@@ -79,9 +80,9 @@ void EpsonNode::doConnect()
 
 void EpsonNode::doDisconnect()
 {
-//    if(m_tcpClient->state()==QAbstractSocket::ConnectedState){
-        m_tcpClient->disconnect();
-//    }
+    //    if(m_tcpClient->state()==QAbstractSocket::ConnectedState){
+    m_tcpClient->disconnect();
+    //    }
 }
 
 void EpsonNode::doSend()

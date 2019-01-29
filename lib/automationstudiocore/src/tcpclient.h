@@ -29,6 +29,7 @@ public:
 
     void write(QString message);
 
+    void closeConnection();
 
 
 signals:
@@ -89,7 +90,6 @@ public:
     virtual void DeSerialize(QJsonObject &json) override;
 
     void connect();
-    void disconnect();
 
     QString host() const
     {

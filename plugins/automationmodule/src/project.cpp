@@ -87,6 +87,7 @@ void Project::Serialize(QJsonObject &json)
     }
 
     json["modules"]=modulesArray;
+    m_modulesArray= json["modules"].toArray();
 
 }
 
@@ -135,7 +136,7 @@ void Project::unload()
 {
 
     qDebug()<<"Deleting project";
-    delete  modules();
+    m_modules->clear();
 }
 
 void Project::DeSerialize(QJsonObject &json)

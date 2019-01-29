@@ -4,11 +4,15 @@ EpsonRemote::EpsonRemote()
 {
     m_type=Type::EpsonRemote;
 
+
+    m_tcpClient=new TCPClient(this);
+
+
     m_tcpClient->setConnectOnInit(true);
 
 
 
-    connect(m_tcpClient,&TCPClient::stateChanged,[this](QAbstractSocket::SocketState state){
+    connect(m_tcpClient,&TCPClient::stateChanged,[&](QAbstractSocket::SocketState state){
         switch (state) {
         case QAbstractSocket::SocketState::ConnectedState:
             this->setConnected(true);
@@ -20,7 +24,7 @@ EpsonRemote::EpsonRemote()
     });
 
 
-    connect(m_tcpClient,&TCPClient::serverMessage,[this](const QString &message){
+    connect(m_tcpClient,&TCPClient::serverMessage,[&](const QString &message){
         QString messagereceived=message;
         QStringList fullmessage_splitted = messagereceived.split("\r\n");
 
@@ -81,7 +85,10 @@ EpsonRemote::EpsonRemote()
 
         }
 
-        m_epsonRemoteTimer->start(500);
+        if(m_epsonRemoteTimer){
+            m_epsonRemoteTimer->start(500);
+        }
+
 
     });
 
@@ -108,16 +115,22 @@ EpsonRemote::EpsonRemote()
 }
 
 EpsonRemote::~EpsonRemote()
-{
-    m_tcpClient->disconnect();
+{    
     m_epsonRemoteTimer->stop();
+    m_epsonRemoteTimer->deleteLater();
+    m_epsonRemoteTimer=nullptr;
+    m_tcpClient->disconnect();
+    m_tcpClient->deleteLater();
+    m_tcpClient=nullptr;
+    //this->disconnect(m_tcpClient);
+
 }
 
 
 void EpsonRemote::toogleConnection()
 {
     if(m_tcpClient->state()==QAbstractSocket::ConnectedState){
-        m_tcpClient->disconnect();
+        m_tcpClient->closeConnection();
     }
     else{
         m_tcpClient->connect();

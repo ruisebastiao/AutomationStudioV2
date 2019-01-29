@@ -429,29 +429,22 @@ ApplicationWindow {
                                     ColumnLayout{
 
                                         ToolBar{
-                                             Layout.fillWidth: true
-                                             Layout.preferredHeight: 30
+                                            Layout.fillWidth: true
+                                            Layout.preferredHeight: 30
 
-                                             Material.foreground: "white"
-                                             Label{
-                                                 anchors.fill: parent
-                                                 height: 20
-                                                 horizontalAlignment:Text.AlignHCenter
-                                                 verticalAlignment:Text.AlignVCenter
-                                                 text: "Confirm?"
-                                             }
+                                            Material.foreground: "white"
+                                            Label{
+                                                anchors.fill: parent
+                                                height: 20
+                                                horizontalAlignment:Text.AlignHCenter
+                                                verticalAlignment:Text.AlignVCenter
+                                                text: "Confirm?"
+                                            }
 
                                         }
 
                                         RowLayout {
-                                            Timer{
-                                                id:loadprojectTimer
-                                                repeat: false
-                                                interval: 250
-                                                triggered: {
-                                                    settings.selectedProject.load()
-                                                }
-                                            }
+
 
                                             Layout.margins: 10
                                             Button{
@@ -460,16 +453,21 @@ ApplicationWindow {
                                                 text: "OK"
                                                 onClicked: {
                                                     projectslist.currentIndex = index
+
+
+
+
+
+                                                    confirmProjectLoad.close();
+
+                                                    settings.selectedProject=model.project
                                                     if(settings.selectedProject){
-                                                        settings.selectedProject.unload()
+                                                        settings.selectedProject.selectedSubproject=subprojectslist.selectedSubproject
                                                     }
 
 
-                                                    settings.selectedProject=null
 
-                                                    settings.selectedProject=model.project
-                                                    confirmProjectLoad.close();
-                                                    loadprojectTimer.start()
+
 
 
                                                 }
@@ -479,7 +477,7 @@ ApplicationWindow {
                                                 highlighted: true
                                                 text: "Cancel"
                                                 onClicked: {
-                                                    itemProject.selectedSubproject=null
+
                                                     confirmProjectLoad.close();
                                                 }
                                             }
@@ -540,7 +538,8 @@ ApplicationWindow {
                                     ListView{
                                         id:subprojectslist
                                         clip: true
-                                        //                                        currentIndex: -1
+                                        property SubProject selectedSubproject
+
                                         height: projectdelegate.isExpanded?childrenRect.height:0
                                         Behavior on height {
                                             NumberAnimation {
@@ -570,8 +569,12 @@ ApplicationWindow {
                                                 propagateComposedEvents: false
                                                 onClicked: {
 
-                                                       itemProject.selectedSubproject=model.subProject
-                                                       confirmProjectLoad.open()
+                                                    if(subprojectslist.selectedSubproject!=model.subProject){
+                                                        subprojectslist.selectedSubproject=model.subProject
+                                                        confirmProjectLoad.open()
+                                                    }
+
+
 
 
 
@@ -835,39 +838,54 @@ ApplicationWindow {
 
                             anchors.fill: parent
 
-                            //                            Item {
-                            //                                Layout.fillHeight: true
-                            //                                Layout.fillWidth: true
-                            //                            }
 
+                            Item {
 
-                            GUI.TextScroller {
-                                id: centralLabel
                                 Layout.fillHeight: true
-                                //                                Layout.preferredWidth: textWidth
                                 Layout.fillWidth: true
-                                horizontalAlignment:Text.AlignRight
-                                text:":"+currentProject&&currentProject?currentProject.name:"No project selected"
-
-                                duration: mainStateAnimationTime
-                                font.pixelSize: 15
-                                //                                horizontalAlignment:Text.AlignHCenter
 
 
+                                GUI.TextScroller {
+                                    id: centralLabel
+                                    anchors.fill: parent
 
+                                    horizontalAlignment:Text.AlignRight
+
+                                    text:currentProject?currentProject.name:"No project selected"
+
+                                    onTextChanged:{
+                                        if(text){
+
+                                        }
+                                    }
+
+                                    duration: mainStateAnimationTime
+                                    font.pixelSize: 15
+                                    //                                horizontalAlignment:Text.AlignHCenter
+
+
+
+
+                                }
 
                             }
 
-                            GUI.TextScroller {
-
+                            Item {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                visible:rootwindow.currentProject&&currentProject.selectedSubproject
-                                text:currentProject&&currentProject.selectedSubproject?"- "+currentProject.selectedSubproject.name:""
-                                horizontalAlignment:Text.AlignLeft
-                                duration: mainStateAnimationTime
-                                font.pixelSize: 15
 
+                                GUI.TextScroller {
+                                    anchors.fill: parent
+
+                                    visible:rootwindow.currentProject&&currentProject.selectedSubproject
+                                    text:currentProject&&currentProject.selectedSubproject?"- "+currentProject.selectedSubproject.name:""
+                                    horizontalAlignment:Text.AlignLeft
+                                    duration: mainStateAnimationTime
+                                    font.pixelSize: 15
+
+
+
+                                }
 
 
                             }
@@ -1593,7 +1611,7 @@ ApplicationWindow {
                                         source: "qrc:/images/baseline_delete_white_48dp.png"
                                     }
                                     onClicked: {
-                                        selectedProject.modules.removeItem(module)
+                                        currentProject.modules.removeItem(module)
                                     }
                                 }
                             }

@@ -127,6 +127,15 @@ FlowNodeItem{
                         }
                     }
                 }
+                Button{
+                    Layout.fillWidth: true
+                    text: "Snapshot"
+                    enabled: continuouscapture_check.checked==false && root.node.cameraOpened
+                    onClicked: {
+                        root.node.snapShot();
+                    }
+                }
+
                 CheckBox{
 
                     Layout.fillWidth: true;

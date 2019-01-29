@@ -201,7 +201,7 @@ public:
 
 private:
 
-    TCPClient* m_tcpClient=new TCPClient();
+    TCPClient* m_tcpClient=nullptr;
 
     // JsonSerializable interface
     QVariant m_connected=false;

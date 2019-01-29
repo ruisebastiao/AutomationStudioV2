@@ -19,6 +19,7 @@
 #include <nodes/commandparsernode.h>
 #include <nodes/setresetnode.h>
 #include <nodes/subprojectinfonode.h>
+#include <nodes/arraynode.h>
 
 
 
@@ -147,6 +148,10 @@ void SceneGraph::getCommonTypes()
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"Sub Project Info");
 
             break;
+        case FlowNode::Type::ArrayNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Array operations");
+
+            break;
 
 
         default:
@@ -220,7 +225,9 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     else if(nodetype=="SubProjectInfoNode"){
         newnode=insertNode<SubProjectInfoNode>(nullptr);
     }
-
+    else if(nodetype=="ArrayNode"){
+        newnode=insertNode<ArrayNode>(nullptr);
+    }
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
 
     if(newnode){

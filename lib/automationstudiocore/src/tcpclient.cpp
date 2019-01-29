@@ -67,9 +67,9 @@ TCPClient::~TCPClient()
 {
     m_reconnectOnClose=false;
     m_connectTimer.stop();
-    m_socket->abort();
-    m_socket->disconnectFromHost();
+    closeConnection();
     m_socket->deleteLater();
+
 }
 
 void TCPClient::write(QString message)
@@ -86,6 +86,7 @@ void TCPClient::write(QString message)
 
 
 }
+
 
 
 void TCPClient::Serialize(QJsonObject &json)
@@ -106,14 +107,16 @@ void TCPClient::DeSerialize(QJsonObject &json)
 
 void TCPClient::connect()
 {
-    disconnect();
+    closeConnection();
     m_socket->connectToHost(m_host,m_port);
 }
 
-void TCPClient::disconnect()
+void TCPClient::closeConnection()
 {
 
+    m_socket->abort();
     m_socket->disconnectFromHost();
+
 }
 
 void TCPClient::setState(const QAbstractSocket::SocketState &state)

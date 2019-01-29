@@ -109,13 +109,13 @@ public slots:
 
     void setConnected(QVariant connected)
     {
-        if(m_connected.isValid()){
+        if(connected.isValid()){
             if(connected.value<bool>()){
                 if(m_readyCommand==""){
                     setReady(true);
                 }
             }
-            else if(m_connected.value<bool>() && connected.value<bool>()==false){
+            else if(connected.value<bool>() && connected.value<bool>()==false){
                 setReady(false);
             }
             m_connected = connected;

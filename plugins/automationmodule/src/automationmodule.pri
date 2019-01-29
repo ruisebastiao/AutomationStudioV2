@@ -35,7 +35,8 @@ HEADERS += \
     $$PWD/nodes/setresetnode.h \
     $$PWD/nodes/subprojectinfonode.h \
     $$PWD/subprojectinfolist.h \
-    $$PWD/subprojectinfo.h
+    $$PWD/subprojectinfo.h \
+    $$PWD/nodes/arraynode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -71,6 +72,7 @@ SOURCES += \
     $$PWD/nodes/setresetnode.cpp \
     $$PWD/subprojectinfolist.cpp \
     $$PWD/subprojectinfo.cpp \
-    $$PWD/nodes/subprojectinfonode.cpp
+    $$PWD/nodes/subprojectinfonode.cpp \
+    $$PWD/nodes/arraynode.cpp
 
 

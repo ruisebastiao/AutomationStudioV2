@@ -118,7 +118,11 @@ void ROINode::setSourceFrame(QMat *sourceFrame)
         
         //        emit sourceFrameChanged(m_sourceFrame);
         
-        m_basenode->setInput(QVariant::fromValue(m_sourceFrame));
+
+        if(m_basenode){
+            m_basenode->setInput(QVariant::fromValue(m_sourceFrame));
+        }
+
         
     }
     

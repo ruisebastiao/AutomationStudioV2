@@ -34,9 +34,11 @@ FlowNodeItem{
                             id:hostname_lbl
                             Layout.fillWidth: true
                             text: root.node.tcpClient.host
-                            onAccepted: {
+                            onTextChanged: {
                                 root.node.tcpClient.host=text
                             }
+
+
                             onFocusChanged: {
                                 if(focus==false){
                                     root.node.tcpClient.host=text
@@ -54,7 +56,7 @@ FlowNodeItem{
                             Layout.fillWidth: true
                             inputMethodHints:Qt.ImhDigitsOnly
                             text: root.node.tcpClient.port
-                            onAccepted: {
+                            onTextChanged: {
                                 root.node.tcpClient.port=text*1
                             }
                             onFocusChanged: {

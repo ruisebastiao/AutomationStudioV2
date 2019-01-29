@@ -387,6 +387,7 @@ void Settings::Serialize(QJsonObject &json)
     JsonSerializable::Serialize(json,this);
 
 
+
 }
 
 void Settings::DeSerialize(QJsonObject &json)

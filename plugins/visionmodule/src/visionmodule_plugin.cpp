@@ -70,7 +70,7 @@ void VisionModulePlugin::registerTypes(const char *uri){
     qRegisterMetaType<cv::RotatedRect>("cv::RotatedRect");
     qRegisterMetaType<std::vector<cv::RotatedRect>>("std::vector<cv::RotatedRect>");
 
-    qRegisterMetaType<cv::Rect>("cv::Rect");
+    qRegisterMetaType<cv::Rect>("cv::Rect");     
     qRegisterMetaType<std::vector<cv::Rect>>("std::vector<cv::Rect>");
 
 

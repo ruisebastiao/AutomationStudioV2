@@ -23,6 +23,7 @@ SerialIONode::SerialIONode()
 SerialIONode::~SerialIONode()
 {
    doDisconnect();
+   this->disconnect(m_serialPort);
 }
 
 
