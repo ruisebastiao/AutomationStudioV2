@@ -95,6 +95,14 @@ Item{
 
 
 
+            portDelegate: Component {
+
+                FlowNodePortItem{
+
+                }
+            }
+
+
             Component.onCompleted: {
 
                 defaultEdgeStyle.lineType = Qan.EdgeStyle.Curved

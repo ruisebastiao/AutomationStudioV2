@@ -15,13 +15,14 @@ FlowNodeItem{
 
     id:root
 
-    property var nodeArray: root.node.array
+    property var nodeArrayList: root.node.arrayList
 
 
-    onNodeArrayChanged: {
-        console.log("type:"+typeof(nodeArray))
-        if(nodeArray){
-            console.log("nodeArray:"+nodeArray.value)
+    onNodeArrayListChanged: {
+
+        if(nodeArrayList && nodeArrayList.length>0){
+            console.log("nodeArray:"+nodeArrayList[0])
+            arryindex.to=nodeArrayList.length-1
         }
     }
 
@@ -38,7 +39,18 @@ FlowNodeItem{
         ColumnLayout{
             anchors.fill: parent
             SpinBox{
+                id:arryindex
+                enabled: nodeArrayList.length>0
+                from:0
+//                to:nodeArrayList?nodeArrayList.length-1:0
+                value: root.node.arrayIndex
+                onValueModified: {
+                    root.node.arrayIndex=value
+                }
 
+//                onValueChanged: {
+//
+//                }
             }
         }
     }

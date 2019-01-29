@@ -164,7 +164,7 @@ private:
 
     void inputsChanged(){
         if(inputType()==InputType::InputSuffix){
-            setStringOutput(stringValue().value<QString>()+m_stringInput.value<QString>());
+            setStringOutput(stringValue().value<QString>()+QVariant(m_stringInput).toString());
         }else if(inputType()==InputType::InputPrefix){
             setStringOutput(m_stringInput.value<QString>()+stringValue().value<QString>());
         }

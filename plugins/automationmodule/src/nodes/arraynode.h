@@ -3,38 +3,6 @@
 
 #include "flownode.h"
 
-class ArrayListModel : public QAbstractListModel
-{
-public:
-    enum MyRoles {
-        valueRole = Qt::UserRole + 1
-    };
-
-    ArrayListModel(QObject *parent = nullptr);
-    ~ArrayListModel();
-
-
-private:
-
-    QVariant m_internalList=QVariant();
-
-    int listsize=-1;
-
-    // QAbstractItemModel interface
-public:
-
-    QVariant data(const QModelIndex &index, int role) const override;
-
-
-    QHash<int, QByteArray> roleNames() const override;
-    QVariant internalList() const;
-    void setInternalList(const QVariant &internalList);
-
-    // QAbstractItemModel interface
-public:
-    int rowCount(const QModelIndex &parent) const override;
-};
-
 class ArrayNode : public FlowNode
 {
     Q_OBJECT
@@ -45,7 +13,8 @@ class ArrayNode : public FlowNode
 
     Q_PROPERTY(int arrayIndex READ arrayIndex WRITE setArrayIndex NOTIFY arrayIndexChanged USER("serialize"))
 
-//    Q_PROPERTY(ArrayListModel* listArray READ listArray WRITE setListArray NOTIFY listArrayChanged)
+    Q_PROPERTY(QVariantList arrayList READ arrayList WRITE setArrayList NOTIFY arrayListChanged)
+
 
 
 public:
@@ -68,29 +37,40 @@ public:
     }
 
 
-    ArrayListModel* listArray() const
+
+    QVariantList arrayList() const
     {
-        return m_listArray;
+        return m_arrayList;
     }
 
 public slots:
     void setArray(QVariant array)
     {
-        if (m_array == array)
-            return;
+
 
 
         m_array = array;
 
 
-        m_listArray->setInternalList(m_array);
+        QVariantList arraylist=m_array.value<QVariantList>();
+
+        setArrayList(arraylist);
+
         emit arrayChanged(m_array);
+
+        if(m_arrayIndex<m_arrayList.length() && m_arrayIndex>=0){
+            setArrayItem(m_arrayList.at(m_arrayIndex));
+        }
+        else{
+            setArrayItem(QVariant());
+        }
+
+
     }
 
     void setArrayItem(QVariant arrayItem)
     {
-        if (m_arrayItem == arrayItem)
-            return;
+
 
         m_arrayItem = arrayItem;
         emit arrayItemChanged(m_arrayItem);
@@ -102,17 +82,23 @@ public slots:
             return;
 
         m_arrayIndex = arrayIndex;
+
+        if(m_arrayIndex<m_arrayList.length() && m_arrayIndex>=0){
+            setArrayItem(m_arrayList.at(m_arrayIndex));
+        }
+        else{
+            setArrayItem(QVariant());
+        }
         emit arrayIndexChanged(m_arrayIndex);
     }
 
 
-    void setListArray(ArrayListModel* listArray)
-    {
-        if (m_listArray == listArray)
-            return;
 
-        m_listArray = listArray;
-        emit listArrayChanged(m_listArray);
+    void setArrayList(QVariantList arrayList)
+    {
+
+        m_arrayList = arrayList;
+        emit arrayListChanged(m_arrayList);
     }
 
 signals:
@@ -123,7 +109,9 @@ signals:
     void arrayIndexChanged(int arrayIndex);
 
 
-    void listArrayChanged(ArrayListModel* listArray);
+
+
+    void arrayListChanged(QVariantList arrayList);
 
 private:
 
@@ -131,7 +119,8 @@ private:
     QVariant m_arrayItem=QVariant();
     int m_arrayIndex=-1;
 
-    ArrayListModel* m_listArray= new ArrayListModel();
+
+    QVariantList m_arrayList;
 };
 
 #endif // ARRAYNODE_H

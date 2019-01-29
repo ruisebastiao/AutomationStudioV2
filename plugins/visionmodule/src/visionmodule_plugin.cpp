@@ -77,6 +77,8 @@ void VisionModulePlugin::registerTypes(const char *uri){
     qRegisterMetaType<QMat*>("QMat*");
 
     qRegisterMetaType<std::vector<cv::Point>>("std::vector<cv::Point>");
+    qRegisterMetaType<cv::Point>("cv::Point");
+
 
     qmlRegisterType<VisionGraph>(uri, 1, 0, "VisionGraph");
     qmlRegisterType<VisionModuleGraph>(uri, 1, 0, "VisionModuleGraph");

@@ -115,19 +115,11 @@ QVariant ProcessingGeometricNode::lineSegment(){
         case Geometric2PointLine:
         {
             cv::Point pt1,pt2;
-            if(strcmp(m_input1.typeName(),"std::vector<cv::Rect>")==0) {
-                std::vector<cv::Rect> rect_obj = m_input1.value<std::vector<cv::Rect>>();
+            if(m_input1.canConvert<cv::Rect>()) {
 
-                // TODO check empty vectors
+                cv::Rect input1_rect= m_input1.value<cv::Rect>();
+                pt1=cv::Point(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
 
-                if(rect_obj.size()>0){
-
-
-                    // if vector take index 0 Rect
-
-                    cv::Rect input1_rect=rect_obj.at(0);
-                    pt1=cv::Point(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
-                }
 
             }
             else if(strcmp(m_input1.typeName(),"std::vector<cv::RotatedRect>")==0) {
@@ -147,19 +139,12 @@ QVariant ProcessingGeometricNode::lineSegment(){
             }
 
 
-            if(strcmp(m_input2.typeName(),"std::vector<cv::Rect>")==0) {
-                std::vector<cv::Rect> rect_obj = m_input2.value<std::vector<cv::Rect>>();
-
-                // TODO process empty vectors
-
-                if(rect_obj.size()>0){
+            if(m_input1.canConvert<cv::Rect>()) {
 
 
-                    // if vector take index 0 Rect
+                cv::Rect input2_rect= m_input2.value<cv::Rect>();
+                pt2=cv::Point(input2_rect.x+(input2_rect.width/2),input2_rect.y+(input2_rect.height/2));
 
-                    cv::Rect input2_rect=rect_obj.at(0);
-                    pt2=cv::Point(input2_rect.x+(input2_rect.width/2),input2_rect.y+(input2_rect.height/2));
-                }
 
             }
             else if(strcmp(m_input2.typeName(),"std::vector<cv::RotatedRect>")==0) {
