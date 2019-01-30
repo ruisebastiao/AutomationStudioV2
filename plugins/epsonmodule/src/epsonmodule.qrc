@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file alias="AutomationModules/EpsonModuleItem.qml">qml/EpsonModuleItem.qml</file>
         <file alias="Nodes/EpsonNodeItem.qml">qml/nodes/EpsonNodeItem.qml</file>
-        <file>Nodes/EpsonRemoteItem.qml</file>
+        <file alias="Nodes/EpsonRemoteItem.qml">qml/nodes/EpsonRemoteItem.qml</file>
     </qresource>
 </RCC>
