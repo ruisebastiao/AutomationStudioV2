@@ -19,6 +19,10 @@
 
 #include <QQmlExtensionPlugin>
 
+#include <nodes/cv/cvserialization.h>
+
+
+
 class VisionModulePlugin : public QQmlExtensionPlugin{
 
     Q_OBJECT
@@ -27,5 +31,10 @@ class VisionModulePlugin : public QQmlExtensionPlugin{
 public:
     void registerTypes(const char *uri) Q_DECL_OVERRIDE;
     void initializeEngine(QQmlEngine *engine, const char *uri) Q_DECL_OVERRIDE;
+
+    cvSerialization* m_cvserialization= new cvSerialization(this);
+
+    ~VisionModulePlugin() override;
+    QString cvSerializeCB(QVariant value);
 };
 #endif // VISIONMODULE_PLUGIN_H

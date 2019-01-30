@@ -5,6 +5,11 @@ CameraCaptureNode::CameraCaptureNode()
 
 }
 
+CameraCaptureNode::~CameraCaptureNode()
+{
+    LOG_INFO()<<"Deleting Camera node:"<<this->id()<<"|"<<this->name();
+}
+
 void CameraCaptureNode::setContinuousCapture(bool continuousCapture)
 
 {

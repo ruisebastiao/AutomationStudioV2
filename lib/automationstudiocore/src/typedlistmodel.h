@@ -49,7 +49,7 @@ public:
 
 //                delete item;
                 if(item){
-                    item->deleteLater();
+                    delete item;/*->deleteLater();*/
                 }
             }
 

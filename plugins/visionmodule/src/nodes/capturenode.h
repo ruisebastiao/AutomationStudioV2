@@ -29,6 +29,7 @@ class CaptureNode : public FlowNode
 
 public:
     CaptureNode();
+    ~CaptureNode() override;
 
     QVariant newFrame() const
     {

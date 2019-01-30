@@ -11,6 +11,8 @@ class StringNode : public FlowNode
 
 
     Q_PROPERTY(QVariant stringValue READ stringValue WRITE setStringValue NOTIFY stringValueChanged USER("serialize"))
+    Q_PROPERTY(QString storedValue READ storedValue WRITE setStoredValue NOTIFY storedValueChanged USER("serialize"))
+
     Q_PROPERTY(QVariant stringInput READ stringInput WRITE setStringInput NOTIFY stringInputChanged REVISION 30)
     Q_PROPERTY(QVariant stringInput2 READ stringInput2 WRITE setStringInput2 NOTIFY stringInput2Changed REVISION 30)
 
@@ -34,7 +36,8 @@ public:
         InputSuffix,
         InputExtract,
         InputCompare,
-        InputJoin
+        InputJoin,
+        InputSerialize
 
 
     };
@@ -131,6 +134,15 @@ public slots:
         inputsChanged();
     }
 
+    void setStoredValue(QString storedValue)
+    {
+        if (m_storedValue == storedValue)
+            return;
+
+        m_storedValue = storedValue;
+        emit storedValueChanged(m_storedValue);
+    }
+
 signals:
     void stringValueChanged(QVariant stringValue);
 
@@ -158,14 +170,44 @@ signals:
 
     void stringInput2Changed(QVariant stringInput2);
 
+    void storedValueChanged(QString storedValue);
+
 private:
     QVariant m_stringValue=QVariant::fromValue(QString(""));
 
 
+    QString serialize_input(){
+
+        if(m_stringInput.canConvert<QString>()){
+            return  m_stringInput.toString();
+        }
+        else {
+            if(m_stringInput.canConvert<QLineF>()){
+                QLineF linef=m_stringInput.value<QLineF>();
+
+                return Utilities::serializationUtilities->serialize(linef);
+
+
+            }
+            else{
+                return Utilities::serializationUtilities->serialize(m_stringInput);
+            }
+//            else if(m_stringInput.canConvert<QLineF>()){
+
+//            }
+        }
+
+        return "Invalid input:"+QString(m_stringInput.typeName());
+    }
+
     void inputsChanged(){
         if(inputType()==InputType::InputSuffix){
             setStringOutput(stringValue().value<QString>()+QVariant(m_stringInput).toString());
-        }else if(inputType()==InputType::InputPrefix){
+
+        }else if(inputType()==InputType::InputSerialize){
+            setStringOutput(serialize_input());
+        }
+        else if(inputType()==InputType::InputPrefix){
             setStringOutput(m_stringInput.value<QString>()+stringValue().value<QString>());
         }
         else if(inputType()==InputType::InputExtract) {
@@ -177,6 +219,7 @@ private:
         else if(inputType()==InputType::InputJoin){
             QString inputstr=m_stringInput.value<QString>();
             QString inputstr2=m_stringInput2.value<QString>();
+
 
             QString joined=m_stringInput.value<QString>().append(m_stringValue.value<QString>()).append(inputstr2);
             setStringOutput(joined);
@@ -243,7 +286,7 @@ private:
             }
 
             FlowNodePort* inputstring2port=getPortFromKey("stringInput2");
-            if(m_inputType==InputType::InputNone){
+            if(m_inputType==InputType::InputNone || m_inputType==InputType::InputSerialize){
 
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
@@ -331,6 +374,8 @@ private:
 
     QVariant m_stringInput2=QString("");
 
+    QString m_storedValue="";
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -364,6 +409,10 @@ public:
     QVariant stringInput2() const
     {
         return m_stringInput2;
+    }
+    QString storedValue() const
+    {
+        return m_storedValue;
     }
 };
 

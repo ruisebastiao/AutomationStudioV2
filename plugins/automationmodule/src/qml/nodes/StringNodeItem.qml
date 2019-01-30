@@ -25,6 +25,7 @@ FlowNodeItem{
         anchors.fill: parent
 
         TextArea{
+            visible: root.node.inputType!=StringNode.InputSerialize
 
             Layout.fillWidth: true
             text:node.stringValue
@@ -53,6 +54,10 @@ FlowNodeItem{
                         if(root.node.inputType==StringNode.InputExtract)
                             return "Compare"
 
+                        if(root.node.inputType==StringNode.InputSerialize)
+                            return "Serialize"
+
+
                         return "String";
                     })
 
@@ -62,28 +67,52 @@ FlowNodeItem{
 
             }
         }
-
-        TextArea{
-
-            Layout.fillWidth: true
-            text:node.stringOutput
-
-            readOnly: true
-            visible: root.node.inputType!=StringNode.InputCompare
+        RowLayout{
 
 
-            wrapMode: TextEdit.WordWrap
+
+            TextArea{
+
+                Layout.fillWidth: true
+                text:node.stringOutput
+
+                readOnly: true
+                visible: root.node.inputType!=StringNode.InputCompare
 
 
-            selectByMouse:true
-            MaterialPlaceHolder{
-                placeHolderText:"Output"
+                wrapMode: TextEdit.WordWrap
+
+
+                selectByMouse:true
+                MaterialPlaceHolder{
+                    placeHolderText:"Output"
+                }
             }
+
+
+            TextArea{
+
+                Layout.fillWidth: true
+                text:node.storedValue
+
+                readOnly: true
+                visible: root.node.storedValue!=""
+
+
+                wrapMode: TextEdit.WordWrap
+
+
+                selectByMouse:true
+                MaterialPlaceHolder{
+                    placeHolderText:"Stored Value"
+                }
+            }
+
+
         }
 
-
         GroupBox{
-//            Layout.fillHeight: true
+            //            Layout.fillHeight: true
             Layout.fillWidth: true
             title: "Input is"
 
@@ -168,11 +197,35 @@ FlowNodeItem{
 
 
                 }
+                RadioButton{
+                    Layout.fillWidth: true
+                    text: "Serialize"
+                    checked: root.node.inputType==StringNode.InputSerialize
+
+
+                    onCheckedChanged: {
+                        if(checked){
+                            root.node.inputType=StringNode.InputSerialize
+                        }
+                    }
+
+
+                }
             }
 
 
 
 
+
+        }
+
+        Button{
+            Layout.fillWidth: true
+            text: "Store Output"
+            highlighted: true
+            onClicked: {
+                root.node.storedValue=root.node.stringOutput
+            }
         }
 
 

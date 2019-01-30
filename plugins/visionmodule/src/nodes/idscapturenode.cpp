@@ -41,7 +41,7 @@ IDSCaptureNode::IDSCaptureNode()
 
 IDSCaptureNode::~IDSCaptureNode()
 {
-    qDebug()<<"Destroing";
+    LOG_INFO()<<"Deleting IDS node:"<<this->id()<<"|"<<this->name();
     closeCamera();
     frame_processed.wakeAll();
     m_checkCamerasTimer->stop();
@@ -243,6 +243,10 @@ void IDSCaptureNode::setCamera(bool open)
                             LOG_INFO("Camera parameters loaded from file :"+m_cameraParametersPath+" ("+selectedCamera()->serialnumber()+":"+QString::number(selectedCamera()->camID())+")");
 
                         }
+                    }
+                    else {
+                        this->closeCamera();
+                        return;
                     }
                 }
 

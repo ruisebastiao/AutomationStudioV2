@@ -6,6 +6,7 @@
 
 
 
+
 Utilities::Utilities(QObject *parent) : QObject(parent)
 {
 
@@ -132,6 +133,7 @@ void Utilities::NonBlockingExec(std::function<void ()> const& execFunc){
 
 }
 
+
 void Utilities::NonBlockingWait(int ms){
 
     bool done=false;
@@ -154,3 +156,4 @@ void Utilities::NonBlockingWait(int ms){
 }
 
 
+SerializationUtilities* Utilities::serializationUtilities= new SerializationUtilities();

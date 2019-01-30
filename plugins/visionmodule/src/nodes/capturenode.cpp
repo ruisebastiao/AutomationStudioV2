@@ -5,6 +5,11 @@ CaptureNode::CaptureNode()
 
 }
 
+CaptureNode::~CaptureNode()
+{
+    LOG_INFO()<<"Deleting capture node:"<<this->id()<<"|"<<this->name();
+}
+
 void CaptureNode::setNewFrame(QVariant newFrame)
 {
     m_newFrame = newFrame;

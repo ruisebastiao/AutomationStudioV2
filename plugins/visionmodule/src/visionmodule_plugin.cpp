@@ -41,6 +41,7 @@
 #include <graphs/visionmodulegraph.h>
 
 
+
 void VisionModulePlugin::registerTypes(const char *uri){
     // @uri modules.visionmodule
     qmlRegisterType<QVisionModule>(uri, 1, 0, "VisionModule");
@@ -86,8 +87,23 @@ void VisionModulePlugin::registerTypes(const char *uri){
 
 
 
+
+
 }
+
+
 
 void VisionModulePlugin::initializeEngine(QQmlEngine *engine, const char *){
     engine->addImportPath("qrc:///");
+
+//    addHandler(&serialize);
+
+    using namespace std::placeholders; // for `_1`
+    Utilities::serializationUtilities->cvSerializer(std::bind(&cvSerialization::serializer, m_cvserialization, _1));
+
+}
+
+VisionModulePlugin::~VisionModulePlugin()
+{
+
 }

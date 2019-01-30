@@ -34,6 +34,10 @@ class IDSCaptureNode : public CameraCaptureNode
     Q_PROPERTY(int numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged  USER("serialize"))
 
 
+//    Q_PROPERTY(QVariant parametersFileInput READ parametersFileInput WRITE setParametersFileInput NOTIFY newFrameChanged REVISION 30)
+
+    Q_PROPERTY(QVariant parametersFileInput READ parametersFileInput WRITE setParametersFileInput NOTIFY parametersFileInputChanged REVISION 30)
+
 
 
 
@@ -87,6 +91,11 @@ public:
     QString cameraParametersPath() const
     {
         return m_cameraParametersPath;
+    }
+
+    QVariant parametersFileInput() const
+    {
+        return m_parametersFileInput;
     }
 
 public slots:
@@ -175,6 +184,8 @@ signals:
 
     void cameraParametersPathChanged(QString cameraParametersPath);
 
+    void parametersFileInputChanged(QVariant parametersFileInput);
+
 private:
 
     void setCameraAvailable(bool cameraAvailable)
@@ -245,6 +256,8 @@ private:
 
     QString m_cameraParametersPath="";
 
+    QVariant m_parametersFileInput=QString("");
+
 public slots:
     void setNewFrame(QVariant newFrame) override;
 protected:
@@ -295,6 +308,13 @@ public slots:
 
         m_cameraParametersPath=basedir.relativeFilePath(fileloc);
         emit cameraParametersPathChanged(m_cameraParametersPath);
+    }
+    void setParametersFileInput(QVariant parametersFileInput)
+    {
+        m_parametersFileInput = parametersFileInput;
+        setCameraParametersPath(m_parametersFileInput.value<QString>());
+
+        emit parametersFileInputChanged(m_parametersFileInput);
     }
 };
 

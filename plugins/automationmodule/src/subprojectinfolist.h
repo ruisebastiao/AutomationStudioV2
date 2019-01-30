@@ -35,6 +35,19 @@ public:
 
         return nullptr;
     }
+
+    Q_INVOKABLE SubProjectInfo* getByName(QString name){
+
+        for (int var = 0; var < m_internalList.length(); ++var) {
+            SubProjectInfo* info=m_internalList.at(var);
+            if(info->projectName()==name){
+                return info;
+            }
+        }
+
+        return nullptr;
+    }
+
     // QAbstractItemModel interface
 public:
     QHash<int, QByteArray> roleNames() const override;

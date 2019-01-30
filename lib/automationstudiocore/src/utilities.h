@@ -2,13 +2,98 @@
 #define UTILITIES_H
 
 #include "automationstudiocoreglobal.h"
-
+#include "QLineF"
 
 #include <QGuiApplication>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QObject>
 #include <QProcess>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
+
+
+
+
+
+class AUTOMATIONSTUDIO_CORE_EXPORT SerializationUtilities{
+
+
+//        class cvTypes{
+//        public:
+
+//            QString serialize(QVariant cvtype){
+//                return serializeCB(cvtype);
+//            }
+//            static std::function<QString(QVariant)> &serializeCB;
+
+//        private:
+
+
+
+//        };
+
+public:
+    SerializationUtilities(){}
+
+
+
+    QString serialize(QLineF linef){
+        QJsonObject p1,p2,center;
+
+        p1=QJsonObject{
+        {"x", linef.x1()},
+        {"y", linef.y1()}
+    };
+
+        p2=QJsonObject{
+        {"x", linef.x2()},
+        {"y", linef.y2()}
+    };
+
+
+        center=QJsonObject{
+        {"x", linef.center().x()},
+        {"y", linef.center().y()}
+    };
+
+
+        QJsonObject serializedObject{
+            {"p1", p1},
+            {"p2", p2},
+            {"center",center},
+            {"angle",QString::number(linef.angle(), 'f', 2)}
+        };
+
+        QJsonDocument serializedDoc(serializedObject);
+
+
+
+        return serializedDoc.toJson(QJsonDocument::Indented);
+
+    }
+
+    QString serialize(QVariant value){
+        if(value.isValid()){
+            return cvSerialize(value);
+        }
+
+        return "";
+
+    }
+
+    QString cvSerialize(QVariant value){
+        return cvSerializeCB(value);
+    }
+
+    void cvSerializer(std::function<QString(QVariant)> serializer){
+        cvSerializeCB=serializer;
+    }
+
+
+private:
+    std::function<QString(QVariant)> cvSerializeCB;
+};
 
 
 
@@ -23,6 +108,8 @@ public:
 
     Q_INVOKABLE void executeCommand(QString command, bool waitfinished=false, QString cwd="", bool captureStdOut=false, bool detached=false, const std::function<void (QString out)> &execFunc=nullptr);
     Q_INVOKABLE bool fileExists(QString filepath);
+
+
 
 
     template<typename T>
@@ -74,7 +161,7 @@ public:
     }
 
 private:
-//    QProcess *runCommandProcess;
+    //    QProcess *runCommandProcess;
 
     bool m_controlPressed=false;
 
@@ -89,7 +176,8 @@ public slots:
         if (m_controlPressed == controlPressed)
             return;
 
-        m_controlPressed = controlPressed;
+
+                m_controlPressed = controlPressed;
         emit controlPressedChanged(m_controlPressed);
     }
 
@@ -99,6 +187,10 @@ public:
     Q_INVOKABLE bool resourceExists(QString path);
     static void NonBlockingWait(int ms);
     static void NonBlockingExec(const std::function<void ()> &execFunc);
+
+    static SerializationUtilities* serializationUtilities;
+
+
 
 private slots:
 

@@ -24,6 +24,8 @@ class SubProjectInfoNode:public FlowNode
     Q_PROPERTY(QVariant infoOK READ infoOK WRITE setInfoOK NOTIFY infoOKChanged REVISION 31)
     Q_PROPERTY(QVariant infoNOK READ infoNOK WRITE setInfoNOK NOTIFY infoNOKChanged REVISION 31)
 
+    Q_PROPERTY(QVariant idFromCurrentProject READ idFromCurrentProject WRITE setIdFromCurrentProject NOTIFY idFromCurrentProjectChanged REVISION 31)
+
 
 
 
@@ -89,6 +91,11 @@ public:
         return m_checkOnInput;
     }
 
+    QVariant idFromCurrentProject() const
+    {
+        return m_idFromCurrentProject;
+    }
+
 public slots:
     void setInfos(SubProjectInfoList* infos)
     {
@@ -130,6 +137,17 @@ public slots:
         if(checkInfo().value<bool>() || m_checkOnInput){
             doCheckInfo();
         }
+
+        SubProjectInfo* info=m_infos->getByName(currentProjectName.value<QString>());
+
+        if(info){
+            setIdFromCurrentProject(info->id());
+        }
+        else{
+            setIdFromCurrentProject("");
+        }
+
+
     }
 
     void setInfoOK(QVariant infoOK)
@@ -169,6 +187,14 @@ public slots:
         emit checkOnInputChanged(m_checkOnInput);
     }
 
+    void setIdFromCurrentProject(QVariant idFromCurrentProject)
+    {
+
+
+        m_idFromCurrentProject = idFromCurrentProject;
+        emit idFromCurrentProjectChanged(m_idFromCurrentProject);
+    }
+
 signals:
     void infosChanged(SubProjectInfoList* infos);
 
@@ -187,6 +213,8 @@ signals:
     void infoTitleChanged(QString infoTitle);
 
     void checkOnInputChanged(bool checkOnInput);
+
+    void idFromCurrentProjectChanged(QVariant idFromCurrentProject);
 
 private:
 
@@ -219,6 +247,7 @@ private:
     SubProjectInfo* m_currentInfo;
     QString m_infoTitle="Info Title";
     bool m_checkOnInput=false;
+    QVariant m_idFromCurrentProject=QString("");
 };
 
 #endif // SUBPROJECTINFONODE_H

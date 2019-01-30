@@ -22,7 +22,7 @@ FlowNodeItem{
 
         if(nodeArrayList && nodeArrayList.length>0){
             console.log("nodeArray:"+nodeArrayList[0])
-            arryindex.to=nodeArrayList.length-1
+            //arryindex.to=nodeArrayList.length-1
         }
     }
 
@@ -41,11 +41,18 @@ FlowNodeItem{
             SpinBox{
                 id:arryindex
                 enabled: nodeArrayList.length>0
-                from:0
+                from:-1
 //                to:nodeArrayList?nodeArrayList.length-1:0
                 value: root.node.arrayIndex
                 onValueModified: {
-                    root.node.arrayIndex=value
+                    if(value<nodeArrayList.length){
+                        root.node.arrayIndex=value
+                    }
+                    else{
+                        value=nodeArrayList.length-1
+                    }
+
+
                 }
 
 //                onValueChanged: {

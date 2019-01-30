@@ -25,6 +25,7 @@ class CameraCaptureNode : public CaptureNode
 
 public:
     CameraCaptureNode();
+    ~CameraCaptureNode() override;
 
 
     bool continuousCapture() const

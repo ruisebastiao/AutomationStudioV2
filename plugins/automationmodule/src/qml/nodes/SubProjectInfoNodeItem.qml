@@ -105,6 +105,7 @@ FlowNodeItem{
 
                             Layout.fillWidth: true
                             text: container.info?"Save":"Add"
+
                             highlighted: true
                             enabled: textID.length>0 && textProjectName.length>0
                             onClicked: {
