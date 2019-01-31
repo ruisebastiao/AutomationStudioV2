@@ -861,8 +861,8 @@ ApplicationWindow {
                                 GUI.TextScroller {
                                     anchors.fill: parent
 
-                                    visible:false//rootwindow.currentProject&&currentProject.selectedSubproject
-                                    //text:currentProject&&currentProject.selectedSubproject?"- "+currentProject.selectedSubproject.name:""
+                                    visible:rootwindow.currentProject
+                                    text:currentProject&&currentProject.subProjectName!=""?"- "+currentProject.subProjectName:""
                                     horizontalAlignment:Text.AlignLeft
                                     duration: mainStateAnimationTime
                                     font.pixelSize: 15
