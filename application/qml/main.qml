@@ -410,7 +410,7 @@ ApplicationWindow {
                                     color: Material.accent
                                     anchors.fill: parent
                                     opacity: 0.5
-                                    visible: rootwindow.currentProject == model.project
+                                    visible: model && model.project.subProjects.length==0 && rootwindow.currentProject == model.project
                                 }
 
                                 Menu {
