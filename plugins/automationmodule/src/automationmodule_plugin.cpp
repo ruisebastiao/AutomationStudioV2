@@ -35,7 +35,7 @@
 #include <nodes/logicnode.h>
 #include <nodes/proxynode.h>
 #include <nodes/stringnode.h>
-#include <nodes/subprojectinfonode.h>
+#include <nodes/propertiesnode.h>
 #include <nodes/webservicenode.h>
 
 #include <filters/alloffilter.h>
@@ -91,7 +91,7 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterUncreatableType<ModuleListModel>(uri, 1, 0, "ModuleListModel","Cannot be created");
     qmlRegisterUncreatableType<FlowNodeManager>(uri, 1, 0, "FlowNodeManager","Cannot be created");
     qmlRegisterUncreatableType<StringNode>(uri, 1, 0, "StringNode","Cannot be created");
-    qmlRegisterUncreatableType<SubProjectInfo>(uri, 1, 0, "SubProjectInfo","Cannot be created");
+    qmlRegisterUncreatableType<ProperyInfo>(uri, 1, 0, "SubProjectInfo","Cannot be created");
 
 
     qmlRegisterType<QQmlSortFilterProxyModel>("SortFilterProxyModel", 1, 0, "SortFilterProxyModel");

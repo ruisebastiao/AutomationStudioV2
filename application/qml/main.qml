@@ -410,7 +410,7 @@ ApplicationWindow {
                                     color: Material.accent
                                     anchors.fill: parent
                                     opacity: 0.5
-                                    visible: model && model.project.subProjects.length==0 && rootwindow.currentProject == model.project
+                                    visible: model && model.project && model.project.subProjects.length==0 && rootwindow.currentProject == model.project
                                 }
 
                                 Menu {
@@ -448,6 +448,17 @@ ApplicationWindow {
                                     ListView{
                                         id:subprojectslist
                                         clip: true
+
+                                        Component.onCompleted: {
+                                            enabled=Qt.binding(function(){
+
+                                                if(rootwindow.currentProject){
+                                                    return rootwindow.currentProject.projectLocked==false
+                                                }
+                                                return true
+
+                                            })
+                                        }
 
                                         property int projectListIndex: projectslist.currentIndex
                                         onProjectListIndexChanged: {
@@ -557,7 +568,19 @@ ApplicationWindow {
                                             highlighted: true
                                             property bool openProject: projectslist.selectedProject!=rootwindow.currentProject
                                             text:openProject || !projectslist.selectedProject?"Open":"Close"
-                                            enabled: projectslist.selectedProject
+                                            //                                            enabled: projectslist.selectedProject && rootwindow.currentProject.projectLocked==false
+                                            Component.onCompleted: {
+                                                enabled=Qt.binding(function(){
+                                                    if(projectslist.selectedProject){
+                                                        if(rootwindow.currentProject){
+                                                            return rootwindow.currentProject.projectLocked==false
+                                                        }
+                                                        return true
+                                                    }
+                                                    return false
+                                                })
+                                            }
+
                                             onClicked: {
 
                                                 if(openProject==false){

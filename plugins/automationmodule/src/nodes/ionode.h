@@ -14,7 +14,7 @@ class AUTOMATIONMODULE_EXPORT IONode: public FlowNode
     Q_PROPERTY(QVariant ready READ ready WRITE setReady NOTIFY readyChanged REVISION 31)
     Q_PROPERTY(QString readyCommand READ readyCommand WRITE setReadyCommand NOTIFY readyCommandChanged  USER("serialize"))
 
-    Q_PROPERTY(bool send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
+    Q_PROPERTY(QVariant send READ send WRITE setSend NOTIFY sendChanged REVISION 30)
 
     Q_PROPERTY(QVariant dataReceived READ dataReceived WRITE setDataReceived NOTIFY dataReceivedChanged)
 
@@ -96,12 +96,12 @@ public slots:
         emit dataReceivedChanged(m_dataReceived);
     }
 
-    void setSend(bool send)
+    void setSend(QVariant send)
     {
 
 
         m_send = send;
-        if(m_send && m_ready.value<bool>()){
+        if(m_send.value<bool>() && m_ready.value<bool>()){
             doSend();
         }
         emit sendChanged(m_send);
@@ -165,7 +165,7 @@ signals:
 
     void dataReceivedChanged(QVariant dataReceived);
 
-    void sendChanged(bool send);
+    void sendChanged(QVariant send);
 
     void connectedChanged(QVariant connected);
 
@@ -185,7 +185,7 @@ private:
 
 
     // JsonSerializable interface
-    bool m_send=false;
+    QVariant m_send=false;
 
     QString alldatareceived="";
 
@@ -202,7 +202,7 @@ private:
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
-    bool send() const
+    QVariant send() const
     {
         return m_send;
     }

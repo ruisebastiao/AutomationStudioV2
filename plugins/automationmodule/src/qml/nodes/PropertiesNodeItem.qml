@@ -21,7 +21,7 @@ FlowNodeItem{
         GroupBox {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            title: root.node.infoTitle
+            title: "Properties"
             ColumnLayout{
 
                 anchors.fill: parent
@@ -30,13 +30,13 @@ FlowNodeItem{
                     id:infolist
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    model: root.node.infos
+                    model: root.node.properties
                     clip: true
 
 
                     onCurrentIndexChanged:{
                        if(currentIndex==-1) {
-                           container.info=null;
+                           container.selectedPropertyInfo=null;
                        }
                     }
 
@@ -47,7 +47,7 @@ FlowNodeItem{
 
                         onHighlightedChanged: {
                             if(highlighted){
-                                container.info=info
+                                container.selectedPropertyInfo=propertyInfo
                             }
                         }
                         swipe.transition: Transition {
@@ -55,7 +55,7 @@ FlowNodeItem{
                         }
                         swipe.onOpened:{
                             infolist.model.removeItem(info)
-                            textID.text=""
+                            textPropertyName.text=""
                         }
 
                         swipe.right: Label {
@@ -81,7 +81,7 @@ FlowNodeItem{
                         }
                         Label{
 
-                            text: info.id+" ("+info.projectName+")"
+                            text: propertyInfo.propertyName+" ("+propertyInfo.propertyValue+")"
                             anchors.fill: parent
                             font.pixelSize: 16
                             horizontalAlignment:Text.AlignHCenter
@@ -96,7 +96,7 @@ FlowNodeItem{
                     id:container
                     Layout.fillWidth: true
 
-                    property var info
+                    property var selectedPropertyInfo
 
 
                     RowLayout{
@@ -104,16 +104,16 @@ FlowNodeItem{
                         Button{
 
                             Layout.fillWidth: true
-                            text: container.info?"Save":"Add"
+                            text: container.selectedPropertyInfo?"Save":"Add"
 
                             highlighted: true
-                            enabled: textID.length>0 && textProjectName.length>0
+                            enabled: textPropertyName.length>0 && textPropertyValue.length>0
                             onClicked: {
-                                if(!container.info){
-                                    root.node.addInfo(textID.text,textProjectName.text);
+                                if(!container.selectedPropertyInfo){
+                                    root.node.addPropertyInfo(textPropertyName.text,textPropertyValue.text);
                                 }
                                 else{
-                                    root.node.updateInfo(container.info,textID.text,textProjectName.text);
+                                    root.node.updatePropertyInfo(container.selectedPropertyInfo,textPropertyName.text,textPropertyValue.text);
                                 }
                             }
                         }
@@ -133,8 +133,8 @@ FlowNodeItem{
                             TextField{
                                 property bool idvalid: false
                                 property string currenttext: ""
-                                id:textID
-                                text: container.info?container.info.id:currenttext
+                                id:textPropertyName
+                                text: container.selectedPropertyInfo?container.selectedPropertyInfo.propertyName:currenttext
 
 
                                 onTextChanged: {
@@ -142,20 +142,20 @@ FlowNodeItem{
                                         currenttext=text
                                     }
 
-                                    container.info=root.node.infos.getById(text)
+                                    container.selectedPropertyInfo=root.node.properties.getByName(text)
 
                                 }
 
                                 MaterialPlaceHolder{
-                                    placeHolderText:"ID"
+                                    placeHolderText:"Property Name"
                                 }
                             }
                             TextField{
-                                id:textProjectName
-                                text: container.info?container.info.projectName:""
+                                id:textPropertyValue
+                                text: container.selectedPropertyInfo?container.selectedPropertyInfo.propertyValue:""
 
                                 MaterialPlaceHolder{
-                                    placeHolderText:"Project Name"
+                                    placeHolderText:"Property Value"
                                 }
                             }
                         }
@@ -169,7 +169,7 @@ FlowNodeItem{
                         highlighted: true
 
                         onClicked: {
-                            root.node.checkInfo=true
+                            root.node.checkPropertyInfo=true
                         }
                     }
                     CheckBox{

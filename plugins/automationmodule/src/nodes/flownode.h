@@ -96,7 +96,7 @@ public:
         ProjectNode,
         SerialIONode,
         EpsonRemote,
-        SubProjectInfoNode,
+        PropertiesNode,
         ArrayNode
 
     };

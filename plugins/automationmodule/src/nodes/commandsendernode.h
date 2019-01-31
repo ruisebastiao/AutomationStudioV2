@@ -173,9 +173,9 @@ public slots:
     void setCommandInput(QVariant commandInput)
     {
 
-        if(connectionsLoaded()==false){
-            return;
-        }
+//        if(connectionsLoaded()==false){
+//            return;
+//        }
 
 
         m_commandInput = commandInput;

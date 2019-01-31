@@ -154,8 +154,8 @@
                             "appendFromInput": true,
                             "commandToSend": "OPERATION|START|",
                             "delaySendTime": 0,
-                            "editHeight": 283,
-                            "editWidth": 286,
+                            "editHeight": 301,
+                            "editWidth": 293,
                             "id": 2,
                             "inPorts": {
                                 "commandInput": {
@@ -344,8 +344,8 @@
                             "type": "ModulePropertyBind"
                         },
                         {
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "editHeight": 125,
+                            "editWidth": 264,
                             "id": 6,
                             "inPorts": {
                                 "input": {
@@ -361,10 +361,10 @@
                             },
                             "locked": false,
                             "name": "Project name",
-                            "nodeX": -13.888888888888914,
-                            "nodeY": 237.99999999999972,
-                            "normalHeight": 194,
-                            "normalWidth": 263,
+                            "nodeX": -61.75614206218222,
+                            "nodeY": 311.1305256814201,
+                            "normalHeight": 127,
+                            "normalWidth": 256,
                             "outPorts": {
                                 "output": {
                                     "connectedTo": [
@@ -389,7 +389,7 @@
                                     "type": "Out"
                                 }
                             },
-                            "projectProperty": "extendedProjectName",
+                            "projectProperty": "subProjectName",
                             "type": "ProjectNode"
                         },
                         {
@@ -631,8 +631,8 @@
                             "appendFromInput": true,
                             "commandToSend": "OPERATION|START|",
                             "delaySendTime": 0,
-                            "editHeight": 285,
-                            "editWidth": 261,
+                            "editHeight": 319,
+                            "editWidth": 298,
                             "id": 11,
                             "inPorts": {
                                 "commandInput": {
@@ -661,8 +661,8 @@
                             "name": "Send to RS4",
                             "nodeX": 445.7777777777767,
                             "nodeY": 574.6666666666661,
-                            "normalHeight": 281,
-                            "normalWidth": 245,
+                            "normalHeight": 323,
+                            "normalWidth": 284,
                             "outPorts": {
                             },
                             "selectedBindedNodeID": 10,
@@ -823,10 +823,10 @@
                             "inputType": "InputExtract",
                             "locked": false,
                             "name": "Extract TAG ID",
-                            "nodeX": 1495.5219155679881,
-                            "nodeY": 1256.9589400215923,
-                            "normalHeight": 334,
-                            "normalWidth": 303,
+                            "nodeX": 1399.189189717248,
+                            "nodeY": 1215.4362133617901,
+                            "normalHeight": 431,
+                            "normalWidth": 306,
                             "outPorts": {
                                 "stringEqual": {
                                     "connectedTo": [
@@ -897,15 +897,15 @@
                         {
                             "commandToParse": "TAG|",
                             "commandValidator": "*",
-                            "editHeight": 286,
-                            "editWidth": 319,
+                            "editHeight": 360,
+                            "editWidth": 323,
                             "id": 15,
                             "inPorts": {
                             },
                             "locked": false,
                             "name": "RFID Command Parser",
-                            "nodeX": 935.1817724232101,
-                            "nodeY": 1213.1729134273282,
+                            "nodeX": 860.4408644355664,
+                            "nodeY": 1098.5701878462755,
                             "normalHeight": 342,
                             "normalWidth": 398,
                             "outPorts": {
@@ -943,35 +943,31 @@
                             "type": "CommandParserNode"
                         },
                         {
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "commandToParse": "SET|TOOL|CHECKING|",
+                            "commandValidator": "TRUE",
+                            "editHeight": 364,
+                            "editWidth": 306,
                             "id": 16,
                             "inPorts": {
-                                "input": {
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 0
-                                    },
-                                    "portLabel": "input",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                }
                             },
                             "locked": false,
-                            "moduleProperty": "productionStarting",
                             "name": "",
-                            "nodeX": 2061.361319568426,
-                            "nodeY": 1733.983874874302,
-                            "normalHeight": 250,
-                            "normalWidth": 250,
+                            "nodeX": 2451.062726120426,
+                            "nodeY": 444.6109131117001,
+                            "normalHeight": 329,
+                            "normalWidth": 254,
                             "outPorts": {
-                                "output": {
+                                "commandOK": {
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 34,
-                                            "portID": "logicalInput3"
+                                            "nodeID": 45,
+                                            "portID": "logicalInput2"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 55,
+                                            "portID": "send"
                                         }
                                     ],
                                     "hidden": false,
@@ -979,12 +975,25 @@
                                         "x": 0,
                                         "y": 0
                                     },
-                                    "portLabel": "output",
+                                    "portLabel": "commandOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "commandValue": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -96
+                                    },
+                                    "portLabel": "commandValue",
                                     "showinlabel": false,
                                     "type": "Out"
                                 }
                             },
-                            "type": "ModulePropertyBind"
+                            "selectedBindedNodeID": 10,
+                            "type": "CommandParserNode"
                         },
                         {
                             "editHeight": 231,
@@ -1005,7 +1014,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 48
+                                        "y": 24
                                     },
                                     "portLabel": "set",
                                     "showinlabel": false,
@@ -1040,40 +1049,21 @@
                             "type": "SetResetNode"
                         },
                         {
-                            "editHeight": 309,
-                            "editWidth": 320,
+                            "commandToParse": "RFID|SENSOR|",
+                            "commandValidator": "FALSE|",
+                            "editHeight": 306,
+                            "editWidth": 264,
                             "id": 18,
                             "inPorts": {
-                                "stringInput": {
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 0
-                                    },
-                                    "portLabel": "stringInput",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                },
-                                "stringInput2": {
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": -120
-                                    },
-                                    "portLabel": "stringInput2",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                }
                             },
-                            "inputType": "InputCompare",
                             "locked": false,
                             "name": "",
-                            "nodeX": 1991.852876463305,
-                            "nodeY": 1094.6168529125189,
-                            "normalHeight": 314,
-                            "normalWidth": 309,
+                            "nodeX": 2246.0963739825447,
+                            "nodeY": 1268.8972609345847,
+                            "normalHeight": 306,
+                            "normalWidth": 266,
                             "outPorts": {
-                                "stringEqual": {
+                                "commandOK": {
                                     "connectedTo": [
                                         {
                                             "hidden": false,
@@ -1084,45 +1074,27 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": -24
                                     },
-                                    "portLabel": "stringEqual",
+                                    "portLabel": "commandOK",
                                     "showinlabel": false,
                                     "type": "Out"
                                 },
-                                "stringNotEqual": {
+                                "commandValue": {
                                     "connectedTo": [
-                                        {
-                                            "hidden": false,
-                                            "nodeID": 32,
-                                            "portID": "input"
-                                        }
                                     ],
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": -72
+                                        "y": 48
                                     },
-                                    "portLabel": "stringNotEqual",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                },
-                                "stringOutput": {
-                                    "connectedTo": [
-                                    ],
-                                    "hidden": true,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 0
-                                    },
-                                    "portLabel": "stringOutput",
+                                    "portLabel": "commandValue",
                                     "showinlabel": false,
                                     "type": "Out"
                                 }
                             },
-                            "storedValue": "",
-                            "stringValue": "NONE",
-                            "type": "StringNode"
+                            "selectedBindedNodeID": 13,
+                            "type": "CommandParserNode"
                         },
                         {
                             "editHeight": 288,
@@ -1471,6 +1443,11 @@
                                             "hidden": false,
                                             "nodeID": 17,
                                             "portID": "set"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 71,
+                                            "portID": "send"
                                         }
                                     ],
                                     "hidden": false,
@@ -1956,8 +1933,8 @@
                             "locked": false,
                             "moduleProperty": "toolInDock",
                             "name": "",
-                            "nodeX": 2506.036327207139,
-                            "nodeY": 1040.7173408595202,
+                            "nodeX": 2517.6626906718834,
+                            "nodeY": 864.6609798219603,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -1996,8 +1973,8 @@
                             },
                             "locked": false,
                             "name": "",
-                            "nodeX": -983.6252358144768,
-                            "nodeY": 1519.6490726330298,
+                            "nodeX": -970.3287765996732,
+                            "nodeY": 1622.0318085870185,
                             "normalHeight": 324,
                             "normalWidth": 298,
                             "outPorts": {
@@ -2017,6 +1994,16 @@
                                             "hidden": false,
                                             "nodeID": 54,
                                             "portID": "input"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 69,
+                                            "portID": "checkInfo"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 65,
+                                            "portID": "checkPropertyInfo"
                                         }
                                     ],
                                     "hidden": false,
@@ -2052,8 +2039,8 @@
                             "in1Inverted": false,
                             "in2Enabled": true,
                             "in2Inverted": true,
-                            "in3Enabled": true,
-                            "in3Inverted": true,
+                            "in3Enabled": false,
+                            "in3Inverted": false,
                             "in4Enabled": false,
                             "in4Inverted": false,
                             "inPorts": {
@@ -2078,7 +2065,7 @@
                                     "type": "In"
                                 },
                                 "logicalInput3": {
-                                    "hidden": false,
+                                    "hidden": true,
                                     "portItem": {
                                         "x": 0,
                                         "y": 120
@@ -2111,8 +2098,8 @@
                             "locked": false,
                             "logicalType": "AND",
                             "name": "",
-                            "nodeX": 2499.386656749463,
-                            "nodeY": 1344.9828578492286,
+                            "nodeX": 2707.0002900484715,
+                            "nodeY": 1462.9074015630654,
                             "normalHeight": 423,
                             "normalWidth": 228,
                             "numInputs": 2,
@@ -2169,8 +2156,8 @@
                             },
                             "locked": false,
                             "name": "",
-                            "nodeX": 2045.6658839698275,
-                            "nodeY": 1456.0574137788828,
+                            "nodeX": 2251.618608202444,
+                            "nodeY": 1675.2974105426356,
                             "normalHeight": 193,
                             "normalWidth": 265,
                             "outPorts": {
@@ -2178,12 +2165,12 @@
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 34,
+                                            "nodeID": 41,
                                             "portID": "logicalInput2"
                                         },
                                         {
                                             "hidden": false,
-                                            "nodeID": 41,
+                                            "nodeID": 34,
                                             "portID": "logicalInput2"
                                         }
                                     ],
@@ -2275,8 +2262,8 @@
                             "invertSendInput": false,
                             "locked": false,
                             "name": "",
-                            "nodeX": 2970.094881443214,
-                            "nodeY": 1495.0233902900077,
+                            "nodeX": 3174.386696609438,
+                            "nodeY": 1651.148842530862,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -2303,8 +2290,8 @@
                             },
                             "locked": false,
                             "name": "TAG proxy",
-                            "nodeX": 2036.773328091358,
-                            "nodeY": 1897.1971097394348,
+                            "nodeX": 1869.0215123857581,
+                            "nodeY": 1463.6998434111042,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -2401,8 +2388,8 @@
                             },
                             "locked": false,
                             "name": "",
-                            "nodeX": -831.7630252505513,
-                            "nodeY": 1996.8673417123603,
+                            "nodeX": -865.7577809519324,
+                            "nodeY": 2088.317012977712,
                             "normalHeight": 205,
                             "normalWidth": 262,
                             "outPorts": {
@@ -2422,6 +2409,16 @@
                                             "hidden": false,
                                             "nodeID": 43,
                                             "portID": "currentToolId"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 69,
+                                            "portID": "currentInfoId"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 65,
+                                            "portID": "validatePropertyName"
                                         }
                                     ],
                                     "hidden": false,
@@ -2439,8 +2436,8 @@
                             "type": "ProxyNode"
                         },
                         {
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "editHeight": 133,
+                            "editWidth": 255,
                             "id": 41,
                             "inPorts": {
                                 "input": {
@@ -2456,8 +2453,8 @@
                             },
                             "locked": false,
                             "name": "",
-                            "nodeX": -812.2610006525146,
-                            "nodeY": 2264.348000870018,
+                            "nodeX": -818.9013520716768,
+                            "nodeY": 2397.959690055256,
                             "normalHeight": 131,
                             "normalWidth": 257,
                             "outPorts": {
@@ -2472,6 +2469,16 @@
                                             "hidden": false,
                                             "nodeID": 43,
                                             "portID": "currentProjectName"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 69,
+                                            "portID": "currentProjectName"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 65,
+                                            "portID": "validatePropertyValue"
                                         }
                                     ],
                                     "hidden": false,
@@ -2484,7 +2491,7 @@
                                     "type": "Out"
                                 }
                             },
-                            "projectProperty": "extendedProjectName",
+                            "projectProperty": "subProjectName",
                             "type": "ProjectNode"
                         },
                         {
@@ -2499,7 +2506,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": -48
                                     },
                                     "portLabel": "commandInput",
                                     "showinlabel": false,
@@ -2509,7 +2516,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": 24
                                     },
                                     "portLabel": "send",
                                     "showinlabel": false,
@@ -2624,7 +2631,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 72
+                                        "y": 24
                                     },
                                     "portLabel": "commandInput",
                                     "showinlabel": false,
@@ -2662,8 +2669,8 @@
                             "in1Inverted": false,
                             "in2Enabled": true,
                             "in2Inverted": true,
-                            "in3Enabled": true,
-                            "in3Inverted": true,
+                            "in3Enabled": false,
+                            "in3Inverted": false,
                             "in4Enabled": false,
                             "in4Inverted": false,
                             "inPorts": {
@@ -2671,7 +2678,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 72
+                                        "y": 96
                                     },
                                     "portLabel": "tool in dock",
                                     "showinlabel": false,
@@ -2681,19 +2688,19 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": -120
+                                        "y": -72
                                     },
-                                    "portLabel": "not in production",
+                                    "portLabel": "not changing tool",
                                     "showinlabel": false,
                                     "type": "In"
                                 },
                                 "logicalInput3": {
-                                    "hidden": false,
+                                    "hidden": true,
                                     "portItem": {
                                         "x": 0,
                                         "y": -48
                                     },
-                                    "portLabel": "not checking tool",
+                                    "portLabel": "not changing tool",
                                     "showinlabel": false,
                                     "type": "In"
                                 },
@@ -2721,8 +2728,8 @@
                             "locked": false,
                             "logicalType": "AND",
                             "name": "",
-                            "nodeX": 2949.1316061792363,
-                            "nodeY": 852.3160617923611,
+                            "nodeX": 2974.045242175116,
+                            "nodeY": 639.719701294176,
                             "normalHeight": 303,
                             "normalWidth": 257,
                             "numInputs": 2,
@@ -2762,49 +2769,52 @@
                             "type": "LogicNode"
                         },
                         {
-                            "editHeight": 233,
-                            "editWidth": 255,
+                            "commandToParse": "RFID|SENSOR|",
+                            "commandValidator": "TRUE|",
+                            "editHeight": 324,
+                            "editWidth": 284,
                             "id": 46,
                             "inPorts": {
-                                "input": {
-                                    "hidden": true,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 0
-                                    },
-                                    "portLabel": "input",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                }
                             },
                             "locked": false,
                             "name": "",
-                            "nodeX": 2418.49201650731,
-                            "nodeY": 450.5146448061496,
+                            "nodeX": 2071.5281940031396,
+                            "nodeY": 797.0263580709991,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
-                                "output": {
+                                "commandOK": {
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 45,
-                                            "portID": "logicalInput2"
+                                            "nodeID": 32,
+                                            "portID": "input"
                                         }
                                     ],
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": -48
                                     },
-                                    "portLabel": "output",
+                                    "portLabel": "commandOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "commandValue": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 48
+                                    },
+                                    "portLabel": "commandValue",
                                     "showinlabel": false,
                                     "type": "Out"
                                 }
                             },
-                            "proxyType": "Output",
-                            "selectedBindedNodeID": 56,
-                            "type": "ProxyNode"
+                            "selectedBindedNodeID": 13,
+                            "type": "CommandParserNode"
                         },
                         {
                             "appendFromInput": false,
@@ -2838,8 +2848,8 @@
                             "invertSendInput": false,
                             "locked": false,
                             "name": "",
-                            "nodeX": 3350.9049218336195,
-                            "nodeY": 999.8290154480903,
+                            "nodeX": 3432.2894660868305,
+                            "nodeY": 837.0599269416673,
                             "normalHeight": 268,
                             "normalWidth": 259,
                             "outPorts": {
@@ -3106,8 +3116,8 @@
                             },
                             "locked": false,
                             "name": "",
-                            "nodeX": 2058.7429611392768,
-                            "nodeY": -839.6148732325574,
+                            "nodeX": 2234.799322176836,
+                            "nodeY": -753.2476017801698,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -3196,8 +3206,8 @@
                             },
                             "locked": false,
                             "name": "Checking tool",
-                            "nodeX": -393,
-                            "nodeY": 1605,
+                            "nodeX": -451.5044205451363,
+                            "nodeY": 1575.747789727432,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -3224,49 +3234,46 @@
                             "type": "ProxyNode"
                         },
                         {
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "appendFromInput": false,
+                            "commandToSend": "BLINK|START|011|250",
+                            "delaySendTime": 0,
+                            "editHeight": 336,
+                            "editWidth": 286,
                             "id": 55,
                             "inPorts": {
-                                "input": {
-                                    "hidden": true,
+                                "commandInput": {
+                                    "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": -72
                                     },
-                                    "portLabel": "input",
+                                    "portLabel": "commandInput",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "send": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 24
+                                    },
+                                    "portLabel": "send",
                                     "showinlabel": false,
                                     "type": "In"
                                 }
                             },
+                            "invertSendInput": false,
                             "locked": false,
                             "name": "",
-                            "nodeX": 2412.0496629090226,
-                            "nodeY": 735.0264293483266,
+                            "nodeX": 2970.7294736380722,
+                            "nodeY": 352.2472075634208,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
-                                "output": {
-                                    "connectedTo": [
-                                        {
-                                            "hidden": false,
-                                            "nodeID": 45,
-                                            "portID": "logicalInput3"
-                                        }
-                                    ],
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 0
-                                    },
-                                    "portLabel": "output",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                }
                             },
-                            "proxyType": "Output",
-                            "selectedBindedNodeID": 54,
-                            "type": "ProxyNode"
+                            "selectedBindedNodeID": 13,
+                            "sendOnData": false,
+                            "type": "CommandSenderNode"
                         },
                         {
                             "editHeight": 250,
@@ -3836,94 +3843,117 @@
                             "type": "StringNode"
                         },
                         {
-                            "checkOnInput": true,
-                            "editHeight": 415,
-                            "editWidth": 367,
+                            "checkOnInput": false,
+                            "editHeight": 528,
+                            "editWidth": 331,
                             "id": 65,
                             "inPorts": {
-                                "checkInfo": {
+                                "checkPropertyInfo": {
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": -192
                                     },
-                                    "portLabel": "checkInfo",
+                                    "portLabel": "check",
                                     "showinlabel": false,
                                     "type": "In"
                                 },
-                                "currentInfoId": {
+                                "validatePropertyName": {
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 48
+                                        "y": -24
                                     },
-                                    "portLabel": "currentInfoId",
+                                    "portLabel": "TAG ID",
                                     "showinlabel": false,
                                     "type": "In"
                                 },
-                                "currentProjectName": {
+                                "validatePropertyValue": {
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": -120
+                                        "y": 96
                                     },
-                                    "portLabel": "currentProjectName",
+                                    "portLabel": "Project",
                                     "showinlabel": false,
                                     "type": "In"
                                 }
                             },
-                            "infoTitle": "Info Title",
-                            "infos": [
+                            "locked": false,
+                            "name": "Tool check",
+                            "nodeX": -408.9985538400949,
+                            "nodeY": 2006.2783276300065,
+                            "normalHeight": 429,
+                            "normalWidth": 306,
+                            "outPorts": {
+                                "currentPropertyValue": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 120
+                                    },
+                                    "portLabel": "currentPropertyValue",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "isNOK": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 44,
+                                            "portID": "send"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 29,
+                                            "portID": "send"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 24
+                                    },
+                                    "portLabel": "isNOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "isOK": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 42,
+                                            "portID": "send"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 24,
+                                            "portID": "send"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -48
+                                    },
+                                    "portLabel": "isOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "properties": [
                                 {
-                                    "id": "18",
-                                    "projectName": "SK"
+                                    "propertyName": "99.23.158.209.",
+                                    "propertyValue": "BMW35UP-R"
+                                },
+                                {
+                                    "propertyName": "67.146.142.209.",
+                                    "propertyValue": "BMW35UP-L"
                                 }
                             ],
-                            "locked": false,
-                            "name": "",
-                            "nodeX": 2189.387264440519,
-                            "nodeY": -1535.6072682161398,
-                            "normalHeight": 395,
-                            "normalWidth": 350,
-                            "outPorts": {
-                                "idFromCurrentProject": {
-                                    "connectedTo": [
-                                    ],
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 72
-                                    },
-                                    "portLabel": "idFromCurrentProject",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                },
-                                "infoNOK": {
-                                    "connectedTo": [
-                                    ],
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": -72
-                                    },
-                                    "portLabel": "infoNOK",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                },
-                                "infoOK": {
-                                    "connectedTo": [
-                                    ],
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 0
-                                    },
-                                    "portLabel": "infoOK",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                }
-                            },
-                            "type": "SubProjectInfoNode"
+                            "type": "PropertiesNode"
                         },
                         {
                             "editHeight": 435,
@@ -3989,6 +4019,11 @@
                                             "hidden": false,
                                             "nodeID": 65,
                                             "portID": "currentInfoId"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 68,
+                                            "portID": "validatePropertyName"
                                         }
                                     ],
                                     "hidden": false,
@@ -4006,8 +4041,8 @@
                             "type": "StringNode"
                         },
                         {
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "editHeight": 117,
+                            "editWidth": 266,
                             "id": 67,
                             "inPorts": {
                                 "input": {
@@ -4025,8 +4060,8 @@
                             "name": "",
                             "nodeX": 1631.6090906639206,
                             "nodeY": -1674.7063623859954,
-                            "normalHeight": 250,
-                            "normalWidth": 250,
+                            "normalHeight": 151,
+                            "normalWidth": 254,
                             "outPorts": {
                                 "output": {
                                     "connectedTo": [
@@ -4034,6 +4069,11 @@
                                             "hidden": false,
                                             "nodeID": 65,
                                             "portID": "currentProjectName"
+                                        },
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 68,
+                                            "portID": "validatePropertyValue"
                                         }
                                     ],
                                     "hidden": false,
@@ -4046,16 +4086,119 @@
                                     "type": "Out"
                                 }
                             },
-                            "projectProperty": "extendedProjectName",
+                            "projectProperty": "subProjectName",
                             "type": "ProjectNode"
                         },
                         {
-                            "appendFromInput": false,
-                            "commandToSend": "",
-                            "delaySendTime": 0,
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "checkOnInput": true,
+                            "editHeight": 448,
+                            "editWidth": 381,
                             "id": 68,
+                            "inPorts": {
+                                "checkPropertyInfo": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 144
+                                    },
+                                    "portLabel": "checkPropertyInfo",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "validatePropertyName": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 48
+                                    },
+                                    "portLabel": "Label Prefix",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "validatePropertyValue": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -72
+                                    },
+                                    "portLabel": "Project",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "name": "Check Label",
+                            "nodeX": 2138,
+                            "nodeY": -1570,
+                            "normalHeight": 426,
+                            "normalWidth": 365,
+                            "outPorts": {
+                                "currentPropertyValue": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 120
+                                    },
+                                    "portLabel": "currentPropertyValue",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "isNOK": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 70,
+                                            "portID": "send"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -96
+                                    },
+                                    "portLabel": "isNOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "isOK": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 69,
+                                            "portID": "send"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "isOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "properties": [
+                                {
+                                    "propertyName": "75",
+                                    "propertyValue": "BMW35UP-R"
+                                },
+                                {
+                                    "propertyName": "17",
+                                    "propertyValue": "BMW35UP-L"
+                                }
+                            ],
+                            "type": "PropertiesNode"
+                        },
+                        {
+                            "appendFromInput": false,
+                            "commandToSend": "SET|BS|OK",
+                            "delaySendTime": 0,
+                            "editHeight": 320,
+                            "editWidth": 409,
+                            "id": 69,
                             "inPorts": {
                                 "commandInput": {
                                     "hidden": false,
@@ -4081,20 +4224,104 @@
                             "invertSendInput": false,
                             "locked": false,
                             "name": "",
-                            "nodeX": 2995,
-                            "nodeY": -1649,
-                            "normalHeight": 319,
-                            "normalWidth": 271,
+                            "nodeX": 2821.7953586460035,
+                            "nodeY": -1373.5840867863005,
+                            "normalHeight": 269,
+                            "normalWidth": 320,
                             "outPorts": {
                             },
-                            "selectedBindedNodeID": -1,
+                            "selectedBindedNodeID": 0,
+                            "sendOnData": false,
+                            "type": "CommandSenderNode"
+                        },
+                        {
+                            "appendFromInput": false,
+                            "commandToSend": "SET|BS|NOK",
+                            "delaySendTime": 0,
+                            "editHeight": 317,
+                            "editWidth": 326,
+                            "id": 70,
+                            "inPorts": {
+                                "commandInput": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "commandInput",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "send": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 48
+                                    },
+                                    "portLabel": "send",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "invertSendInput": false,
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 2807.3860759380123,
+                            "nodeY": -1731.5095439369122,
+                            "normalHeight": 279,
+                            "normalWidth": 329,
+                            "outPorts": {
+                            },
+                            "selectedBindedNodeID": 0,
+                            "sendOnData": false,
+                            "type": "CommandSenderNode"
+                        },
+                        {
+                            "appendFromInput": false,
+                            "commandToSend": "GET|SENSOR",
+                            "delaySendTime": 0,
+                            "editHeight": 286,
+                            "editWidth": 258,
+                            "id": 71,
+                            "inPorts": {
+                                "commandInput": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -72
+                                    },
+                                    "portLabel": "commandInput",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "send": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 48
+                                    },
+                                    "portLabel": "send",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "invertSendInput": false,
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 1731.0818213690309,
+                            "nodeY": -782.8099991909381,
+                            "normalHeight": 231,
+                            "normalWidth": 250,
+                            "outPorts": {
+                            },
+                            "selectedBindedNodeID": 13,
                             "sendOnData": false,
                             "type": "CommandSenderNode"
                         }
                     ],
                     "graphview": {
-                        "x": -605.0858637954391,
-                        "y": 1115.5300586344204,
+                        "x": -342.4710626242986,
+                        "y": 804.0870828449997,
                         "zoom": 0.6020799213121656
                     },
                     "id": 1,
@@ -6898,7 +7125,7 @@
                         },
                         {
                             "cameraID": 1,
-                            "cameraParametersPath": "camera_parameters_sk.ini",
+                            "cameraParametersPath": "",
                             "connectOnInit": true,
                             "continuousCapture": true,
                             "editHeight": 308,
@@ -7015,105 +7242,6 @@
                             "type": "ModuleProxyNode"
                         },
                         {
-                            "checkOnInput": false,
-                            "editHeight": 446,
-                            "editWidth": 483,
-                            "id": 14,
-                            "inPorts": {
-                                "checkInfo": {
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": -144
-                                    },
-                                    "portLabel": "check",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                },
-                                "currentInfoId": {
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": -24
-                                    },
-                                    "portLabel": "currentID",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                },
-                                "currentProjectName": {
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 72
-                                    },
-                                    "portLabel": "Project Name",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                }
-                            },
-                            "infoTitle": "Info Title",
-                            "infos": [
-                                {
-                                    "id": "camera_parameters_sk.ini",
-                                    "projectName": "SK"
-                                },
-                                {
-                                    "id": "camera_parameters_vw.ini",
-                                    "projectName": "VW"
-                                }
-                            ],
-                            "locked": false,
-                            "name": "",
-                            "nodeX": -783.2500000000001,
-                            "nodeY": 493.5,
-                            "normalHeight": 433,
-                            "normalWidth": 370,
-                            "outPorts": {
-                                "idFromCurrentProject": {
-                                    "connectedTo": [
-                                        {
-                                            "hidden": false,
-                                            "nodeID": 12,
-                                            "portID": "parametersFileInput"
-                                        }
-                                    ],
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 144
-                                    },
-                                    "portLabel": "Parameters file",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                },
-                                "infoNOK": {
-                                    "connectedTo": [
-                                    ],
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 24
-                                    },
-                                    "portLabel": "infoNOK",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                },
-                                "infoOK": {
-                                    "connectedTo": [
-                                    ],
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": -48
-                                    },
-                                    "portLabel": "infoOK",
-                                    "showinlabel": false,
-                                    "type": "Out"
-                                }
-                            },
-                            "type": "SubProjectInfoNode"
-                        },
-                        {
                             "editHeight": 250,
                             "editWidth": 250,
                             "id": 15,
@@ -7159,8 +7287,8 @@
                         }
                     ],
                     "graphview": {
-                        "x": 70.1018649281599,
-                        "y": 73.95207178957969,
+                        "x": 766.1018649281599,
+                        "y": -153.0479282104203,
                         "zoom": 0.5499999999999996
                     },
                     "id": 0,
@@ -7170,32 +7298,253 @@
             ],
             "name": "LM36 Pick & Place",
             "subProjects": [
-                {
-                    "id": 0,
-                    "isDefault": false,
-                    "name": "BMW35UP-R"
-                },
-                {
-                    "id": 1,
-                    "isDefault": false,
-                    "name": "BMW35UP-L"
-                },
-                {
-                    "id": 2,
-                    "isDefault": true,
-                    "name": "VW"
-                },
-                {
-                    "id": 3,
-                    "isDefault": false,
-                    "name": "SK"
-                }
+                "BMW35UP-R",
+                "BMW35UP-L",
+                "VW",
+                "SK"
             ]
         },
         {
             "id": 1,
             "isDefault": false,
             "modules": [
+                {
+                    "flowNodes": [
+                    ],
+                    "graphview": {
+                        "x": 0,
+                        "y": 0,
+                        "zoom": 1
+                    },
+                    "id": 0,
+                    "name": "epson",
+                    "type": "EpsonModule"
+                },
+                {
+                    "flowNodes": [
+                        {
+                            "checkOnInput": false,
+                            "editHeight": 458,
+                            "editWidth": 448,
+                            "id": 0,
+                            "inPorts": {
+                                "checkPropertyInfo": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -120
+                                    },
+                                    "portLabel": "checkPropertyInfo",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "validatePropertyName": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "ToolID",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "validatePropertyValue": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 72
+                                    },
+                                    "portLabel": "Current project",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 577,
+                            "nodeY": 145,
+                            "normalHeight": 456,
+                            "normalWidth": 408,
+                            "outPorts": {
+                                "currentPropertyValue": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 120
+                                    },
+                                    "portLabel": "currentPropertyValue",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "isNOK": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": -48
+                                    },
+                                    "portLabel": "isNOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "isOK": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 24
+                                    },
+                                    "portLabel": "isOK",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "properties": [
+                                {
+                                    "propertyName": "TESTE",
+                                    "propertyValue": "BMW"
+                                }
+                            ],
+                            "type": "PropertiesNode"
+                        },
+                        {
+                            "editHeight": 213,
+                            "editWidth": 254,
+                            "id": 1,
+                            "inPorts": {
+                                "input": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "input",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 151.7777777777776,
+                            "nodeY": 429.99999999999966,
+                            "normalHeight": 142,
+                            "normalWidth": 246,
+                            "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 0,
+                                            "portID": "validatePropertyValue"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "projectProperty": "name",
+                            "type": "ProjectNode"
+                        },
+                        {
+                            "editHeight": 250,
+                            "editWidth": 250,
+                            "id": 2,
+                            "inPorts": {
+                                "stringInput": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "stringInput",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "stringInput2": {
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "stringInput2",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "inputType": "InputNone",
+                            "locked": false,
+                            "name": "",
+                            "nodeX": 135.8888888888889,
+                            "nodeY": 95.00000000000003,
+                            "normalHeight": 250,
+                            "normalWidth": 250,
+                            "outPorts": {
+                                "stringEqual": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "stringEqual",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "stringNotEqual": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "stringNotEqual",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "stringOutput": {
+                                    "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 0,
+                                            "portID": "validatePropertyName"
+                                        }
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "stringOutput",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "storedValue": "",
+                            "stringValue": "TESTE",
+                            "type": "StringNode"
+                        }
+                    ],
+                    "graphview": {
+                        "x": 496.60000000000014,
+                        "y": 109.30000000000007,
+                        "zoom": 0.8999999999999999
+                    },
+                    "id": 1,
+                    "name": "vision",
+                    "type": "VisionModule"
+                }
             ],
             "name": "Calibrate Vision",
             "subProjects": [
@@ -7208,13 +7557,13 @@
         {
             "isDefault": true,
             "name": "Administrator",
-            "pin": "4321",
+            "pin": "NDMyMQ==",
             "role": "AdminRole"
         },
         {
             "isDefault": false,
             "name": "Production User",
-            "pin": "0000",
+            "pin": "MDAwMA==",
             "role": "ProductionRole"
         }
     ]

@@ -17,7 +17,7 @@ class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
     Q_PROPERTY(ModuleListModel* modules READ modules NOTIFY modulesChanged)
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged   USER("serialize"))
 
-    Q_PROPERTY(bool projectLocked READ projectLocked WRITE setProjectLocked NOTIFY projectLockedChanged)
+    Q_PROPERTY(bool projectLocked READ projectLocked WRITE setProjectLocked NOTIFY projectLockedChanged REVISION 2)
     Q_PROPERTY(bool projectLoaded READ projectLoaded WRITE setProjectLoaded NOTIFY projectLoadedChanged)
 
     Q_PROPERTY(QVariantList subProjects READ subProjects WRITE setSubProjects NOTIFY subProjectsChanged USER("serialize"))
