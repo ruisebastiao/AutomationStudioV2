@@ -25,8 +25,6 @@ HEADERS += \
     $$PWD/nodes/logicnode.h \
     $$PWD/nodes/proxynode.h \
     $$PWD/nodes/moduleproxynode.h \
-    $$PWD/subproject.h \
-    $$PWD/subprojectslistmodel.h \
     $$PWD/nodes/projectnode.h \
     $$PWD/nodes/ionode.h \
     $$PWD/nodes/commandparsernode.h \
@@ -62,8 +60,6 @@ SOURCES += \
     $$PWD/projectslistmodel.cpp \
     $$PWD/nodes/proxynode.cpp \
     $$PWD/nodes/moduleproxynode.cpp \
-    $$PWD/subproject.cpp \
-    $$PWD/subprojectslistmodel.cpp \
     $$PWD/nodes/projectnode.cpp \
     $$PWD/nodes/ionode.cpp \
     $$PWD/nodes/commandparsernode.cpp \

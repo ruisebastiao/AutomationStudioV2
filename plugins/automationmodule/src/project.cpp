@@ -72,25 +72,6 @@ QAutomationModule* Project::createModule(QString moduleName,bool setID)
 
 
 
-void Project::Serialize(QJsonObject &json)
-{
-    JsonSerializable::Serialize(json,this);
-
-
-    QJsonArray modulesArray;
-
-    for (int var = 0; var < m_modules->length(); ++var) {
-        QAutomationModule* module=m_modules->at(var);
-        QJsonObject moduleObject;
-        module->Serialize(moduleObject);
-        modulesArray.append(moduleObject);
-    }
-
-    json["modules"]=modulesArray;
-    m_modulesArray= json["modules"].toArray();
-
-}
-
 void Project::load(){
 
 
@@ -114,29 +95,26 @@ void Project::load(){
 
     }
 
-
-    for (int var = 0; var < subProjects()->length(); ++var) {
-        SubProject* subproject=subProjects()->at(var);
-
-        if(m_selectedSubproject && m_selectedSubproject->id()==subproject->id()){
-            setSelectedSubproject(subproject);
-            break;
-        }
-        else if(subproject->isDefault()){
-            setSelectedSubproject(subproject);
-            break;
-        }
-    }
-
-
+    setSave(true);
     this->setProjectLoaded(true);
 }
 
 void Project::unload()
 {
 
-    qDebug()<<"Deleting project";
+    LOG_INFO()<<"Unload project:"<<name();
+    setSave(false);
     m_modules->clear();
+}
+
+bool Project::save() const
+{
+    return m_save;
+}
+
+void Project::setSave(bool save)
+{
+    m_save = save;
 }
 
 void Project::DeSerialize(QJsonObject &json)
@@ -147,3 +125,32 @@ void Project::DeSerialize(QJsonObject &json)
 }
 
 
+
+
+void Project::Serialize(QJsonObject &json)
+{
+
+    JsonSerializable::Serialize(json,this);
+
+
+    QJsonArray modulesArray;
+
+    for (int var = 0; var < m_modules->length(); ++var) {
+        QAutomationModule* module=m_modules->at(var);
+        QJsonObject moduleObject;
+        module->Serialize(moduleObject);
+        modulesArray.append(moduleObject);
+
+    }
+
+    if(!m_save){
+        json["modules"]=m_modulesArray;
+    }
+    else {
+        json["modules"]=modulesArray;
+        m_modulesArray=modulesArray;
+    }
+
+
+
+}

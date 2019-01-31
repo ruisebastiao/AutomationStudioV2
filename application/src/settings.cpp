@@ -384,10 +384,10 @@ void Settings::setBasefileLoaded(bool basefileLoaded)
 
 void Settings::Serialize(QJsonObject &json)
 {
+//    if(selectedProject()){
+//        selectedProject()->setSave(true);
+//    }
     JsonSerializable::Serialize(json,this);
-
-
-
 }
 
 void Settings::DeSerialize(QJsonObject &json)

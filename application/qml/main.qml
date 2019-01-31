@@ -56,7 +56,7 @@ ApplicationWindow {
 
     property User loggedUser:settings&&settings.currentUser
 
-    property Project currentProject:settings&&settings.selectedProject
+    readonly property Project currentProject:settings&&settings.selectedProject
 
     onCurrentProjectChanged: {
         if(currentProject){
@@ -344,28 +344,34 @@ ApplicationWindow {
 
                         ListView {
                             id: projectslist
-                            enabled: !currentProject || currentProject && currentProject.projectLocked==false
+                            //                            enabled: !currentProject || currentProject && currentProject.projectLocked==false
                             model:settings && settings.projects
+
+                            property Project selectedProject//: model&&model.at(projectslist.currentIndex)
+
                             onModelChanged: {
                                 if(settings){
-                                    currentIndex=settings.projects.indexOf(currentProject);
+                                    //                                    currentIndex=settings.projects.indexOf(currentProject);
+
                                 }
 
 
                             }
-
+                            //                            enabled: currentProject&&currentProject.projectLocked==false
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             focus: true
                             clip: true
                             currentIndex: -1
                             onCurrentIndexChanged:{
+                                var project=null
 
-                            }
-
-                            highlight: Rectangle{
-                                color: Material.accent
-                                opacity: 0
+                                if(model){
+                                    project=model.at(projectslist.currentIndex)
+                                    if(project.subProjects.length==0){
+                                        projectslist.selectedProject=project
+                                    }
+                                }
                             }
 
 
@@ -393,8 +399,19 @@ ApplicationWindow {
                                 anchors.margins: 0
                                 padding: 0
 
+                                onClicked: {
+                                    projectslist.currentIndex = index
 
-                                highlighted: ListView.isCurrentItem && model.project.subProjects.length()==0
+                                }
+
+                                highlighted: ListView.isCurrentItem && model.project.subProjects.length==0
+
+                                Rectangle {
+                                    color: Material.accent
+                                    anchors.fill: parent
+                                    opacity: 0.5
+                                    visible: rootwindow.currentProject == model.project
+                                }
 
                                 Menu {
                                     id: subproject_context
@@ -407,80 +424,6 @@ ApplicationWindow {
                                         text: "Add sub project"
                                         onClicked: {
                                             model.project.addSubProject()
-                                        }
-                                    }
-
-
-                                }
-
-                                GUI.PopUp{
-                                    id:confirmProjectLoad
-
-                                    x: (rootwindow.width - width) / 2
-                                    y: (rootwindow.height - height) / 2
-                                    //                                            contentWidth: 200
-                                    //                                            contentHeight: 200
-                                    Material.foreground: "white"
-                                    modal: false
-                                    dim:true
-                                    focus: true
-                                    closePolicy:Popup.CloseOnEscape
-                                    padding:0
-                                    ColumnLayout{
-
-                                        ToolBar{
-                                            Layout.fillWidth: true
-                                            Layout.preferredHeight: 30
-
-                                            Material.foreground: "white"
-                                            Label{
-                                                anchors.fill: parent
-                                                height: 20
-                                                horizontalAlignment:Text.AlignHCenter
-                                                verticalAlignment:Text.AlignVCenter
-                                                text: "Confirm?"
-                                            }
-
-                                        }
-
-                                        RowLayout {
-
-
-                                            Layout.margins: 10
-                                            Button{
-                                                Layout.fillWidth: true
-                                                highlighted: true
-                                                text: "OK"
-                                                onClicked: {
-                                                    projectslist.currentIndex = index
-
-
-
-
-
-                                                    confirmProjectLoad.close();
-
-                                                    settings.selectedProject=model.project
-                                                    if(settings.selectedProject){
-                                                        settings.selectedProject.selectedSubproject=subprojectslist.selectedSubproject
-                                                    }
-
-
-
-
-
-
-                                                }
-                                            }
-                                            Button{
-                                                Layout.fillWidth: true
-                                                highlighted: true
-                                                text: "Cancel"
-                                                onClicked: {
-
-                                                    confirmProjectLoad.close();
-                                                }
-                                            }
                                         }
                                     }
 
@@ -501,44 +444,15 @@ ApplicationWindow {
                                         verticalAlignment:Text.AlignVCenter
                                         text: model.name
 
-                                        MouseArea{
-                                            anchors.fill: parent
-                                            propagateComposedEvents: true
-                                            acceptedButtons: Qt.LeftButton | Qt.RightButton
-                                            onClicked: {
-                                                if (mouse.button == Qt.RightButton){
-                                                    subproject_context.open()
-                                                }
-                                                else{
-                                                    projectdelegate.isExpanded=!projectdelegate.isExpanded
-                                                    if (projectslist.currentIndex != index) {
-
-
-
-                                                        if(model.project.subProjects.length()>0){
-
-                                                        }
-                                                        else{
-                                                            itemProject.selectedSubproject=null
-                                                            confirmProjectLoad.open()
-                                                        }
-
-
-
-                                                        //
-                                                    }
-                                                    //                                            drawer.close()
-                                                }
-
-
-                                            }
-
-                                        }
                                     }
                                     ListView{
                                         id:subprojectslist
                                         clip: true
-                                        property SubProject selectedSubproject
+
+                                        property int projectListIndex: projectslist.currentIndex
+                                        onProjectListIndexChanged: {
+                                            currentIndex=-1
+                                        }
 
                                         height: projectdelegate.isExpanded?childrenRect.height:0
                                         Behavior on height {
@@ -550,38 +464,58 @@ ApplicationWindow {
                                         }
 
 
+
+
                                         opacity: height/childrenRect.height
                                         width: projectslist.width
                                         model: itemProject?itemProject.subProjects:null
 
-                                        currentIndex:itemProject?itemProject.subProjects.indexOf(itemProject.selectedSubproject):-1
+                                        currentIndex: -1
+                                        onModelChanged: {
+                                            //                                            if(model){
+                                            //                                                currentIndex=itemProject.subProjects.indexOf(currentProject);
+
+                                            //                                            }
+
+                                        }
+
+                                        //                                        highlight: Rectangle{
+                                        //                                            color: Material.accent
+                                        //                                            opacity: 0.5
+
+                                        //                                        }
+
 
                                         delegate: ItemDelegate{
+                                            id:subprojectdelegate
                                             width:parent.width;
                                             height: 40
-                                            text: model.subProjectName
+                                            text: modelData
 
 
 
-                                            highlighted: ListView.isCurrentItem
-                                            MouseArea{
+                                            Rectangle {
+                                                color: Material.accent
                                                 anchors.fill: parent
-                                                propagateComposedEvents: false
-                                                onClicked: {
-
-                                                    if(subprojectslist.selectedSubproject!=model.subProject){
-                                                        subprojectslist.selectedSubproject=model.subProject
-                                                        confirmProjectLoad.open()
-                                                    }
+                                                opacity: 0.5
+                                                visible: rootwindow.currentProject&&rootwindow.currentProject.subProjectName==modelData
+                                            }
 
 
-
-
-
-
+                                            onClicked: {
+                                                subprojectslist.currentIndex=itemProject.subProjects.indexOf(modelData)
+                                                itemProject.subProjectName=modelData;
+                                                if(projectslist.model){
+                                                    var project=projectslist.model.at(projectslist.currentIndex)
+                                                    projectslist.selectedProject=project
 
                                                 }
                                             }
+
+
+                                            highlighted: ListView.isCurrentItem
+
+
 
                                         }
 
@@ -600,6 +534,56 @@ ApplicationWindow {
                             //                     model:basesettings.modules
 
                             ScrollIndicator.vertical: ScrollIndicator { }
+                            footer: ColumnLayout{
+                                width:  projectslist.width
+                                height: 42
+                                ToolBar{
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    RowLayout{
+
+                                        anchors.fill: parent
+                                        Layout.margins: 10
+                                        Item {
+
+                                            Layout.fillWidth: true
+                                            Layout.fillHeight: true
+
+                                        }
+
+
+                                        Button{
+                                            Layout.fillHeight: true
+                                            highlighted: true
+                                            property bool openProject: projectslist.selectedProject!=rootwindow.currentProject
+                                            text:openProject || !projectslist.selectedProject?"Open":"Close"
+                                            enabled: projectslist.selectedProject
+                                            onClicked: {
+
+                                                if(openProject==false){
+                                                    if(settings.selectedProject){
+                                                        settings.selectedProject=null
+                                                    }
+
+                                                }
+                                                else if(projectslist.selectedProject){
+                                                    //                                                    rootwindow.currentProject=projectslist.selectedProject
+                                                    settings.selectedProject=projectslist.selectedProject
+                                                }
+
+                                                //settings.projects.l
+                                            }
+                                        }
+                                        Item {
+
+                                            Layout.fillWidth: true
+                                            Layout.fillHeight: true
+
+                                        }
+
+                                    }
+                                }
+                            }
                         }
                     }
                     RoundButton{
@@ -625,29 +609,29 @@ ApplicationWindow {
 
         ColumnLayout{
             anchors.fill: parent
-            
+
             spacing: 0
             ToolBar {
                 id:header
                 Layout.fillWidth: true
                 Layout.preferredHeight: 45
-                
+
                 Material.foreground: "white"
-                
+
                 RowLayout{
                     //
-                    
+
                     anchors.fill: parent
                     Item{
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         clip: true
-                        
-                        
+
+
                         id:title_container
-                        
+
                         RowLayout{
-                            
+
                             anchors.fill: parent
                             //                            anchors.leftMargin: mainState=="wizard"?10:0
                             spacing: 3
@@ -661,79 +645,79 @@ ApplicationWindow {
                                     NumberAnimation {
                                         duration: mainStateAnimationTime/2
                                         easing.type: Easing.InOutQuad
-                                        
+
                                     }
-                                    
+
                                 }
-                                
+
                                 RoundButton {
-                                    
+
                                     id:top_button
                                     property int customPos: 0
-                                    
-                                    
+
+
                                     Behavior on customPos{
                                         NumberAnimation {
                                             duration: mainStateAnimationTime/2
                                             easing.type: Easing.InOutQuad
-                                            
+
                                         }
-                                        
+
                                     }
-                                    
+
                                     x: customPos
-                                    
-                                    
+
+
                                     anchors.verticalCenter: parent.verticalCenter
                                     flat: true
-                                    
+
                                     visible: true;
                                     clip: true
-                                    
-                                    
+
+
                                     states: [
                                         State {
                                             name: "home"
                                             when: mainState=="home"
                                             PropertyChanges { target: drawer_button; x: 8}
-                                            
-                                            
+
+
                                         },
-                                        
+
                                         State {
                                             name: "back"
                                             when: mainState!="home"
                                             PropertyChanges { target: drawer_button; x: -width-8}
                                             PropertyChanges { target: back_button; x: 8}
-                                            
+
                                         }
                                     ]
-                                    
+
                                     Image {
                                         id:drawer_button
                                         fillMode: Image.Pad
                                         anchors.verticalCenter: parent.verticalCenter
                                         height: 32
                                         width: 32
-                                        
+
                                         anchors.margins: 0
                                         horizontalAlignment: Image.AlignHCenter
                                         verticalAlignment: Image.AlignVCenter
                                         source:"qrc:/images/menu.png"
                                         Behavior on x{
                                             NumberAnimation  {
-                                                
+
                                                 duration: mainStateAnimationTime
                                                 easing.type: Easing.InOutQuad
-                                                
+
                                             }
-                                            
+
                                         }
-                                        
-                                        
+
+
                                     }
                                     Image {
-                                        
+
                                         id:back_button
                                         x:parent.width+8
                                         anchors.verticalCenter: parent.verticalCenter
@@ -743,35 +727,35 @@ ApplicationWindow {
                                         anchors.margins: 2
                                         horizontalAlignment: Image.AlignHCenter
                                         verticalAlignment: Image.AlignVCenter
-                                        
+
                                         source:"qrc:/images/ic_arrow_back_white_48dp_2x.png"
-                                        
+
                                         Behavior on x{
                                             NumberAnimation  {
-                                                
+
                                                 duration: mainStateAnimationTime
                                                 easing.type: Easing.InOutQuad
-                                                
+
                                             }
-                                            
+
                                         }
-                                        
-                                        
-                                        
-                                        
+
+
+
+
                                     }
-                                    
-                                    
-                                    
+
+
+
                                     onClicked:{
                                         if(mainState=="home"){
                                             drawer.open();
-                                            
+
                                         }
                                         else{
                                             stacked_view.pop();
-                                            
-                                            
+
+
                                         }
                                     }
                                 }
@@ -779,16 +763,16 @@ ApplicationWindow {
                             Item{
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                
-                                
-                                
+
+
+
                                 GUI.TextScroller {
                                     id: titleLabel
-                                    
+
                                     anchors.fill: parent
                                     Component.onCompleted: {
                                         text=Qt.binding(function(){
-                                            
+
                                             if(stacked_view.currentItem){
                                                 if(mainState=="home"){
                                                     if(loggedUser) {
@@ -800,40 +784,40 @@ ApplicationWindow {
                                                 return stacked_view.currentItem.title
                                             }
                                             return "Novares"
-                                            
+
                                         })
                                     }
-                                    
+
                                     duration: mainStateAnimationTime
                                     font.pixelSize: 20
                                     horizontalAlignment:Text.AlignLeft
-                                    
-                                    
-                                    
-                                    
+
+
+
+
                                 }
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
                             }
                         }
-                        
-                        
-                        
+
+
+
                     }
-                    
-                    
-                    
+
+
+
                     Item{
-                        
+
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         clip: true
                         Layout.margins:0
                         id:central_label_container
-                        
+
                         RowLayout{
 
                             anchors.fill: parent
@@ -851,7 +835,7 @@ ApplicationWindow {
 
                                     horizontalAlignment:Text.AlignRight
 
-                                    text:currentProject?currentProject.name:"No project selected"
+                                    text:currentProject?currentProject.name:"No project loaded"
 
                                     onTextChanged:{
                                         if(text){
@@ -877,8 +861,8 @@ ApplicationWindow {
                                 GUI.TextScroller {
                                     anchors.fill: parent
 
-                                    visible:rootwindow.currentProject&&currentProject.selectedSubproject
-                                    text:currentProject&&currentProject.selectedSubproject?"- "+currentProject.selectedSubproject.name:""
+                                    visible:false//rootwindow.currentProject&&currentProject.selectedSubproject
+                                    //text:currentProject&&currentProject.selectedSubproject?"- "+currentProject.selectedSubproject.name:""
                                     horizontalAlignment:Text.AlignLeft
                                     duration: mainStateAnimationTime
                                     font.pixelSize: 15
@@ -892,21 +876,21 @@ ApplicationWindow {
 
 
                         }
-                        
+
                     }
-                    
+
                     Item{
-                        
-                        
+
+
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         enabled:(loggedUser&&loggedUser.role===User.AdminRole)
                         RowLayout{
-                            
-                            
+
+
                             anchors.fill: parent
-                            
-                            
+
+
                             Item{
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
@@ -975,11 +959,11 @@ ApplicationWindow {
                             ToolSeparator {
                                 //rightPadding: 1
                                 visible: loggedUser&&loggedUser.role===User.AdminRole
-                                
+
                             }
-                            
-                            
-                            
+
+
+
 
                             RoundButton{
                                 id:wifi_fab
@@ -1081,35 +1065,35 @@ ApplicationWindow {
                                 visible: false
                                 //visible:network_manager&&network_manager.wifiStatus!=NetworkManager.STAT_NOTINITED && settings_container.state!="settings"
                             }
-                            
-                            
+
+
                             RowLayout{
-                                
+
                                 id:settings_container
-                                
+
                                 Layout.fillHeight: true
                                 spacing: 2
-                                
+
                                 visible: loggedUser&&loggedUser.role==User.AdminRole
                                 //                        visible: true
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
                                 RoundButton{
                                     id:save_fab
-                                    
+
                                     Material.elevation:0
                                     Layout.preferredHeight: 48
                                     Layout.preferredWidth: 48
-                                    
+
                                     enabled: settings&&settings.loaded
                                     //                    highlighted: true
                                     //    anchors.verticalCenter: parent.verticalCenter
-                                    
+
                                     opacity: enabled?1:0.2
-                                    
+
                                     Image {
                                         anchors.centerIn: parent
                                         height: 30
@@ -1118,89 +1102,89 @@ ApplicationWindow {
                                         horizontalAlignment: Image.AlignHCenter
                                         verticalAlignment: Image.AlignVCenter
                                         source:"qrc:/images/content-save.png"
-                                        
+
                                     }
-                                    
-                                    
+
+
                                     states: [
                                         State {
                                             name: "invisible"
                                             when: (loggedUser&&loggedUser.role===User.ProductionRole)
                                             PropertyChanges { target: save_fab; Layout.preferredWidth: 0 }
                                             PropertyChanges { target: save_fab; opacity: 0 }
-                                            
+
                                         },
                                         State {
                                             name: "visible"
                                             when: (loggedUser&&loggedUser.role===User.AdminRole)
                                             PropertyChanges { target: save_fab; Layout.preferredWidth: 48 }
                                             PropertyChanges { target: save_fab; opacity: 1 }
-                                            
+
                                         }
                                     ]
-                                    
-                                    
-                                    
+
+
+
                                     Behavior on Layout.preferredWidth {
                                         NumberAnimation { duration: mainStateAnimationTime }
                                     }
                                     Behavior on opacity{
                                         NumberAnimation { duration: mainStateAnimationTime}
                                     }
-                                    
-                                    
+
+
                                     onClicked: {
-                                        
+
                                         //                                        if(currentUser.isLogged) {
-                                        
+
                                         settings.save();
-                                        
+
                                         //                                        }
                                     }
                                 }
-                                
+
                                 RoundButton{
                                     id:settings_fab
                                     enabled: mainState=="home"
-                                    
+
                                     //cursorShape: Qt.PointingHandCursor
-                                    
+
                                     //anchors.verticalCenter: parent.verticalCenter
                                     //Material.elevation:0
-                                    
+
                                     Material.elevation:0
                                     //highlighted: true
                                     Layout.preferredHeight: 48
                                     Layout.preferredWidth: 48
-                                    
+
                                     states: [
                                         State {
                                             name: "invisible"
                                             when: mainState!="home" || (loggedUser&&loggedUser.role!==User.AdminRole)
                                             PropertyChanges { target: settings_fab; Layout.preferredWidth: 0 }
                                             PropertyChanges { target: settings_fab; opacity: 0 }
-                                            
+
                                         },
                                         State {
                                             name: "visible"
                                             when: mainState=="home" &&  (loggedUser&&loggedUser.role===User.AdminRole)
                                             PropertyChanges { target: settings_fab; Layout.preferredWidth: 48 }
                                             PropertyChanges { target: settings_fab; opacity: 1 }
-                                            
+
                                         }
                                     ]
-                                    
+
                                     Behavior on Layout.preferredWidth {
                                         NumberAnimation { duration: mainStateAnimationTime }
                                     }
                                     Behavior on opacity{
                                         NumberAnimation { duration: mainStateAnimationTime}
                                     }
-                                    
+
                                     //                  Material.background: selectedprimary
-                                    
-                                    
-                                    
+
+
+
                                     Image {
                                         anchors.centerIn: parent
                                         height: 30
@@ -1209,55 +1193,55 @@ ApplicationWindow {
                                         horizontalAlignment: Image.AlignHCenter
                                         verticalAlignment: Image.AlignVCenter
                                         source: "qrc:/images/settings.png"
-                                        
+
                                     }
-                                    
+
                                     onClicked: {
-                                        
+
                                         stacked_view.push(usersettingsview)
                                     }
                                 }
-                                
-                                
+
+
                             }
                         }
-                        
+
                     }
-                    
+
                 }
             }
-            
-            
-            
+
+
+
             Item{
                 id:maincontainer
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                
+
                 StackView{
                     id:stacked_view
                     anchors.fill: parent
-                    
+
                     onCurrentItemChanged: {
                         mainState=currentItem?currentItem.state:"";
                         //titleLabel.text=mainState=="home"?currentUser?currentUser.userName:"DynamicFLow3":currentItem?currentItem.title:"";
                     }
-                    
-                    
+
+
                 }
-                
-                
-                
+
+
+
             }
-            
+
             ToolBar {
                 id:footer
                 Layout.fillWidth: true
                 Layout.preferredHeight: 45
-                
+
                 Material.foreground: "white"
-                
-                
+
+
                 RowLayout{
                     anchors.margins: 2
                     anchors.fill: parent
@@ -1269,11 +1253,11 @@ ApplicationWindow {
                         text: "Automation 2018"
                     }
                 }
-                
+
             }
-            
+
         }
-        
+
         GUI.PopUp {
             id:loginpopup
 

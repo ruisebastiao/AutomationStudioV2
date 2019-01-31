@@ -53,6 +53,12 @@ void JsonSerializable::Serialize(QJsonObject &json, QObject *target)
 
                         }
                     }
+                    else if(value.canConvert<QVariantList>()) {
+//                        QVariantList list=value.value<QVariantList>();
+                        json[propName]=value.toJsonArray();
+
+
+                    }
                     else{
 
                         json[property.name()] = value.toJsonValue();
@@ -112,6 +118,15 @@ void JsonSerializable::DeSerialize(QJsonObject &json, QObject *target)
 
                         target->setProperty(propName,value);
                     }
+
+                }
+                else if(value.canConvert<QVariantList>()) {
+//                    QVariantList list=value.value<QVariantList>();
+//                    json[propName]=value.toJsonArray();
+
+                    QVariant value=json[propName].toArray();
+                    target->setProperty(propName,value);
+
 
                 }
                 else{

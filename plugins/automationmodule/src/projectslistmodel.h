@@ -31,6 +31,11 @@ public:
         return m_internalList.indexOf(item);
     }
 
+    inline Q_INVOKABLE Project* at(int index) override{
+        if(index<0 || index>=m_internalList.length()) return nullptr;
+        return m_internalList.at(index);
+    }
+
     Q_INVOKABLE void createNewProject();
     // QAbstractItemModel interface
 public:
