@@ -12,7 +12,7 @@ class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize"))
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged  USER("serialize") REVISION 2)
     Q_PROPERTY(bool isDefault READ isDefault WRITE setIsDefault NOTIFY isDefaultChanged  USER("serialize"))
     Q_PROPERTY(ModuleListModel* modules READ modules NOTIFY modulesChanged)
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged   USER("serialize"))
@@ -21,7 +21,7 @@ class AUTOMATIONMODULE_EXPORT Project : public QObject, public JsonSerializable
     Q_PROPERTY(bool projectLoaded READ projectLoaded WRITE setProjectLoaded NOTIFY projectLoadedChanged)
 
     Q_PROPERTY(QVariantList subProjects READ subProjects WRITE setSubProjects NOTIFY subProjectsChanged USER("serialize"))
-    Q_PROPERTY(QString subProjectName READ subProjectName WRITE setSubProjectName NOTIFY subProjectNameChanged)
+    Q_PROPERTY(QString subProjectName READ subProjectName WRITE setSubProjectName NOTIFY subProjectNameChanged REVISION 2)
 
 
 

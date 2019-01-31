@@ -86,7 +86,7 @@ public slots:
 
         emit projectChanged(m_project);
 
-        if(m_project){
+        if(m_project  && m_projectProperties.contains(m_projectProperty)){
             emit bindProjectProperty(m_project,m_projectProperty);
         }
     }
@@ -108,7 +108,7 @@ public slots:
         m_projectProperty = projectProperty;
         emit projectPropertyChanged(m_projectProperty);
 
-        if(m_project){
+        if(m_project && m_projectProperties.contains(m_projectProperty)){
             emit bindProjectProperty(m_project,m_projectProperty);
         }
 

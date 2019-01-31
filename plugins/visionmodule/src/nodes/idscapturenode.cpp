@@ -544,6 +544,8 @@ void IDSCaptureNode::closeCamera(){
     m_camHandler = NULL;
 
     LOG_INFO("Camera "+selectedCamera()->serialnumber()+"("+QString::number(selectedCamera()->camID())+") closed");
+
+    setUpdatingCamera(false);
 }
 
 

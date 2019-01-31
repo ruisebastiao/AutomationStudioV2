@@ -82,6 +82,7 @@ void Project::load(){
         QAutomationModule *module=createModule(moduleType,false);
 
         if(module){
+
             module->DeSerialize(moduleObject);
         }
 
@@ -91,7 +92,7 @@ void Project::load(){
         QAutomationModule *module=m_modules->at(moduleIndex);
 
         module->initializeModuleProxyNodes();
-        module->initializeProjectNodes();
+        //module->initializeProjectNodes();
 
     }
 

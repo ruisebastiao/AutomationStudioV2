@@ -70,6 +70,13 @@ void QAutomationModule::setGraphView(qan::GraphView* graphView)
             if(modulenode){
                 modulenode->setModule(this);
             }
+            else {
+                ProjectNode* projectnode=dynamic_cast<ProjectNode*>(node);
+                if(projectnode){
+                    projectnode->setProject(this->parentProject());
+                }
+            }
+
 
             node->setParentModule(this);
         });
