@@ -165,7 +165,7 @@ void FlowNodeManager::loadConnections(){
 
                             qan::PortItem* inport=targetport->getPortItem();
                             if(inport->getInEdgeItems().size()>0){
-                                LOG_ERROR()<<"In edge with multiple connection (Source node:"<<*node<<"| target node:"<< *targetnode<<")";
+                                LOG_ERROR()<<"In edge with multiple connection (node:"<<*targetnode<<"| port:"<<inport->getId()<<")";
 
                                 exit(-4);
                                 continue;

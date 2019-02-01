@@ -533,7 +533,7 @@ void IDSCaptureNode::closeCamera(){
         // free buffers
         if( is_FreeImageMem( m_camHandler, m_pcSeqImgMem[i], m_lSeqMemId[i] ) != IS_SUCCESS )
         {
-            return;
+           break;
         }
 
 

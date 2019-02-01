@@ -1058,8 +1058,8 @@
                             },
                             "locked": false,
                             "name": "",
-                            "nodeX": 2246.0963739825447,
-                            "nodeY": 1268.8972609345847,
+                            "nodeX": 2696.202730974795,
+                            "nodeY": 1943.2263418897649,
                             "normalHeight": 306,
                             "normalWidth": 266,
                             "outPorts": {
@@ -1067,8 +1067,8 @@
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 34,
-                                            "portID": "logicalInput1"
+                                            "nodeID": 37,
+                                            "portID": "send"
                                         }
                                     ],
                                     "hidden": false,
@@ -2106,11 +2106,6 @@
                             "outPorts": {
                                 "logicalOutput": {
                                     "connectedTo": [
-                                        {
-                                            "hidden": false,
-                                            "nodeID": 37,
-                                            "portID": "send"
-                                        }
                                     ],
                                     "hidden": false,
                                     "portItem": {
@@ -2262,8 +2257,8 @@
                             "invertSendInput": false,
                             "locked": false,
                             "name": "",
-                            "nodeX": 3174.386696609438,
-                            "nodeY": 1651.148842530862,
+                            "nodeX": 3147.812151547165,
+                            "nodeY": 2024.8533824690776,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -3686,8 +3681,8 @@
                             },
                             "locked": false,
                             "name": "Proxy insp started",
-                            "nodeX": 1405,
-                            "nodeY": 2555,
+                            "nodeX": 1253.857274958321,
+                            "nodeY": 2531.7472730705113,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -4320,9 +4315,9 @@
                         }
                     ],
                     "graphview": {
-                        "x": -342.4710626242986,
-                        "y": 804.0870828449997,
-                        "zoom": 0.6020799213121656
+                        "x": 307.0342619779972,
+                        "y": -94.05061676154241,
+                        "zoom": 0.5020799213121655
                     },
                     "id": 1,
                     "name": "Robots",

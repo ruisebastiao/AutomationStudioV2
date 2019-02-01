@@ -54,7 +54,7 @@ FlowNodeItem{
                             SmoothedAnimation { velocity: 3; easing.type: Easing.InOutCubic }
                         }
                         swipe.onOpened:{
-                            infolist.model.removeItem(info)
+                            infolist.model.removeItem(propertyInfo)
                             textPropertyName.text=""
                         }
 

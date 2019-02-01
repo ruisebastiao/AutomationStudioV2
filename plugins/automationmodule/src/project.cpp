@@ -1,5 +1,6 @@
 #include "project.h"
 #include "automationmodule_plugin.h"
+#include "QtConcurrent"
 
 #include <nodes/modulepropertybind.h>
 
@@ -74,6 +75,7 @@ QAutomationModule* Project::createModule(QString moduleName,bool setID)
 
 void Project::load(){
 
+//     QtConcurrent::run([this](){
 
     for (int projectIndex = 0; projectIndex < m_modulesArray.size(); ++projectIndex) {
         QJsonObject moduleObject = m_modulesArray[projectIndex].toObject();
@@ -98,6 +100,7 @@ void Project::load(){
 
     setSave(true);
     this->setProjectLoaded(true);
+//    });
 }
 
 void Project::unload()
@@ -122,7 +125,6 @@ void Project::DeSerialize(QJsonObject &json)
 {
     JsonSerializable::DeSerialize(json,this);
     m_modulesArray= json["modules"].toArray();
-
 }
 
 
