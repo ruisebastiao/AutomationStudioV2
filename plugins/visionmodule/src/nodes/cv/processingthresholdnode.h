@@ -2,16 +2,17 @@
 #define PROCESSINGTHRESHOLDNODE_H
 
 #include "processingnode.h"
+#include "math.h"
 
 class ProcessingThresholdNode : public ProcessingNode
 {
     Q_OBJECT
 
-    Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged USER("serialize"))
+    Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged USER("serialize") REVISION 30)
 
-    Q_PROPERTY(int adaptativeBlockSize READ adaptativeBlockSize WRITE setAdaptativeBlockSize NOTIFY adaptativeBlockSizeChanged  USER("serialize"))
+    Q_PROPERTY(QVariant adaptativeBlockSize READ adaptativeBlockSize WRITE setAdaptativeBlockSize NOTIFY adaptativeBlockSizeChanged  USER("serialize") REVISION 30)
 
-    Q_PROPERTY(int adaptativeC READ adaptativeC WRITE setAdaptativeC NOTIFY adaptativeCChanged USER("serialize"))
+    Q_PROPERTY(QVariant adaptativeC READ adaptativeC WRITE setAdaptativeC NOTIFY adaptativeCChanged USER("serialize") REVISION 30)
 
     Q_PROPERTY(ThresholdType thresholdType READ thresholdType WRITE setThresholdType NOTIFY thresholdTypeChanged USER("serialize"))
 
@@ -30,17 +31,17 @@ public:
     ProcessingThresholdNode();
     
     // ProcessingNode interface
-    int value() const
+    QVariant value() const
     {
         return m_value;
     }
 
-    int adaptativeBlockSize() const
+    QVariant adaptativeBlockSize() const
     {
         return m_adaptativeBlockSize;
     }
 
-    int adaptativeC() const
+    QVariant adaptativeC() const
     {
         return m_adaptativeC;
     }
@@ -56,7 +57,7 @@ public:
 public slots:
     virtual void setInput(QVariant input) override;
     
-    void setValue(int value)
+    void setValue(QVariant value)
     {
         if (m_value == value)
             return;
@@ -69,12 +70,12 @@ public slots:
         }
     }
 
-    void setAdaptativeBlockSize(int adaptativeBlockSize)
+    void setAdaptativeBlockSize(QVariant adaptativeBlockSize)
     {
         if (m_adaptativeBlockSize == adaptativeBlockSize)
             return;
 
-        m_adaptativeBlockSize = adaptativeBlockSize;
+        m_adaptativeBlockSize = 2*floor( adaptativeBlockSize.value<int>()/2) + 1;
         emit adaptativeBlockSizeChanged(m_adaptativeBlockSize);
 
         if(configsLoaded()){
@@ -82,12 +83,12 @@ public slots:
         }
     }
 
-    void setAdaptativeC(int adaptativeC)
+    void setAdaptativeC(QVariant adaptativeC)
     {
         if (m_adaptativeC == adaptativeC)
             return;
 
-        m_adaptativeC = adaptativeC;
+        m_adaptativeC =2 * round(adaptativeC.value<int>()/ 2);
         emit adaptativeCChanged(m_adaptativeC);
 
         if(configsLoaded()){
@@ -109,21 +110,21 @@ public slots:
     }
 
 signals:
-    void valueChanged(int value);
+    void valueChanged(QVariant value);
 
-    void adaptativeBlockSizeChanged(int adaptativeBlockSize);
+    void adaptativeBlockSizeChanged(QVariant adaptativeBlockSize);
 
-    void adaptativeCChanged(int adaptativeC);
+    void adaptativeCChanged(QVariant adaptativeC);
 
     void thresholdTypeChanged(ThresholdType thresholdType);
 
 private:
 
-    int m_value=125;
+    QVariant m_value=125;
 
-    int m_adaptativeBlockSize=41;
+    QVariant m_adaptativeBlockSize=41;
 
-    int m_adaptativeC=2;
+    QVariant m_adaptativeC=2;
 
     ThresholdType m_thresholdType=Simple;
 

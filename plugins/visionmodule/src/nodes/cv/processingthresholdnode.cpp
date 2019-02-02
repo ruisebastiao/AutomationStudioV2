@@ -59,13 +59,13 @@ void ProcessingThresholdNode::doProcess()
 
         switch (m_thresholdType) {
         case AdaptativeGaussian:
-            adaptiveThreshold(targetMat,targetMat,value(),ADAPTIVE_THRESH_GAUSSIAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize,m_adaptativeC);
+            adaptiveThreshold(targetMat,targetMat,value().value<int>(),ADAPTIVE_THRESH_GAUSSIAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize.value<int>(),m_adaptativeC.value<int>());
             break;
         case AdaptativeMean:
-            adaptiveThreshold(targetMat,targetMat,value(),ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize,m_adaptativeC);
+            adaptiveThreshold(targetMat,targetMat,value().value<int>(),ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,m_adaptativeBlockSize.value<int>(),m_adaptativeC.value<int>());
             break;
         case Simple:
-            threshold(targetMat,targetMat,value(),255,CV_THRESH_BINARY);
+            threshold(targetMat,targetMat,value().value<int>(),255,CV_THRESH_BINARY);
             break;
 
         }

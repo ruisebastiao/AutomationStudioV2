@@ -276,7 +276,12 @@ void SceneGraph::copyNode(FlowNode* node){
 
 //        this->setSelectedNode(newnode);
 
+      int id=newnode->id();
+      newnode->DeSerialize(nodeobj);
+      newnode->setId(id);
     }
+
+
 
 }
 

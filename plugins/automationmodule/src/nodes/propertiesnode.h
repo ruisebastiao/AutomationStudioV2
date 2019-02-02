@@ -124,13 +124,7 @@ public slots:
             doCheckInfo();
         }
         ProperyInfo* info=m_properties->getByName(validatePropertyName.value<QString>());
-
-        if(info){
-            setCurrentPropertyValue(info->propertyValue());
-        }
-        else{
-            setCurrentPropertyValue("");
-        }
+        setCurrentPropertyInfo(info);
     }
 
     void setValidatePropertyValue(QVariant validatePropertyValue)
@@ -191,6 +185,16 @@ public slots:
             return;
 
         m_currentPropertyInfo = currentPropertyInfo;
+        if(m_currentPropertyInfo ){
+
+            connect(m_currentPropertyInfo,&ProperyInfo::propertyValueChanged,this,&PropertiesNode::setCurrentPropertyValue);
+            setCurrentPropertyValue(m_currentPropertyInfo ->propertyValue());
+        }
+        else{
+            setCurrentPropertyValue("");
+        }
+
+
         emit currentPropertyInfoChanged(m_currentPropertyInfo);
     }
 
@@ -226,14 +230,7 @@ private:
         }
 
     }
-    void setCurrentInfo(ProperyInfo* currentInfo)
-    {
-        if (m_currentPropertyInfo == currentInfo)
-            return;
 
-        m_currentPropertyInfo = currentInfo;
-        emit currentPropertyInfoChanged(m_currentPropertyInfo);
-    }
 
     PropertyInfoList *m_properties= new PropertyInfoList();
     QVariant m_checkPropertyInfo=false;

@@ -133,11 +133,11 @@ ProcessingNodeItem{
                         from:3
                         to:701
                         stepSize: 2
-                        value: root.node.adaptativeBlockSize
+                        value:  root.node.adaptativeBlockSize
                         onValueChanged: {
-                            if(root.node && root.node.configsLoaded){
-                                root.node.adaptativeBlockSize=2* Math.floor(value/2) + 1
-                            }
+//                            if(root.node && root.node.configsLoaded && root.node.adaptativeBlockSize!=value){
+//                                root.node.adaptativeBlockSize=value
+//                            }
                         }
                     }
                 }
@@ -157,7 +157,7 @@ ProcessingNodeItem{
                         value: root.node.adaptativeC
                         onValueChanged: {
                             if(root.node && root.node.configsLoaded){
-                                root.node.adaptativeC=2 * Math.round(value/ 2);
+                                root.node.adaptativeC=value;
                             }
                         }
                     }
