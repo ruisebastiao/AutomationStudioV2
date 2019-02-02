@@ -59,7 +59,8 @@ public:
         ProcessingEnclosingNode,
         ProcessingGeometricNode,
         ProcessingNumericNode,
-        ProcessingMaskNode
+        ProcessingMaskNode,
+        ProcessingCannyNode
 
     };
     Q_ENUM(ProcessingType)

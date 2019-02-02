@@ -14,7 +14,8 @@ HEADERS += \
     $$PWD/automationmodule/scenegraph.h \
     $$PWD/automationmodule/moduleproxynode.h \
     $$PWD/automationmodule/typedlistmodel.h \
-    $$PWD/automationmodule/ionode.h
+    $$PWD/automationmodule/ionode.h \
+    $$PWD/automationmodule/projectnode.h
 
 
 include($$PWD/../../QuickQanava/include/quickqanavaheaders.pri)

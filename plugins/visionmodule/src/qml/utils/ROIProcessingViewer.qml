@@ -68,13 +68,19 @@ Item{
 
         zoomMax:0.9
 
+        //        property point rightClickPos
+        //        onRightClicked:{
+        //            var mapped=mapToItem(graphView.containerItem,pos.x,pos.y);
+        //            rightClickPos=mapped
+        //            contextMenu.popup();
+        //        }
+
         property point rightClickPos
         onRightClicked:{
-            var mapped=mapToItem(graphView.containerItem,pos.x,pos.y);
+            var mapped=mapToItem(roieditorGraph.containerItem,pos.x,pos.y);
             rightClickPos=mapped
             contextMenu.popup();
         }
-
         //        grid:null
 
         resizeHandlerColor: Material.accent

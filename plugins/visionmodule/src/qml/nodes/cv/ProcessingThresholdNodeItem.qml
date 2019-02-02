@@ -136,7 +136,7 @@ ProcessingNodeItem{
                         value: root.node.adaptativeBlockSize
                         onValueChanged: {
                             if(root.node && root.node.configsLoaded){
-                                root.node.adaptativeBlockSize=value
+                                root.node.adaptativeBlockSize=2* Math.floor(value/2) + 1
                             }
                         }
                     }
@@ -157,7 +157,7 @@ ProcessingNodeItem{
                         value: root.node.adaptativeC
                         onValueChanged: {
                             if(root.node && root.node.configsLoaded){
-                                root.node.adaptativeC=value
+                                root.node.adaptativeC=2 * Math.round(value/ 2);
                             }
                         }
                     }

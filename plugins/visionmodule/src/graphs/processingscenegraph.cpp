@@ -1,6 +1,7 @@
 #include "processingscenegraph.h"
 
 #include <nodes/cv/processingbasenode.h>
+#include <nodes/cv/processingcannynode.h>
 #include <nodes/cv/processingcontoursnode.h>
 #include <nodes/cv/processingdrawingnode.h>
 #include <nodes/cv/processingenclosingnode.h>
@@ -62,6 +63,12 @@ void ProcessingSceneGraph::getProcessingNodeTypes()
 
 
     map.insert(QVariant::fromValue(ProcessingNode::ProcessingType::ProcessingGeometricNode).value<QString>(),"Geometric shapes");
+    ret.append(map);
+    map.clear();
+
+
+
+    map.insert(QVariant::fromValue(ProcessingNode::ProcessingType::ProcessingCannyNode).value<QString>(),"Canny Edge");
     ret.append(map);
     map.clear();
 
@@ -156,6 +163,9 @@ FlowNode *ProcessingSceneGraph::createNode(QString nodetype)
         }
         else if(nodetype=="ProcessingDrawingNode"){
             newnode=insertNode<ProcessingDrawingNode>(nullptr);
+        }
+        else if(nodetype=="ProcessingCannyNode"){
+            newnode=insertNode<ProcessingCannyNode>(nullptr);
         }
         else{
             LOG_WARNING(QString("Unknown nodeobject processingType:%1").arg(nodetype));

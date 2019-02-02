@@ -12,6 +12,7 @@
 
 #include <nodes/cv/processingbasenode.h>
 #include "flownodemanager.h"
+#include <projectnode.h>
 
 
 class ROINode : public FlowNode
@@ -77,6 +78,12 @@ public slots:
                     ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(node);
                     if(procnode){
                         this->initializeProcessingNode(procnode);
+                    }
+                    else {
+                        ProjectNode* projectnode=dynamic_cast<ProjectNode*>(node);
+                        if(projectnode){
+                            projectnode->setProject(this->parentModule()->parentProject());
+                        }
                     }
 
                     node->setParentModule(this->parentModule());
