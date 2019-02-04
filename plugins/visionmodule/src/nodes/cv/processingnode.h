@@ -6,6 +6,7 @@
 #include <flownode.h>
 
 #include <flownodeport.h>
+#include <processingnodemanager.h>
 
 #include <boost/foreach.hpp>
 
@@ -40,9 +41,13 @@ class ProcessingNode : public FlowNode
 
     Q_PROPERTY(bool applyMask READ applyMask WRITE setApplyMask NOTIFY applyMaskChanged USER("serialize"))
     Q_PROPERTY(bool drawOnSource READ drawOnSource WRITE setDrawOnSource NOTIFY drawOnSourceChanged USER("serialize"))
+    Q_PROPERTY(bool drawOnSourcePortVisible READ drawOnSourcePortVisible WRITE setDrawOnSourcePortVisible NOTIFY drawOnSourcePortVisibleChanged USER("serialize"))
 
 
-//    Q_PROPERTY(QMat* originalFrame READ originalFrame WRITE setOriginalFrame NOTIFY originalFrameChanged)
+    Q_PROPERTY(ProcessingNodeManager* processingnodes READ processingnodes WRITE setProcessingnodes NOTIFY processingnodesChanged)
+
+
+    //    Q_PROPERTY(QMat* originalFrame READ originalFrame WRITE setOriginalFrame NOTIFY originalFrameChanged)
 
 
 public:
@@ -143,7 +148,7 @@ public:
 
 
             default:
-//                static_assert(true, "");
+                //                static_assert(true, "");
                 break;
             }
 
@@ -322,6 +327,9 @@ public slots:
             }
             else{
                 port->setHidden(false);
+                m_drawOnSourcePortVisible=true;
+                emit drawOnSourcePortVisibleChanged(true);
+
             }
         }
 
@@ -335,10 +343,53 @@ public slots:
         emit drawOnSourceChanged(m_drawOnSource);
     }
 
-//    void setOriginalFrame(QMat* originalFrame)
-//    {
-//        m_originalFrame = originalFrame;
-//    }
+    //    void setOriginalFrame(QMat* originalFrame)
+    //    {
+    //        m_originalFrame = originalFrame;
+    //    }
+
+    void setProcessingnodes(ProcessingNodeManager* processingnodes)
+    {
+        if (m_processingnodes == processingnodes)
+            return;
+
+        m_processingnodes = processingnodes;
+        emit processingnodesChanged(m_processingnodes);
+    }
+
+    void setDrawOnSourcePortVisible(bool drawOnSourcePortVisible)
+    {
+
+        if (m_drawOnSourcePortVisible == drawOnSourcePortVisible)
+            return;
+
+        m_drawOnSourcePortVisible = drawOnSourcePortVisible;
+        FlowNodePort* port=getPortFromKey("drawSource");
+
+        if(port){
+            if(drawOnSourcePortVisible && drawOnSource()){
+                port->setHidden(false);
+                qan::PortItem* inport=port->getPortItem();
+                if(inport->getInEdgeItems().size()>0){
+
+                    SelectableEdge* selectededge= dynamic_cast<SelectableEdge*>(inport->getInEdgeItems().at(0)->getEdge());
+                     selectededge->setIsHidden(false);
+                }
+
+            }
+            else {
+                port->setHidden(true);
+                qan::PortItem* inport=port->getPortItem();
+                if(inport->getInEdgeItems().size()>0){
+
+                    SelectableEdge* selectededge= dynamic_cast<SelectableEdge*>(inport->getInEdgeItems().at(0)->getEdge());
+                     selectededge->setIsHidden(true);
+                }
+            }
+
+        }
+        emit drawOnSourcePortVisibleChanged(m_drawOnSourcePortVisible);
+    }
 
 signals:
     void inputChanged(QVariant input);
@@ -350,7 +401,7 @@ signals:
     void processingChanged(bool processing);
 
 
-//    void sourceFrameChanged(QMat* sourceFrame);
+    //    void sourceFrameChanged(QMat* sourceFrame);
 
     void processChanged(QVariant process);
 
@@ -373,7 +424,11 @@ signals:
 
     void drawOnSourceChanged(bool drawOnSource);
 
-//    void originalFrameChanged(QMat* originalFrame);
+    //    void originalFrameChanged(QMat* originalFrame);
+
+    void processingnodesChanged(ProcessingNodeManager* processingnodes);
+
+    void drawOnSourcePortVisibleChanged(bool drawOnSourcePortVisible);
 
 private:
 
@@ -397,6 +452,10 @@ private:
 
 
 
+
+    ProcessingNodeManager* m_processingnodes=nullptr;
+
+    bool m_drawOnSourcePortVisible=true;
 
 protected:
 
@@ -445,14 +504,22 @@ public:
     {
         return m_drawOnSource;
     }
-//    QMat* originalFrame() const
-//    {
-//        return m_originalFrame;
-//    }
+    //    QMat* originalFrame() const
+    //    {
+    //        return m_originalFrame;
+    //    }
 
     // FlowNode interface
 public:
     virtual void initializeNode(int id) override;
+    ProcessingNodeManager* processingnodes() const
+    {
+        return m_processingnodes;
+    }
+    bool drawOnSourcePortVisible() const
+    {
+        return m_drawOnSourcePortVisible;
+    }
 };
 
 Q_DECLARE_METATYPE(cv::Rect);

@@ -7,6 +7,7 @@ import QtQuick.Controls.Material 2.2
 import automationmodule 1.0
 import visionmodule 1.0
 import guimodule 1.0
+import SortFilterProxyModel 1.0
 
 FlowNodeItem {
     id: root
@@ -36,6 +37,27 @@ FlowNodeItem {
     resizable:true
 
 
+    SortFilterProxyModel {
+        id: drawingnodesfilter
+        filters: [
+            ValueFilter {
+                enabled: true
+
+
+                roleName: "ProcessingTypeRole"
+
+
+
+                value: FlowNode.ProcessingDrawingNode
+            }
+        ]
+
+        sourceModel: root.node.processingnodes
+
+
+
+    }
+
 
     SideContainerItem{
         id:left_container
@@ -64,19 +86,43 @@ FlowNodeItem {
                             }
                         }
                     }
+                    GroupBox{
+                        title: "Drawing"
 
-                    CheckBox{
                         Layout.fillWidth: true
-                        text: "Draw on input source"
-                        checked: root.node && root.node.drawOnSource
-                        onCheckedChanged: {
+                        ColumnLayout{
+                            Layout.fillWidth: true
 
-                            if(root.node.configsLoaded){
-                                root.node.drawOnSource=checked
+                            CheckBox{
+                                Layout.fillWidth: true
+                                text: "Draw on input source"
+                                checked: root.node && root.node.drawOnSource
+                                onCheckedChanged: {
+
+                                    if(root.node.configsLoaded){
+                                        root.node.drawOnSource=checked
+                                    }
+                                }
+                            }
+                            CheckBox{
+                                Layout.fillWidth: true
+                                text: "Show Port"
+                                 enabled: root.node.drawOnSource
+                                checked: root.node.drawOnSourcePortVisible
+                                onCheckedChanged: {
+                                    root.node.drawOnSourcePortVisible=checked
+                                }
+                            }
+
+                            ComboBox{
+                                Layout.fillWidth: true
+                                enabled: root.node.drawOnSource
+
+
                             }
                         }
-                    }
 
+                    }
                     Item{
 
                         Layout.fillHeight: true

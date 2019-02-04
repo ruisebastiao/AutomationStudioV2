@@ -11,8 +11,10 @@
 #include <qanGraphView.h>
 
 #include <nodes/cv/processingbasenode.h>
-#include "flownodemanager.h"
+
 #include <projectnode.h>
+
+#include <nodes/cv/processingdrawingnode.h>
 
 
 class ROINode : public FlowNode
@@ -37,7 +39,7 @@ public:
 
     Q_PROPERTY(bool roiProcessingDone READ roiProcessingDone WRITE setRoiProcessingDone NOTIFY roiProcessingDoneChanged)
 
-    Q_PROPERTY(FlowNodeManager* processingNodes READ processingNodes WRITE setProcessingNodes NOTIFY processingNodesChanged USER("serialize"))
+    Q_PROPERTY(ProcessingNodeManager* processingNodes READ processingNodes WRITE setProcessingNodes NOTIFY processingNodesChanged USER("serialize"))
 
 
 private:
@@ -77,7 +79,11 @@ public slots:
                 if(node){
                     ProcessingNode* procnode=dynamic_cast<ProcessingNode*>(node);
                     if(procnode){
+
                         this->initializeProcessingNode(procnode);
+
+                        procnode->setProcessingnodes(m_processingNodes);
+
                     }
                     else {
                         ProjectNode* projectnode=dynamic_cast<ProjectNode*>(node);
@@ -101,7 +107,7 @@ public slots:
 
 
 
-    void setProcessingNodes(FlowNodeManager* processingNodes)
+    void setProcessingNodes(ProcessingNodeManager* processingNodes)
     {
         if (m_processingNodes == processingNodes)
             return;
@@ -133,7 +139,7 @@ signals:
 
     void commonNodeTypesChanged(QVariantList commonNodeTypes);
 
-    void processingNodesChanged(FlowNodeManager* processingNodes);
+    void processingNodesChanged(ProcessingNodeManager* processingNodes);
 
 private:
 
@@ -151,7 +157,7 @@ private:
     QMat* m_processedFrame=new QMat();
     ProcessingBaseNode* m_basenode=nullptr;
 
-    FlowNodeManager* m_processingNodes=new FlowNodeManager(this);
+    ProcessingNodeManager* m_processingNodes=new ProcessingNodeManager(this);
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -183,7 +189,7 @@ public:
 
     void initializeProcessingNode(ProcessingNode *procnode);
 
-    FlowNodeManager* processingNodes() const
+    ProcessingNodeManager* processingNodes() const
     {
         return m_processingNodes;
     }

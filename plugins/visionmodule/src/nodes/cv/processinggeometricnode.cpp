@@ -115,6 +115,8 @@ QVariant ProcessingGeometricNode::lineSegment(){
         case Geometric2PointLine:
         {
             cv::Point pt1,pt2;
+            QString teste=m_input1.typeName();
+
             if(m_input1.canConvert<cv::Rect>()) {
 
                 cv::Rect input1_rect= m_input1.value<cv::Rect>();
@@ -122,44 +124,29 @@ QVariant ProcessingGeometricNode::lineSegment(){
 
 
             }
-            else if(strcmp(m_input1.typeName(),"std::vector<cv::RotatedRect>")==0) {
-                std::vector<cv::RotatedRect> rect_obj = m_input1.value<std::vector<cv::RotatedRect>>();
+            else if(m_input1.canConvert<cv::RotatedRect>()) {
+                cv::RotatedRect input1_rotacted_rect= m_input1.value<cv::RotatedRect>();
 
-                // TODO process empty vectors
+                pt1=input1_rotacted_rect.center;
 
-                if(rect_obj.size()>0){
-
-
-                    // if vector take index 0 Rect
-
-                    cv::RotatedRect input1_rect=rect_obj.at(0);
-                    pt1=input1_rect.center;
-                }
 
             }
 
 
-            if(m_input1.canConvert<cv::Rect>()) {
+            if(m_input2.canConvert<cv::Rect>()) {
 
 
                 cv::Rect input2_rect= m_input2.value<cv::Rect>();
                 pt2=cv::Point(input2_rect.x+(input2_rect.width/2),input2_rect.y+(input2_rect.height/2));
 
 
-            }
-            else if(strcmp(m_input2.typeName(),"std::vector<cv::RotatedRect>")==0) {
-                std::vector<cv::RotatedRect> rect_obj = m_input2.value<std::vector<cv::RotatedRect>>();
+            }else if(m_input2.canConvert<cv::RotatedRect>()) {
+                cv::RotatedRect input2_rotacted_rect= m_input2.value<cv::RotatedRect>();
 
-                // TODO process empty vectors
-
-                if(rect_obj.size()>1){
+                pt2=input2_rotacted_rect.center;
 
 
-                    // TODO add at index property value serializable
 
-                    cv::RotatedRect input2_rect=rect_obj.at(1);
-                    pt2=input2_rect.center;
-                }
 
             }
 

@@ -135,9 +135,9 @@ ProcessingNodeItem{
                         stepSize: 2
                         value:  root.node.adaptativeBlockSize
                         onValueChanged: {
-//                            if(root.node && root.node.configsLoaded && root.node.adaptativeBlockSize!=value){
-//                                root.node.adaptativeBlockSize=value
-//                            }
+                            if(root.node && root.node.configsLoaded && root.node.adaptativeBlockSize!=value && root.node.adaptativeBlockSize>=3){
+                                root.node.adaptativeBlockSize=value
+                            }
                         }
                     }
                 }

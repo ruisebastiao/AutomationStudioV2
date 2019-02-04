@@ -127,8 +127,20 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
     setApplyMask(m_applyMask);
     setDrawOnSource(m_drawOnSource);
+    setDrawOnSourcePortVisible(m_drawOnSourcePortVisible);
+    FlowNodePort* port=getPortFromKey("drawSource");
+
+    QObject::connect(port->getPortItem(), &qan::PortItem::inEdgeAdded, this, [this](qan::EdgeItem& inEdgeItem){
+
+        if(!m_drawOnSourcePortVisible){
+            SelectableEdge* selectededge= dynamic_cast<SelectableEdge*>(inEdgeItem.getEdge());
+             selectededge->setIsHidden(true);
+        }
+
+    });
 
 
+    //    port->
 
 }
 

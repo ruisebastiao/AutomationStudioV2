@@ -40,7 +40,8 @@ SOURCES += \
     $$PWD/graphs/visiongraph.cpp \
     $$PWD/graphs/visionmodulegraph.cpp \
     $$PWD/nodes/cv/cvserialization.cpp \
-    $$PWD/nodes/cv/processingcannynode.cpp
+    $$PWD/nodes/cv/processingcannynode.cpp \
+    $$PWD/processingnodemanager.cpp
 
 HEADERS += \
     $$PWD/qvisionmodule.h \
@@ -82,7 +83,8 @@ HEADERS += \
     $$PWD/graphs/visiongraph.h \
     $$PWD/graphs/visionmodulegraph.h \
     $$PWD/nodes/cv/cvserialization.h \
-    $$PWD/nodes/cv/processingcannynode.h
+    $$PWD/nodes/cv/processingcannynode.h \
+    $$PWD/processingnodemanager.h
 
 RESOURCES += \
     $$PWD/visionmodule.qrc
