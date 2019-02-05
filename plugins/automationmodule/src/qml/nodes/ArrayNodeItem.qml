@@ -18,16 +18,6 @@ FlowNodeItem{
     property var nodeArrayList: root.node.arrayList
 
 
-    onNodeArrayListChanged: {
-
-        if(nodeArrayList && nodeArrayList.length>0){
-            console.log("nodeArray:"+nodeArrayList[0])
-            //arryindex.to=nodeArrayList.length-1
-        }
-    }
-
-    //property bool isValidArray:
-
     property bool initialized: false
     resizable:true;
     expandOnEdit:true;

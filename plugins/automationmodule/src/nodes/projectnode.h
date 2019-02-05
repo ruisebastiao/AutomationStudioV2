@@ -3,10 +3,12 @@
 
 #include "flownode.h"
 
+#include "automationmoduleglobal.h"
+
 #include <QObject>
 #include <project.h>
 
-class ProjectNode : public FlowNode
+class AUTOMATIONMODULE_EXPORT ProjectNode : public FlowNode
 {
      Q_OBJECT
 

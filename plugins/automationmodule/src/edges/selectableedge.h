@@ -6,11 +6,11 @@
 #include <QObject>
 #include <qanEdge.h>
 #include <qanUtils.h>
+#include "automationmoduleglobal.h"
 
 
 
-
-class SelectableEdge : public qan::Edge
+class AUTOMATIONMODULE_EXPORT SelectableEdge : public qan::Edge
 {
     Q_OBJECT
 

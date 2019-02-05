@@ -90,6 +90,14 @@ public slots:
                         if(projectnode){
                             projectnode->setProject(this->parentModule()->parentProject());
                         }
+                        else {
+                            ModuleProxyNode* moduleproxynode=dynamic_cast<ModuleProxyNode*>(node);
+                            if(moduleproxynode){
+                                connect(this->parentModule()->parentProject(),&Project::projectLoadedChanged,this,[moduleproxynode](){
+                                     moduleproxynode->setSelectedBindedModuleID(moduleproxynode->selectedBindedModuleID());
+                                });
+                            }
+                        }
                     }
 
                     node->setParentModule(this->parentModule());

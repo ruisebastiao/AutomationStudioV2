@@ -55,7 +55,7 @@ ProcessingNodeItem{
         }
 
         Component.onCompleted: {
-            console.log("Teste:"+root.node.geometricType);
+
         }
 
     }

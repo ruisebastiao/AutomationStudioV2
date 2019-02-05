@@ -30,11 +30,9 @@ FlowNodeItem{
     Module.USBNotifier{
         id:usbnotifier
         onPortAdded:{
-            console.log("Port added");
             root.node.checkPorts()
         }
-        onPortRemoved:{
-            console.log("Port removed");
+        onPortRemoved:{            
             root.node.checkPorts()
         }
         Component.onCompleted: {

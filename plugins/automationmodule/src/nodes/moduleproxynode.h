@@ -2,10 +2,10 @@
 #define MODULEPROXYNODE_H
 
 #include "proxynode.h"
+#include "automationmoduleglobal.h"
 
 
-
-class ModuleProxyNode : public ProxyNode
+class AUTOMATIONMODULE_EXPORT ModuleProxyNode : public ProxyNode
 {
     Q_OBJECT
 

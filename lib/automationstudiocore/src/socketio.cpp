@@ -99,7 +99,7 @@ void SocketIO::init(){
 
 
     LOG_INFO("Connecting to socket IO @:"+formatedSocketIOUrl);
-    _io->connect(formatedSocketIOUrl.toStdString());
+   // _io->connect(formatedSocketIOUrl.toStdString());
 }
 
 void SocketIO::send(QString eventname,QString eventdata, std::function<void (message::list const&)> const& ack){
@@ -120,6 +120,6 @@ void SocketIO::OnFailed(){
 
 void SocketIO::onSocketDisconnect(const std::string &nsp)
 {
-    LOG_INFO("Socket IO disconnected 2");
+    LOG_INFO("Socket IO disconnected");
 }
 

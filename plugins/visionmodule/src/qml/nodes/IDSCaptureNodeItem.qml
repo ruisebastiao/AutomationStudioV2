@@ -30,7 +30,7 @@ FlowNodeItem{
 
         }
         else{
-            console.log("No camera selected");
+
             selectedCameraCombo.currentIndex=-1;
         }
     }
@@ -228,7 +228,7 @@ FlowNodeItem{
                          title: "Please choose a parameter file"
                          nameFilters: ["ini files (*.ini)"]
                          onAccepted: {
-                             console.log("You chose: " + fileDialog.fileUrl)
+
                              root.node.cameraParametersPath=fileDialog.fileUrl
                          }
                          onRejected: {
