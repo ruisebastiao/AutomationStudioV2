@@ -16,6 +16,11 @@ class MultiplexedInputNode : public FlowNode
 
     Q_PROPERTY(QVariant in2 READ in2 WRITE setIn2 NOTIFY in2Changed REVISION 30)
 
+    Q_PROPERTY(QVariant in1Enabled READ in1Enabled WRITE setIn1Enabled NOTIFY in1EnabledChanged REVISION 30)
+
+    Q_PROPERTY(QVariant in2Enabled READ in2Enabled WRITE setIn2Enabled NOTIFY in2EnabledChanged REVISION 30)
+
+
 
     /////OUT ports
 
@@ -28,6 +33,10 @@ private:
     QVariant m_in1=QVariant();
     QVariant m_in2=QVariant();
     QVariant m_out=QVariant();
+
+    QVariant m_in1Enabled=false;
+
+    QVariant m_in2Enabled=false;
 
 public:
     MultiplexedInputNode();
@@ -53,7 +62,10 @@ public slots:
     void setIn1(QVariant in1)
     {
         m_in1 = in1;
-        setOut(m_in1);
+
+        if(m_in1Enabled.value<bool>()){
+            setOut(m_in1);
+        }
         emit in1Changed(m_in1);
     }
 
@@ -62,7 +74,9 @@ public slots:
 
 
         m_in2 = in2;
-        setOut(m_in2);
+        if(m_in2Enabled.value<bool>()){
+            setOut(m_in2);
+        }
         emit in2Changed(m_in2);
     }
 
@@ -75,6 +89,30 @@ public slots:
     }
 
 
+    void setIn1Enabled(QVariant in1Enabled)
+    {
+
+
+        m_in1Enabled = in1Enabled;
+
+        if(m_in1Enabled.value<bool>()){
+            setIn2Enabled(false);
+        }
+
+        emit in1EnabledChanged(m_in1Enabled);
+    }
+
+    void setIn2Enabled(QVariant in2Enabled)
+    {
+
+        m_in2Enabled = in2Enabled;
+
+        if(m_in2Enabled.value<bool>()){
+            setIn1Enabled(false);
+        }
+        emit in2EnabledChanged(m_in2Enabled);
+    }
+
 signals:
     void in1Changed(QVariant in1);
     void in1PortChanged(FlowNodePort* in1Port);
@@ -84,6 +122,10 @@ signals:
     void outPortChanged(FlowNodePort* outPort);
 
     // JsonSerializable interface
+    void in1EnabledChanged(QVariant in1Enabled);
+
+    void in2EnabledChanged(QVariant in2Enabled);
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -91,6 +133,14 @@ public:
     // FlowNode interface
 public:
 
+    QVariant in1Enabled() const
+    {
+        return m_in1Enabled;
+    }
+    QVariant in2Enabled() const
+    {
+        return m_in2Enabled;
+    }
 };
 
 #endif // MULTIPLEXEDINPUTNODE_H

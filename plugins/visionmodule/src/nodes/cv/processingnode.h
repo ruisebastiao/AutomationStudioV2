@@ -326,9 +326,20 @@ public slots:
                 port->setHidden(true);
             }
             else{
-                port->setHidden(false);
-                m_drawOnSourcePortVisible=true;
-                emit drawOnSourcePortVisibleChanged(true);
+                if(m_deserealizing==false){
+                    port->setHidden(false);
+
+                    m_drawOnSourcePortVisible=true;
+                    emit drawOnSourcePortVisibleChanged(true);
+                }else {
+                    if(m_drawOnSourcePortVisible==false){
+                        update_port();
+                    }
+                    else {
+                        port->setHidden(false);
+                    }
+
+                }
 
             }
         }
@@ -364,16 +375,22 @@ public slots:
             return;
 
         m_drawOnSourcePortVisible = drawOnSourcePortVisible;
+        update_port();
+        emit drawOnSourcePortVisibleChanged(m_drawOnSourcePortVisible);
+    }
+
+
+    void update_port(){
         FlowNodePort* port=getPortFromKey("drawSource");
 
         if(port){
-            if(drawOnSourcePortVisible && drawOnSource()){
+            if(m_drawOnSourcePortVisible && drawOnSource()){
                 port->setHidden(false);
                 qan::PortItem* inport=port->getPortItem();
                 if(inport->getInEdgeItems().size()>0){
 
                     SelectableEdge* selectededge= dynamic_cast<SelectableEdge*>(inport->getInEdgeItems().at(0)->getEdge());
-                     selectededge->setIsHidden(false);
+                    selectededge->setIsHidden(false);
                 }
 
             }
@@ -383,12 +400,11 @@ public slots:
                 if(inport->getInEdgeItems().size()>0){
 
                     SelectableEdge* selectededge= dynamic_cast<SelectableEdge*>(inport->getInEdgeItems().at(0)->getEdge());
-                     selectededge->setIsHidden(true);
+                    selectededge->setIsHidden(true);
                 }
             }
 
         }
-        emit drawOnSourcePortVisibleChanged(m_drawOnSourcePortVisible);
     }
 
 signals:
@@ -478,6 +494,7 @@ protected:
 
     ProcessingType m_processingType;
 
+    bool m_deserealizing=false;
 
 
 

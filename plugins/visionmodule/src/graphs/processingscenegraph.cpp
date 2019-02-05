@@ -130,6 +130,10 @@ qan::Edge *ProcessingSceneGraph::insertNewEdge(bool hidden, qan::Node *source, q
 FlowNode *ProcessingSceneGraph::createNode(QString nodetype)
 {
 
+    if(nodetype==""){
+        return nullptr;
+    }
+
     FlowNode* flownode=SceneGraph::createNode(nodetype);
 
 

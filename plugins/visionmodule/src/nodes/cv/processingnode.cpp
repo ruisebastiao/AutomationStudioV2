@@ -118,7 +118,7 @@ void ProcessingNode::setInput(QVariant input)
 
 void ProcessingNode::DeSerialize(QJsonObject &json)
 {
-
+    m_deserealizing=true;
     FlowNode::DeSerialize(json);
 
 
@@ -134,13 +134,13 @@ void ProcessingNode::DeSerialize(QJsonObject &json)
 
         if(!m_drawOnSourcePortVisible){
             SelectableEdge* selectededge= dynamic_cast<SelectableEdge*>(inEdgeItem.getEdge());
-             selectededge->setIsHidden(true);
+            selectededge->setIsHidden(true);
         }
 
     });
 
 
-    //    port->
+    m_deserealizing=false;
 
 }
 

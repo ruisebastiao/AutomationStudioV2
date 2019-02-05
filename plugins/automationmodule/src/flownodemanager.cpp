@@ -44,7 +44,7 @@ void FlowNodeManager::setScenegraph(SceneGraph *scenegraph)
     scenegraph->connect(scenegraph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
         if(m_deserializing==false){
 
-            if(node){
+            if(node && node->id()==-1){
                 int nodeid=getAvailableID();
                 if(nodeid==-1){
                     LOG_ERROR("Invalid node ID");

@@ -114,6 +114,11 @@ void SceneGraph::getCommonTypes()
             break;
 
 
+        case FlowNode::Type::MultiplexedInputNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Multiplexed input");
+
+            break;
+
         case FlowNode::Type::LogicNode:
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"Logic");
 
@@ -266,19 +271,19 @@ void SceneGraph::copyNode(FlowNode* node){
     node->Serialize(nodeobj);
 
 
-    QString nodetype=nodeobj["type"].toString();
-    FlowNode* newnode=createNode(nodetype);
+    nodeobj.take("id");
+//    QString nodetype=nodeobj["type"].toString();
+//    FlowNode* newnode=createNode(nodetype);
+    FlowNode* newnode=readNode(nodeobj);
+
     if(newnode){
-        newnode->getItem()->setProperty("x",QVariant::fromValue(node->getItem()->x()+50));
-        newnode->getItem()->setProperty("y",QVariant::fromValue(node->getItem()->y()+50));
-//        this->clearSelection();
+        newnode->getItem()->setProperty("x",QVariant::fromValue(node->getItem()->x()+75));
+        newnode->getItem()->setProperty("y",QVariant::fromValue(node->getItem()->y()+75));
+
         this->selectNode(*newnode,Qt::NoModifier);
-
-//        this->setSelectedNode(newnode);
-
-      int id=newnode->id();
-      newnode->DeSerialize(nodeobj);
-      newnode->setId(id);
+//        int id=newnode->id();
+//        newnode->DeSerialize(nodeobj);
+//        newnode->setId(id);
     }
 
 
@@ -302,7 +307,7 @@ void SceneGraph::addNode(QPoint loc, QVariantMap nodeinfo)
 
 
 
-//    auto mappedloc=mapToItem(this->getContainerItem(),loc);
+    //    auto mappedloc=mapToItem(this->getContainerItem(),loc);
 
     auto mappedloc=loc;
 
@@ -354,17 +359,6 @@ QPointer<QQuickItem> SceneGraph::createDock(qan::NodeItem::Dock dock, qan::Node 
     return createDockFromDelegate(dock,node);
 }
 
-//void SceneGraph::onConnectorRequestEdgeCreation(qan::Node *src, QObject *dst)
-//{
-//    if(src!=nullptr){
-
-//        qan::Node* destnode=static_cast<qan::Node*>(dst);
-//        if(dst!=nullptr){
-
-//            insertNewEdge(false,src,destnode);
-//        }
-//    }
-//}
 
 qan::Edge *SceneGraph::insertNewEdge(bool hidden, qan::Node *source, qan::Node *destination)
 {
