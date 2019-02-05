@@ -58,6 +58,7 @@ FlowNodeItem{
                         placeHolderText:"Extract property"
                     }
                 }
+
                 TextField{
 
                     Layout.fillWidth: true

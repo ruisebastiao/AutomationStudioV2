@@ -15,6 +15,9 @@ class ProcessingEnclosingNode : public ProcessingNode
 
     Q_PROPERTY(EnclosingType enclosingType READ enclosingType WRITE setEnclosingType NOTIFY enclosingTypeChanged USER("serialize"))
 
+    Q_PROPERTY(double minRatio READ minRatio WRITE setMinRatio NOTIFY minRatioChanged USER("serialize"))
+    Q_PROPERTY(double maxRatio READ maxRatio WRITE setMaxRatio NOTIFY maxRatioChanged USER("serialize"))
+
 
 
 public:
@@ -61,6 +64,30 @@ public slots:
         }
     }
 
+    void setMinRatio(double minRatio)
+    {
+
+        if (qFuzzyCompare(m_minRatio, minRatio))
+            return;
+
+        m_minRatio = minRatio;
+        emit minRatioChanged(m_minRatio);
+    }
+
+
+
+
+
+    void setMaxRatio(double maxRatio)
+    {
+
+        if (qFuzzyCompare(m_maxRatio, maxRatio))
+            return;
+
+        m_maxRatio = maxRatio;
+        emit maxRatioChanged(m_maxRatio);
+    }
+
 protected:
     void doProcess() override;
 
@@ -93,6 +120,10 @@ signals:
 
     void enclosingTypeChanged(EnclosingType enclosingType);
 
+    void minRatioChanged(double minRatio);
+
+    void maxRatioChanged(double maxRatio);
+
 private:
 
     QVariant m_contours=QVariant::fromValue(std::vector<std::vector<cv::Point>>());
@@ -100,7 +131,23 @@ private:
     EnclosingType m_enclosingType=RotatedRectEnclosing;
 
     // FlowNode interface
+    double m_minRatio=0.4;
+
+    double m_maxRatio=0.5;
+
+
+
 public:
+
+    double minRatio() const
+    {
+        return m_minRatio;
+    }
+
+    double maxRatio() const
+    {
+        return m_maxRatio;
+    }
 
 };
 

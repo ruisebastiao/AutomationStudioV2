@@ -18,7 +18,7 @@ void FrameBufferNode::processCurrent()
 {
     FrameBufferListModel* framebuffers=m_frameBuffers.value<FrameBufferListModel*>();
 
-    QMat* currentmat= framebuffers->getItemAt(m_readIndex);
+    QMat* currentmat= framebuffers->getItemAt(m_readIndex.value<int>());
 
     QMat* framesink=m_frameSink.value<QMat*>();
 
@@ -76,12 +76,12 @@ void FrameBufferNode::setFrameSource(QVariant frameSource)
     FrameBufferListModel* framebuffers=m_frameBuffers.value<FrameBufferListModel*>();
 
 
-    QMat* currentmat= framebuffers->getItemAt(m_writeIndex);
+    QMat* currentmat= framebuffers->getItemAt(m_writeIndex.value<int>());
 
 
     if(currentmat!=nullptr){
         (framesource->cvMat())->copyTo((*currentmat->cvMat()));
-        int storeindex=writeIndex();
+        int storeindex=writeIndex().value<int>();
 /////        QtConcurrent::run([&](){
 
 //            QMat* storemat= m_frameBuffers.value<FrameBufferListModel*>()->getItemAt(storeindex);
@@ -92,9 +92,9 @@ void FrameBufferNode::setFrameSource(QVariant frameSource)
 
 /////        });
 
-        framebuffers->indexDataChanged(writeIndex());
+        framebuffers->indexDataChanged(writeIndex().value<int>());
         if(autoIncrementWriteIndex()){
-            setWriteIndex(writeIndex()+1);
+            setWriteIndex(writeIndex().value<int>()+1);
         }
     }
     emit frameSourceChanged(m_frameSource);
@@ -110,7 +110,7 @@ void FrameBufferNode::setReadNextFrame(QVariant readNextFrame)
     if(m_readNextFrame.value<bool>()){
 
         FrameBufferListModel* framebuffers=m_frameBuffers.value<FrameBufferListModel*>();
-        QMat* currentmat= framebuffers->getItemAt(m_readIndex);
+        QMat* currentmat= framebuffers->getItemAt(m_readIndex.value<int>());
         QMat* framesink= m_frameSink.value<QMat*>();
 
 
@@ -121,7 +121,7 @@ void FrameBufferNode::setReadNextFrame(QVariant readNextFrame)
             emit frameSinkChanged(m_frameSink);
 
             if(autoIncrementReadIndex()){
-                setReadIndex(readIndex()+1);
+                setReadIndex(readIndex().value<int>()+1);
             }
         }
 

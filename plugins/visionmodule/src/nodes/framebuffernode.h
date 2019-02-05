@@ -155,8 +155,8 @@ class FrameBufferNode : public FlowNode
 
     Q_PROPERTY(QVariant frameBuffers READ frameBuffers WRITE setFrameBuffers NOTIFY frameBuffersChanged  REVISION 31)
 
-    Q_PROPERTY(int writeIndex READ writeIndex WRITE setWriteIndex NOTIFY writeIndexChanged)
-    Q_PROPERTY(int readIndex READ readIndex WRITE setReadIndex NOTIFY readIndexChanged)
+    Q_PROPERTY(QVariant writeIndex READ writeIndex WRITE setWriteIndex NOTIFY writeIndexChanged REVISION 31)
+    Q_PROPERTY(QVariant readIndex READ readIndex WRITE setReadIndex NOTIFY readIndexChanged REVISION 31)
 
     Q_PROPERTY(bool autoIncrementWriteIndex READ autoIncrementWriteIndex WRITE setAutoIncrementWriteIndex NOTIFY autoIncrementWriteIndexChanged USER("serialize"))
     Q_PROPERTY(bool autoIncrementReadIndex READ autoIncrementReadIndex WRITE setAutoIncrementReadIndex NOTIFY autoIncrementReadIndexChanged USER("serialize"))
@@ -172,9 +172,9 @@ private:
 
     QVariant m_readNextFrame=QVariant::fromValue(false);
 
-    int m_writeIndex=0;
+    QVariant m_writeIndex=0;
 
-    int m_readIndex=0;
+    QVariant m_readIndex=0;
 
     bool m_autoIncrementWriteIndex=false;
 
@@ -227,12 +227,12 @@ public:
         return m_frameBuffers;
     }
 
-    int writeIndex() const
+    QVariant writeIndex() const
     {
         return m_writeIndex;
     }
 
-    int readIndex() const
+    QVariant readIndex() const
     {
         return m_readIndex;
     }
@@ -302,28 +302,28 @@ public slots:
         emit frameBuffersChanged(m_frameBuffers);
     }
 
-    void setWriteIndex(int writeIndex)
+    void setWriteIndex(QVariant writeIndex)
     {
         if (m_writeIndex == writeIndex)
             return;
 
         m_writeIndex = writeIndex;
 
-        if(m_writeIndex>=m_numBuffers.value<int>()){
+        if(m_writeIndex.value<int>()>=m_numBuffers.value<int>()){
             setBufferFull(true);
             m_writeIndex=0;
         }
         emit writeIndexChanged(m_writeIndex);
     }
 
-    void setReadIndex(int readIndex)
+    void setReadIndex(QVariant readIndex)
     {
         if (m_readIndex == readIndex)
             return;
 
         m_readIndex = readIndex;
 
-        if(m_readIndex>=m_numBuffers.value<int>()){
+        if(m_readIndex.value<int>()>=m_numBuffers.value<int>()){
             m_fullBufferReaded=true;
             m_readIndex=0;
         }
@@ -384,8 +384,8 @@ signals:
 
     void frameStoredChanged(QVariant frameStored);
     void frameBuffersChanged(QVariant frameBuffers);
-    void writeIndexChanged(int writeIndex);
-    void readIndexChanged(int readIndex);
+    void writeIndexChanged(QVariant writeIndex);
+    void readIndexChanged(QVariant readIndex);
     void autoIncrementWriteIndexChanged(bool autoIncrementWriteIndex);
     void autoIncrementReadIndexChanged(bool autoIncrementReadIndex);
     void readNextFrameChanged(QVariant readNextFrame);

@@ -34,9 +34,12 @@ class IDSCaptureNode : public CameraCaptureNode
     Q_PROPERTY(int numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged  USER("serialize"))
 
 
-//    Q_PROPERTY(QVariant parametersFileInput READ parametersFileInput WRITE setParametersFileInput NOTIFY newFrameChanged REVISION 30)
+    //    Q_PROPERTY(QVariant parametersFileInput READ parametersFileInput WRITE setParametersFileInput NOTIFY newFrameChanged REVISION 30)
 
     Q_PROPERTY(QVariant parametersFileInput READ parametersFileInput WRITE setParametersFileInput NOTIFY parametersFileInputChanged REVISION 30)
+
+    Q_PROPERTY(QVariant exposure READ exposure WRITE setExposure NOTIFY exposureChanged REVISION 30)
+
 
 
 
@@ -96,6 +99,11 @@ public:
     QVariant parametersFileInput() const
     {
         return m_parametersFileInput;
+    }
+
+    QVariant exposure() const
+    {
+        return m_exposure;
     }
 
 public slots:
@@ -186,6 +194,8 @@ signals:
 
     void parametersFileInputChanged(QVariant parametersFileInput);
 
+    void exposureChanged(QVariant exposure);
+
 private:
 
     void setCameraAvailable(bool cameraAvailable)
@@ -224,8 +234,8 @@ private:
     IDSCamera* m_selectedCamera=nullptr;
 
     HIDS m_camHandler=0;
-//    INT		m_nSizeX=0;			// width of image
-//    INT		m_nSizeY=0;			// height of image
+    //    INT		m_nSizeX=0;			// width of image
+    //    INT		m_nSizeY=0;			// height of image
     INT		m_nPosX=0;			// left offset of image
     INT		m_nPosY=0;			// right offset of image
     //    INT		m_lMemoryId;		// camera memory - buffer ID
@@ -257,6 +267,8 @@ private:
     QString m_cameraParametersPath="";
 
     QVariant m_parametersFileInput=QString("");
+
+    QVariant m_exposure;
 
 public slots:
     void setNewFrame(QVariant newFrame) override;
@@ -300,7 +312,7 @@ public slots:
             fileloc=fileurl.toLocalFile();
         }
 
-      //     m_cameraParametersPath=cameraParametersPath;
+        //     m_cameraParametersPath=cameraParametersPath;
 
 
         QDir basedir=QCoreApplication::applicationDirPath();
@@ -315,6 +327,22 @@ public slots:
         setCameraParametersPath(m_parametersFileInput.value<QString>());
 
         emit parametersFileInputChanged(m_parametersFileInput);
+    }
+    void setExposure(QVariant exposure)
+    {
+
+        m_exposure = exposure;
+
+        if(m_cameraOpened){
+            double exposureval=exposure.value<double>();
+            if (exposureval<=0){
+                exposureval=1;
+            }
+            //int nRet = is_Exposure (m_camHandler, IS_EXPOSURE_CMD_SET_EXPOSURE, &exposureval, 8);
+
+        }
+
+        emit exposureChanged(m_exposure);
     }
 };
 

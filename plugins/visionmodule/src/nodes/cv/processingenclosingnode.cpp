@@ -60,7 +60,17 @@ void ProcessingEnclosingNode::doProcess()
         switch (m_enclosingType) {
         case RotatedRectEnclosing:
         {
+
+
             RotatedRect minrect=minAreaRect(approx_contour);
+
+            double ratio=minrect.size.width/minrect.size.height;
+
+            if((ratio<minRatio() || ratio>1/minRatio() ) ||  (ratio>maxRatio()   && ratio<1/maxRatio())){
+                continue;
+            }
+
+
             rotatedenclosingshapes.push_back(minrect);
             cv::Point2f vertices[4];
             minrect.points(vertices);

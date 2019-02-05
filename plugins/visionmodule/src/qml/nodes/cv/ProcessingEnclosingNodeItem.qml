@@ -7,6 +7,7 @@ import QtGraphicalEffects   1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
+import guimodule 1.0 as GUI
 
 import QuickQanava          2.0 as Qan
 
@@ -40,8 +41,56 @@ ProcessingNodeItem{
                         root.node.enclosingType=ProcessingEnclosingNode.BoundingRectEnclosing
                     }
                 }
+
+
+
+
+
             }
         }
+
+        GroupBox{
+            title: "Shape ratio:"
+            Layout.fillWidth: true
+            spacing: 5
+            Flow{
+                anchors.fill: parent
+                TextField{
+
+
+                    text: root.node.minRatio
+                    onTextChanged: {
+                        root.node.minRatio=parseFloat(value)
+                    }
+
+                    inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    selectByMouse:true
+                    GUI.MaterialPlaceHolder{
+
+                        placeHolderText:"Min ratio"
+                    }
+
+                }
+                TextField{
+
+
+                    text: root.node.maxRatio
+                    onTextChanged: {
+                        root.node.maxRatio=parseFloat(value)
+                    }
+
+                    inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    selectByMouse:true
+                    GUI.MaterialPlaceHolder{
+
+                        placeHolderText:"Max ratio"
+                    }
+
+                }
+            }
+
+        }
+
         Item{
             Layout.fillHeight: true
             Layout.fillWidth: true
