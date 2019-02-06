@@ -257,6 +257,7 @@ Item{
 
                                     ColumnLayout{
 
+                                        anchors.fill: parent
                                         RowLayout{
 
 
@@ -372,9 +373,9 @@ Item{
                                                 Layout.margins: 5
                                                  Layout.fillWidth:  true
                                                 Material.accent: selectedprimary
-                                                text:automationstudio.settings.socketIO.serverUrl
+                                                text:automationstudio.settings.appUpdater.serverUrl
                                                 onAccepted: {
-                                                    automationstudio.settings.socketIO.serverUrl=text
+                                                    automationstudio.settings.appUpdater.serverUrl=text
                                                 }
 
                                                 MaterialPlaceHolder{

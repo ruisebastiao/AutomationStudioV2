@@ -33,6 +33,9 @@ class  Settings : public QObject , public JsonSerializable {
     Q_INTERFACES(JsonSerializable)
 
     Q_PROPERTY(QString source READ source NOTIFY sourceChanged)
+    Q_PROPERTY(bool useRemoteSettings READ useRemoteSettings WRITE setUseRemoteSettings NOTIFY useRemoteSettingsChanged)
+    Q_PROPERTY(QString remoteSettingsBaseLocation READ remoteSettingsBaseLocation WRITE setRemoteSettingsBaseLocation NOTIFY remoteSettingsBaseLocationChanged)
+
     Q_PROPERTY(bool loaded READ loaded WRITE setLoaded NOTIFY loadedChanged)
     Q_PROPERTY(bool basefileLoaded READ basefileLoaded  NOTIFY basefileLoadedChanged)
     Q_PROPERTY(bool basefileError READ basefileError NOTIFY basefileErrorChanged)
@@ -41,7 +44,7 @@ class  Settings : public QObject , public JsonSerializable {
     Q_PROPERTY(QString sysInfo READ sysInfo)
     Q_PROPERTY(QString cpuType READ cpuType)
 
-    //    Q_PROPERTY(QString projectsFile READ projectsFile WRITE setProjectsFile NOTIFY projectsFileChanged)
+
 
     Q_PROPERTY(UsersListModel* users READ users WRITE setUsers NOTIFY usersChanged USER("serialize"))
     Q_PROPERTY(User* currentUser READ currentUser WRITE setCurrentUser NOTIFY currentUserChanged)
@@ -306,6 +309,26 @@ public slots:
         emit useKeyboardChanged(m_useKeyboard);
     }
 
+    void setUseRemoteSettings(bool useRemoteSettings)
+    {
+        if (m_useRemoteSettings == useRemoteSettings)
+            return;
+
+        m_useRemoteSettings = useRemoteSettings;
+        emit useRemoteSettingsChanged(m_useRemoteSettings);
+    }
+
+
+
+    void setRemoteSettingsBaseLocation(QString remoteSettingsBaseLocation)
+    {
+        if (m_remoteSettingsBaseLocation == remoteSettingsBaseLocation)
+            return;
+
+        m_remoteSettingsBaseLocation = remoteSettingsBaseLocation;
+        emit remoteSettingsBaseLocationChanged(m_remoteSettingsBaseLocation);
+    }
+
 signals:
     void sourceChanged(QString source);
 
@@ -349,6 +372,11 @@ signals:
 
     void useKeyboardChanged(bool useKeyboard);
 
+    void useRemoteSettingsChanged(bool useRemoteSettings);
+
+
+    void remoteSettingsBaseLocationChanged(QString remoteSettingsBaseLocation);
+
 private:
 
 private:
@@ -385,6 +413,12 @@ private:
 
     bool m_useKeyboard=false;
 
+    bool m_useRemoteSettings=false;
+
+
+
+    QString m_remoteSettingsBaseLocation="/mnt/automationstudio/";
+
 public:
     virtual void Serialize(QJsonObject &json) override;
     virtual void DeSerialize(QJsonObject &json) override;
@@ -403,6 +437,15 @@ public:
     bool useKeyboard() const
     {
         return m_useKeyboard;
+    }
+    bool useRemoteSettings() const
+    {
+        return m_useRemoteSettings;
+    }
+
+    QString remoteSettingsBaseLocation() const
+    {
+        return m_remoteSettingsBaseLocation;
     }
 };
 

@@ -38,8 +38,8 @@ Settings::Settings(QObject *parent, QString appdir)
 
     QString ethMAC;
 
-//    QString m_currentDir=QCoreApplication::applicationDirPath()+"/dumps";
-//    Breakpad::CrashHandler::instance()->Init(m_currentDir);
+    //    QString m_currentDir=QCoreApplication::applicationDirPath()+"/dumps";
+    //    Breakpad::CrashHandler::instance()->Init(m_currentDir);
 
     foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces()) {
 
@@ -202,23 +202,37 @@ Settings::~Settings(){
 bool Settings::load()
 {
 
+    QString load_filepath;
+    if(m_useRemoteSettings){
+        load_filepath=remoteSettingsBaseLocation()+"/"+appID().replace(':','_')+"/"+m_source;
+
+        QFileInfo target(load_filepath);
+        QDir dir(target.dir());
+        if (!dir.exists())
+            dir.mkpath(".");
+
+
+    }
+    else {
+        load_filepath=m_source;
+    }
 
 
 
-    LOG_INFO()<<"Loading setting from:"<<m_source;
+    LOG_INFO()<<"Loading setting from:"<<load_filepath;
 
     if(m_source.isEmpty()) {
-        LOG_WARNING() << "Empty document: " << m_source;
+        LOG_WARNING() << "Empty document: " << load_filepath;
         setLoaded(false);
         return false;
     }
 
 
-    QFile settingsFile(m_source);
+    QFile settingsFile(load_filepath);
 
 
     if(!settingsFile.exists()) {
-        LOG_ERROR() << "Does not exits: " << m_source;
+        LOG_ERROR() << "Does not exits: " << load_filepath;
         setLoaded(false);
         return false;
     }
@@ -242,9 +256,9 @@ bool Settings::load()
     }
 
     if (!settings.isObject()) {
-          LOG_ERROR() << "JSON is not an object.";
-          return false;
-      }
+        LOG_ERROR() << "JSON is not an object.";
+        return false;
+    }
 
 
     QJsonObject settingsobject=settings.object();
@@ -253,10 +267,10 @@ bool Settings::load()
 
 
     if (settingsobject.isEmpty()) {
-            LOG_ERROR()<< "JSON object is empty.";
+        LOG_ERROR()<< "JSON object is empty.";
 
-            return false;
-     }
+        return false;
+    }
 
     DeSerialize(settingsobject);
 
@@ -270,7 +284,42 @@ bool Settings::load()
 bool Settings::save()
 {
 
-    LOG_INFO()<<"saving settings to:"<<m_source;
+
+
+    QFile basesettingsFile(QDir(QCoreApplication::applicationDirPath()).filePath("basesettings.json"));
+
+
+    if(basesettingsFile.exists()) {
+
+
+        basesettingsFile.open(QIODevice::WriteOnly);
+        QByteArray basesettingsData = basesettingsFile.readAll();
+
+        QJsonDocument settings(QJsonDocument::fromJson(basesettingsData ));
+
+        QJsonObject settingsobject=settings.object();
+
+        settingsobject["location"]=source();
+        settingsobject["useRemoteSettings"]=useRemoteSettings();
+        settingsobject["remoteSettingsBaseLocation"]=remoteSettingsBaseLocation();
+        QJsonDocument saveDoc(settingsobject);
+        QByteArray json = saveDoc.toJson();
+        basesettingsFile.write(json);
+        basesettingsFile.close();
+
+    }
+
+    QString save_filepath;
+    if(m_useRemoteSettings){
+        save_filepath=remoteSettingsBaseLocation()+"/"+appID().replace(':','_')+"/"+m_source;
+
+    }
+    else {
+        save_filepath=m_source;
+    }
+
+
+    LOG_INFO()<<"saving settings to:"<<save_filepath;
 
     QJsonObject json;
 
@@ -280,21 +329,22 @@ bool Settings::save()
 
 
 
-    //QString settings_str(saveDoc.toJson(QJsonDocument::Compact));
-
     QByteArray jsondoc = saveDoc.toJson();
 
 
-    QFile saveFile(m_source);
+
+    QFile saveFile(save_filepath);
 
     if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open save file.");
+        qWarning()<<"Couldn't open save file."<<save_filepath;
         saveFile.close();
         return false;
     }
 
 
     saveFile.write(jsondoc);
+
+
 
 
     return true;
@@ -324,6 +374,7 @@ void Settings::loadBaseSettings()
         QJsonObject settingsobject=settings.object();
 
         settingsobject["location"]="";
+        settingsobject["remoteSettingsBaseLocation"]="";
         QJsonDocument saveDoc(settingsobject);
         QByteArray json = saveDoc.toJson();
         basesettingsFile.write(json);
@@ -351,7 +402,20 @@ void Settings::loadBaseSettings()
     appdir.makeAbsolute();
 
     QDir::setCurrent(QCoreApplication::applicationDirPath());
+
+
+
+
+
+
+    setUseRemoteSettings(settingsobject["useRemoteSettings"].toBool());
+
+    setRemoteSettingsBaseLocation(settingsobject["remoteSettingsBaseLocation"].toString());
+
+
     setSource(appdir.cleanPath(settingsobject["location"].toString()));
+
+
 
 
     setBasefileLoaded(true);
@@ -384,15 +448,14 @@ void Settings::setBasefileLoaded(bool basefileLoaded)
 
 void Settings::Serialize(QJsonObject &json)
 {
-//    if(selectedProject()){
-//        selectedProject()->setSave(true);
-//    }
     JsonSerializable::Serialize(json,this);
 }
 
 void Settings::DeSerialize(QJsonObject &json)
 {
     JsonSerializable::DeSerialize(json,this);
+
+    m_socketIO->setServerUrl(appUpdater()->serverUrl());
 
     for (int var = 0; var < m_users->length(); ++var) {
         User* user=m_users->at(var);
@@ -411,31 +474,5 @@ void Settings::DeSerialize(QJsonObject &json)
     }
 
 
-
-    //    QJsonArray projectArray = json["projects"].toArray();
-    //    for (int projectIndex = 0; projectIndex < projectArray.size(); ++projectIndex) {
-    //        QJsonObject projectObject = projectArray[projectIndex].toObject();
-
-    //        Project *project= new Project();
-    //        project->DeSerialize(projectObject);
-
-    //        m_projects->AddProject(project);
-
-    //    }
-
-//        m_users->clear();
-
-//        QJsonArray usersArray = json["users"].toArray();
-//        for (int userIndex = 0; userIndex < usersArray.size(); ++userIndex) {
-//            QJsonObject userObject = usersArray[userIndex].toObject();
-
-//            User *user= new User();
-//            user->DeSerialize(userObject);
-//            if(user->isDefault()){
-//                setCurrentUser(user);
-//            }
-//            m_users->AddItem(user);
-
-//        }
 }
 

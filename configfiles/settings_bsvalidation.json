@@ -564,7 +564,7 @@
         }
     ],
     "selectedLanguage": "pt",
-    "useKeyboard": false,
+    "useKeyboard": true,
     "users": [
         {
             "isDefault": true,
