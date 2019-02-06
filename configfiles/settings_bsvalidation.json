@@ -12,29 +12,24 @@
                 {
                     "flowNodes": [
                         {
-                            "editHeight": 231,
-                            "editWidth": 348,
+                            "editHeight": 287,
+                            "editWidth": 438,
                             "id": 0,
                             "inPorts": {
                             },
                             "locked": false,
-                            "name": "BarcodeReader",
-                            "nodeX": 260.19607843137254,
-                            "nodeY": 187.0980392156862,
-                            "normalHeight": 242,
-                            "normalWidth": 365,
+                            "name": "",
+                            "nodeX": 249,
+                            "nodeY": -5,
+                            "normalHeight": 299,
+                            "normalWidth": 344,
                             "openOnConnect": true,
                             "outPorts": {
                                 "dataout": {
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 1,
-                                            "portID": "param1"
-                                        },
-                                        {
-                                            "hidden": false,
-                                            "nodeID": 3,
+                                            "nodeID": 2,
                                             "portID": "stringInput"
                                         },
                                         {
@@ -46,9 +41,9 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 48
+                                        "y": -48
                                     },
-                                    "portLabel": "Serialnumber",
+                                    "portLabel": "dataout",
                                     "showinlabel": false,
                                     "type": "Out"
                                 },
@@ -58,7 +53,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": -96
+                                        "y": 0
                                     },
                                     "portLabel": "opened",
                                     "showinlabel": false,
@@ -70,7 +65,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": -24
+                                        "y": 48
                                     },
                                     "portLabel": "rawdata",
                                     "showinlabel": false,
@@ -79,35 +74,40 @@
                             },
                             "port": "ttyACM0",
                             "prefix": "1*",
-                            "suffix": "$",
+                            "suffix": "#",
                             "triggerEnabled": false,
                             "type": "BarcodeReaderNode"
                         },
                         {
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "editHeight": 274,
+                            "editWidth": 408,
                             "id": 1,
                             "inPorts": {
                                 "query": {
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 0
+                                        "y": -48
                                     },
-                                    "portLabel": "Query",
+                                    "portLabel": "query",
                                     "showinlabel": false,
                                     "type": "In"
                                 }
                             },
                             "locked": false,
-                            "name": "webservice",
-                            "nodeX": 1235.1764705882354,
-                            "nodeY": 455.529411764706,
-                            "normalHeight": 232,
-                            "normalWidth": 405,
+                            "name": "",
+                            "nodeX": 1446,
+                            "nodeY": 144,
+                            "normalHeight": 250,
+                            "normalWidth": 250,
                             "outPorts": {
                                 "error": {
                                     "connectedTo": [
+                                        {
+                                            "hidden": false,
+                                            "nodeID": 9,
+                                            "portID": "input"
+                                        }
                                     ],
                                     "hidden": false,
                                     "portItem": {
@@ -122,7 +122,7 @@
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 2,
+                                            "nodeID": 3,
                                             "portID": "input"
                                         }
                                     ],
@@ -157,36 +157,9 @@
                             "type": "WebServiceNode"
                         },
                         {
-                            "editHeight": 250,
-                            "editWidth": 250,
+                            "editHeight": 342,
+                            "editWidth": 355,
                             "id": 2,
-                            "inPorts": {
-                                "input": {
-                                    "hidden": false,
-                                    "portItem": {
-                                        "x": 0,
-                                        "y": 0
-                                    },
-                                    "portLabel": "input",
-                                    "showinlabel": false,
-                                    "type": "In"
-                                }
-                            },
-                            "locked": false,
-                            "moduleProperty": "waitingResponse",
-                            "name": "Wait server",
-                            "nodeX": 1778.117647058824,
-                            "nodeY": 309.58823529411774,
-                            "normalHeight": 250,
-                            "normalWidth": 250,
-                            "outPorts": {
-                            },
-                            "type": "ModulePropertyBind"
-                        },
-                        {
-                            "editHeight": 250,
-                            "editWidth": 250,
-                            "id": 3,
                             "inPorts": {
                                 "stringInput": {
                                     "hidden": false,
@@ -194,18 +167,53 @@
                                         "x": 0,
                                         "y": 0
                                     },
-                                    "portLabel": "value",
+                                    "portLabel": "stringInput",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                },
+                                "stringInput2": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 72
+                                    },
+                                    "portLabel": "stringInput2",
                                     "showinlabel": false,
                                     "type": "In"
                                 }
                             },
+                            "inputType": "InputPrefix",
                             "locked": false,
-                            "name": "Query Builder",
-                            "nodeX": 745.6666666666667,
-                            "nodeY": 354.686274509804,
-                            "normalHeight": 237,
-                            "normalWidth": 365,
+                            "name": "",
+                            "nodeX": 785,
+                            "nodeY": -1,
+                            "normalHeight": 301,
+                            "normalWidth": 403,
                             "outPorts": {
+                                "stringEqual": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "stringEqual",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
+                                "stringNotEqual": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": true,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "stringNotEqual",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                },
                                 "stringOutput": {
                                     "connectedTo": [
                                         {
@@ -224,10 +232,48 @@
                                     "type": "Out"
                                 }
                             },
-                            "prefixFromInput": false,
+                            "storedValue": "",
                             "stringValue": "stationid=bskpp1&bsid=",
-                            "suffixFromInput": true,
                             "type": "StringNode"
+                        },
+                        {
+                            "editHeight": 250,
+                            "editWidth": 250,
+                            "id": 3,
+                            "inPorts": {
+                                "input": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "input",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "moduleProperty": "waitingResponse",
+                            "name": "",
+                            "nodeX": 1945,
+                            "nodeY": -5,
+                            "normalHeight": 250,
+                            "normalWidth": 250,
+                            "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "type": "ModulePropertyBind"
                         },
                         {
                             "editHeight": 250,
@@ -238,7 +284,7 @@
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 24
+                                        "y": 0
                                     },
                                     "portLabel": "datain",
                                     "showinlabel": false,
@@ -246,9 +292,9 @@
                                 }
                             },
                             "locked": false,
-                            "name": "BS Validator",
-                            "nodeX": 1765.4117647058824,
-                            "nodeY": 536.6470588235295,
+                            "name": "",
+                            "nodeX": 2058,
+                            "nodeY": 215,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
@@ -256,14 +302,14 @@
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 7,
+                                            "nodeID": 5,
                                             "portID": "input"
                                         }
                                     ],
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": 72
+                                        "y": -48
                                     },
                                     "portLabel": "bsNOK",
                                     "showinlabel": false,
@@ -290,14 +336,14 @@
                                     "connectedTo": [
                                         {
                                             "hidden": false,
-                                            "nodeID": 5,
+                                            "nodeID": 7,
                                             "portID": "input"
                                         }
                                     ],
                                     "hidden": false,
                                     "portItem": {
                                         "x": 0,
-                                        "y": -72
+                                        "y": 72
                                     },
                                     "portLabel": "lefts",
                                     "showinlabel": false,
@@ -323,13 +369,25 @@
                                 }
                             },
                             "locked": false,
-                            "moduleProperty": "lefts",
-                            "name": "Lefts",
-                            "nodeX": 2194.9411764705883,
-                            "nodeY": 304.2352941176471,
+                            "moduleProperty": "bsNOK",
+                            "name": "",
+                            "nodeX": 2469,
+                            "nodeY": 138,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
                             },
                             "type": "ModulePropertyBind"
                         },
@@ -351,12 +409,24 @@
                             },
                             "locked": false,
                             "moduleProperty": "bsOK",
-                            "name": "BSOK",
-                            "nodeX": 2209,
-                            "nodeY": 510,
+                            "name": "",
+                            "nodeX": 2456,
+                            "nodeY": 348,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
                             },
                             "type": "ModulePropertyBind"
                         },
@@ -377,13 +447,25 @@
                                 }
                             },
                             "locked": false,
-                            "moduleProperty": "bsNOK",
-                            "name": "BSNOK",
-                            "nodeX": 2195,
-                            "nodeY": 713,
+                            "moduleProperty": "lefts",
+                            "name": "",
+                            "nodeX": 2460,
+                            "nodeY": 541,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
                             },
                             "type": "ModulePropertyBind"
                         },
@@ -405,30 +487,84 @@
                             },
                             "locked": false,
                             "moduleProperty": "serialnumber",
-                            "name": "Serial",
-                            "nodeX": 810.6666666666665,
-                            "nodeY": 138.99999999999997,
+                            "name": "",
+                            "nodeX": 824,
+                            "nodeY": -198,
                             "normalHeight": 250,
                             "normalWidth": 250,
                             "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
+                            },
+                            "type": "ModulePropertyBind"
+                        },
+                        {
+                            "editHeight": 250,
+                            "editWidth": 250,
+                            "id": 9,
+                            "inPorts": {
+                                "input": {
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "input",
+                                    "showinlabel": false,
+                                    "type": "In"
+                                }
+                            },
+                            "locked": false,
+                            "moduleProperty": "serverErrorStatus",
+                            "name": "",
+                            "nodeX": 1939,
+                            "nodeY": 528,
+                            "normalHeight": 250,
+                            "normalWidth": 250,
+                            "outPorts": {
+                                "output": {
+                                    "connectedTo": [
+                                    ],
+                                    "hidden": false,
+                                    "portItem": {
+                                        "x": 0,
+                                        "y": 0
+                                    },
+                                    "portLabel": "output",
+                                    "showinlabel": false,
+                                    "type": "Out"
+                                }
                             },
                             "type": "ModulePropertyBind"
                         }
                     ],
                     "graphview": {
-                        "x": -251,
-                        "y": -19,
-                        "zoom": 1
+                        "x": -704.136842105263,
+                        "y": 82.26315789473688,
+                        "zoom": 0.7999999999999998
                     },
-                    "id": 0,
+                    "id": 1,
                     "name": "",
                     "type": "BSValidationModule"
                 }
             ],
-            "name": "New Project"
+            "name": "Validacao BS",
+            "subProjects": [
+            ]
         }
     ],
     "selectedLanguage": "pt",
+    "useKeyboard": false,
     "users": [
         {
             "isDefault": true,

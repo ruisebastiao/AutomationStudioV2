@@ -8,88 +8,88 @@ class QBSValidationModule : public QAutomationModule
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool bsOK READ bsOK WRITE setBsOK NOTIFY bsOKChanged REVISION 2)
-    Q_PROPERTY(bool bsNOK READ bsNOK WRITE setBsNOK NOTIFY bsNOKChanged REVISION 2)
-    Q_PROPERTY(bool waitingResponse READ waitingResponse WRITE setWaitingResponse NOTIFY waitingResponseChanged REVISION 2)
+    Q_PROPERTY(QVariant bsOK READ bsOK WRITE setBsOK NOTIFY bsOKChanged REVISION 2)
+    Q_PROPERTY(QVariant bsNOK READ bsNOK WRITE setBsNOK NOTIFY bsNOKChanged REVISION 2)
+    Q_PROPERTY(QVariant waitingResponse READ waitingResponse WRITE setWaitingResponse NOTIFY waitingResponseChanged REVISION 2)
 
-    Q_PROPERTY(QString serialnumber READ serialnumber WRITE setSerialnumber NOTIFY serialnumberChanged REVISION 2)
-    Q_PROPERTY(QString lefts READ lefts WRITE setLefts NOTIFY leftsChanged REVISION 2)
+    Q_PROPERTY(QVariant serialnumber READ serialnumber WRITE setSerialnumber NOTIFY serialnumberChanged REVISION 2)
+    Q_PROPERTY(QVariant lefts READ lefts WRITE setLefts NOTIFY leftsChanged REVISION 2)
 
-    Q_PROPERTY(QString serverErrorStatus READ serverErrorStatus WRITE setServerErrorStatus NOTIFY serverErrorStatusChanged REVISION 2)
+    Q_PROPERTY(QVariant serverErrorStatus READ serverErrorStatus WRITE setServerErrorStatus NOTIFY serverErrorStatusChanged REVISION 2)
 
 
 public:
     QBSValidationModule(QQuickItem *parent=nullptr);
 
 
-    bool bsOK() const
+    QVariant bsOK() const
     {
         return m_bsOK;
     }
 
 
-    QString serialnumber() const
+    QVariant serialnumber() const
     {
         return m_serialnumber;
     }
 
-    bool waitingResponse() const
+    QVariant waitingResponse() const
     {
         return m_waitingResponse;
     }
 
-    QString serverErrorStatus() const
+    QVariant serverErrorStatus() const
     {
         return m_serverErrorStatus;
     }
 
-    QString lefts() const
+    QVariant lefts() const
     {
         return m_lefts;
     }
 
-    bool bsNOK() const
+    QVariant bsNOK() const
     {
         return m_bsNOK;
     }
 
 private:
 
-    bool m_bsOK=false;
+    QVariant m_bsOK=false;
 
 
 
-    QString m_serialnumber="";
+    QVariant m_serialnumber=QString("");
 
-    bool m_waitingResponse=false;
+    QVariant m_waitingResponse=false;
 
-    QString m_serverErrorStatus="";
+    QVariant m_serverErrorStatus=QString("");
 
-    QString m_lefts="";
+    QVariant m_lefts=QString("");
 
-    bool m_bsNOK=false;
+    QVariant m_bsNOK=false;
 
     QVariantList getModuleNodeTypes() const;
 signals:
 
-void bsOKChanged(bool bsOK);
+void bsOKChanged(QVariant bsOK);
 
 
 
-void serialnumberChanged(QString serialnumber);
+void serialnumberChanged(QVariant serialnumber);
 
-void waitingResponseChanged(bool waitingResponse);
+void waitingResponseChanged(QVariant waitingResponse);
 
-void serverErrorStatusChanged(QString serverErrorStatus);
+void serverErrorStatusChanged(QVariant serverErrorStatus);
 
-void leftsChanged(QString lefts);
+void leftsChanged(QVariant lefts);
 
-void bsNOKChanged(bool bsNOK);
+void bsNOKChanged(QVariant bsNOK);
 
 public slots:
 
 // QAutomationModule interface
-void setBsOK(bool bsOK)
+void setBsOK(QVariant bsOK)
 {
 
 
@@ -98,7 +98,7 @@ void setBsOK(bool bsOK)
 }
 
 
-void setSerialnumber(QString serialnumber)
+void setSerialnumber(QVariant serialnumber)
 {
 
 
@@ -106,7 +106,7 @@ void setSerialnumber(QString serialnumber)
     emit serialnumberChanged(m_serialnumber);
 }
 
-void setWaitingResponse(bool waitingResponse)
+void setWaitingResponse(QVariant waitingResponse)
 {
 
 
@@ -114,7 +114,7 @@ void setWaitingResponse(bool waitingResponse)
     emit waitingResponseChanged(m_waitingResponse);
 }
 
-void setServerErrorStatus(QString serverErrorStatus)
+void setServerErrorStatus(QVariant serverErrorStatus)
 {
 
 
@@ -122,17 +122,16 @@ void setServerErrorStatus(QString serverErrorStatus)
     emit serverErrorStatusChanged(m_serverErrorStatus);
 }
 
-void setLefts(QString lefts)
+void setLefts(QVariant lefts)
 {
 
     m_lefts = lefts;
     emit leftsChanged(m_lefts);
 }
 
-void setBsNOK(bool bsNOK)
+void setBsNOK(QVariant bsNOK)
 {
-    if (m_bsNOK == bsNOK)
-        return;
+
 
     m_bsNOK = bsNOK;
     emit bsNOKChanged(m_bsNOK);
