@@ -180,6 +180,14 @@ FlowNodeItem{
                             root.node.checkOnInput=checked
                         }
                     }
+                    CheckBox{
+                        Layout.fillWidth: true
+                        text: "Validate name only"
+                        checked: root.node.validatePropertyNameOnly
+                        onCheckedChanged: {
+                            root.node.validatePropertyNameOnly=checked
+                        }
+                    }
                 }
 
             }

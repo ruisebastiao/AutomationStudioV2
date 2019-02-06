@@ -38,6 +38,8 @@ class IDSCaptureNode : public CameraCaptureNode
 
     Q_PROPERTY(QVariant parametersFileInput READ parametersFileInput WRITE setParametersFileInput NOTIFY parametersFileInputChanged REVISION 30)
 
+    Q_PROPERTY(QVariant snapshot READ snapshot WRITE setSnapshot NOTIFY snapshotChanged REVISION 30)
+
     Q_PROPERTY(QVariant exposure READ exposure WRITE setExposure NOTIFY exposureChanged REVISION 30)
 
 
@@ -104,6 +106,11 @@ public:
     QVariant exposure() const
     {
         return m_exposure;
+    }
+
+    QVariant snapshot() const
+    {
+        return m_snapshot;
     }
 
 public slots:
@@ -196,6 +203,8 @@ signals:
 
     void exposureChanged(QVariant exposure);
 
+    void snapshotChanged(QVariant snapshot);
+
 private:
 
     void setCameraAvailable(bool cameraAvailable)
@@ -270,6 +279,8 @@ private:
 
     QVariant m_exposure;
 
+    QVariant m_snapshot;
+
 public slots:
     void setNewFrame(QVariant newFrame) override;
 protected:
@@ -338,11 +349,25 @@ public slots:
             if (exposureval<=0){
                 exposureval=1;
             }
-            //int nRet = is_Exposure (m_camHandler, IS_EXPOSURE_CMD_SET_EXPOSURE, &exposureval, 8);
+            int nRet = is_Exposure (m_camHandler, IS_EXPOSURE_CMD_SET_EXPOSURE, &exposureval, 8);
+            if(nRet == IS_SUCCESS){
+                qDebug()<<"Exposure set ok";
+            }
 
         }
 
         emit exposureChanged(m_exposure);
+    }
+    void setSnapshot(QVariant snapshot)
+    {
+
+
+        m_snapshot = snapshot;
+
+        if(m_snapshot.value<bool>()){
+            this->snapShot();
+        }
+        emit snapshotChanged(m_snapshot);
     }
 };
 

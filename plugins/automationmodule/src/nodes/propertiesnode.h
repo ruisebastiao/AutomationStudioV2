@@ -12,6 +12,8 @@ class PropertiesNode:public FlowNode
     Q_PROPERTY(PropertyInfoList* properties READ properties WRITE setProperties NOTIFY propertiesChanged USER("serialize"))
 
     Q_PROPERTY(bool checkOnInput READ checkOnInput WRITE setCheckOnInput NOTIFY checkOnInputChanged USER("serialize"))
+    Q_PROPERTY(bool validatePropertyNameOnly READ validatePropertyNameOnly WRITE setValidatePropertyNameOnly NOTIFY validatePropertyNameOnlyChanged USER("serialize"))
+
 
 
     Q_PROPERTY(ProperyInfo* currentPropertyInfo READ currentPropertyInfo WRITE setCurrentPropertyInfo NOTIFY currentPropertyInfoChanged)
@@ -91,6 +93,11 @@ public:
     QVariant currentPropertyValue() const
     {
         return m_currentPropertyValue;
+    }
+
+    bool validatePropertyNameOnly() const
+    {
+        return m_validatePropertyNameOnly;
     }
 
 public slots:
@@ -198,6 +205,15 @@ public slots:
         emit currentPropertyInfoChanged(m_currentPropertyInfo);
     }
 
+    void setValidatePropertyNameOnly(bool validatePropertyNameOnly)
+    {
+        if (m_validatePropertyNameOnly == validatePropertyNameOnly)
+            return;
+
+        m_validatePropertyNameOnly = validatePropertyNameOnly;
+        emit validatePropertyNameOnlyChanged(m_validatePropertyNameOnly);
+    }
+
 signals:
     void propertiesChanged(PropertyInfoList* infos);
 
@@ -217,13 +233,15 @@ signals:
 
     void validatePropertyValueChanged(QVariant idFromCurrentProject);
 
+    void validatePropertyNameOnlyChanged(bool validatePropertyNameOnly);
+
 private:
 
     void doCheckInfo(){
         ProperyInfo* info=m_properties->getByName(m_validatePropertyName.value<QString>());
 
         if(info){
-            setIsOK(info->propertyValue()==m_validatePropertyValue);
+            setIsOK(m_validatePropertyNameOnly || info->propertyValue()==m_validatePropertyValue);
         }
         else{
             setIsOK(false);
@@ -242,6 +260,7 @@ private:
     QString m_infoTitle="Info Title";
     bool m_checkOnInput=false;
     QVariant m_currentPropertyValue=QString("");
+    bool m_validatePropertyNameOnly=false;
 };
 
 #endif // PROPERTIESNODE_H
