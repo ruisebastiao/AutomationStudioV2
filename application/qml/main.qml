@@ -1462,13 +1462,26 @@ ApplicationWindow {
                 }
             }
 
-            //            BusyIndicator {
-            //                id:loadingindicator
-            //                running: layoutloader.item.modulesloaded!==true
-            //                anchors.centerIn: parent
-            //                width: parent.width/3
-            //                height: parent.height/3
-            //            }
+            BusyIndicator {
+                id:loadingindicator
+                visible:automationstudio.settings.useRemoteSettings && automationstudio.settings.loaded==false
+                running: automationstudio.settings.useRemoteSettings && automationstudio.settings.loaded==false
+                anchors.centerIn: parent
+                width: parent.width/3
+
+                height: parent.height/3
+                GUI.TextScroller {
+                    id: titleLabel
+                    width:parent.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top:parent.bottom
+                    anchors.topMargin: 5
+                    horizontalAlignment:Text.AlignHCenter
+                    text:"Waiting for remote settings"
+                }
+            }
+
+
 
 
 

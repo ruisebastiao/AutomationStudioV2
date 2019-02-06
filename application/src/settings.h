@@ -71,7 +71,7 @@ class  Settings : public QObject , public JsonSerializable {
     Q_PROPERTY(ProjectsListModel* projects READ projects WRITE setProjects NOTIFY projectsChanged USER("serialize"))
 
 
-//    Q_PROPERTY(ProjectsListModel* projects READ projects WRITE setProjects NOTIFY projectsChanged)
+    //    Q_PROPERTY(ProjectsListModel* projects READ projects WRITE setProjects NOTIFY projectsChanged)
 
 
 
@@ -287,7 +287,7 @@ public slots:
             m_selectedProject->unload();
         }
 
-//        emit selectedProjectChanged(m_selectedProject);
+        //        emit selectedProjectChanged(m_selectedProject);
 
         m_selectedProject = selectedProject;
 
@@ -416,6 +416,9 @@ private:
     bool m_useRemoteSettings=false;
 
 
+#ifdef RPI
+    QFutureWatcher<void> watcher;
+#endif
 
     QString m_remoteSettingsBaseLocation="/mnt/automationstudio/";
 

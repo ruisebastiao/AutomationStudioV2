@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET   = AutomationStudio
-QT      += qml quick quickcontrols2 opengl
+QT      += qml quick quickcontrols2 opengl concurrent
 CONFIG +=c++14
 
 

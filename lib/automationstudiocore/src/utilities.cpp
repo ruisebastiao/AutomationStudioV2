@@ -34,27 +34,27 @@ void Utilities::executeCommand(QString command,bool waitfinished,QString cwd,boo
         QString str_stdout=runCommandProcess.readAllStandardOutput();
         QString str_stderr=runCommandProcess.readAllStandardError();
         if(str_stdout.length()>0){
-            foreach (QString line, str_stdout.split("\n")) {
+            //            foreach (QString line, str_stdout.split("\n")) {
 
-                if(line.length()>0){
-                    LOG_INFO()<<line;
-                    if(execFunc){
-                        execFunc(line);
-                    }
-                }
+            //                if(line.length()>0){
+
+            if(execFunc){
+                execFunc(str_stdout);
             }
+            //                }
+            //            }
         }
         if(str_stderr.length()>0){
-            foreach (QString line, str_stderr.split("\n")) {
+            //            foreach (QString line, str_stderr.split("\n")) {
 
-                if(line.length()>0){
+            //                if(line.length()>0){
 
-                    LOG_INFO()<<line;
-                    if(execFunc){
-                        execFunc(line);
-                    }
-                }
+
+            if(execFunc){
+                execFunc(str_stderr);
             }
+            //                }
+            //            }
         }
 
     });

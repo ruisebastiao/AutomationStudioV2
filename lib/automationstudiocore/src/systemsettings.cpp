@@ -28,6 +28,7 @@ SystemSettings::SystemSettings(QObject *parent):
 
 #ifdef RPI
     m_boardInfo="RPI";
+    emit boardInfoChanged("RPI");
 #endif
 
 

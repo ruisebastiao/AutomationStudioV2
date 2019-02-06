@@ -27,8 +27,8 @@
 #include "version.h"
 
 #include "Logger.h"
-
-
+#include <QtConcurrent>
+//#include <QtConcurrent>
 
 
 Settings::Settings(QObject *parent, QString appdir)
@@ -202,8 +202,10 @@ Settings::~Settings(){
 bool Settings::load()
 {
 
+
     QString load_filepath;
     if(m_useRemoteSettings){
+
         load_filepath=remoteSettingsBaseLocation()+"/"+appID().replace(':','_')+"/"+m_source;
 
         QFileInfo target(load_filepath);
@@ -420,7 +422,59 @@ void Settings::loadBaseSettings()
 
     setBasefileLoaded(true);
 
-    load();
+
+
+    if (m_useRemoteSettings){
+
+
+#ifdef RPI
+
+        connect(&watcher, &QFutureWatcher<void>::finished, this, [this](){
+            load();
+        });
+
+        QFuture<void> future = QtConcurrent::run([this](){
+            bool ismounted=false;
+            Utilities utils;
+            do{
+                utils.executeCommand("cat /proc/mounts",true,"",true,false,[&](QString line){
+                    if(line.contains(QDir::cleanPath(remoteSettingsBaseLocation()))){
+                        ismounted=true;
+                    }
+                    else{
+                        LOG_INFO()<<line;
+                        utils.executeCommand("mount -t cifs -o username=automationstudio,password=auto123 //keyeu-linux-svr/automationstudio /mnt/automationstudio",true,"",true,false,[&](QString line_2){
+                            LOG_INFO()<<line_2;
+                        });
+
+                    }
+                });
+
+                QThread::msleep(1000);
+            }
+            while(ismounted==false);
+        });
+
+        watcher.setFuture(future);
+
+
+
+#else
+        load();
+#endif
+
+
+
+
+    }
+    else {
+        load();
+    }
+
+
+
+
+
 
     return;
 }
