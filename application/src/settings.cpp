@@ -206,7 +206,7 @@ bool Settings::load()
     QString load_filepath;
     if(m_useRemoteSettings){
 
-        load_filepath=remoteSettingsBaseLocation()+"/"+appID().replace(':','_')+"/"+m_source;
+        load_filepath=remoteSettingsBaseLocation()+"/"+QHostInfo::localHostName()+"-"+appID().replace(':','_')+"/"+m_source;
 
         QFileInfo target(load_filepath);
         QDir dir(target.dir());
