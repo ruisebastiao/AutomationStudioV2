@@ -64,6 +64,8 @@ class  Settings : public QObject , public JsonSerializable {
 
     Q_PROPERTY(QString appID READ appID NOTIFY appIDChanged)
 
+    Q_PROPERTY(bool newFirmwareAvailable READ newFirmwareAvailable WRITE setNewFirmwareAvailable NOTIFY newFirmwareAvailableChanged)
+    Q_PROPERTY(bool upgradingFirmware READ upgradingFirmware WRITE setUpgradingFirmware NOTIFY upgradingFirmwareChanged)
 
 
     Q_PROPERTY(Project* selectedProject READ selectedProject WRITE setSelectedProject NOTIFY selectedProjectChanged)
@@ -150,6 +152,9 @@ public:
     {
         return m_appRegistred;
     }
+
+    Q_INVOKABLE void check_new_firmware();
+    Q_INVOKABLE void update_new_firmware();
 
     Q_INVOKABLE void registerApp();
     AppUpdater* appUpdater() const
@@ -329,6 +334,24 @@ public slots:
         emit remoteSettingsBaseLocationChanged(m_remoteSettingsBaseLocation);
     }
 
+    void setNewFirmwareAvailable(bool newFirmwareAvailable)
+    {
+        if (m_newFirmwareAvailable == newFirmwareAvailable)
+            return;
+
+        m_newFirmwareAvailable = newFirmwareAvailable;
+        emit newFirmwareAvailableChanged(m_newFirmwareAvailable);
+    }
+
+    void setUpgradingFirmware(bool upgradingFirmware)
+{
+    if (m_upgradingFirmware == upgradingFirmware)
+    return;
+
+m_upgradingFirmware = upgradingFirmware;
+emit upgradingFirmwareChanged(m_upgradingFirmware);
+}
+
 signals:
     void sourceChanged(QString source);
 
@@ -377,6 +400,10 @@ signals:
 
     void remoteSettingsBaseLocationChanged(QString remoteSettingsBaseLocation);
 
+    void newFirmwareAvailableChanged(bool newFirmwareAvailable);
+
+    void upgradingFirmwareChanged(bool upgradingFirmware);
+
 private:
 
 private:
@@ -424,6 +451,10 @@ private:
 
     QString m_remoteSettingsBaseLocation="/mnt/automationstudio/";
 
+    bool m_newFirmwareAvailable=false;
+
+    bool m_upgradingFirmware=false;
+
 public:
     virtual void Serialize(QJsonObject &json) override;
     virtual void DeSerialize(QJsonObject &json) override;
@@ -451,6 +482,14 @@ public:
     QString remoteSettingsBaseLocation() const
     {
         return m_remoteSettingsBaseLocation;
+    }
+    bool newFirmwareAvailable() const
+    {
+        return m_newFirmwareAvailable;
+    }
+    bool upgradingFirmware() const
+    {
+        return m_upgradingFirmware;
     }
 };
 

@@ -500,6 +500,24 @@ void Settings::setBasefileLoaded(bool basefileLoaded)
 
 }
 
+void Settings::check_new_firmware()
+{
+    QFileInfo firmware_file(m_remoteSettingsBaseLocation+"/newinitfile_rootfs.cpio.gz");
+
+    setNewFirmwareAvailable(firmware_file.exists());
+
+
+}
+
+void Settings::update_new_firmware()
+{
+    QFileInfo firmware_file(m_remoteSettingsBaseLocation+"/newinitfile_rootfs.cpio.gz");
+    QFile firmware(firmware_file.filePath());
+
+    //firmware.copy('/')
+
+}
+
 void Settings::Serialize(QJsonObject &json)
 {
     JsonSerializable::Serialize(json,this);
