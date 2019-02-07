@@ -205,8 +205,8 @@ bool Settings::load()
 
     QString load_filepath;
     if(m_useRemoteSettings){
-
-        load_filepath=remoteSettingsBaseLocation()+"/"+QHostInfo::localHostName()+"-"+appID().replace(':','_')+"/"+m_source;
+        m_remotePath=remoteSettingsBaseLocation()+"/"+QHostInfo::localHostName()+"-"+appID().replace(':','_')+"/";
+        load_filepath=m_remotePath+m_source;
 
         QFileInfo target(load_filepath);
         QDir dir(target.dir());
@@ -313,7 +313,7 @@ bool Settings::save()
 
     QString save_filepath;
     if(m_useRemoteSettings){
-        save_filepath=remoteSettingsBaseLocation()+"/"+appID().replace(':','_')+"/"+m_source;
+        save_filepath=m_remotePath+m_source;
 
     }
     else {

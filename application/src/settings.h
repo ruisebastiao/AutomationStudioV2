@@ -383,6 +383,8 @@ private:
 
 
     QString m_source;
+
+    QString m_remotePath="";
     bool m_loaded=false;
 
     QString m_sysInfo="";
