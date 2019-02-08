@@ -9,6 +9,8 @@ class MultiplexedInputNode : public FlowNode
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool autoExclusive READ autoExclusive WRITE setAutoExclusive NOTIFY autoExclusiveChanged USER("serialize"))
+
 
     /// IN ports
 
@@ -37,6 +39,8 @@ private:
     QVariant m_in1Enabled=false;
 
     QVariant m_in2Enabled=false;
+
+    bool m_autoExclusive=true;
 
 public:
     MultiplexedInputNode();
@@ -95,7 +99,7 @@ public slots:
 
         m_in1Enabled = in1Enabled;
 
-        if(m_in1Enabled.value<bool>()){
+        if(m_in1Enabled.value<bool>() && autoExclusive()){
             setIn2Enabled(false);
         }
 
@@ -107,10 +111,19 @@ public slots:
 
         m_in2Enabled = in2Enabled;
 
-        if(m_in2Enabled.value<bool>()){
+        if(m_in2Enabled.value<bool>() && autoExclusive()){
             setIn1Enabled(false);
         }
         emit in2EnabledChanged(m_in2Enabled);
+    }
+
+    void setAutoExclusive(bool autoExclusive)
+    {
+        if (m_autoExclusive == autoExclusive)
+            return;
+
+        m_autoExclusive = autoExclusive;
+        emit autoExclusiveChanged(m_autoExclusive);
     }
 
 signals:
@@ -126,6 +139,8 @@ signals:
 
     void in2EnabledChanged(QVariant in2Enabled);
 
+    void autoExclusiveChanged(bool autoExclusive);
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -140,6 +155,10 @@ public:
     QVariant in2Enabled() const
     {
         return m_in2Enabled;
+    }
+    bool autoExclusive() const
+    {
+        return m_autoExclusive;
     }
 };
 

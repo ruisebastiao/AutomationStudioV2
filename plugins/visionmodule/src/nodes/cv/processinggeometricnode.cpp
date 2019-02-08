@@ -24,7 +24,7 @@ void ProcessingGeometricNode::setInput(QVariant input)
 
 }
 
-QVariant ProcessingGeometricNode::lineSegment(){
+QVariant ProcessingGeometricNode::lineSegment(QVariant start_pt,QVariant end_pt){
 
 
     QLineF result_line;

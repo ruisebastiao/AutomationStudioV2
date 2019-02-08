@@ -47,6 +47,13 @@ FlowNodeItem{
                         autoExclusive: false
                     }
                 }
+                CheckBox{
+                    text: "Exclusive"
+                    checked: root.node.autoExclusive
+                    onCheckedChanged: {
+                        root.node.autoExclusive=checked
+                    }
+                }
             }
         }
     }

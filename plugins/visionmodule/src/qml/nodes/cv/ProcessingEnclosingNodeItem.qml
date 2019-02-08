@@ -60,7 +60,7 @@ ProcessingNodeItem{
 
                     text: root.node.minRatio
                     onTextChanged: {
-                        root.node.minRatio=parseFloat(value)
+                        root.node.minRatio=parseFloat(text)
                     }
 
                     inputMethodHints: Qt.ImhFormattedNumbersOnly
@@ -76,7 +76,7 @@ ProcessingNodeItem{
 
                     text: root.node.maxRatio
                     onTextChanged: {
-                        root.node.maxRatio=parseFloat(value)
+                        root.node.maxRatio=parseFloat(text)
                     }
 
                     inputMethodHints: Qt.ImhFormattedNumbersOnly

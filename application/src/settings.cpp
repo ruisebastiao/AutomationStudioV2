@@ -295,11 +295,9 @@ bool Settings::save()
 
 
         basesettingsFile.open(QIODevice::WriteOnly);
-        QByteArray basesettingsData = basesettingsFile.readAll();
 
-        QJsonDocument settings(QJsonDocument::fromJson(basesettingsData ));
 
-        QJsonObject settingsobject=settings.object();
+        QJsonObject settingsobject;
 
         settingsobject["location"]=source();
         settingsobject["useRemoteSettings"]=useRemoteSettings();
