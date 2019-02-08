@@ -24,7 +24,7 @@ void ProcessingGeometricNode::setInput(QVariant input)
 
 }
 
-QVariant ProcessingGeometricNode::lineSegment(){
+QVariant ProcessingGeometricNode::processLineSegments(){
 
 
     QLineF result_line;
@@ -225,12 +225,12 @@ void ProcessingGeometricNode::doProcess()
     case Geometric2PointLine:
 
 
-        lineSegment().value<QLineF>();
+        processLineSegments().value<QLineF>();
 
         break;
     case GeometricLinePointLine:
 
-        lineSegment().value<QLineF>();
+        processLineSegments().value<QLineF>();
 
 
         break;
