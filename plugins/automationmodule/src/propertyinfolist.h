@@ -2,12 +2,13 @@
 #define PROPERTYINFOLIST_H
 
 #include "propertyinfo.h"
+#include "automationmoduleglobal.h"
 
 #include <serializedlistmodel.h>
 
 
 
-class PropertyInfoList:public SerializedListModel<ProperyInfo>
+class AUTOMATIONMODULE_EXPORT PropertyInfoList:public SerializedListModel<ProperyInfo>
 {
     Q_OBJECT
     Q_INTERFACES(JsonSerializable)

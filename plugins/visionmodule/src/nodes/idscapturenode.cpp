@@ -344,6 +344,8 @@ void IDSCaptureNode::setCamera(bool open)
 
                 updateExternalTrigger(m_externalTrigger);
                 updateContinuousCapture(m_continuousCapture);
+
+                setExposure(m_exposure);
             }
 
         }

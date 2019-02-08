@@ -24,7 +24,7 @@ QVariant PropertyInfoList::data(const QModelIndex &index, int role) const
 {
     if (index.row()<0 || index.row()>=m_internalList.length())
     {
-        return QVariant();
+        return QVariant(QString("???"));
     }
 
     ProperyInfo *info= m_internalList.at(index.row());
@@ -46,7 +46,7 @@ QVariant PropertyInfoList::data(const QModelIndex &index, int role) const
         text=info->propertyName()+"|"+info->propertyValue();
         return QVariant::fromValue(text);
     }
-    return QVariant();
+    return QVariant(QString("???"));
 }
 
 void PropertyInfoList::removeItem(ProperyInfo *item)
