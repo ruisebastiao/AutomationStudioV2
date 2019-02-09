@@ -290,7 +290,7 @@ private:
     QVariant m_input2=QVariant::fromValue(new QMat());
     QVariant m_input3=QVariant::fromValue(new QMat());
 
-    QVariant processLineSegments();
+    void processLineSegments();
 
 
 
