@@ -212,6 +212,19 @@ FlowNodeItem{
 
             }
 
+            Item{
+                Layout.preferredHeight:  50
+                Layout.fillWidth: true
+                CheckBox{
+                    text: "Lock and read on write"
+                    anchors.fill: parent
+                    checked: root.node.lockWriteReadIndex
+                    onCheckedChanged: {
+                        root.node.lockWriteReadIndex=checked
+                    }
+                }
+            }
+
 
             Item{
                 Layout.fillHeight: true

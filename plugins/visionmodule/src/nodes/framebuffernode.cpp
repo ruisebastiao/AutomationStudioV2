@@ -22,7 +22,7 @@ void FrameBufferNode::processCurrent()
 
     QMat* framesink=m_frameSink.value<QMat*>();
 
-    m_fullBufferReaded=true;
+//    m_fullBufferReaded=true;
 
     if(currentmat!=nullptr){
         LOG_INFO()<<"Processing frame "<<currentmat<< "at index "<<m_readIndex;
@@ -93,13 +93,18 @@ void FrameBufferNode::setFrameSource(QVariant frameSource)
 /////        });
 
         framebuffers->indexDataChanged(writeIndex().value<int>());
+        emit frameSourceChanged(m_frameSource);
+        setFrameStored(true);
+        if(lockWriteReadIndex()){
+            setReadIndex(m_writeIndex);
+            setReadNextFrame(true);
+        }
+
+
         if(autoIncrementWriteIndex()){
             setWriteIndex(writeIndex().value<int>()+1);
         }
     }
-    emit frameSourceChanged(m_frameSource);
-    setFrameStored(true);
-
 
 }
 
@@ -114,13 +119,13 @@ void FrameBufferNode::setReadNextFrame(QVariant readNextFrame)
         QMat* framesink= m_frameSink.value<QMat*>();
 
 
-        if(currentmat!=nullptr && m_fullBufferReaded==false){
+        if(currentmat!=nullptr){
             LOG_INFO()<<"Reading frame "<<currentmat<< "at index "<<m_readIndex;
 
             (currentmat->cvMat())->copyTo((*framesink->cvMat()));
             emit frameSinkChanged(m_frameSink);
 
-            if(autoIncrementReadIndex()){
+            if(autoIncrementReadIndex() && lockWriteReadIndex()==false){
                 setReadIndex(readIndex().value<int>()+1);
             }
         }

@@ -138,6 +138,7 @@ class FrameBufferNode : public FlowNode
 
     Q_PROPERTY(QVariant numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged USER("serialize") REVISION 30)
 
+    Q_PROPERTY(bool lockWriteReadIndex READ lockWriteReadIndex WRITE setLockWriteReadIndex NOTIFY lockWriteReadIndexChanged USER("serialize"))
 
 
     /////OUT ports
@@ -180,13 +181,15 @@ private:
 
     bool m_autoIncrementReadIndex=false;
 
-    bool m_fullBufferReaded=false;
+//    bool m_fullBufferReaded=false;
 
 
     QVariant m_bufferFull=QVariant::fromValue(false);
 
 
     QVariant m_resetIndexes=QVariant::fromValue(false);
+
+    bool m_lockWriteReadIndex=false;
 
 public:
     FrameBufferNode();
@@ -309,6 +312,7 @@ public slots:
 
         m_writeIndex = writeIndex;
 
+
         if(m_writeIndex.value<int>()>=m_numBuffers.value<int>()){
             setBufferFull(true);
             m_writeIndex=0;
@@ -324,7 +328,7 @@ public slots:
         m_readIndex = readIndex;
 
         if(m_readIndex.value<int>()>=m_numBuffers.value<int>()){
-            m_fullBufferReaded=true;
+//            m_fullBufferReaded=true;
             m_readIndex=0;
         }
 
@@ -356,9 +360,9 @@ public slots:
 
 
         m_bufferFull = bufferFull;
-        if(m_bufferFull.value<bool>()){
-            m_fullBufferReaded=false;
-        }
+//        if(m_bufferFull.value<bool>()){
+//            m_fullBufferReaded=false;
+//        }
         emit bufferFullChanged(m_bufferFull);
     }
 
@@ -373,6 +377,15 @@ public slots:
             setReadIndex(0);
             m_resetIndexes=QVariant::fromValue(false);
         }
+    }
+
+    void setLockWriteReadIndex(bool lockWriteReadIndex)
+    {
+        if (m_lockWriteReadIndex == lockWriteReadIndex)
+            return;
+
+        m_lockWriteReadIndex = lockWriteReadIndex;
+        emit lockWriteReadIndexChanged(m_lockWriteReadIndex);
     }
 
 signals:
@@ -394,11 +407,17 @@ signals:
     // FlowNode interface
     void resetIndexesChanged(QVariant resetIndexes);
 
+    void lockWriteReadIndexChanged(bool lockWriteReadIndex);
+
 public:
 
 QVariant resetIndexes() const
 {
     return m_resetIndexes;
+}
+bool lockWriteReadIndex() const
+{
+    return m_lockWriteReadIndex;
 }
 };
 

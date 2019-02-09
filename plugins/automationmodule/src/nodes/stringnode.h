@@ -37,7 +37,8 @@ public:
         InputExtract,
         InputCompare,
         InputJoin,
-        InputSerialize
+        InputSerialize,
+        InputParse
 
 
     };
@@ -224,6 +225,17 @@ private:
             QString joined=m_stringInput.value<QString>().append(m_stringValue.value<QString>()).append(inputstr2);
             setStringOutput(joined);
         }
+        else if(inputType()==InputType::InputParse){
+            QString parsed_str;
+            if(m_stringInput.isValid()==false || m_stringInput.isNull() || m_stringInput.canConvert<double>()==false){
+                parsed_str="NAN";
+            }
+            else{
+                parsed_str=QString::number(m_stringInput.value<double>(), 'f', 2);
+            }
+
+            setStringOutput(parsed_str);
+        }
     }
 
     void compareStrings(){
@@ -286,7 +298,7 @@ private:
             }
 
             FlowNodePort* inputstring2port=getPortFromKey("stringInput2");
-            if(m_inputType==InputType::InputNone || m_inputType==InputType::InputSerialize){
+            if(m_inputType==InputType::InputNone || m_inputType==InputType::InputSerialize || m_inputType==InputType::InputParse){
 
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());

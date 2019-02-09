@@ -248,7 +248,7 @@ void ProcessingGeometricNode::processLineSegments(){
 
                 if(result_line.length()>0){
                     result_lines.append(result_line);
-                    result_lines.append(result_line.angle());
+                    result_angles.append(result_line.angle());
 
                     QMat* drawsource=m_drawSource.value<QMat*>();
 

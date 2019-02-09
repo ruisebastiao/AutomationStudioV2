@@ -211,6 +211,21 @@ FlowNodeItem{
 
 
                 }
+
+                RadioButton{
+                    Layout.fillWidth: true
+                    text: "Parse"
+                    checked: root.node.inputType==StringNode.InputParse
+
+
+                    onCheckedChanged: {
+                        if(checked){
+                            root.node.inputType=StringNode.InputParse
+                        }
+                    }
+
+
+                }
             }
 
 
