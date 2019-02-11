@@ -7,7 +7,7 @@ CONFIG +=c++14
 #include(../qt-breakpad/qt-breakpad.pri)
 
 include(../functions.pri)
-
+include(../versioning/gitversion.pri)
 
 
 QML_IMPORT_PATH += $${DEPLOY_PATH}

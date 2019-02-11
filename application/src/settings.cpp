@@ -106,7 +106,7 @@ Settings::Settings(QObject *parent, QString appdir)
         QJsonObject data;
 
         data["appid"]=appID();
-        data["installedversion"]=RELEASEVERS;
+        data["installedversion"]=CURRENT_RELEASE;
 
         data["buildinfo"]=BUILD_ID;
 
@@ -151,7 +151,7 @@ void Settings::registerApp(){
     QJsonObject data;
 
     data["appid"]=appID();
-    data["installedversion"]=RELEASEVERS;
+    data["installedversion"]=CURRENT_RELEASE;
     data["buildinfo"]=BUILD_ID;
     data["hostname"]=QHostInfo::localHostName();
 

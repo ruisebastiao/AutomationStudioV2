@@ -114,5 +114,4 @@ DEFINES*=BUILD_ID="\\\"$$BUILD_ID"\\\"
 #DEFINES*=BUILD_ID=asd
 
 
-include(versioning/version.pri)
 

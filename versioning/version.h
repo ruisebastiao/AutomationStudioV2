@@ -2,6 +2,6 @@
 #define VERSION_H
 
 
-#define RELEASEVERS "2.2.1"
+#define CURRENT_RELEASE GIT_VERSION
 
 #endif // VERSION_H

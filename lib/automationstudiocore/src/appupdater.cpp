@@ -1,6 +1,6 @@
 #include "appupdater.h"
 #include "Logger.h"
-#include "version.h"
+//#include "version.h"
 
 #include <QFileInfo>
 #include <qthread.h>
@@ -61,7 +61,7 @@ void AppUpdater::doUpdate(QString release)
 {
     LOG_INFO()<<"Updating::"<<release << "::" << m_downloadPath << "::"<<m_serverUrl;
 
-    QString currVersion(RELEASEVERS);
+//    QString currVersion(GIT_VERSION);
 
 
     //    setUpdateStatus("Backup/Compressing current release");
