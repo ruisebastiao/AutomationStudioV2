@@ -227,16 +227,20 @@ void FlowNodeManager::DeSerialize(QJsonArray &jsonarray)
 {
     m_deserializing=true;
 
-    for (int nodeIndex = 0; nodeIndex < jsonarray.size(); ++nodeIndex) {
-        QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
-        FlowNode* node= m_scenegraph->readNode(nodeObject);
-        if(node){
-//            node->blockSignals(true);
-            addItem(node);
+//    Utilities::NonBlockingExec([&](){
+        for (int nodeIndex = 0; nodeIndex < jsonarray.size(); ++nodeIndex) {
+            QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
+            FlowNode* node= m_scenegraph->readNode(nodeObject);
+            if(node){
+    //            node->blockSignals(true);
+                addItem(node);
+            }
         }
-    }
 
-    loadConnections();
+        loadConnections();
+
+
+//    });
 //    for (int var = 0; var < m_internalList.count(); ++var) {
 //        FlowNode* node=m_internalList.at(var);
 //        node->blockSignals(false);

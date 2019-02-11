@@ -42,7 +42,7 @@ QAutomationModule* Project::createModule(QString moduleName,bool setID)
     QQmlComponent* component=delegate.get();
 
 
-
+//    QQmlIncubator incubator;
     QObject *component_object = component->create();
 
     if(component->isError()){
@@ -75,7 +75,7 @@ QAutomationModule* Project::createModule(QString moduleName,bool setID)
 
 void Project::load(){
 
-//     QtConcurrent::run([this](){
+    //     QtConcurrent::run([this](){
 
     for (int projectIndex = 0; projectIndex < m_modulesArray.size(); ++projectIndex) {
         QJsonObject moduleObject = m_modulesArray[projectIndex].toObject();
@@ -100,7 +100,7 @@ void Project::load(){
 
     setSave(true);
     this->setProjectLoaded(true);
-//    });
+    //    });
 }
 
 void Project::unload()

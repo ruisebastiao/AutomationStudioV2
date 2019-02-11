@@ -12,7 +12,7 @@ import automationmodule 1.0
 Pane{
     id:root
     Material.elevation:8
-    //    clip: true
+    clip: root.Layout.preferredWidth==0
     Layout.fillHeight: true
     Layout.fillWidth: true
 

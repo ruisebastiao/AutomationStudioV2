@@ -564,6 +564,7 @@ ApplicationWindow {
 
 
                                         Button{
+
                                             Layout.fillHeight: true
                                             highlighted: true
                                             property bool openProject: projectslist.selectedProject!=rootwindow.currentProject
@@ -571,7 +572,7 @@ ApplicationWindow {
                                             //                                            enabled: projectslist.selectedProject && rootwindow.currentProject.projectLocked==false
                                             Component.onCompleted: {
                                                 enabled=Qt.binding(function(){
-                                                    if(projectslist.selectedProject){
+                                                    if(projectslist.selectedProject && settings.selectingProject==false){
                                                         if(rootwindow.currentProject){
                                                             return rootwindow.currentProject.projectLocked==false
                                                         }
@@ -599,6 +600,14 @@ ApplicationWindow {
                                         }
                                         Item {
 
+                                            BusyIndicator{
+                                                height: parent.height
+                                                width: height
+                                               running: settings?settings.selectingProject:false
+                                               visible: settings?settings.selectingProject:false
+                                               anchors.right: parent.right
+                                               anchors.verticalCenter: parent.verticalCenter
+                                            }
                                             Layout.fillWidth: true
                                             Layout.fillHeight: true
 

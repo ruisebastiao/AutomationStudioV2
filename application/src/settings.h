@@ -72,6 +72,7 @@ class  Settings : public QObject , public JsonSerializable {
 
     Q_PROPERTY(ProjectsListModel* projects READ projects WRITE setProjects NOTIFY projectsChanged USER("serialize"))
 
+    Q_PROPERTY(bool selectingProject READ selectingProject WRITE setSelectingProject NOTIFY selectingProjectChanged)
 
     //    Q_PROPERTY(ProjectsListModel* projects READ projects WRITE setProjects NOTIFY projectsChanged)
 
@@ -285,6 +286,7 @@ public slots:
 
     void setSelectedProject(Project* selectedProject)
     {
+        setSelectingProject(true);
         if (m_selectedProject == selectedProject)
             return;
 
@@ -302,7 +304,7 @@ public slots:
         }
 
         emit selectedProjectChanged(m_selectedProject);
-
+        setSelectingProject(false);
     }
 
     void setUseKeyboard(bool useKeyboard)
@@ -344,18 +346,28 @@ public slots:
     }
 
     void setUpgradingFirmware(bool upgradingFirmware)
-{
-    if (m_upgradingFirmware == upgradingFirmware)
-    return;
+    {
+        if (m_upgradingFirmware == upgradingFirmware)
+            return;
 
-m_upgradingFirmware = upgradingFirmware;
-emit upgradingFirmwareChanged(m_upgradingFirmware);
-}
+        m_upgradingFirmware = upgradingFirmware;
+        emit upgradingFirmwareChanged(m_upgradingFirmware);
+    }
+
+    void setSelectingProject(bool selectingProject)
+    {
+        if (m_selectingProject == selectingProject)
+            return;
+
+        m_selectingProject = selectingProject;
+        emit selectingProjectChanged(m_selectingProject);
+    }
 
 signals:
     void sourceChanged(QString source);
 
     void loadedChanged(bool loaded);
+
 
 
 
@@ -403,6 +415,8 @@ signals:
     void newFirmwareAvailableChanged(bool newFirmwareAvailable);
 
     void upgradingFirmwareChanged(bool upgradingFirmware);
+
+    void selectingProjectChanged(bool selectingProject);
 
 private:
 
@@ -455,6 +469,8 @@ private:
 
     bool m_upgradingFirmware=false;
 
+    bool m_selectingProject=false;
+
 public:
     virtual void Serialize(QJsonObject &json) override;
     virtual void DeSerialize(QJsonObject &json) override;
@@ -490,6 +506,10 @@ public:
     bool upgradingFirmware() const
     {
         return m_upgradingFirmware;
+    }
+    bool selectingProject() const
+    {
+        return m_selectingProject;
     }
 };
 

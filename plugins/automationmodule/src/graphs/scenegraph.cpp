@@ -239,7 +239,7 @@ FlowNode *SceneGraph::createNode(QString nodetype)
         emit flowNodeAdded(newflownode);
 
     }
-
+    QCoreApplication::processEvents();
     return newflownode;
 }
 
@@ -272,8 +272,8 @@ void SceneGraph::copyNode(FlowNode* node){
 
 
     nodeobj.take("id");
-//    QString nodetype=nodeobj["type"].toString();
-//    FlowNode* newnode=createNode(nodetype);
+    //    QString nodetype=nodeobj["type"].toString();
+    //    FlowNode* newnode=createNode(nodetype);
     FlowNode* newnode=readNode(nodeobj);
 
     if(newnode){
@@ -281,9 +281,9 @@ void SceneGraph::copyNode(FlowNode* node){
         newnode->getItem()->setProperty("y",QVariant::fromValue(node->getItem()->y()+75));
 
         this->selectNode(*newnode,Qt::NoModifier);
-//        int id=newnode->id();
-//        newnode->DeSerialize(nodeobj);
-//        newnode->setId(id);
+        //        int id=newnode->id();
+        //        newnode->DeSerialize(nodeobj);
+        //        newnode->setId(id);
     }
 
 
