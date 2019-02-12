@@ -165,7 +165,7 @@ public:
 
     Q_INVOKABLE void remove();
 
-    Q_INVOKABLE FlowNodePort* getPortFromKey(QString key);
+    Q_INVOKABLE FlowNodePort* getPortFromKey(QString key) const;
 
 private:
 
@@ -521,7 +521,7 @@ public:
     QMap<string,FlowNodePort *> getInPorts() const;
     QMap<string,FlowNodePort *> getOutPorts() const;
     SceneGraph *getScenegraph() const;
-    FlowNodePort *getPortByID(QString id);
+    FlowNodePort *getPortByID(QString id) const;
 //    bool connectionsLoaded() const
 //    {
 //        return m_connectionsLoaded;

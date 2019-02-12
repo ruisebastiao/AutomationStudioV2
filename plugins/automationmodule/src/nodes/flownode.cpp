@@ -32,7 +32,7 @@ FlowNode::~FlowNode()
     //
     LOG_INFO()<<"Deleting node:"<<this->id()<<"|"<<this->name();
 
-    QMapIterator<string, FlowNodePort*> o(this->m_inPorts);
+    QMapIterator<string,FlowNodePort*> o(this->m_inPorts);
     while (o.hasNext()) {
         o.next();
 
@@ -174,18 +174,18 @@ void FlowNode::initializePorts()
 
 }
 
-FlowNodePort *FlowNode::getPortFromKey(QString key)
+FlowNodePort *FlowNode::getPortFromKey(QString key) const
 {
     string keystr=QString::number(id()).toStdString();
     keystr.append("|");
     keystr.append(key.toStdString());
-    FlowNodePort* port=m_inPorts.value(keystr);
+    FlowNodePort* port=m_inPorts.value(keystr,nullptr);
     if(port){
         return port;
 
     }
 
-    return m_outPorts.value(keystr);
+    return nullptr;
 }
 
 
@@ -232,9 +232,12 @@ void FlowNode::Serialize(QJsonObject &json)
 
 
         FlowNodePort* nodeinport =i.value();
+        QString key=QString::fromStdString(i.key());
 
         if(nodeinport){
             QJsonObject inPort;
+
+//            if(nodeinport->)
             nodeinport->Serialize(inPort);
             inPorts[nodeinport->getPortItem()->getId()]=inPort;
         }
@@ -333,7 +336,7 @@ void FlowNode::DeSerialize(QJsonObject &json)
 
 
 
-FlowNodePort* FlowNode::getPortByID(QString id)
+FlowNodePort* FlowNode::getPortByID(QString id) const
 {
 
     foreach (FlowNodePort* port, m_inPorts) {

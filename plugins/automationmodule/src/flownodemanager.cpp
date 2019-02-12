@@ -176,7 +176,7 @@ void FlowNodeManager::loadConnections(){
 
                                 //exit(-4);
 
-                               throw std::exception(error.toStdString().c_str());
+                               throw std::exception(std::runtime_error(error.toStdString().c_str()));
 
                             }
                             qan::Edge* newedge= node->getScenegraph()->insertNewEdge(false,node,targetnode);

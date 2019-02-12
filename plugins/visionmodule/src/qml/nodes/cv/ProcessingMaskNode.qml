@@ -50,9 +50,8 @@ ProcessingNodeItem{
 
             onPortsInitedChanged: {
                 console.log("ports inited:"+portsInited)
-                var port=root.node.getPortFromKey("input1")
-                port1_container.port=port
-                port=root.node.getPortFromKey("input2")
+
+                var port=root.node.getPortFromKey("input2")
                 port2_container.port=port
                 port=root.node.getPortFromKey("input3")
                 port3_container.port=port

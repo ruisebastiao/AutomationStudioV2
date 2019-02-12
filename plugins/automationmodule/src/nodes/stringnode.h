@@ -316,7 +316,14 @@ private:
             }
 
             FlowNodePort* stringequal=getPortFromKey("stringEqual");
+            if(!stringequal){
+                return;
+            }
             FlowNodePort* stringnotequal=getPortFromKey("stringNotEqual");
+
+            if(!stringnotequal){
+                return;
+            }
 
             if(m_inputType!=InputType::InputCompare){
 
