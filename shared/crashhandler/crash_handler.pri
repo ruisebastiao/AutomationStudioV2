@@ -124,15 +124,15 @@ CONFIG(debug, debug|release) {
     DO-DEPLOY-LOCAL{
         message("Local Release&Deploy mode...")
 
-        deployTarget=$${_PRO_FILE_PWD_}/deploy
-        QMAKE_POST_LINK += $$quote(dump_syms $${OUT_PWD}/$$TARGET > $$deployTarget/$$TARGET"_"$$VERSION"_local.sym"$$escape_expand(\n\t))
+        deployTarget=$${PROJECT_PATH}/breakpad
+        QMAKE_POST_LINK += $$quote(dump_syms $${DEPLOY_PATH}/$$TARGET > $$deployTarget/$$TARGET"_"$$VERSION".sym"$$escape_expand(\n\t))
 
 
     }
 
     unix{
-        message("Executing STRIP")
-        QMAKE_POST_LINK +=$(STRIP) $${OUT_PWD}/$$TARGET$$escape_expand(\n\t)
+#        message("Executing STRIP")
+#        QMAKE_POST_LINK +=$(STRIP) $${OUT_PWD}/$$TARGET$$escape_expand(\n\t)
     }
 }
 
