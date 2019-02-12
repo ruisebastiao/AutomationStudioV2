@@ -47,6 +47,7 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
 
     Q_PROPERTY(bool connectionsLoaded READ connectionsLoaded WRITE setConnectionsLoaded NOTIFY connectionsLoadedChanged)
 
+    Q_PROPERTY(bool portsInitialized READ portsInitialized WRITE setPortsInitialized NOTIFY portsInitializedChanged)
 
 
 //    Q_PROPERTY(bool connectionsLoaded READ connectionsLoaded WRITE setConnectionsLoaded NOTIFY connectionsLoadedChanged)
@@ -64,6 +65,8 @@ class AUTOMATIONMODULE_EXPORT FlowNode : public qan::Node, public JsonSerializab
     Q_PROPERTY(QString typeInfo READ typeInfo NOTIFY typeInfoChanged)
 
     Q_PROPERTY(bool projectLoaded READ projectLoaded WRITE setProjectLoaded NOTIFY projectLoadedChanged)
+
+    Q_PROPERTY(QVariant disabled READ disabled WRITE setDisabled NOTIFY disabledChanged REVISION 30)
 
 
 public:
@@ -161,6 +164,9 @@ public:
     void initializePorts();
 
     Q_INVOKABLE void remove();
+
+    Q_INVOKABLE FlowNodePort* getPortFromKey(QString key);
+
 private:
 
     bool m_portsInitialized=false;
@@ -168,7 +174,7 @@ protected:
     Type            m_type{Type::NodeNone};
 
 
-    FlowNodePort* getPortFromKey(QString key);
+
 
 private:
 
@@ -212,6 +218,17 @@ private:
     bool m_connectionsLoaded=false;
 
     bool m_projectLoaded=false;
+
+    void setPortsInitialized(bool portsInitialized)
+    {
+        if (m_portsInitialized == portsInitialized)
+            return;
+
+        m_portsInitialized = portsInitialized;
+        emit portsInitializedChanged(m_portsInitialized);
+    }
+
+    QVariant m_disabled=false;
 
 public slots:
     virtual void    inNodeOutputChanged();
@@ -369,6 +386,17 @@ public slots:
         emit projectLoadedChanged(m_projectLoaded);
     }
 
+
+
+    void setDisabled(QVariant disabled)
+    {
+        if (m_disabled == disabled)
+            return;
+
+        m_disabled = disabled;
+        emit disabledChanged(m_disabled);
+    }
+
 signals:
     void nameChanged(QString name);
 
@@ -412,6 +440,10 @@ signals:
     void typeInfoChanged(QString typeInfo);
 
     void projectLoadedChanged(bool projectLoaded);
+
+    void portsInitializedChanged(bool portsInitialized);
+
+    void disabledChanged(QVariant disabled);
 
 protected:
 
@@ -510,6 +542,14 @@ public:
     bool projectLoaded() const
     {
         return m_projectLoaded;
+    }
+    bool portsInitialized() const
+    {
+        return m_portsInitialized;
+    }
+    QVariant disabled() const
+    {
+        return m_disabled;
     }
 };
 #endif // FLOWNODE_H

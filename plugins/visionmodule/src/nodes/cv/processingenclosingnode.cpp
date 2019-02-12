@@ -27,8 +27,10 @@ void ProcessingEnclosingNode::setInput(QVariant input)
 void ProcessingEnclosingNode::doProcess()
 {
 
-    //    QMat* in=m_input.value<QMat*>();
-    // QMat* out=m_output.value<QMat*>();
+    if(disabled().value<bool>()){
+        return;
+    }
+
     std::vector<std::vector<cv::Point>> _contours=m_contours.value<std::vector<std::vector<cv::Point>>>();
     QMat* output=m_output.value<QMat*>();
     QMat* drawsource=m_drawSource.value<QMat*>();

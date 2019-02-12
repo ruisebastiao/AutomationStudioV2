@@ -34,6 +34,8 @@ void ProcessingShapesNode::setInput(QVariant input)
 
 void ProcessingShapesNode::doProcess()
 {
-
+    if(disabled().value<bool>()){
+        return;
+    }
     ProcessingNode::doProcess();
 }

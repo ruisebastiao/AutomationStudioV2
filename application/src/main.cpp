@@ -198,10 +198,15 @@ int main(int argc, char *argv[]){
         return code;
 
 
-    } catch (...){
-        qFatal("Error <unknown> sending event");
-        //                  typeid(*event).name(), qPrintable(receiver->objectName()),
-        //                  typeid(*receiver).name());
+    } catch (std::exception e){
+
+
+        if(singleinstaceserver){
+            singleinstaceserver->close();
+            delete singleinstaceserver;
+        }
+
+        qDebug()<<"Error:"<<e.what();
 
     }
 

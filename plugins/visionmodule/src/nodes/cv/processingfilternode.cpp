@@ -29,7 +29,9 @@ void ProcessingFilterNode::doProcess()
 {
 
 
-
+    if(disabled().value<bool>()){
+        return;
+    }
     QMat* in=m_input.value<QMat*>();
     QMat* out=m_output.value<QMat*>();
 

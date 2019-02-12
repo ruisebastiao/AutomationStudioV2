@@ -36,6 +36,59 @@ void rotate(cv::Mat& src, double angle, cv::Mat& dst)
     cv::warpAffine(src, dst, r, cv::Size(len, len));
 }
 
+
+QList<cv::Point> process_inputs(QVariant input){
+
+    QList<cv::Point> list;
+    if(input.canConvert<cv::Rect>()) {
+
+        cv::Rect input_rect= input.value<cv::Rect>();
+        list.append(cv::Point(input_rect.x+(input_rect.width/2),input_rect.y+(input_rect.height/2)));
+
+
+    }
+    else if(input.canConvert<cv::RotatedRect>()) {
+        cv::RotatedRect input_rotacted_rect= input.value<cv::RotatedRect>();
+
+        list.append(input_rotacted_rect.center);
+
+
+    }
+    else if(input.canConvert<QVariantList>()) {
+        QVariantList rect_list= input.value<QVariantList>();
+
+        for (int var = 0; var < rect_list.length(); ++var) {
+
+
+            QVariant variant_rect=rect_list.at(var);
+
+            if(variant_rect.canConvert<cv::Rect>()){
+
+                cv::Rect rect=variant_rect.value<cv::Rect>();
+                list.append(cv::Point2f(rect.x+(rect.width/2),rect.y+(rect.height/2)));
+
+
+            }
+            else if(variant_rect.canConvert<cv::RotatedRect>()){
+
+                cv::RotatedRect rect=variant_rect.value<cv::RotatedRect>();
+                list.append(rect.center);
+
+
+            }
+
+        }
+
+    }
+    else if(input.canConvert<QLineF>()) {
+        QLineF segment=input.value<QLineF>();
+        list.append(cv::Point2f(segment.center().x(),segment.center().y()));
+    }
+
+    return list;
+
+}
+
 void ProcessingGeometricNode::processLineSegments(){
 
 
@@ -58,76 +111,10 @@ void ProcessingGeometricNode::processLineSegments(){
         switch (m_geometricType) {
         case GeometricLinePointLine:
         {
-            cv::Point2f startpt;
-            cv::Point2f endpoint;
-
-            if(m_input1.canConvert<cv::Point>()) {
-                startpt = m_input1.value<cv::Point>();
-            }
-            else if(m_input1.canConvert<QVariantList>()) {
-                QVariantList rect_list= m_input1.value<QVariantList>();
-
-                for (int var = 0; var < rect_list.length(); ++var) {
-
-
-                    QVariant variant_rect=rect_list.at(var);
-
-                    if(variant_rect.canConvert<cv::Rect>()){
-
-                        cv::Rect rect=variant_rect.value<cv::Rect>();
-                        start_points.append(cv::Point2f(rect.x+(rect.width/2),rect.y+(rect.height/2)));
-
-
-                    }
-                    else if(variant_rect.canConvert<cv::RotatedRect>()){
-
-                        cv::RotatedRect rect=variant_rect.value<cv::RotatedRect>();
-                        start_points.append(rect.center);
-
-
-                    }
-
-
-                }
-
-            }
-
-            if(strcmp(m_input2.typeName(),"QLineF")==0) {
-                QLineF segment=m_input2.value<QLineF>();
-                end_points.append(cv::Point2f(segment.center().x(),segment.center().y()));
-            }
-            else if(m_input2.canConvert<QVariantList>()) {
-                QVariantList rect_list= m_input2.value<QVariantList>();
-
-                for (int var = 0; var < rect_list.length(); ++var) {
-
-
-                    QVariant variant_rect=rect_list.at(var);
-
-                    if(variant_rect.canConvert<cv::Rect>()){
-
-                        cv::Rect rect=variant_rect.value<cv::Rect>();
-                        end_points.append(cv::Point2f(rect.x+(rect.width/2),rect.y+(rect.height/2)));
-
-
-                    }
-                    else if(variant_rect.canConvert<cv::RotatedRect>()){
-
-                        cv::RotatedRect rect=variant_rect.value<cv::RotatedRect>();
-                        end_points.append(rect.center);
-
-
-                    }
-
-
-                }
-
-            }
-
-
-        }
-
+            start_points.append(process_inputs(m_input1));
+            end_points.append(process_inputs(m_input2));
             break;
+        }
         case GeometricPointAngleLengthLine:
 
 
@@ -135,96 +122,9 @@ void ProcessingGeometricNode::processLineSegments(){
         case Geometric2PointLine:
         {
 
-            if(m_input1.canConvert<cv::Rect>()) {
 
-                cv::Rect input1_rect= m_input1.value<cv::Rect>();
-                start_points.append(cv::Point(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2)));
-
-
-            }
-            else if(m_input1.canConvert<cv::RotatedRect>()) {
-                cv::RotatedRect input1_rotacted_rect= m_input1.value<cv::RotatedRect>();
-
-                start_points.append(input1_rotacted_rect.center);
-
-
-            }
-            else if(m_input1.canConvert<QVariantList>()) {
-                QVariantList rect_list= m_input1.value<QVariantList>();
-
-                for (int var = 0; var < rect_list.length(); ++var) {
-
-
-                    QVariant variant_rect=rect_list.at(var);
-
-                    if(variant_rect.canConvert<cv::Rect>()){
-
-                        cv::Rect rect=variant_rect.value<cv::Rect>();
-                        start_points.append(cv::Point2f(rect.x+(rect.width/2),rect.y+(rect.height/2)));
-
-
-                    }
-                    else if(variant_rect.canConvert<cv::RotatedRect>()){
-
-                        cv::RotatedRect rect=variant_rect.value<cv::RotatedRect>();
-                        start_points.append(rect.center);
-
-
-                    }
-
-                }
-
-            }
-
-
-
-            if(m_input2.canConvert<cv::Rect>()) {
-
-
-                cv::Rect input2_rect= m_input2.value<cv::Rect>();
-                end_points.append(cv::Point(input2_rect.x+(input2_rect.width/2),input2_rect.y+(input2_rect.height/2)));
-
-
-            }else if(m_input2.canConvert<cv::RotatedRect>()) {
-                cv::RotatedRect input2_rotacted_rect= m_input2.value<cv::RotatedRect>();
-
-                end_points.append(input2_rotacted_rect.center);
-
-            }
-            else if(m_input2.canConvert<QVariantList>()) {
-                QVariantList rect_list= m_input2.value<QVariantList>();
-
-                for (int var = 0; var < rect_list.length(); ++var) {
-
-
-                    QVariant variant_rect=rect_list.at(var);
-
-                    if(variant_rect.canConvert<cv::Rect>()){
-
-                        cv::Rect rect=variant_rect.value<cv::Rect>();
-                        end_points.append(cv::Point2f(rect.x+(rect.width/2),rect.y+(rect.height/2)));
-
-
-                    }
-                    else if(variant_rect.canConvert<cv::RotatedRect>()){
-
-                        cv::RotatedRect rect=variant_rect.value<cv::RotatedRect>();
-                        end_points.append(rect.center);
-
-
-                    }
-
-
-                }
-
-            }
-
-
-
-
-        }
-
-
+            start_points.append(process_inputs(m_input1));
+            end_points.append(process_inputs(m_input2));
 
             break;
 
@@ -232,7 +132,7 @@ void ProcessingGeometricNode::processLineSegments(){
         }
 
 
-
+        }
     }
 
 
@@ -255,7 +155,7 @@ void ProcessingGeometricNode::processLineSegments(){
                     if(drawsource && drawsource->cvMat()->empty()==false){
 
                         // Create and rotate the text
-//                        cv::Mat textImg = cv::Mat::zeros((*drawsource->cvMat()).rows, (*drawsource->cvMat()).cols, (*drawsource->cvMat()).type());
+                        //                        cv::Mat textImg = cv::Mat::zeros((*drawsource->cvMat()).rows, (*drawsource->cvMat()).cols, (*drawsource->cvMat()).type());
 
 
                         line(*drawsource->cvMat(),start_pt,end_pt,cv::Scalar(255, 0, 0), 2, CV_AA);
@@ -268,11 +168,11 @@ void ProcessingGeometricNode::processLineSegments(){
                                 1, // Line Thickness (Optional)
                                 CV_AA); // Anti-alias (Optional)
 
-//                        rotate(textImg, result_line.angle(), textImg);
-//                        *drawsource->cvMat()=*drawsource->cvMat()+textImg;
+                        //                        rotate(textImg, result_line.angle(), textImg);
+                        //                        *drawsource->cvMat()=*drawsource->cvMat()+textImg;
                         if(output){
                             line(*output->cvMat(),start_pt,end_pt,cv::Scalar(255, 0, 0), 2, CV_AA);
-//                            *output->cvMat()=*output->cvMat()+textImg;
+                            //                            *output->cvMat()=*output->cvMat()+textImg;
                         }
 
                     }
@@ -280,10 +180,8 @@ void ProcessingGeometricNode::processLineSegments(){
             }
 
         }
+
     }
-
-
-
     m_output1=QVariant::fromValue(result_lines);
     emit output1Changed(m_output1);
     //    m_output2=QVariant::fromValue(QString::number(result_line.angle(), 'f', 2));
@@ -291,13 +189,13 @@ void ProcessingGeometricNode::processLineSegments(){
 
     emit output2Changed(m_output2);
 
-
 }
-
-
 void ProcessingGeometricNode::doProcess()
 {
 
+    if(disabled().value<bool>()){
+        return;
+    }
 
     // TODO during real time processing this should be removed, only needed if in config mode
     //m_originalFrame->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());

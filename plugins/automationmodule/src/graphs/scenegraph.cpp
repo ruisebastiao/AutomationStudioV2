@@ -272,6 +272,8 @@ void SceneGraph::copyNode(FlowNode* node){
 
 
     nodeobj.take("id");
+    nodeobj.take("inPorts");
+    nodeobj.take("outPorts");
     //    QString nodetype=nodeobj["type"].toString();
     //    FlowNode* newnode=createNode(nodetype);
     FlowNode* newnode=readNode(nodeobj);

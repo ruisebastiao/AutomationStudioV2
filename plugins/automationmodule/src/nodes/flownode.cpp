@@ -167,7 +167,7 @@ void FlowNode::initializePorts()
                 continue;
             }
         }
-        m_portsInitialized=true;
+        setPortsInitialized(true);
 
     }
 
@@ -182,7 +182,9 @@ FlowNodePort *FlowNode::getPortFromKey(QString key)
     FlowNodePort* port=m_inPorts.value(keystr);
     if(port){
         return port;
+
     }
+
     return m_outPorts.value(keystr);
 }
 

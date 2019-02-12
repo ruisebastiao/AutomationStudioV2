@@ -33,6 +33,10 @@ void ProcessingContoursNode::setInput(QVariant input)
 void ProcessingContoursNode::doProcess()
 {
 
+    if(disabled().value<bool>()){
+        return;
+    }
+
     // TODO
     // value colde be read once at variant change
     QMat* in=m_input.value<QMat*>();

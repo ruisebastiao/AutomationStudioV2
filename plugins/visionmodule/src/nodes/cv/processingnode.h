@@ -537,6 +537,10 @@ public:
     {
         return m_drawOnSourcePortVisible;
     }
+
+    // JsonSerializable interface
+public:
+    void Serialize(QJsonObject &json) override;
 };
 
 Q_DECLARE_METATYPE(cv::Rect);

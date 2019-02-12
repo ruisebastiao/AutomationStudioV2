@@ -28,6 +28,9 @@ void ProcessingCannyNode::setInput(QVariant input)
 
 void ProcessingCannyNode::doProcess()
 {
+    if(disabled().value<bool>()){
+        return;
+    }
 
     int scale = delta();
      int delta = 10;
