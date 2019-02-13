@@ -76,7 +76,12 @@ ProcessingNodeItem{
 
                     text: root.node.maxRatio
                     onTextChanged: {
-                        root.node.maxRatio=parseFloat(text)
+
+                        if(!isNaN(text)){
+                            root.node.maxRatio=parseFloat(text)
+                        }
+
+
                     }
 
                     inputMethodHints: Qt.ImhFormattedNumbersOnly

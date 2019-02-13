@@ -22,9 +22,11 @@ class ProcessingGeometricNode : public ProcessingNode
     Q_PROPERTY(QVariant output2 READ output2 WRITE setOutput2 NOTIFY output2Changed REVISION 31)
     Q_PROPERTY(QVariant output3 READ output3 WRITE setOutput3 NOTIFY output3Changed REVISION 31)
 
-
-
     Q_PROPERTY(GeometricType geometricType READ geometricType WRITE setGeometricType NOTIFY geometricTypeChanged USER("serialize"))
+
+    Q_PROPERTY(double minAngle READ minAngle WRITE setMinAngle NOTIFY minAngleChanged USER("serialize"))
+    Q_PROPERTY(double maxAngle READ maxAngle WRITE setMaxAngle NOTIFY maxAngleChanged USER("serialize"))
+
 
 public:
     enum GeometricType {
@@ -233,6 +235,26 @@ public slots:
         emit output3Changed(m_output3);
     }
 
+    void setMinAngle(double minAngle)
+    {
+
+        if (qFuzzyCompare(m_minAngle, minAngle))
+            return;
+
+        m_minAngle = minAngle;
+        emit minAngleChanged(m_minAngle);
+    }
+
+    void setMaxAngle(double maxAngle)
+    {
+
+        if (qFuzzyCompare(m_maxAngle, maxAngle))
+            return;
+
+        m_maxAngle = maxAngle;
+        emit maxAngleChanged(m_maxAngle);
+    }
+
 protected:
     void doProcess() override;
 
@@ -281,6 +303,10 @@ signals:
 
     void output3Changed(QVariant output3);
 
+    void minAngleChanged(double minAngle);
+
+    void maxAngleChanged(double maxAngle);
+
 private:
 
     GeometricType m_geometricType=GeometricNotSet;
@@ -300,6 +326,10 @@ private:
 
     QVariant m_output3=QVariant::fromValue(nullptr);
 
+    double m_minAngle=0;
+
+    double m_maxAngle=360;
+
 public:
 
     QVariant output2() const
@@ -309,6 +339,14 @@ public:
     QVariant output3() const
     {
         return m_output3;
+    }
+    double minAngle() const
+    {
+        return m_minAngle;
+    }
+    double maxAngle() const
+    {
+        return m_maxAngle;
     }
 };
 

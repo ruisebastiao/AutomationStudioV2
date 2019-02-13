@@ -141,6 +141,8 @@ unix{
 }
 win32{
     QMAKE_POST_LINK += $$quote(cd $$DEPLOY_PATH/../ && 7z a -r $$PACKAGE_PATH/$$release_filename ./bin/  -x!*.json -x!*.log $$escape_expand(\n\t))
+
+
 }
 
 QMAKE_POST_LINK += $$quote(pscp -pw auto123 $$PACKAGE_PATH/$$release_filename automacao@keyeu-linux-svr:/home/automacao/automationstudiowebmanager/server/releases/$$escape_expand(\n\t))

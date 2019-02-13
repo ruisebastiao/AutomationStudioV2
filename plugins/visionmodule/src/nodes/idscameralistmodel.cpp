@@ -88,7 +88,9 @@ void IDSCameraListModel::AddCamera(IDSCamera *idscamera)
 {
     beginInsertRows(QModelIndex(), rowCount(QModelIndex()), rowCount(QModelIndex()));   // kindly provided by superclass
 
+//    LOG_INFO()<<"Camera"
     m_IDSCameras.append(idscamera);
+
 
     endInsertRows();
 }

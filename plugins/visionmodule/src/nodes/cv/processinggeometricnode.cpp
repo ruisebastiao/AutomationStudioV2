@@ -147,8 +147,13 @@ void ProcessingGeometricNode::processLineSegments(){
                 QLineF result_line=QLineF(QPointF(start_pt.x,start_pt.y),QPointF(end_pt.x,end_pt.y));
 
                 if(result_line.length()>0){
-                    result_lines.append(result_line);
-                    result_angles.append(result_line.angle());
+
+                    if(result_line.angle()>=minAngle() && result_line.angle()<=maxAngle()){
+                        result_lines.append(result_line);
+                        result_angles.append(result_line.angle());
+                    }
+
+
 
                     QMat* drawsource=m_drawSource.value<QMat*>();
 
@@ -158,20 +163,27 @@ void ProcessingGeometricNode::processLineSegments(){
                         //                        cv::Mat textImg = cv::Mat::zeros((*drawsource->cvMat()).rows, (*drawsource->cvMat()).cols, (*drawsource->cvMat()).type());
 
 
-                        line(*drawsource->cvMat(),start_pt,end_pt,cv::Scalar(255, 0, 0), 2, CV_AA);
+                        cv::Scalar linecolor;
+                        if(result_line.angle()>=minAngle() && result_line.angle()<=maxAngle()){
+                            linecolor=cv::Scalar(0, 255, 0);
+                        }
+                        else{
+                            linecolor=cv::Scalar(0, 0, 255);
+                        }
+                        line(*drawsource->cvMat(),start_pt,end_pt,linecolor, 2, CV_AA);
                         putText(*drawsource->cvMat(),
                                 qPrintable(QString::number(result_line.angle(), 'f', 2)),
                                 cv::Point(result_line.center().x(),result_line.center().y()), // Coordinates
                                 cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
                                 2.0, // Scale. 2.0 = 2x bigger
-                                cv::Scalar(255,0,0), // BGR Color
+                               linecolor, // BGR Color
                                 1, // Line Thickness (Optional)
                                 CV_AA); // Anti-alias (Optional)
 
                         //                        rotate(textImg, result_line.angle(), textImg);
                         //                        *drawsource->cvMat()=*drawsource->cvMat()+textImg;
                         if(output){
-                            line(*output->cvMat(),start_pt,end_pt,cv::Scalar(255, 0, 0), 2, CV_AA);
+                            line(*output->cvMat(),start_pt,end_pt,linecolor, 2, CV_AA);
                             //                            *output->cvMat()=*output->cvMat()+textImg;
                         }
 

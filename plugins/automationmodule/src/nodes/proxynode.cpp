@@ -9,8 +9,9 @@ void ProxyNode::setBindedFlowNode(FlowNode *node)
 
 
 
-    //    if(node->id()!=selectedBindedNodeID()){
-    setSelectedBindedNodeID(node->id());
+    if(node){
+        setSelectedBindedNodeID(node->id());
+    }
 
 
     if(configsLoaded()==false){

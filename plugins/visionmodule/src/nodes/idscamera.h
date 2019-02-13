@@ -1,7 +1,9 @@
 #ifndef IDSCAMERA_H
 #define IDSCAMERA_H
+
 #include <uEye.h>
 #include <QObject>
+#include <Logger.h>
 
 class IDSCamera : public QObject
 {

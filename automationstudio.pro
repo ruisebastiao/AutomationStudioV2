@@ -4,6 +4,7 @@ QMAKE_CXXFLAGS+=-DBOOST_SYSTEM_NO_DEPRECATED
 
 
 CONFIG += ordered
+CONFIG -= qml_debug
 
 # --- Project structure ---
 

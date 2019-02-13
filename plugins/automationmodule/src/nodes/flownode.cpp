@@ -8,7 +8,7 @@ FlowNode::FlowNode(QObject *parent):qan::Node(parent)
 
 
 
-//    return typeinfo;
+    //    return typeinfo;
 
 
 }
@@ -40,13 +40,13 @@ FlowNode::~FlowNode()
         FlowNodePort* inport =o.value();
 
         if(inport){
-              if(inport->getPortItem()->getInEdgeItems().size()>0){
-                  auto edgitem=inport->getPortItem()->getInEdgeItems().at(0);
-                  if(edgitem){
+            if(inport->getPortItem()->getInEdgeItems().size()>0){
+                auto edgitem=inport->getPortItem()->getInEdgeItems().at(0);
+                if(edgitem){
                     edgitem->deleteLater();
-                  }
+                }
 
-              }
+            }
 
         }
 
@@ -184,6 +184,14 @@ FlowNodePort *FlowNode::getPortFromKey(QString key) const
         return port;
 
     }
+    else{
+        port=m_outPorts.value(keystr,nullptr);
+        if(port){
+            return port;
+
+        }
+
+    }
 
     return nullptr;
 }
@@ -237,7 +245,7 @@ void FlowNode::Serialize(QJsonObject &json)
         if(nodeinport){
             QJsonObject inPort;
 
-//            if(nodeinport->)
+            //            if(nodeinport->)
             nodeinport->Serialize(inPort);
             inPorts[nodeinport->getPortItem()->getId()]=inPort;
         }
