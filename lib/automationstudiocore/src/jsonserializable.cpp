@@ -19,7 +19,7 @@ void JsonSerializable::Serialize(QJsonObject &json, QObject *target)
 
             if(property.isReadable() && property.isUser()){
 
-                qDebug()<<"Saving:"<<classname<<"|"<<propName;
+//                qDebug()<<"Saving:"<<classname<<"|"<<propName;
 
                 QVariant value = target->property(propName);
                 if(property.isEnumType()){

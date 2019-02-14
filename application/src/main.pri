@@ -23,5 +23,6 @@ else:win32:CONFIG(debug, debug|release): QMAKE_POST_LINK += $$quote(del debug\ma
 
 
 win32:CONFIG(release, debug|release){
-#    QMAKE_POST_LINK += $$quote($$PROJECT_PATH\breakpad\dump_syms.exe $$escape_expand(\n\t))
+    include($$PROJECT_PATH/dump_symbols.pri)
 }
+

@@ -29,6 +29,8 @@ plugins.depends     = lib
 
 OTHER_FILES += config.pri
 
+OTHER_FILES += dump_symbols.pri
+
 OTHER_FILES += plugin.pri
 OTHER_FILES += lib.pri
 

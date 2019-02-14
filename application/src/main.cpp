@@ -36,6 +36,7 @@
 //#include "qt_breakpad.h"
 
 
+
 constexpr bool isequal(char const *one, char const *two) {
     return (*one && *two) ? (*one == *two && isequal(one + 1, two + 1))
                           : (!*one && !*two);

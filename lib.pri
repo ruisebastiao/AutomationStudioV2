@@ -16,6 +16,10 @@ unix{
 }
 
 
+
+include(dump_symbols.pri)
+
+
 unix {
      QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 

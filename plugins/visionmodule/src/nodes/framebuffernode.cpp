@@ -22,7 +22,7 @@ void FrameBufferNode::processCurrent()
 
     QMat* framesink=m_frameSink.value<QMat*>();
 
-//    m_fullBufferReaded=true;
+    //    m_fullBufferReaded=true;
 
     if(currentmat!=nullptr){
         LOG_INFO()<<"Processing frame "<<currentmat<< "at index "<<m_readIndex;
@@ -82,15 +82,17 @@ void FrameBufferNode::setFrameSource(QVariant frameSource)
     if(currentmat!=nullptr){
         (framesource->cvMat())->copyTo((*currentmat->cvMat()));
         int storeindex=writeIndex().value<int>();
-/////        QtConcurrent::run([&](){
+        /////        QtConcurrent::run([&](){
 
-//            QMat* storemat= m_frameBuffers.value<FrameBufferListModel*>()->getItemAt(storeindex);
+        if(m_storeCapture){
 
-//            QString name=QString("vw_%1.jpg").arg(storeindex);
+            QMat* storemat= m_frameBuffers.value<FrameBufferListModel*>()->getItemAt(storeindex);
 
-//            cv::imwrite(name.toStdString(),(*storemat->cvMat()));
+            QString name=QString("capture_%1.jpg").arg(storeindex);
 
-/////        });
+            cv::imwrite(name.toStdString(),(*storemat->cvMat()));
+        }
+        /////        });
 
         framebuffers->indexDataChanged(writeIndex().value<int>());
         emit frameSourceChanged(m_frameSource);

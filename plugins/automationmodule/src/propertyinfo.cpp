@@ -1,8 +1,16 @@
 #include "propertyinfo.h"
 
+#include <QQmlEngine>
+
 ProperyInfo::ProperyInfo()
 {
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership );
+}
 
+ProperyInfo::~ProperyInfo()
+{
+
+    LOG_INFO()<<"Property info deleted";
 }
 
 ProperyInfo::ProperyInfo(QString propertyName, QString propertyValue)

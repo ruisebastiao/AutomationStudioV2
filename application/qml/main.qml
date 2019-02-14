@@ -192,6 +192,7 @@ ApplicationWindow {
             id: drawer
             width: Math.min(rootwindow.width, rootwindow.height) / 2.5
             height: rootwindow.height
+            closePolicy:settings?settings.selectingProject?Popup.NoAutoClose:Popup.CloseOnEscape | Popup.CloseOnPressOutside:Popup.CloseOnEscape | Popup.CloseOnPressOutside
             dragMargin: 1
             onPositionChanged: {
                 if(position==0){

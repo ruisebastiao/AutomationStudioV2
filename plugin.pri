@@ -17,6 +17,12 @@ unix{
 }
 
 
+win32:CONFIG(release, debug|release){
+    include(dump_symbols.pri)
+}
+
+
+
 
 
 

@@ -2,11 +2,14 @@
 #define PROPERTYINFO_H
 
 #include <QObject>
+#include <Logger.h>
+#include "automationmoduleglobal.h"
+
 #include <jsonserializable.h>
 
 
 
-class ProperyInfo:public QObject, public JsonSerializable
+class AUTOMATIONMODULE_EXPORT ProperyInfo:public QObject, public JsonSerializable
 {
     Q_OBJECT
     Q_INTERFACES(JsonSerializable)
@@ -17,6 +20,7 @@ class ProperyInfo:public QObject, public JsonSerializable
 
 public:
     ProperyInfo();
+    ~ProperyInfo() override;
     ProperyInfo(QString propertyName,QString propertyValue);
 
     QString propertyName() const

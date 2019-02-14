@@ -9,7 +9,6 @@ CONFIG +=c++14
 include(../functions.pri)
 include(../versioning/gitversion.pri)
 
-
 QML_IMPORT_PATH += $${DEPLOY_PATH}
 
 win32{
