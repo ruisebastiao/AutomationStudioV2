@@ -68,6 +68,9 @@ void ProcessingMaskNode::setInput(QVariant input)
 void ProcessingMaskNode::doProcess()
 {
 
+    if(disabled().value<bool>()){
+        return;
+    }
 
     QMat* in=m_input.value<QMat*>();
     QMat* out=m_output.value<QMat*>();
@@ -98,6 +101,15 @@ void ProcessingMaskNode::doProcess()
                 cv::Rect input1_rect=rect_obj.at(0);
                 center=cv::Point(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
             }
+
+
+
+        }
+        else if(m_input1.canConvert<cv::Point>()) {
+
+
+
+                center=m_input1.value<cv::Point>();
 
 
 
@@ -166,4 +178,9 @@ void ProcessingMaskNode::doProcess()
 
     }
     ProcessingNode::doProcess();
+}
+
+void ProcessingMaskNode::Serialize(QJsonObject &json)
+{
+    ProcessingNode::Serialize(json);
 }

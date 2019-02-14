@@ -7,6 +7,7 @@ import QtGraphicalEffects   1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 
+import guimodule 1.0 as GUI
 
 import QuickQanava          2.0 as Qan
 
@@ -43,6 +44,58 @@ ProcessingNodeItem{
                             root.node.geometricType=ProcessingGeometricNode.GeometricLinePointLine
                         }
                     }
+                }
+
+            }
+        }
+
+        GroupBox{
+            title: "Geometric constraints:"
+            Layout.fillWidth: true
+            spacing: 5
+            Flow{
+                anchors.fill: parent
+                TextField{
+
+
+                    text: root.node.minAngle
+                    onTextChanged: {
+
+                        if(isNaN(text)===false){
+                            root.node.minAngle=parseFloat(text)
+                        }
+
+
+                    }
+
+                    inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    selectByMouse:true
+                    GUI.MaterialPlaceHolder{
+
+                        placeHolderText:"Min angle"
+                    }
+
+                }
+                TextField{
+
+
+                    text: root.node.maxAngle
+                    onTextChanged: {
+
+                        if(isNaN(text)===false){
+                            root.node.maxAngle=parseFloat(text)
+                        }
+
+
+                    }
+
+                    inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    selectByMouse:true
+                    GUI.MaterialPlaceHolder{
+
+                        placeHolderText:"Max angle"
+                    }
+
                 }
 
             }

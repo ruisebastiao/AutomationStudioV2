@@ -107,33 +107,34 @@ unix:QMAKE_CXXFLAGS+=-g
 
 
 
-#CONFIG(debug, debug|release) {
-#} else {
+CONFIG(debug, debug|release) {
+} else {
 
-#    DO-DEPLOY{
-#        message("Release&Deply mode...")
+    DO-DEPLOY{
+        message("Release&Deply mode...")
 
-#        deployTarget=$${_PRO_FILE_PWD_}/deploy
-#        QMAKE_POST_LINK += $$quote(dump_syms $${OUT_PWD}/$$TARGET > $$deployTarget/$$TARGET"_"$$VERSION".sym"$$escape_expand(\n\t))
+        deployTarget=$${_PRO_FILE_PWD_}/deploy
+        QMAKE_POST_LINK += $$quote(dump_syms $${OUT_PWD}/$$TARGET > $$deployTarget/$$TARGET"_"$$VERSION".sym"$$escape_expand(\n\t))
 
-#        QMAKE_POST_LINK += $$quote(scp $$deployTarget/$$TARGET"_"$$VERSION".sym" cristovao@quitopt.dyndns.org:~/dreamforit/dynamicflow/releases/$$escape_expand(\n\t))
-#    #    QMAKE_POST_LINK += $$quote(cp $${OUT_PWD}/$$TARGET $$deployTarget/release/$$escape_expand(\n\t))
-#    #    QMAKE_POST_LINK += $$quote($$QT_SYSROOT/strip dynamicflow$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(scp $$deployTarget/$$TARGET"_"$$VERSION".sym" cristovao@quitopt.dyndns.org:~/dreamforit/dynamicflow/releases/$$escape_expand(\n\t))
+    #    QMAKE_POST_LINK += $$quote(cp $${OUT_PWD}/$$TARGET $$deployTarget/release/$$escape_expand(\n\t))
+    #    QMAKE_POST_LINK += $$quote($$QT_SYSROOT/strip dynamicflow$$escape_expand(\n\t))
 
-#    }
-#    DO-DEPLOY-LOCAL{
-#        message("Local Release&Deploy mode...")
+    }
+    DO-DEPLOY-LOCAL{
+        message("Local Release&Deploy mode...")
 
-#        deployTarget=$${_PRO_FILE_PWD_}/deploy
-#        QMAKE_POST_LINK += $$quote(dump_syms $${OUT_PWD}/$$TARGET > $$deployTarget/$$TARGET"_"$$VERSION"_local.sym"$$escape_expand(\n\t))
-
-
-#    }
+        deployTarget=$${PROJECT_PATH}/breakpad
+        QMAKE_POST_LINK += $$quote(dump_syms $${DEPLOY_PATH}/$$TARGET > $$deployTarget/$$TARGET"_"$$VERSION".sym"$$escape_expand(\n\t))
 
 
-#    message("Executing STRIP")
-#    QMAKE_POST_LINK +=$(STRIP) $${OUT_PWD}/$$TARGET$$escape_expand(\n\t)
-#}
+    }
+
+    unix{
+#        message("Executing STRIP")
+#        QMAKE_POST_LINK +=$(STRIP) $${OUT_PWD}/$$TARGET$$escape_expand(\n\t)
+    }
+}
 
 
 

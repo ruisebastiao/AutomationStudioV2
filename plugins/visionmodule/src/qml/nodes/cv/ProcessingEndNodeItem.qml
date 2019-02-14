@@ -18,5 +18,23 @@ ProcessingNodeItem{
     expandOnEdit: true
 
 
+    processingConfigItem: ColumnLayout{
+        anchors.fill: parent
+        Item {
+            Layout.preferredHeight: 50
+            Layout.fillWidth: true
+            CheckBox{
+                anchors.fill: parent
+                checked: root.node.processOnResults
+                onCheckedChanged: {
+                    root.node.processOnResults=checked
+                }
+            }
+        }
 
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+    }
 }

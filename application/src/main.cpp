@@ -27,12 +27,14 @@
 #include <RollingFileAppender.h>
 #include <qdir.h>
 #include <qquickstyle.h>
+#include "version.h"
 
 #include "automationstudio.h"
-#include "version.h"
+
 #include "crash_handler.h"
 
 //#include "qt_breakpad.h"
+
 
 
 constexpr bool isequal(char const *one, char const *two) {
@@ -68,7 +70,6 @@ QLocalServer* startSingleInstanceServer(QString appName) {
 
 int main(int argc, char *argv[]){
 
-    static_assert(isequal(PRORELEASEVERS, RELEASEVERS), "PRORELEASEVERS, RELEASEVERS mismatch");
 
 
 
@@ -154,7 +155,7 @@ int main(int argc, char *argv[]){
     RollingFileAppender* rollingfileAppender = new RollingFileAppender(fileloggerpath);
 
 
-    QString release(RELEASEVERS);
+    QString release(CURRENT_RELEASE);
 
     rollingfileAppender->setDatePattern(RollingFileAppender::DailyRollover);
     rollingfileAppender->setLogFilesLimit(5);
@@ -198,10 +199,15 @@ int main(int argc, char *argv[]){
         return code;
 
 
-    } catch (...){
-        qFatal("Error <unknown> sending event");
-        //                  typeid(*event).name(), qPrintable(receiver->objectName()),
-        //                  typeid(*receiver).name());
+    } catch (std::exception e){
+
+
+        if(singleinstaceserver){
+            singleinstaceserver->close();
+            delete singleinstaceserver;
+        }
+
+        qDebug()<<"Error:"<<e.what();
 
     }
 

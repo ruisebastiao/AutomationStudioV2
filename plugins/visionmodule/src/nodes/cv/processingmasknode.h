@@ -11,10 +11,10 @@ class ProcessingMaskNode : public ProcessingNode
 
     Q_PROPERTY(MaskType maskType READ maskType WRITE setMaskType NOTIFY maskTypeChanged USER("serialize"))
 
-    Q_PROPERTY(QVariant input1 READ input1 WRITE setInput1 NOTIFY input1Changed REVISION 30)
-    Q_PROPERTY(QVariant input2 READ input2 WRITE setInput2 NOTIFY input2Changed REVISION 30)
-    Q_PROPERTY(QVariant input3 READ input3 WRITE setInput3 NOTIFY input3Changed REVISION 30)
-    Q_PROPERTY(QVariant input4 READ input4 WRITE setInput4 NOTIFY input4Changed REVISION 30)
+    Q_PROPERTY(QVariant input1 READ input1 WRITE setInput1 NOTIFY input1Changed REVISION 30 USER("serialize"))
+    Q_PROPERTY(QVariant input2 READ input2 WRITE setInput2 NOTIFY input2Changed REVISION 30 USER("serialize"))
+    Q_PROPERTY(QVariant input3 READ input3 WRITE setInput3 NOTIFY input3Changed REVISION 30 USER("serialize"))
+    Q_PROPERTY(QVariant input4 READ input4 WRITE setInput4 NOTIFY input4Changed REVISION 30 USER("serialize"))
 
     Q_PROPERTY(QVariant maskOutput READ maskOutput WRITE setMaskOutput NOTIFY maskOutputChanged REVISION 31)
 
@@ -37,13 +37,13 @@ public:
 private:
     MaskType m_maskType=MaskCircleRadius;
 
-    QVariant m_input1;
+    QVariant m_input1=QVariant(QString(""));
 
-    QVariant m_input2;
+    QVariant m_input2=QVariant(QString(""));
 
-    QVariant m_input3;
+    QVariant m_input3=QVariant(QString(""));
 
-    QVariant m_input4;
+    QVariant m_input4=QVariant(QString(""));
 
     QVariant m_maskOutput=QVariant::fromValue(new QMat());
 
@@ -56,8 +56,9 @@ public:
         return m_maskType;
     }
 
-    QVariant input1() const
+    QVariant input1()
     {
+
         return m_input1;
     }
 
@@ -153,6 +154,20 @@ public slots:
     void setInput1(QVariant input1)
     {
 
+         if(maskType()== MaskCircleRadius){
+             if(input1.canConvert<QString>()){
+                 QString in=input1.value<QString>();
+                 QStringList splitted=in.split(',');
+                 if(splitted.length()==2){
+                     cv::Point center(-1,-1);
+                     center.x=splitted.at(0).toInt();
+                     center.y=splitted.at(1).toInt();
+
+                     input1=QVariant::fromValue(center);
+                     //input1.fro
+                 }
+             }
+         }
         m_input1 = input1;
         emit input1Changed(m_input1);
     }
@@ -203,6 +218,10 @@ signals:
 
 protected:
     void doProcess() override;
+
+    // JsonSerializable interface
+public:
+    void Serialize(QJsonObject &json) override;
 };
 
 #endif // PROCESSINGMASKNODE_H

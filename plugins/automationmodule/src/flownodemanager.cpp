@@ -169,9 +169,14 @@ void FlowNodeManager::loadConnections(){
 
                             qan::PortItem* inport=targetport->getPortItem();
                             if(inport->getInEdgeItems().size()>0){
-                                LOG_ERROR()<<"In edge with multiple connection (node:"<<*targetnode<<"| port:"<<inport->getId()<<")";
+                                QString error;
+                                QTextStream(&error) <<"In edge with multiple connection (node:"<<*targetnode<<"| port:"<<inport->getId()<<")";
 
-                                exit(-4);
+
+
+                                //exit(-4);
+
+                               throw std::exception(std::runtime_error(error.toStdString().c_str()));
 
                             }
                             qan::Edge* newedge= node->getScenegraph()->insertNewEdge(false,node,targetnode);
@@ -227,16 +232,20 @@ void FlowNodeManager::DeSerialize(QJsonArray &jsonarray)
 {
     m_deserializing=true;
 
-    for (int nodeIndex = 0; nodeIndex < jsonarray.size(); ++nodeIndex) {
-        QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
-        FlowNode* node= m_scenegraph->readNode(nodeObject);
-        if(node){
-//            node->blockSignals(true);
-            addItem(node);
+//    Utilities::NonBlockingExec([&](){
+        for (int nodeIndex = 0; nodeIndex < jsonarray.size(); ++nodeIndex) {
+            QJsonObject nodeObject = jsonarray[nodeIndex].toObject();
+            FlowNode* node= m_scenegraph->readNode(nodeObject);
+            if(node){
+    //            node->blockSignals(true);
+                addItem(node);
+            }
         }
-    }
 
-    loadConnections();
+        loadConnections();
+
+
+//    });
 //    for (int var = 0; var < m_internalList.count(); ++var) {
 //        FlowNode* node=m_internalList.at(var);
 //        node->blockSignals(false);

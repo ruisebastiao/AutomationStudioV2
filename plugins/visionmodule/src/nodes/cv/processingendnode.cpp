@@ -23,12 +23,9 @@ void ProcessingEndNode::setInput(QVariant input)
 
 void ProcessingEndNode::doProcess()
 {
-    //QMat* in=m_input.value<QMat*>();
-
-    //    if( in && in->cvMat()->empty()==false){
-
-    //        in->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
-    //    }
+    if(disabled().value<bool>()){
+        return;
+    }
 
     m_output=m_input;
     ProcessingNode::doProcess();

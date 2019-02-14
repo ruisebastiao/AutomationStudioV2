@@ -212,6 +212,31 @@ FlowNodeItem{
 
             }
 
+            Item{
+                Layout.preferredHeight:  50
+                Layout.fillWidth: true
+                RowLayout{
+                    CheckBox{
+                        text: "Lock and read on write"
+                        Layout.fillWidth: true
+                        checked: root.node.lockWriteReadIndex
+                        onCheckedChanged: {
+                            root.node.lockWriteReadIndex=checked
+                        }
+                    }
+                    CheckBox{
+                        text: "Store captures"
+                        Layout.fillWidth: true
+                        checked: root.node.storeCapture
+                        onCheckedChanged: {
+                            root.node.storeCapture=checked
+                        }
+                    }
+                }
+
+
+            }
+
 
             Item{
                 Layout.fillHeight: true

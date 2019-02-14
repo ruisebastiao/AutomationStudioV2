@@ -9,11 +9,14 @@ class ProcessingEndNode : public ProcessingNode
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool processOnResults READ processOnResults WRITE setProcessOnResults NOTIFY processOnResultsChanged USER("serialize"))
     Q_PROPERTY(QVariant processingResults READ processingResults WRITE setProcessingResults NOTIFY processingResultsChanged REVISION 30)
 
 
 private:
     QVariant m_processingResults=QVariant::fromValue(QString(""));
+
+    bool m_processOnResults=false;
 
 public:
     ProcessingEndNode();
@@ -29,6 +32,18 @@ public slots:
 
         m_processingResults = processingResults;
         emit processingResultsChanged(m_processingResults);
+        if(m_processOnResults){
+            doProcess();
+        }
+    }
+
+    void setProcessOnResults(bool processOnResults)
+    {
+        if (m_processOnResults == processOnResults)
+            return;
+
+        m_processOnResults = processOnResults;
+        emit processOnResultsChanged(m_processOnResults);
     }
 
 protected:
@@ -41,8 +56,14 @@ public:
     {
         return m_processingResults;
     }
+    bool processOnResults() const
+    {
+        return m_processOnResults;
+    }
+
 signals:
     void processingResultsChanged(QVariant processingResults);
+    void processOnResultsChanged(bool processOnResults);
 };
 
 #endif // PROCESSINGENDNODE_H

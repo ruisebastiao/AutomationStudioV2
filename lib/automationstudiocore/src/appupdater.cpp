@@ -1,6 +1,6 @@
 #include "appupdater.h"
 #include "Logger.h"
-#include "version.h"
+//#include "version.h"
 
 #include <QFileInfo>
 #include <qthread.h>
@@ -12,11 +12,16 @@
 #include "quazip.h"
 
 
+int buggyFunc() {
+    delete reinterpret_cast<QString*>(0xFEE1DEAD);
+    return 0;
+}
+
 AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 {
 
 
-
+    buggyFunc();
     m_utilities=new Utilities(this);
 
     updatedir=QDir(QCoreApplication::applicationDirPath());
@@ -61,7 +66,7 @@ void AppUpdater::doUpdate(QString release)
 {
     LOG_INFO()<<"Updating::"<<release << "::" << m_downloadPath << "::"<<m_serverUrl;
 
-    QString currVersion(RELEASEVERS);
+//    QString currVersion(GIT_VERSION);
 
 
     //    setUpdateStatus("Backup/Compressing current release");

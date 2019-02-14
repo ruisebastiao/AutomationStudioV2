@@ -21,6 +21,10 @@ class StringNode : public FlowNode
     Q_PROPERTY(QVariant stringEqual READ stringEqual WRITE setStringEqual NOTIFY stringEqualChanged REVISION 31)
     Q_PROPERTY(QVariant stringNotEqual READ stringNotEqual WRITE setStringNotEqual NOTIFY stringNotEqualChanged REVISION 31)
 
+    Q_PROPERTY(QVariant stringLessThen READ stringLessThen WRITE setStringLessThen NOTIFY stringLessThenChanged REVISION 31)
+    Q_PROPERTY(QVariant stringGreaterThen READ stringGreaterThen WRITE setStringGreaterThen NOTIFY stringGreaterThenChanged REVISION 31)
+
+
     Q_PROPERTY(InputType inputType READ inputType WRITE setInputType NOTIFY inputTypeChanged USER("serialize"))
 
 
@@ -37,7 +41,8 @@ public:
         InputExtract,
         InputCompare,
         InputJoin,
-        InputSerialize
+        InputSerialize,
+        InputParse
 
 
     };
@@ -62,22 +67,23 @@ public slots:
 
 
 
-        if(inputType()==InputType::InputPrefix){
-            setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
-        }
-        else if(inputType()==InputType::InputSuffix){
-            setStringOutput(m_stringInput.value<QString>()+stringValue.value<QString>());
-        }
-        else if(inputType()==InputType::InputExtract){
-            updateExtract();
-        }
-        else if(inputType()==InputType::InputCompare){
-            compareStrings();
-        }
-        else {
-            setStringOutput(stringValue);
-        }
+//        if(inputType()==InputType::InputPrefix){
+//            setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
+//        }
+//        else if(inputType()==InputType::InputSuffix){
+//            setStringOutput(m_stringInput.value<QString>()+stringValue.value<QString>());
+//        }
+//        else if(inputType()==InputType::InputExtract){
+//            updateExtract();
+//        }
+//        else if(inputType()==InputType::InputCompare){
+//            compareStrings();
+//        }
+//        else {
+//            setStringOutput(stringValue);
+//        }
 
+        inputsChanged();
         emit stringValueChanged(m_stringValue);
     }
 
@@ -143,6 +149,19 @@ public slots:
         emit storedValueChanged(m_storedValue);
     }
 
+    void setStringLessThen(QVariant stringLessThen)
+    {
+        m_stringLessThen = stringLessThen;
+        emit stringLessThenChanged(m_stringLessThen);
+    }
+
+    void setStringGreaterThen(QVariant stringGreaterThen)
+    {
+
+        m_stringGreaterThen = stringGreaterThen;
+        emit stringGreaterThenChanged(m_stringGreaterThen);
+    }
+
 signals:
     void stringValueChanged(QVariant stringValue);
 
@@ -172,6 +191,10 @@ signals:
 
     void storedValueChanged(QString storedValue);
 
+    void stringLessThenChanged(QVariant stringLessThen);
+
+    void stringGreaterThenChanged(QVariant stringGreaterThen);
+
 private:
     QVariant m_stringValue=QVariant::fromValue(QString(""));
 
@@ -192,9 +215,9 @@ private:
             else{
                 return Utilities::serializationUtilities->serialize(m_stringInput);
             }
-//            else if(m_stringInput.canConvert<QLineF>()){
+            //            else if(m_stringInput.canConvert<QLineF>()){
 
-//            }
+            //            }
         }
 
         return "Invalid input:"+QString(m_stringInput.typeName());
@@ -224,6 +247,17 @@ private:
             QString joined=m_stringInput.value<QString>().append(m_stringValue.value<QString>()).append(inputstr2);
             setStringOutput(joined);
         }
+        else if(inputType()==InputType::InputParse){
+            QString parsed_str;
+            if(m_stringInput.isValid()==false || m_stringInput.isNull() || m_stringInput.canConvert<double>()==false){
+                parsed_str="NAN";
+            }
+            else{
+                parsed_str=QString::number(m_stringInput.value<double>(), 'f', 2);
+            }
+
+            setStringOutput(parsed_str);
+        }
     }
 
     void compareStrings(){
@@ -241,6 +275,21 @@ private:
         }
         else {
             setStringEqual(false);
+        }
+
+        if(m_stringInput.canConvert<double>() && m_stringInput2.canConvert<double>()){
+            double in1,in2;
+
+            in1=m_stringInput.value<double>();
+            in2=m_stringInput2.value<double>();
+
+            setStringLessThen(in1<in2);
+            setStringGreaterThen(in1>in2);
+
+        }
+        else{
+            setStringLessThen(false);
+            setStringGreaterThen(false);
         }
 
     }
@@ -286,7 +335,7 @@ private:
             }
 
             FlowNodePort* inputstring2port=getPortFromKey("stringInput2");
-            if(m_inputType==InputType::InputNone || m_inputType==InputType::InputSerialize){
+            if(m_inputType==InputType::InputNone || m_inputType==InputType::InputSerialize || m_inputType==InputType::InputParse){
 
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
@@ -304,7 +353,14 @@ private:
             }
 
             FlowNodePort* stringequal=getPortFromKey("stringEqual");
+            if(!stringequal){
+                return;
+            }
             FlowNodePort* stringnotequal=getPortFromKey("stringNotEqual");
+
+            if(!stringnotequal){
+                return;
+            }
 
             if(m_inputType!=InputType::InputCompare){
 
@@ -334,6 +390,47 @@ private:
             else{
                 stringequal->setHidden(false);
                 stringnotequal->setHidden(false);
+            }
+
+
+            FlowNodePort* stringless=getPortFromKey("stringLessThen");
+            if(!stringequal){
+                return;
+            }
+            FlowNodePort* stringgreater=getPortFromKey("stringGreaterThen");
+
+            if(!stringgreater){
+                return;
+            }
+
+            if(m_inputType!=InputType::InputCompare){
+
+                SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+
+                if(stringless->getPortItem()->getOutEdgeItems().size()>0){
+
+                    for (int var = 0; var < stringless->getPortItem()->getOutEdgeItems().size(); ++var) {
+                        qan::EdgeItem* edgeitem=stringless->getPortItem()->getOutEdgeItems().at(var);
+                        graph->deleteEdge(edgeitem->getEdge());
+                    }
+
+                }
+
+                if(stringgreater->getPortItem()->getOutEdgeItems().size()>0){
+
+                    for (int var = 0; var < stringgreater->getPortItem()->getOutEdgeItems().size(); ++var) {
+                        qan::EdgeItem* edgeitem=stringgreater->getPortItem()->getOutEdgeItems().at(var);
+                        graph->deleteEdge(edgeitem->getEdge());
+                    }
+
+                }
+
+                stringless->setHidden(true);
+                stringgreater->setHidden(true);
+            }
+            else{
+                stringless->setHidden(false);
+                stringgreater->setHidden(false);
             }
 
             FlowNodePort* stringoutput=getPortFromKey("stringOutput");
@@ -376,6 +473,10 @@ private:
 
     QString m_storedValue="";
 
+    QVariant m_stringLessThen;
+
+    QVariant m_stringGreaterThen;
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -413,6 +514,14 @@ public:
     QString storedValue() const
     {
         return m_storedValue;
+    }
+    QVariant stringLessThen() const
+    {
+        return m_stringLessThen;
+    }
+    QVariant stringGreaterThen() const
+    {
+        return m_stringGreaterThen;
     }
 };
 

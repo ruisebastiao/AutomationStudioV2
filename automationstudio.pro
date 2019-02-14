@@ -4,6 +4,7 @@ QMAKE_CXXFLAGS+=-DBOOST_SYSTEM_NO_DEPRECATED
 
 
 CONFIG += ordered
+CONFIG -= qml_debug
 
 # --- Project structure ---
 
@@ -27,6 +28,8 @@ plugins.depends     = lib
 
 
 OTHER_FILES += config.pri
+
+OTHER_FILES += dump_symbols.pri
 
 OTHER_FILES += plugin.pri
 OTHER_FILES += lib.pri

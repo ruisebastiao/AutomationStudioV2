@@ -90,6 +90,11 @@ void ProcessingNode::initializeNode(int id)
     }
 }
 
+void ProcessingNode::Serialize(QJsonObject &json)
+{
+    FlowNode::Serialize(json);
+}
+
 
 void ProcessingNode::doProcess()
 {
@@ -107,6 +112,11 @@ void ProcessingNode::doProcess()
 
 void ProcessingNode::setInput(QVariant input)
 {
+
+
+    if(disabled().value<bool>()){
+        return;
+    }
 
     m_input = input;
 

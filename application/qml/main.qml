@@ -192,6 +192,7 @@ ApplicationWindow {
             id: drawer
             width: Math.min(rootwindow.width, rootwindow.height) / 2.5
             height: rootwindow.height
+            closePolicy:settings?settings.selectingProject?Popup.NoAutoClose:Popup.CloseOnEscape | Popup.CloseOnPressOutside:Popup.CloseOnEscape | Popup.CloseOnPressOutside
             dragMargin: 1
             onPositionChanged: {
                 if(position==0){
@@ -564,6 +565,7 @@ ApplicationWindow {
 
 
                                         Button{
+
                                             Layout.fillHeight: true
                                             highlighted: true
                                             property bool openProject: projectslist.selectedProject!=rootwindow.currentProject
@@ -571,7 +573,7 @@ ApplicationWindow {
                                             //                                            enabled: projectslist.selectedProject && rootwindow.currentProject.projectLocked==false
                                             Component.onCompleted: {
                                                 enabled=Qt.binding(function(){
-                                                    if(projectslist.selectedProject){
+                                                    if(projectslist.selectedProject && settings.selectingProject==false){
                                                         if(rootwindow.currentProject){
                                                             return rootwindow.currentProject.projectLocked==false
                                                         }
@@ -599,6 +601,14 @@ ApplicationWindow {
                                         }
                                         Item {
 
+                                            BusyIndicator{
+                                                height: parent.height
+                                                width: height
+                                               running: settings?settings.selectingProject:false
+                                               visible: settings?settings.selectingProject:false
+                                               anchors.right: parent.right
+                                               anchors.verticalCenter: parent.verticalCenter
+                                            }
                                             Layout.fillWidth: true
                                             Layout.fillHeight: true
 

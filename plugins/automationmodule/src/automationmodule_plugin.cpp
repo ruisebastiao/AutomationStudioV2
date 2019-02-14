@@ -90,6 +90,8 @@ void AutomationModulePlugin::registerTypes(const char *uri){
     qmlRegisterUncreatableType<QAbstractSocket>(uri, 1, 0, "QAbstractSocket","Cannot be created");
     qmlRegisterUncreatableType<ModuleListModel>(uri, 1, 0, "ModuleListModel","Cannot be created");
     qmlRegisterUncreatableType<FlowNodeManager>(uri, 1, 0, "FlowNodeManager","Cannot be created");
+    qmlRegisterUncreatableType<FlowNodePort>(uri, 1, 0, "FlowNodePort","Cannot be created");
+
     qmlRegisterUncreatableType<StringNode>(uri, 1, 0, "StringNode","Cannot be created");
     qmlRegisterUncreatableType<ProperyInfo>(uri, 1, 0, "SubProjectInfo","Cannot be created");
 

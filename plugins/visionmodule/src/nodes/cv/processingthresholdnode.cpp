@@ -18,17 +18,16 @@ QQmlComponent *ProcessingThresholdNode::delegate(QQmlEngine &engine) noexcept
 
 void ProcessingThresholdNode::setInput(QVariant input)
 {
-    
-    //    if(m_input){
-    //        m_input->cvMat()->copyTo(*m_originalInput->cvMat());
-    //    }
+
 
     ProcessingNode::setInput(input);
 }
 
 void ProcessingThresholdNode::doProcess()
 {
-
+    if(disabled().value<bool>()){
+        return;
+    }
 
     QMat* in=m_input.value<QMat*>();
     QMat* mask=m_maskInput.value<QMat*>();

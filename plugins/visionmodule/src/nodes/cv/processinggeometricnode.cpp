@@ -24,167 +24,107 @@ void ProcessingGeometricNode::setInput(QVariant input)
 
 }
 
-QVariant ProcessingGeometricNode::lineSegment(){
+/**
+ * Rotate an image (source: http://opencv-code.com/quick-tips/how-to-rotate-image-in-opencv/)
+ */
+void rotate(cv::Mat& src, double angle, cv::Mat& dst)
+{
+    int len = std::max(src.cols, src.rows);
+    cv::Point2f pt(len/2., len/2.);
+    cv::Mat r = cv::getRotationMatrix2D(pt, angle, 1.0);
+
+    cv::warpAffine(src, dst, r, cv::Size(len, len));
+}
 
 
-    QLineF result_line;
+QList<cv::Point> process_inputs(QVariant input){
+
+    QList<cv::Point> list;
+    if(input.canConvert<cv::Rect>()) {
+
+        cv::Rect input_rect= input.value<cv::Rect>();
+        list.append(cv::Point(input_rect.x+(input_rect.width/2),input_rect.y+(input_rect.height/2)));
 
 
-    double angle,length;
+    }
+    else if(input.canConvert<cv::RotatedRect>()) {
+        cv::RotatedRect input_rotacted_rect= input.value<cv::RotatedRect>();
+
+        list.append(input_rotacted_rect.center);
+
+
+    }
+    else if(input.canConvert<QVariantList>()) {
+        QVariantList rect_list= input.value<QVariantList>();
+
+        for (int var = 0; var < rect_list.length(); ++var) {
+
+
+            QVariant variant_rect=rect_list.at(var);
+
+            if(variant_rect.canConvert<cv::Rect>()){
+
+                cv::Rect rect=variant_rect.value<cv::Rect>();
+                list.append(cv::Point2f(rect.x+(rect.width/2),rect.y+(rect.height/2)));
+
+
+            }
+            else if(variant_rect.canConvert<cv::RotatedRect>()){
+
+                cv::RotatedRect rect=variant_rect.value<cv::RotatedRect>();
+                list.append(rect.center);
+
+
+            }
+
+        }
+
+    }
+    else if(input.canConvert<QLineF>()) {
+        QLineF segment=input.value<QLineF>();
+        list.append(cv::Point2f(segment.center().x(),segment.center().y()));
+    }
+
+    return list;
+
+}
+
+void ProcessingGeometricNode::processLineSegments(){
+
+
+    QVariantList result_lines;
+
+
+    QVariantList  result_angles;
 
     QMat* in=m_input.value<QMat*>();
 
     QMat* output=m_output.value<QMat*>();
     QMat* drawsource=m_drawSource.value<QMat*>();
 
+
+    QList<cv::Point> start_points,end_points;
+
+
     if(m_input1.isValid() && m_input2.isValid()){
 
         switch (m_geometricType) {
         case GeometricLinePointLine:
         {
-            cv::Point2f startpt;
-            cv::Point2f endpoint;
-
-            if(strcmp(m_input1.typeName(),"cv::Point")==0) {
-                startpt = m_input1.value<cv::Point>();
-            }
-            else if(strcmp(m_input1.typeName(),"std::vector<cv::Rect>")==0) {
-                std::vector<cv::Rect> rect_obj = m_input1.value<std::vector<cv::Rect>>();
-
-                // TODO check empty vectors
-
-                if(rect_obj.size()>0){
-
-
-                    // if vector take index 0 Rect
-
-                    cv::Rect input1_rect=rect_obj.at(0);
-                    startpt=cv::Point2f(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
-                }
-
-            }
-
-            if(strcmp(m_input2.typeName(),"QLineF")==0) {
-                QLineF segment=m_input2.value<QLineF>();
-                endpoint= cv::Point2f(segment.center().x(),segment.center().y());
-            }
-
-            result_line=QLineF(QPointF(endpoint.x,endpoint.y),QPointF(startpt.x,startpt.y));
-
-            if(result_line.length()!=0){
-
-
-                QMat* drawsource=m_drawSource.value<QMat*>();
-
-                if(drawsource && drawsource->cvMat()->empty()==false){
-
-                    line(*drawsource->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
-                    putText(*drawsource->cvMat(),
-                            qPrintable(QString::number(result_line.angle(), 'f', 2)),
-                            startpt, // Coordinates
-                            cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
-                            2.0, // Scale. 2.0 = 2x bigger
-                            cv::Scalar(255,0,0), // BGR Color
-                            1, // Line Thickness (Optional)
-                            CV_AA); // Anti-alias (Optional)
-                    if(output){
-                        line(*output->cvMat(),startpt,endpoint,cv::Scalar(255, 0, 0), 2, CV_AA);
-                        putText(*output->cvMat(),
-                                qPrintable(QString::number(result_line.angle(), 'f', 2)),
-                                startpt, // Coordinates
-                                cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
-                                2.0, // Scale. 2.0 = 2x bigger
-                                cv::Scalar(255,0,0), // BGR Color
-                                1, // Line Thickness (Optional)
-                                CV_AA); // Anti-alias (Optional)
-                    }
-
-                }
-
-            }
-
-
-
-        }
-
+            start_points.append(process_inputs(m_input1));
+            end_points.append(process_inputs(m_input2));
             break;
+        }
         case GeometricPointAngleLengthLine:
 
 
             break;
         case Geometric2PointLine:
         {
-            cv::Point pt1,pt2;
-            QString teste=m_input1.typeName();
-
-            if(m_input1.canConvert<cv::Rect>()) {
-
-                cv::Rect input1_rect= m_input1.value<cv::Rect>();
-                pt1=cv::Point(input1_rect.x+(input1_rect.width/2),input1_rect.y+(input1_rect.height/2));
 
 
-            }
-            else if(m_input1.canConvert<cv::RotatedRect>()) {
-                cv::RotatedRect input1_rotacted_rect= m_input1.value<cv::RotatedRect>();
-
-                pt1=input1_rotacted_rect.center;
-
-
-            }
-
-
-            if(m_input2.canConvert<cv::Rect>()) {
-
-
-                cv::Rect input2_rect= m_input2.value<cv::Rect>();
-                pt2=cv::Point(input2_rect.x+(input2_rect.width/2),input2_rect.y+(input2_rect.height/2));
-
-
-            }else if(m_input2.canConvert<cv::RotatedRect>()) {
-                cv::RotatedRect input2_rotacted_rect= m_input2.value<cv::RotatedRect>();
-
-                pt2=input2_rotacted_rect.center;
-
-
-
-
-            }
-
-            if((pt1.x!=0 && pt1.y!=0) && (pt2.x!=0 && pt2.y!=0)){
-
-
-                result_line=QLineF(QPointF(pt1.x,pt1.y),QPointF(pt2.x,pt2.y));
-
-                QMat* drawsource=m_drawSource.value<QMat*>();
-
-                if(drawsource && drawsource->cvMat()->empty()==false){
-
-                    line(*drawsource->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
-                    putText(*drawsource->cvMat(),
-                            qPrintable(QString::number(result_line.angle(), 'f', 2)),
-                            pt1, // Coordinates
-                            cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
-                            2.0, // Scale. 2.0 = 2x bigger
-                            cv::Scalar(255,0,0), // BGR Color
-                            1, // Line Thickness (Optional)
-                            CV_AA); // Anti-alias (Optional)
-                    if(output){
-                        line(*output->cvMat(),pt1,pt2,cv::Scalar(255, 0, 0), 2, CV_AA);
-                        putText(*output->cvMat(),
-                                qPrintable(QString::number(result_line.angle(), 'f', 2)),
-                                pt1, // Coordinates
-                                cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
-                                2.0, // Scale. 2.0 = 2x bigger
-                                cv::Scalar(255,0,0), // BGR Color
-                                1, // Line Thickness (Optional)
-                                CV_AA); // Anti-alias (Optional)
-                    }
-
-                }
-            }
-        }
-
-
+            start_points.append(process_inputs(m_input1));
+            end_points.append(process_inputs(m_input2));
 
             break;
 
@@ -192,30 +132,82 @@ QVariant ProcessingGeometricNode::lineSegment(){
         }
 
 
-
+        }
     }
 
-    if(result_line.length()==0){
-        m_output1=QVariant();
-        emit output1Changed(m_output1);
-        m_output2=QVariant::fromValue(QString("NAN"));
-        emit output2Changed(m_output2);
-    }
-    else{
-        m_output1=QVariant::fromValue(result_line);
-        emit output1Changed(m_output1);
-        m_output2=QVariant::fromValue(QString::number(result_line.angle(), 'f', 2));
-        emit output2Changed(m_output2);
-    }
 
-    return result_line;
+    for (int start_point_inc = 0; start_point_inc < start_points.length(); ++start_point_inc) {
+        cv::Point start_pt=start_points.at(start_point_inc);
+        for (int end_point_inc = 0; end_point_inc < end_points.length(); ++end_point_inc) {
+
+            cv::Point end_pt=end_points.at(end_point_inc);
+
+            if((start_pt.x!=0 && start_pt.y!=0) && (end_pt.x!=0 && end_pt.y!=0)){
+
+                QLineF result_line=QLineF(QPointF(start_pt.x,start_pt.y),QPointF(end_pt.x,end_pt.y));
+
+                if(result_line.length()>0){
+
+                    if(result_line.angle()>=minAngle() && result_line.angle()<=maxAngle()){
+                        result_lines.append(result_line);
+                        result_angles.append(result_line.angle());
+                    }
+
+
+
+                    QMat* drawsource=m_drawSource.value<QMat*>();
+
+                    if(drawsource && drawsource->cvMat()->empty()==false){
+
+                        // Create and rotate the text
+                        //                        cv::Mat textImg = cv::Mat::zeros((*drawsource->cvMat()).rows, (*drawsource->cvMat()).cols, (*drawsource->cvMat()).type());
+
+
+                        cv::Scalar linecolor;
+                        if(result_line.angle()>=minAngle() && result_line.angle()<=maxAngle()){
+                            linecolor=cv::Scalar(0, 255, 0);
+                        }
+                        else{
+                            linecolor=cv::Scalar(0, 0, 255);
+                        }
+                        line(*drawsource->cvMat(),start_pt,end_pt,linecolor, 2, CV_AA);
+                        putText(*drawsource->cvMat(),
+                                qPrintable(QString::number(result_line.angle(), 'f', 2)),
+                                cv::Point(result_line.center().x(),result_line.center().y()), // Coordinates
+                                cv::FONT_HERSHEY_COMPLEX_SMALL, // Font
+                                2.0, // Scale. 2.0 = 2x bigger
+                               linecolor, // BGR Color
+                                1, // Line Thickness (Optional)
+                                CV_AA); // Anti-alias (Optional)
+
+                        //                        rotate(textImg, result_line.angle(), textImg);
+                        //                        *drawsource->cvMat()=*drawsource->cvMat()+textImg;
+                        if(output){
+                            line(*output->cvMat(),start_pt,end_pt,linecolor, 2, CV_AA);
+                            //                            *output->cvMat()=*output->cvMat()+textImg;
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+    }
+    m_output1=QVariant::fromValue(result_lines);
+    emit output1Changed(m_output1);
+    //    m_output2=QVariant::fromValue(QString::number(result_line.angle(), 'f', 2));
+    m_output2=QVariant::fromValue(result_angles);
+
+    emit output2Changed(m_output2);
 
 }
-
-
 void ProcessingGeometricNode::doProcess()
 {
 
+    if(disabled().value<bool>()){
+        return;
+    }
 
     // TODO during real time processing this should be removed, only needed if in config mode
     //m_originalFrame->cvMat()->copyTo(*m_output.value<QMat*>()->cvMat());
@@ -225,12 +217,12 @@ void ProcessingGeometricNode::doProcess()
     case Geometric2PointLine:
 
 
-        lineSegment().value<QLineF>();
+        processLineSegments();
 
         break;
     case GeometricLinePointLine:
 
-        lineSegment().value<QLineF>();
+        processLineSegments();
 
 
         break;

@@ -46,7 +46,7 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
 {
     m_currentDir=QCoreApplication::applicationDirPath();
 
-    setReleaseVersion(RELEASEVERS);
+    setReleaseVersion(CURRENT_RELEASE);
     setBuildInfo(BUILD_ID);
 
     solveImportPaths();

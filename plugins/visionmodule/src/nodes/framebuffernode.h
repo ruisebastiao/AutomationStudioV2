@@ -127,6 +127,8 @@ class FrameBufferNode : public FlowNode
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool storeCapture READ storeCapture WRITE setStoreCapture NOTIFY storeCaptureChanged)
+
 
     /// IN ports
     Q_PROPERTY(QVariant frameSource READ frameSource WRITE setFrameSource NOTIFY frameSourceChanged REVISION 30)
@@ -138,6 +140,7 @@ class FrameBufferNode : public FlowNode
 
     Q_PROPERTY(QVariant numBuffers READ numBuffers WRITE setNumBuffers NOTIFY numBuffersChanged USER("serialize") REVISION 30)
 
+    Q_PROPERTY(bool lockWriteReadIndex READ lockWriteReadIndex WRITE setLockWriteReadIndex NOTIFY lockWriteReadIndexChanged USER("serialize"))
 
 
     /////OUT ports
@@ -149,6 +152,7 @@ class FrameBufferNode : public FlowNode
 
 
     Q_PROPERTY(QVariant bufferFull READ bufferFull WRITE setBufferFull NOTIFY bufferFullChanged REVISION 31)
+
 
 
 
@@ -180,13 +184,17 @@ private:
 
     bool m_autoIncrementReadIndex=false;
 
-    bool m_fullBufferReaded=false;
+//    bool m_fullBufferReaded=false;
 
 
     QVariant m_bufferFull=QVariant::fromValue(false);
 
 
     QVariant m_resetIndexes=QVariant::fromValue(false);
+
+    bool m_lockWriteReadIndex=false;
+
+    bool m_storeCapture=false;
 
 public:
     FrameBufferNode();
@@ -309,6 +317,7 @@ public slots:
 
         m_writeIndex = writeIndex;
 
+
         if(m_writeIndex.value<int>()>=m_numBuffers.value<int>()){
             setBufferFull(true);
             m_writeIndex=0;
@@ -324,7 +333,7 @@ public slots:
         m_readIndex = readIndex;
 
         if(m_readIndex.value<int>()>=m_numBuffers.value<int>()){
-            m_fullBufferReaded=true;
+//            m_fullBufferReaded=true;
             m_readIndex=0;
         }
 
@@ -356,9 +365,9 @@ public slots:
 
 
         m_bufferFull = bufferFull;
-        if(m_bufferFull.value<bool>()){
-            m_fullBufferReaded=false;
-        }
+//        if(m_bufferFull.value<bool>()){
+//            m_fullBufferReaded=false;
+//        }
         emit bufferFullChanged(m_bufferFull);
     }
 
@@ -373,6 +382,24 @@ public slots:
             setReadIndex(0);
             m_resetIndexes=QVariant::fromValue(false);
         }
+    }
+
+    void setLockWriteReadIndex(bool lockWriteReadIndex)
+    {
+        if (m_lockWriteReadIndex == lockWriteReadIndex)
+            return;
+
+        m_lockWriteReadIndex = lockWriteReadIndex;
+        emit lockWriteReadIndexChanged(m_lockWriteReadIndex);
+    }
+
+    void setStoreCapture(bool storeCapture)
+    {
+        if (m_storeCapture == storeCapture)
+            return;
+
+        m_storeCapture = storeCapture;
+        emit storeCaptureChanged(m_storeCapture);
     }
 
 signals:
@@ -394,11 +421,23 @@ signals:
     // FlowNode interface
     void resetIndexesChanged(QVariant resetIndexes);
 
+    void lockWriteReadIndexChanged(bool lockWriteReadIndex);
+
+    void storeCaptureChanged(bool storeCapture);
+
 public:
 
 QVariant resetIndexes() const
 {
     return m_resetIndexes;
+}
+bool lockWriteReadIndex() const
+{
+    return m_lockWriteReadIndex;
+}
+bool storeCapture() const
+{
+    return m_storeCapture;
 }
 };
 

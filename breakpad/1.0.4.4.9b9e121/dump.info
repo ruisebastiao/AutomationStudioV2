@@ -1,0 +1,1744 @@
+2019-02-14 17:43:23: minidump_processor.cc:264: INFO: Processing minidump in file fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp
+2019-02-14 17:43:23: minidump.cc:3500: INFO: Minidump opened minidump fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp
+2019-02-14 17:43:23: minidump.cc:3545: INFO: Minidump not byte-swapping minidump
+2019-02-14 17:43:23: minidump.cc:3902: INFO: GetStream: type 1197932546 not present
+2019-02-14 17:43:23: minidump.cc:1945: INFO: MinidumpModule could not determine version for C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\bin\zlib.dll
+2019-02-14 17:43:23: minidump_processor.cc:116: INFO: Minidump fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp has CPU info, OS info, Breakpad info, exception, module list, thread list, dump thread, and requesting thread
+2019-02-14 17:43:23: minidump_processor.cc:150: INFO: Looking at thread fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp:0/5 id 0xdec
+2019-02-14 17:43:23: minidump.cc:307: INFO: MinidumpContext: looks like AMD64 context
+2019-02-14 17:43:23: minidump.cc:307: INFO: MinidumpContext: looks like AMD64 context
+2019-02-14 17:43:23: minidump.cc:325: ERROR: MinidumpContext not actually amd64 context
+2019-02-14 17:43:23: minidump.cc:2839: INFO: MinidumpException cannot read context
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2e00010025e000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x101
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x11
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40000036c9400
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x11000000020101
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x48
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fe00000001
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e0f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x39d840
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fbd0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1c9800000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x18c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e0f0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x39d840
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fbd0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2000001000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffffffffffe
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1d2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffffffffffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x39d840
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e840
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/vcruntime140.amd64.pdb/EE2D8A14B56E41E5B0CC81595117A79F1/vcruntime140.amd64.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/vcruntime140.amd64.pdb/EE2D8A14B56E41E5B0CC81595117A79F1/vcruntime140.amd64.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e130
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e1f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2eedf0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e1f0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/vcruntime140.amd64.pdb/EE2D8A14B56E41E5B0CC81595117A79F1/vcruntime140.amd64.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x13f19ffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ucrtbase.pdb/12557465F1BA493FA5A6B8877C7187601/ucrtbase.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ucrtbase.pdb/12557465F1BA493FA5A6B8877C7187601/ucrtbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25ed30
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25ed30
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7759ffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x5385d
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fbd0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e0f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e1f0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2eedf0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25ed30
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/vcruntime140.amd64.pdb/EE2D8A14B56E41E5B0CC81595117A79F1/vcruntime140.amd64.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e1f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25f660
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25ed30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e840
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7759ffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25ed30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25b000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x260000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fbd0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fbd0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e1f0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x260000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xdddc
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2e02c8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2eedf0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2eefe4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fbd0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ef1e0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x260000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25b000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e710
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7759ffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7759ffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fbd0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e240
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25e710
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff00000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ucrtbase.pdb/12557465F1BA493FA5A6B8877C7187601/ucrtbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x20
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1fa000000000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10202002be3c8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ucrtbase.pdb/12557465F1BA493FA5A6B8877C7187601/ucrtbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x20
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x20
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25fc20
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x367e6c0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffffffffffe
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x27f
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffff00001fa0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2e02d8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x58
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xb80062001a
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ef1e0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2e0288
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x27ffff0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ef1e0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36c6500
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36b8ca0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffffffffffe
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36a8c30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36c6500
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: minidump_processor.cc:150: INFO: Looking at thread fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp:1/5 id 0x27c8
+2019-02-14 17:43:23: minidump.cc:307: INFO: MinidumpContext: looks like AMD64 context
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x101
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1d4c48c9e7a8083
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1d4c48c9e7a8083
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x39cc00
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: minidump_processor.cc:150: INFO: Looking at thread fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp:2/5 id 0x7e0
+2019-02-14 17:43:23: minidump.cc:307: INFO: MinidumpContext: looks like AMD64 context
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36c9490
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x80100080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2e0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x80000001
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36c9490
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x60
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2000002
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x20000000c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe460
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe468
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fe00000004
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011318
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26f0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x318
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe450
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x438
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x31c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/powrprof.pdb/C39D0C69BF9C4D30B1579F2C269CDD732/powrprof.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fefbc4ffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe7b8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe7b8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x318
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe530
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe540
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x401f900
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26f0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x5540ee7f
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ed1e50
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ed2048
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ed23f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3f17984
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x318
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4010000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40102a8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe980
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100740003
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ed2240
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe988
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4010000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x368
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x368
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40105e8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x368
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x102cd0005
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ed2240
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3f17970
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26f0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x28e00
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x66006f00000002
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26fd7e8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26f00f0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/powrprof.pdb/C39D0C69BF9C4D30B1579F2C269CDD732/powrprof.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fefbc4ffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26fd7e8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/powrprof.pdb/C39D0C69BF9C4D30B1579F2C269CDD732/powrprof.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fefbc4ffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3f17984
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x67
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2800
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3f17970
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3f17978
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x26f0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x28e0000008664
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3f17910
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6866400004550
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x202200f000000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xd4000009020b
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1b600
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1000000015c4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7ff715c0000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1000600010006
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10006
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6000002c000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x140000300037ba8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1000000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc8a0000f2b8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc800015f8c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10f280001a000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x380000e1e8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc510dcc77750
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2b80000f000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc510dcc776a0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011318
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x800704c7
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x800704c7
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf350
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/powrprof.pdb/C39D0C69BF9C4D30B1579F2C269CDD732/powrprof.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fefbc4ffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe970
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe9e0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x58
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe990
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff00000017
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/powrprof.pdb/C39D0C69BF9C4D30B1579F2C269CDD732/powrprof.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fefbc4ffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3f17910
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xd
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf350
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x17
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x55642167
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed80
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed90
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x5
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abead0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1a0018
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36f39b0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x800000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abebb0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff0000260c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x11c4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x200000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abeb90
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abeb90
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abeb90
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x20
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed80
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed80
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed70
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abef60
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x556423e7
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7feff8a0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abefb0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf010
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abec90
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed90
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x48
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abed90
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abfba0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3d00023f
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3d00023f
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d7bf8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d7bf0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d7bfb
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d7bf0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xa
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d000100002600
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x900000001
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d7bf0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d7c00
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2eafd0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d7c00
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x8000000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xa
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1f800010001f
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x246002b002b
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4ddbe0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x14
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d0230
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x58
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc7d0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d0230
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xd
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abefc0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d0230
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abefe4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abefc0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ea180
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3d00023f
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3d00023f
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xd00000d
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffff00001f80
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d02a8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d0000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4d02a8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011318
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x816
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf1bc
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf170
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x74004000000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7300650072007a
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6c006c0064002e
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc0000023
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf050
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf180
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf060
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf180
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf080
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xcb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf0d0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xcb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abe348
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc01d
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf140
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf450
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf450
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc01d
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf450
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40115a0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec1e40
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc01d00001cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6b12
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec00f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xb935
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf450
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40127e0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4012190
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf450
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1cb8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf2b0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x5
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0568
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x27c8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x20
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7fffffdc000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x28ef918
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xb935000006e8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6642000004d0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abfba0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011588
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40115a0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf450
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf360
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6b12
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc01d
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x61b1a793504d444d
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2000000009
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x5c65a87500000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abfba0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011588
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011568
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x9
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40115a0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abfba0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ec0080
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40115a0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffffffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x260c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011318
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011568
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x40112f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011588
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/AutomationStudio.pdb/4396C3F3A89F46D7BCE2A4CFE96A45C475/AutomationStudio.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abfb80
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x866400000000
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/dbghelp.pdb/094E015761DA454EB641C2328520CD6F2/dbghelp.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x200000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100000006
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1db1775c7b9c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x10000010000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x78000004d0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x9800000011
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100000000008
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc00000058
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xb00000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x7ff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/crypt32.pdb/710C2BA4222D4EAF86CBB1A0547971D62/crypt32.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/crypt32.pdb/710C2BA4222D4EAF86CBB1A0547971D62/crypt32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x9
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2000000020
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x8c0000006c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1e00000038
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1ac000000c4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x254000000a8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2b8000000f4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x34800000030
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3480000000c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2b7800000354
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ecc00000354
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ecc00000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ecc
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x9400009339
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x93cd000093ad
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xdcd50000bb08
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2dd600002ecc
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x5ca200002eee
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6fe20000368b
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc0000932d
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x14ed5
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ecc
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff0000260c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xb00000000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2d8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf7f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf640
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf820
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf850
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf8d0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xc0150008
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf600
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf630
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf620
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36f39b0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf850
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x327de0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf640
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1a0018
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36f39b0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4010000
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2abf850
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011300
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36f39b0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x25
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x92000000020002
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x5b000f00
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36f39b0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2eefe8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2ef390
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x4011310
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x33004d004c005c
+2019-02-14 17:43:23: minidump_processor.cc:150: INFO: Looking at thread fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp:3/5 id 0x1aac
+2019-02-14 17:43:23: minidump.cc:307: INFO: MinidumpContext: looks like AMD64 context
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2c728
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100000102
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2c780
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x48
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffffffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffffffffffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1a4
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2c8b8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x401
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xbba4fc2cd3de
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2c818
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2c810
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1a4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2c8a0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1a4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff00000001
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1a4
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2ca50
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2c988
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x24
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffffffffffe
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x35d2f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x392110
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2ca50
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x35d301
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x24
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x35d301
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2ca50
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x392110
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x35d3e8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x120806
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x401
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2a720a3ba16
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c7
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffffffffffe
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c2ca80
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: minidump_processor.cc:150: INFO: Looking at thread fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp:4/5 id 0x11c4
+2019-02-14 17:43:23: minidump.cc:307: INFO: MinidumpContext: looks like AMD64 context
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc778
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x102
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc7d0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x48
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x30
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffffffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffffffffffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernelbase.pdb/846081B714734DC6A60FB5EFE0A4E14E2/kernelbase.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x28c
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc908
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x401
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xbba4fd05d20e
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/kernel32.pdb/EA5E086A3A914A48A4A9BC22EAE19F2F2/kernel32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc868
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc860
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x28c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/ntdll.pdb/7A835243465B497596BAC04D479A78ED1/ntdll.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc8f0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x28c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xffffffff00000001
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x28c
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebcaa0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x1
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebc9d8
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x24
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffffffffffe
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36a23d0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x367e760
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/user32.pdb/9A43D3FD584F4A9698B7AB8D28BC8C502/user32.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebcaa0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36a2401
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x24
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36a2401
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebcaa0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x367e760
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x36a24c8
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2411d6
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x401
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2a720a3ba83
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x2c7
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: simple_symbol_supplier.cc:171: INFO: No symbol file at symbols/Qt5Core.pdb/96BBCF0141884B8681A6AD71EFD918EE1/Qt5Core.sym
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0xfffffffffffffffe
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x100
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x3ebcad0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: basic_code_modules.cc:88: INFO: No module at 0x0
+2019-02-14 17:43:23: minidump_processor.cc:258: INFO: Processed fc18850b-2610-4cbe-a71e-3051ae4ba5ca.dmp
+2019-02-14 17:43:23: minidump.cc:3472: INFO: Minidump closing minidump
+Operating system: Windows NT
+                  6.1.7601 Service Pack 1
+CPU: amd64
+     family 6 model 94 stepping 3
+     4 CPUs
+
+Crash reason:  EXCEPTION_ACCESS_VIOLATION_READ
+Crash address: 0xfee1dead
+
+Thread 0 (crashed)
+ 0  ntdll.dll + 0x698ca
+    rbx = 0x00000000   r12 = 0x00000000   r13 = 0x00000000   r14 = 0x3f1a2950
+    r15 = 0x7748b328   rip = 0x776098ca   rsp = 0x0025de98   rbp = 0x0025e0f0
+    Found by: given as instruction pointer in context
+ 1  KERNELBASE.dll + 0x10ab
+    rip = 0xfd1d10ac   rsp = 0x0025dea0
+    Found by: stack scanning
+ 2  kernel32.dll + 0x33890
+    rip = 0x773b3891   rsp = 0x0025df20
+    Found by: stack scanning
+ 3  AutomationStudio.exe + 0x3974
+    rip = 0x3f1a3975   rsp = 0x0025df40
+    Found by: stack scanning
+ 4  AutomationStudio.exe + 0x2a57
+    rip = 0x3f1a2a58   rsp = 0x0025df70
+    Found by: stack scanning
+ 5  kernel32.dll + 0x9bc1f
+    rip = 0x7741bc20   rsp = 0x0025dfb0
+    Found by: stack scanning
+ 6  AutomationStudio.exe + 0x51c7
+    rip = 0x3f1a51c8   rsp = 0x0025dfe0
+    Found by: stack scanning
+ 7  VCRUNTIME140.dll + 0x4f62
+    rip = 0xfa194f63   rsp = 0x0025dff0
+    Found by: stack scanning
+ 8  VCRUNTIME140.dll + 0x4bf5
+    rip = 0xfa194bf6   rsp = 0x0025e020
+    Found by: stack scanning
+ 9  0x13f19ffff
+    rip = 0x3f1a0000   rsp = 0x0025e028
+    Found by: stack scanning
+10  ucrtbase.dll + 0xaa50
+    rip = 0xf0c6aa51   rsp = 0x0025e030
+    Found by: stack scanning
+11  AutomationStudio.exe + 0x51c7
+    rip = 0x3f1a51c8   rsp = 0x0025e040
+    Found by: stack scanning
+12  ntdll.dll + 0x4bcb9
+    rip = 0x775ebcba   rsp = 0x0025e050
+    Found by: stack scanning
+13  0x7759ffff
+    rip = 0x775a0000   rsp = 0x0025e060
+    Found by: stack scanning
+14  ntdll.dll + 0x112503
+    rip = 0x776b2504   rsp = 0x0025e070
+    Found by: stack scanning
+15  ntdll.dll + 0x11250f
+    rip = 0x776b2510   rsp = 0x0025e088
+    Found by: stack scanning
+16  ntdll.dll + 0x79014
+    rip = 0x77619015   rsp = 0x0025e090
+    Found by: stack scanning
+17  ntdll.dll + 0x57387
+    rip = 0x775f7388   rsp = 0x0025e0c0
+    Found by: stack scanning
+18  VCRUNTIME140.dll + 0xc16c
+    rip = 0xfa19c16d   rsp = 0x0025e0e0
+    Found by: stack scanning
+19  0x7759ffff
+    rip = 0x775a0000   rsp = 0x0025e108
+    Found by: stack scanning
+20  ntdll.dll + 0x5385c
+    rip = 0x775f385d   rsp = 0x0025e120
+    Found by: stack scanning
+21  ntdll.dll + 0x6bf7c
+    rip = 0x7760bf7d   rsp = 0x0025e130
+    Found by: stack scanning
+22  ntdll.dll + 0x13892b
+    rip = 0x776d892c   rsp = 0x0025e150
+    Found by: stack scanning
+23  ntdll.dll + 0x40439
+    rip = 0x775e043a   rsp = 0x0025e160
+    Found by: stack scanning
+24  kernel32.dll + 0x10dd87
+    rip = 0x7748dd88   rsp = 0x0025e170
+    Found by: stack scanning
+25  ntdll.dll + 0x13892b
+    rip = 0x776d892c   rsp = 0x0025e1b8
+    Found by: stack scanning
+26  ntdll.dll + 0x112503
+    rip = 0x776b2504   rsp = 0x0025e1d8
+    Found by: stack scanning
+27  0x7759ffff
+    rip = 0x775a0000   rsp = 0x0025e1f0
+    Found by: stack scanning
+28  ntdll.dll + 0x5385c
+    rip = 0x775f385d   rsp = 0x0025e1f8
+    Found by: stack scanning
+29  0x7759ffff
+    rip = 0x775a0000   rsp = 0x0025e200
+    Found by: stack scanning
+30  ntdll.dll + 0x13892b
+    rip = 0x776d892c   rsp = 0x0025e208
+    Found by: stack scanning
+31  ntdll.dll + 0x572fb
+    rip = 0x775f72fc   rsp = 0x0025e228
+    Found by: stack scanning
+32  ntdll.dll + 0x112503
+    rip = 0x776b2504   rsp = 0x0025e230
+    Found by: stack scanning
+33  KERNELBASE.dll + 0x1872
+    rip = 0xfd1d1873   rsp = 0x0025e250
+    Found by: stack scanning
+34  Qt5Core.dll + 0x55fcb7
+    rip = 0xd950fcb8   rsp = 0x0025e258
+    Found by: stack scanning
+35  ucrtbase.dll + 0x105d5
+    rip = 0xf0c705d6   rsp = 0x0025e260
+    Found by: stack scanning
+36  kernel32.dll + 0x20032
+    rip = 0x773a0033   rsp = 0x0025e280
+    Found by: stack scanning
+37  Qt5Core.dll + 0x82414
+    rip = 0xd9032415   rsp = 0x0025e290
+    Found by: stack scanning
+38  ucrtbase.dll + 0x105d5
+    rip = 0xf0c705d6   rsp = 0x0025e2a0
+    Found by: stack scanning
+39  Qt5Core.dll + 0x55fcc7
+    rip = 0xd950fcc8   rsp = 0x0025e308
+    Found by: stack scanning
+40  KERNELBASE.dll + 0xb59f
+    rip = 0xfd1db5a0   rsp = 0x0025e310
+    Found by: stack scanning
+41  ntdll.dll + 0x27b13
+    rip = 0x775c7b14   rsp = 0x0025e3f0
+    Found by: stack scanning
+42  ntdll.dll + 0x27b13
+    rip = 0x775c7b14   rsp = 0x0025e420
+    Found by: stack scanning
+
+Thread 1
+ 0  ntdll.dll + 0x69e3a
+    rbx = 0x00000000   r12 = 0x775aa9d0   r13 = 0x00000000   r14 = 0x775aa9a8
+    r15 = 0x775aaa48   rip = 0x77609e3a   rsp = 0x028ef918   rbp = 0x00000000
+    Found by: given as instruction pointer in context
+ 1  ntdll.dll + 0x1332c
+    rip = 0x775b332d   rsp = 0x028ef920
+    Found by: stack scanning
+ 2  ntdll.dll + 0xaa1f
+    rip = 0x775aaa20   rsp = 0x028ef940
+    Found by: stack scanning
+
+Thread 2
+ 0  ntdll.dll + 0x6a55a
+    rbx = 0x000004d0   r12 = 0x04012198   r13 = 0x03ec0080   r14 = 0x800704c7
+    r15 = 0x00100000   rip = 0x7760a55a   rsp = 0x02abe348   rbp = 0x02abf360
+    Found by: given as instruction pointer in context
+ 1  KERNELBASE.dll + 0x6047f
+    rip = 0xfd230480   rsp = 0x02abe350
+    Found by: stack scanning
+ 2  KERNELBASE.dll + 0x616a
+    rip = 0xfd1d616b   rsp = 0x02abe3a0
+    Found by: stack scanning
+ 3  kernel32.dll + 0x4ad0b
+    rip = 0x773cad0c   rsp = 0x02abe3f0
+    Found by: stack scanning
+ 4  dbghelp.dll + 0x37ad1
+    rip = 0xf0ef7ad2   rsp = 0x02abe450
+    Found by: stack scanning
+ 5  0x7fefbc4ffff
+    rip = 0xfbc50000   rsp = 0x02abe4d0
+    Found by: stack scanning
+ 6  KERNELBASE.dll + 0x11b20
+    rip = 0xfd1e1b21   rsp = 0x02abe4e0
+    Found by: stack scanning
+ 7  kernel32.dll + 0xdfe6
+    rip = 0x7738dfe7   rsp = 0x02abe500
+    Found by: stack scanning
+ 8  ntdll.dll + 0x3127
+    rip = 0x775a3128   rsp = 0x02abe598
+    Found by: stack scanning
+ 9  dbghelp.dll + 0x393bb
+    rip = 0xf0ef93bc   rsp = 0x02abe5a0
+    Found by: stack scanning
+10  ntdll.dll + 0x27bad
+    rip = 0x775c7bae   rsp = 0x02abe5d0
+    Found by: stack scanning
+11  ntdll.dll + 0x27bad
+    rip = 0x775c7bae   rsp = 0x02abe620
+    Found by: stack scanning
+12  dbghelp.dll + 0x32232
+    rip = 0xf0ef2233   rsp = 0x02abe6e0
+    Found by: stack scanning
+13  0x7fefbc4ffff
+    rip = 0xfbc50000   rsp = 0x02abe700
+    Found by: stack scanning
+14  dbghelp.dll + 0x32592
+    rip = 0xf0ef2593   rsp = 0x02abe710
+    Found by: stack scanning
+15  KERNELBASE.dll + 0xd785
+    rip = 0xfd1dd786   rsp = 0x02abe730
+    Found by: stack scanning
+16  0x7fefbc4ffff
+    rip = 0xfbc50000   rsp = 0x02abe738
+    Found by: stack scanning
+17  dbghelp.dll + 0x33710
+    rip = 0xf0ef3711   rsp = 0x02abe760
+    Found by: stack scanning
+18  KERNELBASE.dll + 0x1872
+    rip = 0xfd1d1873   rsp = 0x02abe7f0
+    Found by: stack scanning
+19  kernel32.dll + 0x21960
+    rip = 0x773a1961   rsp = 0x02abe820
+    Found by: stack scanning
+20  dbghelp.dll + 0x35138
+    rip = 0xf0ef5139   rsp = 0x02abe890
+    Found by: stack scanning
+21  dbghelp.dll + 0x35a8b
+    rip = 0xf0ef5a8c   rsp = 0x02abe930
+    Found by: stack scanning
+22  0x7fefbc4ffff
+    rip = 0xfbc50000   rsp = 0x02abe950
+    Found by: stack scanning
+23  0x7fefbc4ffff
+    rip = 0xfbc50000   rsp = 0x02abe980
+    Found by: stack scanning
+24  ntdll.dll + 0x30259
+    rip = 0x775d025a   rsp = 0x02abea10
+    Found by: stack scanning
+25  ntdll.dll + 0x73bf
+    rip = 0x775a73c0   rsp = 0x02abeaa8
+    Found by: stack scanning
+26  ntdll.dll + 0x204c5
+    rip = 0x775c04c6   rsp = 0x02abeb70
+    Found by: stack scanning
+27  ntdll.dll + 0x7bede
+    rip = 0x7761bedf   rsp = 0x02abeba0
+    Found by: stack scanning
+28  ntdll.dll + 0xfce9c
+    rip = 0x7769ce9d   rsp = 0x02abebd0
+    Found by: stack scanning
+29  KERNELBASE.dll + 0x14dd3
+    rip = 0xfd1e4dd4   rsp = 0x02abec60
+    Found by: stack scanning
+30  ntdll.dll + 0x2eb2a
+    rip = 0x775ceb2b   rsp = 0x02abec80
+    Found by: stack scanning
+31  dbghelp.dll + 0x37736
+    rip = 0xf0ef7737   rsp = 0x02abecb0
+    Found by: stack scanning
+32  kernel32.dll + 0x13761
+    rip = 0x77393762   rsp = 0x02abecc0
+    Found by: stack scanning
+33  Qt5Core.dll + 0x26423f
+    rip = 0xd9214240   rsp = 0x02abecf8
+    Found by: stack scanning
+34  dbghelp.dll + 0x3481a
+    rip = 0xf0ef481b   rsp = 0x02abed00
+    Found by: stack scanning
+35  Qt5Core.dll + 0x26433f
+    rip = 0xd9214340   rsp = 0x02abed08
+    Found by: stack scanning
+36  Qt5Core.dll + 0x26422f
+    rip = 0xd9214230   rsp = 0x02abed38
+    Found by: stack scanning
+37  Qt5Core.dll + 0x26422f
+    rip = 0xd9214230   rsp = 0x02abed40
+    Found by: stack scanning
+38  ntdll.dll + 0xd3e8b
+    rip = 0x77673e8c   rsp = 0x02abed90
+    Found by: stack scanning
+39  ntdll.dll + 0x132e4f
+    rip = 0x776d2e50   rsp = 0x02abee18
+    Found by: stack scanning
+40  KERNELBASE.dll + 0x2eab
+    rip = 0xfd1d2eac   rsp = 0x02abeec0
+    Found by: stack scanning
+41  ntdll.dll + 0x1cd18
+    rip = 0x775bcd19   rsp = 0x02abef00
+    Found by: stack scanning
+42  ntdll.dll + 0x3127
+    rip = 0x775a3128   rsp = 0x02abef38
+    Found by: stack scanning
+43  KERNELBASE.dll + 0x1872
+    rip = 0xfd1d1873   rsp = 0x02abef70
+    Found by: stack scanning
+44  kernel32.dll + 0x21960
+    rip = 0x773a1961   rsp = 0x02abefa0
+    Found by: stack scanning
+45  KERNELBASE.dll + 0x8dde
+    rip = 0xfd1d8ddf   rsp = 0x02abefc0
+    Found by: stack scanning
+46  ntdll.dll + 0x15d26
+    rip = 0x775b5d27   rsp = 0x02abefd0
+    Found by: stack scanning
+47  KERNELBASE.dll + 0x1b3a
+    rip = 0xfd1d1b3b   rsp = 0x02abf000
+    Found by: stack scanning
+48  KERNELBASE.dll + 0x1b3a
+    rip = 0xfd1d1b3b   rsp = 0x02abf010
+    Found by: stack scanning
+49  KERNELBASE.dll + 0x14dd3
+    rip = 0xfd1e4dd4   rsp = 0x02abf050
+    Found by: stack scanning
+50  KERNELBASE.dll + 0xa56e
+    rip = 0xfd1da56f   rsp = 0x02abf060
+    Found by: stack scanning
+51  kernel32.dll + 0x21f65
+    rip = 0x773a1f66   rsp = 0x02abf080
+    Found by: stack scanning
+52  dbghelp.dll + 0x3756f
+    rip = 0xf0ef7570   rsp = 0x02abf0a0
+    Found by: stack scanning
+53  dbghelp.dll + 0x38498
+    rip = 0xf0ef8499   rsp = 0x02abf0c0
+    Found by: stack scanning
+54  dbghelp.dll + 0x38423
+    rip = 0xf0ef8424   rsp = 0x02abf0d0
+    Found by: stack scanning
+55  dbghelp.dll + 0x375ff
+    rip = 0xf0ef7600   rsp = 0x02abf100
+    Found by: stack scanning
+56  dbghelp.dll + 0x38498
+    rip = 0xf0ef8499   rsp = 0x02abf120
+    Found by: stack scanning
+57  dbghelp.dll + 0x2e2df
+    rip = 0xf0eee2e0   rsp = 0x02abf140
+    Found by: stack scanning
+58  dbghelp.dll + 0x2e5eb
+    rip = 0xf0eee5ec   rsp = 0x02abf1d0
+    Found by: stack scanning
+59  dbghelp.dll + 0x31059
+    rip = 0xf0ef105a   rsp = 0x02abf2a0
+    Found by: stack scanning
+60  dbghelp.dll + 0x31d36
+    rip = 0xf0ef1d37   rsp = 0x02abf320
+    Found by: stack scanning
+61  AutomationStudio.exe + 0x358f
+    rip = 0x3f1a3590   rsp = 0x02abf3a0
+    Found by: stack scanning
+62  dbghelp.dll + 0xe9c0f
+    rip = 0xf0fa9c10   rsp = 0x02abf3b8
+    Found by: stack scanning
+63  crypt32.dll + 0x17b5
+    rip = 0xfd3417b6   rsp = 0x02abf450
+    Found by: stack scanning
+64  ntdll.dll + 0x2eb2a
+    rip = 0x775ceb2b   rsp = 0x02abf540
+    Found by: stack scanning
+65  ntdll.dll + 0xfe5fa
+    rip = 0x7769e5fb   rsp = 0x02abf5e0
+    Found by: stack scanning
+
+Thread 3
+ 0  ntdll.dll + 0x69e3a
+    rbx = 0x02c2c810   r12 = 0x00000000   r13 = 0x02c2c780   r14 = 0x00000000
+    r15 = 0x00000000   rip = 0x77609e3a   rsp = 0x02c2c6d8   rbp = 0x00000001
+    Found by: given as instruction pointer in context
+ 1  KERNELBASE.dll + 0x142f
+    rip = 0xfd1d1430   rsp = 0x02c2c6e0
+    Found by: stack scanning
+ 2  Qt5Core.dll + 0x58598f
+    rip = 0xd9535990   rsp = 0x02c2c700
+    Found by: stack scanning
+ 3  KERNELBASE.dll + 0x19cb
+    rip = 0xfd1d19cc   rsp = 0x02c2c770
+    Found by: stack scanning
+ 4  user32.dll + 0x78eb
+    rip = 0x774a78ec   rsp = 0x02c2c790
+    Found by: stack scanning
+ 5  user32.dll + 0xf586
+    rip = 0x774af587   rsp = 0x02c2c7c0
+    Found by: stack scanning
+ 6  kernel32.dll + 0x216e2
+    rip = 0x773a16e3   rsp = 0x02c2c7e0
+    Found by: stack scanning
+ 7  user32.dll + 0x19bda
+    rip = 0x774b9bdb   rsp = 0x02c2c810
+    Found by: stack scanning
+ 8  user32.dll + 0xf811
+    rip = 0x774af812   rsp = 0x02c2c830
+    Found by: stack scanning
+ 9  ntdll.dll + 0x6b5ce
+    rip = 0x7760b5cf   rsp = 0x02c2c840
+    Found by: stack scanning
+10  user32.dll + 0x18f8c
+    rip = 0x774b8f8d   rsp = 0x02c2c870
+    Found by: stack scanning
+11  user32.dll + 0x19b2e
+    rip = 0x774b9b2f   rsp = 0x02c2c8a0
+    Found by: stack scanning
+12  user32.dll + 0x198c1
+    rip = 0x774b98c2   rsp = 0x02c2c8d0
+    Found by: stack scanning
+13  Qt5Core.dll + 0x209f9f
+    rip = 0xd91b9fa0   rsp = 0x02c2c8e0
+    Found by: stack scanning
+14  user32.dll + 0x16271
+    rip = 0x774b6272   rsp = 0x02c2c910
+    Found by: stack scanning
+15  Qt5Core.dll + 0x209cb1
+    rip = 0xd91b9cb2   rsp = 0x02c2c950
+    Found by: stack scanning
+16  Qt5Core.dll + 0x585a57
+    rip = 0xd9535a58   rsp = 0x02c2c9d0
+    Found by: stack scanning
+
+Thread 4
+ 0  ntdll.dll + 0x69e3a
+    rbx = 0x03ebc860   r12 = 0x00000000   r13 = 0x03ebc7d0   r14 = 0x00000000
+    r15 = 0x00000000   rip = 0x77609e3a   rsp = 0x03ebc728   rbp = 0x00000001
+    Found by: given as instruction pointer in context
+ 1  KERNELBASE.dll + 0x142f
+    rip = 0xfd1d1430   rsp = 0x03ebc730
+    Found by: stack scanning
+ 2  Qt5Core.dll + 0x58598f
+    rip = 0xd9535990   rsp = 0x03ebc750
+    Found by: stack scanning
+ 3  KERNELBASE.dll + 0x19cb
+    rip = 0xfd1d19cc   rsp = 0x03ebc7c0
+    Found by: stack scanning
+ 4  user32.dll + 0x78eb
+    rip = 0x774a78ec   rsp = 0x03ebc7e0
+    Found by: stack scanning
+ 5  user32.dll + 0xf586
+    rip = 0x774af587   rsp = 0x03ebc810
+    Found by: stack scanning
+ 6  kernel32.dll + 0x216e2
+    rip = 0x773a16e3   rsp = 0x03ebc830
+    Found by: stack scanning
+ 7  user32.dll + 0x19bda
+    rip = 0x774b9bdb   rsp = 0x03ebc860
+    Found by: stack scanning
+ 8  user32.dll + 0xf811
+    rip = 0x774af812   rsp = 0x03ebc880
+    Found by: stack scanning
+ 9  ntdll.dll + 0x6b5ce
+    rip = 0x7760b5cf   rsp = 0x03ebc890
+    Found by: stack scanning
+10  user32.dll + 0x18f8c
+    rip = 0x774b8f8d   rsp = 0x03ebc8c0
+    Found by: stack scanning
+11  user32.dll + 0x19b2e
+    rip = 0x774b9b2f   rsp = 0x03ebc8f0
+    Found by: stack scanning
+12  user32.dll + 0x198c1
+    rip = 0x774b98c2   rsp = 0x03ebc920
+    Found by: stack scanning
+13  Qt5Core.dll + 0x209f9f
+    rip = 0xd91b9fa0   rsp = 0x03ebc930
+    Found by: stack scanning
+14  user32.dll + 0x16271
+    rip = 0x774b6272   rsp = 0x03ebc960
+    Found by: stack scanning
+15  Qt5Core.dll + 0x209cb1
+    rip = 0xd91b9cb2   rsp = 0x03ebc9a0
+    Found by: stack scanning
+16  Qt5Core.dll + 0x585a57
+    rip = 0xd9535a58   rsp = 0x03ebca20
+    Found by: stack scanning
+
+Loaded modules:
+0x77380000 - 0x7749efff  kernel32.dll  6.1.7601.24335  (main)
+0x774a0000 - 0x77599fff  user32.dll  6.1.7601.23594
+0x775a0000 - 0x7773efff  ntdll.dll  6.1.7601.24335
+0x13f1a0000 - 0x13f429fff  AutomationStudio.exe  1.0.4.0
+0x180000000 - 0x180a97fff  uEye_api_64.dll  4.90.34.0
+0x7fec1000000 - 0x7fec3943fff  opencv_imgproc341.dll  3.4.1.0
+0x7fec4f50000 - 0x7fec5bc7fff  opencv_core341.dll  3.4.1.0
+0x7fec5bd0000 - 0x7fec5f88fff  qtvirtualkeyboardplugin.dll  5.11.2.0
+0x7fed5b60000 - 0x7fed5ee0fff  Qt5Quick.dll  5.11.2.0
+0x7fed5ef0000 - 0x7fed6248fff  Qt5Qml.dll  5.11.2.0
+0x7fed62c0000 - 0x7fed65acfff  opencv_imgcodecs341.dll  3.4.1.0
+0x7fed7600000 - 0x7fed7715fff  visionmodule.dll  1.0.4.0
+0x7fed7bb0000 - 0x7fed81c5fff  Qt5Gui.dll  5.11.2.0
+0x7fed8730000 - 0x7fed8895fff  qwindows.dll  5.11.2.0
+0x7fed88a0000 - 0x7fed8985fff  Qt5QuickTemplates2.dll  5.11.2.0
+0x7fed8d50000 - 0x7fed8e61fff  QuickQanava.dll  1.0.4.0
+0x7fed8e70000 - 0x7fed8fa7fff  Qt5Network.dll  5.11.2.0
+0x7fed8fb0000 - 0x7fed955dfff  Qt5Core.dll  5.11.2.0
+0x7fedab10000 - 0x7fedac52fff  automationmodule.dll  1.0.4.0
+0x7feea3c0000 - 0x7feea457fff  tbb.dll  2019.0.2018.1010
+0x7feeb6a0000 - 0x7feeb6f8fff  opencv_videoio341.dll  3.4.1.0
+0x7feebdd0000 - 0x7feebdf8fff  msvfw32.dll  6.1.7600.16385
+0x7feedf20000 - 0x7feee022fff  sioclient.dll  1.0.4.0
+0x7feee090000 - 0x7feee0befff  guimodule.dll  1.0.4.0
+0x7feee2d0000 - 0x7feee2e0fff  qgenericbearer.dll  5.11.2.0
+0x7feee2f0000 - 0x7feee383fff  zlib.dll  ???
+0x7feee390000 - 0x7feee42afff  msvcp140.dll  14.16.27024.1
+0x7feef4d0000 - 0x7feef502fff  epsonmodule.dll  1.0.4.0
+0x7feef510000 - 0x7feef55bfff  automationstudiocore.dll  1.0.4.0
+0x7feef640000 - 0x7feef656fff  avicap32.dll  6.1.7600.16385
+0x7feefc30000 - 0x7feefc56fff  bsvalidationmodule.dll  1.0.4.0
+0x7feefc60000 - 0x7feefc9bfff  quazip.dll  1.0.4.0
+0x7fef0c60000 - 0x7fef0d54fff  ucrtbase.dll  10.0.14393.2247
+0x7fef0e40000 - 0x7fef0ebefff  tiptsf.dll  6.1.7601.18984
+0x7fef0ec0000 - 0x7fef0fe4fff  dbghelp.dll  6.1.7601.17514
+0x7fef27e0000 - 0x7fef27f7fff  msacm32.dll  6.1.7600.16385
+0x7fef2c90000 - 0x7fef2cbefff  Qt5QuickControls2.dll  5.11.2.0
+0x7fef3ab0000 - 0x7fef3acefff  avifil32.dll  6.1.7600.16385
+0x7fef3ad0000 - 0x7fef3ae6fff  Qt5SerialPort.dll  5.11.2.0
+0x7fef8a40000 - 0x7fef8a57fff  mpr.dll  6.1.7600.16385
+0x7fef8ac0000 - 0x7fef8ac2fff  api-ms-win-core-synch-l1-2-0.dll  10.0.14393.2247
+0x7fef8ad0000 - 0x7fef8bc0fff  ddraw.dll  6.1.7600.16385
+0x7fef8bd0000 - 0x7fef8bfcfff  glu32.dll  6.1.7600.16385
+0x7fef8c00000 - 0x7fef8d1cfff  opengl32.dll  6.1.7600.16385
+0x7fef9200000 - 0x7fef9207fff  dciman32.dll  6.1.7601.24280
+0x7fef9b60000 - 0x7fef9b62fff  api-ms-win-core-file-l1-2-0.dll  10.0.14393.2247
+0x7fef9b70000 - 0x7fef9b72fff  api-ms-win-core-processthreads-l1-1-1.dll  10.0.14393.2247
+0x7fef9bc0000 - 0x7fef9bc2fff  api-ms-win-core-localization-l1-2-0.dll  10.0.14393.2247
+0x7fef9bd0000 - 0x7fef9bd2fff  api-ms-win-core-file-l2-1-0.dll  10.0.14393.2247
+0x7fef9e00000 - 0x7fef9e10fff  dhcpcsvc6.DLL  6.1.7601.17970
+0x7fef9e20000 - 0x7fef9e37fff  dhcpcsvc.dll  6.1.7600.16385
+0x7fef9f90000 - 0x7fef9f9afff  winnsi.dll  6.1.7601.23889
+0x7fef9fa0000 - 0x7fef9fc6fff  IPHLPAPI.DLL  6.1.7601.17514
+0x7fefa050000 - 0x7fefa052fff  api-ms-win-core-timezone-l1-1-0.dll  10.0.14393.2247
+0x7fefa090000 - 0x7fefa092fff  api-ms-win-crt-environment-l1-1-0.dll  10.0.14393.2247
+0x7fefa0a0000 - 0x7fefa0a2fff  api-ms-win-crt-utility-l1-1-0.dll  10.0.14393.2247
+0x7fefa0b0000 - 0x7fefa0b2fff  api-ms-win-crt-time-l1-1-0.dll  10.0.14393.2247
+0x7fefa120000 - 0x7fefa124fff  api-ms-win-crt-math-l1-1-0.dll  10.0.14393.2247
+0x7fefa130000 - 0x7fefa14dfff  CuteLogger.dll  1.0.4.0
+0x7fefa180000 - 0x7fefa182fff  api-ms-win-crt-filesystem-l1-1-0.dll  10.0.14393.2247
+0x7fefa190000 - 0x7fefa1a4fff  VCRUNTIME140.dll  14.16.27024.1
+0x7fefa460000 - 0x7fefa462fff  api-ms-win-crt-locale-l1-1-0.dll  10.0.14393.2247
+0x7fefa4d0000 - 0x7fefa4d3fff  api-ms-win-crt-convert-l1-1-0.dll  10.0.14393.2247
+0x7fefa5f0000 - 0x7fefa5f3fff  api-ms-win-crt-stdio-l1-1-0.dll  10.0.14393.2247
+0x7fefa6f0000 - 0x7fefa6f3fff  api-ms-win-crt-string-l1-1-0.dll  10.0.14393.2247
+0x7fefa740000 - 0x7fefa743fff  api-ms-win-crt-runtime-l1-1-0.dll  10.0.14393.2247
+0x7fefaa80000 - 0x7fefaa82fff  api-ms-win-crt-heap-l1-1-0.dll  10.0.14393.2247
+0x7fefad40000 - 0x7fefad57fff  dwmapi.dll  6.1.7601.18917
+0x7fefb1f0000 - 0x7fefb22afff  winmm.dll  6.1.7600.16385
+0x7fefb230000 - 0x7fefb285fff  uxtheme.dll  6.1.7600.16385
+0x7fefb380000 - 0x7fefb394fff  wkscli.dll  6.1.7601.17514
+0x7fefb4d0000 - 0x7fefb4e5fff  netapi32.dll  6.1.7601.17887
+0x7fefb8f0000 - 0x7fefbae3fff  comctl32.dll  6.10.7601.18837
+0x7fefbc50000 - 0x7fefbc7bfff  powrprof.dll  6.1.7600.16385
+0x7fefbfe0000 - 0x7fefbfebfff  version.dll  6.1.7600.16385
+0x7fefc510000 - 0x7fefc51bfff  netutils.dll  6.1.7601.17514
+0x7fefc6b0000 - 0x7fefc70afff  dnsapi.dll  6.1.7601.24168
+0x7fefcc90000 - 0x7fefccb2fff  srvcli.dll  6.1.7601.17514
+0x7fefcf90000 - 0x7fefcf9efff  cryptbase.dll  6.1.7601.24335
+0x7fefd0f0000 - 0x7fefd0fefff  profapi.dll  6.1.7600.16385
+0x7fefd100000 - 0x7fefd10efff  msasn1.dll  6.1.7601.17514
+0x7fefd160000 - 0x7fefd195fff  cfgmgr32.dll  6.1.7601.17514
+0x7fefd1d0000 - 0x7fefd239fff  KERNELBASE.dll  6.1.7601.24335
+0x7fefd2e0000 - 0x7fefd2fdfff  userenv.dll  6.1.7601.17514
+0x7fefd310000 - 0x7fefd329fff  devobj.dll  6.1.7600.16385
+0x7fefd340000 - 0x7fefd4acfff  crypt32.dll  6.1.7601.23971
+0x7fefd4b0000 - 0x7fefd58afff  advapi32.dll  6.1.7601.24335
+0x7fefddb0000 - 0x7fefde16fff  gdi32.dll  6.1.7601.24308
+0x7fefde20000 - 0x7fefde27fff  nsi.dll  6.1.7601.23889
+0x7fefdfc0000 - 0x7fefe196fff  setupapi.dll  6.1.7601.17514
+0x7fefe1a0000 - 0x7fefe2a8fff  msctf.dll  6.1.7601.23915
+0x7fefe2b0000 - 0x7fefe3dcfff  rpcrt4.dll  6.1.7601.24335
+0x7fefe3e0000 - 0x7fefe4b9fff  oleaut32.dll  6.1.7601.24117
+0x7fefe4e0000 - 0x7fefe5aafff  usp10.dll  1.626.7601.23894
+0x7fefe5b0000 - 0x7fefe5bdfff  lpk.dll  6.1.7601.24280
+0x7fefe5c0000 - 0x7fefe5edfff  imm32.dll  6.1.7600.16385
+0x7fefe5f0000 - 0x7fefe7eefff  ole32.dll  6.1.7601.24291
+0x7fefe7f0000 - 0x7fefe860fff  shlwapi.dll  6.1.7601.17514
+0x7fefe870000 - 0x7fefe88efff  sechost.dll  6.1.7601.18869
+0x7fefe910000 - 0x7fefe9aefff  msvcrt.dll  7.0.7601.17744
+0x7fefe9b0000 - 0x7feff739fff  shell32.dll  6.1.7601.24234
+0x7feff7a0000 - 0x7feff7ecfff  ws2_32.dll  6.1.7601.23451
+0x7feff7f0000 - 0x7feff886fff  comdlg32.dll  6.1.7601.17514
