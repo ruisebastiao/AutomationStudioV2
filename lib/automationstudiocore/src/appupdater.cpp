@@ -12,16 +12,11 @@
 #include "quazip.h"
 
 
-int buggyFunc() {
-    delete reinterpret_cast<QString*>(0xFEE1DEAD);
-    return 0;
-}
-
 AppUpdater::AppUpdater(QObject *parent) : QObject(parent)
 {
 
 
-    buggyFunc();
+
     m_utilities=new Utilities(this);
 
     updatedir=QDir(QCoreApplication::applicationDirPath());

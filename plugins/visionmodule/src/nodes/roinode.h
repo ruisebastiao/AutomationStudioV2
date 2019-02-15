@@ -171,6 +171,13 @@ public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
 
+
+    Q_INVOKABLE void reProcess(){
+        if(m_basenode){
+            m_basenode->setInput(QVariant::fromValue(m_sourceFrame));
+        }
+    }
+
     bool liveProcessing() const
     {
         return m_liveProcessing;

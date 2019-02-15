@@ -280,8 +280,9 @@ FlowNodeItem {
 
         ignoreUnknownSignals: true
         onOutputChanged:{
-
-            f.viewer.mat=output
+            if(output){
+                f.viewer.mat=output
+            }
         }
 
     }

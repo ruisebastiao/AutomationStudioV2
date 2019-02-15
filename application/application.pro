@@ -50,6 +50,7 @@ OTHER_FILES += \
 
 }
 
+RC_FILE = automationstudio.rc
 
 
 

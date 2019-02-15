@@ -10,6 +10,7 @@ class ArrayNode : public FlowNode
 
     Q_PROPERTY(QVariant array READ array WRITE setArray NOTIFY arrayChanged REVISION 30)
     Q_PROPERTY(QVariant arrayItem READ arrayItem WRITE setArrayItem NOTIFY arrayItemChanged REVISION 31)
+    Q_PROPERTY(QVariant arrayCount READ arrayCount WRITE setArrayCount NOTIFY arrayCountChanged REVISION 31)
 
     Q_PROPERTY(int arrayIndex READ arrayIndex WRITE setArrayIndex NOTIFY arrayIndexChanged USER("serialize"))
 
@@ -43,6 +44,11 @@ public:
         return m_arrayList;
     }
 
+    QVariant arrayCount() const
+    {
+        return m_arrayCount;
+    }
+
 public slots:
     void setArray(QVariant array)
     {
@@ -59,11 +65,15 @@ public slots:
         emit arrayChanged(m_array);
 
         if(m_arrayIndex<m_arrayList.length() && m_arrayIndex>=0){
-            setArrayItem(m_arrayList.at(m_arrayIndex));
+            setArrayItem(m_arrayList.at(m_arrayIndex));            
         }
         else{
             setArrayItem(QVariant());
         }
+
+        int array_size=m_arrayList.size();
+        qDebug()<<"array_size:"<<array_size;
+        setArrayCount(array_size);
 
 
     }
@@ -101,6 +111,14 @@ public slots:
         emit arrayListChanged(m_arrayList);
     }
 
+    void setArrayCount(QVariant arrayCount)
+    {
+
+
+        m_arrayCount = arrayCount;
+        emit arrayCountChanged(m_arrayCount);
+    }
+
 signals:
     void arrayChanged(QVariant array);
 
@@ -113,6 +131,8 @@ signals:
 
     void arrayListChanged(QVariantList arrayList);
 
+    void arrayCountChanged(QVariant arrayCount);
+
 private:
 
     QVariant m_array=QVariant();
@@ -121,6 +141,7 @@ private:
 
 
     QVariantList m_arrayList;
+    QVariant m_arrayCount=QVariant::fromValue(0);
 };
 
 #endif // ARRAYNODE_H

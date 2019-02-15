@@ -76,15 +76,31 @@ FlowNodeItem{
 
                         }
                     }
-                    Button{
+                    RowLayout {
 
-                        highlighted: true
-                        width: 120
-                        height: parent.height
-                        //                        anchors.left: parent.
+                        anchors.fill: parent
 
-                        text:"Back"
-                        onPressed: maincontainer.selectedROINode.editMode=false;
+                        Button{
+
+                            highlighted: true
+                            Layout.preferredWidth: 120
+                            height: parent.height
+                            Layout.fillHeight: true
+
+                            text:"Back"
+                            onPressed: maincontainer.selectedROINode.editMode=false;
+
+                        }
+                        Button{
+
+                            highlighted: true
+                            Layout.preferredWidth: 120
+                            Layout.fillHeight: true
+
+                            text:"Process"
+                            onPressed: maincontainer.selectedROINode.reProcess();
+
+                        }
                     }
                 }
 

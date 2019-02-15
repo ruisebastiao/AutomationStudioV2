@@ -67,23 +67,23 @@ public slots:
 
 
 
-//        if(inputType()==InputType::InputPrefix){
-//            setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
-//        }
-//        else if(inputType()==InputType::InputSuffix){
-//            setStringOutput(m_stringInput.value<QString>()+stringValue.value<QString>());
-//        }
-//        else if(inputType()==InputType::InputExtract){
-//            updateExtract();
-//        }
-//        else if(inputType()==InputType::InputCompare){
-//            compareStrings();
-//        }
-//        else {
-//            setStringOutput(stringValue);
-//        }
+        if(inputType()==InputType::InputPrefix){
+            setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
+        }
+        else if(inputType()==InputType::InputSuffix){
+            setStringOutput(m_stringInput.value<QString>()+stringValue.value<QString>());
+        }
+        else if(inputType()==InputType::InputExtract){
+            updateExtract();
+        }
+        else if(inputType()==InputType::InputCompare){
+            compareStrings();
+        }
+        else {
+            setStringOutput(stringValue);
+        }
 
-        inputsChanged();
+//        inputsChanged();
         emit stringValueChanged(m_stringValue);
     }
 
