@@ -28,7 +28,6 @@ unix{
     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 }
 
-
 # Application
 # -----------
 
