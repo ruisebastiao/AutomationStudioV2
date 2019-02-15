@@ -45,6 +45,9 @@ EpsonRemote::EpsonRemote()
 
             if (message_splitted[0].indexOf("Login") > -1 && message_splitted[1].indexOf('0') > -1) {
                 m_authenticated= true;
+                m_tcpClient->write("$Reset,0");
+                Utilities::NonBlockingWait(1000);
+                m_tcpClient->write("$Start,0");
             }
 
             if (message_splitted[0].indexOf("GetStatus") > -1) {

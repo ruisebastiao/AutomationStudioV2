@@ -1,7 +1,7 @@
-MODULE windows x86_64 4396C3F3A89F46D7BCE2A4CFE96A45C490 AutomationStudio.pdb
-INFO CODE_ID 5C66FAB62B0000 AutomationStudio.exe
+MODULE windows x86_64 4396C3F3A89F46D7BCE2A4CFE96A45C494 AutomationStudio.pdb
+INFO CODE_ID 5C6700842B0000 AutomationStudio.exe
 FILE 1 C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\application\release\automationstudio.res
-FILE 2 C:\Users\LM36\AppData\Local\Temp\lnk{9ADD58A4-1955-4435-8ECB-AFE475BC03A7}.tmp
+FILE 2 C:\Users\LM36\AppData\Local\Temp\lnk{3862C1CE-FC1C-4149-8519-1F8BE073F06E}.tmp
 FILE 3 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\exception
 FILE 4 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\type_traits
 FILE 5 c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\corecrt_wstdio.h

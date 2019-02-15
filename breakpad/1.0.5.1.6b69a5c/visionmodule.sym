@@ -1,5 +1,5 @@
-MODULE windows x86_64 10F36E6A10F140DF8B16FC8A623151866 visionmodule.pdb
-INFO CODE_ID 5C66FAA2117000 visionmodule.dll
+MODULE windows x86_64 10F36E6A10F140DF8B16FC8A623151867 visionmodule.pdb
+INFO CODE_ID 5C66FEC7117000 visionmodule.dll
 FILE 1 C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\plugins\visionmodule\release\visionmodule_resource.res
 FILE 2 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qsocketnotifier.h
 FILE 3 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qscopedpointer.h

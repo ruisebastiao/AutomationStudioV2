@@ -1,5 +1,5 @@
-MODULE windows x86_64 4E236C0401E24F31A27CE8DF6218FEEB4 guimodule.pdb
-INFO CODE_ID 5C66FA9E2F000 guimodule.dll
+MODULE windows x86_64 4E236C0401E24F31A27CE8DF6218FEEB5 guimodule.pdb
+INFO CODE_ID 5C66FEC62F000 guimodule.dll
 FILE 1 C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\plugins\guimodule\release\guimodule_resource.res
 FILE 2 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\xstddef
 FILE 3 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\xcall_once.h
