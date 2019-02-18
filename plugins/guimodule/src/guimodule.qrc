@@ -19,5 +19,6 @@
         <file>qml/Fab.qml</file>
         <file>qml/ReadOnlyItem.qml</file>
         <file>qml/FirmwareUpdaterItem.qml</file>
+        <file alias="utils.js">qml/Utils.js</file>
     </qresource>
 </RCC>

@@ -27,7 +27,7 @@ private:
     QString m_filesLocation;
 
 public:
-    explicit AppTranslator(QObject *parent = 0);
+    explicit AppTranslator(QObject *parent = nullptr);
 
 
     QString currentLanguage() const

@@ -138,7 +138,7 @@ private:
     QString m_pin="0000";
 
     // JsonSerializable interface
-    QString m_language="pt";
+    QString m_language="en";
 
 public:
     virtual void Serialize(QJsonObject &json) override;

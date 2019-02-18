@@ -38,7 +38,7 @@ ApplicationWindow {
     onTranslatorChanged: {
         if(translator){
             translator.currentLanguage=Qt.binding(function(){
-                if(loggedUser){
+                if(loggedUser && loggedUser.language){
                     return loggedUser.language;
                 }
                 return "en"

@@ -1,0 +1,1074 @@
+MODULE windows x86_64 4E236C0401E24F31A27CE8DF6218FEEBb guimodule.pdb
+INFO CODE_ID 5C6AB7042F000 guimodule.dll
+FILE 1 C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\plugins\guimodule\release\guimodule_resource.res
+FILE 2 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits
+FILE 3 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstddef
+FILE 4 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\vector
+FILE 5 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qflags.h
+FILE 6 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xutility
+FILE 7 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xfacet
+FILE 8 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\system_error
+FILE 9 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\sys\stat.h
+FILE 10 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qstringlist.h
+FILE 11 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xcall_once.h
+FILE 12 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qregexp.h
+FILE 13 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qarraydata.h
+FILE 14 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qobject_impl.h
+FILE 15 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\tuple
+FILE 16 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\vcruntime_typeinfo.h
+FILE 17 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\wchar.h
+FILE 18 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xxatomic
+FILE 19 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\vcruntime_exception.h
+FILE 20 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_wconio.h
+FILE 21 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qobjectdefs_impl.h
+FILE 22 c:\users\lm36\documents\novares\automacao\build-automationstudio-desktop_qt_5_11_2_msvc2017_64bit3-release\plugins\guimodule\release\moc_guimodule_plugin.cpp
+FILE 23 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\initializer_list
+FILE 24 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qjsonobject.h
+FILE 25 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\string
+FILE 26 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\istream
+FILE 27 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qjsonvalue.h
+FILE 28 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream
+FILE 29 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios
+FILE 30 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h
+FILE 31 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xlocnum
+FILE 32 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_wstdio.h
+FILE 33 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\streambuf
+FILE 34 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_stdio_config.h
+FILE 35 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xiosbase
+FILE 36 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xlocale
+FILE 37 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory
+FILE 38 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\stdexcept
+FILE 39 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_wtime.h
+FILE 40 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstring
+FILE 41 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\algorithm
+FILE 42 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xmemory0
+FILE 43 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qtypeinfo.h
+FILE 44 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qstringmatcher.h
+FILE 45 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_wstring.h
+FILE 46 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlextensioninterface.h
+FILE 47 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xlocinfo
+FILE 48 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qstringview.h
+FILE 49 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\ctype.h
+FILE 50 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\chrono
+FILE 51 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ratio
+FILE 52 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\cmath
+FILE 53 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qurl.h
+FILE 54 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xtgmath.h
+FILE 55 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\string.h
+FILE 56 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qatomic.h
+FILE 57 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_memory.h
+FILE 58 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qbasicatomic.h
+FILE 59 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_memcpy_s.h
+FILE 60 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qatomic_cxx11.h
+FILE 61 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xatomic0.h
+FILE 62 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qlist.h
+FILE 63 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qalgorithms.h
+FILE 64 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qstring.h
+FILE 65 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\limits
+FILE 66 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qchar.h
+FILE 67 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\cstdlib
+FILE 68 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h
+FILE 69 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_wio.h
+FILE 70 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qbytearray.h
+FILE 71 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qrefcount.h
+FILE 72 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\exception
+FILE 73 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_math.h
+FILE 74 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qpointer.h
+FILE 75 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\malloc.h
+FILE 76 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qhashfunctions.h
+FILE 77 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qshareddata.h
+FILE 78 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qhash.h
+FILE 79 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qmetatype.h
+FILE 80 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\atomic
+FILE 81 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xatomic.h
+FILE 82 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qbytearraylist.h
+FILE 83 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qsharedpointer_impl.h
+FILE 84 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\time.h
+FILE 85 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qlogging.h
+FILE 86 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qsysinfo.h
+FILE 87 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility
+FILE 88 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\guimodule\src\guimodule_plugin.h
+FILE 89 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\iosfwd
+FILE 90 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlextensionplugin.h
+FILE 91 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qplugin.h
+FILE 92 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qobject.h
+FILE 93 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qobjectdefs.h
+FILE 94 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\vcruntime_new.h
+FILE 95 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qnamespace.h
+FILE 96 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qscopedpointer.h
+FILE 97 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qglobal.h
+FILE 99 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qvariant.h
+FILE 116 c:\users\lm36\documents\novares\automacao\build-automationstudio-desktop_qt_5_11_2_msvc2017_64bit3-release\plugins\guimodule\release\qmlcache_loader.cpp
+FILE 117 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qmap.h
+FILE 119 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\functional
+FILE 133 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qpair.h
+FILE 134 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qstringliteral.h
+FILE 155 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qglobalstatic.h
+FILE 185 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qdir.h
+FILE 186 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qfileinfo.h
+FILE 187 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qfile.h
+FILE 188 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qfiledevice.h
+FILE 189 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qiodevice.h
+FILE 197 c:\users\lm36\documents\novares\automacao\build-automationstudio-desktop_qt_5_11_2_msvc2017_64bit3-release\plugins\guimodule\release\qrc_src_guimodule_qmlcache.cpp
+FILE 211 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlapplicationengine.h
+FILE 212 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlengine.h
+FILE 213 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qjsengine.h
+FILE 214 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qjsvalue.h
+FILE 215 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlpropertyvaluesource.h
+FILE 223 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\guimodule\src\guimodule_plugin.cpp
+FILE 247 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqml.h
+FILE 254 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlcontext.h
+FILE 260 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmllist.h
+FILE 278 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qmetaobject.h
+FILE 280 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlerror.h
+FILE 281 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlparserstatus.h
+FILE 308 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\misc\amd64\guard_dispatch.asm
+FILE 309 d:\agent\_work\1\s\src\ExternalAPIs\Windows\10\sdk\inc\ksamd64.inc
+FILE 310 d:\agent\_work\1\s\src\ExternalAPIs\Windows\10\sdk\inc\kxamd64.inc
+FILE 311 d:\agent\_work\1\s\src\ExternalAPIs\Windows\10\sdk\inc\macamd64.inc
+FILE 312 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\processthreadsapi.h
+FILE 313 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\corecrt_wstring.h
+FILE 314 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\stralign.h
+FILE 315 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\winbase.h
+FILE 316 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\winerror.h
+FILE 317 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\basetsd.h
+FILE 318 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\string.h
+FILE 319 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\corecrt_memcpy_s.h
+FILE 320 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\winnt.h
+FILE 321 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\ctype.h
+FILE 324 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\gs\gs_support.c
+FILE 335 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\misc\guard_support.c
+FILE 356 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\utility\dyn_tls_init.c
+FILE 365 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\utility\ucrt_detection.c
+FILE 368 d:\agent\_work\1\s\src\vctools\crt\vcruntime\inc\vcruntime_internal.h
+FILE 369 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\misc\amd64\cpu_disp.c
+FILE 370 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\evntprov.h
+FILE 371 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\malloc.h
+FILE 376 d:\agent\_work\1\s\src\vctools\crt\vcruntime\inc\internal_shared.h
+FILE 381 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\defaults\argv_mode.cpp
+FILE 382 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\stdlib.h
+FILE 385 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\winuser.h
+FILE 386 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\defaults\default_local_stdio_options.cpp
+FILE 388 d:\agent\_work\1\s\src\vctools\crt\vcstartup\inc\vcstartup_internal.h
+FILE 390 d:\agent\_work\1\s\src\vctools\crt\vcruntime\inc\vcruntime_new.h
+FILE 393 d:\agent\_work\1\s\src\externalapis\windows\10\sdk\inc\guiddef.h
+FILE 398 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\corecrt_memory.h
+FILE 401 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\math.h
+FILE 402 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\stdio.h
+FILE 403 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\corecrt_wstdio.h
+FILE 404 d:\agent\_work\1\s\src\externalapis\unifiedcrt\inc\corecrt_stdio_config.h
+FILE 405 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\eh\std_type_info_static.cpp
+FILE 406 d:\agent\_work\1\s\src\vctools\crt\vcruntime\inc\vcruntime_typeinfo.h
+FILE 407 d:\agent\_work\1\s\src\vctools\crt\vcruntime\inc\vcruntime_exception.h
+FILE 414 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\eh\tncleanup.cpp
+FILE 437 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\heap\delete_scalar.cpp
+FILE 456 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\heap\delete_scalar_size.cpp
+FILE 475 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\heap\new_scalar.cpp
+FILE 495 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\heap\throw_bad_alloc.cpp
+FILE 516 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\misc\thread_safe_statics.cpp
+FILE 538 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\startup\dll_dllmain.cpp
+FILE 559 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\startup\dll_dllmain_stub.cpp
+FILE 617 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\utility\utility.cpp
+FILE 633 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\utility\ucrt_stubs.cpp
+FILE 638 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\utility\utility_desktop.cpp
+FILE 660 d:\agent\_work\1\s\src\vctools\crt\vcstartup\src\rtc\initsect.cpp
+FUNC 1000 21 0 `anonymous namespace'::`dynamic initializer for 'dummy''
+1000 21 106 197
+FUNC 1030 17 0 Q_QGS_unitRegistry::`anonymous namespace'::Q_QGS_unitRegistry::`dynamic initializer for 'guard''
+1030 17 202 116
+FUNC 1050 15 0 `anonymous namespace'::`dynamic initializer for 'qInitResources_guimodule_ctor_instance_''
+1050 15 247 116
+FUNC 1070 4f 0 `dynamic initializer for 'GuimodulePlugin::staticMetaObject''
+1070 0 69 22
+1070 1c 67 22
+108c 33 68 22
+FUNC 10c0 b 0 GuimodulePlugin::registerTypes(char const *)
+10c0 a 12 223
+10ca 1 17 223
+FUNC 10e0 50 0 GuimodulePlugin::initializeEngine(QQmlEngine *,char const *)
+10e0 1c 20 223
+10fc 2f 21 223
+112b 5 23 223
+FUNC 1130 2d 0 qInitResources_src_guimodule_qmlcache()
+1130 4 88 197
+1134 1f 89 197
+1153 5 91 197
+1158 5 92 197
+FUNC 1170 2d 0 qCleanupResources_src_guimodule_qmlcache()
+1170 4 96 197
+1174 1f 97 197
+1193 5 99 197
+1198 5 100 197
+FUNC 11a0 18 0 `anonymous namespace'::initializer::initializer
+11a0 18 104 197
+FUNC 11c0 1d 0 `anonymous namespace'::initializer::~initializer
+11c0 1d 105 197
+FUNC 11e0 9e6 0 `anonymous namespace'::Registry::Registry
+11e0 2a 205 116
+120a 69 206 116
+1273 69 207 116
+12dc 7b 208 116
+1357 81 209 116
+13d8 81 210 116
+1459 81 211 116
+14da 81 212 116
+155b 81 213 116
+15dc 81 214 116
+165d 81 215 116
+16de 81 216 116
+175f 81 217 116
+17e0 81 218 116
+1861 81 219 116
+18e2 81 220 116
+1963 81 221 116
+19e4 81 222 116
+1a65 81 223 116
+1ae6 81 224 116
+1b67 b 226 116
+1b72 f 227 116
+1b81 13 228 116
+1b94 21 229 116
+1bb5 11 230 116
+FUNC 1bd0 1da 0 `anonymous namespace'::Registry::lookupCachedUnit
+1bd0 1a 231 116
+1bea 6c 232 116
+1c56 7 233 116
+1c5d 5a 234 116
+1cb7 12 235 116
+1cc9 1e 236 116
+1ce7 3f 237 116
+1d26 32 238 116
+1d58 48 239 116
+1da0 a 240 116
+FUNC 1db0 25 0 qInitResources_guimodule()
+1db0 4 242 116
+1db4 c 243 116
+1dc0 b 244 116
+1dcb 5 245 116
+1dd0 5 246 116
+FUNC 1de0 19 0 qCleanupResources_guimodule()
+1de0 4 248 116
+1de4 b 249 116
+1def 5 250 116
+1df4 5 251 116
+FUNC 1e00 33 0 QAtomicOps<int>::deref<int>(std::atomic<int> &)
+1e00 9 270 60
+1e09 25 271 60
+1e2e 5 272 60
+FUNC 1e40 1a 0 QAtomicOps<int>::load<int>(std::atomic<int> const &)
+1e40 9 226 60
+1e49 c 227 60
+1e55 5 228 60
+FUNC 1e60 45 0 qMax<int>(int const &,int const &)
+1e60 45 596 97
+FUNC 1eb0 23 0 QAtomicOps<int>::store<int>(std::atomic<int> &,int)
+1eb0 d 250 60
+1ebd 11 251 60
+1ece 5 252 60
+FUNC 1ee0 28 0 QBasicAtomicInteger<int>::QBasicAtomicInteger<int>(int)
+1ee0 28 221 58
+FUNC 1f10 1a 0 QFlags<QUrl::ComponentFormattingOption>::QFlags<QUrl::ComponentFormattingOption>(QUrl::ComponentFormattingOption)
+1f10 1a 120 5
+FUNC 1f30 1a 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::QHash<QString,QQmlPrivate::CachedQmlUnit const *>()
+1f30 1a 243 78
+FUNC 1f50 63 0 QHashNode<QString,QQmlPrivate::CachedQmlUnit const *>::QHashNode<QString,QQmlPrivate::CachedQmlUnit const *>(QString const &,QQmlPrivate::CachedQmlUnit const * const &,unsigned int,QHashNode<QString,QQmlPrivate::CachedQmlUnit const *> *)
+1f50 63 157 78
+FUNC 1fc0 3b 0 `A0x99bd9ee3::`anonymous namespace'::Q_QGS_unitRegistry::innerFunction'::`2'::Holder::Holder
+1fc0 3b 202 116
+FUNC 2000 1b 0 QLatin1Char::QLatin1Char(char)
+2000 1b 53 66
+FUNC 2020 51 0 QLatin1String::QLatin1String(char const *)
+2020 51 95 64
+FUNC 2080 1d 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::iterator::iterator(void *)
+2080 1d 319 78
+FUNC 20a0 18 0 `anonymous namespace'::qInitResources_guimodule_ctor_class_::qInitResources_guimodule_ctor_class_
+20a0 18 247 116
+FUNC 20c0 46 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::~QHash<QString,QQmlPrivate::CachedQmlUnit const *>()
+20c0 46 254 78
+FUNC 2110 20 0 QHashNode<QString,QQmlPrivate::CachedQmlUnit const *>::~QHashNode<QString,QQmlPrivate::CachedQmlUnit const *>()
+FUNC 2130 25 0 `A0x99bd9ee3::`anonymous namespace'::Q_QGS_unitRegistry::innerFunction'::`2'::Holder::~Holder
+FUNC 2160 30 0 `A0x99bd9ee3::`anonymous namespace'::Q_QGS_unitRegistry::innerFunction'::`2'::HolderBase::~HolderBase
+2160 30 202 116
+FUNC 2190 1b 0 `anonymous namespace'::Registry::~Registry
+FUNC 21b0 10 0 operator new(unsigned __int64,void *)
+21b0 a 185 94
+21ba 5 187 94
+21bf 1 188 94
+FUNC 21c0 1f 0 std::_Atomic_int::operator--()
+21c0 9 1044 18
+21c9 11 1045 18
+21da 5 1046 18
+FUNC 21e0 f9 0 <lambda_11a04a636d3bfedb837a8ddbb61eaec6>::operator()
+21e0 f9 214 116
+FUNC 22e0 f9 0 <lambda_16faaa4d78ba7b34990ae55f162f6b2d>::operator()
+22e0 f9 217 116
+FUNC 23e0 f9 0 <lambda_36fd52f83295c806406157079934933f>::operator()
+23e0 f9 219 116
+FUNC 24e0 f9 0 <lambda_494cc00649fa1e98a81a72404ec73e2b>::operator()
+24e0 f9 220 116
+FUNC 25e0 f9 0 <lambda_4991d6aa073e1c798392d7e0f3ada725>::operator()
+25e0 f9 206 116
+FUNC 26e0 f9 0 <lambda_4ce23c00b1fbd4200c51c44eb3a9ce26>::operator()
+26e0 f9 224 116
+FUNC 27e0 f9 0 <lambda_4d3867c5e82b1a9070fa4aca431b747f>::operator()
+27e0 f9 218 116
+FUNC 28e0 f9 0 <lambda_5742866c452b80ee8e7263267c9877b5>::operator()
+28e0 f9 208 116
+FUNC 29e0 f9 0 <lambda_69be4b8c6f1d64859fc1551682c4e143>::operator()
+29e0 f9 209 116
+FUNC 2ae0 f9 0 <lambda_794e1ff45528252354c4db146775f587>::operator()
+2ae0 f9 223 116
+FUNC 2be0 f9 0 <lambda_8a4a5420cccbc7560979ae719b99cd27>::operator()
+2be0 f9 212 116
+FUNC 2ce0 f9 0 <lambda_a19d2264594ee7528b97fff4c8727a5a>::operator()
+2ce0 f9 210 116
+FUNC 2de0 f9 0 <lambda_b6ee124d8fe14def8a9daa98f1a35e14>::operator()
+2de0 f9 213 116
+FUNC 2ee0 f9 0 <lambda_bceab412a555271aea5be391cdc868ce>::operator()
+2ee0 f9 216 116
+FUNC 2fe0 f9 0 <lambda_c67aa998f60f0dbd9ac8221ba546ba22>::operator()
+2fe0 f9 207 116
+FUNC 30e0 f9 0 <lambda_cd7d2dffe095919a0f6bb28b107e932c>::operator()
+30e0 f9 215 116
+FUNC 31e0 f9 0 <lambda_cea4f7c679623113a1ad3b12157bde19>::operator()
+31e0 f9 221 116
+FUNC 32e0 f9 0 <lambda_d4ceb63ee0f5e84c906d404b918ba47f>::operator()
+32e0 f9 222 116
+FUNC 33e0 f9 0 <lambda_f64ad5faa261bf729fc31049b3b6fd10>::operator()
+33e0 f9 211 116
+FUNC 34e0 28 0 QGlobalStatic<`anonymous namespace'::Registry,&A0x99bd9ee3::A0x99bd9ee3::Q_QGS_unitRegistry::innerFunction,&A0x99bd9ee3::A0x99bd9ee3::Q_QGS_unitRegistry::guard>::operator()
+34e0 28 135 155
+FUNC 3510 3b 0 QHashNode<QString,QQmlPrivate::CachedQmlUnit const *>::`scalar deleting destructor'(unsigned int)
+FUNC 3550 98 0 std::_Atomic_fetch_add_4(unsigned long volatile *,unsigned long,std::memory_order)
+3550 12 1570 81
+3562 27 1571 81
+3589 10 1574 81
+3599 10 1578 81
+35a9 10 1581 81
+35b9 10 1585 81
+35c9 2 1589 81
+35cb 1d 1591 81
+FUNC 35f0 2e 0 std::_Atomic_fetch_sub_4(unsigned long volatile *,unsigned long,std::memory_order)
+35f0 12 1595 81
+3602 17 1596 81
+3619 5 1597 81
+FUNC 3620 5e 0 std::_Atomic_load_4(unsigned long volatile *,std::memory_order)
+3620 d 1356 81
+362d 26 1357 81
+3653 c 1360 81
+365f c 1364 81
+366b c 1367 81
+3677 2 1373 81
+3679 5 1375 81
+FUNC 3680 64 0 std::_Atomic_store_4(unsigned long volatile *,unsigned long,std::memory_order)
+3680 12 1290 81
+3692 1f 1291 81
+36b1 e 1294 81
+36bf 2 1295 81
+36c1 e 1298 81
+36cf 2 1299 81
+36d1 e 1302 81
+36df 5 1312 81
+FUNC 36f0 17 0 std::_Fetch_add_acquire_4(unsigned long volatile *,unsigned long)
+36f0 9 1555 81
+36f9 d 1557 81
+3706 1 1559 81
+FUNC 3710 18 0 std::_Load_acquire_4(unsigned long volatile *)
+3710 9 1348 81
+3719 a 1351 81
+3723 5 1352 81
+FUNC 3730 1b 0 std::_Load_seq_cst_4(unsigned long volatile *)
+3730 9 1333 81
+3739 a 1341 81
+3743 3 1344 81
+3746 5 1345 81
+FUNC 3750 15 0 std::_Store_release_4(unsigned long volatile *,unsigned long)
+3750 9 1251 81
+3759 b 1257 81
+3764 1 1259 81
+FUNC 3770 15 0 std::_Store_seq_cst_4(unsigned long volatile *,unsigned long)
+3770 9 1275 81
+3779 b 1284 81
+3784 1 1286 81
+FUNC 3790 2a 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::alignOfNode()
+3790 2a 240 78
+FUNC 37c0 26 0 std::atomic_fetch_sub(std::_Atomic_int *,int)
+37c0 d 940 18
+37cd 14 941 18
+37e1 5 942 18
+FUNC 37f0 37 0 std::atomic_fetch_sub_explicit(std::_Atomic_int *,int,std::memory_order)
+37f0 1b 930 18
+380b 17 931 18
+3822 5 932 18
+FUNC 3830 2d 0 std::atomic_load_explicit(std::_Atomic_int const *,std::memory_order)
+3830 16 494 18
+3846 12 495 18
+3858 5 496 18
+FUNC 3860 37 0 std::atomic_store_explicit(std::_Atomic_int *,int,std::memory_order)
+3860 1b 473 18
+387b 17 474 18
+3892 5 475 18
+FUNC 38a0 b 0 QStaticStringData<19>::data_ptr()
+38a0 5 236 78
+38a5 5 237 78
+38aa 1 238 78
+FUNC 38b0 98 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::createNode(unsigned int,QString const &,QQmlPrivate::CachedQmlUnit const * const &,QHashNode<QString,QQmlPrivate::CachedQmlUnit const *> * *)
+38b0 17 559 78
+38c7 52 560 78
+3919 d 561 78
+3926 18 562 78
+393e 5 563 78
+3943 5 564 78
+FUNC 3950 22 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::deleteNode2(QHashData::Node *)
+3950 9 541 78
+3959 14 545 78
+396d 5 547 78
+FUNC 3980 1b 0 QBasicAtomicInteger<int>::deref()
+3980 1b 115 58
+FUNC 39a0 42 0 QtPrivate::RefCount::deref()
+39a0 9 65 71
+39a9 11 66 71
+39ba 7 68 71
+39c1 4 69 71
+39c5 7 71 71
+39cc 4 72 71
+39d0 d 73 71
+39dd 5 74 71
+FUNC 39f0 33 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::detach()
+39f0 33 275 78
+FUNC 3a30 78 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::detach_helper()
+3a30 9 596 78
+3a39 30 597 78
+3a69 1b 598 78
+3a84 12 599 78
+3a96 d 600 78
+3aa3 5 601 78
+FUNC 3ab0 6a 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::duplicateNode(QHashData::Node *,void *)
+3ab0 e 551 78
+3abe f 552 78
+3acd 48 553 78
+3b15 5 554 78
+FUNC 3b20 a9 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::findNode(QString const &,unsigned int)
+3b20 13 911 78
+3b33 e 914 78
+3b41 34 915 78
+3b75 2f 917 78
+3ba4 f 918 78
+3bb3 2 919 78
+3bb5 a 920 78
+3bbf 5 922 78
+3bc4 5 923 78
+FUNC 3bd0 77 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::findNode(QString const &,unsigned int *)
+3bd0 13 928 78
+3be3 8 929 78
+3beb 16 931 78
+3c01 1a 932 78
+3c1b 8 933 78
+3c23 b 934 78
+3c2e 14 936 78
+3c42 5 937 78
+FUNC 3c50 25 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::freeData(QHashData *)
+3c50 e 584 78
+3c5e 12 585 78
+3c70 5 586 78
+FUNC 3c80 78 0 A0x99bd9ee3::`anonymous namespace'::Q_QGS_unitRegistry::innerFunction
+3c80 78 202 116
+FUNC 3d00 e8 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::insert(QString const &,QQmlPrivate::CachedQmlUnit const * const &)
+3d00 18 768 78
+3d18 a 769 78
+3d22 19 772 78
+3d3b 12 773 78
+3d4d 15 774 78
+3d62 19 775 78
+3d7b 36 776 78
+3db1 7 779 78
+3db8 14 780 78
+3dcc 17 781 78
+3de3 5 782 78
+FUNC 3df0 36 0 QGlobalStatic<`anonymous namespace'::Registry,&A0x99bd9ee3::A0x99bd9ee3::Q_QGS_unitRegistry::innerFunction,&A0x99bd9ee3::A0x99bd9ee3::Q_QGS_unitRegistry::guard>::isDestroyed
+3df0 36 132 155
+FUNC 3e30 44 0 QtPrivate::RefCount::isShared()
+3e30 9 100 71
+3e39 11 101 71
+3e4a 25 102 71
+3e6f 5 103 71
+FUNC 3e80 1b 0 QBasicAtomicInteger<int>::load()
+3e80 1b 103 58
+FUNC 3ea0 20 0 std::_Atomic_int::load(std::memory_order)
+3ea0 d 628 18
+3ead e 629 18
+3ebb 5 630 18
+FUNC 3ec0 5a 0 QHashNode<QString,QQmlPrivate::CachedQmlUnit const *>::same_key(unsigned int,QString const &)
+3ec0 5a 158 78
+FUNC 3f20 23 0 QBasicAtomicInteger<int>::store(int)
+3f20 23 104 58
+FUNC 3f50 2a 0 std::_Atomic_int::store(int,std::memory_order)
+3f50 12 618 18
+3f62 13 619 18
+3f75 5 620 18
+FUNC 3f80 64 0 QHash<QString,QQmlPrivate::CachedQmlUnit const *>::value(QString const &,QQmlPrivate::CachedQmlUnit const * const &)
+3f80 13 631 78
+3f93 37 633 78
+3fca a 634 78
+3fd4 2 635 78
+3fd6 9 636 78
+3fdf 5 638 78
+FUNC 3ff0 58 0 GuimodulePlugin::metaObject()
+3ff0 9 73 22
+3ff9 4a 74 22
+4043 5 75 22
+FUNC 4050 4b 0 GuimodulePlugin::qt_metacast(char const *)
+4050 e 78 22
+405e c 79 22
+406a 15 80 22
+407f 7 81 22
+4086 10 82 22
+4096 5 83 22
+FUNC 40b0 3d 0 GuimodulePlugin::qt_metacall(QMetaObject::Call,int,void * *)
+40b0 17 86 22
+40c7 1d 87 22
+40e4 4 88 22
+40e8 5 89 22
+FUNC 4100 14 0 GuimodulePlugin::qt_static_metacall(QObject *,QMetaObject::Call,int,void * *)
+4100 13 59 22
+4113 1 64 22
+FUNC 4120 8 0 qt_plugin_query_metadata
+4120 8 168 22
+FUNC 4130 d0 0 qt_plugin_instance
+4130 d0 168 22
+FUNC 4200 5b 0 QWeakPointer<QObject>::QWeakPointer<QObject><QObject>(QObject *,bool)
+4200 13 689 83
+4213 3e 688 83
+4251 a 689 83
+FUNC 4260 4d 0 QWeakPointer<QObject>::assign<QObject>(QObject *)
+4260 4d 684 83
+FUNC 42b0 22 0 qSwap<QObject *>(QObject * &,QObject * &)
+42b0 e 913 97
+42be f 915 97
+42cd 5 916 97
+FUNC 42e0 4f 0 std::swap<QObject *,void>(QObject * &,QObject * &)
+42e0 e 66 87
+42ee 12 67 87
+4300 15 68 87
+4315 15 69 87
+432a 5 70 87
+FUNC 4330 20 0 QPointer<QObject>::QPointer<QObject>()
+4330 20 70 74
+FUNC 4350 4b 0 ??0?$QWeakPointer@VQObject@@@@QEAA@$$QEAV0@@Z
+4350 a 594 83
+435a 22 593 83
+437c c 595 83
+4388 d 596 83
+4395 6 597 83
+FUNC 43a0 24 0 QWeakPointer<QObject>::QWeakPointer<QObject>()
+43a0 24 571 83
+FUNC 43d0 3f 0 GuimodulePlugin::GuimodulePlugin()
+FUNC 4410 1b 0 QPointer<QObject>::~QPointer<QObject>()
+FUNC 4430 6e 0 QWeakPointer<QObject>::~QWeakPointer<QObject>()
+4430 6e 572 83
+FUNC 44a0 6 0 QtSharedPointer::ExternalRefCountData::~ExternalRefCountData()
+44a0 6 155 83
+FUNC 44b0 19 0 GuimodulePlugin::~GuimodulePlugin()
+FUNC 44d0 18 0 QtSharedPointer::ExternalRefCountData::operator delete(void *)
+44d0 18 167 83
+FUNC 44f0 2a 0 QPointer<QObject>::operator=(QObject *)
+44f0 2a 83 74
+FUNC 4520 52 0 ??4?$QWeakPointer@VQObject@@@@QEAAAEAV0@$$QEAV0@@Z
+4520 52 599 83
+FUNC 4580 18 0 QPointer<QObject>::operator QObject *()
+4580 18 92 74
+FUNC 45a0 e 0 QScopedPointer<QObjectData,QScopedPointerDeleter<QObjectData> >::operator->()
+45a0 5 117 96
+45a5 8 118 96
+45ad 1 119 96
+FUNC 45c0 52 0 QtSharedPointer::ExternalRefCountData::`scalar deleting destructor'(unsigned int)
+FUNC 4620 3b 0 GuimodulePlugin::`vector deleting destructor'(unsigned int)
+FUNC 4660 b 0 __empty_global_delete(void *,unsigned __int64)
+4660 b 172 22
+FUNC 4670 1b 0 QPointer<QObject>::data()
+4670 1b 86 74
+FUNC 4690 4f 0 QWeakPointer<QObject>::data()
+4690 4f 569 83
+FUNC 46e0 3f 0 QWeakPointer<QObject>::swap(QWeakPointer<QObject> &)
+46e0 e 609 83
+46ee 12 610 83
+4700 1a 611 83
+471a 5 612 83
+FUNC 4758 39 0 _scrt_acquire_startup_lock
+4758 4 139 617
+475c 9 140 617
+4765 d 146 617
+4772 2 148 617
+4774 5 150 617
+4779 d 148 617
+4786 2 156 617
+4788 5 157 617
+478d 4 152 617
+FUNC 4794 34 0 _scrt_dllmain_after_initialize_c
+4794 4 376 617
+4798 9 377 617
+47a1 5 379 617
+47a6 2 381 617
+47a8 10 383 617
+47b8 4 385 617
+47bc 5 388 617
+47c1 2 391 617
+47c3 5 392 617
+FUNC 47c8 15 0 _scrt_dllmain_before_initialize_c
+47c8 4 366 617
+47cc c 367 617
+47d8 5 373 617
+FUNC 47e0 28 0 _scrt_dllmain_crt_thread_attach
+47e0 4 434 617
+47e4 9 436 617
+47ed 4 448 617
+47f1 9 441 617
+47fa 5 443 617
+47ff 2 444 617
+4801 2 447 617
+4803 5 448 617
+FUNC 4808 15 0 _scrt_dllmain_crt_thread_detach
+4808 4 451 617
+480c 5 453 617
+4811 5 454 617
+4816 2 455 617
+4818 5 456 617
+FUNC 4820 60 0 _scrt_dllmain_exception_filter
+4820 1f 350 617
+483f e 351 617
+484d 11 359 617
+485e 9 362 617
+4867 14 363 617
+487b 5 362 617
+FUNC 4880 30 0 _scrt_dllmain_uninitialize_c
+4880 4 395 617
+4884 9 396 617
+488d 7 398 617
+4894 4 407 617
+4898 5 398 617
+489d 9 402 617
+48a6 5 404 617
+48ab 5 407 617
+FUNC 48b0 14 0 _scrt_dllmain_uninitialize_critical
+48b0 4 410 617
+48b4 7 429 617
+48bb 4 431 617
+48bf 5 430 617
+FUNC 48c4 49 0 _scrt_initialize_crt
+48c4 6 185 617
+48ca 17 186 617
+48e1 5 191 617
+48e6 9 194 617
+48ef 4 206 617
+48f3 9 199 617
+48fc 7 201 617
+4903 2 202 617
+4905 2 205 617
+4907 6 206 617
+FUNC 4910 d8 0 _scrt_initialize_onexit_tables
+4910 6 296 617
+4916 f 297 617
+4925 9 302 617
+492e d 307 617
+493b 10 310 617
+494b 10 315 617
+495b 4 317 617
+495f 1d 325 617
+497c 21 327 617
+499d 31 328 617
+49ce 7 331 617
+49d5 8 333 617
+49dd b 304 617
+FUNC 49e8 99 0 _scrt_is_nonwritable_in_current_image
+49e8 7 88 617
+49ef 33 99 617
+4a22 3 107 617
+4a25 3a 108 617
+4a5f 5 109 617
+4a64 4 111 617
+4a68 6 116 617
+4a6e 4 118 617
+4a72 4 121 617
+4a76 4 101 617
+4a7a 2 127 617
+4a7c 5 129 617
+FUNC 4a84 24 0 _scrt_release_startup_lock
+4a84 8 160 617
+4a8c b 161 617
+4a97 4 167 617
+4a9b 7 172 617
+4aa2 6 173 617
+FUNC 4aa8 2b 0 _scrt_uninitialize_crt
+4aa8 6 209 617
+4aae f 214 617
+4abd 7 220 617
+4ac4 7 221 617
+4acb 8 224 617
+FUNC 4ad4 4f 0 onexit
+4ad4 6 256 617
+4ada 7 257 617
+4ae1 3 256 617
+4ae4 f 257 617
+4af3 6 259 617
+4af9 a 261 617
+4b03 f 267 617
+4b12 11 271 617
+FUNC 4b24 17 0 atexit
+4b24 4 274 617
+4b28 e 275 617
+4b36 5 278 617
+FUNC 4b3c 5 0 operator delete(void *,unsigned __int64)
+4b3c 0 30 456
+4b3c 5 31 456
+FUNC 4b44 15d 0 __scrt_initialize_thread_safe_statics
+4b44 19 126 516
+4b5d d7 127 516
+4c34 c 131 516
+4c40 d 135 516
+4c4d 2 136 516
+4c4f 10 137 516
+4c5f 21 127 516
+4c80 b 133 516
+4c8b 16 127 516
+FUNC 4ca4 28 0 __scrt_uninitialize_thread_safe_statics
+4ca4 4 116 516
+4ca8 d 117 516
+4cb5 c 118 516
+4cc1 6 120 516
+4cc7 5 122 516
+FUNC 4ccc 30 0 Init_thread_abort
+4ccc 9 231 516
+4cd5 d 232 516
+4ce2 3 233 516
+4ce5 d 234 516
+4cf2 5 236 516
+4cf7 5 235 516
+FUNC 4cfc 60 0 Init_thread_footer
+4cfc 9 242 516
+4d05 d 243 516
+4d12 6 244 516
+4d18 7 247 516
+4d1f 2d 246 516
+4d4c 6 247 516
+4d52 5 249 516
+4d57 5 248 516
+FUNC 4d5c 67 0 Init_thread_header
+4d5c 9 197 516
+4d65 d 198 516
+4d72 5 200 516
+4d77 5 225 516
+4d7c c 212 516
+4d88 5 206 516
+4d8d 23 221 516
+4db0 13 225 516
+FUNC 4dc4 50 0 Init_thread_notify
+4dc4 4 176 516
+4dc8 c 177 516
+4dd4 1d 179 516
+4df1 4 186 516
+4df5 7 179 516
+4dfc 6 183 516
+4e02 7 184 516
+4e09 4 186 516
+4e0d 7 184 516
+FUNC 4e14 77 0 Init_thread_wait
+4e14 6 162 516
+4e1a 8 163 516
+4e22 2 162 516
+4e24 2 163 516
+4e26 27 165 516
+4e4d 5 173 516
+4e52 7 165 516
+4e59 d 170 516
+4e66 12 171 516
+4e78 7 172 516
+4e7f 5 173 516
+4e84 7 172 516
+FUNC 4e8c 3c 0 operator new(unsigned __int64)
+4e8c 9 32 475
+4e95 2 35 475
+4e97 c 40 475
+4ea3 d 35 475
+4eb0 6 54 475
+4eb6 6 42 475
+4ebc 6 48 475
+4ec2 6 44 475
+FUNC 4ec8 5 0 operator delete(void *)
+4ec8 0 32 437
+4ec8 5 36 437
+FUNC 4ed0 2b 0 type_info::`scalar deleting destructor'(unsigned int)
+FUNC 4efc 50 0 dllmain_crt_dispatch
+4efc 4 135 538
+4f00 13 136 538
+4f13 5 144 538
+4f18 5 145 538
+4f1d 7 141 538
+4f24 5 140 538
+4f29 8 145 538
+4f31 3 138 538
+4f34 4 145 538
+4f38 5 138 538
+4f3d 6 139 538
+4f43 4 145 538
+4f47 5 139 538
+FUNC 4f4c 119 0 dllmain_crt_process_attach
+4f4c 1b 34 538
+4f67 b 35 538
+4f72 18 89 538
+4f8a b 38 538
+4f95 3 39 538
+4f98 d 42 538
+4fa5 a 45 538
+4faf 9 47 538
+4fb8 5 51 538
+4fbd 5 54 538
+4fc2 5 56 538
+4fc7 17 58 538
+4fde 9 61 538
+4fe7 13 64 538
+4ffa a 66 538
+5004 3 67 538
+5007 7 71 538
+500e 9 73 538
+5017 8 81 538
+501f 12 82 538
+5031 18 84 538
+5049 6 87 538
+504f a 88 538
+5059 c 43 538
+FUNC 5068 8e 0 dllmain_crt_process_detach
+5068 12 92 538
+507a c 95 538
+5086 2 96 538
+5088 10 126 538
+5098 8 98 538
+50a0 c 100 538
+50ac 9 103 538
+50b5 5 106 538
+50ba 5 108 538
+50bf 5 111 538
+50c4 6 114 538
+50ca 5 118 538
+50cf 8 119 538
+50d7 11 122 538
+50e8 2 125 538
+50ea c 104 538
+FUNC 50f8 133 0 dllmain_dispatch
+50f8 22 176 538
+511a c 180 538
+5126 7 182 538
+512d 8 189 538
+5135 22 191 538
+5157 8 192 538
+515f 13 195 538
+5172 8 196 538
+517a 13 200 538
+518d 9 203 538
+5196 d 205 538
+51a3 d 206 538
+51b0 1a 207 538
+51ca 9 210 538
+51d3 13 212 538
+51e6 4 213 538
+51ea 29 216 538
+5213 2 220 538
+5215 6 229 538
+521b 2 232 538
+521d e 233 538
+FUNC 522c 3d 0 DllMainCRTStartup
+522c 17 243 538
+5243 5 244 538
+5248 5 250 538
+524d 8 253 538
+5255 f 254 538
+5264 5 253 538
+FUNC 526c 1b9 0 _isa_available_init
+526c 12 70 369
+527e 1a 82 369
+5298 6 86 369
+529e 2f 90 369
+52cd 28 95 369
+52f5 2 99 369
+52f7 8 101 369
+52ff 34 107 369
+5333 14 110 369
+5347 7 99 369
+534e 12 114 369
+5360 b 118 369
+536b a 125 369
+5375 16 126 369
+538b 4 127 369
+538f 2 130 369
+5391 b 132 369
+539c 6 139 369
+53a2 a 141 369
+53ac a 142 369
+53b6 c 145 369
+53c2 11 151 369
+53d3 b 152 369
+53de 19 155 369
+53f7 6 158 369
+53fd d 160 369
+540a 6 161 369
+5410 15 168 369
+FUNC 5428 6 0 get_startup_argv_mode
+5428 0 14 381
+5428 5 15 381
+542d 1 16 381
+FUNC 5430 c 0 _scrt_is_ucrt_dll_in_use
+5430 0 22 365
+5430 b 23 365
+543b 1 24 365
+FUNC 543c 8 0 _crt_debugger_hook
+543c 0 126 638
+543c 7 131 638
+5443 1 132 638
+FUNC 5444 14a 0 _scrt_fastfail
+5444 17 147 638
+545b e 150 638
+5469 4 151 638
+546d a 158 638
+5477 11 160 638
+5488 a 189 638
+5492 7 191 638
+5499 13 194 638
+54ac 5 196 638
+54b1 3c 200 638
+54ed 7 211 638
+54f4 2b 216 638
+551f 1c 219 638
+553b 9 221 638
+5544 16 224 638
+555a 8 226 638
+5562 b 227 638
+556d 8 231 638
+5575 8 232 638
+557d 11 233 638
+FUNC 5590 3 0 guard_check_icall_nop
+5590 0 78 335
+5590 3 82 335
+FUNC 5594 3f 0 std::bad_alloc::bad_alloc(std::bad_alloc const &)
+FUNC 55d4 1e 0 std::bad_alloc::bad_alloc()
+55d4 0 117 407
+55d4 10 116 407
+55e4 a 117 407
+55ee 4 118 407
+FUNC 55f4 3f 0 std::bad_array_new_length::bad_array_new_length(std::bad_array_new_length const &)
+FUNC 5634 1e 0 std::bad_array_new_length::bad_array_new_length()
+5634 0 137 407
+5634 10 136 407
+5644 a 137 407
+564e 4 138 407
+FUNC 5654 35 0 std::exception::exception(std::exception const &)
+5654 23 68 407
+5677 9 69 407
+5680 9 70 407
+FUNC 568c 13 0 std::bad_array_new_length::~bad_array_new_length()
+FUNC 56a0 42 0 std::bad_alloc::`scalar deleting destructor'(unsigned int)
+FUNC 56e4 20 0 __scrt_throw_std_bad_alloc()
+56e4 4 34 495
+56e8 1c 35 495
+FUNC 5704 20 0 __scrt_throw_std_bad_array_new_length()
+5704 4 39 495
+5708 1c 40 495
+FUNC 5724 12 0 std::exception::what()
+5724 0 90 407
+5724 11 91 407
+5735 1 92 407
+FUNC 5738 ac 0 _security_init_cookie
+5738 d 158 324
+5745 16 169 324
+575b 5c 184 324
+57b7 11 191 324
+57c8 7 202 324
+57cf 15 205 324
+FUNC 57e4 23 0 DllMain
+57e4 4 21 559
+57e8 f 33 559
+57f7 6 34 559
+57fd 5 37 559
+5802 5 38 559
+FUNC 5808 e 0 __scrt_initialize_type_info()
+5808 0 16 414
+5808 e 17 414
+FUNC 5818 c 0 __scrt_uninitialize_type_info()
+5818 0 24 414
+5818 c 25 414
+FUNC 5824 8 0 _local_stdio_printf_options
+5824 0 81 404
+5824 7 83 404
+582b 1 84 404
+FUNC 582c 8 0 _local_stdio_scanf_options
+582c 0 91 404
+582c 7 93 404
+5833 1 94 404
+FUNC 5834 1b 0 _scrt_initialize_default_local_stdio_options
+5834 4 17 386
+5838 9 18 386
+5841 9 19 386
+584a 5 20 386
+FUNC 5850 8 0 _scrt_get_dyn_tls_init_callback
+5850 0 19 356
+5850 7 20 356
+5857 1 21 356
+FUNC 5858 3c 0 RTC_Initialize
+5858 a 38 660
+5862 10 41 660
+5872 8 43 660
+587a 6 45 660
+5880 9 41 660
+5889 b 48 660
+FUNC 5894 3c 0 RTC_Terminate
+5894 a 52 660
+589e 10 55 660
+58ae 8 57 660
+58b6 6 59 660
+58bc 9 55 660
+58c5 b 62 660
+FUNC 5960 3 0 _scrt_stub_for_acrt_uninitialize
+5960 0 18 633
+5960 2 19 633
+5962 1 20 633
+FUNC 5964 3 0 is_c_termination_complete
+5964 0 43 633
+5964 2 44 633
+5966 1 45 633
+FUNC 5990 19 0 `GuimodulePlugin::initializeEngine'::`1'::dtor$0
+FUNC 59b0 1b 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$0
+FUNC 59cb 19 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$1
+FUNC 59e4 19 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$2
+FUNC 59fd 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$3
+FUNC 5a19 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$4
+FUNC 5a35 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$5
+FUNC 5a51 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$6
+FUNC 5a6d 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$7
+FUNC 5a89 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$8
+FUNC 5aa5 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$9
+FUNC 5ac1 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$10
+FUNC 5add 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$11
+FUNC 5af9 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$12
+FUNC 5b15 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$13
+FUNC 5b31 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$14
+FUNC 5b4d 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$15
+FUNC 5b69 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$16
+FUNC 5b85 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$17
+FUNC 5ba1 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$18
+FUNC 5bbd 1c 0 ``anonymous namespace'::Registry::Registry'::`1'::dtor$19
+FUNC 5bd9 19 0 ``anonymous namespace'::Registry::lookupCachedUnit'::`1'::dtor$1
+FUNC 5bf2 19 0 ``anonymous namespace'::Registry::lookupCachedUnit'::`1'::dtor$2
+FUNC 5c10 18 0 ``Q_QGS_unitRegistry::`anonymous namespace'::Q_QGS_unitRegistry::innerFunction'::`2'::Holder::Holder'::`1'::dtor$0
+FUNC 5c30 1b 0 `Q_QGS_unitRegistry::`anonymous namespace'::Q_QGS_unitRegistry::innerFunction'::`1'::dtor$0
+FUNC 5c4b 18 0 __scrt_is_nonwritable_in_current_image$filt$0
+5c4b 18 123 617
+FUNC 5c63 17 0 `dllmain_crt_process_attach'::`1'::fin$0
+5c63 9 68 538
+5c6c e 71 538
+FUNC 5c7a 1c 0 `dllmain_crt_process_detach'::`1'::fin$0
+5c7a 9 115 538
+5c83 5 118 538
+5c88 e 119 538
+FUNC 5c96 36 0 `dllmain_dispatch'::`1'::filt$0
+5c96 36 221 538
+FUNC 5cd0 15 0 `anonymous namespace'::`dynamic atexit destructor for 'dummy''
+FUNC 5cf0 15 0 `Q_QGS_unitRegistry::`anonymous namespace'::Q_QGS_unitRegistry::innerFunction(void)'::`2'::`dynamic atexit destructor for 'holder''()
+FUNC 5d10 15 0 `qt_plugin_instance'::`2'::`dynamic atexit destructor for '_instance''
