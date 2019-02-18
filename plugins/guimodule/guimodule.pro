@@ -20,5 +20,6 @@ RESOURCES += \
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
-
+DISTFILES += \
+    src/qml/Utils.js
 

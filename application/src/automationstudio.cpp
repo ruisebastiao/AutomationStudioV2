@@ -52,13 +52,17 @@ AutomationStudio::AutomationStudio(QQmlApplicationEngine *engine, QObject *paren
     solveImportPaths();
     m_currentDir=m_currentDir+"/";
     QQmlContext* ctx{engine->rootContext()};
-    ctx->setContextProperty("appDir", m_currentDir);
+
+//    ctx->setContextProperty("appDir", m_currentDir);
+
     m_settings= new Settings(this,m_currentDir);
     m_systemSettings= new SystemSettings(this);
     m_utilities= new Utilities(this);
 
+    m_appTranslator= new AppTranslator();
 
 
+    m_appTranslator->setFilesLocation(m_currentDir+"i18n");
 
     connect(m_settings,&Settings::updateDone,this,[&](){
 
@@ -199,6 +203,8 @@ void AutomationStudio::loadInternalPlugins(){
     qmlRegisterUncreatableType<SystemSettings >("base", 1, 0, "SystemSettings","SystemSettings is available through the \'automationstudio.systemsettings\' property.");
     qmlRegisterUncreatableType<SocketIO>("base", 1, 0, "SocketIO","SocketIO");
     qmlRegisterUncreatableType<AppUpdater>("base", 1, 0, "AppUpdater","AppUpdater");
+
+    qmlRegisterUncreatableType<AppTranslator>("base", 1, 0, "AppTranslator","AppTranslator");
 
 
 

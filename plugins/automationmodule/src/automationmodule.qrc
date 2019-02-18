@@ -20,5 +20,6 @@
         <file alias="Nodes/LogicalNodeItem.qml">qml/nodes/LogicalNodeItem.qml</file>
         <file alias="Nodes/ArrayNodeItem.qml">qml/nodes/ArrayNodeItem.qml</file>
         <file alias="Nodes/PropertiesNodeItem.qml">qml/nodes/PropertiesNodeItem.qml</file>
+        <file alias="utils.js">qml/Utils.js</file>
     </qresource>
 </RCC>

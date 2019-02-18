@@ -12,8 +12,8 @@ HEADERS += \
     $$PWD/automationstudiocore/socketio.h \
     $$PWD/automationstudiocore/appupdater.h \
     $$PWD/automationstudiocore/userslistmodel.h \
-    $$PWD/automationstudiocore/userslistmodel.h
     $$PWD/automationstudiocore/tcpclient.h
+
 
 
 include($$PWD/../../socket.io-client-cpp/socket.io-client-cpp-headers.pri)

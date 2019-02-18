@@ -1,5 +1,7 @@
 CONFIG += skip_target_version_ext
 
+win32{
+
 
 
 include($$PROJECT_PATH/versioning/gitversion.pri)
@@ -31,7 +33,7 @@ unix{
 
 }
 
-
+}
 #win32{
 #}
 

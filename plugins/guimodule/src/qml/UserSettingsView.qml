@@ -9,6 +9,9 @@ import base 1.0
 
 import automationmodule 1.0
 
+import "qrc:/utils.js" as JSUtils
+
+
 Item{
 
     id:root
@@ -16,13 +19,15 @@ Item{
     visible: automationstudio.systemSettings
     property Settings settings: automationstudio.settings
 
-//    Connections{
-//        target: settings
-//        onDoUpdate:{
-//            console.log("Updating to release:"+releasename);
-//        }
-//    }
+    //    Connections{
+    //        target: settings
+    //        onDoUpdate:{
+    //            console.log("Updating to release:"+releasename);
+    //        }
+    //    }
 
+
+    property User loggedUser:automationstudio.settings&&automationstudio.settings.currentUser
 
 
     property SystemSettings system: automationstudio.systemSettings
@@ -107,10 +112,10 @@ Item{
 
                                 popup.onClosed: {
 
-                                    //                                    if(currentIndex>=0){
-                                    //                                        var lang=combo_language.model[combo_language.currentIndex].locale;
-                                    //                                        loggedUser.language=lang;
-                                    //                                    }
+                                    if(currentIndex>=0){
+                                        var lang=combo_language.model[combo_language.currentIndex].locale;
+                                        loggedUser.language=lang;
+                                    }
 
 
                                 }
@@ -120,13 +125,15 @@ Item{
                                 }
 
                                 Component.onCompleted: {
-                                    //                                    currentIndex=Qt.binding(
-                                    //                                                function(){
-                                    //                                                    var setindex= Utils.arrayObjectIndexOf(combo_language.model,loggedUser.language,"locale");
-                                    //                                                    return setindex;
-                                    //                                                }
+                                    currentIndex=Qt.binding(
+                                                function(){
+                                                    var teste=JSUtils;
 
-                                    //                                                );
+                                                    var setindex= JSUtils.arrayObjectIndexOf(combo_language.model,loggedUser.language,"locale");
+                                                    return setindex;
+                                                }
+
+                                                );
                                     //                                    popup.padding=1
 
                                 }
@@ -304,7 +311,7 @@ Item{
                                                     BusyIndicator {
                                                         anchors.fill: parent
                                                         anchors.margins: 5
-                                                        running: false                                                      
+                                                        running: false
                                                         //                                                    Material.accent: "#ffb47b"
                                                     }
 
@@ -365,13 +372,13 @@ Item{
                                             }
                                         }
 
-                                        RowLayout{                                           
+                                        RowLayout{
 
                                             TextField{
                                                 id:server_field
 
                                                 Layout.margins: 5
-                                                 Layout.fillWidth:  true
+                                                Layout.fillWidth:  true
                                                 Material.accent: selectedprimary
                                                 text:automationstudio.settings.appUpdater.serverUrl
                                                 onAccepted: {
@@ -385,16 +392,16 @@ Item{
 
                                             }
 
-                                           Button{
-                                               visible: automationstudio.settings.appRegistred===false && automationstudio.settings.socketIO.connected
-                                               text: "Register APP"
-                                               highlighted: true
+                                            Button{
+                                                visible: automationstudio.settings.appRegistred===false && automationstudio.settings.socketIO.connected
+                                                text: "Register APP"
+                                                highlighted: true
 
-                                               onClicked: {
-                                                   console.log("Registring app")
-                                                   automationstudio.settings.registerApp();
-                                               }
-                                           }
+                                                onClicked: {
+                                                    console.log("Registring app")
+                                                    automationstudio.settings.registerApp();
+                                                }
+                                            }
                                         }
                                         RowLayout{
                                             Layout.fillWidth:  true
@@ -403,8 +410,8 @@ Item{
                                                 readOnly: true
                                                 Layout.margins: 5
                                                 Layout.fillWidth:  true
-//                                                anchors.centerIn: parent
-//                                                width: parent.width
+                                                //                                                anchors.centerIn: parent
+                                                //                                                width: parent.width
                                                 Layout.minimumWidth: 75
                                                 Material.accent: selectedprimary
                                                 text:automationstudio.settings.appID

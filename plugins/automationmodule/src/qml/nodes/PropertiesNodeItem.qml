@@ -35,9 +35,9 @@ FlowNodeItem{
 
 
                     onCurrentIndexChanged:{
-                       if(currentIndex==-1) {
-                           container.selectedPropertyInfo=null;
-                       }
+                        if(currentIndex==-1) {
+                            container.selectedPropertyInfo=null;
+                        }
                     }
 
                     delegate: SwipeDelegate {
@@ -134,15 +134,36 @@ FlowNodeItem{
                                 property bool idvalid: false
                                 property string currenttext: ""
                                 id:textPropertyName
-                                text: container.selectedPropertyInfo?container.selectedPropertyInfo.propertyName:currenttext
+                                //                                text:
 
+                                Component.onCompleted: {
+                                    text=Qt.binding(function(){
+
+                                        if(container.selectedPropertyInfo){
+                                            return container.selectedPropertyInfo.propertyName
+                                        }
+
+                                        return currenttext
+
+                                    })
+                                }
 
                                 onTextChanged: {
                                     if(currenttext!=text){
+                                        if(container.selectedPropertyInfo){
+                                            var propinfo=root.node.properties.getByName(text)
+                                            if(propinfo!=container.selectedPropertyInfo){
+
+                                                container.selectedPropertyInfo=propinfo
+                                            }
+
+                                        }
+
                                         currenttext=text
+
+
                                     }
 
-                                    container.selectedPropertyInfo=root.node.properties.getByName(text)
 
                                 }
 

@@ -3,6 +3,8 @@ TARGET   = AutomationStudio
 QT      += qml quick quickcontrols2 opengl concurrent
 CONFIG +=c++14
 
+TRANSLATIONS = $$PROJECT_PATH/i18n/tr_pt.ts $$PROJECT_PATH/i18n/tr_fr.ts $$PROJECT_PATH/i18n/tr_es.ts
+
 
 #include(../qt-breakpad/qt-breakpad.pri)
 

@@ -14,7 +14,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.VirtualKeyboard 2.1
 
 import base 1.0
-import guimodule 1.0 as GUI
+import guimodule 1.0
 import automationmodule 1.0
 
 import QuickQanava 2.0 as Qan
@@ -24,14 +24,30 @@ import QuickQanava 2.0 as Qan
 ApplicationWindow {
     id: rootwindow
     visible: true
-    //    width: 640
-    //    height: 480
-    title: qsTr("Automation Studio")
+
+    title: "Automation Studio"
     
     property string mainState: "home"
     onMainStateChanged: {
         console.log(mainState);
     }
+
+
+    property AppTranslator translator: automationstudio.appTranslator
+
+    onTranslatorChanged: {
+        if(translator){
+            translator.currentLanguage=Qt.binding(function(){
+                if(loggedUser){
+                    return loggedUser.language;
+                }
+                return "en"
+            })
+        }
+    }
+
+
+    //
 
 
     signal toastMessage(string message);
@@ -68,7 +84,7 @@ ApplicationWindow {
     }
 
 
-    GUI.ToastManager{
+    ToastManager{
         id:toast_manager
         anchors.fill: parent
 
@@ -329,7 +345,7 @@ ApplicationWindow {
 
                                 horizontalAlignment: Text.AlignHCenter
 
-                                text: "Projects List"
+                                text: qsTr("Projects List")+translator.emptyString
                             }
                             RoundButton{
                                 width: 48
@@ -422,7 +438,7 @@ ApplicationWindow {
 
                                     MenuItem{
                                         enabled: true
-                                        text: "Add sub project"
+                                        text: qsTr("Add sub project")+translator.emptyString
                                         onClicked: {
                                             model.project.addSubProject()
                                         }
@@ -566,15 +582,17 @@ ApplicationWindow {
 
                                         Button{
 
+
                                             Layout.fillHeight: true
                                             highlighted: true
                                             property bool openProject: projectslist.selectedProject!=rootwindow.currentProject
-                                            text:openProject || !projectslist.selectedProject?"Open":"Close"
+                                            text:openProject || !projectslist.selectedProject?qsTr("Open")+translator.emptyString:qsTr("Close")+translator.emptyString
                                             //                                            enabled: projectslist.selectedProject && rootwindow.currentProject.projectLocked==false
                                             Component.onCompleted: {
                                                 enabled=Qt.binding(function(){
                                                     if(projectslist.selectedProject && settings.selectingProject==false){
                                                         if(rootwindow.currentProject){
+                                                            drawer.close();
                                                             return rootwindow.currentProject.projectLocked==false
                                                         }
                                                         return true
@@ -592,7 +610,7 @@ ApplicationWindow {
 
                                                 }
                                                 else if(projectslist.selectedProject){
-                                                    //                                                    rootwindow.currentProject=projectslist.selectedProject
+                                                    //
                                                     settings.selectedProject=projectslist.selectedProject
                                                 }
 
@@ -604,10 +622,10 @@ ApplicationWindow {
                                             BusyIndicator{
                                                 height: parent.height
                                                 width: height
-                                               running: settings?settings.selectingProject:false
-                                               visible: settings?settings.selectingProject:false
-                                               anchors.right: parent.right
-                                               anchors.verticalCenter: parent.verticalCenter
+                                                running: settings?settings.selectingProject:false
+                                                visible: settings?settings.selectingProject:false
+                                                anchors.right: parent.right
+                                                anchors.verticalCenter: parent.verticalCenter
                                             }
                                             Layout.fillWidth: true
                                             Layout.fillHeight: true
@@ -799,7 +817,7 @@ ApplicationWindow {
 
 
 
-                                GUI.TextScroller {
+                                TextScroller {
                                     id: titleLabel
 
                                     anchors.fill: parent
@@ -862,18 +880,15 @@ ApplicationWindow {
                                 Layout.fillWidth: true
 
 
-                                GUI.TextScroller {
+                                TextScroller {
                                     id: centralLabel
                                     anchors.fill: parent
 
                                     horizontalAlignment:Text.AlignRight
 
-                                    text:currentProject?currentProject.name:"No project loaded"
+                                    text:currentProject?currentProject.name:qsTr("No project loaded")+translator.emptyString
 
                                     onTextChanged:{
-                                        if(text){
-
-                                        }
                                     }
 
                                     duration: mainStateAnimationTime
@@ -891,7 +906,7 @@ ApplicationWindow {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
 
-                                GUI.TextScroller {
+                                TextScroller {
                                     anchors.fill: parent
 
                                     visible:rootwindow.currentProject
@@ -1057,7 +1072,7 @@ ApplicationWindow {
 
 
 
-                                    GUI.Blink{
+                                    Blink{
                                         running: parent.visible
                                         blinkTime: 500
                                         //target: parent
@@ -1291,7 +1306,7 @@ ApplicationWindow {
 
         }
 
-        GUI.PopUp {
+        PopUp {
             id:loginpopup
 
             //            parent:inputPanel
@@ -1360,7 +1375,7 @@ ApplicationWindow {
                         TextField{
 
 
-                            GUI.MaterialPlaceHolder{
+                            MaterialPlaceHolder{
                                 id:placeholder
                                 placeHolderText:"PIN"
 
@@ -1385,7 +1400,7 @@ ApplicationWindow {
                                     login_container.opened=false
                                 }
                                 else if(text.length==maximumLength){
-                                    placeholder.placeHolderText="Invalid Pin"
+                                    placeholder.placeHolderText=qsTr("Invalid Pin")+translator.emptyString
                                     placeholder.textColor=Material.color(Material.Red)
                                 }
                                 else{
@@ -1480,14 +1495,14 @@ ApplicationWindow {
                 width: parent.width/3
 
                 height: parent.height/3
-                GUI.TextScroller {
+                TextScroller {
                     id: titleLabel
                     width:parent.width
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top:parent.bottom
                     anchors.topMargin: 5
                     horizontalAlignment:Text.AlignHCenter
-                    text:"Waiting for remote settings"
+                    text:qsTr("Waiting for remote settings")+translator.emptyString
                 }
             }
 
@@ -1500,7 +1515,7 @@ ApplicationWindow {
                 id:layoutcomponent
 
 
-                GUI.DockingLayout{
+                DockingLayout{
                     id:modulescontainer
 
                     property var fullscreenModule: null
@@ -1516,7 +1531,7 @@ ApplicationWindow {
 
 
 
-                        GUI.DockingItem{
+                        DockingItem{
                             id:moduledockitem
 
                             isHidden:fullscreenModule && fullscreenModule!=module
@@ -1656,7 +1671,7 @@ ApplicationWindow {
 
                     }
 
-                    GUI.DockingItem{
+                    DockingItem{
 
                         id:module_manager
 
@@ -1683,7 +1698,7 @@ ApplicationWindow {
                                 //                                    title: ""
                                 Action{
                                     enabled: false
-                                    text: "Add module"
+                                    text: qsTr("Add module")+translator.emptyString
                                 }
                                 MenuSeparator { }
 
@@ -1747,7 +1762,7 @@ ApplicationWindow {
 
                     }
 
-                    placeholderText: "Configuration file not found, select one"
+                    placeholderText: translator?qsTr("Configuration file not found, select one")+translator.emptyString:""
                     Material.background: "red"
                     selectByMouse: true
                     RoundButton{
@@ -1812,10 +1827,10 @@ ApplicationWindow {
         id:usersettingsview
 
 
-        GUI.UserSettingsView{
+        UserSettingsView{
             id:usersettings
             state:"preferences"
-            property string title:qsTr("User Settings")
+            property string title:qsTr("User Settings")+translator.emptyString
         }
     }
 
@@ -1886,7 +1901,7 @@ ApplicationWindow {
     //                    }
     //                }
     //            }
-    //            GUI.AutoScroller {}
+    //            AutoScroller {}
     //        }
 
 
@@ -1902,7 +1917,7 @@ ApplicationWindow {
         }
     }
 
-    GUI.AppUpdaterItem{
+    AppUpdaterItem{
         id:updater
         visible:false
     }
@@ -1962,7 +1977,7 @@ ApplicationWindow {
 
 
 
-        GUI.AutoScroller {
+        AutoScroller {
 
             panelY:inputPanel.y
         }

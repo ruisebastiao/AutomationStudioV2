@@ -34,6 +34,10 @@ FlowNodeItem{
 
             if(projectProperty!=""){
                 projectObject[projectProperty]=Qt.binding(function() {
+                    if(typeof root.node.input === 'undefined'){
+                        return "";
+                    }
+
                     return root.node.input;
                 })
 

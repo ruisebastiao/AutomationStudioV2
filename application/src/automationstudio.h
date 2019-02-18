@@ -17,6 +17,8 @@
 #ifndef AUTOMATIONSTUDIO_H
 #define AUTOMATIONSTUDIO_H
 
+#include "apptranslator.h"
+
 #include <QString>
 #include <QLibrary>
 #include <qpluginloader.h>
@@ -58,7 +60,9 @@ class AutomationStudio : public QObject{
     Q_PROPERTY(QString buildInfo READ buildInfo WRITE setBuildInfo NOTIFY buildInfoChanged)
 
 
-    Q_PROPERTY(SystemSettings*  systemSettings READ systemSettings NOTIFY systemSettingsChanged)
+    Q_PROPERTY(SystemSettings* systemSettings READ systemSettings NOTIFY systemSettingsChanged)
+
+    Q_PROPERTY(AppTranslator* appTranslator READ appTranslator WRITE setappTranslator NOTIFY appTranslatorChanged)
 
 public:
     typedef QSharedPointer<AutomationStudio>       Ptr;
@@ -121,6 +125,11 @@ public:
         return m_buildInfo;
     }
 
+    AppTranslator* appTranslator() const
+    {
+        return m_appTranslator;
+    }
+
 public slots:
 
     void setCoreApplication(QCoreApplication* coreApplication)
@@ -150,6 +159,15 @@ public slots:
         emit buildInfoChanged(m_buildInfo);
     }
 
+    void setappTranslator(AppTranslator* appTranslator)
+    {
+        if (m_appTranslator == appTranslator)
+            return;
+
+        m_appTranslator = appTranslator;
+        emit appTranslatorChanged(m_appTranslator);
+    }
+
 signals:
     void systemSettingsChanged(SystemSettings* systemSettings);
 
@@ -158,6 +176,8 @@ signals:
     void releaseVersionChanged(QString releaseVersion);
 
     void buildInfoChanged(QString buildInfo);
+
+    void appTranslatorChanged(AppTranslator* appTranslator);
 
 private:
     AutomationStudio(QQmlApplicationEngine* engine,QObject* parent = nullptr);
@@ -185,6 +205,7 @@ private:
 
     QString m_releaseVersion="";
     QString m_buildInfo="";
+    AppTranslator* m_appTranslator=nullptr;
 };
 
 

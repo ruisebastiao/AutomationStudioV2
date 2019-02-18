@@ -31,6 +31,9 @@ public:
     Q_PROPERTY(QString pin READ pin WRITE setPin NOTIFY pinChanged USER("serialize"))
     Q_PROPERTY(bool isDefault READ isDefault WRITE setIsDefault NOTIFY isDefaultChanged USER("serialize"))
 
+    Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged USER("serialize"))
+
+
     QString name() const
     {
         return m_name;
@@ -62,6 +65,8 @@ signals:
     void isDefaultChanged(bool isDefault);
 
     void pinChanged(QString pin);
+
+    void languageChanged(QString language);
 
 public slots:
     void setName(QString name)
@@ -112,6 +117,15 @@ public slots:
         emit pinChanged(m_pin);
     }
 
+    void setLanguage(QString language)
+    {
+        if (m_language == language)
+            return;
+
+        m_language = language;
+        emit languageChanged(m_language);
+    }
+
 private:
     QString m_name="";
     UserRole m_role=UserRole::ProductionRole;
@@ -124,9 +138,15 @@ private:
     QString m_pin="0000";
 
     // JsonSerializable interface
+    QString m_language="pt";
+
 public:
     virtual void Serialize(QJsonObject &json) override;
-    virtual void DeSerialize(QJsonObject &json) override;
+virtual void DeSerialize(QJsonObject &json) override;
+QString language() const
+{
+    return m_language;
+}
 };
 
 
