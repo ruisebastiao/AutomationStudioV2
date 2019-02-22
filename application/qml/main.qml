@@ -532,10 +532,17 @@ ApplicationWindow {
 
                                             onClicked: {
                                                 subprojectslist.currentIndex=itemProject.subProjects.indexOf(modelData)
-                                                itemProject.subProjectName=modelData;
+
+
                                                 if(projectslist.model){
+
                                                     var project=projectslist.model.at(projectslist.currentIndex)
+
                                                     projectslist.selectedProject=project
+                                                    if(projectslist.selectedProject){
+
+                                                        projectslist.selectedProject.subProjectName=modelData
+                                                    }
 
                                                 }
                                             }
@@ -585,12 +592,12 @@ ApplicationWindow {
 
                                             Layout.fillHeight: true
                                             highlighted: true
-                                            property bool openProject: projectslist.selectedProject!=rootwindow.currentProject
+                                            property bool openProject: projectslist.selectedProject!=rootwindow.currentProject || settings.selectedProject==null
                                             text:openProject || !projectslist.selectedProject?qsTr("Open")+translator.emptyString:qsTr("Close")+translator.emptyString
                                             //                                            enabled: projectslist.selectedProject && rootwindow.currentProject.projectLocked==false
                                             Component.onCompleted: {
                                                 enabled=Qt.binding(function(){
-                                                    if(projectslist.selectedProject && settings.selectingProject==false){
+                                                    if(settings&& projectslist.selectedProject && settings.selectingProject==false){
                                                         if(rootwindow.currentProject){
                                                             drawer.close();
                                                             return rootwindow.currentProject.projectLocked==false
@@ -604,15 +611,20 @@ ApplicationWindow {
                                             onClicked: {
 
                                                 if(openProject==false){
+
                                                     if(settings.selectedProject){
+
                                                         settings.selectedProject=null
                                                     }
 
                                                 }
                                                 else if(projectslist.selectedProject){
                                                     //
+
                                                     settings.selectedProject=projectslist.selectedProject
                                                 }
+
+
 
                                                 //settings.projects.l
                                             }
@@ -884,9 +896,9 @@ ApplicationWindow {
                                     id: centralLabel
                                     anchors.fill: parent
 
-                                    horizontalAlignment:Text.AlignRight
+                                    horizontalAlignment:projectslist.selectedProject&&projectslist.selectedProject.subProjectName?Text.AlignRight:Text.AlignHCenter
 
-                                    text:currentProject?currentProject.name:qsTr("No project loaded")+translator.emptyString
+                                    text:projectslist.selectedProject?projectslist.selectedProject.name:qsTr("No project loaded")+translator.emptyString
 
                                     onTextChanged:{
                                     }
@@ -905,12 +917,12 @@ ApplicationWindow {
                             Item {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-
+                                visible:projectslist.selectedProject&&projectslist.selectedProject.subProjectName!=""
                                 TextScroller {
                                     anchors.fill: parent
 
-                                    visible:rootwindow.currentProject
-                                    text:currentProject&&currentProject.subProjectName!=""?"- "+currentProject.subProjectName:""
+
+                                    text:projectslist.selectedProject&&projectslist.selectedProject.subProjectName!=""?"- "+projectslist.selectedProject.subProjectName:""
                                     horizontalAlignment:Text.AlignLeft
                                     duration: mainStateAnimationTime
                                     font.pixelSize: 15

@@ -1,7 +1,7 @@
-MODULE windows x86_64 5C326CE0F51D4597A7D42CD2F84AB16112 AutomationStudio.pdb
-INFO CODE_ID 5C6AB8D82BB000 AutomationStudio.exe
+MODULE windows x86_64 5C326CE0F51D4597A7D42CD2F84AB1612d AutomationStudio.pdb
+INFO CODE_ID 5C6FCF972BB000 AutomationStudio.exe
 FILE 1 C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\application\release\automationstudio.res
-FILE 2 C:\Users\LM36\AppData\Local\Temp\lnk{9972AEA2-7C54-4F15-AE62-AD9A1D18356F}.tmp
+FILE 2 C:\Users\LM36\AppData\Local\Temp\lnk{AD189F67-0958-4710-B690-E6C9DD62CB63}.tmp
 FILE 3 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_wstdio.h
 FILE 4 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\cmath
 FILE 5 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qstringmatcher.h
@@ -411,27 +411,27 @@ FILE 627 c:\qt5\5.11.2\msvc2017_64\include\qtgui\qtouchdevice.h
 FILE 628 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\list
 FILE 629 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qannodeitem.h
 FILE 633 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\array
-FILE 641 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\userslistmodel.h
-FILE 644 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\user.h
-FILE 659 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\flownodemanager.h
-FILE 661 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\serializedlistmodel.h
-FILE 662 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\typedlistmodel.h
+FILE 634 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_socket.h
+FILE 658 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\flownodemanager.h
+FILE 660 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\serializedlistmodel.h
+FILE 661 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\typedlistmodel.h
+FILE 663 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\socketio.h
 FILE 666 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qset.h
 FILE 667 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\quickcontainers\src\qcmcontainer.h
-FILE 669 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\appupdater.h
-FILE 670 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\ports\flownodeport.h
-FILE 672 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpobehaviour.h
-FILE 673 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\map
-FILE 684 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpoadjacentbehaviour.hpp
-FILE 685 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanportitem.h
-FILE 689 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanedgeitem.h
-FILE 702 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\edges\selectableedge.h
-FILE 706 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanstylemanager.h
-FILE 707 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraphconfig.h
-FILE 715 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\unordered_map
-FILE 719 c:\users\lm36\documents\novares\automacao\build-automationstudio-desktop_qt_5_11_2_msvc2017_64bit3-release\application\release\moc_settings.cpp
-FILE 728 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpoutils.h
-FILE 752 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_socket.h
+FILE 668 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_client.h
+FILE 670 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_message.h
+FILE 671 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\ports\flownodeport.h
+FILE 673 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpobehaviour.h
+FILE 674 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\map
+FILE 685 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpoadjacentbehaviour.hpp
+FILE 686 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanportitem.h
+FILE 690 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanedgeitem.h
+FILE 703 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\edges\selectableedge.h
+FILE 707 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanstylemanager.h
+FILE 708 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraphconfig.h
+FILE 716 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\unordered_map
+FILE 720 c:\users\lm36\documents\novares\automacao\build-automationstudio-desktop_qt_5_11_2_msvc2017_64bit3-release\application\release\moc_settings.cpp
+FILE 729 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpoutils.h
 FILE 753 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanbehaviour.h
 FILE 759 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtponodebehaviour.h
 FILE 764 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpoadjacentbehaviour.h
@@ -441,30 +441,30 @@ FILE 780 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\auto
 FILE 793 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\jsonserializable.h
 FILE 795 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogengroup.h
 FILE 797 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogenedge.h
-FILE 801 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\socketio.h
-FILE 804 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\connectioninfo.h
-FILE 806 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_client.h
-FILE 807 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\utilities.h
-FILE 812 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_message.h
-FILE 833 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogengraph.h
-FILE 834 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\moduleproxynode.h
-FILE 841 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xtree
-FILE 843 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\proxynode.h
-FILE 852 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\flownode.h
-FILE 853 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\graphs\scenegraph.h
-FILE 854 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qannavigable.h
-FILE 858 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangrid.h
-FILE 864 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qannode.h
-FILE 876 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\modulelistmodel.h
-FILE 879 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\qautomationmodule.h
-FILE 889 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qancontaineradapter.h
-FILE 891 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraphview.h
-FILE 903 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraph.h
-FILE 906 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanselectable.h
-FILE 907 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanutils.h
-FILE 918 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanedge.h
-FILE 920 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanstyle.h
-FILE 923 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogennode.h
+FILE 803 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\connectioninfo.h
+FILE 805 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\utilities.h
+FILE 830 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogengraph.h
+FILE 831 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\moduleproxynode.h
+FILE 838 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xtree
+FILE 840 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\proxynode.h
+FILE 849 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\flownode.h
+FILE 850 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\graphs\scenegraph.h
+FILE 851 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qannavigable.h
+FILE 855 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangrid.h
+FILE 861 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qannode.h
+FILE 873 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\modulelistmodel.h
+FILE 876 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\qautomationmodule.h
+FILE 886 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qancontaineradapter.h
+FILE 887 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\userslistmodel.h
+FILE 889 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\user.h
+FILE 890 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraphview.h
+FILE 902 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraph.h
+FILE 905 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanselectable.h
+FILE 906 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanutils.h
+FILE 917 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanedge.h
+FILE 919 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanstyle.h
+FILE 922 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogennode.h
+FILE 924 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\appupdater.h
 FILE 935 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanconnector.h
 FILE 940 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangroupitem.h
 FILE 945 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qandraggable.h
@@ -479,15 +479,15 @@ FILE 1417 c:\users\lm36\documents\novares\automacao\build-automationstudio-deskt
 FILE 1456 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qglobalstatic.h
 FILE 1498 c:\users\lm36\documents\novares\automacao\build-automationstudio-desktop_qt_5_11_2_msvc2017_64bit3-release\application\release\qrc_application_qmlcache.cpp
 FILE 1595 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\apptranslator.cpp
-FILE 1972 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentreducekernel.h
-FILE 1990 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\settings.cpp
-FILE 2099 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentthreadengine.h
-FILE 2151 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentiteratekernel.h
-FILE 2155 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentmedian.h
-FILE 2224 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentrunbase.h
-FILE 2386 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\automationstudio.cpp
-FILE 2457 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\plugincontext.h
-FILE 2558 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlprivate.h
+FILE 1975 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentthreadengine.h
+FILE 1991 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\settings.cpp
+FILE 2033 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentiteratekernel.h
+FILE 2037 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentmedian.h
+FILE 2100 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentrunbase.h
+FILE 2225 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentreducekernel.h
+FILE 2384 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\automationstudio.cpp
+FILE 2456 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\plugincontext.h
+FILE 2557 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlprivate.h
 FILE 2667 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qvarlengtharray.h
 FILE 2712 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\keymap.h
 FILE 2857 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\main.cpp
@@ -674,9 +674,9 @@ FUNC 1070 4f 0 `dynamic initializer for 'AutomationStudio::staticMetaObject''
 1070 1c 271 1091
 108c 33 272 1091
 FUNC 10c0 4f 0 `dynamic initializer for 'Settings::staticMetaObject''
-10c0 0 738 719
-10c0 1c 736 719
-10dc 33 737 719
+10c0 0 738 720
+10c0 1c 736 720
+10dc 33 737 720
 FUNC 1110 4f 0 `dynamic initializer for 'AppTranslator::staticMetaObject''
 1110 0 151 325
 1110 1c 149 325
@@ -2848,60 +2848,60 @@ b1f0 9 90 68
 b1f9 2a 91 68
 b223 5 92 68
 FUNC b230 b5 0 AutomationStudio::~AutomationStudio()
-b230 18 86 2386
-b248 45 88 2386
-b28d 58 89 2386
+b230 18 86 2384
+b248 45 88 2384
+b28d 58 89 2384
 FUNC b2f0 b0 0 AutomationStudio::create(int,char const * const * const,QQmlApplicationEngine *,QObject *)
-b2f0 28 91 2386
-b318 5a 92 2386
-b372 29 95 2386
-b39b 5 96 2386
+b2f0 28 91 2384
+b318 5a 92 2384
+b372 29 95 2384
+b39b 5 96 2384
 FUNC b3b0 27 0 AutomationStudio::loadQml(QUrl const &)
-b3b0 e 178 2386
-b3be 14 180 2386
-b3d2 5 181 2386
+b3b0 e 178 2384
+b3be 14 180 2384
+b3d2 5 181 2384
 FUNC b3e0 2fb 0 AutomationStudio::loadInternalPlugins()
-b3e0 18 183 2386
-b3f8 44 185 2386
-b43c 44 189 2386
-b480 44 194 2386
-b4c4 44 198 2386
-b508 44 203 2386
-b54c 44 204 2386
-b590 44 205 2386
-b5d4 44 207 2386
-b618 74 211 2386
-b68c 47 213 2386
-b6d3 8 215 2386
+b3e0 18 183 2384
+b3f8 44 185 2384
+b43c 44 189 2384
+b480 44 194 2384
+b4c4 44 198 2384
+b508 44 203 2384
+b54c 44 204 2384
+b590 44 205 2384
+b5d4 44 207 2384
+b618 74 211 2384
+b68c 47 213 2384
+b6d3 8 215 2384
 FUNC b6f0 520 0 AutomationStudio::loadPlugins()
-b6f0 18 126 2386
-b708 48 127 2386
-b750 85 130 2386
-b7d5 11 136 2386
-b7e6 b 139 2386
-b7f1 2e 141 2386
-b81f 10 151 2386
-b82f 105 154 2386
-b934 16 155 2386
-b94a 55 158 2386
-b99f e 159 2386
-b9ad 13 161 2386
-b9c0 c 162 2386
-b9cc d7 163 2386
-baa3 5 166 2386
-baa8 17 167 2386
-babf 16 168 2386
-bad5 d4 169 2386
-bba9 f 171 2386
-bbb8 2b 173 2386
-bbe3 2d 176 2386
+b6f0 18 126 2384
+b708 48 127 2384
+b750 85 130 2384
+b7d5 11 136 2384
+b7e6 b 139 2384
+b7f1 2e 141 2384
+b81f 10 151 2384
+b82f 105 154 2384
+b934 16 155 2384
+b94a 55 158 2384
+b99f e 159 2384
+b9ad 13 161 2384
+b9c0 c 162 2384
+b9cc d7 163 2384
+baa3 5 166 2384
+baa8 17 167 2384
+babf 16 168 2384
+bad5 d4 169 2384
+bba9 f 171 2384
+bbb8 2b 173 2384
+bbe3 2d 176 2384
 FUNC bc20 513 0 AutomationStudio::AutomationStudio(QQmlApplicationEngine *,QObject *)
-bc20 24 46 2386
-bc44 17 43 2386
-bc5b 12 46 2386
-bc6d 14 44 2386
-bc81 16 46 2386
-bc97 10 45 2386
+bc20 24 46 2384
+bc44 17 43 2384
+bc5b 12 46 2384
+bc6d 14 44 2384
+bc81 16 46 2384
+bc97 10 45 2384
 bca7 1d 195 1373
 bcc4 10 197 1373
 bcd4 10 199 1373
@@ -2909,37 +2909,37 @@ bce4 10 202 1373
 bcf4 1d 206 1373
 bd11 1d 207 1373
 bd2e 10 208 1373
-bd3e 35 47 2386
-bd73 42 49 2386
-bdb5 42 50 2386
-bdf7 d 52 2386
-be04 56 53 2386
-be5a 16 54 2386
-be70 97 58 2386
-bf07 6f 59 2386
-bf76 6f 60 2386
-bfe5 54 62 2386
-c039 54 65 2386
-c08d 94 67 2386
-c121 12 84 2386
+bd3e 35 47 2384
+bd73 42 49 2384
+bdb5 42 50 2384
+bdf7 d 52 2384
+be04 56 53 2384
+be5a 16 54 2384
+be70 97 58 2384
+bf07 6f 59 2384
+bf76 6f 60 2384
+bfe5 54 62 2384
+c039 54 65 2384
+c08d 94 67 2384
+c121 12 84 2384
 FUNC c140 cd 0 AutomationStudio::solveImportPaths()
-c140 12 110 2386
-c152 15 111 2386
-c167 17 113 2386
-c17e 35 114 2386
-c1b3 14 116 2386
-c1c7 c 120 2386
-c1d3 14 121 2386
-c1e7 b 123 2386
-c1f2 1b 124 2386
+c140 12 110 2384
+c152 15 111 2384
+c167 17 113 2384
+c17e 35 114 2384
+c1b3 14 116 2384
+c1c7 c 120 2384
+c1d3 14 121 2384
+c1e7 b 123 2384
+c1f2 1b 124 2384
 FUNC c210 3a 0 QSharedPointer<AutomationStudio>::QSharedPointer<AutomationStudio><AutomationStudio>(AutomationStudio *)
 c210 e 321 24
 c21e d 320 24
 c22b 1f 321 24
 FUNC c250 e 0 QQmlPrivate::attachedPropertiesFunc<Utilities>()
-c250 4 194 2558
-c254 5 195 2558
-c259 5 196 2558
+c250 4 194 2557
+c254 5 195 2557
+c259 5 196 2557
 FUNC c260 27 0 QtPrivate::Functor<<lambda_a6b20cbd5c60f74d22c5f8b9b44c8a97>,0>::call<QtPrivate::List<>,void>
 c260 13 237 88
 c273 f 238 88
@@ -3398,11 +3398,11 @@ ef80 d 58 112
 FUNC ef90 1b 0 QList<QString>::const_iterator::operator*()
 ef90 1b 298 14
 FUNC efb0 ab 0 <lambda_a6b20cbd5c60f74d22c5f8b9b44c8a97>::operator()
-efb0 12 67 2386
-efc2 18 69 2386
-efda c 70 2386
-efe6 70 73 2386
-f056 5 76 2386
+efb0 12 67 2384
+efc2 18 69 2384
+efda c 70 2384
+efe6 70 73 2384
+f056 5 76 2384
 FUNC f060 42 0 QFlags<QDir::Filter>::operator|(QDir::Filter)
 f060 42 140 112
 FUNC f0b0 3c 0 operator|(QDir::Filter,QDir::Filter)
@@ -3491,11 +3491,11 @@ f5d0 e 127 88
 f5de 26 128 88
 f604 5 129 88
 FUNC f610 e 0 QQmlPrivate::StaticCastSelector<Settings,QQmlPropertyValueSource>::cast()
-f610 4 134 2558
-f614 5 135 2558
-f619 5 136 2558
+f610 4 134 2557
+f614 5 135 2557
+f619 5 136 2557
 FUNC f620 6 0 QQmlPrivate::StaticCastSelectorClass<AutomationStudio,QQmlPropertyValueInterceptor,1>::cast()
-f620 6 115 2558
+f620 6 115 2557
 FUNC f630 f 0 QVarLengthArray<char,48>::constData()
 f630 f 197 2667
 FUNC f640 f 0 AutomationStudio::coreApplication()
@@ -3566,7 +3566,7 @@ fa80 33 327 14
 FUNC fac0 52 0 QtSharedPointer::CustomDeleter<AutomationStudio,QtSharedPointer::NormalDeleter>::execute()
 fac0 52 195 24
 FUNC fb20 3 0 _scrt_exe_initialize_mta
-fb20 3 170 2558
+fb20 3 170 2557
 FUNC fb30 8c 0 QtPrivate::QFunctorSlotObject<<lambda_a6b20cbd5c60f74d22c5f8b9b44c8a97>,0,QtPrivate::List<>,void>::impl
 fb30 17 415 88
 fb47 18 416 88
@@ -3850,9 +3850,9 @@ FUNC 10f70 8 0 QtPrivate::MetaObjectForType<Utilities *,void>::value()
 10f70 8 1448 66
 FUNC 10f80 3c 0 ProjectsListModel::`vector deleting destructor'(unsigned int)
 FUNC 10fc0 aa8 0 Settings::Settings(QObject *,QString)
-10fc0 24 36 1990
-10fe4 17 35 1990
-10ffb 50 36 1990
+10fc0 24 36 1991
+10fe4 17 35 1991
+10ffb 50 36 1991
 1104b 1d 428 971
 11068 c 429 971
 11074 1d 431 971
@@ -3867,7 +3867,7 @@ FUNC 10fc0 aa8 0 Settings::Settings(QObject *,QString)
 11130 c 445 971
 1113c 13 446 971
 1114f 1f 447 971
-1116e 18 36 1990
+1116e 18 36 1991
 11186 72 451 971
 111f8 f 453 971
 11207 13 455 971
@@ -3877,201 +3877,201 @@ FUNC 10fc0 aa8 0 Settings::Settings(QObject *,QString)
 11257 f 468 971
 11266 f 470 971
 11275 f 472 971
-11284 1d 37 1990
-112a1 c 39 1990
-112ad ce 44 1990
-1137b 1b 46 1990
-11396 3c 48 1990
-113d2 18d 49 1990
-1155f 22 55 1990
-11581 13 57 1990
-11594 90 59 1990
-11624 40 61 1990
-11664 41 65 1990
-116a5 41 66 1990
-116e6 67 74 1990
-1174d ab 76 1990
-117f8 7b 78 1990
-11873 96 82 1990
-11909 93 94 1990
-1199c 94 104 1990
-11a30 38 147 1990
+11284 1d 37 1991
+112a1 c 39 1991
+112ad ce 44 1991
+1137b 1b 46 1991
+11396 3c 48 1991
+113d2 18d 49 1991
+1155f 22 55 1991
+11581 13 57 1991
+11594 90 59 1991
+11624 40 61 1991
+11664 41 65 1991
+116a5 41 66 1991
+116e6 67 74 1991
+1174d ab 76 1991
+117f8 7b 78 1991
+11873 96 82 1991
+11909 93 94 1991
+1199c 94 104 1991
+11a30 38 147 1991
 FUNC 11a70 1b5 0 Settings::~Settings()
-11a70 37 195 1990
-11aa7 40 196 1990
-11ae7 12 197 1990
-11af9 4c 198 1990
-11b45 e0 200 1990
+11a70 37 195 1991
+11aa7 40 196 1991
+11ae7 12 197 1991
+11af9 4c 198 1991
+11b45 e0 200 1991
 FUNC 11c30 9fc 0 Settings::load()
-11c30 18 203 1990
-11c48 c 206 1990
-11c54 17 207 1990
-11c6b 290 208 1990
-11efb 54 209 1990
-11f4f 11 211 1990
-11f60 11 212 1990
-11f71 12 213 1990
-11f83 30 214 1990
-11fb3 17 217 1990
-11fca 2 218 1990
-11fcc 1a 219 1990
-11fe6 93 224 1990
-12079 20 226 1990
-12099 93 227 1990
-1212c f 228 1990
-1213b 1a 229 1990
-12155 11 233 1990
-12166 16 236 1990
-1217c 93 237 1990
-1220f f 238 1990
-1221e 26 239 1990
-12244 36 242 1990
-1227a 48 243 1990
-122c2 b 244 1990
-122cd 26 245 1990
-122f3 11 248 1990
-12304 14 252 1990
-12318 16 255 1990
-1232e 48 256 1990
-12376 3e 257 1990
-123b4 16 260 1990
-123ca 85 261 1990
-1244f 3e 262 1990
-1248d 14 266 1990
-124a1 b 268 1990
-124ac 19 271 1990
-124c5 85 272 1990
-1254a 4d 274 1990
-12597 36 277 1990
-125cd f 281 1990
-125dc 48 283 1990
-12624 8 284 1990
+11c30 18 203 1991
+11c48 c 206 1991
+11c54 17 207 1991
+11c6b 290 208 1991
+11efb 54 209 1991
+11f4f 11 211 1991
+11f60 11 212 1991
+11f71 12 213 1991
+11f83 30 214 1991
+11fb3 17 217 1991
+11fca 2 218 1991
+11fcc 1a 219 1991
+11fe6 93 224 1991
+12079 20 226 1991
+12099 93 227 1991
+1212c f 228 1991
+1213b 1a 229 1991
+12155 11 233 1991
+12166 16 236 1991
+1217c 93 237 1991
+1220f f 238 1991
+1221e 26 239 1991
+12244 36 242 1991
+1227a 48 243 1991
+122c2 b 244 1991
+122cd 26 245 1991
+122f3 11 248 1991
+12304 14 252 1991
+12318 16 255 1991
+1232e 48 256 1991
+12376 3e 257 1991
+123b4 16 260 1991
+123ca 85 261 1991
+1244f 3e 262 1991
+1248d 14 266 1991
+124a1 b 268 1991
+124ac 19 271 1991
+124c5 85 272 1991
+1254a 4d 274 1991
+12597 36 277 1991
+125cd f 281 1991
+125dc 48 283 1991
+12624 8 284 1991
 FUNC 12640 6c4 0 Settings::save()
-12640 18 287 1990
-12658 e6 291 1990
-1273e 16 294 1990
-12754 2f 297 1990
-12783 f 300 1990
-12792 ad 302 1990
-1283f 82 303 1990
-128c1 b6 304 1990
-12977 14 305 1990
-1298b 11 306 1990
-1299c 10 307 1990
-129ac c 308 1990
-129b8 26 310 1990
-129de c 312 1990
-129ea 13 313 1990
-129fd 54 314 1990
-12a51 2 317 1990
-12a53 1a 318 1990
-12a6d 93 322 1990
-12b00 f 324 1990
-12b0f 35 326 1990
-12b44 14 328 1990
-12b58 11 332 1990
-12b69 14 336 1990
-12b7d 3d 338 1990
-12bba 71 339 1990
-12c2b e 340 1990
-12c39 59 341 1990
-12c92 13 345 1990
-12ca5 57 350 1990
-12cfc 8 352 1990
+12640 18 287 1991
+12658 e6 291 1991
+1273e 16 294 1991
+12754 2f 297 1991
+12783 f 300 1991
+12792 ad 302 1991
+1283f 82 303 1991
+128c1 b6 304 1991
+12977 14 305 1991
+1298b 11 306 1991
+1299c 10 307 1991
+129ac c 308 1991
+129b8 26 310 1991
+129de c 312 1991
+129ea 13 313 1991
+129fd 54 314 1991
+12a51 2 317 1991
+12a53 1a 318 1991
+12a6d 93 322 1991
+12b00 f 324 1991
+12b0f 35 326 1991
+12b44 14 328 1991
+12b58 11 332 1991
+12b69 14 336 1991
+12b7d 3d 338 1991
+12bba 71 339 1991
+12c2b e 340 1991
+12c39 59 341 1991
+12c92 13 345 1991
+12ca5 57 350 1991
+12cfc 8 352 1991
 FUNC 12d10 6 0 Settings::updateBaseSettings()
-12d10 5 355 1990
-12d15 1 357 1990
+12d10 5 355 1991
+12d15 1 357 1991
 FUNC 12d20 6cd 0 Settings::loadBaseSettings()
-12d20 18 360 1990
-12d38 e6 363 1990
-12e1e 16 366 1990
-12e34 8b 367 1990
-12ebf 2f 369 1990
-12eee 11 370 1990
-12eff 14 372 1990
-12f13 14 374 1990
-12f27 70 376 1990
-12f97 70 377 1990
-13007 14 378 1990
-1301b 11 379 1990
-1302c 10 380 1990
-1303c c 381 1990
-13048 3e 383 1990
-13086 36 385 1990
-130bc 26 386 1990
-130e2 c 387 1990
-130ee 10 388 1990
-130fe 11 392 1990
-1310f 14 394 1990
-13123 14 396 1990
-13137 4b 400 1990
-13182 e 402 1990
-13190 43 404 1990
-131d3 53 411 1990
-13226 81 413 1990
-132a7 be 416 1990
-13365 f 421 1990
-13374 13 425 1990
-13387 d 461 1990
-13394 2 468 1990
-13396 e 469 1990
-133a4 41 477 1990
-133e5 8 478 1990
+12d20 18 360 1991
+12d38 e6 363 1991
+12e1e 16 366 1991
+12e34 8b 367 1991
+12ebf 2f 369 1991
+12eee 11 370 1991
+12eff 14 372 1991
+12f13 14 374 1991
+12f27 70 376 1991
+12f97 70 377 1991
+13007 14 378 1991
+1301b 11 379 1991
+1302c 10 380 1991
+1303c c 381 1991
+13048 3e 383 1991
+13086 36 385 1991
+130bc 26 386 1991
+130e2 c 387 1991
+130ee 10 388 1991
+130fe 11 392 1991
+1310f 14 394 1991
+13123 14 396 1991
+13137 4b 400 1991
+13182 e 402 1991
+13190 43 404 1991
+131d3 53 411 1991
+13226 81 413 1991
+132a7 be 416 1991
+13365 f 421 1991
+13374 13 425 1991
+13387 d 461 1991
+13394 2 468 1991
+13396 e 469 1991
+133a4 41 477 1991
+133e5 8 478 1991
 FUNC 13400 1d 0 Settings::initSocketIO()
-13400 9 481 1990
-13409 f 482 1990
-13418 5 483 1990
+13400 9 481 1991
+13409 f 482 1991
+13418 5 483 1991
 FUNC 13430 43 0 Settings::backupConfigs()
-13430 9 486 1990
-13439 35 488 1990
-1346e 5 489 1990
+13430 9 486 1991
+13439 35 488 1991
+1346e 5 489 1991
 FUNC 13480 46 0 Settings::setBasefileLoaded(bool)
-13480 d 492 1990
-1348d 12 493 1990
-1349f 2 494 1990
-134a1 d 496 1990
-134ae 13 497 1990
-134c1 5 499 1990
+13480 d 492 1991
+1348d 12 493 1991
+1349f 2 494 1991
+134a1 d 496 1991
+134ae 13 497 1991
+134c1 5 499 1991
 FUNC 134d0 85 0 Settings::check_new_firmware()
-134d0 12 502 1990
-134e2 4a 503 1990
-1352c 19 505 1990
-13545 10 508 1990
+134d0 12 502 1991
+134e2 4a 503 1991
+1352c 19 505 1991
+13545 10 508 1991
 FUNC 13560 b6 0 Settings::update_new_firmware()
-13560 12 511 1990
-13572 4d 512 1990
-135bf 3b 513 1990
-135fa 1c 517 1990
+13560 12 511 1991
+13572 4d 512 1991
+135bf 3b 513 1991
+135fa 1c 517 1991
 FUNC 13620 389 0 Settings::registerApp()
-13620 2a 150 1990
-1364a c 151 1990
-13656 9e 153 1990
-136f4 6d 154 1990
-13761 6d 155 1990
-137ce 91 156 1990
-1385f 11 158 1990
-13870 10a 162 1990
-1397a 2f 193 1990
+13620 2a 150 1991
+1364a c 151 1991
+13656 9e 153 1991
+136f4 6d 154 1991
+13761 6d 155 1991
+137ce 91 156 1991
+1385f 11 158 1991
+13870 10a 162 1991
+1397a 2f 193 1991
 FUNC 139b0 2f 0 Settings::Serialize(QJsonObject &)
-139b0 e 520 1990
-139be 1c 521 1990
-139da 5 522 1990
+139b0 e 520 1991
+139be 1c 521 1991
+139da 5 522 1991
 FUNC 139f0 1c0 0 Settings::DeSerialize(QJsonObject &)
-139f0 e 525 1990
-139fe 1c 526 1990
-13a1a 42 528 1990
-13a5c 35 530 1990
-13a91 24 531 1990
-13ab5 12 532 1990
-13ac7 30 533 1990
-13af7 2 534 1990
-13af9 5 536 1990
-13afe 3b 539 1990
-13b39 35 540 1990
-13b6e 36 541 1990
-13ba4 2 542 1990
-13ba6 5 544 1990
-13bab 5 547 1990
+139f0 e 525 1991
+139fe 1c 526 1991
+13a1a 42 528 1991
+13a5c 35 530 1991
+13a91 24 531 1991
+13ab5 12 532 1991
+13ac7 30 533 1991
+13af7 2 534 1991
+13af9 5 536 1991
+13afe 3b 539 1991
+13b39 35 540 1991
+13b6e 36 541 1991
+13ba4 2 542 1991
+13ba6 5 544 1991
+13bab 5 547 1991
 FUNC 13bb0 47 0 std::_Func_impl_no_alloc<<lambda_43f174e61c6738e13df06759c2c41b9e>,void,sio::message::list const &>::_Func_impl_no_alloc<<lambda_43f174e61c6738e13df06759c2c41b9e>,void,sio::message::list const &><<lambda_43f174e61c6738e13df06759c2c41b9e> const &,void>
 13bb0 27 1196 25
 13bd7 16 1195 25
@@ -4227,63 +4227,63 @@ FUNC 14780 29 0 std::vector<std::shared_ptr<sio::message>,std::allocator<std::sh
 FUNC 147b0 75 0 operator+(QString const &,QString const &)
 147b0 75 1345 31
 FUNC 14830 12b 0 <lambda_3839cd90835dbcdb8cfb755edb1c8f39>::operator()
-14830 1a 94 1990
-1484a 84 95 1990
-148ce 37 96 1990
-14905 40 100 1990
-14945 16 101 1990
+14830 1a 94 1991
+1484a 84 95 1991
+148ce 37 96 1991
+14905 40 100 1991
+14945 16 101 1991
 FUNC 14960 258 0 <lambda_43f174e61c6738e13df06759c2c41b9e>::operator()
-14960 1d 162 1990
-1497d 16 165 1990
-14993 20 167 1990
-149b3 1e 168 1990
-149d1 31 169 1990
-14a02 81 171 1990
-14a83 58 173 1990
-14adb 31 175 1990
-14b0c 35 176 1990
-14b41 12 177 1990
-14b53 12 178 1990
-14b65 2 181 1990
-14b67 12 182 1990
-14b79 13 183 1990
-14b8c 17 185 1990
-14ba3 d 186 1990
-14bb0 8 189 1990
+14960 1d 162 1991
+1497d 16 165 1991
+14993 20 167 1991
+149b3 1e 168 1991
+149d1 31 169 1991
+14a02 81 171 1991
+14a83 58 173 1991
+14adb 31 175 1991
+14b0c 35 176 1991
+14b41 12 177 1991
+14b53 12 178 1991
+14b65 2 181 1991
+14b67 12 182 1991
+14b79 13 183 1991
+14b8c 17 185 1991
+14ba3 d 186 1991
+14bb0 8 189 1991
 FUNC 14bc0 1fa 0 <lambda_508109900d7b117473e23b0abd6aa17c>::operator()
-14bc0 2a 82 1990
-14bea f 83 1990
-14bf9 9e 85 1990
-14c97 14 88 1990
-14cab cc 89 1990
-14d77 11 90 1990
-14d88 32 91 1990
+14bc0 2a 82 1991
+14bea f 83 1991
+14bf9 9e 85 1991
+14c97 14 88 1991
+14cab cc 89 1991
+14d77 11 90 1991
+14d88 32 91 1991
 FUNC 14dc0 2e9 0 <lambda_87bc0d91ba2aeb4c832d2bdee4328e1d>::operator()
-14dc0 2a 104 1990
-14dea c 106 1990
-14df6 9b 108 1990
-14e91 6d 109 1990
-14efe 6d 111 1990
-14f6b 11 114 1990
-14f7c fe 117 1990
-1507a 2f 144 1990
+14dc0 2a 104 1991
+14dea c 106 1991
+14df6 9b 108 1991
+14e91 6d 109 1991
+14efe 6d 111 1991
+14f6b 11 114 1991
+14f7c fe 117 1991
+1507a 2f 144 1991
 FUNC 150b0 1c8 0 <lambda_d4dc3a82f6a8b25b03fa54be67bc6926>::operator()
-150b0 1a 117 1990
-150ca 16 119 1990
-150e0 1d 121 1990
-150fd 1b 122 1990
-15118 2e 123 1990
-15146 58 125 1990
-1519e 31 127 1990
-151cf 35 128 1990
-15204 12 129 1990
-15216 12 130 1990
-15228 2 133 1990
-1522a 12 134 1990
-1523c 13 135 1990
-1524f 17 137 1990
-15266 a 138 1990
-15270 8 141 1990
+150b0 1a 117 1991
+150ca 16 119 1991
+150e0 1d 121 1991
+150fd 1b 122 1991
+15118 2e 123 1991
+15146 58 125 1991
+1519e 31 127 1991
+151cf 35 128 1991
+15204 12 129 1991
+15216 12 130 1991
+15228 2 133 1991
+1522a 12 134 1991
+1523c 13 135 1991
+1524f 17 137 1991
+15266 a 138 1991
+15270 8 141 1991
 FUNC 15280 3c 0 AppUpdater::`scalar deleting destructor'(unsigned int)
 FUNC 152c0 3c 0 QNetworkInterface::`scalar deleting destructor'(unsigned int)
 FUNC 15300 3b 0 Settings::`vector deleting destructor'(unsigned int)
@@ -4389,9 +4389,9 @@ FUNC 158c0 12 0 Settings::appUpdater()
 158c5 c 163 971
 158d1 1 164 971
 FUNC 158e0 25 0 sio::message::list::at(unsigned __int64)
-158e0 e 540 812
-158ee 12 541 812
-15900 5 542 812
+158e0 e 540 670
+158ee 12 541 670
+15900 5 542 670
 FUNC 15910 6a 0 QtPrivate::FunctorCall<QtPrivate::IndexesList<0>,QtPrivate::List<QString>,void,<lambda_3839cd90835dbcdb8cfb755edb1c8f39> >::call
 15910 e 127 88
 1591e 57 128 88
@@ -4410,9 +4410,9 @@ FUNC 15a00 54 0 QList<QNetworkInterface>::dealloc(QListData::Data *)
 15a44 b 867 14
 15a4f 5 868 14
 FUNC 15a60 e 0 sio::message::get_flag()
-15a60 5 37 812
-15a65 8 38 812
-15a6d 1 39 812
+15a60 5 37 670
+15a65 8 38 670
+15a6d 1 39 670
 FUNC 15a70 8c 0 QtPrivate::QFunctorSlotObject<<lambda_3839cd90835dbcdb8cfb755edb1c8f39>,1,QtPrivate::List<QString>,void>::impl
 15a70 17 415 88
 15a87 18 416 88
@@ -4532,9 +4532,9 @@ FUNC 161f0 3c 0 std::vector<std::shared_ptr<sio::message>,std::allocator<std::sh
 161f9 2e 1704 18
 16227 5 1705 18
 FUNC 16230 1b 0 sio::message::list::size()
-16230 9 535 812
-16239 d 536 812
-16246 5 537 812
+16230 9 535 670
+16239 d 536 670
+16246 5 537 670
 FUNC 16250 42 0 Settings::source()
 16250 16 96 971
 16266 27 97 971
@@ -4899,407 +4899,407 @@ FUNC 183a0 f 0 AutomationStudio::utilities()
 183a5 9 115 1373
 183ae 1 116 1373
 FUNC 183b0 58 0 Settings::metaObject()
-183b0 9 742 719
-183b9 4a 743 719
-18403 5 744 719
+183b0 9 742 720
+183b9 4a 743 720
+18403 5 744 720
 FUNC 18410 cb 0 Settings::qt_metacast(char const *)
-18410 e 747 719
-1841e f 748 719
-1842d 15 749 719
-18442 a 750 719
-1844c 15 751 719
-18461 28 752 719
-18489 15 753 719
-1849e 28 754 719
-184c6 10 755 719
-184d6 5 756 719
+18410 e 747 720
+1841e f 748 720
+1842d 15 749 720
+18442 a 750 720
+1844c 15 751 720
+18461 28 752 720
+18489 15 753 720
+1849e 28 754 720
+184c6 10 755 720
+184d6 5 756 720
 FUNC 184f0 15c 0 Settings::qt_metacall(QMetaObject::Call,int,void * *)
-184f0 17 759 719
-18507 1d 760 719
-18524 7 761 719
-1852b 9 762 719
-18534 7 763 719
-1853b 7 764 719
-18542 18 765 719
-1855a 10 766 719
-1856a 7 767 719
-18571 7 768 719
-18578 18 769 719
-18590 b 770 719
-1859b 5 773 719
-185a0 1c 774 719
-185bc 18 775 719
-185d4 d 776 719
-185e1 7 777 719
-185e8 d 778 719
-185f5 7 779 719
-185fc d 780 719
-18609 7 781 719
-18610 d 782 719
-1861d 7 783 719
-18624 d 784 719
-18631 7 785 719
-18638 b 786 719
-18643 4 789 719
-18647 5 790 719
+184f0 17 759 720
+18507 1d 760 720
+18524 7 761 720
+1852b 9 762 720
+18534 7 763 720
+1853b 7 764 720
+18542 18 765 720
+1855a 10 766 720
+1856a 7 767 720
+18571 7 768 720
+18578 18 769 720
+18590 b 770 720
+1859b 5 773 720
+185a0 1c 774 720
+185bc 18 775 720
+185d4 d 776 720
+185e1 7 777 720
+185e8 d 778 720
+185f5 7 779 720
+185fc d 780 720
+18609 7 781 720
+18610 d 782 720
+1861d 7 783 720
+18624 d 784 720
+18631 7 785 720
+18638 b 786 720
+18643 4 789 720
+18647 5 790 720
 FUNC 18660 275c 0 Settings::qt_static_metacall(QObject *,QMetaObject::Call,int,void * *)
-18660 1a 341 719
-1867a e 342 719
-18688 d 343 719
-18695 37 345 719
-186cc 52 346 719
-1871e 27 347 719
-18745 27 348 719
-1876c 27 349 719
-18793 52 350 719
-187e5 27 351 719
-1880c 27 352 719
-18833 52 353 719
-18885 27 354 719
-188ac 27 355 719
-188d3 52 356 719
-18925 f 357 719
-18934 52 358 719
-18986 27 359 719
-189ad 52 360 719
-189ff 27 361 719
-18a26 27 362 719
-18a4d 27 363 719
-18a74 27 364 719
-18a9b 27 365 719
-18ac2 52 366 719
-18b14 27 367 719
-18b3b 27 368 719
-18b62 27 369 719
-18b89 52 370 719
-18bdb 27 371 719
-18c02 27 372 719
-18c29 52 373 719
-18c7b 27 374 719
-18ca2 27 375 719
-18cc9 27 376 719
-18cf0 52 377 719
-18d42 52 378 719
-18d94 27 379 719
-18dbb 27 380 719
-18de2 27 381 719
-18e09 27 382 719
-18e30 27 383 719
-18e57 27 384 719
-18e7e 52 385 719
-18ed0 27 386 719
-18ef7 27 387 719
-18f1e 27 388 719
-18f45 e 389 719
-18f53 41 390 719
-18f94 e 391 719
-18fa2 3e 392 719
-18fe0 c 393 719
-18fec c 394 719
-18ff8 c 395 719
-19004 c 396 719
-19010 c 397 719
-1901c c 398 719
-19028 a 399 719
-19032 13 402 719
-19045 3d 403 719
-19082 20 404 719
-190a2 28 406 719
-190ca 1d 407 719
-190e7 1c 409 719
-19103 5 411 719
-19108 28 413 719
-19130 1d 414 719
-1914d 1c 416 719
-19169 5 418 719
-1916e 28 420 719
-19196 1d 421 719
-191b3 1c 423 719
-191cf 5 425 719
-191d4 28 427 719
-191fc 1d 428 719
-19219 1c 430 719
-19235 5 432 719
-1923a 28 434 719
-19262 1d 435 719
-1927f 1c 437 719
-1929b 5 439 719
-192a0 28 441 719
-192c8 1d 442 719
-192e5 1c 444 719
-19301 5 446 719
-19306 28 448 719
-1932e 1d 449 719
-1934b 1c 451 719
-19367 5 453 719
-1936c 28 455 719
-19394 1d 456 719
-193b1 1c 458 719
-193cd 5 460 719
-193d2 28 462 719
-193fa 1d 463 719
-19417 1c 465 719
-19433 5 467 719
-19438 28 469 719
-19460 1d 470 719
-1947d 1c 472 719
-19499 5 474 719
-1949e 28 476 719
-194c6 1d 477 719
-194e3 1c 479 719
-194ff 2 481 719
-19501 28 483 719
-19529 1d 484 719
-19546 1c 486 719
-19562 13 490 719
-19575 1a 491 719
-1958f 9a 494 719
-19629 b 495 719
-19634 5 496 719
-19639 9a 501 719
-196d3 b 502 719
-196de 5 503 719
-196e3 9a 508 719
-1977d b 509 719
-19788 5 510 719
-1978d 9a 515 719
-19827 b 516 719
-19832 5 517 719
-19837 9a 522 719
-198d1 b 523 719
-198dc 5 524 719
-198e1 91 529 719
-19972 b 530 719
-1997d 5 531 719
-19982 91 536 719
-19a13 b 537 719
-19a1e 5 538 719
-19a23 91 543 719
-19ab4 b 544 719
-19abf 5 545 719
-19ac4 91 550 719
-19b55 b 551 719
-19b60 5 552 719
-19b65 91 557 719
-19bf6 b 558 719
-19c01 5 559 719
-19c06 91 564 719
-19c97 b 565 719
-19ca2 5 566 719
-19ca7 91 571 719
-19d38 b 572 719
-19d43 5 573 719
-19d48 9a 578 719
-19de2 b 579 719
-19ded 5 580 719
-19df2 9a 585 719
-19e8c b 586 719
-19e97 5 587 719
-19e9c 9a 592 719
-19f36 b 593 719
-19f41 5 594 719
-19f46 9a 599 719
-19fe0 b 600 719
-19feb 5 601 719
-19ff0 9a 606 719
-1a08a b 607 719
-1a095 5 608 719
-1a09a 9a 613 719
-1a134 b 614 719
-1a13f 5 615 719
-1a144 9a 620 719
-1a1de b 621 719
-1a1e9 5 622 719
-1a1ee 9a 627 719
-1a288 b 628 719
-1a293 5 629 719
-1a298 9a 634 719
-1a332 b 635 719
-1a33d 5 636 719
-1a342 9a 641 719
-1a3dc b 642 719
-1a3e7 5 643 719
-1a3ec 9a 648 719
-1a486 b 649 719
-1a491 5 650 719
-1a496 9a 655 719
-1a530 b 656 719
-1a53b 5 657 719
-1a540 5 659 719
-1a545 e 660 719
-1a553 35 661 719
-1a588 20 662 719
-1a5a8 21 664 719
-1a5c9 1e 666 719
-1a5e7 1e 668 719
-1a605 1e 670 719
-1a623 1e 672 719
-1a641 1c 674 719
-1a65d 13 679 719
-1a670 d 680 719
-1a67d 1a 682 719
-1a697 37 683 719
-1a6ce 40 684 719
-1a70e 16 685 719
-1a724 40 686 719
-1a764 16 687 719
-1a77a 16 688 719
-1a790 16 689 719
-1a7a6 40 690 719
-1a7e6 40 691 719
-1a826 17 692 719
-1a83d 17 693 719
-1a854 40 694 719
-1a894 16 695 719
-1a8aa 16 696 719
-1a8c0 17 697 719
-1a8d7 16 698 719
-1a8ed 17 699 719
-1a904 3d 700 719
-1a941 13 701 719
-1a954 13 702 719
-1a967 14 703 719
-1a97b 14 704 719
-1a98f 11 705 719
-1a9a0 13 708 719
-1a9b3 d 709 719
-1a9c0 1a 711 719
-1a9da 38 712 719
-1aa12 17 713 719
-1aa29 42 714 719
-1aa6b 17 715 719
-1aa82 17 716 719
-1aa99 17 717 719
-1aab0 42 718 719
-1aaf2 17 719 719
-1ab09 17 720 719
-1ab20 14 721 719
-1ab34 14 722 719
-1ab48 14 723 719
-1ab5c 14 724 719
-1ab70 14 725 719
-1ab84 14 726 719
-1ab98 12 727 719
-1abaa 212 733 719
+18660 1a 341 720
+1867a e 342 720
+18688 d 343 720
+18695 37 345 720
+186cc 52 346 720
+1871e 27 347 720
+18745 27 348 720
+1876c 27 349 720
+18793 52 350 720
+187e5 27 351 720
+1880c 27 352 720
+18833 52 353 720
+18885 27 354 720
+188ac 27 355 720
+188d3 52 356 720
+18925 f 357 720
+18934 52 358 720
+18986 27 359 720
+189ad 52 360 720
+189ff 27 361 720
+18a26 27 362 720
+18a4d 27 363 720
+18a74 27 364 720
+18a9b 27 365 720
+18ac2 52 366 720
+18b14 27 367 720
+18b3b 27 368 720
+18b62 27 369 720
+18b89 52 370 720
+18bdb 27 371 720
+18c02 27 372 720
+18c29 52 373 720
+18c7b 27 374 720
+18ca2 27 375 720
+18cc9 27 376 720
+18cf0 52 377 720
+18d42 52 378 720
+18d94 27 379 720
+18dbb 27 380 720
+18de2 27 381 720
+18e09 27 382 720
+18e30 27 383 720
+18e57 27 384 720
+18e7e 52 385 720
+18ed0 27 386 720
+18ef7 27 387 720
+18f1e 27 388 720
+18f45 e 389 720
+18f53 41 390 720
+18f94 e 391 720
+18fa2 3e 392 720
+18fe0 c 393 720
+18fec c 394 720
+18ff8 c 395 720
+19004 c 396 720
+19010 c 397 720
+1901c c 398 720
+19028 a 399 720
+19032 13 402 720
+19045 3d 403 720
+19082 20 404 720
+190a2 28 406 720
+190ca 1d 407 720
+190e7 1c 409 720
+19103 5 411 720
+19108 28 413 720
+19130 1d 414 720
+1914d 1c 416 720
+19169 5 418 720
+1916e 28 420 720
+19196 1d 421 720
+191b3 1c 423 720
+191cf 5 425 720
+191d4 28 427 720
+191fc 1d 428 720
+19219 1c 430 720
+19235 5 432 720
+1923a 28 434 720
+19262 1d 435 720
+1927f 1c 437 720
+1929b 5 439 720
+192a0 28 441 720
+192c8 1d 442 720
+192e5 1c 444 720
+19301 5 446 720
+19306 28 448 720
+1932e 1d 449 720
+1934b 1c 451 720
+19367 5 453 720
+1936c 28 455 720
+19394 1d 456 720
+193b1 1c 458 720
+193cd 5 460 720
+193d2 28 462 720
+193fa 1d 463 720
+19417 1c 465 720
+19433 5 467 720
+19438 28 469 720
+19460 1d 470 720
+1947d 1c 472 720
+19499 5 474 720
+1949e 28 476 720
+194c6 1d 477 720
+194e3 1c 479 720
+194ff 2 481 720
+19501 28 483 720
+19529 1d 484 720
+19546 1c 486 720
+19562 13 490 720
+19575 1a 491 720
+1958f 9a 494 720
+19629 b 495 720
+19634 5 496 720
+19639 9a 501 720
+196d3 b 502 720
+196de 5 503 720
+196e3 9a 508 720
+1977d b 509 720
+19788 5 510 720
+1978d 9a 515 720
+19827 b 516 720
+19832 5 517 720
+19837 9a 522 720
+198d1 b 523 720
+198dc 5 524 720
+198e1 91 529 720
+19972 b 530 720
+1997d 5 531 720
+19982 91 536 720
+19a13 b 537 720
+19a1e 5 538 720
+19a23 91 543 720
+19ab4 b 544 720
+19abf 5 545 720
+19ac4 91 550 720
+19b55 b 551 720
+19b60 5 552 720
+19b65 91 557 720
+19bf6 b 558 720
+19c01 5 559 720
+19c06 91 564 720
+19c97 b 565 720
+19ca2 5 566 720
+19ca7 91 571 720
+19d38 b 572 720
+19d43 5 573 720
+19d48 9a 578 720
+19de2 b 579 720
+19ded 5 580 720
+19df2 9a 585 720
+19e8c b 586 720
+19e97 5 587 720
+19e9c 9a 592 720
+19f36 b 593 720
+19f41 5 594 720
+19f46 9a 599 720
+19fe0 b 600 720
+19feb 5 601 720
+19ff0 9a 606 720
+1a08a b 607 720
+1a095 5 608 720
+1a09a 9a 613 720
+1a134 b 614 720
+1a13f 5 615 720
+1a144 9a 620 720
+1a1de b 621 720
+1a1e9 5 622 720
+1a1ee 9a 627 720
+1a288 b 628 720
+1a293 5 629 720
+1a298 9a 634 720
+1a332 b 635 720
+1a33d 5 636 720
+1a342 9a 641 720
+1a3dc b 642 720
+1a3e7 5 643 720
+1a3ec 9a 648 720
+1a486 b 649 720
+1a491 5 650 720
+1a496 9a 655 720
+1a530 b 656 720
+1a53b 5 657 720
+1a540 5 659 720
+1a545 e 660 720
+1a553 35 661 720
+1a588 20 662 720
+1a5a8 21 664 720
+1a5c9 1e 666 720
+1a5e7 1e 668 720
+1a605 1e 670 720
+1a623 1e 672 720
+1a641 1c 674 720
+1a65d 13 679 720
+1a670 d 680 720
+1a67d 1a 682 720
+1a697 37 683 720
+1a6ce 40 684 720
+1a70e 16 685 720
+1a724 40 686 720
+1a764 16 687 720
+1a77a 16 688 720
+1a790 16 689 720
+1a7a6 40 690 720
+1a7e6 40 691 720
+1a826 17 692 720
+1a83d 17 693 720
+1a854 40 694 720
+1a894 16 695 720
+1a8aa 16 696 720
+1a8c0 17 697 720
+1a8d7 16 698 720
+1a8ed 17 699 720
+1a904 3d 700 720
+1a941 13 701 720
+1a954 13 702 720
+1a967 14 703 720
+1a97b 14 704 720
+1a98f 11 705 720
+1a9a0 13 708 720
+1a9b3 d 709 720
+1a9c0 1a 711 720
+1a9da 38 712 720
+1aa12 17 713 720
+1aa29 42 714 720
+1aa6b 17 715 720
+1aa82 17 716 720
+1aa99 17 717 720
+1aab0 42 718 720
+1aaf2 17 719 720
+1ab09 17 720 720
+1ab20 14 721 720
+1ab34 14 722 720
+1ab48 14 723 720
+1ab5c 14 724 720
+1ab70 14 725 720
+1ab84 14 726 720
+1ab98 12 727 720
+1abaa 212 733 720
 FUNC 1add0 55 0 Settings::sourceChanged(QString)
-1add0 17 794 719
-1ade7 13 795 719
-1adfa 1b 796 719
-1ae15 10 797 719
+1add0 17 794 720
+1ade7 13 795 720
+1adfa 1b 796 720
+1ae15 10 797 720
 FUNC 1ae30 42 0 Settings::loadedChanged(bool)
-1ae30 d 801 719
-1ae3d 13 802 719
-1ae50 1d 803 719
-1ae6d 5 804 719
+1ae30 d 801 720
+1ae3d 13 802 720
+1ae50 1d 803 720
+1ae6d 5 804 720
 FUNC 1ae80 43 0 Settings::usersChanged(UsersListModel *)
-1ae80 e 808 719
-1ae8e 13 809 719
-1aea1 1d 810 719
-1aebe 5 811 719
+1ae80 e 808 720
+1ae8e 13 809 720
+1aea1 1d 810 720
+1aebe 5 811 720
 FUNC 1aed0 43 0 Settings::currentUserChanged(User *)
-1aed0 e 815 719
-1aede 13 816 719
-1aef1 1d 817 719
-1af0e 5 818 719
+1aed0 e 815 720
+1aede 13 816 720
+1aef1 1d 817 720
+1af0e 5 818 720
 FUNC 1af20 58 0 Settings::selectedLanguageChanged(QString)
-1af20 17 822 719
-1af37 13 823 719
-1af4a 1e 824 719
-1af68 10 825 719
+1af20 17 822 720
+1af37 13 823 720
+1af4a 1e 824 720
+1af68 10 825 720
 FUNC 1af80 42 0 Settings::useVirtualKeyboardChanged(bool)
-1af80 d 829 719
-1af8d 13 830 719
-1afa0 1d 831 719
-1afbd 5 832 719
+1af80 d 829 720
+1af8d 13 830 720
+1afa0 1d 831 720
+1afbd 5 832 720
 FUNC 1afd0 42 0 Settings::basefileLoadedChanged(bool)
-1afd0 d 836 719
-1afdd 13 837 719
-1aff0 1d 838 719
-1b00d 5 839 719
+1afd0 d 836 720
+1afdd 13 837 720
+1aff0 1d 838 720
+1b00d 5 839 720
 FUNC 1b020 58 0 Settings::socketIOServerChanged(QString)
-1b020 17 843 719
-1b037 13 844 719
-1b04a 1e 845 719
-1b068 10 846 719
+1b020 17 843 720
+1b037 13 844 720
+1b04a 1e 845 720
+1b068 10 846 720
 FUNC 1b080 43 0 Settings::socketIOChanged(SocketIO *)
-1b080 e 850 719
-1b08e 13 851 719
-1b0a1 1d 852 719
-1b0be 5 853 719
+1b080 e 850 720
+1b08e 13 851 720
+1b0a1 1d 852 720
+1b0be 5 853 720
 FUNC 1b0d0 42 0 Settings::appRegistredChanged(bool)
-1b0d0 d 857 719
-1b0dd 13 858 719
-1b0f0 1d 859 719
-1b10d 5 860 719
+1b0d0 d 857 720
+1b0dd 13 858 720
+1b0f0 1d 859 720
+1b10d 5 860 720
 FUNC 1b120 58 0 Settings::doUpdate(QString)
-1b120 17 864 719
-1b137 13 865 719
-1b14a 1e 866 719
-1b168 10 867 719
+1b120 17 864 720
+1b137 13 865 720
+1b14a 1e 866 720
+1b168 10 867 720
 FUNC 1b180 29 0 Settings::updateDone()
-1b180 9 871 719
-1b189 1b 872 719
-1b1a4 5 873 719
+1b180 9 871 720
+1b189 1b 872 720
+1b1a4 5 873 720
 FUNC 1b1b0 58 0 Settings::appIDChanged(QString)
-1b1b0 17 877 719
-1b1c7 13 878 719
-1b1da 1e 879 719
-1b1f8 10 880 719
+1b1b0 17 877 720
+1b1c7 13 878 720
+1b1da 1e 879 720
+1b1f8 10 880 720
 FUNC 1b210 43 0 Settings::appUpdaterChanged(AppUpdater *)
-1b210 e 884 719
-1b21e 13 885 719
-1b231 1d 886 719
-1b24e 5 887 719
+1b210 e 884 720
+1b21e 13 885 720
+1b231 1d 886 720
+1b24e 5 887 720
 FUNC 1b260 58 0 Settings::projectsFileChanged(QString)
-1b260 17 891 719
-1b277 13 892 719
-1b28a 1e 893 719
-1b2a8 10 894 719
+1b260 17 891 720
+1b277 13 892 720
+1b28a 1e 893 720
+1b2a8 10 894 720
 FUNC 1b2c0 43 0 Settings::projectsChanged(ProjectsListModel *)
-1b2c0 e 898 719
-1b2ce 13 899 719
-1b2e1 1d 900 719
-1b2fe 5 901 719
+1b2c0 e 898 720
+1b2ce 13 899 720
+1b2e1 1d 900 720
+1b2fe 5 901 720
 FUNC 1b310 42 0 Settings::basefileErrorChanged(bool)
-1b310 d 905 719
-1b31d 13 906 719
-1b330 1d 907 719
-1b34d 5 908 719
+1b310 d 905 720
+1b31d 13 906 720
+1b330 1d 907 720
+1b34d 5 908 720
 FUNC 1b360 43 0 Settings::selectedProjectChanged(Project *)
-1b360 e 912 719
-1b36e 13 913 719
-1b381 1d 914 719
-1b39e 5 915 719
+1b360 e 912 720
+1b36e 13 913 720
+1b381 1d 914 720
+1b39e 5 915 720
 FUNC 1b3b0 42 0 Settings::useKeyboardChanged(bool)
-1b3b0 d 919 719
-1b3bd 13 920 719
-1b3d0 1d 921 719
-1b3ed 5 922 719
+1b3b0 d 919 720
+1b3bd 13 920 720
+1b3d0 1d 921 720
+1b3ed 5 922 720
 FUNC 1b400 42 0 Settings::useRemoteSettingsChanged(bool)
-1b400 d 926 719
-1b40d 13 927 719
-1b420 1d 928 719
-1b43d 5 929 719
+1b400 d 926 720
+1b40d 13 927 720
+1b420 1d 928 720
+1b43d 5 929 720
 FUNC 1b450 58 0 Settings::remoteSettingsBaseLocationChanged(QString)
-1b450 17 933 719
-1b467 13 934 719
-1b47a 1e 935 719
-1b498 10 936 719
+1b450 17 933 720
+1b467 13 934 720
+1b47a 1e 935 720
+1b498 10 936 720
 FUNC 1b4b0 42 0 Settings::newFirmwareAvailableChanged(bool)
-1b4b0 d 940 719
-1b4bd 13 941 719
-1b4d0 1d 942 719
-1b4ed 5 943 719
+1b4b0 d 940 720
+1b4bd 13 941 720
+1b4d0 1d 942 720
+1b4ed 5 943 720
 FUNC 1b500 42 0 Settings::upgradingFirmwareChanged(bool)
-1b500 d 947 719
-1b50d 13 948 719
-1b520 1d 949 719
-1b53d 5 950 719
+1b500 d 947 720
+1b50d 13 948 720
+1b520 1d 949 720
+1b53d 5 950 720
 FUNC 1b550 42 0 Settings::selectingProjectChanged(bool)
-1b550 d 954 719
-1b55d 13 955 719
-1b570 1d 956 719
-1b58d 5 957 719
+1b550 d 954 720
+1b55d 13 955 720
+1b570 1d 956 720
+1b58d 5 957 720
 FUNC 1b5a0 e 0 qMetaTypeId<Project *>()
 1b5a0 4 1768 66
 1b5a4 5 1770 66

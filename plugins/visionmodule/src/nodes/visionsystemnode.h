@@ -37,6 +37,9 @@ class VisionSystemNode : public FlowNode
 
     Q_PROPERTY(FlowNodeManager* rois READ rois WRITE setRois NOTIFY roisChanged USER("serialize"))
 
+    Q_PROPERTY(bool highPerformanceMode READ highPerformanceMode WRITE setHighPerformanceMode NOTIFY highPerformanceModeChanged)
+
+
 
 public:
 
@@ -210,6 +213,15 @@ public slots:
         emit resultsChanged(m_results);
     }
 
+    void setHighPerformanceMode(bool highPerformanceMode)
+    {
+        if (m_highPerformanceMode == highPerformanceMode)
+            return;
+
+        m_highPerformanceMode = highPerformanceMode;
+        emit highPerformanceModeChanged(m_highPerformanceMode);
+    }
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -251,6 +263,8 @@ signals:
 
     void resultsChanged(QVariant results);
 
+    void highPerformanceModeChanged(bool highPerformanceMode);
+
 private:
 
     QVariant m_frameSource=QVariant::fromValue(new QMat());
@@ -277,6 +291,8 @@ private:
 
     QVariant m_results=QVariant::fromValue(QString(""));
 
+    bool m_highPerformanceMode=true;
+
 public:
 
     QVariant frameBufferSource() const
@@ -290,6 +306,10 @@ public:
     QVariant results() const
     {
         return m_results;
+    }
+    bool highPerformanceMode() const
+    {
+        return m_highPerformanceMode;
     }
 };
 

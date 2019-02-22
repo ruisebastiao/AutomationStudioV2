@@ -124,6 +124,7 @@ public slots:
         if (m_subProjectName == subProjectName)
             return;
 
+        LOG_INFO()<<"subProjectName:"<<subProjectName;
         m_subProjectName = subProjectName;
         emit subProjectNameChanged(m_subProjectName);
     }

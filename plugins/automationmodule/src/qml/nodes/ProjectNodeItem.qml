@@ -33,13 +33,13 @@ FlowNodeItem{
         onBindProjectProperty:{
 
             if(projectProperty!=""){
-                projectObject[projectProperty]=Qt.binding(function() {
-                    if(typeof root.node.input === 'undefined'){
-                        return "";
-                    }
+//                projectObject[projectProperty]=Qt.binding(function() {
+//                    if(typeof root.node.input === 'undefined'){
+//                        return "";
+//                    }
 
-                    return root.node.input;
-                })
+//                    return root.node.input;
+//                })
 
                 root.node.output=Qt.binding(function() {
                     return projectObject[projectProperty];

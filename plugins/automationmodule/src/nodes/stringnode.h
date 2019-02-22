@@ -253,7 +253,10 @@ private:
                 parsed_str="NAN";
             }
             else{
-                parsed_str=QString::number(m_stringInput.value<double>(), 'f', 2);
+                QString strval=m_stringInput.value<QString>();
+                bool valid=true;
+                double converted = strval.toDouble(&valid);
+                parsed_str=QString::number(converted, 'f', 2);
             }
 
             setStringOutput(parsed_str);
