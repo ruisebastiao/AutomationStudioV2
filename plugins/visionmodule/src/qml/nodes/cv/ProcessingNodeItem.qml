@@ -12,6 +12,10 @@ import SortFilterProxyModel 1.0
 FlowNodeItem {
     id: root
 
+    Component.onCompleted: {
+//        console.log("roieditorgraphView:"+roieditorgraphView)
+    }
+
     property bool isPressed: false
 
     property Item processingConfigItem:null
@@ -52,7 +56,7 @@ FlowNodeItem {
             }
         ]
 
-        sourceModel: root.node.processingnodes
+        sourceModel: root.node.processingnodes?root.node.processingnodes:null
 
 
 
@@ -277,6 +281,19 @@ FlowNodeItem {
     Connections{
 
         target: node
+
+        Component.onCompleted: {
+
+
+            enabled=Qt.binding(function(){
+                return visionGraphView.highPerformanceMode==false
+            })
+        }
+
+//        enabled:
+        onEnabledChanged:{
+            console.log("onEnabledChanged:"+enabled)
+        }
 
         ignoreUnknownSignals: true
         onOutputChanged:{

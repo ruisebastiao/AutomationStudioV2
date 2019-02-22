@@ -10,7 +10,7 @@ QQmlComponent *NumericNode::delegate(QQmlEngine &engine) noexcept
 {
     static UniqueQQmlComponentPtr   delegate;
     if ( !delegate )
-        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/Cv/ProcessingNumericNodeItem.qml"));
+        delegate = UniqueQQmlComponentPtr(new QQmlComponent(&engine, "qrc:///Nodes/NumericNodeItem.qml"));
     return delegate.get();
 }
 

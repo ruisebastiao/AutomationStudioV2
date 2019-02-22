@@ -33,7 +33,7 @@ signals:
 
     void lengthChanged(int length);
 
-//    void flowNodeAdded(FlowNode* node);
+    void flowNodeAdded(FlowNode* node);
 
 private:
 

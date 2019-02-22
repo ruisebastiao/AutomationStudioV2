@@ -592,7 +592,7 @@ ApplicationWindow {
 
                                             Layout.fillHeight: true
                                             highlighted: true
-                                            property bool openProject: projectslist.selectedProject!=rootwindow.currentProject || settings.selectedProject==null
+                                            property bool openProject:projectslist?projectslist.selectedProject!=rootwindow.currentProject || settings.selectedProject==null:false
                                             text:openProject || !projectslist.selectedProject?qsTr("Open")+translator.emptyString:qsTr("Close")+translator.emptyString
                                             //                                            enabled: projectslist.selectedProject && rootwindow.currentProject.projectLocked==false
                                             Component.onCompleted: {

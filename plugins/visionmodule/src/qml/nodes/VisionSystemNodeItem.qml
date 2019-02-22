@@ -101,6 +101,13 @@ FlowNodeItem{
                             onPressed: maincontainer.selectedROINode.reProcess();
 
                         }
+                        CheckBox{
+                            text: "HighPerformanceMode"
+                            checked: visionGraphView.highPerformanceMode
+                            onCheckedChanged:{
+                                visionGraphView.highPerformanceMode=checked
+                            }
+                        }
                     }
                 }
 
@@ -209,6 +216,9 @@ FlowNodeItem{
                     Qan.GraphView {
                         id: visionGraphView
                         clip: true
+
+                        property bool highPerformanceMode:true
+
 
                         enabled:roieditor.visible==false
                         property real lastCenterX

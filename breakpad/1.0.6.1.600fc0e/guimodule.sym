@@ -1,5 +1,5 @@
-MODULE windows x86_64 4E236C0401E24F31A27CE8DF6218FEEBf guimodule.pdb
-INFO CODE_ID 5C6FCF462F000 guimodule.dll
+MODULE windows x86_64 4E236C0401E24F31A27CE8DF6218FEEB11 guimodule.pdb
+INFO CODE_ID 5C7011442F000 guimodule.dll
 FILE 1 C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\plugins\guimodule\release\guimodule_resource.res
 FILE 2 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits
 FILE 3 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstddef

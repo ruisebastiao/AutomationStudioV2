@@ -130,7 +130,7 @@ void FlowNodeManager::addItem(FlowNode *item)
 //    ModuleProxyNode* moduleproxynode=dynamic_cast<ModuleProxyNode*>(item);
 
 
-//     emit flowNodeAdded(item);
+     emit flowNodeAdded(item);
 
 
 }

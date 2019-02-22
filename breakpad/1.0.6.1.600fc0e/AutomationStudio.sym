@@ -1,7 +1,7 @@
-MODULE windows x86_64 5C326CE0F51D4597A7D42CD2F84AB1612d AutomationStudio.pdb
-INFO CODE_ID 5C6FCF972BB000 AutomationStudio.exe
+MODULE windows x86_64 5C326CE0F51D4597A7D42CD2F84AB16155 AutomationStudio.pdb
+INFO CODE_ID 5C7027052BB000 AutomationStudio.exe
 FILE 1 C:\Users\LM36\Documents\Novares\Automacao\build-automationstudio-Desktop_Qt_5_11_2_MSVC2017_64bit3-Release\application\release\automationstudio.res
-FILE 2 C:\Users\LM36\AppData\Local\Temp\lnk{AD189F67-0958-4710-B690-E6C9DD62CB63}.tmp
+FILE 2 C:\Users\LM36\AppData\Local\Temp\lnk{165DB93B-34AC-4BBE-983D-66BEDDCA0BC0}.tmp
 FILE 3 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_wstdio.h
 FILE 4 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\cmath
 FILE 5 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qstringmatcher.h
@@ -411,18 +411,18 @@ FILE 627 c:\qt5\5.11.2\msvc2017_64\include\qtgui\qtouchdevice.h
 FILE 628 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\list
 FILE 629 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qannodeitem.h
 FILE 633 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\array
-FILE 634 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_socket.h
+FILE 637 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_socket.h
 FILE 658 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\flownodemanager.h
 FILE 660 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\serializedlistmodel.h
 FILE 661 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\typedlistmodel.h
-FILE 663 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\socketio.h
-FILE 666 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qset.h
-FILE 667 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\quickcontainers\src\qcmcontainer.h
-FILE 668 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_client.h
-FILE 670 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_message.h
-FILE 671 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\ports\flownodeport.h
-FILE 673 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpobehaviour.h
-FILE 674 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\map
+FILE 665 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qset.h
+FILE 666 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\quickcontainers\src\qcmcontainer.h
+FILE 667 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\socketio.h
+FILE 669 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\ports\flownodeport.h
+FILE 671 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpobehaviour.h
+FILE 672 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\map
+FILE 673 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_client.h
+FILE 677 c:\users\lm36\documents\novares\automacao\automationstudio\lib\socket.io-client-cpp\src\sio_message.h
 FILE 685 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpoadjacentbehaviour.hpp
 FILE 686 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanportitem.h
 FILE 690 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanedgeitem.h
@@ -444,9 +444,9 @@ FILE 797 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quic
 FILE 803 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\connectioninfo.h
 FILE 805 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\utilities.h
 FILE 830 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogengraph.h
-FILE 831 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\moduleproxynode.h
-FILE 838 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xtree
-FILE 840 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\proxynode.h
+FILE 837 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xtree
+FILE 843 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\moduleproxynode.h
+FILE 846 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\proxynode.h
 FILE 849 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\nodes\flownode.h
 FILE 850 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\graphs\scenegraph.h
 FILE 851 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qannavigable.h
@@ -455,16 +455,16 @@ FILE 861 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quic
 FILE 873 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\modulelistmodel.h
 FILE 876 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\automationmodule\src\qautomationmodule.h
 FILE 886 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qancontaineradapter.h
-FILE 887 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\userslistmodel.h
-FILE 889 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\user.h
-FILE 890 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraphview.h
+FILE 888 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraphview.h
+FILE 891 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\userslistmodel.h
+FILE 893 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\user.h
 FILE 902 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangraph.h
 FILE 905 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanselectable.h
 FILE 906 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanutils.h
 FILE 917 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanedge.h
 FILE 919 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanstyle.h
 FILE 922 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\gtpo\src\gtpogennode.h
-FILE 924 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\appupdater.h
+FILE 932 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\appupdater.h
 FILE 935 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qanconnector.h
 FILE 940 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qangroupitem.h
 FILE 945 c:\users\lm36\documents\novares\automacao\automationstudio\plugins\quickqanava\src\qandraggable.h
@@ -479,13 +479,13 @@ FILE 1417 c:\users\lm36\documents\novares\automacao\build-automationstudio-deskt
 FILE 1456 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qglobalstatic.h
 FILE 1498 c:\users\lm36\documents\novares\automacao\build-automationstudio-desktop_qt_5_11_2_msvc2017_64bit3-release\application\release\qrc_application_qmlcache.cpp
 FILE 1595 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\apptranslator.cpp
-FILE 1975 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentthreadengine.h
+FILE 1982 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentthreadengine.h
 FILE 1991 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\settings.cpp
-FILE 2033 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentiteratekernel.h
-FILE 2037 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentmedian.h
-FILE 2100 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentrunbase.h
-FILE 2225 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentreducekernel.h
-FILE 2384 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\automationstudio.cpp
+FILE 2038 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentiteratekernel.h
+FILE 2042 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentmedian.h
+FILE 2104 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentrunbase.h
+FILE 2233 c:\qt5\5.11.2\msvc2017_64\include\qtconcurrent\qtconcurrentreducekernel.h
+FILE 2383 c:\users\lm36\documents\novares\automacao\automationstudio\application\src\automationstudio.cpp
 FILE 2456 c:\users\lm36\documents\novares\automacao\automationstudio\lib\automationstudiocore\src\plugincontext.h
 FILE 2557 c:\qt5\5.11.2\msvc2017_64\include\qtqml\qqmlprivate.h
 FILE 2667 c:\qt5\5.11.2\msvc2017_64\include\qtcore\qvarlengtharray.h
@@ -2848,60 +2848,60 @@ b1f0 9 90 68
 b1f9 2a 91 68
 b223 5 92 68
 FUNC b230 b5 0 AutomationStudio::~AutomationStudio()
-b230 18 86 2384
-b248 45 88 2384
-b28d 58 89 2384
+b230 18 86 2383
+b248 45 88 2383
+b28d 58 89 2383
 FUNC b2f0 b0 0 AutomationStudio::create(int,char const * const * const,QQmlApplicationEngine *,QObject *)
-b2f0 28 91 2384
-b318 5a 92 2384
-b372 29 95 2384
-b39b 5 96 2384
+b2f0 28 91 2383
+b318 5a 92 2383
+b372 29 95 2383
+b39b 5 96 2383
 FUNC b3b0 27 0 AutomationStudio::loadQml(QUrl const &)
-b3b0 e 178 2384
-b3be 14 180 2384
-b3d2 5 181 2384
+b3b0 e 178 2383
+b3be 14 180 2383
+b3d2 5 181 2383
 FUNC b3e0 2fb 0 AutomationStudio::loadInternalPlugins()
-b3e0 18 183 2384
-b3f8 44 185 2384
-b43c 44 189 2384
-b480 44 194 2384
-b4c4 44 198 2384
-b508 44 203 2384
-b54c 44 204 2384
-b590 44 205 2384
-b5d4 44 207 2384
-b618 74 211 2384
-b68c 47 213 2384
-b6d3 8 215 2384
+b3e0 18 183 2383
+b3f8 44 185 2383
+b43c 44 189 2383
+b480 44 194 2383
+b4c4 44 198 2383
+b508 44 203 2383
+b54c 44 204 2383
+b590 44 205 2383
+b5d4 44 207 2383
+b618 74 211 2383
+b68c 47 213 2383
+b6d3 8 215 2383
 FUNC b6f0 520 0 AutomationStudio::loadPlugins()
-b6f0 18 126 2384
-b708 48 127 2384
-b750 85 130 2384
-b7d5 11 136 2384
-b7e6 b 139 2384
-b7f1 2e 141 2384
-b81f 10 151 2384
-b82f 105 154 2384
-b934 16 155 2384
-b94a 55 158 2384
-b99f e 159 2384
-b9ad 13 161 2384
-b9c0 c 162 2384
-b9cc d7 163 2384
-baa3 5 166 2384
-baa8 17 167 2384
-babf 16 168 2384
-bad5 d4 169 2384
-bba9 f 171 2384
-bbb8 2b 173 2384
-bbe3 2d 176 2384
+b6f0 18 126 2383
+b708 48 127 2383
+b750 85 130 2383
+b7d5 11 136 2383
+b7e6 b 139 2383
+b7f1 2e 141 2383
+b81f 10 151 2383
+b82f 105 154 2383
+b934 16 155 2383
+b94a 55 158 2383
+b99f e 159 2383
+b9ad 13 161 2383
+b9c0 c 162 2383
+b9cc d7 163 2383
+baa3 5 166 2383
+baa8 17 167 2383
+babf 16 168 2383
+bad5 d4 169 2383
+bba9 f 171 2383
+bbb8 2b 173 2383
+bbe3 2d 176 2383
 FUNC bc20 513 0 AutomationStudio::AutomationStudio(QQmlApplicationEngine *,QObject *)
-bc20 24 46 2384
-bc44 17 43 2384
-bc5b 12 46 2384
-bc6d 14 44 2384
-bc81 16 46 2384
-bc97 10 45 2384
+bc20 24 46 2383
+bc44 17 43 2383
+bc5b 12 46 2383
+bc6d 14 44 2383
+bc81 16 46 2383
+bc97 10 45 2383
 bca7 1d 195 1373
 bcc4 10 197 1373
 bcd4 10 199 1373
@@ -2909,29 +2909,29 @@ bce4 10 202 1373
 bcf4 1d 206 1373
 bd11 1d 207 1373
 bd2e 10 208 1373
-bd3e 35 47 2384
-bd73 42 49 2384
-bdb5 42 50 2384
-bdf7 d 52 2384
-be04 56 53 2384
-be5a 16 54 2384
-be70 97 58 2384
-bf07 6f 59 2384
-bf76 6f 60 2384
-bfe5 54 62 2384
-c039 54 65 2384
-c08d 94 67 2384
-c121 12 84 2384
+bd3e 35 47 2383
+bd73 42 49 2383
+bdb5 42 50 2383
+bdf7 d 52 2383
+be04 56 53 2383
+be5a 16 54 2383
+be70 97 58 2383
+bf07 6f 59 2383
+bf76 6f 60 2383
+bfe5 54 62 2383
+c039 54 65 2383
+c08d 94 67 2383
+c121 12 84 2383
 FUNC c140 cd 0 AutomationStudio::solveImportPaths()
-c140 12 110 2384
-c152 15 111 2384
-c167 17 113 2384
-c17e 35 114 2384
-c1b3 14 116 2384
-c1c7 c 120 2384
-c1d3 14 121 2384
-c1e7 b 123 2384
-c1f2 1b 124 2384
+c140 12 110 2383
+c152 15 111 2383
+c167 17 113 2383
+c17e 35 114 2383
+c1b3 14 116 2383
+c1c7 c 120 2383
+c1d3 14 121 2383
+c1e7 b 123 2383
+c1f2 1b 124 2383
 FUNC c210 3a 0 QSharedPointer<AutomationStudio>::QSharedPointer<AutomationStudio><AutomationStudio>(AutomationStudio *)
 c210 e 321 24
 c21e d 320 24
@@ -3398,11 +3398,11 @@ ef80 d 58 112
 FUNC ef90 1b 0 QList<QString>::const_iterator::operator*()
 ef90 1b 298 14
 FUNC efb0 ab 0 <lambda_a6b20cbd5c60f74d22c5f8b9b44c8a97>::operator()
-efb0 12 67 2384
-efc2 18 69 2384
-efda c 70 2384
-efe6 70 73 2384
-f056 5 76 2384
+efb0 12 67 2383
+efc2 18 69 2383
+efda c 70 2383
+efe6 70 73 2383
+f056 5 76 2383
 FUNC f060 42 0 QFlags<QDir::Filter>::operator|(QDir::Filter)
 f060 42 140 112
 FUNC f0b0 3c 0 operator|(QDir::Filter,QDir::Filter)
@@ -4389,9 +4389,9 @@ FUNC 158c0 12 0 Settings::appUpdater()
 158c5 c 163 971
 158d1 1 164 971
 FUNC 158e0 25 0 sio::message::list::at(unsigned __int64)
-158e0 e 540 670
-158ee 12 541 670
-15900 5 542 670
+158e0 e 540 677
+158ee 12 541 677
+15900 5 542 677
 FUNC 15910 6a 0 QtPrivate::FunctorCall<QtPrivate::IndexesList<0>,QtPrivate::List<QString>,void,<lambda_3839cd90835dbcdb8cfb755edb1c8f39> >::call
 15910 e 127 88
 1591e 57 128 88
@@ -4410,9 +4410,9 @@ FUNC 15a00 54 0 QList<QNetworkInterface>::dealloc(QListData::Data *)
 15a44 b 867 14
 15a4f 5 868 14
 FUNC 15a60 e 0 sio::message::get_flag()
-15a60 5 37 670
-15a65 8 38 670
-15a6d 1 39 670
+15a60 5 37 677
+15a65 8 38 677
+15a6d 1 39 677
 FUNC 15a70 8c 0 QtPrivate::QFunctorSlotObject<<lambda_3839cd90835dbcdb8cfb755edb1c8f39>,1,QtPrivate::List<QString>,void>::impl
 15a70 17 415 88
 15a87 18 416 88
@@ -4532,9 +4532,9 @@ FUNC 161f0 3c 0 std::vector<std::shared_ptr<sio::message>,std::allocator<std::sh
 161f9 2e 1704 18
 16227 5 1705 18
 FUNC 16230 1b 0 sio::message::list::size()
-16230 9 535 670
-16239 d 536 670
-16246 5 537 670
+16230 9 535 677
+16239 d 536 677
+16246 5 537 677
 FUNC 16250 42 0 Settings::source()
 16250 16 96 971
 16266 27 97 971

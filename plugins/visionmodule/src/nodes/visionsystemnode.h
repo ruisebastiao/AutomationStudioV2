@@ -11,6 +11,79 @@
 
 #include <graphs/visiongraph.h>
 
+#include <nodes/cv/processingendnode.h>
+
+
+class RoisProcessor : public QObject
+{
+    Q_OBJECT
+public:
+    RoisProcessor() {
+
+
+    }
+
+    void quit(){
+        m_quit=true;
+        wait_for_processing.wakeAll();
+    }
+
+    void doProcess(){
+        wait_for_processing.wakeAll();
+    }
+
+    virtual ~RoisProcessor() {}
+    bool processing() const;
+
+    QMat *frameMat() const;
+    void setFrameMat(QMat *frameMat);
+
+    FlowNodeManager *rois() const;
+    void setRois(FlowNodeManager *rois);
+
+public slots:
+
+    void processNodes()
+    {
+
+        while(m_quit==false){
+            mutex.lock();
+            wait_for_processing.wait(&mutex);
+            if(m_quit){
+                break;
+            }
+
+            m_processing=true;
+
+            QMat* framesource=m_frameMat->clone();
+
+            for (int var = 0; var < m_rois->length(); ++var) {
+                ROINode* roi=static_cast<ROINode*>(m_rois->at(var));
+                roi->processFrameObject(framesource);
+            }
+
+            m_processing=false;
+            mutex.unlock();
+
+        }
+
+        mutex.unlock();
+
+        emit finished();
+    }
+
+private:
+    FlowNodeManager* m_rois=nullptr;
+    QMat* m_frameMat=new QMat();
+    bool m_processing=false;
+    QMutex mutex;
+    bool m_quit=false;
+    QWaitCondition wait_for_processing;
+signals:
+    void roisProcessed(QString results);
+    void finished();
+};
+
 
 class VisionSystemNode : public FlowNode
 {
@@ -53,7 +126,7 @@ public:
 
     QVariant frameSource() const
     {
-        return m_frameSource;
+        return QVariant::fromValue(m_frameMat);
     }
 
     QVariant processFrame() const
@@ -72,11 +145,21 @@ public slots:
     void setFrameSource(QVariant frameSource)
     {
 
-        m_frameSource = frameSource;
-        emit frameSourceChanged(m_frameSource);
 
-        QMat* framesource=m_frameSource.value<QMat*>();
-        if(framesource && framesource->cvMat()->empty()==false && processOnNewFrame()){
+
+
+
+        QMat* frameMat=frameSource.value<QMat*>();
+
+        if(frameMat->cvMat()->empty()==false){
+            frameMat->cvMat()->copyTo(*m_frameMat->cvMat());
+        }
+
+        emit frameSourceChanged(frameSource);
+
+
+
+        if(m_frameMat && m_frameMat->cvMat()->empty()==false && processOnNewFrame()){
             setProcessFrame(true);
         }
 
@@ -92,58 +175,43 @@ public slots:
 
         if(processFrame.value<bool>()){
 
+
+            if(m_processor->processing()){
+                LOG_INFO("Node ID|"+QString::number(this->id())+"|Waiting for processing finished");
+                Utilities::NonBlockingExec([&](){
+                    while (m_processor->processing()) {
+                        QThread::msleep(10);
+                    }
+                });
+            }
+
+
             LOG_INFO("Node ID|"+QString::number(this->id())+"|Processing started");
 
-            QtConcurrent::run([this](){
 
-
-                QMat* framesource=m_frameSource.value<QMat*>();
-
-                setResults("");
-                m_finishedROIS=0;
-
-                for (int var = 0; var < m_rois->length(); ++var) {
-                    ROINode* roi=static_cast<ROINode*>(m_rois->at(var));
-                    roi->processFrameObject(framesource);
-                }
-
-
-
-
-                //qDebug()<<"Frame processed";
-                //setFrameProcessed(true);
-
-            });
+            setResults("");
+            m_finishedROIS=0;
+            m_processor->doProcess();
 
 
         }
     }
 
+    void roisProcessed(QString results){
+        LOG_INFO("Node ID|"+QString::number(this->id())+"|Frame Processing finished");
+        setResults(results);
+
+        setFrameProcessed(true);
+
+    }
+
     void setFrameProcessed(QVariant frameProcessed)
     {
 
-//roinode->roiResults();
+
         m_frameProcessed = frameProcessed;
 
-        if(frameProcessed.value<bool>()){
-            LOG_INFO("Node ID|"+QString::number(this->id())+"|Frame Processing finished");
 
-            for (int var = 0; var < m_rois->length(); ++var) {
-                ROINode* roi=dynamic_cast<ROINode*>(m_rois->at(var));
-                QString roiresult=roi->roiResults().value<QString>();
-
-                QString frameResults=m_results.value<QString>();
-                frameResults+=roiresult;
-
-                if(var<m_rois->length()-1){
-                    frameResults+="|";
-                }
-                setResults(frameResults);
-
-
-            }
-
-        }
         emit frameProcessedChanged(m_frameProcessed);
     }
 
@@ -167,13 +235,7 @@ public slots:
             graph->connect(graph,&SceneGraph::flowNodeAdded,[&](FlowNode* node){
                 ROINode* roinode=dynamic_cast<ROINode*>(node);
                 if(roinode){
-                    QObject::connect(roinode,&ROINode::roiProcessingDoneChanged,this,[&](){
 
-                        m_finishedROIS++;
-                        if(m_finishedROIS==m_rois->length()){
-                            this->setFrameProcessed(true);
-                        }
-                    });
                 }
                 node->setParentModule(this->parentModule());
             });
@@ -201,6 +263,7 @@ public slots:
             return;
 
         m_rois = rois;
+
         emit roisChanged(m_rois);
     }
 
@@ -267,16 +330,12 @@ signals:
 
 private:
 
-    QVariant m_frameSource=QVariant::fromValue(new QMat());
+    QMat* m_frameMat=new QMat();
     QVariant m_processFrame=QVariant::fromValue(false);
     QVariant m_frameProcessed=QVariant::fromValue(false);
 
-    //    void readROINode(QJsonObject roiobject);
-
-    //    QList<ROINode *> m_ROINodes;
-
-    QFuture<void> m_processingFuture;
-    QFutureWatcher<void> m_processingFutureWatcher;
+    RoisProcessor* m_processor;
+    QThread* m_processorThread;
 
     qan::GraphView* m_visionGraphView=nullptr;
 
