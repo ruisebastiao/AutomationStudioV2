@@ -1283,6 +1283,7 @@ ApplicationWindow {
                     anchors.fill: parent
 
                     onCurrentItemChanged: {
+
                         mainState=currentItem?currentItem.state:"";
                         //titleLabel.text=mainState=="home"?currentUser?currentUser.userName:"DynamicFLow3":currentItem?currentItem.title:"";
                     }

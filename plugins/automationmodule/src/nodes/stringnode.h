@@ -254,13 +254,13 @@ private:
 
     void compareStrings(){
         QString inputstr=m_stringInput.value<QString>();
-        QString stringvalue=m_stringValue.value<QString>();
+//        QString stringvalue=m_stringValue.value<QString>();
 
         QString inputstr2=m_stringInput2.value<QString>();
 
-        if(stringvalue!=""){
-            inputstr2=stringvalue;
-        }
+//        if(stringvalue!=""){
+//            inputstr2=stringvalue;
+//        }
 
         if(inputstr==inputstr2){
             setStringEqual(true);

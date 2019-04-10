@@ -94,6 +94,33 @@ EpsonModule {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
+            Item {
+                id:user_validation
+                property bool show: false
+                visible: opacity!=0
+                opacity: show?1:0
+                anchors.centerIn: parent
+                width: 300
+                height: 300
+                RoundButton{
+                    anchors.centerIn: parent
+                    width: 200
+                    height: 200
+                    highlighted: true
+
+                    contentItem: Text {
+                        text: "Validar"
+                        font: control.font
+//                        opacity: enabled ? 1.0 : 0.3
+                        color: "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
+                }
+            }
+
+
         }
         ToolBar {
             Layout.fillWidth: true
@@ -176,6 +203,18 @@ EpsonModule {
 
 
     }
+
+
+    onWaitUserValidationChanged:{
+
+        console.log("onWaitUserValidationChanged")
+        if(waitUserValidation){
+            user_validation.show=true;
+        }
+    }
+
+
+
     RoundButton{
         id:startbt
 

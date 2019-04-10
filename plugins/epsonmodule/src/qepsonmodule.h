@@ -19,6 +19,11 @@ Q_OBJECT
     Q_PROPERTY(QVariant toolInDock READ toolInDock WRITE setToolInDock NOTIFY toolInDockChanged REVISION 2)
 
 
+    Q_PROPERTY(QVariant waitUserValidation READ waitUserValidation WRITE setWaitUserValidation NOTIFY waitUserValidationChanged REVISION 2)
+    Q_PROPERTY(QVariant userValidation READ userValidation WRITE setUserValidation NOTIFY userValidationChanged REVISION 2)
+
+
+
 
 public:
     QEpsonModule(QQuickItem *parent=nullptr);
@@ -55,6 +60,16 @@ public:
     QVariant productionStarting() const
     {
         return m_productionStarting;
+    }
+
+    QVariant waitUserValidation() const
+    {
+        return m_waitUserValidation;
+    }
+
+    QVariant userValidation() const
+    {
+        return m_userValidation;
     }
 
 public slots:
@@ -116,6 +131,24 @@ public slots:
         emit productionStartingChanged(m_productionStarting);
     }
 
+    void setWaitUserValidation(QVariant waitUserValidation)
+    {
+        if (m_waitUserValidation == waitUserValidation)
+            return;
+
+        m_waitUserValidation = waitUserValidation;
+        emit waitUserValidationChanged(m_waitUserValidation);
+    }
+
+    void setUserValidation(QVariant userValidation)
+    {
+        if (m_userValidation == userValidation)
+            return;
+
+        m_userValidation = userValidation;
+        emit userValidationChanged(m_userValidation);
+    }
+
 signals:
 
 
@@ -131,6 +164,10 @@ signals:
 
     void productionStartingChanged(QVariant productionStarting);
 
+    void waitUserValidationChanged(QVariant waitUserValidation);
+
+    void userValidationChanged(QVariant userValidation);
+
 private:
 
 
@@ -141,6 +178,8 @@ private:
     QVariant m_toolInDock=false;
     QVariant m_stationReady=false;
     QVariant m_productionStarting=false;
+    QVariant m_waitUserValidation=false;
+    QVariant m_userValidation=QString("");
 };
 
 #endif // QEPSONMODULE_H

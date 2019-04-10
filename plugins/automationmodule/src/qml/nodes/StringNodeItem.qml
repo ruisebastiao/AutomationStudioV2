@@ -25,7 +25,7 @@ FlowNodeItem{
         anchors.fill: parent
 
         TextArea{
-            visible: root.node.inputType!=StringNode.InputSerialize && root.node.inputType!=StringNode.InputReadFile
+            visible: root.node.inputType!=StringNode.InputSerialize && root.node.inputType!=StringNode.InputReadFile && root.node.inputType!=StringNode.InputCompare
 
             Layout.fillWidth: true
             text:node.stringValue
