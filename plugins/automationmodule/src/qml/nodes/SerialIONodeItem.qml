@@ -32,7 +32,7 @@ FlowNodeItem{
         onPortAdded:{
             root.node.checkPorts()
         }
-        onPortRemoved:{            
+        onPortRemoved:{
             root.node.checkPorts()
         }
         Component.onCompleted: {
@@ -116,12 +116,15 @@ FlowNodeItem{
 
                     Connections{
                         target: root.node
-                         onPortsAvailableChanged:{
+                        onPortsAvailableChanged:{
                             console.log("ports changed");
-                             selectedPort.currentIndex=root.node.indexOfPort(root.node.port)
-                             if(selectedPort.currentIndex>-1){
-                                 root.node.port=root.node.port
-                             }
+                            selectedPort.currentIndex=root.node.indexOfPort(root.node.port)
+                            if(selectedPort.currentIndex>-1){
+                                root.node.port=root.node.port
+                            }
+                        }
+                        onBaudrateChanged:{
+                            selectedBaudrate.currentIndex = selectedBaudrate.find(root.node.baudrate);
                         }
                     }
 
@@ -196,8 +199,8 @@ FlowNodeItem{
                         currentIndex: -1
 
                         Component.onCompleted: {
-                            var teste=root.node.baudrate
-                            selectedBaudrate.currentIndex = selectedBaudrate.find(teste);
+
+                            selectedBaudrate.currentIndex = selectedBaudrate.find(root.node.baudrate);
                         }
                     }
 
@@ -257,21 +260,21 @@ FlowNodeItem{
                 }
             }
 
-//            TextScroller {
-//                id: rawLabel
+            //            TextScroller {
+            //                id: rawLabel
 
-//                Layout.fillHeight: true;
-//                Layout.fillWidth: true;
+            //                Layout.fillHeight: true;
+            //                Layout.fillWidth: true;
 
-//                text:root.node.rawdata
-//                duration: 250
-//                font.pixelSize: 20
-//                horizontalAlignment:Text.AlignLeft
-
-
+            //                text:root.node.rawdata
+            //                duration: 250
+            //                font.pixelSize: 20
+            //                horizontalAlignment:Text.AlignLeft
 
 
-//            }
+
+
+            //            }
 
         }
 
@@ -299,7 +302,7 @@ FlowNodeItem{
 
     SideContainerItem{
 
-//        nodePressed: root.isPressed
+        //        nodePressed: root.isPressed
         show: root.selected && editMode
 
         side: "left"

@@ -73,7 +73,7 @@ int main(int argc, char *argv[]){
 
 
 
-//      qRegisterMetaType<QVariant*>("QVariant*");
+    //      qRegisterMetaType<QVariant*>("QVariant*");
 
 
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
@@ -88,15 +88,18 @@ int main(int argc, char *argv[]){
     QGuiApplication::addLibraryPath(QCoreApplication::applicationDirPath());
 
     if(isSingleInstanceRunning(QGuiApplication::applicationName())){
-         QQmlApplicationEngine engine;
+        QQmlApplicationEngine engine;
 
-         engine.load(QUrl(QStringLiteral("qrc:/errorMessage.qml")));
+        engine.load(QUrl(QStringLiteral("qrc:/errorMessage.qml")));
 
-          return app.exec();
+        return app.exec();
     }
 
     QLocalServer* singleinstaceserver=startSingleInstanceServer(QCoreApplication::applicationName());
 
+    QCoreApplication::setOrganizationName("Novares");
+    QCoreApplication::setOrganizationDomain("Novares.com");
+//    QCoreApplication::setApplicationName(QGuiApplication::applicationName());
 
 
     ConsoleAppender* consoleAppender = new ConsoleAppender;
@@ -131,7 +134,7 @@ int main(int argc, char *argv[]){
 
     Breakpad::CrashHandler::instance()->Init(dumpsdir.absolutePath());
 
-//    QtBreakpad::init(dumpsdir.absolutePath());
+    //    QtBreakpad::init(dumpsdir.absolutePath());
 
 
     //buggyFunc();

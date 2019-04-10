@@ -20,6 +20,7 @@
 #include <nodes/setresetnode.h>
 #include <nodes/propertiesnode.h>
 #include <nodes/arraynode.h>
+#include <nodes/processnode.h>
 
 
 
@@ -157,7 +158,10 @@ void SceneGraph::getCommonTypes()
             map.insert(QVariant::fromValue(nodetype).value<QString>(),"Array operations");
 
             break;
+        case FlowNode::Type::ProcessNode:
+            map.insert(QVariant::fromValue(nodetype).value<QString>(),"Process");
 
+            break;
 
         default:
             //                static_assert(true, "");
@@ -232,6 +236,9 @@ FlowNode *SceneGraph::createNode(QString nodetype)
     }
     else if(nodetype=="ArrayNode"){
         newnode=insertNode<ArrayNode>(nullptr);
+    }
+    else if(nodetype=="ProcessNode"){
+        newnode=insertNode<ProcessNode>(nullptr);
     }
     FlowNode* newflownode= dynamic_cast<FlowNode*>(newnode);
 

@@ -34,7 +34,8 @@ HEADERS += \
     $$PWD/nodes/arraynode.h \
     $$PWD/propertyinfo.h \
     $$PWD/propertyinfolist.h \
-    $$PWD/nodes/propertiesnode.h
+    $$PWD/nodes/propertiesnode.h \
+    $$PWD/nodes/processnode.h
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
@@ -69,6 +70,7 @@ SOURCES += \
     $$PWD/nodes/arraynode.cpp \
     $$PWD/nodes/propertiesnode.cpp \
     $$PWD/propertyinfolist.cpp \
-    $$PWD/propertyinfo.cpp
+    $$PWD/propertyinfo.cpp \
+    $$PWD/nodes/processnode.cpp
 
 

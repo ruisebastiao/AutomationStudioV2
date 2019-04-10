@@ -22,5 +22,6 @@
         <file alias="Nodes/PropertiesNodeItem.qml">qml/nodes/PropertiesNodeItem.qml</file>
         <file alias="utils.js">qml/Utils.js</file>
         <file alias="Nodes/Cv/NumericNodeItem.qml">qml/nodes/NumericNodeItem.qml</file>
+        <file alias="Nodes/ProcessNodeItem.qml">qml/nodes/PorcessNodeItem.qml</file>
     </qresource>
 </RCC>

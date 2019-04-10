@@ -19,9 +19,9 @@ SYM_TARGET=$$SYM_DIR/$${TARGET}.sym
 message(Symbols target:$$SYM_TARGET)
 
 win32{
-    PDB_PATH= $${DESTDIR}/$${TARGET}.pdb
-    message(PDB path:$$PDB_PATH)
-    QMAKE_POST_LINK += $$quote( $$PROJECT_PATH\breakpad\dump_syms.exe $$PDB_PATH > $$SYM_TARGET  $$escape_expand(\n\t))
+#    PDB_PATH= $${DESTDIR}/$${TARGET}.pdb
+#    message(PDB path:$$PDB_PATH)
+#    QMAKE_POST_LINK += $$quote( $$PROJECT_PATH\breakpad\dump_syms.exe $$PDB_PATH > $$SYM_TARGET  $$escape_expand(\n\t))
 
 }
 

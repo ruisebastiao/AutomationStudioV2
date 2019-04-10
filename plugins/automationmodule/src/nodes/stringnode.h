@@ -28,13 +28,18 @@ class StringNode : public FlowNode
     Q_PROPERTY(InputType inputType READ inputType WRITE setInputType NOTIFY inputTypeChanged USER("serialize"))
 
 
+    Q_PROPERTY(QVariant processInputs READ processInputs WRITE setProcessInputs NOTIFY processInputsChanged REVISION 30)
+
+    Q_PROPERTY(bool processOnInput READ processOnInput WRITE setProcessOnInput NOTIFY processOnInputChanged USER("serialize"))
+
+
 
 
 
 public:
 
     enum class InputType {
-
+        InputNotSet,
         InputNone,
         InputPrefix,
         InputSuffix,
@@ -42,9 +47,9 @@ public:
         InputCompare,
         InputJoin,
         InputSerialize,
-        InputParse
-
-
+        InputParse,
+        InputReadFile,
+        InputWriteFile
     };
     Q_ENUM(InputType)
 
@@ -65,26 +70,10 @@ public slots:
 
         m_stringValue = stringValue;
 
-
-
-        if(inputType()==InputType::InputPrefix){
-            setStringOutput(stringValue.value<QString>()+m_stringInput.value<QString>());
-        }
-        else if(inputType()==InputType::InputSuffix){
-            setStringOutput(m_stringInput.value<QString>()+stringValue.value<QString>());
-        }
-        else if(inputType()==InputType::InputExtract){
-            updateExtract();
-        }
-        else if(inputType()==InputType::InputCompare){
-            compareStrings();
-        }
-        else {
-            setStringOutput(stringValue);
-        }
-
-//        inputsChanged();
         emit stringValueChanged(m_stringValue);
+        inputsChanged(m_processOnInput);
+
+
     }
 
 
@@ -93,7 +82,7 @@ public slots:
 
         m_stringInput = stringInput;
         emit stringInputChanged(m_stringInput);
-        inputsChanged();
+        inputsChanged(m_processOnInput && connectionsLoaded());
     }
 
 
@@ -129,6 +118,7 @@ public slots:
         m_inputType = inputType;
         updateports();
         emit inputTypeChanged(m_inputType);
+        inputsChanged(true);
     }
 
     void setStringInput2(QVariant stringInput2)
@@ -137,7 +127,8 @@ public slots:
 
         m_stringInput2 = stringInput2;
         emit stringInput2Changed(m_stringInput2);
-        inputsChanged();
+
+        inputsChanged(m_processOnInput && connectionsLoaded());
     }
 
     void setStoredValue(QString storedValue)
@@ -152,6 +143,10 @@ public slots:
     void setStringLessThen(QVariant stringLessThen)
     {
         m_stringLessThen = stringLessThen;
+
+        if(m_stringLessThen==true){
+            setStringOutput(m_stringInput2);
+        }
         emit stringLessThenChanged(m_stringLessThen);
     }
 
@@ -159,7 +154,35 @@ public slots:
     {
 
         m_stringGreaterThen = stringGreaterThen;
+        if(m_stringGreaterThen==true){
+            setStringOutput(m_stringInput);
+        }
+
         emit stringGreaterThenChanged(m_stringGreaterThen);
+    }
+
+    void setProcessInputs(QVariant processInputs)
+    {
+
+
+        m_processInputs = processInputs;
+
+
+        bool doprocess=m_processInputs.value<bool>();
+        inputsChanged(doprocess);
+
+
+        emit processInputsChanged(m_processInputs);
+        m_processInputs=false;
+    }
+
+    void setProcessOnInput(bool processOnInput)
+    {
+        if (m_processOnInput == processOnInput)
+            return;
+
+        m_processOnInput = processOnInput;
+        emit processOnInputChanged(m_processOnInput);
     }
 
 signals:
@@ -195,6 +218,10 @@ signals:
 
     void stringGreaterThenChanged(QVariant stringGreaterThen);
 
+    void processInputsChanged(QVariant processInputs);
+
+    void processOnInputChanged(bool processOnInput);
+
 private:
     QVariant m_stringValue=QVariant::fromValue(QString(""));
 
@@ -223,45 +250,7 @@ private:
         return "Invalid input:"+QString(m_stringInput.typeName());
     }
 
-    void inputsChanged(){
-        if(inputType()==InputType::InputSuffix){
-            setStringOutput(stringValue().value<QString>()+QVariant(m_stringInput).toString());
-
-        }else if(inputType()==InputType::InputSerialize){
-            setStringOutput(serialize_input());
-        }
-        else if(inputType()==InputType::InputPrefix){
-            setStringOutput(m_stringInput.value<QString>()+stringValue().value<QString>());
-        }
-        else if(inputType()==InputType::InputExtract) {
-            updateExtract();
-        }
-        else if(inputType()==InputType::InputCompare){
-            compareStrings();
-        }
-        else if(inputType()==InputType::InputJoin){
-            QString inputstr=m_stringInput.value<QString>();
-            QString inputstr2=m_stringInput2.value<QString>();
-
-
-            QString joined=m_stringInput.value<QString>().append(m_stringValue.value<QString>()).append(inputstr2);
-            setStringOutput(joined);
-        }
-        else if(inputType()==InputType::InputParse){
-            QString parsed_str;
-            if(m_stringInput.isValid()==false || m_stringInput.isNull() || m_stringInput.canConvert<double>()==false){
-                parsed_str="NAN";
-            }
-            else{
-                QString strval=m_stringInput.value<QString>();
-                bool valid=true;
-                double converted = strval.toDouble(&valid);
-                parsed_str=QString::number(converted, 'f', 2);
-            }
-
-            setStringOutput(parsed_str);
-        }
-    }
+    void inputsChanged(bool process);
 
     void compareStrings(){
         QString inputstr=m_stringInput.value<QString>();
@@ -275,6 +264,7 @@ private:
 
         if(inputstr==inputstr2){
             setStringEqual(true);
+            setStringOutput(m_stringInput);
         }
         else {
             setStringEqual(false);
@@ -305,16 +295,19 @@ private:
         QRegularExpression re(regstr);
 
         QRegularExpressionMatch match = re.match(inputstr);
+
         bool hasMatch = match.hasMatch(); // true
 
 
         if (hasMatch){
+            qDebug()<<"Match:"<<match;
+
             QString matched = match.captured(1);
             setStringOutput(matched);
         }
-        //        else{
-        //            setStringOutput(QString(""));
-        //        }
+        else{
+            setStringOutput(QString(""));
+        }
     }
     void updateports(){
 
@@ -338,7 +331,7 @@ private:
             }
 
             FlowNodePort* inputstring2port=getPortFromKey("stringInput2");
-            if(m_inputType==InputType::InputNone || m_inputType==InputType::InputSerialize || m_inputType==InputType::InputParse){
+            if(m_inputType==InputType::InputNone || m_inputType==InputType::InputSerialize || m_inputType==InputType::InputParse || m_inputType==InputType::InputReadFile){
 
 
                 SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
@@ -438,22 +431,22 @@ private:
 
             FlowNodePort* stringoutput=getPortFromKey("stringOutput");
 
-            if(inputType()==InputType::InputCompare){
+//            if(inputType()==InputType::InputCompare){
 
 
-                SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
+//                SceneGraph* graph=qobject_cast<SceneGraph*>(this->getGraph());
 
-                if(stringoutput->getPortItem()->getOutEdgeItems().size()>0){
+//                if(stringoutput->getPortItem()->getOutEdgeItems().size()>0){
 
-                    qan::EdgeItem* edgeitem=stringoutput->getPortItem()->getOutEdgeItems().at(0);
-                    graph->deleteEdge(edgeitem->getEdge());
-                }
+//                    qan::EdgeItem* edgeitem=stringoutput->getPortItem()->getOutEdgeItems().at(0);
+//                    graph->deleteEdge(edgeitem->getEdge());
+//                }
 
-                stringoutput->setHidden(true);
-            }
-            else{
+//                stringoutput->setHidden(true);
+//            }
+//            else{
                 stringoutput->setHidden(false);
-            }
+//            }
 
 
 
@@ -470,7 +463,7 @@ private:
 
     QVariant m_stringNotEqual=QVariant::fromValue(false);
 
-    InputType m_inputType=InputType::InputNone;
+    InputType m_inputType=InputType::InputNotSet;
 
     QVariant m_stringInput2=QString("");
 
@@ -479,6 +472,10 @@ private:
     QVariant m_stringLessThen;
 
     QVariant m_stringGreaterThen;
+
+    QVariant m_processInputs=false;
+
+    bool m_processOnInput=true;
 
 public:
     void Serialize(QJsonObject &json) override;
@@ -525,6 +522,14 @@ public:
     QVariant stringGreaterThen() const
     {
         return m_stringGreaterThen;
+    }
+    QVariant processInputs() const
+    {
+        return m_processInputs;
+    }
+    bool processOnInput() const
+    {
+        return m_processOnInput;
     }
 };
 

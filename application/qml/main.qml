@@ -1,6 +1,6 @@
 import QtQuick 2.10
 //import QtQuick.Window 2.10
-import QtQuick.VirtualKeyboard 2.3
+//import QtQuick.VirtualKeyboard 2.3
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.3
@@ -11,7 +11,7 @@ import QtQuick.Controls.Material 2.1
 
 import QtGraphicalEffects 1.0
 
-import QtQuick.VirtualKeyboard 2.1
+//import QtQuick.VirtualKeyboard 2.1
 
 import base 1.0
 import guimodule 1.0
@@ -1935,65 +1935,65 @@ ApplicationWindow {
     }
 
 
-    InputPanel {
-        id: inputPanel
-        enabled: settings&&settings.useKeyboard
-        visible: enabled
+//    InputPanel {
+//        id: inputPanel
+//        enabled: settings&&settings.useKeyboard
+//        visible: enabled
 
-        parent: Overlay.overlay
+//        parent: Overlay.overlay
 
-        z: 1000002
+//        z: 1000002
 
-        y: rootwindow.height
+//        y: rootwindow.height
 
-        anchors.horizontalCenter: parent.horizontalCenter
-
-
-        //        width:parent.width*0.75
-        width:parent.width
-        states: State {
-            name: "visible"
-            /*  The visibility of the InputPanel can be bound to the Qt.inputMethod.visible property,
-                    but then the handwriting input panel and the keyboard input panel can be visible
-                    at the same time. Here the visibility is bound to InputPanel.active property instead,
-                    which allows the handwriting panel to control the visibility when necessary.
-                */
-            when: inputPanel.active
-            PropertyChanges {
-                target: inputPanel
-                y: rootwindow.height - inputPanel.height
-            }
+//        anchors.horizontalCenter: parent.horizontalCenter
 
 
-        }
-        property var mappedy: inputPanel.mapToGlobal(inputPanel.x,inputPanel.y)
-        transitions: Transition {
-            id: inputPanelTransition
-            from: ""
-            to: "visible"
-            reversible: true
-            //                    enabled: !VirtualKeyboardSettings.fullScreenMode
-            ParallelAnimation {
-                NumberAnimation {
-                    properties: "y"
-                    duration: 250
-                    easing.type: Easing.InOutQuad
-                }
-            }
-        }
-        Binding {
-            target: InputContext
-            property: "animating"
-            value: inputPanelTransition.running
-        }
+//        //        width:parent.width*0.75
+//        width:parent.width
+//        states: State {
+//            name: "visible"
+//            /*  The visibility of the InputPanel can be bound to the Qt.inputMethod.visible property,
+//                    but then the handwriting input panel and the keyboard input panel can be visible
+//                    at the same time. Here the visibility is bound to InputPanel.active property instead,
+//                    which allows the handwriting panel to control the visibility when necessary.
+//                */
+//            when: inputPanel.active
+//            PropertyChanges {
+//                target: inputPanel
+//                y: rootwindow.height - inputPanel.height
+//            }
+
+
+//        }
+//        property var mappedy: inputPanel.mapToGlobal(inputPanel.x,inputPanel.y)
+//        transitions: Transition {
+//            id: inputPanelTransition
+//            from: ""
+//            to: "visible"
+//            reversible: true
+//            //                    enabled: !VirtualKeyboardSettings.fullScreenMode
+//            ParallelAnimation {
+//                NumberAnimation {
+//                    properties: "y"
+//                    duration: 250
+//                    easing.type: Easing.InOutQuad
+//                }
+//            }
+//        }
+//        Binding {
+//            target: InputContext
+//            property: "animating"
+//            value: inputPanelTransition.running
+//        }
 
 
 
-        AutoScroller {
+//        AutoScroller {
 
-            panelY:inputPanel.y
-        }
-    }
+//            panelY:inputPanel.y
+//        }
+//    }
 
 
 }

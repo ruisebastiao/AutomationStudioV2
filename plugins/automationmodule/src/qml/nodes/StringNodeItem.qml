@@ -25,7 +25,7 @@ FlowNodeItem{
         anchors.fill: parent
 
         TextArea{
-            visible: root.node.inputType!=StringNode.InputSerialize
+            visible: root.node.inputType!=StringNode.InputSerialize && root.node.inputType!=StringNode.InputReadFile
 
             Layout.fillWidth: true
             text:node.stringValue
@@ -116,132 +116,118 @@ FlowNodeItem{
             Layout.fillWidth: true
             title: "Input is"
 
-            Flow{
-                anchors.fill: parent
-                RadioButton{
-                    checked: root.node.inputType==StringNode.InputNone
-                    text: "None"
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputNone
-                        }
+            ListModel{
+                id:inputTypes
 
+                function getTypeIndex(inputTypeValue){
+                    for (var i = 0; i < inputTypes.count; i++){
+                        var inType=inputTypes.get(i)
+                        if(inType && inType.inputType==inputTypeValue){
+                            return i;
+                        }
                     }
                 }
 
-                RadioButton{
-                    Layout.fillWidth: true
-                    text: "Prefix"
-                    checked: root.node.inputType==StringNode.InputPrefix
-
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputPrefix
-                        }
-                    }
-
-
-                }
-                RadioButton{
-                    Layout.fillWidth: true
-                    text: "Suffix"
-                    checked: root.node.inputType==StringNode.InputSuffix
-
-
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputSuffix
-                        }
-                    }
-
-                }
-                RadioButton{
-                    Layout.fillWidth: true
-                    text: "Regex Extract"
-                    checked: root.node.inputType==StringNode.InputExtract
-
-
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputExtract
-                        }
-                    }
-
-
-                }
-                RadioButton{
-                    Layout.fillWidth: true
-                    text: "Compare"
-                    checked: root.node.inputType==StringNode.InputCompare
-
-
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputCompare
-                        }
-                    }
-
-
-                }
-                RadioButton{
-                    Layout.fillWidth: true
-                    text: "Join"
-                    checked: root.node.inputType==StringNode.InputJoin
-
-
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputJoin
-                        }
-                    }
-
-
-                }
-                RadioButton{
-                    Layout.fillWidth: true
-                    text: "Serialize"
-                    checked: root.node.inputType==StringNode.InputSerialize
-
-
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputSerialize
-                        }
-                    }
-
-
+                ListElement {
+                    name: "None"
+                    inputType:StringNode.InputNone
                 }
 
-                RadioButton{
-                    Layout.fillWidth: true
-                    text: "Parse"
-                    checked: root.node.inputType==StringNode.InputParse
-
-
-                    onCheckedChanged: {
-                        if(checked){
-                            root.node.inputType=StringNode.InputParse
-                        }
-                    }
-
-
+                ListElement {
+                    name: "Prefix"
+                    inputType: StringNode.InputPrefix
                 }
+
+                ListElement {
+                    name: "Suffix"
+                    inputType: StringNode.InputSuffix
+                }
+
+                ListElement {
+                    name: "Regex Extract"
+                    inputType: StringNode.InputExtract
+                }
+
+                ListElement {
+                    name: "Compare"
+                    inputType:StringNode.InputCompare
+                }
+
+                ListElement {
+                    name: "Join"
+                    inputType:StringNode.InputJoin
+                }
+
+                ListElement {
+                    name: "Serialize"
+                    inputType: StringNode.InputSerialize
+                }
+
+                ListElement {
+                    name: "Parse"
+                    inputType: StringNode.InputParse
+                }
+                ListElement {
+                    name: "Read File"
+                    inputType: StringNode.InputReadFile
+                }
+                ListElement {
+                    name: "Write File"
+                    inputType: StringNode.InputWriteFile
+                }
+
+
             }
 
+            ComboBox{
+                width: parent.width
+                model:inputTypes
+                textRole:"name"
+                currentIndex: inputTypes.getTypeIndex(root.node.inputType)
+                onActivated: {
+                    root.node.inputType=inputTypes.get(index).inputType
+                }
 
+            }
 
 
 
         }
 
-        Button{
+        Flow{
+            padding: 15
             Layout.fillWidth: true
-            text: "Store Output"
-            highlighted: true
-            onClicked: {
-                root.node.storedValue=root.node.stringOutput
+            Button{
+
+                text: "Store Output"
+                highlighted: true
+                onClicked: {
+                    root.node.storedValue=root.node.stringOutput
+                }
             }
+            Button{
+
+                text: "Process"
+                //                visible: root.node.inputType==StringNode.InputReadFile
+
+                highlighted: true
+                onClicked: {
+                    root.node.processInputs=true
+                }
+            }
+            CheckBox{
+
+                text: "Process on input change"
+
+                checked: root.node.processOnInput
+                onCheckedChanged: {
+                    root.node.processOnInput=checked
+                }
+            }
+
         }
+
+
 
 
 

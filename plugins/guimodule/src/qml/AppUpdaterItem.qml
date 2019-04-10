@@ -1,6 +1,6 @@
 import QtQuick 2.10
 //import QtQuick.Window 2.10
-import QtQuick.VirtualKeyboard 2.3
+//import QtQuick.VirtualKeyboard 2.3
 
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.3
@@ -44,6 +44,7 @@ Pane {
                 width: parent.width
 
                 height: parent.height-5
+
 
                 Connections{
                     target:automationstudio.settings.appUpdater

@@ -100,7 +100,8 @@ public:
         SerialIONode,
         EpsonRemote,
         PropertiesNode,
-        ArrayNode
+        ArrayNode,
+        ProcessNode
 
     };
     Q_ENUM(Type)
