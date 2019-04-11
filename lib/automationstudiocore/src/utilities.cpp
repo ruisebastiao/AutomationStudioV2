@@ -148,7 +148,7 @@ void Utilities::NonBlockingWait(int ms){
 
 
     while (!done){
-        QThread::msleep(10);
+        QThread::msleep(1);
         QCoreApplication::processEvents();
     }
 

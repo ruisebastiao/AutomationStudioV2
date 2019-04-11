@@ -36,8 +36,10 @@ EpsonRemote::EpsonRemote()
             QStringList message_splitted=msg.split(",");
             if(message_splitted.length()<2)
                 return;
-            if (message_splitted[1].indexOf("11") > -1) {
+            if (message_splitted[1] == "11") {
                 m_authenticated= false;
+                LOG_DEBUG("Epson host : "+m_tcpClient->host()+": Not authenticated");
+//                LOG_DEBUG("Epson host : "+m_tcpClient->host()+":"+message_splitted[1]);
                 m_tcpClient->write("$Login,auto123");
                 continue;
 
@@ -45,8 +47,10 @@ EpsonRemote::EpsonRemote()
 
             if (message_splitted[0].indexOf("Login") > -1 && message_splitted[1].indexOf('0') > -1) {
                 m_authenticated= true;
+                LOG_DEBUG("Epson host : "+m_tcpClient->host()+": Authentication ok");
+
                 m_tcpClient->write("$Reset,0");
-                Utilities::NonBlockingWait(1000);
+                Utilities::NonBlockingWait(2000);
                 m_tcpClient->write("$Start,0");
             }
 
@@ -125,7 +129,7 @@ EpsonRemote::~EpsonRemote()
     m_tcpClient->disconnect();
     m_tcpClient->deleteLater();
     m_tcpClient=nullptr;
-    //this->disconnect(m_tcpClient);
+
 
 }
 
