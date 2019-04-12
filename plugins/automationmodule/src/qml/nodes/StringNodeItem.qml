@@ -183,7 +183,7 @@ FlowNodeItem{
                 width: parent.width
                 model:inputTypes
                 textRole:"name"
-                currentIndex: inputTypes.getTypeIndex(root.node.inputType)
+                currentIndex: root.node.inputType?inputTypes.getTypeIndex(root.node.inputType):-1
                 onActivated: {
                     root.node.inputType=inputTypes.get(index).inputType
                 }

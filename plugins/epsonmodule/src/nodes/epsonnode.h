@@ -96,6 +96,10 @@ public slots:
     void doConnect() override;
     void doDisconnect() override;
     void doSend() override;
+
+    // IONode interface
+public slots:
+    void setCommandReceived(QVariant commandReceived);
 };
 
 

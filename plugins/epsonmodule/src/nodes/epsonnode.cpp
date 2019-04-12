@@ -90,3 +90,14 @@ void EpsonNode::doSend()
     sendCommand(sendData().value<QString>());
 }
 
+void EpsonNode::setCommandReceived(QVariant commandReceived)
+{
+    QString command=commandReceived.value<QString>();
+
+    if(command.contains("WAITUSER|")){
+
+    }
+
+    IONode::setCommandReceived(commandReceived);
+}
+

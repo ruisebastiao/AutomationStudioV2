@@ -94,31 +94,7 @@ EpsonModule {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            Item {
-                id:user_validation
-                property bool show: false
-                visible: opacity!=0
-                opacity: show?1:0
-                anchors.centerIn: parent
-                width: 300
-                height: 300
-                RoundButton{
-                    anchors.centerIn: parent
-                    width: 200
-                    height: 200
-                    highlighted: true
 
-                    contentItem: Text {
-                        text: "Validar"
-                        font: control.font
-//                        opacity: enabled ? 1.0 : 0.3
-                        color: "white"
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                    }
-                }
-            }
 
 
         }
@@ -153,27 +129,170 @@ EpsonModule {
 
                 ToolBar {
 
-
+                    id:status_bar
 
                     Connections{
                         target: node
                         onCommandReceivedChanged:{
                             var command=commandReceived
 
-                            var pos=command.indexOf("STATUS|")
-                            if(pos>=0){
-                                stat_text.text=command.split("|")[1]
+                            var command_splitted=command.split("|")
+
+                            if(command_splitted.length>0){
+
+
+                                if(command_splitted[0]=="STATUS"){
+
+                                    state=command_splitted[1]
+
+                                    stat_text.text=command_splitted[2]
+
+                                }
+
+
+                                if(command_splitted[0]=="WAITUSER"){
+
+                                    state=command_splitted[0]
+                                    stat_text.text=command_splitted[1]
+
+                                }
+
+
                             }
-
-
 
                         }
                     }
 
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 45
+
+                    property int barHeight: 45
+                    Behavior on barHeight {
+                        NumberAnimation {
+                            duration:250
+                            easing.type: Easing.InOutQuad
+
+                        }
+                    }
+
+                    Layout.preferredHeight: barHeight
                     Layout.margins: 3
                     Material.foreground: "white"
+
+                    state: "WAITUSER"
+
+                    states: [
+                        State {
+                            name: "NORMAL"
+                            PropertyChanges {
+                                target: status_bar
+                                statusColor:Material.color(Material.BlueGrey)
+                            }
+                        },
+                        State {
+                            name: "WARN"
+                            PropertyChanges {
+                                target: status_bar
+                                statusColor:Material.color(Material.Orange)
+                            }
+                        },
+                        State {
+                            name: "ERROR"
+                            PropertyChanges {
+                                target: status_bar
+                                statusColor:Material.color(Material.Red)
+                            }
+                        },
+                        State {
+                            name: "WAITUSER"
+                            PropertyChanges {
+                                target: status_bar
+                                statusColor:Material.color(Material.Orange)
+                                barHeight:90
+                                waitUser:true
+                            }
+                        }
+
+
+                    ]
+
+
+                    property color statusColor
+
+                    property bool waitUser: false
+
+                    Material.primary: statusColor
+
+
+                    //                    SequentialAnimation {
+                    //                        running: status_bar.waitUser
+                    //                        loops: Animation.Infinite
+
+                    //                        ColorAnimation {
+                    //                            target: status_bar
+                    //                            property: "statusColor"
+                    //                            duration: 500
+                    //                            to: Material.color(Material.Red)
+
+                    //                        }
+                    //                        PauseAnimation {
+                    //                            duration: 500
+                    //                        }
+                    //                        ColorAnimation {
+                    //                            target: status_bar
+                    //                            property: "statusColor"
+                    //                            duration: 250
+                    //                            to: "transparent"
+                    //                        }
+                    //                        PauseAnimation {
+                    //                            duration: 150
+                    //                        }
+
+                    //                        //                        enabled: true
+                    //                    }
+
+                    Item {
+                        id:user_validation
+                        property bool show: waitUser
+
+
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+
+
+                        visible: opacity!=0
+                        opacity: show?1:0
+
+                        width: height
+                        height: parent.height
+                        RoundButton{
+
+                            clicked: {
+                                node.sendCommand("WAITUSER|VALIDATED|")
+                            }
+
+                            BusyIndicator {
+                                anchors.fill: parent
+                                Material.accent: statusColor
+                                running: show
+                            }
+
+                            anchors.fill: parent
+                            highlighted: true
+
+                            Material.accent: Material.BlueGrey
+
+                            contentItem: Text {
+                                text: "Validar"
+                                color: "white"
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
+
+
+                        }
+                    }
+
 
                     RowLayout{
                         anchors.fill: parent
@@ -202,15 +321,6 @@ EpsonModule {
         }
 
 
-    }
-
-
-    onWaitUserValidationChanged:{
-
-        console.log("onWaitUserValidationChanged")
-        if(waitUserValidation){
-            user_validation.show=true;
-        }
     }
 
 

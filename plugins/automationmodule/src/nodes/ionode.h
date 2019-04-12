@@ -132,13 +132,7 @@ public slots:
         emit autoConnectChanged(m_autoConnect);
     }
 
-    void setCommandReceived(QVariant commandReceived)
-    {
-
-
-        m_commandReceived = commandReceived;
-        emit commandReceivedChanged(m_commandReceived);
-    }
+    virtual void setCommandReceived(QVariant commandReceived);
 
     void setReady(QVariant ready)
     {
