@@ -140,12 +140,13 @@ EpsonModule {
 
                             if(command_splitted.length>0){
 
+                                console.log("command:"+command_splitted)
 
                                 if(command_splitted[0]=="STATUS"){
 
                                     state=command_splitted[1]
 
-                                    stat_text.text=command_splitted[2]
+                                    //                                    stat_text.text=command_splitted[2]
 
                                 }
 
@@ -153,7 +154,7 @@ EpsonModule {
                                 if(command_splitted[0]=="WAITUSER"){
 
                                     state=command_splitted[0]
-                                    stat_text.text=command_splitted[1]
+                                    //                                    stat_text.text=command_splitted[1]
 
                                 }
 
@@ -164,8 +165,9 @@ EpsonModule {
                     }
 
                     Layout.fillWidth: true
-
+                    Layout.preferredHeight: barHeight
                     property int barHeight: 45
+
                     Behavior on barHeight {
                         NumberAnimation {
                             duration:250
@@ -174,7 +176,7 @@ EpsonModule {
                         }
                     }
 
-                    Layout.preferredHeight: barHeight
+
                     Layout.margins: 3
                     Material.foreground: "white"
 
@@ -223,94 +225,72 @@ EpsonModule {
                     Material.primary: statusColor
 
 
-                    //                    SequentialAnimation {
-                    //                        running: status_bar.waitUser
-                    //                        loops: Animation.Infinite
-
-                    //                        ColorAnimation {
-                    //                            target: status_bar
-                    //                            property: "statusColor"
-                    //                            duration: 500
-                    //                            to: Material.color(Material.Red)
-
-                    //                        }
-                    //                        PauseAnimation {
-                    //                            duration: 500
-                    //                        }
-                    //                        ColorAnimation {
-                    //                            target: status_bar
-                    //                            property: "statusColor"
-                    //                            duration: 250
-                    //                            to: "transparent"
-                    //                        }
-                    //                        PauseAnimation {
-                    //                            duration: 150
-                    //                        }
-
-                    //                        //                        enabled: true
-                    //                    }
-
-                    Item {
-                        id:user_validation
-                        property bool show: waitUser
-
-
-                        anchors.left: parent.left
-                        anchors.verticalCenter: parent.verticalCenter
-
-
-                        visible: opacity!=0
-                        opacity: show?1:0
-
-                        width: height
-                        height: parent.height
-                        RoundButton{
-
-                            clicked: {
-                                node.sendCommand("WAITUSER|VALIDATED|")
-                            }
-
-                            BusyIndicator {
-                                anchors.fill: parent
-                                Material.accent: statusColor
-                                running: show
-                            }
-
-                            anchors.fill: parent
-                            highlighted: true
-
-                            Material.accent: Material.BlueGrey
-
-                            contentItem: Text {
-                                text: "Validar"
-                                color: "white"
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                elide: Text.ElideRight
-                            }
-
-
-                        }
-                    }
 
 
                     RowLayout{
                         anchors.fill: parent
-                        TextScroller {
+                        Item {
 
-                            Layout.fillWidth: true
-                            text:node.name+" - "
-                            label.font.capitalization:Font.AllUppercase
-                            horizontalAlignment:Qt.AlignRight
-                        }
-                        TextScroller {
-                            id: stat_text
-                            Layout.fillWidth: true
+                            id:user_validation
+                            property bool show: waitUser
+//                            property int width_value: show?height:0
 
-                            text:"Not connected"
-                            label.font.capitalization:Font.AllUppercase
-                            horizontalAlignment:Qt.AlignLeft
+//                            visible: Layout.preferredWidth!=0
+                            //                            opacity: show?1:0
+
+                            Layout.fillHeight: true
+                            Layout.preferredWidth:show?height:0
+
+                            RoundButton{
+
+                                onClicked: {
+                                    node.sendCommand("WAITUSER|VALIDATED|")
+                                }
+
+                                BusyIndicator {
+                                    anchors.fill: parent
+                                    Material.accent: statusColor
+                                    running: user_validation.show
+                                }
+
+                                anchors.fill: parent
+                                highlighted: true
+
+                                //                                Material.accent: Material.BlueGrey
+
+                                //                                contentItem: Text {
+                                //                                    text: "Validar"
+                                //                                    color: "white"
+                                //                                    horizontalAlignment: Text.AlignHCenter
+                                //                                    verticalAlignment: Text.AlignVCenter
+                                //                                    elide: Text.ElideRight
+                                //                                }
+
+
+                            }
+
                         }
+
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            //                            Flow{
+                            //                                anchors.fill: parent
+                            //                                TextScroller {
+                            //                                    text:node.name+" - "
+                            //                                    label.font.capitalization:Font.AllUppercase
+                            //                                    horizontalAlignment:Qt.AlignRight
+                            //                                }
+                            //                                TextScroller {
+                            //                                    id: stat_text
+                            //                                    text:"Not connected"
+                            //                                    label.font.capitalization:Font.AllUppercase
+                            //                                    horizontalAlignment:Qt.AlignLeft
+                            //                                }
+                            //                            }
+                        }
+
+
                     }
 
 

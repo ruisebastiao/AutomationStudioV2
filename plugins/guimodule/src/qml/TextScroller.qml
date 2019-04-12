@@ -20,7 +20,7 @@ Item {
     //    property string textColor: Material.foreground
     property int duration:250
 
-    width: parent.width
+    width: container.width
     implicitHeight: container.implicitHeight
 
     onTextChanged: {

@@ -1595,6 +1595,16 @@ ApplicationWindow {
                                     highlighted: true
                                     Material.background: Material.primary
 
+                                    onPressAndHold: {
+                                        if(!modulescontainer.fullscreenModule){
+                                            modulescontainer.fullscreenModule=module
+                                        }
+                                        else{
+                                            modulescontainer.fullscreenModule=null
+
+                                        }
+                                    }
+
                                     onDoubleClicked: {
                                         if(!modulescontainer.fullscreenModule){
                                             modulescontainer.fullscreenModule=module
