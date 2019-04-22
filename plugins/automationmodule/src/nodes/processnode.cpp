@@ -1,10 +1,14 @@
 #include "processnode.h"
 
+
 ProcessNode::ProcessNode()
 {
     m_type=Type::ProcessNode;
 
-//    m_terminate
+
+    minimizeTimer.setInterval(6000);
+    minimizeTimer.setSingleShot(true);
+
     m_terminateTimer.setSingleShot(true);
     m_terminateTimer.setInterval(5000);
 

@@ -82,6 +82,9 @@ signals:
 private:
 
     TCPClient* m_tcpClient=nullptr;
+
+
+
     ConnectionType m_connection=ConnectionType::TCPCLIENT;
 
 

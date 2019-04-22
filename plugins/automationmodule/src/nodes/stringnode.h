@@ -118,7 +118,7 @@ public slots:
         m_inputType = inputType;
         updateports();
         emit inputTypeChanged(m_inputType);
-        inputsChanged(true);
+        inputsChanged(m_processOnInput);
     }
 
     void setStringInput2(QVariant stringInput2)

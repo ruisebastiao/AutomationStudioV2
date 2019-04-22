@@ -99,7 +99,7 @@ int main(int argc, char *argv[]){
 
     QCoreApplication::setOrganizationName("Novares");
     QCoreApplication::setOrganizationDomain("Novares.com");
-//    QCoreApplication::setApplicationName(QGuiApplication::applicationName());
+    //    QCoreApplication::setApplicationName(QGuiApplication::applicationName());
 
 
     ConsoleAppender* consoleAppender = new ConsoleAppender;
@@ -192,6 +192,11 @@ int main(int argc, char *argv[]){
         qDebug()<<"Main loaded";
         automationstudio->setCoreApplication(&app);
 
+
+//        QObject *topLevel = engine.rootObjects().value(0);
+//        QQuickWindow *window = qobject_cast<QQuickWindow *>(topLevel);
+//        Qt::WindowFlags flags = window->flags();
+//        window->setFlags(flags | Qt::WindowStaysOnTopHint);
 
         int code=app.exec();
         if(singleinstaceserver){

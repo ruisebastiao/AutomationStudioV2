@@ -114,6 +114,74 @@ EpsonModule {
 
             }
 
+
+            RoundButton{
+                id:startbt
+
+                anchors.bottom: parent.top
+                Component.onCompleted: {
+                    enabled=Qt.binding(function(){
+                        if(!root.stationReady || root.productionStarting || root.productionStopping){
+                            return false
+                        }
+
+                        if(!root.productionRunning && root.toolInDock){
+                            return false
+                        }
+
+
+
+                        return true
+                    })
+                }
+
+                highlighted: true
+                width:100
+
+                height: width
+
+
+                onEnabledChanged: {
+                    if(enabled){
+
+                    }
+                }
+
+                z:999999
+
+                anchors.right: parent.right
+
+
+                Image {
+                    anchors.centerIn: parent
+                    width: parent.width*0.5
+                    height: width
+                    source: root.productionRunning?"qrc:/images/baseline_stop_white_48dp.png":"qrc:/images/baseline_play_arrow_white_48dp.png"
+                }
+                BusyIndicator {
+                    id:loadingindicator
+                    running: (root.productionStarting || root.productionStopping) && root.stationReady
+                    anchors.centerIn: parent
+                    width: parent.width-5
+                    height: parent.height-5
+                }
+
+                onClicked: {
+                    if(root.productionRunning){
+                        root.stopProduction=true
+                        root.productionStopping=true
+                    }
+                    else{
+                        root.startProduction=true
+
+                    }
+                }
+            }
+
+
+
+
+
         }
 
         RowLayout{
@@ -140,21 +208,21 @@ EpsonModule {
 
                             if(command_splitted.length>0){
 
-                                console.log("command:"+command_splitted)
+
 
                                 if(command_splitted[0]=="STATUS"){
 
                                     state=command_splitted[1]
 
-                                    //                                    stat_text.text=command_splitted[2]
+                                    status_bar.statusMessage=command_splitted[2]
 
                                 }
 
 
                                 if(command_splitted[0]=="WAITUSER"){
 
-                                    state=command_splitted[0]
-                                    //                                    stat_text.text=command_splitted[1]
+                                    status_bar.waitUser=true
+                                    status_bar.waitUserMessage=command_splitted[1]
 
                                 }
 
@@ -164,9 +232,11 @@ EpsonModule {
                         }
                     }
 
+
+
                     Layout.fillWidth: true
                     Layout.preferredHeight: barHeight
-                    property int barHeight: 45
+                    property int barHeight: status_bar.waitUser?90:45
 
                     Behavior on barHeight {
                         NumberAnimation {
@@ -178,9 +248,38 @@ EpsonModule {
 
 
                     Layout.margins: 3
-                    Material.foreground: "white"
 
-                    state: "WAITUSER"
+
+
+                    SequentialAnimation{
+                        running: state!="NORMAL"
+                        loops:Animation.Infinite
+                        ColorAnimation {
+                            property: "statusColor"
+                            target:status_bar
+
+                            to: Material.color(Material.DeepOrange)
+                            duration: 500
+                        }
+
+
+                        ColorAnimation {
+                            property: "statusColor"
+                            target:status_bar
+
+                            to: Material.color(Material.Orange)
+                            duration: 500
+                        }
+
+                        PauseAnimation {
+                            duration: 250
+                        }
+
+                    }
+
+
+
+                    state: "NORMAL"
 
                     states: [
                         State {
@@ -206,94 +305,130 @@ EpsonModule {
                         },
                         State {
                             name: "WAITUSER"
+                            when: status_bar.waitUser
                             PropertyChanges {
                                 target: status_bar
                                 statusColor:Material.color(Material.Orange)
                                 barHeight:90
-                                waitUser:true
+
                             }
                         }
 
 
                     ]
 
+//                    Material.foreground: state!="NORMAL"?statusColor:"white"
+                    Material.foreground:"white"
 
                     property color statusColor
 
+
+                    Behavior on statusColor{
+
+                        ColorAnimation {duration: 400 }
+                        enabled: true
+                    }
+
                     property bool waitUser: false
 
-                    Material.primary: statusColor
+                    //                    Material.primary: statusColor
+
+                    property string statusMessage:""
+
+                    property string waitUserMessage:""
 
 
+                    Item{
 
-
-                    RowLayout{
                         anchors.fill: parent
-                        Item {
 
-                            id:user_validation
-                            property bool show: waitUser
-//                            property int width_value: show?height:0
 
-//                            visible: Layout.preferredWidth!=0
-                            //                            opacity: show?1:0
+                        RowLayout{
 
-                            Layout.fillHeight: true
-                            Layout.preferredWidth:show?height:0
+                            anchors.fill: parent
+                            Item {
 
-                            RoundButton{
+                                id:user_validation
+                                property bool show: status_bar.waitUser
+                                clip: true
+                                Layout.fillHeight: true
+                                Layout.preferredWidth:show?height:0
 
-                                onClicked: {
-                                    node.sendCommand("WAITUSER|VALIDATED|")
-                                }
 
-                                BusyIndicator {
+
+                                RoundButton{
+                                    id:valida_bt
+                                    onClicked: {
+                                        node.sendCommand("WAITUSER|VALIDATED|")
+                                        status_bar.waitUser=false
+                                        status_bar.state="NORMAL"
+                                    }
+
+                                    BusyIndicator {
+                                        anchors.fill: parent
+                                        Material.accent: Material.Grey
+                                        running: user_validation.show
+                                    }
+
+
+                                    Material.accent:status_bar.statusColor
+
                                     anchors.fill: parent
-                                    Material.accent: statusColor
-                                    running: user_validation.show
+                                    highlighted: true
+
+                                    contentItem: Text {
+                                        text: "Validar"
+                                        color: "white"
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        elide: Text.ElideRight
+                                    }
+
+
                                 }
 
-                                anchors.fill: parent
-                                highlighted: true
+                            }
 
-                                //                                Material.accent: Material.BlueGrey
+                            Item {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
 
-                                //                                contentItem: Text {
-                                //                                    text: "Validar"
-                                //                                    color: "white"
-                                //                                    horizontalAlignment: Text.AlignHCenter
-                                //                                    verticalAlignment: Text.AlignVCenter
-                                //                                    elide: Text.ElideRight
-                                //                                }
+                                ColumnLayout{
+                                    anchors.fill: parent
+                                    Item {
+                                        Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                    }
+                                    Label {
+                                        id:node_name_lbl
+                                        text:node.name
+                                        Layout.fillWidth: true
+
+
+                                        horizontalAlignment:Qt.AlignHCenter
+                                    }
+                                    TextScroller {
+                                        id: stat_text
+                                        text:status_bar.waitUser?status_bar.waitUserMessage:status_bar.statusMessage
+                                        label.font.capitalization:Font.AllUppercase
+                                        horizontalAlignment:Qt.AlignHCenter
+
+                                        Layout.fillWidth: true
+                                        Layout.preferredHeight: textHeight
+                                    }
+                                    Item {
+                                        Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                    }
+                                }
 
 
                             }
 
-                        }
 
-                        Item {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            //                            Flow{
-                            //                                anchors.fill: parent
-                            //                                TextScroller {
-                            //                                    text:node.name+" - "
-                            //                                    label.font.capitalization:Font.AllUppercase
-                            //                                    horizontalAlignment:Qt.AlignRight
-                            //                                }
-                            //                                TextScroller {
-                            //                                    id: stat_text
-                            //                                    text:"Not connected"
-                            //                                    label.font.capitalization:Font.AllUppercase
-                            //                                    horizontalAlignment:Qt.AlignLeft
-                            //                                }
-                            //                            }
                         }
-
 
                     }
-
-
                 }
 
             }
@@ -302,71 +437,6 @@ EpsonModule {
 
 
     }
-
-
-
-    RoundButton{
-        id:startbt
-
-        Component.onCompleted: {
-            enabled=Qt.binding(function(){
-                if(!root.stationReady || root.productionStarting || root.productionStopping){
-                    return false
-                }
-
-                if(!root.productionRunning && root.toolInDock){
-                    return false
-                }
-
-
-
-                return true
-            })
-        }
-
-        highlighted: true
-        width:100
-
-        height: width
-
-
-        onEnabledChanged: {
-            if(enabled){
-
-            }
-        }
-
-        z:999999
-
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-
-        Image {
-            anchors.centerIn: parent
-            width: parent.width*0.5
-            height: width
-            source: root.productionRunning?"qrc:/images/baseline_stop_white_48dp.png":"qrc:/images/baseline_play_arrow_white_48dp.png"
-        }
-        BusyIndicator {
-            id:loadingindicator
-            running: (root.productionStarting || root.productionStopping) && root.stationReady
-            anchors.centerIn: parent
-            width: parent.width-5
-            height: parent.height-5
-        }
-
-        onClicked: {
-            if(root.productionRunning){
-                root.stopProduction=true
-                root.productionStopping=true
-            }
-            else{
-                root.startProduction=true
-
-            }
-        }
-    }
-
 
 
 

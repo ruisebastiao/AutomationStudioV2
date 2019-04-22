@@ -4,6 +4,11 @@
 #include "flownode.h"
 
 #include <QObject>
+#include <QWindow>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 
 class ProcessNode : public FlowNode
 {
@@ -45,6 +50,7 @@ private:
 
     int m_delayStart=0;
 
+    QTimer minimizeTimer;
 public:
     ProcessNode();
 
@@ -108,6 +114,26 @@ public slots:
     void setRunning(QVariant running)
     {
         m_running = running;
+        if(m_running.value<bool>()){
+
+
+            connect(&minimizeTimer,&QTimer::timeout,this,[](){
+
+
+                for ( QWindow* appWindow : qApp->allWindows() )
+                {
+                    appWindow->showMaximized(); //bring window to top on OSX
+                    appWindow->requestActivate(); //bring window to front/unminimize on windows
+                }
+
+
+            });
+
+            minimizeTimer.start();
+
+        }
+
+
         emit runningChanged(m_running);
     }
 

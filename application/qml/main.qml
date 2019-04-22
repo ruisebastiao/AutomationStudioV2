@@ -102,7 +102,7 @@ ApplicationWindow {
 
     
     visibility: "Maximized"
-    //    flags: Qt.Window |Qt.FramelessWindowHint
+//    flags: Qt.WindowStaysOnTopHint
     
     property int selectedTheme:Material.Light
     property color selectedprimary:Material.color(Material.BlueGrey);
@@ -151,6 +151,16 @@ ApplicationWindow {
     }
     
 
+    Timer{
+        interval: 5000
+        running: true
+        repeat: false
+        onTriggered: {
+//              rootwindow.flags=rootwindow.flags | Qt.WindowStaysOnTopHint
+        }
+
+    }
+
     Component.onCompleted: {
         settings=automationstudio.settings;
         //var teste=automationstudio.utilites.resourceExists("");
@@ -164,6 +174,8 @@ ApplicationWindow {
             wifilevel_loader.source="qrc:///NetworkManager/WifiLevelItem.qml";
             configWifiLoader.source="qrc:///NetworkManager/ConfigWifiItem.qml"
         }
+
+
 
 
     }

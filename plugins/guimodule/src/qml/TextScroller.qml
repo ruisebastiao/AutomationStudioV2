@@ -20,8 +20,10 @@ Item {
     //    property string textColor: Material.foreground
     property int duration:250
 
-    width: container.width
+//    width: textWidth
     implicitHeight: container.implicitHeight
+
+    implicitWidth: textWidth
 
     onTextChanged: {
         //current_label.text=text

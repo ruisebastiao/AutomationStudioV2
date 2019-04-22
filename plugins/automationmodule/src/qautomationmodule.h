@@ -39,7 +39,6 @@ class AUTOMATIONMODULE_EXPORT QAutomationModule : public QQuickItem,public JsonS
 
 
 
-
 public:
     enum ModuleType {
         AutomationModule,
@@ -111,7 +110,7 @@ public:
 
 
 
-//    FlowNode* readNode(QJsonObject nodeobject);
+    //    FlowNode* readNode(QJsonObject nodeobject);
 
 private:
 
@@ -139,8 +138,8 @@ private:
     FlowNodeManager* m_flowNodes= new FlowNodeManager(this);
 
 protected:
-      qan::GraphView* m_graphView=nullptr;
-      QString m_moduleName="";
+    qan::GraphView* m_graphView=nullptr;
+    QString m_moduleName="";
 
 
 signals:
@@ -175,6 +174,10 @@ signals:
 
 
     void lockedChanged(QVariant locked);
+
+    void waitUserMessageChanged(QVariant waitUserMessage);
+
+    void waitUserChanged(QVariant waitUser);
 
 public slots:
     void setName(QString name)
@@ -235,6 +238,7 @@ public slots:
         emit lockedChanged(m_locked);
     }
 
+
 public:
     void Serialize(QJsonObject &json) override;
     void DeSerialize(QJsonObject &json) override;
@@ -242,7 +246,7 @@ public:
 
 
 
-//    Q_INVOKABLE void loadConnections();
+    //    Q_INVOKABLE void loadConnections();
 
 
 
@@ -280,6 +284,7 @@ public:
         return m_locked;
     }
 
+
 protected:
     //   Q_INVOKABLE virtual void loadModuleSettings(QString path);
     //   Q_INVOKABLE virtual void save();
@@ -301,6 +306,7 @@ private:
 
 
     QVariant m_locked=false;
+
 };
 
 #endif // QAUTOMATIONMODULE_H
