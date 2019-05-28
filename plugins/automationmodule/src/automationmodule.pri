@@ -3,6 +3,7 @@ INCLUDEPATH += $$PWD
 HEADERS += \
     $$PWD/automationmoduleglobal.h \
     $$PWD/automationmodule_plugin.h \
+    $$PWD/nodes/uicomponentnode.h \
     $$PWD/qautomationmodule.h \
     $$PWD/graphs/scenegraph.h \
     $$PWD/edges/selectableedge.h \
@@ -39,6 +40,7 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/automationmodule_plugin.cpp \
+    $$PWD/nodes/uicomponentnode.cpp \
     $$PWD/qautomationmodule.cpp \
     $$PWD/graphs/scenegraph.cpp \
     $$PWD/edges/selectableedge.cpp \

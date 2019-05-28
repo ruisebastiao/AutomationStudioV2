@@ -88,6 +88,7 @@ public:
         WebCamCaptureNode,
         FrameBufferNode,
         ModulePropertyBind,
+        UIComponentNode,
         EpsonNode,
         MultiplexedInputNode,
         NumericNode,
